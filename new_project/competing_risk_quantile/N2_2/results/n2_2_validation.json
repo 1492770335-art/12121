@@ -1,0 +1,14 @@
+{
+  "pass_": true,
+  "raw_diagnostic_rows": 288,
+  "n_fitted_sample_replays": 48,
+  "total_patient_test_replays": 48000,
+  "three_p_values_are_repeated_on_same_patients": true,
+  "max_abs_coherence_rate_difference_vs_original_n2": 4.440892098500626e-16,
+  "max_abs_realized_censor_rate_difference_vs_original_n2": 4.4445158664530027e-10,
+  "direct_incoherence_total": 3247,
+  "direct_incoherence_arm_predict_count": 288000,
+  "joint_incoherence_total": 0,
+  "method": "Replayed first eight frozen seed streams of the original N2 pilot; no new independent trial",
+  "note": "The three p diagnostics are correlated repeated evaluations on the same test patients; do not treat 288 rows as independent model fits"
+}
