@@ -1,0 +1,17 @@
+{
+  "pass": true,
+  "n2_3_rows": 2880,
+  "paired_group_count": 576,
+  "replayed_n2_2_rows_exact": 288,
+  "metrics_max_abs_diff": {
+    "fp_finite_arm_n": 0.0,
+    "fn_unreachable_arm_n": 0.0,
+    "q1_below_qall_same_p_n": 0.0,
+    "true_twoarm_comparable_n": 0.0,
+    "true_twoarm_unresolved_n": 0.0,
+    "wrong_on_resolved_n": 0.0
+  },
+  "joint_convergence_all": true,
+  "endpoint_convergence_all": true,
+  "warning": "All observations are simulation replicates, not patient clinical evidence."
+}
