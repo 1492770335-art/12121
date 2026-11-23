@@ -1,0 +1,25 @@
+{
+  "n_oracle_records": 230400,
+  "n_all_method_common_scorable": 223333,
+  "n_oracle_true_reachable": 229512,
+  "number_repetitions_per_grid": 4,
+  "note": "4 training repetitions pilot only; no statistical superiority claim; patient-level unit for MAE, training-repetition unit for MCSE",
+  "PengFine": {
+    "n_finite_predictions": 225824,
+    "n_missed": 4011,
+    "n_false_finite": 323,
+    "n_predicted_zero": 0
+  },
+  "CRRSF": {
+    "n_finite_predictions": 227897,
+    "n_missed": 1997,
+    "n_false_finite": 382,
+    "n_predicted_zero": 0
+  },
+  "SurvivalBoost": {
+    "n_finite_predictions": 228262,
+    "n_missed": 1649,
+    "n_false_finite": 399,
+    "n_predicted_zero": 52
+  }
+}

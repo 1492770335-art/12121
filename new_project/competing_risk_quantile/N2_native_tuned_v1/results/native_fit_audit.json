@@ -1,0 +1,63 @@
+{
+  "n_total_native_full_training_fits": 240,
+  "counts_by_status": [
+    {
+      "method": "CRRSF",
+      "status": "ok",
+      "n": 80
+    },
+    {
+      "method": "PengFine",
+      "status": "failed",
+      "n": 1
+    },
+    {
+      "method": "PengFine",
+      "status": "ok",
+      "n": 79
+    },
+    {
+      "method": "SurvivalBoost",
+      "status": "ok",
+      "n": 80
+    }
+  ],
+  "train_only_candidate_selection_counts": [
+    {
+      "method": "CRRSF",
+      "selected_candidate": "20",
+      "n": 80
+    },
+    {
+      "method": "PengFine",
+      "selected_candidate": "linear",
+      "n": 51
+    },
+    {
+      "method": "PengFine",
+      "selected_candidate": "quad",
+      "n": 29
+    },
+    {
+      "method": "SurvivalBoost",
+      "selected_candidate": 40,
+      "n": 71
+    },
+    {
+      "method": "SurvivalBoost",
+      "selected_candidate": 100,
+      "n": 9
+    }
+  ],
+  "failed": [
+    {
+      "mechanism": "cause_tradeoff",
+      "n_train": 500,
+      "replicate": 1,
+      "censor_target": 45,
+      "method": "PengFine",
+      "error": "length of 'dimnames' [1] not equal to array extent"
+    }
+  ],
+  "explanation": "Native-model failures are retained, never imputed; these are final full-training fits after train-only validation."
+}
