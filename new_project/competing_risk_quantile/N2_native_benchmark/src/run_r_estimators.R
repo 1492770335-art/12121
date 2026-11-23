@@ -24,19 +24,26 @@ record_fail<-function(method,mechanism,censor,msg){
 }
 score<-function(method,mech,censor,truth,time,cf,version){
   if(!is.matrix(cf)||nrow(cf)!=nrow(truth)||ncol(cf)!=length(time)) stop('invalid cause1 CIF dimensions')
-  if(any(!is.finite(cf)) ||any(cf< -1e-6)||any(cf>1+1e-6))stop('invalid CIF probabilities')
+  valid_row<-apply(cf,1,function(x)all(is.finite(x)&x>=-1e-6&x<=1+1e-6))
+  n_invalid<-sum(!valid_row)
+  cat('CIF_AUDIT',method,mech,censor,'invalid_rows',n_invalid,
+      'nonfinite_cells',sum(!is.finite(cf)),
+      'negative_cells',sum(cf< -1e-6,na.rm=TRUE),
+      'above_one_cells',sum(cf>1+1e-6,na.rm=TRUE),
+      'min',suppressWarnings(min(cf,na.rm=TRUE)),
+      'max',suppressWarnings(max(cf,na.rm=TRUE)),'\n')
   n<-nrow(truth)
   out<-lapply(probs,function(p){
     truth_col<-sprintf('true_q1_p%.2f',p)
     q0<-truth[[truth_col]]
-    qhat<-vapply(seq_len(n),function(i)get_quantile(time,cf[i,],p),numeric(1))
+    qhat<-vapply(seq_len(n),function(i)if(valid_row[i])get_quantile(time,cf[i,],p) else NA_real_,numeric(1))
     tgood<-is.finite(q0);pgood<-is.finite(qhat);both<-tgood&pgood
     data.frame(method=method,mechanism=mech,censor_target=censor,p=p,n_eval=n,
      n_true_reachable=sum(tgood),n_pred_reachable=sum(pgood),n_both=sum(both),
      mae=if(any(both))mean(abs(q0[both]-qhat[both]))else NA_real_,
      fp_unreachable=sum(!tgood&pgood),fn_missing=sum(tgood&!pgood),
      predicted_reach_pct=100*mean(pgood),scorable_pct=100*mean(both),
-     cdf_nonmonotone_pct=100*mean(apply(cf,1,function(x)any(diff(x)< -1e-5))),notes=version)
+     cdf_nonmonotone_pct=100*mean(apply(cf,1,function(x)if(all(is.finite(x)))any(diff(x)< -1e-5)else NA),na.rm=TRUE),n_invalid_curve=n_invalid,notes=version)
   })
   do.call(rbind,out)
 }
