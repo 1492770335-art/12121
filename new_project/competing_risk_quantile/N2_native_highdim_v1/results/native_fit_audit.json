@@ -1,0 +1,54 @@
+{
+  "n_total_native_full_training_fits": 144,
+  "counts_by_status": [
+    {
+      "method": "CRRSF",
+      "status": "ok",
+      "n": 48
+    },
+    {
+      "method": "PengFine",
+      "status": "ok",
+      "n": 48
+    },
+    {
+      "method": "SurvivalBoost",
+      "status": "ok",
+      "n": 48
+    }
+  ],
+  "train_only_candidate_selection_counts": [
+    {
+      "method": "CRRSF",
+      "selected_candidate": "20",
+      "n": 40
+    },
+    {
+      "method": "CRRSF",
+      "selected_candidate": "5",
+      "n": 8
+    },
+    {
+      "method": "PengFine",
+      "selected_candidate": "linear",
+      "n": 34
+    },
+    {
+      "method": "PengFine",
+      "selected_candidate": "quad",
+      "n": 14
+    },
+    {
+      "method": "SurvivalBoost",
+      "selected_candidate": 40,
+      "n": 47
+    },
+    {
+      "method": "SurvivalBoost",
+      "selected_candidate": 100,
+      "n": 1
+    }
+  ],
+  "failed": [],
+  "explanation": "Independent extraction from all 12 original GitHub Actions native-artifact ZIPs. A successful workflow alone does not establish fit success; every final refit status was checked."
+}
