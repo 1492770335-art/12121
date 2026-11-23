@@ -22,3 +22,10 @@ lhat <- cbind(exb, object$tau.seq)
 6. 版本化修订和所有运行日志必须保留。旧无效的“非法 CIF”统计**作废**，不可用作 Peng–Fine 统计表现证据。
 
 **修复性质**：软件输出的正确解码，不是数据机制、算法或调参的事后选择。R 结果重新运行后才可参与和 CR-RSF、SurvivalBoost 的并列比较。
+## 二次源代码审计：拟合时间必须对数变换（补充修复）
+
+作者公开代码 `crrQR` 的函数头明确写有 `ftime = vector of failure/censoring times (log-transformed)`；函数内部的 `pseudo.resp` 使用 `ftime` 本身作线性分位数响应，而 `predict.crrQR` 使用 `exp(x beta(tau))` 得到原始时间。因此，在本次原始时间 CSV 上**应输入 `ftime=log(train$ftime)`**。首轮和解码修正后的第二轮原型均误将正值原始时间传给该函数，导致模型实际拟合了错误的时间尺度。
+
+由于 6 个训练 CSV 的最小观测时间均严格大于 0，可以在不修改原始数据的情况下按需对数变换。此修复不改变实验样本、超参数和结果定义。**之前所谓 Peng–Fine 的大 MAE 和低可达率作废，不能作为该方法本身的数值表现**。
+
+引用源码：<https://github.com/cran/cmprskQR/blob/master/R/cmprskQR.r>，`crrQR` 函数头与 `predict.crrQR` 函数体。该关键实现细节比简略的包帮助文本更明确。
