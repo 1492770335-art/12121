@@ -133,8 +133,8 @@ def analyze(rates,mechanism):
         group_rows.append(dict(mechanism=mechanism,group=grp,n=int(sel.sum()),pct=100*sel.mean(),
                                z1_mean=float(z1_glob[sel].mean()) if sel.any() else None,
                                z2_1_pct=100*float(z2_glob[sel].mean()) if sel.any() else None,
-                               f1_t0_mean=float(fL[sel,:,0].mean()) if sel.any() else None,
-                               f2_t0_mean=float(fL[sel,:,1].mean()) if sel.any() else None,
+                               f1_at_L_mean=float(fL[sel,:,0].mean()) if sel.any() else None,
+                               f2_at_L_mean=float(fL[sel,:,1].mean()) if sel.any() else None,
                                first_flip_p_median=float(np.nanmedian(first_p[sel])) if grp=='flip' and sel.any() else None))
     summary=dict(mechanism=mechanism,n=len(rates),seed=SEED,horizon=HORIZON,switch_time=SWITCH,
                  n_grid=int(len(GRID)),p_grid_min=float(GRID[0]),p_grid_max=float(GRID[-1]),
