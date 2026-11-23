@@ -13,7 +13,30 @@ permissions:
   contents: write
 
 jobs:
+  frozen-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install the single canonical serialization environment
+        run: python -m pip install --disable-pip-version-check 'numpy<3' scipy 'pandas==2.3.3'
+      - name: Generate and freeze 36 CSV byte streams once
+        run: |
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/generate_repeated.py
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/validate_manifest.py \
+            --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
+            --freeze new_project/competing_risk_quantile/N2_native_repeated_v1/FROZEN_SHA256.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: n2-v1-data
+          path: new_project/competing_risk_quantile/N2_native_repeated_v1/data/**
+          retention-days: 30
+
   native-python:
+    needs: frozen-data
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
@@ -23,9 +46,12 @@ jobs:
           python-version: '3.11'
       - name: Install native SurvivalBoost and deterministic data dependencies
         run: python -m pip install --disable-pip-version-check 'numpy<3' scipy 'pandas==2.3.3' scikit-learn hazardous
-      - name: Generate 24 frozen training datasets, 12 held-out Oracle datasets, and verify SHA256 before fitting
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-v1-data
+          path: new_project/competing_risk_quantile/N2_native_repeated_v1/data
+      - name: Verify identical frozen dataset bytes before estimator use
         run: |
-          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/generate_repeated.py
           python new_project/competing_risk_quantile/N2_native_repeated_v1/src/validate_manifest.py \
             --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
             --freeze new_project/competing_risk_quantile/N2_native_repeated_v1/FROZEN_SHA256.json
@@ -42,6 +68,7 @@ jobs:
           retention-days: 30
 
   native-r:
+    needs: frozen-data
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -59,9 +86,12 @@ jobs:
           sudo apt-get install -y libuv1-dev
           python -m pip install --disable-pip-version-check 'numpy<3' scipy 'pandas==2.3.3'
           Rscript -e 'repo<-Sys.getenv("RSPM"); if(!nzchar(repo))repo<-"https://cloud.r-project.org"; install.packages(c("cmprskQR", "randomForestSRC"), repos=repo, Ncpus=2)'
-      - name: Generate identical deterministic data and validate frozen SHA256
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-v1-data
+          path: new_project/competing_risk_quantile/N2_native_repeated_v1/data
+      - name: Verify identical frozen dataset bytes before estimator use
         run: |
-          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/generate_repeated.py
           python new_project/competing_risk_quantile/N2_native_repeated_v1/src/validate_manifest.py \
             --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
             --freeze new_project/competing_risk_quantile/N2_native_repeated_v1/FROZEN_SHA256.json
@@ -88,9 +118,12 @@ jobs:
           python-version: '3.11'
       - name: Install analysis dependencies
         run: python -m pip install --disable-pip-version-check 'numpy<3' scipy 'pandas==2.3.3'
-      - name: Regenerate truth and verify data hash before combining
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-v1-data
+          path: new_project/competing_risk_quantile/N2_native_repeated_v1/data
+      - name: Verify identical frozen dataset bytes before estimator use
         run: |
-          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/generate_repeated.py
           python new_project/competing_risk_quantile/N2_native_repeated_v1/src/validate_manifest.py \
             --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
             --freeze new_project/competing_risk_quantile/N2_native_repeated_v1/FROZEN_SHA256.json
