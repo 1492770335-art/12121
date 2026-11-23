@@ -1,0 +1,160 @@
+{
+  "archive_sha256": "4700ea52b9a50c0d96786965ad4fe13e30b0b40952292bc396700699c34a06b7",
+  "original_config": {
+    "seed": 2026112301,
+    "calibration_seed": 2026112302,
+    "smoke_seed": 2026112303,
+    "repetitions": 200,
+    "test_n": 5000,
+    "calibration_n": 100000,
+    "smoke_n": 256,
+    "horizon_years": 3,
+    "p_all": 0.5,
+    "p_priority": 0.1,
+    "delta_months": 3,
+    "delta_path_months": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      9,
+      12
+    ],
+    "p_scan": {
+      "start": 0.025,
+      "stop": 0.8,
+      "step": 0.005
+    },
+    "zhou_alpha": 0.07,
+    "absolute_tie_tolerance_years": 1e-12,
+    "external": {
+      "id": "Zhou_exp",
+      "original_horizon_years": 2,
+      "oracle_horizon_years": 3,
+      "beta_by_treatment_and_cause": [
+        [
+          [
+            -1.5,
+            -1.9,
+            -0.3
+          ],
+          [
+            1,
+            -0.1,
+            0.4
+          ]
+        ],
+        [
+          [
+            -0.6,
+            -1.9,
+            1.5
+          ],
+          [
+            1.2,
+            0.2,
+            -1
+          ]
+        ]
+      ],
+      "covariate": "three independent Uniform(0,1)",
+      "representatives": [
+        [
+          0.25,
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5,
+          0.5
+        ],
+        [
+          0.75,
+          0.5,
+          0.5
+        ]
+      ],
+      "groups": "fixed Z1 < 0.5 / >= 0.5 by Z3 < 0.5 / >= 0.5"
+    },
+    "neutral": {
+      "ids": [
+        "aligned",
+        "PH_tradeoff",
+        "heterogeneous",
+        "time_cross"
+      ],
+      "base_rate": [
+        0.18,
+        0.15
+      ],
+      "base_slopes": [
+        [
+          0.15,
+          0.15
+        ],
+        [
+          -0.1,
+          0.2
+        ]
+      ],
+      "aligned_log_hr_both": -0.35,
+      "heterogeneous_log_hr_both": "0.65*Z1",
+      "PH_tradeoff_log_hr": [
+        [
+          -0.35,
+          0.65
+        ],
+        [
+          0.25,
+          -0.45
+        ]
+      ],
+      "time_cross_log_hr": [
+        [
+          -0.4,
+          0.65
+        ],
+        [
+          0.4,
+          0.65
+        ],
+        [
+          -0.35,
+          -0.5
+        ]
+      ],
+      "time_cross_year": 0.5,
+      "covariate": "independent Uniform(-1,1) and Bernoulli(0.5)",
+      "representatives": [
+        [
+          -0.5,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0.5,
+          0
+        ]
+      ],
+      "groups": "fixed Z1 < 0 / >= 0 by Z2 = 0 / 1"
+    },
+    "rmet_q1": "absolute RMET budget in years determined independently per scenario by nearest empirical quantile of the absolute RMET gap at the Q-Q dual-candidate probability; explicit all/none handling",
+    "ties": "single-goal rules use the other corresponding outcome only where specified in report, remaining ties split symmetrically by common uniform coin; Q-Q and RMET-Q1 use their primary protection metric before common coin; Zhou uses phase 1 RMET as secondary tie key",
+    "pmcr_supplement": {
+      "PH_tradeoff": 0.35,
+      "time_cross": 0.26
+    }
+  },
+  "source_file_count": 40,
+  "historical_replicate_counts_matched": true,
+  "legacy_pooled_rates": {
+    "PH_tradeoff": 2.5106,
+    "time_cross": 2.0974
+  }
+}
