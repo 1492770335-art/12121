@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install native SurvivalBoost and deterministic data dependencies
-        run: python -m pip install --disable-pip-version-check 'numpy<3' scipy pandas scikit-learn hazardous
+        run: python -m pip install --disable-pip-version-check 'numpy<3' scipy 'pandas==2.3.3' scikit-learn hazardous
       - name: Generate 24 frozen training datasets, 12 held-out Oracle datasets, and verify SHA256 before fitting
         run: |
           python new_project/competing_risk_quantile/N2_native_repeated_v1/src/generate_repeated.py
@@ -57,7 +57,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y libuv1-dev
-          python -m pip install --disable-pip-version-check numpy scipy pandas
+          python -m pip install --disable-pip-version-check 'numpy<3' scipy 'pandas==2.3.3'
           Rscript -e 'repo<-Sys.getenv("RSPM"); if(!nzchar(repo))repo<-"https://cloud.r-project.org"; install.packages(c("cmprskQR", "randomForestSRC"), repos=repo, Ncpus=2)'
       - name: Generate identical deterministic data and validate frozen SHA256
         run: |
@@ -87,7 +87,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install analysis dependencies
-        run: python -m pip install --disable-pip-version-check numpy scipy pandas
+        run: python -m pip install --disable-pip-version-check 'numpy<3' scipy 'pandas==2.3.3'
       - name: Regenerate truth and verify data hash before combining
         run: |
           python new_project/competing_risk_quantile/N2_native_repeated_v1/src/generate_repeated.py
