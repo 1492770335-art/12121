@@ -103,3 +103,14 @@
 - [N2-R1 数据哈希冻结清单](N2_native_repeated_v1/FROZEN_SHA256.json) 和 [原生运行工作流](https://github.com/1492770335-art/12121/actions/workflows/n2-native-repeated-v1.yml)。先验方案提交 `21aefd11`；独立生成数据的 36 个 CSV SHA256 在本地核验一致。
 - 第一次 CI 运行 `45173357706` 发现新生成脚本引用了本地生成函数而非已提交的 N1 函数；修复提交 `5b347e6b` 直接读取仓库 N1 源码并**保持所有冻结 CSV 哈希不变**。修复后的 CI 运行 ID `45173692241`，不能将拟合完成前的状态称为已获得正式比较数值。
 - [逐患者预测和配对分析源码](N2_native_repeated_v1/src/analyze.py)；原生方法成功完成后才生成结果表。N2-2/N2-3 负面结果保留为方法诊断，不再决定研究路线。
+
+
+## N2-R1 已完成（2026-11-23）：正式原生估计器四重复试验
+
+**本节为当前最新状态，替代上方历史运行中的表述。研究主线仍然是“哪一种方法能够更准确估计竞争风险的条件分位数”。**
+
+- [先于生成和拟合冻结的方案](N2_native_repeated_v1/PROTOCOL.md)：三种中立 DGP × 两档删失 × 四重复；训练每次500人、测试180人×两治疗；Q1与Qall 分别用四个预设**诊断**p。完全不继承旧论文 Cox、临床风险阈值或时间容忍量。
+- 三种**原生**方法均已运行：Peng–Fine \`cmprskQR::crrQR\`、CR-RSF \`randomForestSRC::rfsrc\`、SurvivalBoost \`hazardous.SurvivalBoost\`，同数据同测试人群。数据事前哈希冻结，所有 R/Python 原生任务成功；详见 [原始拟合日志](https://github.com/1492770335-art/12121/actions/runs/45175130223)。
+- [实际配对结果目录](N2_native_repeated_v1/results_v1/) 已包含 **69,120** 条患者—治疗—p 的三方法原生输出，**66,515** 条三方法共同可评分，附逐重复 MAE、配对 MCSE、端点预测错误/漏报及拟合版本。对 3 个 SurvivalBoost Q=0 预测予以保留、计入误差而不是剔除；[独立核验和发布工作流](https://github.com/1492770335-art/12121/actions/runs/45176945245) PASS。
+- [完整统计审查](N2_native_repeated_v1/STATISTICAL_REVIEW.md)：三方法共同可评分的**等权单元平均 MAE** 为：Q1 = **0.2189（Peng–Fine）/0.3133（CR-RSF）/0.2600（SurvivalBoost）**；Qall = **0.1473/0.2370/0.2003**。Peng–Fine 在48个机制×删失×终点×p设置中的43个设置误差较小；四重复、非最优调参、可评分人群限制，不足以宣布普遍/显著优效。
+- **下一步**只扩大原生分位数估计方法的样本量、独立重复、统一训练内调参和模型正确设定验证；旧N2-2/N2-3门控及治疗回退不再是主线。
