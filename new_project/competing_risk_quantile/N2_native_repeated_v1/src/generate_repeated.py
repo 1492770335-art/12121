@@ -9,10 +9,46 @@ import hashlib
 import numpy as np
 import pandas as pd
 
-# Import the EXACT existing N2 analytical DGP; do not modify old files.
+# Import the EXACT existing N1 analytical DGP from the committed repository.
+# The historical N2 generator has a different API; never import from local caches.
+import importlib.util
 BASE = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(BASE / 'N2_native_benchmark' / 'src'))
-from generate import rates, scalar_f, invert, sample_covariates, simulate_one, censor_rate_for_target
+source = BASE / 'N1_oracle' / 'src' / 'n1_oracle_study.py'
+spec = importlib.util.spec_from_file_location('independent_n1_truth', source)
+n1 = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(n1)
+rates = n1.make_rates
+
+def scalar_f(t, rs):
+    return n1.cif_at(rs, t)[0]
+
+def invert(rs, p, cause):
+    return n1.q_exact(rs, p, cause)
+
+def sample_covariates(rng, n):
+    return rng.uniform(-1,1,size=n), rng.binomial(1,.5,size=n)
+
+def laplace_event_time(c, rs_one):
+    h0=rs_one[:,:,0].sum(1);h1=rs_one[:,:,1].sum(1)
+    ex=np.exp(-(h0+c)*1.2)
+    return (h0/(h0+c))*(1-ex)+ex*h1/(h1+c)
+
+def censor_rate_for_target(target, rs_one):
+    from scipy.optimize import brentq
+    return float(brentq(lambda c:float(np.mean(1-laplace_event_time(c,rs_one)))-target,1e-7,10))
+
+def simulate_one(rng,rs_one,censor_rate):
+    n=len(rs_one)
+    h0=rs_one[:,:,0].sum(1);h1=rs_one[:,:,1].sum(1)
+    e=rng.exponential(size=n)
+    early=e<h0*1.2
+    T=np.where(early,e/h0,1.2+(e-h0*1.2)/h1)
+    pcause=np.where(early,rs_one[:,0,0]/h0,rs_one[:,0,1]/h1)
+    J=np.where(rng.uniform(size=n)<pcause,1,2)
+    C=rng.exponential(scale=1/censor_rate,size=n)
+    X=np.minimum(T,C)
+    status=np.where(T<=C,J,0)
+    return X,status,T,J
 
 BASE_SEED = 2026112304
 MECHS = ('aligned', 'cause_tradeoff', 'time_varying')
@@ -38,7 +74,7 @@ def main() -> None:
     record = {'seed':BASE_SEED,'nreps':N_REPS,'ntrain':N_TRAIN,'ntest':N_TEST,
               'horizon':L,'cut_time':1.2,'p1':P1,'pall':PALL,
               'mechanisms':MECHS,'censor_targets':CENS,
-              'data_generation_source':'N2_native_benchmark/src/generate.py (unchanged)',
+              'data_generation_source':'N1_oracle/src/n1_oracle_study.py (unchanged)',
               'files':{},'scenarios':[]}
     for mi, mechanism in enumerate(MECHS):
         calib_rng=np.random.default_rng(BASE_SEED + 700000 + 20*mi)
@@ -87,7 +123,7 @@ def main() -> None:
                 print(f'{mechanism} rep{rep:02d} censor{int(c*100)}: observed={np.mean(fstatus==0):.3f}',flush=True)
     (dest/'manifest.json').write_text(json.dumps(record,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
     # Independent exact-CIF inversion spot check for both endpoints.
-    from generate import scalar_f as observed_true_cif
+    observed_true_cif = scalar_f
     for mech in MECHS:
         for rep in range(N_REPS):
             truth=pd.read_csv(dest/f'{mech}_r{rep:02d}_oracle_test.csv')
