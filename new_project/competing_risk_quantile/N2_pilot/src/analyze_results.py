@@ -1,6 +1,6 @@
 from pathlib import Path
 import numpy as np, pandas as pd, json
-D=Path(__file__).parent/'results'
+D=Path(__file__).resolve().parents[1]/'results'
 f=pd.read_csv(D/'n2_replicate_results.csv')
 ids=['scenario','rate_censor','p_diagnostic','rep']
 cols=['q1_mae_cap','qall_mae_cap','q1_rank_wrong_pct','q1_rank_unresolved_pct','q1_est_unreachable_pct','qall_est_unreachable_pct','q1_below_qall_pct']
