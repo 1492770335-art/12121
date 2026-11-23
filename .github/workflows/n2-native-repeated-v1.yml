@@ -1,0 +1,130 @@
+name: N2 repeated competing-risk quantile native estimators
+
+on:
+  push:
+    paths:
+      - 'new_project/competing_risk_quantile/N2_native_repeated_v1/src/**'
+      - 'new_project/competing_risk_quantile/N2_native_repeated_v1/PROTOCOL.md'
+      - 'new_project/competing_risk_quantile/N2_native_repeated_v1/FROZEN_SHA256.json'
+      - '.github/workflows/n2-native-repeated-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  native-python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install native SurvivalBoost and deterministic data dependencies
+        run: python -m pip install --disable-pip-version-check 'numpy<3' scipy pandas scikit-learn hazardous
+      - name: Generate 24 frozen training datasets, 12 held-out Oracle datasets, and verify SHA256 before fitting
+        run: |
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/generate_repeated.py
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/validate_manifest.py \
+            --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
+            --freeze new_project/competing_risk_quantile/N2_native_repeated_v1/FROZEN_SHA256.json
+      - name: Fit published hazardous SurvivalBoost and export per-patient Q1 and Qall
+        run: |
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/run_survivalboost.py \
+            --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
+            --output new_project/competing_risk_quantile/N2_native_repeated_v1/results_python
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-v1-python
+          path: new_project/competing_risk_quantile/N2_native_repeated_v1/results_python/**
+          retention-days: 30
+
+  native-r:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: true
+      - name: Install native R requirements and system deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libuv1-dev
+          python -m pip install --disable-pip-version-check numpy scipy pandas
+          Rscript -e 'repo<-Sys.getenv("RSPM"); if(!nzchar(repo))repo<-"https://cloud.r-project.org"; install.packages(c("cmprskQR", "randomForestSRC"), repos=repo, Ncpus=2)'
+      - name: Generate identical deterministic data and validate frozen SHA256
+        run: |
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/generate_repeated.py
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/validate_manifest.py \
+            --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
+            --freeze new_project/competing_risk_quantile/N2_native_repeated_v1/FROZEN_SHA256.json
+      - name: Fit original Peng-Fine and CR-RSF, predict Q1 and Qall in same patients
+        run: |
+          Rscript new_project/competing_risk_quantile/N2_native_repeated_v1/src/run_r_estimators.R \
+            new_project/competing_risk_quantile/N2_native_repeated_v1/data \
+            new_project/competing_risk_quantile/N2_native_repeated_v1/results_r
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-v1-r
+          path: new_project/competing_risk_quantile/N2_native_repeated_v1/results_r/**
+          retention-days: 30
+
+  combine:
+    runs-on: ubuntu-latest
+    needs: [native-python, native-r]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install analysis dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy pandas
+      - name: Regenerate truth and verify data hash before combining
+        run: |
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/generate_repeated.py
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/validate_manifest.py \
+            --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
+            --freeze new_project/competing_risk_quantile/N2_native_repeated_v1/FROZEN_SHA256.json
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-v1-r
+          path: staging/r
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-v1-python
+          path: staging/python
+      - name: Compute same-patient matched MAE, error rates, treatment differences and replicate MCSE
+        run: |
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/analyze.py \
+            --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
+            --r-pred staging/r/native_r_predictions.csv \
+            --py-pred staging/python/native_python_predictions.csv \
+            --output new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1
+          cp staging/r/native_r_fit_status.csv new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/
+          cp staging/python/native_python_fit_status.json new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/
+          cp staging/r/native_r_session.txt new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/
+          cp staging/python/native_python_versions.json new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-v1-complete-results
+          path: new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/**
+          retention-days: 30
+      - name: Commit results to main; results paths do not retrigger this workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1
+          if git diff --cached --quiet; then echo "Nothing to commit"; else
+            git commit -m "[skip ci] N2 repeated: publish native per-patient paired results"
+            git push origin HEAD:main
+          fi
