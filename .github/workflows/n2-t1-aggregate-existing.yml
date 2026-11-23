@@ -1,0 +1,58 @@
+name: N2-T1 independent aggregation of all native artifacts including fit failures
+
+on:
+  push:
+    paths:
+      - '.github/workflows/n2-t1-aggregate-existing.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ORIGINAL_RUN_ID: '45184940110'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exactly the frozen analysis packages
+        run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0'
+      - name: Download original frozen data and all native artifacts including failed R job
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_tuned_v1
+          gh run download "$ORIGINAL_RUN_ID" -n n2-t1-frozen-data --dir "$ROOT/data"
+          gh run download "$ORIGINAL_RUN_ID" --pattern 'n2-t1-r-*' --dir stage/r
+          gh run download "$ORIGINAL_RUN_ID" --pattern 'n2-t1-py-*' --dir stage/py
+      - name: Verify data hashes, audit 240 native final fits, stitch then pair all patient records
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_tuned_v1
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+          python "$ROOT/src/collect_fits.py" --r-root stage/r --py-root stage/py --output "$ROOT/results"
+          python "$ROOT/src/stitch.py" --r-root stage/r --py-root stage/py --out stage/combined
+          python "$ROOT/src/analyze.py" --data "$ROOT/data" \
+            --r-pred stage/combined/r_predictions.csv \
+            --py-pred stage/combined/python_predictions.csv \
+            --output "$ROOT/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-t1-fully-audited-results
+          path: new_project/competing_risk_quantile/N2_native_tuned_v1/results/**
+          retention-days: 30
+      - name: Publish results with errors and failures retained
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add new_project/competing_risk_quantile/N2_native_tuned_v1/results
+          if ! git diff --cached --quiet; then
+            git commit -m '[skip ci] N2-T1: publish common-patient MAE with native fitting failure retained'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
