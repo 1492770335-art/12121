@@ -62,7 +62,7 @@ predict_direct<-function(tr,truth,failcode,endpoint,probs,taurange){
       }
     }
   }
-  list(q=qhat,nonmonotone=as.integer(sum(apply(qq,1,function(r)any(diff(r)<-1e-9)))))
+  list(q=qhat,nonmonotone=as.integer(sum(apply(qq,1,function(r)any(diff(r) < -1e-9)))))
 }
 
 predictions<-list();fits<-list();nrows<-0;nf<-0
@@ -102,7 +102,7 @@ for(mech in MECHS){
           cif<-pred$cif;times<-as.numeric(pred$time.interest)
           if(length(dim(cif))!=3L||dim(cif)[1]!=nrow(truth)||dim(cif)[3]<2L)stop('invalid forest cause CIF layout')
           cc1<-as.matrix(cif[,,1]);cc2<-as.matrix(cif[,,2]);ccall<-cc1+cc2
-          if(max(ccall,na.rm=TRUE)>1.002||min(ccall,na.rm=TRUE)<-.002)stop('invalid joint CIF probabilities')
+          if(max(ccall,na.rm=TRUE)>1.002||min(ccall,na.rm=TRUE) < -0.002)stop('invalid joint CIF probabilities')
           for(endpoint in c('q1','qall')){
             probs<-if(endpoint=='q1')P1 else PALL
             curves<-if(endpoint=='q1')cc1 else ccall
@@ -111,7 +111,7 @@ for(mech in MECHS){
               nrows<-nrows+1
               predictions[[nrows]]<-new_row('CRRSF',mech,rep,censor,truth,endpoint,p,qhat)
             }
-            nmono<-sum(apply(curves,1,function(z)any(diff(z)<-1e-5)))
+            nmono<-sum(apply(curves,1,function(z)any(diff(z) < -1e-5)))
             addstatus('CRRSF',mech,rep,censor,endpoint,'ok',nmono=nmono)
           }
         },error=function(e){
