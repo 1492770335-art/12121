@@ -85,7 +85,9 @@ for(mech in mechs){
     newx<-as.matrix(newdata)
     if(requireNamespace('cmprskQR',quietly=TRUE)){
       tryCatch({
-        fit<-cmprskQR::crrQR(ftime=train$ftime,fstatus=train$fstatus,X=x,failcode=1,cencode=0,
+        # Author implementation models log time; predict.crrQR returns exp(X beta(tau)).
+        if(any(!is.finite(train$ftime))||any(train$ftime<=0))stop('nonpositive observation time')
+        fit<-cmprskQR::crrQR(ftime=log(train$ftime),fstatus=train$fstatus,X=x,failcode=1,cencode=0,
                           tau.range=c(.02,.26),tau.step=.02,variance=FALSE)
         predicted<-predict(fit,newx,rearrangement=TRUE)
         predicted<-as.matrix(predicted)
