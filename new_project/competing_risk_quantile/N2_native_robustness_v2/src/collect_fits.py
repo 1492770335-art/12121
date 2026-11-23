@@ -33,7 +33,7 @@ for file in a.py_root.rglob('native_python_fit_status.json'):
 frame=pd.DataFrame(rows)
 key=['mechanism','n_train','replicate','censor_target','method']
 if frame.duplicated(key).any():raise ValueError('duplicate fit')
-if len(frame)!=5*2*4*2*3:raise ValueError(f'wrong native fit count {len(frame)} expected 240')
+if len(frame)!=3*1*12*2*3:raise ValueError(f'wrong native fit count {len(frame)} expected 216')
 frame=frame.sort_values(key)
 frame.to_csv(a.output/'native_fit_selection.csv',index=False)
 count=frame.groupby(['method','status'],dropna=False).size().rename('n').reset_index().to_dict('records')
