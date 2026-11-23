@@ -1,0 +1,169 @@
+name: N2-T2 native conditional quantiles, train-only tuning
+
+on:
+  push:
+    paths:
+      - '.github/workflows/n2-native-tuned-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  frozen-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned generation packages
+        run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0'
+      - name: Generate once and audit 240 frozen CSV files
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
+          python "$ROOT/src/generate.py" --output "$ROOT/data"
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: n2-t2-frozen-data
+          path: new_project/competing_risk_quantile/N2_native_tuned_v2/data/**
+          retention-days: 30
+
+  native-r:
+    needs: frozen-data
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        mechanism: [aligned, cause_tradeoff, time_varying, logquantile_correct, nonlinear_interaction]
+        n: [500, 1000]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: true
+      - name: Install R published native methods, and pinned score dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libuv1-dev
+          python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0'
+          Rscript -e 'repo<-Sys.getenv("RSPM"); if(!nzchar(repo))repo<-"https://cloud.r-project.org"; install.packages(c("cmprskQR","randomForestSRC"),repos=repo,Ncpus=2)'
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-t2-frozen-data
+          path: new_project/competing_risk_quantile/N2_native_tuned_v2/data
+      - name: Check exactly the same 240 precommitted SHA256 hashes
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+      - name: Native Peng-Fine and forest train-only tuning, full refit, patient predictions
+        continue-on-error: true
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
+          mkdir -p "$ROOT/results_r/${{ matrix.mechanism }}_n${{ matrix.n }}"
+          Rscript "$ROOT/src/run_native_r.R" "$ROOT/data" "$ROOT/results_r/${{ matrix.mechanism }}_n${{ matrix.n }}" \
+            '${{ matrix.mechanism }}' '${{ matrix.n }}' "$ROOT/src/validation_score.py"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-t2-r-${{ matrix.mechanism }}-n${{ matrix.n }}
+          path: new_project/competing_risk_quantile/N2_native_tuned_v2/results_r/**
+          retention-days: 30
+
+  native-python:
+    needs: frozen-data
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        mechanism: [aligned, cause_tradeoff, time_varying, logquantile_correct, nonlinear_interaction]
+        n: [500, 1000]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install native SurvivalBoost and pinned Python packages
+        run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0' scikit-learn 'hazardous==0.2.0'
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-t2-frozen-data
+          path: new_project/competing_risk_quantile/N2_native_tuned_v2/data
+      - name: Verify exactly the same frozen data
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+      - name: Native SurvivalBoost train-only tuning, refit, patient predictions
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
+          mkdir -p "$ROOT/results_py/${{ matrix.mechanism }}_n${{ matrix.n }}"
+          python "$ROOT/src/run_boost.py" --data "$ROOT/data" \
+            --output "$ROOT/results_py/${{ matrix.mechanism }}_n${{ matrix.n }}" \
+            --mechanism '${{ matrix.mechanism }}' --ntrain '${{ matrix.n }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-t2-py-${{ matrix.mechanism }}-n${{ matrix.n }}
+          path: new_project/competing_risk_quantile/N2_native_tuned_v2/results_py/**
+          retention-days: 30
+
+  combine:
+    needs: [frozen-data, native-r, native-python]
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned analysis packages
+        run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0'
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-t2-frozen-data
+          path: new_project/competing_risk_quantile/N2_native_tuned_v2/data
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: n2-t2-r-*
+          path: stage/r
+          merge-multiple: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: n2-t2-py-*
+          path: stage/py
+          merge-multiple: false
+      - name: Stitch all 10 R and 10 Python shards then evaluate common patients
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+          python "$ROOT/src/stitch.py" --r-root stage/r --py-root stage/py --out stage/combined
+          python "$ROOT/src/analyze.py" --data "$ROOT/data" \
+            --r-pred stage/combined/r_predictions.csv \
+            --py-pred stage/combined/python_predictions.csv \
+            --output "$ROOT/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-t2-complete-quantile-comparison
+          path: new_project/competing_risk_quantile/N2_native_tuned_v2/results/**
+          retention-days: 30
+      - name: Publish exact native outputs without triggering refit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add new_project/competing_risk_quantile/N2_native_tuned_v2/results
+          if ! git diff --cached --quiet; then
+            git commit -m '[skip ci] N2-T2: archive actual train-tuned native quantile estimates'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
