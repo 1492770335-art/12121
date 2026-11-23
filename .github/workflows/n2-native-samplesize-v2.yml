@@ -1,0 +1,185 @@
+name: N2-S2 native competing-risk quantile sample-size study
+
+on:
+  push:
+    paths:
+      - 'new_project/competing_risk_quantile/N2_native_sample_size_v2/PROTOCOL.md'
+      - 'new_project/competing_risk_quantile/N2_native_sample_size_v2/FROZEN_SHA256.json'
+      - 'new_project/competing_risk_quantile/N2_native_sample_size_v2/src/**'
+      - '.github/workflows/n2-native-samplesize-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  frozen-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen serialization dependencies
+        run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0'
+      - name: Generate all data using frozen pre-fit seed and verify every SHA256
+        run: |
+          python new_project/competing_risk_quantile/N2_native_sample_size_v2/src/generate.py
+          python new_project/competing_risk_quantile/N2_native_sample_size_v2/src/validate.py \
+            --data new_project/competing_risk_quantile/N2_native_sample_size_v2/data \
+            --frozen new_project/competing_risk_quantile/N2_native_sample_size_v2/FROZEN_SHA256.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: n2-s2-data
+          path: new_project/competing_risk_quantile/N2_native_sample_size_v2/data/**
+          retention-days: 30
+
+  native-r:
+    needs: frozen-data
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        mechanism: [aligned, cause_tradeoff, time_varying, logquantile_correct]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: true
+      - name: Install native R estimator packages and system dependency
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libuv1-dev
+          python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0'
+          Rscript -e 'repo<-Sys.getenv("RSPM"); if(!nzchar(repo))repo<-"https://cloud.r-project.org"; install.packages(c("cmprskQR","randomForestSRC"),repos=repo,Ncpus=2)'
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-s2-data
+          path: new_project/competing_risk_quantile/N2_native_sample_size_v2/data
+      - name: Validate shared data identity
+        run: |
+          python new_project/competing_risk_quantile/N2_native_sample_size_v2/src/validate.py \
+            --data new_project/competing_risk_quantile/N2_native_sample_size_v2/data \
+            --frozen new_project/competing_risk_quantile/N2_native_sample_size_v2/FROZEN_SHA256.json
+      - name: Fit original Peng-Fine and CR-RSF over three sample sizes
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_sample_size_v2
+          for n in 500 1000 2000; do
+            mkdir -p "$ROOT/results_r/${{ matrix.mechanism }}_n${n}"
+            Rscript "$ROOT/src/run_r_estimators.R" \
+              "$ROOT/data" "$ROOT/results_r/${{ matrix.mechanism }}_n${n}" \
+              '${{ matrix.mechanism }}' "$n"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-s2-r-${{ matrix.mechanism }}
+          path: new_project/competing_risk_quantile/N2_native_sample_size_v2/results_r/**
+          retention-days: 30
+
+  native-python:
+    needs: frozen-data
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        mechanism: [aligned, cause_tradeoff, time_varying, logquantile_correct]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install native SurvivalBoost
+        run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0' scikit-learn 'hazardous==0.2.0'
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-s2-data
+          path: new_project/competing_risk_quantile/N2_native_sample_size_v2/data
+      - name: Validate identical data SHA256 before model fitting
+        run: |
+          python new_project/competing_risk_quantile/N2_native_sample_size_v2/src/validate.py \
+            --data new_project/competing_risk_quantile/N2_native_sample_size_v2/data \
+            --frozen new_project/competing_risk_quantile/N2_native_sample_size_v2/FROZEN_SHA256.json
+      - name: Fit original SurvivalBoost over three sample sizes
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_sample_size_v2
+          for n in 500 1000 2000; do
+            mkdir -p "$ROOT/results_py/${{ matrix.mechanism }}_n${n}"
+            python "$ROOT/src/run_survivalboost.py" \
+              --data "$ROOT/data" \
+              --output "$ROOT/results_py/${{ matrix.mechanism }}_n${n}" \
+              --mechanism '${{ matrix.mechanism }}' --ntrain "$n"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-s2-py-${{ matrix.mechanism }}
+          path: new_project/competing_risk_quantile/N2_native_sample_size_v2/results_py/**
+          retention-days: 30
+
+  combine:
+    needs: [frozen-data,native-r,native-python]
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install analysis dependencies
+        run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0'
+      - uses: actions/download-artifact@v4
+        with:
+          name: n2-s2-data
+          path: new_project/competing_risk_quantile/N2_native_sample_size_v2/data
+      - name: Verify frozen data once more before comparison
+        run: |
+          python new_project/competing_risk_quantile/N2_native_sample_size_v2/src/validate.py \
+            --data new_project/competing_risk_quantile/N2_native_sample_size_v2/data \
+            --frozen new_project/competing_risk_quantile/N2_native_sample_size_v2/FROZEN_SHA256.json
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: n2-s2-r-*
+          path: stage/r
+          merge-multiple: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: n2-s2-py-*
+          path: stage/py
+          merge-multiple: false
+      - name: Verify that every mechanism and n has a native output, then stitch
+        run: |
+          python new_project/competing_risk_quantile/N2_native_sample_size_v2/src/stitch.py \
+            --r-root stage/r --py-root stage/py --out stage/combined
+      - name: Evaluate 3-way common patients and paired Monte Carlo differences
+        run: |
+          python new_project/competing_risk_quantile/N2_native_sample_size_v2/src/analyze.py \
+            --data new_project/competing_risk_quantile/N2_native_sample_size_v2/data \
+            --r-pred stage/combined/r_predictions.csv \
+            --py-pred stage/combined/python_predictions.csv \
+            --output new_project/competing_risk_quantile/N2_native_sample_size_v2/results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-s2-complete-analysis
+          path: new_project/competing_risk_quantile/N2_native_sample_size_v2/results/**
+          retention-days: 30
+      - name: Publish only results, do not re-run workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add new_project/competing_risk_quantile/N2_native_sample_size_v2/results
+          if ! git diff --cached --quiet; then
+            git commit -m '[skip ci] N2-S2: preserve real native repeated-size conditional quantile results'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
