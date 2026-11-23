@@ -1,0 +1,5 @@
+endpoint,n_train,PengFine,CRRSF,SurvivalBoost,aggregation
+q1,500,0.3780603761,0.3143870386,0.3625516969,two_complex_mechanisms_equal_cells_common_scorable
+q1,1000,0.2987266384,0.2923949342,0.3006410860,two_complex_mechanisms_equal_cells_common_scorable
+qall,500,0.2531258664,0.1798158574,0.2124930131,two_complex_mechanisms_equal_cells_common_scorable
+qall,1000,0.1942671916,0.1688258414,0.1584268297,two_complex_mechanisms_equal_cells_common_scorable
