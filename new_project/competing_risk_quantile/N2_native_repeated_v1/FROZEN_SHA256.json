@@ -1,0 +1,406 @@
+{
+  "seed": 2026112304,
+  "nreps": 4,
+  "ntrain": 500,
+  "ntest": 180,
+  "horizon": 3.0,
+  "cut_time": 1.2,
+  "p1": [
+    0.06,
+    0.12,
+    0.18,
+    0.24
+  ],
+  "pall": [
+    0.15,
+    0.25,
+    0.35,
+    0.45
+  ],
+  "mechanisms": [
+    "aligned",
+    "cause_tradeoff",
+    "time_varying"
+  ],
+  "censor_targets": [
+    0.2,
+    0.45
+  ],
+  "data_generation_source": "N2_native_benchmark/src/generate.py (unchanged)",
+  "files": {
+    "aligned_r00_oracle_test.csv": "e001683636218fa7912e15c1617f19b882d89bba52f70e9f51a61a4f9f75e528",
+    "aligned_r00_c20_train.csv": "7533653ae68545c5eab9840059f9e26c14c7f704836269c8f7a113de9db96bd4",
+    "aligned_r00_c45_train.csv": "3d45086ca01cc0c0c2e09d9455b66d73328054a1b5f35d2105787f2dc4ada64c",
+    "aligned_r01_oracle_test.csv": "c54ac01e7ce38f8335a4eec0a1fdd61d19ef9d8616e8b632d6f6ac5edcd26805",
+    "aligned_r01_c20_train.csv": "45850e04fc2c8df903133395002efd8da2e56b946c60c4e8db5aef26a642ebc7",
+    "aligned_r01_c45_train.csv": "36ea328731a940f91f44d01cffca26c3bbd66ea8be43a2fc7b37f940f651ee58",
+    "aligned_r02_oracle_test.csv": "0cd786088112ba0a17c62ffb57282ae4de47cc2fb2ad9ea7d46d1c2492726e1d",
+    "aligned_r02_c20_train.csv": "2c3af925dd8b1489c3c678ca27dc4e7b3a0f94bf469c1b64abefab56e2d3ff73",
+    "aligned_r02_c45_train.csv": "a723b143cfea60907fbb3ed45a0bdab889089193a9a455d6bb075a25b3d91782",
+    "aligned_r03_oracle_test.csv": "a8cdbf21dfac74c397d9018d28e0f5316db7eff68bb48ce3f27561b231a4bbf2",
+    "aligned_r03_c20_train.csv": "013806289063cccd36c4eb19fd034b720e28e3be8dc0b4460966a1034b756c67",
+    "aligned_r03_c45_train.csv": "a13a72886aa3f42612c412584a204caebf5f22fae65d4f3e9a3b3daf44de66ff",
+    "cause_tradeoff_r00_oracle_test.csv": "88241bf300597f9dc76ee14b4f70c1488043291e8666489dbe48e70182927b1e",
+    "cause_tradeoff_r00_c20_train.csv": "6a6bbbf8a633669ed4ed6ecb89030032b40f06615ee308e3ed202c2a505305da",
+    "cause_tradeoff_r00_c45_train.csv": "233d22aad5647f835272787bd14fb2bdbc8fdcd18853258d8ed60b34600fb2b3",
+    "cause_tradeoff_r01_oracle_test.csv": "5caef5c3d07232678bf92892d2920fc5c57beac845a810921cc0d50c1e0d9ebd",
+    "cause_tradeoff_r01_c20_train.csv": "5618077faaf2f352f71e2ee20f7fa62813ca63dd36a2bf5b1f1479f60078bc4b",
+    "cause_tradeoff_r01_c45_train.csv": "8017943fde95a76e59991ec284541d8a0a591705236bfc5e3e7bbc348e3c09a9",
+    "cause_tradeoff_r02_oracle_test.csv": "cab352361aa079b37382a415304d71fbd321620aa96d64305f505cf5a5329f81",
+    "cause_tradeoff_r02_c20_train.csv": "621d24b50469e2eaa54b0b1636b6ae7586aafd891d2983d3dd31dd2b5815a2a8",
+    "cause_tradeoff_r02_c45_train.csv": "bd53a0e711ff4b640bf0e2bc59ce6c6b0e21b962b8e28e2c4e10801dc76a9639",
+    "cause_tradeoff_r03_oracle_test.csv": "14105555b0b668536c54983f34a33879c50bc94f8d32891671b6e3f2b527a6b3",
+    "cause_tradeoff_r03_c20_train.csv": "914ffe29ed3c30f132b5a91eac751199d6a2f040c06b854b77f6c14db8631b33",
+    "cause_tradeoff_r03_c45_train.csv": "e68a431465029fab7d898ca58c85db43cb88911ef59f5aa40b1c94b36d974f35",
+    "time_varying_r00_oracle_test.csv": "e05759e36d5a2ce47f36f1d55f0e81ad3891045813fafab40edebf4f432ddbf7",
+    "time_varying_r00_c20_train.csv": "8dde6b2fb1a087bc743c58354d828a9d45c252ffcc236eb5c8a8dc6eee81ebe1",
+    "time_varying_r00_c45_train.csv": "10bc87fe91519c35e3f3bf6c993f76e93de282121e8444c3647764ff8b155366",
+    "time_varying_r01_oracle_test.csv": "4facd7869b9fadd794e03c67af67c2a832352877cbbf9a9d36ef918663a1515e",
+    "time_varying_r01_c20_train.csv": "8306b7590d1d3e63b4e39bc8c76e38b6fbcf222daa5185d00cb6046f5eea6dda",
+    "time_varying_r01_c45_train.csv": "239b46075150a214aaad10ef625ac9ae72eb2c367f631e64e713058a6c6d51f2",
+    "time_varying_r02_oracle_test.csv": "eb7aaf2f457b43d57f3f103d219ae35785e4ce0e946ea002de27baf088dc32e2",
+    "time_varying_r02_c20_train.csv": "a7a26bc279dcb4e34d657f6fcb6eae6cd30097ca358e1872ce0cc14e98ad4e15",
+    "time_varying_r02_c45_train.csv": "f09c122fd223a2b0221e51969679178137a382a0a0ee7779c4a317034875c631",
+    "time_varying_r03_oracle_test.csv": "ab5b6ed5c8609d50b33517cb3fed3a0a88567bfe1149974bca4a042f31a7283d",
+    "time_varying_r03_c20_train.csv": "46c00a562e176af91dffc7d1b3b7a9a5ac4cf10fb2d11845ca065e08fcfc8c48",
+    "time_varying_r03_c45_train.csv": "a0da39f43ac4fde699b6281f3f381f540b95f4abc3fccd8d8117355cdc75e931"
+  },
+  "scenarios": [
+    {
+      "mechanism": "aligned",
+      "replicate": 0,
+      "censor_target": 0.2,
+      "train": "aligned_r00_c20_train.csv",
+      "test": "aligned_r00_oracle_test.csv",
+      "censor_rate": 0.07909473912024782,
+      "realized_censoring": 0.228,
+      "counts": [
+        114,
+        224,
+        162
+      ]
+    },
+    {
+      "mechanism": "aligned",
+      "replicate": 0,
+      "censor_target": 0.45,
+      "train": "aligned_r00_c45_train.csv",
+      "test": "aligned_r00_oracle_test.csv",
+      "censor_rate": 0.2610421853027692,
+      "realized_censoring": 0.46,
+      "counts": [
+        230,
+        165,
+        105
+      ]
+    },
+    {
+      "mechanism": "aligned",
+      "replicate": 1,
+      "censor_target": 0.2,
+      "train": "aligned_r01_c20_train.csv",
+      "test": "aligned_r01_oracle_test.csv",
+      "censor_rate": 0.07909473912024782,
+      "realized_censoring": 0.202,
+      "counts": [
+        101,
+        240,
+        159
+      ]
+    },
+    {
+      "mechanism": "aligned",
+      "replicate": 1,
+      "censor_target": 0.45,
+      "train": "aligned_r01_c45_train.csv",
+      "test": "aligned_r01_oracle_test.csv",
+      "censor_rate": 0.2610421853027692,
+      "realized_censoring": 0.452,
+      "counts": [
+        226,
+        161,
+        113
+      ]
+    },
+    {
+      "mechanism": "aligned",
+      "replicate": 2,
+      "censor_target": 0.2,
+      "train": "aligned_r02_c20_train.csv",
+      "test": "aligned_r02_oracle_test.csv",
+      "censor_rate": 0.07909473912024782,
+      "realized_censoring": 0.202,
+      "counts": [
+        101,
+        232,
+        167
+      ]
+    },
+    {
+      "mechanism": "aligned",
+      "replicate": 2,
+      "censor_target": 0.45,
+      "train": "aligned_r02_c45_train.csv",
+      "test": "aligned_r02_oracle_test.csv",
+      "censor_rate": 0.2610421853027692,
+      "realized_censoring": 0.434,
+      "counts": [
+        217,
+        175,
+        108
+      ]
+    },
+    {
+      "mechanism": "aligned",
+      "replicate": 3,
+      "censor_target": 0.2,
+      "train": "aligned_r03_c20_train.csv",
+      "test": "aligned_r03_oracle_test.csv",
+      "censor_rate": 0.07909473912024782,
+      "realized_censoring": 0.214,
+      "counts": [
+        107,
+        227,
+        166
+      ]
+    },
+    {
+      "mechanism": "aligned",
+      "replicate": 3,
+      "censor_target": 0.45,
+      "train": "aligned_r03_c45_train.csv",
+      "test": "aligned_r03_oracle_test.csv",
+      "censor_rate": 0.2610421853027692,
+      "realized_censoring": 0.454,
+      "counts": [
+        227,
+        171,
+        102
+      ]
+    },
+    {
+      "mechanism": "cause_tradeoff",
+      "replicate": 0,
+      "censor_target": 0.2,
+      "train": "cause_tradeoff_r00_c20_train.csv",
+      "test": "cause_tradeoff_r00_oracle_test.csv",
+      "censor_rate": 0.09341178143617955,
+      "realized_censoring": 0.176,
+      "counts": [
+        88,
+        219,
+        193
+      ]
+    },
+    {
+      "mechanism": "cause_tradeoff",
+      "replicate": 0,
+      "censor_target": 0.45,
+      "train": "cause_tradeoff_r00_c45_train.csv",
+      "test": "cause_tradeoff_r00_oracle_test.csv",
+      "censor_rate": 0.3063371530943253,
+      "realized_censoring": 0.476,
+      "counts": [
+        238,
+        135,
+        127
+      ]
+    },
+    {
+      "mechanism": "cause_tradeoff",
+      "replicate": 1,
+      "censor_target": 0.2,
+      "train": "cause_tradeoff_r01_c20_train.csv",
+      "test": "cause_tradeoff_r01_oracle_test.csv",
+      "censor_rate": 0.09341178143617955,
+      "realized_censoring": 0.18,
+      "counts": [
+        90,
+        213,
+        197
+      ]
+    },
+    {
+      "mechanism": "cause_tradeoff",
+      "replicate": 1,
+      "censor_target": 0.45,
+      "train": "cause_tradeoff_r01_c45_train.csv",
+      "test": "cause_tradeoff_r01_oracle_test.csv",
+      "censor_rate": 0.3063371530943253,
+      "realized_censoring": 0.466,
+      "counts": [
+        233,
+        134,
+        133
+      ]
+    },
+    {
+      "mechanism": "cause_tradeoff",
+      "replicate": 2,
+      "censor_target": 0.2,
+      "train": "cause_tradeoff_r02_c20_train.csv",
+      "test": "cause_tradeoff_r02_oracle_test.csv",
+      "censor_rate": 0.09341178143617955,
+      "realized_censoring": 0.178,
+      "counts": [
+        89,
+        223,
+        188
+      ]
+    },
+    {
+      "mechanism": "cause_tradeoff",
+      "replicate": 2,
+      "censor_target": 0.45,
+      "train": "cause_tradeoff_r02_c45_train.csv",
+      "test": "cause_tradeoff_r02_oracle_test.csv",
+      "censor_rate": 0.3063371530943253,
+      "realized_censoring": 0.48,
+      "counts": [
+        240,
+        122,
+        138
+      ]
+    },
+    {
+      "mechanism": "cause_tradeoff",
+      "replicate": 3,
+      "censor_target": 0.2,
+      "train": "cause_tradeoff_r03_c20_train.csv",
+      "test": "cause_tradeoff_r03_oracle_test.csv",
+      "censor_rate": 0.09341178143617955,
+      "realized_censoring": 0.202,
+      "counts": [
+        101,
+        199,
+        200
+      ]
+    },
+    {
+      "mechanism": "cause_tradeoff",
+      "replicate": 3,
+      "censor_target": 0.45,
+      "train": "cause_tradeoff_r03_c45_train.csv",
+      "test": "cause_tradeoff_r03_oracle_test.csv",
+      "censor_rate": 0.3063371530943253,
+      "realized_censoring": 0.412,
+      "counts": [
+        206,
+        152,
+        142
+      ]
+    },
+    {
+      "mechanism": "time_varying",
+      "replicate": 0,
+      "censor_target": 0.2,
+      "train": "time_varying_r00_c20_train.csv",
+      "test": "time_varying_r00_oracle_test.csv",
+      "censor_rate": 0.09855154052861775,
+      "realized_censoring": 0.208,
+      "counts": [
+        104,
+        264,
+        132
+      ]
+    },
+    {
+      "mechanism": "time_varying",
+      "replicate": 0,
+      "censor_target": 0.45,
+      "train": "time_varying_r00_c45_train.csv",
+      "test": "time_varying_r00_oracle_test.csv",
+      "censor_rate": 0.3157411947514122,
+      "realized_censoring": 0.442,
+      "counts": [
+        221,
+        162,
+        117
+      ]
+    },
+    {
+      "mechanism": "time_varying",
+      "replicate": 1,
+      "censor_target": 0.2,
+      "train": "time_varying_r01_c20_train.csv",
+      "test": "time_varying_r01_oracle_test.csv",
+      "censor_rate": 0.09855154052861775,
+      "realized_censoring": 0.212,
+      "counts": [
+        106,
+        232,
+        162
+      ]
+    },
+    {
+      "mechanism": "time_varying",
+      "replicate": 1,
+      "censor_target": 0.45,
+      "train": "time_varying_r01_c45_train.csv",
+      "test": "time_varying_r01_oracle_test.csv",
+      "censor_rate": 0.3157411947514122,
+      "realized_censoring": 0.446,
+      "counts": [
+        223,
+        142,
+        135
+      ]
+    },
+    {
+      "mechanism": "time_varying",
+      "replicate": 2,
+      "censor_target": 0.2,
+      "train": "time_varying_r02_c20_train.csv",
+      "test": "time_varying_r02_oracle_test.csv",
+      "censor_rate": 0.09855154052861775,
+      "realized_censoring": 0.2,
+      "counts": [
+        100,
+        227,
+        173
+      ]
+    },
+    {
+      "mechanism": "time_varying",
+      "replicate": 2,
+      "censor_target": 0.45,
+      "train": "time_varying_r02_c45_train.csv",
+      "test": "time_varying_r02_oracle_test.csv",
+      "censor_rate": 0.3157411947514122,
+      "realized_censoring": 0.428,
+      "counts": [
+        214,
+        169,
+        117
+      ]
+    },
+    {
+      "mechanism": "time_varying",
+      "replicate": 3,
+      "censor_target": 0.2,
+      "train": "time_varying_r03_c20_train.csv",
+      "test": "time_varying_r03_oracle_test.csv",
+      "censor_rate": 0.09855154052861775,
+      "realized_censoring": 0.202,
+      "counts": [
+        101,
+        248,
+        151
+      ]
+    },
+    {
+      "mechanism": "time_varying",
+      "replicate": 3,
+      "censor_target": 0.45,
+      "train": "time_varying_r03_c45_train.csv",
+      "test": "time_varying_r03_oracle_test.csv",
+      "censor_rate": 0.3157411947514122,
+      "realized_censoring": 0.444,
+      "counts": [
+        222,
+        164,
+        114
+      ]
+    }
+  ]
+}
