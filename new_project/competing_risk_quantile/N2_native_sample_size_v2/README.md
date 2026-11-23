@@ -26,8 +26,14 @@ python src/analyze.py --data data --r-pred stage/combined/r_predictions.csv \
   --py-pred stage/combined/python_predictions.csv --output results
 ```
 
-## 结果状态
+## 已完成的原生模型运行与结果
 
-本目录上传时**仅完成方案冻结、数据生成及哈希/解析反演核验**。执行 GitHub Actions 后才能产生真实原生拟合指标。`results/` 目录若无文件，表示估计/汇总尚未完成，而非“零误差”。
+**状态：2026-11-23 已实际运行、全任务 SUCCESS。** [GitHub Actions #45179269757](https://github.com/1492770335-art/12121/actions/runs/45179269757)。包含冻结数据 108 份 CSV、72 个训练设置、三种真实原生方法，实际原生拟合检查 0 次失败。结果由 Actions 合并程序独立写入仓库 `results/`，主研究问题始终是 Q1 / Qall 条件分位数估计方法的比较。
 
-本实验只含每格 3 次训练重复，是**样本量趋势及软件稳健性扩展性研究**，不是最终显著性比较；目前三方法配置未实现同等强度交叉验证调参，不可声称全体参数空间的最佳方法。
+- [完整统计评审](STATISTICAL_REVIEW.md)：方法设计、三样本量逐终点 MAE、正确设定控制、局部分位点例外和限制。
+- [逐人完整配对预测（gzip）](results/all_patient_predictions.csv.gz)：207,360 行患者—治疗—p 对照。
+- [逐训练重复、逐方法 MAE](results/replicate_level_mae.csv)；[配对差异和 Monte Carlo 标准误](results/paired_mc_summary.csv)。
+- [可达支持／错误质量审计](results/quality.json)；[次要治疗排序诊断](results/replicate_level_ranking.csv)。
+
+**主要发现（仅在三种一般机制、三方法共同可评分的同一组患者上）：**
+Q1 的 Peng–Fine MAE 按 n=500/1000/2000 分别是 0.21583、0.13716、0.09971，低于同组 CR-RSF 和 SurvivalBoost；Qall 同样呈现较低误差。新增正确设定控制另表报告。**但每格仅 3 次重复且缺公平调参，不作最终显著优效或临床阈值结论。**
