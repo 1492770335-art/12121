@@ -1,0 +1,78 @@
+name: N2 R1 aggregate existing native estimator predictions
+
+on:
+  push:
+    paths:
+      - '.github/workflows/n2-r1-aggregate-existing.yml'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  audit-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install analysis libraries only
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas==2.3.3'
+      - name: Download single frozen Oracle dataset (successful original run)
+        uses: actions/download-artifact@v4
+        with:
+          name: n2-v1-data
+          run-id: 45175130223
+          repository: 1492770335-art/12121
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: new_project/competing_risk_quantile/N2_native_repeated_v1/data
+      - name: Download Peng-Fine and CR-RSF ORIGINAL predictions (no refitting)
+        uses: actions/download-artifact@v4
+        with:
+          name: n2-v1-r
+          run-id: 45175130223
+          repository: 1492770335-art/12121
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: native_original/r
+      - name: Download SurvivalBoost ORIGINAL predictions (no refitting)
+        uses: actions/download-artifact@v4
+        with:
+          name: n2-v1-python
+          run-id: 45175130223
+          repository: 1492770335-art/12121
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: native_original/python
+      - name: Confirm 36 frozen CSV hashes before evaluating
+        run: |
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/validate_manifest.py \
+            --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
+            --freeze new_project/competing_risk_quantile/N2_native_repeated_v1/FROZEN_SHA256.json
+      - name: Compute original-protocol paired MAE and four-repeat Monte Carlo summary
+        run: |
+          python new_project/competing_risk_quantile/N2_native_repeated_v1/src/analyze.py \
+            --data new_project/competing_risk_quantile/N2_native_repeated_v1/data \
+            --r-pred native_original/r/native_r_predictions.csv \
+            --py-pred native_original/python/native_python_predictions.csv \
+            --output new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1
+      - name: Preserve original fit statuses and package versions
+        run: |
+          cp native_original/r/native_r_fit_status.csv new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/
+          cp native_original/r/native_r_session.txt new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/
+          cp native_original/python/native_python_fit_status.json new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/
+          cp native_original/python/native_python_versions.json new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-r1-verified-combined-results
+          path: new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/**
+          retention-days: 90
+      - name: Commit the verified original results to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add new_project/competing_risk_quantile/N2_native_repeated_v1/results_v1/
+          git diff --cached --quiet || git commit -m "[skip ci] N2 R1 publish verified native per-patient quantile estimates"
+          git push origin HEAD:main
