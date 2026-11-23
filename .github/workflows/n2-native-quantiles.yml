@@ -1,0 +1,73 @@
+name: N2 native quantile estimator smoke
+
+on:
+  push:
+    paths:
+      - 'new_project/competing_risk_quantile/N2_native_benchmark/**'
+      - '.github/workflows/n2-native-quantiles.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install native SurvivalBoost
+        run: python -m pip install --disable-pip-version-check 'numpy<3' scipy pandas scikit-learn hazardous
+      - name: Generate frozen paired data and check Oracle inverse
+        run: |
+          python new_project/competing_risk_quantile/N2_native_benchmark/src/generate.py
+          python new_project/competing_risk_quantile/N2_native_benchmark/src/validate_manifest.py
+      - name: Run published SurvivalBoost
+        run: |
+          cd new_project/competing_risk_quantile/N2_native_benchmark
+          PYTHONPATH=src python src/run_survivalboost.py --data data --output results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-native-python-results
+          path: |
+            new_project/competing_risk_quantile/N2_native_benchmark/data/**
+            new_project/competing_risk_quantile/N2_native_benchmark/results/**
+          retention-days: 30
+
+  native-r:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: true
+      - name: Install generator and actual R estimators
+        run: |
+          python -m pip install --disable-pip-version-check numpy scipy pandas
+          Rscript -e 'install.packages(c("cmprskQR", "randomForestSRC"), repos="https://cloud.r-project.org", Ncpus=2)'
+      - name: Generate exactly same frozen data
+        run: |
+          python new_project/competing_risk_quantile/N2_native_benchmark/src/generate.py
+          python new_project/competing_risk_quantile/N2_native_benchmark/src/validate_manifest.py
+      - name: Run published Peng-Fine and CR-RSF implementations
+        run: |
+          Rscript new_project/competing_risk_quantile/N2_native_benchmark/src/run_r_estimators.R \
+            new_project/competing_risk_quantile/N2_native_benchmark/data \
+            new_project/competing_risk_quantile/N2_native_benchmark/results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n2-native-r-results
+          path: |
+            new_project/competing_risk_quantile/N2_native_benchmark/data/**
+            new_project/competing_risk_quantile/N2_native_benchmark/results/**
+          retention-days: 30
