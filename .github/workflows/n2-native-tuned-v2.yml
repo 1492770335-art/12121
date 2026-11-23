@@ -20,11 +20,12 @@ jobs:
           python-version: '3.11'
       - name: Install pinned generation packages
         run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0'
-      - name: Generate once and audit 240 frozen CSV files
+      - name: Generate once; freeze authoritative SHA256 in shared artifact
         run: |
           ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
           python "$ROOT/src/generate.py" --output "$ROOT/data"
-          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/data/manifest.json"
+          sha256sum "$ROOT/data/manifest.json"
       - uses: actions/upload-artifact@v4
         with:
           name: n2-t2-frozen-data
@@ -60,10 +61,10 @@ jobs:
         with:
           name: n2-t2-frozen-data
           path: new_project/competing_risk_quantile/N2_native_tuned_v2/data
-      - name: Check exactly the same 240 precommitted SHA256 hashes
+      - name: Check exact SHA256 of shared immutable runner-generated data
         run: |
           ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
-          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/data/manifest.json"
       - name: Native Peng-Fine and forest train-only tuning, full refit, patient predictions
         continue-on-error: true
         run: |
@@ -99,10 +100,10 @@ jobs:
         with:
           name: n2-t2-frozen-data
           path: new_project/competing_risk_quantile/N2_native_tuned_v2/data
-      - name: Verify exactly the same frozen data
+      - name: Verify exact SHA256 of shared immutable runner-generated data
         run: |
           ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
-          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/data/manifest.json"
       - name: Native SurvivalBoost train-only tuning, refit, patient predictions
         run: |
           ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
@@ -145,7 +146,7 @@ jobs:
       - name: Stitch all 10 R and 10 Python shards then evaluate common patients
         run: |
           ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
-          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/data/manifest.json"
           python "$ROOT/src/stitch.py" --r-root stage/r --py-root stage/py --out stage/combined
           python "$ROOT/src/analyze.py" --data "$ROOT/data" \
             --r-pred stage/combined/r_predictions.csv \
@@ -157,6 +158,11 @@ jobs:
           name: n2-t2-complete-quantile-comparison
           path: new_project/competing_risk_quantile/N2_native_tuned_v2/results/**
           retention-days: 30
+      - name: Persist canonical per-run SHA256 manifest
+        run: |
+          ROOT=new_project/competing_risk_quantile/N2_native_tuned_v2
+          mkdir -p "$ROOT/results"
+          cp "$ROOT/data/manifest.json" "$ROOT/results/CI_FROZEN_SHA256.json"
       - name: Publish exact native outputs without triggering refit
         run: |
           git config user.name 'github-actions[bot]'
