@@ -1,0 +1,54 @@
+{
+  "n_total_native_full_training_fits": 216,
+  "counts_by_status": [
+    {
+      "method": "CRRSF",
+      "status": "ok",
+      "n": 72
+    },
+    {
+      "method": "PengFine",
+      "status": "ok",
+      "n": 72
+    },
+    {
+      "method": "SurvivalBoost",
+      "status": "ok",
+      "n": 72
+    }
+  ],
+  "train_only_candidate_selection_counts": [
+    {
+      "method": "CRRSF",
+      "selected_candidate": "20",
+      "n": 70
+    },
+    {
+      "method": "CRRSF",
+      "selected_candidate": "5",
+      "n": 2
+    },
+    {
+      "method": "PengFine",
+      "selected_candidate": "linear",
+      "n": 50
+    },
+    {
+      "method": "PengFine",
+      "selected_candidate": "quad",
+      "n": 22
+    },
+    {
+      "method": "SurvivalBoost",
+      "selected_candidate": 40,
+      "n": 62
+    },
+    {
+      "method": "SurvivalBoost",
+      "selected_candidate": 100,
+      "n": 10
+    }
+  ],
+  "failed": [],
+  "explanation": "Native-model failures are retained, never imputed; these are final full-training fits after train-only validation."
+}
