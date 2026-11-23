@@ -146,8 +146,8 @@ def main():
                     'n_predicted_zero':int((data[f'pred_{m}']==0).sum())}
     (a.output/'quality.json').write_text(json.dumps(quality,indent=2,ensure_ascii=False)+'\n')
     # Fully automated short report; data numbers from executed estimator outputs only.
-    lines=['# N2-S2 原生估计器样本量与正确设定机制试验：自动汇总报告','',
-       '**性质：**独立新课题，主要比较 Q1 与 Qall 的分位数估计；本轮 3 次训练重复为方法验证，不支持临床优效/最终模型选择。','',
+    lines=['# N2-T1 原生估计器样本量与正确设定机制试验：自动汇总报告','',
+       '**性质：**独立新课题，主要比较 Q1 与 Qall 的分位数估计；本轮 4 次训练重复为方法验证，不支持临床优效/最终模型选择。','',
        f'- Oracle 逐患者—治疗—p 记录：{len(master)}。',
        f'- 真实严格内点记录：{int(data.true_reach.sum())}；三方法共同可评分：{int(data.common_scorable.sum())}。','',
        '|方法|有限预测数|真实可达漏报|真实不可达误报|预测时间恰为0|','|---|---:|---:|---:|---:|']
@@ -155,7 +155,7 @@ def main():
         row=quality[m]
         lines.append(f'|{m}|{row["n_finite_predictions"]}|{row["n_missed"]}|{row["n_false_finite"]}|{row["n_predicted_zero"]}|')
     lines.extend(['','具体数值详见 replicate_level_mae.csv、replicate_level_pairwise.csv、paired_mc_summary.csv、replicate_level_ranking.csv。',
-                  '','**限制**：只有 3 个重复；原生算法函数类和超参不同；仅能在共同可评分人群上严格配对，必须同时报告各方法的可达率与漏报。',
+                  '','**限制**：只有 4 个重复；原生算法函数类和超参不同；仅能在共同可评分人群上严格配对，必须同时报告各方法的可达率与漏报。',
                   '','此文由 analyze.py 从实际预测表生成，不是预先猜测的赢家报告。'])
     (a.output/'REPORT.md').write_text('\n'.join(lines)+'\n')
     print('PASS analysis: oracle',len(master),'common',int(data.common_scorable.sum()),flush=True)
