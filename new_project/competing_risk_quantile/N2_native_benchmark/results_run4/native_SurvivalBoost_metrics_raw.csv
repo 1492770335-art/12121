@@ -1,0 +1,25 @@
+method,mechanism,censor_target,p,n_eval,n_true_reachable,n_pred_reachable,n_both,mae,fp_unreachable,fn_missing,predicted_reach_pct,scorable_pct,cdf_nonmonotone_pct,notes
+SurvivalBoost-native,aligned,20,0.06,240,240,240,240,0.12684008403979607,0,0,100.0,100.0,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,aligned,20,0.12,240,240,239,239,0.280223568082807,0,1,99.58333333333333,99.58333333333333,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,aligned,20,0.18,240,240,232,232,0.3409335497652706,0,8,96.66666666666667,96.66666666666667,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,aligned,20,0.24,240,240,189,189,0.5689448434427354,0,51,78.75,78.75,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,aligned,45,0.06,240,240,240,240,0.08042559430495115,0,0,100.0,100.0,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,aligned,45,0.12,240,240,240,240,0.1368315418537376,0,0,100.0,100.0,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,aligned,45,0.18,240,240,230,230,0.3488126197356543,0,10,95.83333333333334,95.83333333333334,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,aligned,45,0.24,240,240,210,210,0.5391745244173091,0,30,87.5,87.5,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,cause_tradeoff,20,0.06,240,240,240,240,0.09208395801504281,0,0,100.0,100.0,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,cause_tradeoff,20,0.12,240,240,230,230,0.1756710392421758,0,10,95.83333333333334,95.83333333333334,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,cause_tradeoff,20,0.18,240,238,203,203,0.25978417486128774,0,35,84.58333333333333,84.58333333333333,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,cause_tradeoff,20,0.24,240,204,184,177,0.27561073233496197,7,27,76.66666666666667,73.75,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,cause_tradeoff,45,0.06,240,240,240,240,0.16031995196382864,0,0,100.0,100.0,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,cause_tradeoff,45,0.12,240,240,236,236,0.4131985394645137,0,4,98.33333333333333,98.33333333333333,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,cause_tradeoff,45,0.18,240,238,207,205,0.5187875492895025,2,33,86.25,85.41666666666666,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,cause_tradeoff,45,0.24,240,204,174,165,0.48656891907433775,9,39,72.5,68.75,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,time_varying,20,0.06,240,240,240,240,0.1385732689089498,0,0,100.0,100.0,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,time_varying,20,0.12,240,240,240,240,0.21948400768671406,0,0,100.0,100.0,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,time_varying,20,0.18,240,240,240,240,0.2881880667499389,0,0,100.0,100.0,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,time_varying,20,0.24,240,240,240,240,0.28483248793458926,0,0,100.0,100.0,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,time_varying,45,0.06,240,240,240,240,0.1503021913472756,0,0,100.0,100.0,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,time_varying,45,0.12,240,240,238,238,0.3183830249881639,0,2,99.16666666666667,99.16666666666667,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,time_varying,45,0.18,240,240,230,230,0.38569999488665657,0,10,95.83333333333334,95.83333333333334,100.0,version=0.2.0; n_iter=40
+SurvivalBoost-native,time_varying,45,0.24,240,240,212,212,0.35527381854865775,0,28,88.33333333333333,88.33333333333333,100.0,version=0.2.0; n_iter=40
