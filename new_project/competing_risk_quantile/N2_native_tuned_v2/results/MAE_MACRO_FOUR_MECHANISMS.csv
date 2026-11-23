@@ -1,0 +1,5 @@
+endpoint,n_train,PengFine,CRRSF,SurvivalBoost,scope
+q1,500,0.2193417069,0.2596281782,0.2674397839,four_general_mechanisms_common_scorable_equal_cells
+q1,1000,0.1618118733,0.2543289118,0.2042838998,four_general_mechanisms_common_scorable_equal_cells
+qall,500,0.1582605226,0.2015453844,0.1964852757,four_general_mechanisms_common_scorable_equal_cells
+qall,1000,0.1245330220,0.2035490950,0.1403132763,four_general_mechanisms_common_scorable_equal_cells
