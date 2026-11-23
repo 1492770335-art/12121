@@ -1,0 +1,29 @@
+{
+  "seed": 2026112309,
+  "mechanisms": [
+    "aligned",
+    "cause_tradeoff",
+    "time_varying"
+  ],
+  "reps": 8,
+  "ntrain": 900,
+  "ntest": 1000,
+  "censor_rates": [
+    0.15,
+    0.35
+  ],
+  "p_diagnostic": [
+    0.12,
+    0.18,
+    0.24
+  ],
+  "horizon": 3.0,
+  "base_N2_source": "/mnt/data/N2_new_project_research/src/n2_pilot.py",
+  "strict_interior_rule": "F1^a(H)>p+1e-10",
+  "no_final_risk_threshold_selected": true,
+  "no_first_stage_delta_selected": true,
+  "truth_unreachable_decision": "not ranked; flag as undefined not worse or better",
+  "direct": "bounded quantile estimating equation ALWAYS finite, thus structurally incapable of detecting unattainability",
+  "joint": "IPCW multinomial CIF, monotonic normalization, window-end reachability indicator",
+  "note": "Pilot and structural audit, not exact Peng-Fine method or clinical result; same frozen original N2 seed streams"
+}
