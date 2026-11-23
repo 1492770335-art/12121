@@ -1,4 +1,4 @@
-mechanism,group,n,pct,z1_mean,z2_1_pct,f1_t0_mean,f2_t0_mean,first_flip_p_median
+mechanism,group,n,pct,z1_mean,z2_1_pct,f1_at_L_mean,f2_at_L_mean,first_flip_p_median
 aligned,flip,0,0.0000000000,,,,,
 aligned,no_flip,4000,100.0000000000,-0.0098037814,49.6750000000,0.3587118492,0.2578071495,
 cause_tradeoff,flip,0,0.0000000000,,,,,
