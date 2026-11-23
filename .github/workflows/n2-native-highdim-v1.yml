@@ -24,7 +24,9 @@ jobs:
         run: |
           ROOT=new_project/competing_risk_quantile/N2_native_highdim_v1
           python "$ROOT/src/generate.py" --output "$ROOT/data"
-          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+          # Freeze the single runner-generated dataset BEFORE any native fitting.
+          cp "$ROOT/data/manifest.json" "$ROOT/data/CI_FROZEN_SHA256.json"
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/data/CI_FROZEN_SHA256.json"
       - uses: actions/upload-artifact@v4
         with:
           name: n2-h1-frozen-data
@@ -63,7 +65,7 @@ jobs:
       - name: Check exactly the same 72 precommitted SHA256 hashes
         run: |
           ROOT=new_project/competing_risk_quantile/N2_native_highdim_v1
-          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/data/CI_FROZEN_SHA256.json"
       - name: Native Peng-Fine and forest train-only tuning, full refit, patient predictions
         continue-on-error: true
         run: |
@@ -102,7 +104,7 @@ jobs:
       - name: Verify exactly the same frozen data
         run: |
           ROOT=new_project/competing_risk_quantile/N2_native_highdim_v1
-          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/data/CI_FROZEN_SHA256.json"
       - name: Native SurvivalBoost train-only tuning, refit, patient predictions
         run: |
           ROOT=new_project/competing_risk_quantile/N2_native_highdim_v1
@@ -145,12 +147,13 @@ jobs:
       - name: Stitch all 6 R and 6 Python shards then evaluate common patients
         run: |
           ROOT=new_project/competing_risk_quantile/N2_native_highdim_v1
-          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/FROZEN_SHA256.json"
+          python "$ROOT/src/validate.py" --data "$ROOT/data" --frozen "$ROOT/data/CI_FROZEN_SHA256.json"
           python "$ROOT/src/stitch.py" --r-root stage/r --py-root stage/py --out stage/combined
           python "$ROOT/src/analyze.py" --data "$ROOT/data" \
             --r-pred stage/combined/r_predictions.csv \
             --py-pred stage/combined/python_predictions.csv \
             --output "$ROOT/results"
+          cp "$ROOT/data/CI_FROZEN_SHA256.json" "$ROOT/results/CI_FROZEN_SHA256.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
