@@ -47,6 +47,35 @@ score<-function(method,mech,censor,truth,time,cf,version){
   })
   do.call(rbind,out)
 }
+score_direct <- function(method,mech,censor,truth,tau,qmat,version){
+  if(!is.matrix(qmat)||nrow(qmat)!=nrow(truth)||ncol(qmat)!=length(tau))stop('invalid direct Q dimensions')
+  if(any(!is.finite(tau))||any(diff(tau)<=0)||min(tau)<=0||max(tau)>=1)stop('invalid tau grid')
+  rows<-lapply(probs,function(p){
+    true<-truth[[sprintf('true_q1_p%.2f',p)]]
+    # The native crrQR prediction is a row of time quantiles per test record, not a CIF.
+    pred<-vapply(seq_len(nrow(qmat)),function(i){
+      v<-qmat[i,]
+      if(any(!is.finite(v))) return(NA_real_)
+      as.numeric(approx(x=tau,y=v,xout=p,rule=1,ties='ordered')$y)
+    },numeric(1))
+    invalid<-!is.finite(pred)|pred<=0
+    reached<-!invalid & pred < 3-1e-12
+    actual<-is.finite(true)
+    both<-actual&reached
+    data.frame(method=method,mechanism=mech,censor_target=censor,p=p,n_eval=nrow(qmat),
+      n_true_reachable=sum(actual),n_pred_reachable=sum(reached),n_both=sum(both),
+      mae=if(any(both))mean(abs(true[both]-pred[both]))else NA_real_,
+      fp_unreachable=sum(!actual&reached),fn_missing=sum(actual&!reached),
+      predicted_reach_pct=100*mean(reached),scorable_pct=100*mean(both),
+      cdf_nonmonotone_pct=NA_real_,n_invalid_curve=sum(invalid),
+      notes=paste0('native direct quantile time; version=',version))
+  })
+  cat('PENGFINE_Q_AUDIT',mech,censor,'tau_length',length(tau),
+      'Q_min',suppressWarnings(min(qmat,na.rm=TRUE)),
+      'Q_max',suppressWarnings(max(qmat,na.rm=TRUE)),
+      'nonfinite',sum(!is.finite(qmat)),'\n')
+  do.call(rbind,rows)
+}
 for(mech in mechs){
   truth<-read.csv(file.path(datadir,paste0(mech,'_oracle_test.csv')),check.names=FALSE)
   newdata<-truth[,c('a','z1','z2','az1')]
@@ -61,9 +90,11 @@ for(mech in mechs){
         predicted<-predict(fit,newx,rearrangement=TRUE)
         predicted<-as.matrix(predicted)
         if(ncol(predicted)!=nrow(truth)+1L)stop(sprintf('unexpected crrQR prediction matrix %s',paste(dim(predicted),collapse='x')))
-        tm<-as.numeric(predicted[,1]); cdf<-t(predicted[,-1,drop=FALSE])
-        if(any(diff(tm)<0))stop('unsorted predicted times')
-        cursor<-cursor+1;results[[cursor]]<-score('PengFine-cmprskQR-native',mech,censor,truth,tm,cdf,as.character(packageVersion('cmprskQR')))
+        # Official source cbind(exp(x beta(tau)), tau.seq): last column is tau.
+        tau<-as.numeric(predicted[,ncol(predicted)])
+        qmat<-t(predicted[,-ncol(predicted),drop=FALSE])
+        if(any(diff(tau)<=0))stop('non-increasing quantile probability grid')
+        cursor<-cursor+1;results[[cursor]]<-score_direct('PengFine-cmprskQR-native',mech,censor,truth,tau,qmat,as.character(packageVersion('cmprskQR')))
         cat('PASS PengFine',mech,censor,'\n')
       },error=function(e)record_fail('PengFine-cmprskQR-native',mech,censor,conditionMessage(e)))
     }else record_fail('PengFine-cmprskQR-native',mech,censor,'R package cmprskQR not installed')
