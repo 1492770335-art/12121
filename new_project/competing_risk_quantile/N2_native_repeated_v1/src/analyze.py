@@ -44,8 +44,8 @@ def read_prediction(path:Path, method:str, master:pd.DataFrame)->pd.DataFrame:
         if compare['true_q_oracle'].isna().all():pass
         delta=(compare.true_q_prediction-compare.true_q_oracle).abs()
         if (delta.fillna(0)>1e-4).any():raise ValueError(f'true quantile mismatch for {method}')
-        if (pred['pred_q'].notna() & ( (pred['pred_q']<=0) | (pred['pred_q']>=3))).any():
-            raise ValueError(f'out-of-window direct quantile for {method}')
+        if (pred['pred_q'].notna() & ((pred['pred_q'] < 0) | (pred['pred_q'] >= 3))).any():
+            raise ValueError(f'out-of-window quantile for {method}')
     frame=frame.merge(pred[KEY+['pred_q']].rename(columns={'pred_q':f'pred_{method}'}),on=KEY,how='left',validate='one_to_one')
     return frame
 
@@ -136,17 +136,18 @@ def main():
     for m in METH:
         quality[m]={'n_finite_predictions':int(data[f'reach_{m}'].sum()),
                     'n_missed':int((data.true_reach & ~data[f'reach_{m}']).sum()),
-                    'n_false_finite':int((~data.true_reach & data[f'reach_{m}']).sum())}
+                    'n_false_finite':int((~data.true_reach & data[f'reach_{m}']).sum()),
+                    'n_predicted_zero':int((data[f'pred_{m}']==0).sum())}
     (a.output/'quality.json').write_text(json.dumps(quality,indent=2,ensure_ascii=False)+'\n')
     # Fully automated short report; data numbers from executed estimator outputs only.
     lines=['# N2-R1 原生估计器多重复试验：自动汇总报告','',
        '**性质：**独立新课题，主要比较 Q1 与 Qall 的分位数估计；本轮 4 次训练重复为方法验证，不支持临床优效/最终模型选择。','',
        f'- Oracle 逐患者—治疗—p 记录：{len(master)}。',
        f'- 真实严格内点记录：{int(data.true_reach.sum())}；三方法共同可评分：{int(data.common_scorable.sum())}。','',
-       '|方法|有限预测数|真实可达漏报|真实不可达误报|','|---|---:|---:|---:|']
+       '|方法|有限预测数|真实可达漏报|真实不可达误报|预测时间恰为0|','|---|---:|---:|---:|---:|']
     for m in METH:
         row=quality[m]
-        lines.append(f'|{m}|{row["n_finite_predictions"]}|{row["n_missed"]}|{row["n_false_finite"]}|')
+        lines.append(f'|{m}|{row["n_finite_predictions"]}|{row["n_missed"]}|{row["n_false_finite"]}|{row["n_predicted_zero"]}|')
     lines.extend(['','具体数值详见 replicate_level_mae.csv、replicate_level_pairwise.csv、paired_mc_summary.csv、replicate_level_ranking.csv。',
                   '','**限制**：只有 4 个重复；原生算法函数类和超参不同；仅能在共同可评分人群上严格配对，必须同时报告各方法的可达率与漏报。',
                   '','此文由 analyze.py 从实际预测表生成，不是预先猜测的赢家报告。'])
