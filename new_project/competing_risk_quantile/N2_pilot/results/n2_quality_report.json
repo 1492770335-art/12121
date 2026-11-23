@@ -1,0 +1,16 @@
+{
+  "total_training_replications": 192,
+  "rows_expected": 1152,
+  "rows_found": 1152,
+  "all_joint_models_converged": true,
+  "all_direct_solvers_success_status": true,
+  "direct_moment_norm_max": 0.0425022270563879,
+  "direct_moment_norm_over_0p01_fraction": 0.140625,
+  "no_invalid_class_probabilities_by_projection": true,
+  "true_joint_strict_interior_min_pct": 65.9,
+  "true_joint_strict_interior_mean_pct": 96.57534722222222,
+  "all_comparison_pairs_matched": true,
+  "mean_direct_incoherent_q1_below_qall_pct": 1.017534722222222,
+  "mean_joint_incoherent_q1_below_qall_pct": 0.0,
+  "note": "Direct moment solver success is not proof moment root was found: non-zero moments remain and are audited; global model cannot detect true unreachable p."
+}
