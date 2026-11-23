@@ -50,10 +50,14 @@ jobs:
         with:
           r-version: 'release'
           use-public-rspm: true
+      - name: Install system library for randomForestSRC dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libuv1-dev
       - name: Install generator and actual R estimators
         run: |
           python -m pip install --disable-pip-version-check numpy scipy pandas
-          Rscript -e 'install.packages(c("cmprskQR", "randomForestSRC"), repos="https://cloud.r-project.org", Ncpus=2)'
+          Rscript -e 'repo<-Sys.getenv("RSPM"); if(!nzchar(repo))repo<-"https://cloud.r-project.org"; install.packages(c("cmprskQR", "randomForestSRC"), repos=repo, Ncpus=2)'
       - name: Generate exactly same frozen data
         run: |
           python new_project/competing_risk_quantile/N2_native_benchmark/src/generate.py
