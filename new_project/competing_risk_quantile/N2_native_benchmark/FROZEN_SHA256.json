@@ -1,0 +1,11 @@
+{
+  "aligned_c20_train.csv": "393ab4d71c861ebc95cc7c6a838d96ec419b7a8c313c83b7b262ef42ef2e0142",
+  "aligned_c45_train.csv": "659cf90b638606abc3ffd166b65f2d7ec95ba9a0f58b57bda20c13f3966ea4ee",
+  "aligned_oracle_test.csv": "4f205f13d809ee7bb9ff49d12237789f23cd422634ec7fa9aabbff69f3e14b59",
+  "cause_tradeoff_c20_train.csv": "87ea4092e1f2e8c3faba3923e560065fd6fe39930298915125bf93d65a8bff97",
+  "cause_tradeoff_c45_train.csv": "a17bc83b54e4f7db9fe6e7b309700d393eb103f434dac01246b0fecb1a0db647",
+  "cause_tradeoff_oracle_test.csv": "2bac45308f6ec3df4ebe226c03c29513bddf2db8018a2f04a2ba6074fce33395",
+  "time_varying_c20_train.csv": "cd12dc0ac4a1a3768620b5602b15b4221460bc460d3cb88adba3045c8ce88984",
+  "time_varying_c45_train.csv": "77d968ab2a3b123aa5e2f3f4c78cdc73771f7c544b44451f5abfe21da7e7bfbd",
+  "time_varying_oracle_test.csv": "71a5d38080ee5718d3cda4adb162e219dd425671262eb83b9161066b1da03c8d"
+}
