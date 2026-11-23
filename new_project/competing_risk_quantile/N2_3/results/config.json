@@ -1,0 +1,30 @@
+{
+  "source": "/mnt/data/N2_new_project_research/src/n2_pilot.py",
+  "seed": 2026112309,
+  "reps": 32,
+  "ntrain": 900,
+  "ntest": 1000,
+  "scenarios": [
+    "aligned",
+    "cause_tradeoff",
+    "time_varying"
+  ],
+  "censor_rates": [
+    0.15,
+    0.35
+  ],
+  "diagnostic_p": [
+    0.12,
+    0.18,
+    0.24
+  ],
+  "actual_model_classes": [
+    "direct",
+    "gated_direct",
+    "gated_projected",
+    "joint",
+    "joint_confirmed"
+  ],
+  "horizon": 3.0,
+  "note": "Finite p only a diagnostic. Never chosen to maximize performance; abstain uses fixed A=0 in deploy metric."
+}
