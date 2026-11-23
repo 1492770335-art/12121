@@ -282,7 +282,7 @@ def test():
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--out',type=Path,default=Path(__file__).parent/'results')
+    parser.add_argument('--out',type=Path,default=Path(__file__).resolve().parents[1]/'results')
     parser.add_argument('--reps',type=int,default=12)
     parser.add_argument('--ntrain',type=int,default=900)
     parser.add_argument('--ntest',type=int,default=1000)
