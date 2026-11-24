@@ -1,0 +1,20 @@
+name: V8 prune superseded long-running pilot jobs
+on:
+  push:
+    paths:
+      - '.github/workflows/v8-prune-stale.yml'
+permissions:
+  actions: write
+  contents: read
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel only superseded V8 jobs on same feature branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for ID in 45333840681 45334637331 45334139878 45333814399; do
+            echo "Cancel old pilot run $ID"
+            gh api --method POST "repos/$GITHUB_REPOSITORY/actions/runs/$ID/cancel" || true
+          done
