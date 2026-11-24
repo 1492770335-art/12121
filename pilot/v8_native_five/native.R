@@ -19,9 +19,8 @@ extract_tx <- function(pred,levels,n) {
     if(isS4(pred)) val <- slot(pred,"optimalTx") else val <- pred
     val <- as.numeric(val)
     if(length(val)!=n || anyNA(val)) stop("bad predicted treatment length or NA")
-    if(all(val %in% seq_along(levels))) return(as.integer(as.numeric(levels[val])))
-    if(all(val %in% c(0,1))) return(as.integer(val))
-    stop(paste("unknown policy labels:",paste(unique(val),collapse=","), "levels:",paste(levels,collapse=",")))
+    if(all(val %in% as.numeric(levels))) return(as.integer(val))
+    stop(paste("unknown native treatment labels:",paste(unique(val),collapse=","), "levels:",paste(levels,collapse=",")))
 }
 run_method <- function(method,train,test,seed) {
     set.seed(seed)
