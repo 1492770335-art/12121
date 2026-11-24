@@ -68,6 +68,7 @@ run_method <- function(method,train,test,seed) {
         return(list(d=as.integer(dcf[,2]<dcf[,1]-1e-12),detail="randomForestSRC competing-risk CIF at 3y"))
     }
     if(method=="ITR") {
+       suppressPackageStartupMessages(library(dplyr))
        suppressPackageStartupMessages(library(itrSurv))
        times <- sort(unique(train$obs_time[train$D.0==1]))
        fit <- itrSurv::itrSurv(
