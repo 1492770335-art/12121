@@ -49,6 +49,7 @@ jobs:
             Rscript -e 'install.packages("randomForestSRC",repos=Sys.getenv("RSPM","https://cloud.r-project.org"),Ncpus=2)'
           elif [ "$METHOD" = ITR ]; then
             git clone --depth 1 https://github.com/cwzhou/itrSurv.git /tmp/itrSurv
+            find /tmp/itrSurv/src -maxdepth 1 -type f \( -name '*.o' -o -name '*.so' -o -name '*.dll' -o -name '*.dylib' \) -delete
             R CMD INSTALL /tmp/itrSurv
           fi
       - name: Fit published native method on paired M1/M2
