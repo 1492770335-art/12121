@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        method: [PMCR, DTR, RSF, ITR]
+        method: [ITR]
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -48,8 +48,8 @@ jobs:
             sudo apt-get install -y libuv1-dev
             Rscript -e 'install.packages("randomForestSRC",repos=Sys.getenv("RSPM","https://cloud.r-project.org"),Ncpus=2)'
           elif [ "$METHOD" = ITR ]; then
-            Rscript -e 'install.packages("remotes",repos=Sys.getenv("RSPM","https://cloud.r-project.org"))'
-            Rscript -e 'remotes::install_github("cwzhou/itrSurv",dependencies=FALSE,upgrade="never",quiet=FALSE)'
+            git clone --depth 1 https://github.com/cwzhou/itrSurv.git /tmp/itrSurv
+            R CMD INSTALL /tmp/itrSurv
           fi
       - name: Fit published native method on paired M1/M2
         env:
