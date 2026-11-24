@@ -25,11 +25,11 @@ RSF Starting: Phase 1: look at survival
 model Surv(obs_time, D.0) ~ Z1 + Z2
 we set pr2=pr2_surv=pr_surv=pr since we don't use pr2,pr2_surv,pr_surv in this setting
   treatment level 0
-number of individuals in training data: 994
-number of time points: 1324
+number of individuals in training data: 991
+number of time points: 1424
 total number of trees to be grown in forest: 300
-number of samples (individuals) to include in each tree: 994
-maximum nodes in a tree based on samples (individuals): 1989
+number of samples (individuals) to include in each tree: 991
+maximum nodes in a tree based on samples (individuals): 1983
 
 
 
@@ -38,11 +38,11 @@ maximum nodes in a tree based on samples (individuals): 1989
 
 [1] "Survival"
   treatment level 1
-number of individuals in training data: 1006
-number of time points: 1324
+number of individuals in training data: 1009
+number of time points: 1424
 total number of trees to be grown in forest: 300
-number of samples (individuals) to include in each tree: 1006
-maximum nodes in a tree based on samples (individuals): 2013
+number of samples (individuals) to include in each tree: 1009
+maximum nodes in a tree based on samples (individuals): 2019
 
 
 
@@ -60,11 +60,11 @@ RSF Starting: Phase 2: look at CR
 model_endpoint Surv(obs_time, D.1) ~ Z1 + Z2
 we set pr2=pr2_surv=pr_surv=pr since we don't use pr2,pr2_surv,pr_surv in this setting
   treatment level 0
-number of individuals in training data: 994
-number of time points: 1324
+number of individuals in training data: 991
+number of time points: 1424
 total number of trees to be grown in forest: 300
-number of samples (individuals) to include in each tree: 994
-maximum nodes in a tree based on samples (individuals): 1989
+number of samples (individuals) to include in each tree: 991
+maximum nodes in a tree based on samples (individuals): 1983
 
 
 
@@ -73,11 +73,11 @@ maximum nodes in a tree based on samples (individuals): 1989
 
 [1] "CR"
   treatment level 1
-number of individuals in training data: 1006
-number of time points: 1324
+number of individuals in training data: 1009
+number of time points: 1424
 total number of trees to be grown in forest: 300
-number of samples (individuals) to include in each tree: 1006
-maximum nodes in a tree based on samples (individuals): 2013
+number of samples (individuals) to include in each tree: 1009
+maximum nodes in a tree based on samples (individuals): 2019
 
 
 
@@ -88,7 +88,7 @@ maximum nodes in a tree based on samples (individuals): 2013
 
 
 --- itrSurv: Value Functions ---
-Estimated Value: Et_survival: 2.01457654440949 AUS: 2.01457654440949 PropPhase2: 0.201 Et_cif: 0.740574921381048 AUC: 0.740574921381049class_ITRSurvStep.R: LINE 237: resV_surv and resV_ep saved.
+Estimated Value: Et_survival: 1.79895360755197 AUS: 1.79895360755197 PropPhase2: 0.1745 Et_cif: 0.536917338905727 AUC: 0.536917338905727class_ITRSurvStep.R: LINE 237: resV_surv and resV_ep saved.
 class_ITRSurvStep.R: LINE 237: resV_surv and resV_ep saved.
-SUCCESS ITR M2_r10 n1 853 seconds 189.7 itrSurv ratio stop phase1=0.8135 
+SUCCESS ITR M1_r17 n1 917 seconds 238.5 itrSurv ratio stop phase1=0.822 
 DONE ITR 
