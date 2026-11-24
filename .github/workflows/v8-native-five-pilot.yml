@@ -3,18 +3,86 @@ on:
   push:
     branches: [pilot/v8-native-five-20261124]
     paths:
-      - 'pilot/v8_native_five/**'
+      - 'pilot/v8_native_five/generate.py'
+      - 'pilot/v8_native_five/native.R'
+      - 'pilot/v8_native_five/analyze.py'
       - '.github/workflows/v8-native-five-pilot.yml'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
-  smoke:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        method: [PMCR, DTR, RSF, ITR]
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: pilot/v8-native-five-20261124
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: true
+      - name: Install data generator
+        run: python -m pip install --disable-pip-version-check numpy
+      - name: Reproduce exactly original paired training and test cohorts
+        run: python pilot/v8_native_five/generate.py 2
+      - name: Install exact R method
+        env:
+          METHOD: ${{ matrix.method }}
+        run: |
+          set -e
+          if [ "$METHOD" = PMCR ]; then
+            Rscript -e 'install.packages(c("rgenoud","rpart"),repos=Sys.getenv("RSPM","https://cloud.r-project.org"),Ncpus=2)'
+            curl -fsSL https://raw.githubusercontent.com/JieraZhou/PMCRcode/1ddbf813cb95473befbd7c43378c86cb2ee124ee/PMCRfun.R -o pilot/v8_native_five/PMCRfun.R
+          elif [ "$METHOD" = DTR ]; then
+            Rscript -e 'install.packages("dtrSurv",repos=Sys.getenv("RSPM","https://cloud.r-project.org"),Ncpus=2)'
+          elif [ "$METHOD" = RSF ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y libuv1-dev
+            Rscript -e 'install.packages("randomForestSRC",repos=Sys.getenv("RSPM","https://cloud.r-project.org"),Ncpus=2)'
+          elif [ "$METHOD" = ITR ]; then
+            Rscript -e 'install.packages("remotes",repos=Sys.getenv("RSPM","https://cloud.r-project.org"))'
+            Rscript -e 'remotes::install_github("cwzhou/itrSurv",dependencies=FALSE,upgrade="never",quiet=FALSE)'
+          fi
+      - name: Fit published native method on paired M1/M2
+        env:
+          METHOD: ${{ matrix.method }}
+        run: |
+          mkdir -p pilot/v8_native_five/results
+          set -o pipefail
+          timeout 1250s Rscript pilot/v8_native_five/native.R "$METHOD" 2 2>&1 | tee "pilot/v8_native_five/results/log_$METHOD.txt"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v8-native-${{ matrix.method }}
+          path: pilot/v8_native_five/results/**
+          retention-days: 30
+  collect:
+    needs: native
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Basic smoke
+        with:
+          ref: pilot/v8-native-five-20261124
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: v8-native-*
+          path: pilot/v8_native_five/results/
+          merge-multiple: true
+      - name: Commit output files to isolated pilot branch
         run: |
-          pwd
-          python -V
-          Rscript --version
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pilot/v8_native_five/results/
+          if ! git diff --staged --quiet; then
+            git commit -m "pilot: native R fitted predictions and diagnostic logs"
+            git push origin HEAD:pilot/v8-native-five-20261124
+          fi
