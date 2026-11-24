@@ -15,9 +15,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        method: [ITR]
+        method: [PMCR, DTR, RSF, ITR]
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,7 +32,7 @@ jobs:
       - name: Install data generator
         run: python -m pip install --disable-pip-version-check numpy
       - name: Reproduce exactly original paired training and test cohorts
-        run: python pilot/v8_native_five/generate.py 2
+        run: python pilot/v8_native_five/generate.py 20
       - name: Install exact R method
         env:
           METHOD: ${{ matrix.method }}
@@ -58,7 +58,7 @@ jobs:
         run: |
           mkdir -p pilot/v8_native_five/results
           set -o pipefail
-          timeout 1250s Rscript pilot/v8_native_five/native.R "$METHOD" 2 2>&1 | tee "pilot/v8_native_five/results/log_$METHOD.txt"
+          timeout 3400s Rscript pilot/v8_native_five/native.R "$METHOD" 20 2>&1 | tee "pilot/v8_native_five/results/log_$METHOD.txt"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -78,12 +78,20 @@ jobs:
           pattern: v8-native-*
           path: pilot/v8_native_five/results/
           merge-multiple: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install scoring dependencies
+        run: python -m pip install --disable-pip-version-check numpy pandas
+      - name: Joint true-risk evaluation on exactly matched patients
+        run: python pilot/v8_native_five/analyze_native.py 20
       - name: Commit output files to isolated pilot branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add pilot/v8_native_five/results/
           if ! git diff --staged --quiet; then
-            git commit -m "pilot: native R fitted predictions and diagnostic logs"
+            git commit -m "pilot: 20-rep native R decisions and independent oracle scoring"
+            git pull --rebase origin pilot/v8-native-five-20261124
             git push origin HEAD:pilot/v8-native-five-20261124
           fi
