@@ -6,6 +6,7 @@ method <- if(length(argv)>=1) argv[1] else Sys.getenv("PILOT_METHOD","DTR")
 reps <- if(length(argv)>=2) as.integer(argv[2]) else 1L
 start_rep <- if(length(argv)>=3) as.integer(argv[3]) else 1L
 end_rep <- if(length(argv)>=4) as.integer(argv[4]) else reps
+selected_mechs <- if(length(argv)>=5) argv[5] else c("M1","M2")
 root <- getwd()
 out <- file.path(root,"pilot/v8_native_five/results")
 dir.create(out,showWarnings=FALSE,recursive=TRUE)
@@ -97,7 +98,7 @@ run_method <- function(method,train,test,seed) {
     stop("Unknown method")
 }
 status <- data.frame(mechanism=character(),rep=integer(),method=character(),status=character(),detail=character(),elapsed_s=double(),stringsAsFactors=FALSE)
-for(r in seq.int(start_rep,end_rep)) for(m in c("M1","M2")) {
+for(r in seq.int(start_rep,end_rep)) for(m in selected_mechs) {
     stem <- paste0(m,"_r",r)
     train <- read.csv(file.path(datadir,paste0("train_",stem,".csv")),check.names=FALSE)
     test <- read.csv(file.path(datadir,paste0("test_",stem,".csv")),check.names=FALSE)
@@ -118,7 +119,7 @@ for(r in seq.int(start_rep,end_rep)) for(m in c("M1","M2")) {
        status <- rbind(status,data.frame(mechanism=m,rep=r,method=method,status="OK",detail=ans$detail,elapsed_s=dt))
        cat("SUCCESS",method,stem,"n1",sum(d),"seconds",round(dt,1),ans$detail,"\n")
     }
-    write.csv(status,file.path(out,paste0("status_",method,"_r",start_rep,"-",end_rep,".csv")),row.names=FALSE)
+    write.csv(status,file.path(out,paste0("status_",method,"_r",start_rep,"-",end_rep,"_",m,".csv")),row.names=FALSE)
     flush.console()
 }
 cat("DONE",method,"\n")
