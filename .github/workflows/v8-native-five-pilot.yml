@@ -1,0 +1,20 @@
+name: V8 frozen M1 M2 five native estimators
+on:
+  push:
+    branches: [pilot/v8-native-five-20261124]
+    paths:
+      - 'pilot/v8_native_five/**'
+      - '.github/workflows/v8-native-five-pilot.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Basic smoke
+        run: |
+          pwd
+          python -V
+          Rscript --version
