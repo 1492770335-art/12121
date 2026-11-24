@@ -15,8 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        method: [PMCR]
-        first_rep: [1,3,5,7,9,11,13,15,17,19]
+        method: [ITR]
+        first_rep: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -60,7 +60,7 @@ jobs:
         run: |
           mkdir -p pilot/v8_native_five/results
           set -o pipefail
-          timeout 3400s Rscript pilot/v8_native_five/native.R "$METHOD" 20 ${{ matrix.first_rep }} $((${{ matrix.first_rep }}+1)) 2>&1 | tee "pilot/v8_native_five/results/log_$METHOD.txt"
+          timeout 3400s Rscript pilot/v8_native_five/native.R "$METHOD" 20 ${{ matrix.first_rep }} ${{ matrix.first_rep }} 2>&1 | tee "pilot/v8_native_five/results/log_$METHOD.txt"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
