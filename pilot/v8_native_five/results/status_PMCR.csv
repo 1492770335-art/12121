@@ -1,0 +1,5 @@
+"mechanism","rep","method","status","detail","elapsed_s"
+"M1",1,"PMCR","OK","PMCR F1=0.388545 F2=0.350000 beta=(-0.7076;-0.7057;0.0368)",50.002
+"M2",1,"PMCR","OK","PMCR F1=0.323237 F2=0.325166 beta=(-1;0;0)",6.26900000000001
+"M1",2,"PMCR","FAIL","requires numeric/complex matrix/vector arguments",6.392
+"M2",2,"PMCR","OK","PMCR F1=0.350137 F2=0.302184 beta=(-0.8714;0.189;0.4527)",5.914

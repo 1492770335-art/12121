@@ -1,0 +1,46 @@
+METHOD: DTR  REPS: 2 
+ TRUEevalTime is ignored if critical value is mean
+Stage 1
+model Surv(obs_time, D.0) ~ Z1 + Z2
+cases in stage: 2000
+stratified analysis
+  treatment level 0
+sampleSize: 978
+  treatment level 1
+sampleSize: 1022
+Estimated Value: Et: 1.74237863995788
+SUCCESS DTR M1_r1 n1 777 seconds 10.2 dtrSurv 1-stage native forest RMET 
+evalTime is ignored if critical value is mean
+Stage 1
+model Surv(obs_time, D.0) ~ Z1 + Z2
+cases in stage: 2000
+stratified analysis
+  treatment level 0
+sampleSize: 1046
+  treatment level 1
+sampleSize: 954
+Estimated Value: Et: 2.06609193778535
+SUCCESS DTR M2_r1 n1 917 seconds 9.3 dtrSurv 1-stage native forest RMET 
+evalTime is ignored if critical value is mean
+Stage 1
+model Surv(obs_time, D.0) ~ Z1 + Z2
+cases in stage: 2000
+stratified analysis
+  treatment level 0
+sampleSize: 958
+  treatment level 1
+sampleSize: 1042
+Estimated Value: Et: 1.81446135527642
+SUCCESS DTR M1_r2 n1 590 seconds 9.3 dtrSurv 1-stage native forest RMET 
+evalTime is ignored if critical value is mean
+Stage 1
+model Surv(obs_time, D.0) ~ Z1 + Z2
+cases in stage: 2000
+stratified analysis
+  treatment level 0
+sampleSize: 1025
+  treatment level 1
+sampleSize: 975
+Estimated Value: Et: 2.0308458043712
+SUCCESS DTR M2_r2 n1 924 seconds 9.2 dtrSurv 1-stage native forest RMET 
+DONE DTR 

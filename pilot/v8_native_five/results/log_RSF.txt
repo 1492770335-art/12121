@@ -1,0 +1,6 @@
+METHOD: RSF  REPS: 2 
+ TRUESUCCESS RSF M1_r1 n1 1625 seconds 9.1 randomForestSRC competing-risk CIF at 3y 
+SUCCESS RSF M2_r1 n1 210 seconds 7.3 randomForestSRC competing-risk CIF at 3y 
+SUCCESS RSF M1_r2 n1 1583 seconds 8.2 randomForestSRC competing-risk CIF at 3y 
+SUCCESS RSF M2_r2 n1 160 seconds 7.5 randomForestSRC competing-risk CIF at 3y 
+DONE RSF 

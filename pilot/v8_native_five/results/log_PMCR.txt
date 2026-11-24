@@ -1,0 +1,14 @@
+METHOD: PMCR  REPS: 2 
+ TRUE##  rgenoud (Version 5.9-0.11, Build Date: 2024-10-03)
+##  See http://sekhon.berkeley.edu/rgenoud for additional documentation.
+##  Please cite software as:
+##   Walter Mebane, Jr. and Jasjeet S. Sekhon. 2011.
+##   ``Genetic Optimization Using Derivatives: The rgenoud package for R.''
+##   Journal of Statistical Software, 42(11): 1-26. 
+##
+
+SUCCESS PMCR M1_r1 n1 25 seconds 50 PMCR F1=0.388545 F2=0.350000 beta=(-0.7076;-0.7057;0.0368) 
+SUCCESS PMCR M2_r1 n1 0 seconds 6.3 PMCR F1=0.323237 F2=0.325166 beta=(-1;0;0) 
+FAILED PMCR M1_r2 requires numeric/complex matrix/vector arguments seconds 6.4 
+SUCCESS PMCR M2_r2 n1 0 seconds 5.9 PMCR F1=0.350137 F2=0.302184 beta=(-0.8714;0.189;0.4527) 
+DONE PMCR 

@@ -1,0 +1,5 @@
+"mechanism","rep","method","status","detail","elapsed_s"
+"M1",1,"RSF","OK","randomForestSRC competing-risk CIF at 3y",9.077
+"M2",1,"RSF","OK","randomForestSRC competing-risk CIF at 3y",7.329
+"M1",2,"RSF","OK","randomForestSRC competing-risk CIF at 3y",8.211
+"M2",2,"RSF","OK","randomForestSRC competing-risk CIF at 3y",7.47
