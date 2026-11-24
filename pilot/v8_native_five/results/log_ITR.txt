@@ -1,4 +1,4 @@
-METHOD: ITR  REPS: 2 
+METHOD: ITR  REPS: 20 
  TRUEEndpoint: CR
 FAILED ITR M1_r1 could not find function "%>%" seconds 0.1 
 Endpoint: CR
@@ -7,4 +7,76 @@ Endpoint: CR
 FAILED ITR M1_r2 could not find function "%>%" seconds 0 
 Endpoint: CR
 FAILED ITR M2_r2 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r3 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r3 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r4 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r4 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r5 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r5 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r6 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r6 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r7 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r7 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r8 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r8 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r9 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r9 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r10 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r10 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r11 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r11 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r12 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r12 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r13 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r13 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r14 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r14 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r15 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r15 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r16 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r16 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r17 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r17 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r18 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r18 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r19 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r19 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M1_r20 could not find function "%>%" seconds 0 
+Endpoint: CR
+FAILED ITR M2_r20 could not find function "%>%" seconds 0 
 DONE ITR 
