@@ -17,6 +17,7 @@ jobs:
       matrix:
         method: [ITR]
         first_rep: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+        mechanism: [M1, M2]
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -60,11 +61,11 @@ jobs:
         run: |
           mkdir -p pilot/v8_native_five/results
           set -o pipefail
-          timeout 3400s Rscript pilot/v8_native_five/native.R "$METHOD" 20 ${{ matrix.first_rep }} ${{ matrix.first_rep }} 2>&1 | tee "pilot/v8_native_five/results/log_$METHOD.txt"
+          timeout 3400s Rscript pilot/v8_native_five/native.R "$METHOD" 20 ${{ matrix.first_rep }} ${{ matrix.first_rep }} ${{ matrix.mechanism }} 2>&1 | tee "pilot/v8_native_five/results/log_$METHOD.txt"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: v8-native-${{ matrix.method }}-r${{ matrix.first_rep }}
+          name: v8-native-${{ matrix.method }}-r${{ matrix.first_rep }}-${{ matrix.mechanism }}
           path: pilot/v8_native_five/results/**
           retention-days: 30
   collect:
