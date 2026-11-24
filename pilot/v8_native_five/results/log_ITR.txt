@@ -1,82 +1,67 @@
 METHOD: ITR  REPS: 20 
  TRUEEndpoint: CR
-FAILED ITR M1_r1 could not find function "%>%" seconds 0.1 
-Endpoint: CR
-FAILED ITR M2_r1 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r2 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r2 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r3 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r3 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r4 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r4 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r5 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r5 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r6 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r6 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r7 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r7 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r8 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r8 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r9 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r9 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r10 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r10 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r11 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r11 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r12 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r12 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r13 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r13 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r14 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r14 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r15 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r15 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r16 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r16 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r17 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r17 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r18 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r18 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r19 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r19 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M1_r20 could not find function "%>%" seconds 0 
-Endpoint: CR
-FAILED ITR M2_r20 could not find function "%>%" seconds 0 
-DONE ITR 
+Phase 1 and Phase 2 datasets are the same.
+[1] 1
+[1] 2
+Step: survival
+evalTime is ignored if critical value is mean
+NULL evalTime so we use: 
+evalTime is ignored if critical value is mean
+Step: CR
+evalTime is ignored if critical value is mean
+NULL evalTime so we use: 
+evalTime is ignored if critical value is mean
+[1] "Survival Parameters for Survival Mean"
+[1] "EndPoint Parameters for CIF Mean"
+[1] "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+[1] "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+[1] "Phase 1: Survival"
+[1] "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+[1] "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+mean ratio tolerance: 0.07
+mean diff tolerance: 0
+If this is wrong: enter the correct order of 'ratio', 'difference'.
+RSF Starting: Phase 1: look at survival
+model Surv(obs_time, D.0) ~ Z1 + Z2
+we set pr2=pr2_surv=pr_surv=pr since we don't use pr2,pr2_surv,pr_surv in this setting
+  treatment level 0
+number of individuals in training data: 999
+number of time points: 1423
+total number of trees to be grown in forest: 300
+number of samples (individuals) to include in each tree: 999
+maximum nodes in a tree based on samples (individuals): 1999
+
+
+
+
+
+
+[1] "Survival"
+  treatment level 1
+number of individuals in training data: 1001
+number of time points: 1423
+total number of trees to be grown in forest: 300
+number of samples (individuals) to include in each tree: 1001
+maximum nodes in a tree based on samples (individuals): 2003
+
+
+
+
+
+
+[1] "Survival"
+Phase1Results
+[1] "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+[1] "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+[1] "Phase 2: Endpoint: CR"
+[1] "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+[1] "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+RSF Starting: Phase 2: look at CR
+model_endpoint Surv(obs_time, D.1) ~ Z1 + Z2
+we set pr2=pr2_surv=pr_surv=pr since we don't use pr2,pr2_surv,pr_surv in this setting
+  treatment level 0
+number of individuals in training data: 999
+number of time points: 1423
+total number of trees to be grown in forest: 300
+number of samples (individuals) to include in each tree: 999
+maximum nodes in a tree based on samples (individuals): 1999
