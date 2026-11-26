@@ -1,0 +1,4 @@
+local_private/
+.env
+.env.*
+*.token
