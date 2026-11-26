@@ -1,0 +1,34 @@
+{
+  "paper_id": "N6c42d911f8",
+  "category": "G",
+  "title": "Absorbing weighted-indexed semi-Markov chains with competing risks",
+  "authors": "Guglielmo D'Amico and Edoardo Lui and Filippo Petroni",
+  "doi": "10.21203/rs.3.rs-11443197/v1",
+  "year": "2026",
+  "original_url": "https://doi.org/10.21203/rs.3.rs-11443197/v1",
+  "local_fulltext": true,
+  "public_pdf": [
+    "G/N6c42d911f8/artifacts/2d778c9501a0/original.pdf"
+  ],
+  "public_markdown": [
+    "G/N6c42d911f8/artifacts/2d778c9501a0/fulltext.md"
+  ],
+  "public_txt": [
+    "G/N6c42d911f8/artifacts/2d778c9501a0/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "2d778c9501a01d82745cc7135f31a39bb8f011d4eade915967365bea0b6c098c",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.researchsquare.com/article/rs-11443197/latest.pdf",
+      "provenance": "G/N6c42d911f8/artifacts/2d778c9501a0/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/N6c42d911f8/README.md",
+  "status": "public_fulltext"
+}

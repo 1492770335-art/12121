@@ -1,0 +1,85 @@
+
+\section{Introduction}\label{sec:intro}
+
+In offline Reinforcement Learning (RL), we must learn exclusively from offline data and are unable to actively interact with the environment \citep{levine2020offline}. Offline RL has garnered considerable interest in a range of applications %
+where experimentation may be prohibitively costly or risky.
+
+
+
+Offline RL is generally based on two types of assumptions:  sufficient coverage in the offline data and sufficient function approximation. For instance, classical Fitted-Q-iteration \citep{antos2008learning,chen2019information} requires (a) full coverage in the offline data, $\max_{(s,a)} d_{\pi,\mu_0}(s,a)/P_{\pi_b}(s,a)<\infty$ for any policy $\pi$ where $P_{\pi_b}(s,a)$ is the offline data's distribution on the states and actions and $d_{\pi,\mu_0}(s,a)$ is the state-action occupancy distribution under a policy $\pi$ and initial-state distribution $\mu_0(s)$; (b) realizability of the $Q^*$-function in a hypothesis class; and (c) Bellman completeness, \ie, the Bellman operator applied to any function in the hypothesis class remains in the class. Full coverage (a) and Bellman completeness (c) can be particularly stringent because offline data is often insufficiently exploratory  and Bellman completeness significantly restricts transition dynamics.
+
+
+
+
+
+\begin{table}[!t]\label{tab:summary}
+    \centering
+      \caption{Summary of partial-coverage-type guarantees with model-free general function approximation. Here, $w^{\star}\coloneqq d_{\pi^{\star},\mu_0}/P_b$ where $d_{\pi^{\star},\mu_0}$ is the occupancy distribution under the optimal policy $\pi^{\star}$ starting from $\mu_0$ and $P_b$ is the distribution over the offline data. A function $\tilde w^{\star}_{\alpha}$ is a regularized marginal density ratio that satisfies $\tilde w^{\star}_0=w^{\star}$. Functions $q^{\star},q^{\star}_{\alpha},q_{\pi}$ are the optimal $Q^{\star}$-function, the soft Q-function, and the Q-function under a policy $\pi$, respectively. Functions $v^{\star}_{\alpha},l^{\star}_{\alpha}$ are Lagrange multipliers of specific minimax optimization problems. 
+      The operator $\Bcal^{\pi}$ is a Bellman operator under a policy $\pi$. Function classes $\Wcal,\Qcal,\Lcal,\Vcal$ consist of functions that map states (and actions) to real numbers. Note the guarantees provided by \citet{jiang2020minimax,xie2021bellman} are more general than the below in that the output policy can compete with any policy in the policy class $\Pi$. For simplicity, we set the comparator policy to be the optimal policy $\pi^{\star}$ in this table. {Note that other studies \citep{ozdaglar2023revisiting,rashidinejad2022optimal,zhu2023importance} proposing model-free general function approximation under partial coverage rely on the completeness-type assumption as in  \citep{xie2021bellman} or realizability for any $\pi$ as in \citet{jiang2020minimax}. }
+      }
+      
+              \scalebox{1.00}{
+    \begin{tabular}{ccccc}
+    \toprule
+       & Primary Assumptions   \\ \midrule
+    \citet{jiang2020minimax}   &  $w^{\star}\in \Wcal,\,q_{\pi}\in \Qcal\;\forall\pi\in \Pi$     \\ 
+     \citet{xie2021bellman}      & $q_{\pi}\in \Qcal,\, \Bcal^{\pi} \Qcal \subset \Qcal\;\forall\pi \in \Pi$\\ 
+   \citet{zhan2022offline}        & $\tilde w^{\star}_{\alpha}\in \Wcal,\,v^{\star}_{\alpha}\in \Vcal  $  &  \\
+    \rowcolor{Gray}  MSQP   & 
+ $q^{\star}_{\alpha}\in \Qcal,\,l^{\star}_{\alpha}\in \Lcal$  \\
+  \citet{chen2022offline}      & Hard margin$,\,w^{\star}\in \Wcal,\,q^{\star} \in \Qcal $  \\ 
+     \rowcolor{Gray} MQP & 
+ Soft margin$,\,q^{\star}\in \Qcal,\,l^{\star}\in \Lcal$  \\ 
+         \bottomrule
+    \end{tabular}
+    }
+
+\end{table}
+
+To overcome these challenges, we here propose algorithms with guarantees under realizability of single functions and refined partial coverage of single policies, and without Bellman completeness. We tackle this by introducing two novel value-based algorithms. The first algorithm, MSQP (mimimax soft-Q-learning with penalization), comprises of two steps: learning soft Q-functions {\newedit (a.k.a., entropy-regularized Q-functions, as defined in \citealp{fox2015taming,schulman2017equivalence})} from offline data, and using the softmax policies of the learned soft Q-functions. The second algorithm, MQP (mimimax Q-learning with penalization), consists of two steps: learning standard Q-functions from offline data and employing the greedy policy of  the learned Q function on the offline data. 
+
+Using the above-mentioned two algorithms, we attain PAC guarantees under partial coverage and realizability, yet without Bellman completeness. In particular, in MSQP using soft Q-functions, we ensure strong performance under the realizability of $q^{\star}_{\alpha}$, $l^{\star}_{\alpha}$ and the (density-ratio-based) partial coverage $\max_{(s,a)}d_{\pi^\star_{\alpha},\mu_0}(s,a)/P_b(s,a)<\infty$. Here $q^{\star}_{\alpha}$ is a soft Q-function, $l^{\star}_{\alpha}$ is a function that possesses a certain dual relation to $q^{\star}_{\alpha}$, $\pi^{\star}_{\alpha}$ is the soft-max optimal policy, and {\newedit $\alpha$ is the temperature parameter for the entropy-regularization.} Notably, $\max_{(s,a)}d_{\pi^{\star}_{\alpha},\mu_0}(s,a)/P_b(s,a)<\infty$ is significantly less stringent than the uniform coverage in that the coverage is only imposed against a policy $\pi^{\star}_{\alpha}$. In MQP using Q-functions, we similarly ensure strong performance under a soft margin, the realizability of $q^{\star}$, $l^{\star}$, and the partial coverage $\max_{(s,a)}d_{\pi^{\star},\mu_0}(s,a)/P_b(s,a)<\infty$. Here $q^{\star}$ is the vanilla Q-function and $l^{\star}$ is a function that possesses a certain dual relation to $q^{\star}$, and $\pi^{\star}$ is the usual optimal policy. Note the soft margin is introduced to allow realizability on standard Q-functions rather than soft Q-functions. However, the conditions $\max_{(s,a)}d_{\pi^{\star}_{\alpha},\mu_0}(s,a)/P_b(s,a)<\infty$ or $\max_{(s,a)}d_{\pi^{\star},\mu_0}(s,a)/P_b(s,a)<\infty$ may still be strong as these marginal density ratios may not exist in large-scale MDPs. For example, this condition is easily violated when the initial distribution $\mu_0$ is not covered by $P_b$ (\ie, $\max_{s}\mu_0(s)/P_b(s)=\infty$ where $P_b(s)\coloneqq \sum_a P_b(s,a)$). Therefore, as an additional innovation, in our algorithms we can further relax these density-ratio-based partial coverage conditions. Specifically, we can demonstrate results under a \emph{refined partial coverage}, which is adaptive to Q-function classes, even when the initial distribution $\mu_0$ is not covered by $P_b$.\footnote{{\newedit Note $\mu_0$ and $P_b$ could be generally different even in the contextual bandit setting. This important setting is often considered in the literature on external validity/transportability in causal inference, as results of randomized clinical trials cannot be directly transported because covariate distributions in offline data and target data are different \citep{cole2010generalizing,pearl2022external,dahabreh2019generalizing}.}}
+
+
+
+
+
+The primary challenge lies in the design of loss functions for effectively learning soft Q-functions and vanilla Q-functions from offline data \emph{without Bellman completness}. To tackle this, we devise new minimax loss functions with certain regularization terms to achieve favorable $L^2$-convergence rates on the offline data {\newedit (\ie, in terms of $\EE_{(s,a)\sim P_b}[\{\hat q_{\alpha}-q\}^2(s,a)]$ given an estimator $\hat q$).} This result serves as the key building block for obtaining refined partial coverage under realizability and is of independent interest in its own right. {\finaledit Existing results are often constrained to specific models, such as linear models \citep{shi2022statistical}, or they require Bellman completeness \citep{antos2008learning,chen2022well,chen2019information}. In contrast, our guarantee is applicable to any function approximation method, without the need for Bellman completeness. To the best of our knowledge, this is the first guarantee of its kind. } 
+
+
+
+Our work exhibits marked improvements over two closely related studies \citep{zhan2022offline,chen2022offline}. Similar to our work, they propose algorithms that operate under the realizability of specific functions and partial coverage, yet without Bellman completeness. \citet{zhan2022offline} ensures a PAC guarantee under (a') partial coverage in the offline data $\max_{(s,a)}d_{\tilde \pi^{\star}_{\alpha},\mu_0}(s,a)/P_b(s,a)<\infty$ where $\tilde \pi^{\star}_{\alpha}$ is a specific near-optimal policy under the regularization, which differs from the soft optimal policy, and (b') realizability of $d_{\tilde \pi^{\star}_{\alpha},\mu_0}/P_b$ and the regularized value function. However, unlike MSQP, it is unclear how to refine the abovementioned coverage, \ie, the guarantee could be vacuous when the initial distribution is not covered by offline data. A similar guarantee, but without regularization, is obtained under the additional hard margin (a.k.a., gap) condition in \citet{chen2022offline}. Our soft margin is a strict relaxation of the hard margin, which is important because, unlike the soft margin, the hard margin generally does not hold in continuous state spaces and involves very large constants in discrete state spaces. Lastly, although \citet{chen2022offline,zhan2022offline} use completely different algorithms and attain guarantees for regularized value-functions and non-regularized value functions, respectively, our guarantee can afford guarantees for regularized and non-regularized value-functions in a \emph{unified} manner since MQP can be seen as a limit of MSQP when $\alpha$ goes to $0$. %
+
+Our contributions are summarized below and in Table~\ref{tab:summary}. 
+
+
+\begin{enumerate} 
+    \item We establish that the optimal policy can be learned under partial coverage and realizability of the optimal soft Q-function and its dual. Notably, we abstain from the use of possibly stronger conditions in offline RL, such as full coverage, Bellman completeness, and uniform realizability over the policy class (such as $q_{\pi}\in \Qcal$ for any $\pi$ as in \citealp{jiang2020minimax}). In particular, while a similar guarantee is provided in \citet{zhan2022offline}, our partial coverage guarantee has an advantage in that we are able to potentially accommodate scenarios where the initial distribution is not covered by $P_b$. This is feasible because our algorithm is value-based in nature, which allows us to leverage the structure of the Q-function classes and refine the coverage condition.  
+
+    \item  We demonstrate that the optimal policy can be learned under partial coverage, realizability of the Q-function and its dual, and a soft margin. %
+    While a similar guarantee is obtained in \citet{chen2022offline}, our guarantee has the advantage that the soft margin is significantly less stringent than the hard margin required therein.  
+\end{enumerate}
+
+
+
+\subsection{Related Works} \label{subsec:related}
+
+
+We summarize related works as follows. Further related works is discussed in \pref{sec:related}. 
+
+
+\paragraph{Offline RL under partial coverage.}
+
+There is a growing number of results under partial coverage following the principle of pessimism in offline RL \citep{Yu2020,Kidambi2020}. In comparison to works that focus on tabular \citep{RashidinejadParia2021BORL,li2022pessimism,shi2022pessimistic,yin2021towards} or linear models \citep{JinYing2020IPPE,chang2021mitigating,zhang2022corruption,nguyen2022instance,bai2022pessimistic}, our emphasis is on general function approximation \citep{jiang2020minimax,uehara2021pessimistic,xie2021bellman,zhan2022offline,zhu2023importance,rashidinejad2022optimal,zanette2022bellman,ozdaglar2023revisiting}. Among them, we specifically focus on model-free methods. The representative work is summarized in Table~\ref{tab:summary}.
+
+\paragraph{Soft (entropy-regularized) Q-functions.} 
+Soft Q-functions are utilized in various contexts in RL \citep{geist2019theory,neu2017unified}. They have been shown to improve performance in online RL settings, as demonstrated in Soft Q-Learning \citep{fox2015taming,schulman2017equivalence} and Soft Actor Critic \citep{haarnoja2018soft}. In the field of imitation learning, they play a crucial role in Maximum Entropy IRL \citep{ziebart2008maximum,ziebart2010modeling}. Furthermore, within the realm of offline RL, these soft Q-functions are utilized to make the learned policy and behavior policy sufficiently similar \citep{wu2019behavior,fakoor2021continuous}. However, to the best of the authors' knowledge, none of these proposals in the context of offline RL have provided sample complexity results under partial coverage. %
+
+
+\paragraph{Lagrangian view of offline RL.}
+
+
+In the realm of offline policy evaluation (OPE), \citet{nachum2020reinforcement,yang2020off,huang2022beyond} have formulated the problem as a constrained linear optimization problem. Notably, within the context of policy optimization, \citet{zhan2022offline} have proposed estimators for regularized density ratios with $L^2$-convergence guarantees, which is a crucial step in obtaining a near-optimal policy. Our work is similarly motivated, but with a key distinction: our target functions are the soft Q-function and Q-function, rather than the regularized density ratio, which presents additional analytical challenges due to the nonlinear constraint.
+
+
+ 

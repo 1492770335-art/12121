@@ -1,0 +1,28 @@
+{
+  "paper_id": "B08",
+  "category": "B",
+  "title": "An IV Model of Quantile Treatment Effects",
+  "authors": "Victor Chernozhukov and Christian Hansen",
+  "doi": "10.1111/j.1468-0262.2005.00570.x",
+  "year": "2005",
+  "original_url": "https://doi.org/10.1111/j.1468-0262.2005.00570.x",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c05509159cef3b3523244e9e79aa1a3b9fe4ac1bbfc6aaacad631026f15fdc00",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://web.mit.edu/14.387/www/IV_Model.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/B08/README.md",
+  "status": "local_only"
+}

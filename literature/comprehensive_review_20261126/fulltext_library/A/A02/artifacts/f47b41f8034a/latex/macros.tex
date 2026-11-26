@@ -1,0 +1,272 @@
+% DJL: commented out the following... we don't want cite replaced with citep
+% default: cite with (Name, year)
+%\renewcommand{\cite}{\citep}
+
+\usepackage{longtable}
+%%
+%% some convenient packages
+%%
+\usepackage{physics}  %% (p)dv for (partial) derivatives
+\usepackage{booktabs}
+\usepackage[section]{placeins}
+%\usepackage{morefloats} % SAR (2020) commented out
+\usepackage{float} % SAR (2020) added
+\usepackage{subfig} % SAR (2020) added
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{rotating}
+\usepackage{graphicx}
+\usepackage{booktabs} 
+\usepackage{stmaryrd}
+\usepackage{times}
+\usepackage{bm}
+\usepackage{indentfirst}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{multicol}
+
+\allowdisplaybreaks   %% allows align environment to break page
+
+% common abbreviations
+\newcommand{\eg}{{\it e.g.}\xspace}
+\newcommand{\ie}{{\it i.e.}\xspace}
+\newcommand{\etc}{{\it etc.}\xspace}
+\newcommand{\etal}{\emph{et~al}\mbox{.}\xspace}
+\newcommand{\vs}{{vs\mbox{.}}\xspace}
+
+% common Math notation
+\newcommand{\NAT}[0]{\mathbb{N}\xspace}
+\newcommand{\fun}[1]{\mathit{#1}} % typeset as function name
+\newcommand{\setsize}[1]{\left| #1 \right|}
+\newcommand{\setdef}[2]{\left\{ #1 \ \left|\  #2\right.\right\}}
+\newcommand{\dispsum}[0]{\displaystyle\sum}
+
+\newcommand{\defeq}[0]{\triangleq}
+\renewcommand{\mod}{\operatorname{mod}}
+
+%% Macros for literature review
+\newcommand*{\Gam}{\mathop{\mathrm{Gamma}}\nolimits}
+\newcommand*{\Exp}{\mathop{\mathrm{Exponential}}\nolimits}
+\newcommand*{\Ber}{\mathop{\mathrm{Bernoulli}}\nolimits}
+
+% cross referencing equations 
+\usepackage{cleveref} % For intelligent cross-referencing
+% Define the format for equation references
+\crefformat{equation}{(#2#1#3)}
+
+%% Macros for paper 1
+\newcommand*{\diag}{\mathop{\mathrm{diag}}\nolimits}
+\newcommand*{\bernoulli}{\mathop{\mathrm{Bernoulli}}\nolimits}
+\newcommand*{\N}{\mathop{\mathrm{N}}\nolimits}
+\newcommand*{\G}{\mathop{\mathrm{Gamma}}\nolimits}
+\newcommand*{\W}{\mathop{\mathrm{W}}\nolimits}
+\newcommand*{\IW}{\mathop{\mathrm{IW}}\nolimits}
+\newcommand*{\TN}{\mathop{\mathrm{TN}}\nolimits}
+\newcommand*{\E}{\mathop{\mathrm{E}}\nolimits}
+\newcommand*{\Var}{\mathop{\mathrm{Var}}\nolimits}
+\newcommand*{\Cov}{\mathop{\mathrm{Cov}}\nolimits}
+\newcommand*{\Cor}{\mathop{\mathrm{Cor}}\nolimits}
+\newcommand*{\Corr}{\mathop{\mathrm{Corr}}\nolimits}
+\newcommand*{\blkdiag}{\mathop{\mathrm{blkdiag}}\nolimits}
+\newcommand*{\vect}{\mathop{\mathrm{vec}}\nolimits}
+\newcommand*{\POS}{\mathop{\mathrm{POS}}\nolimits}
+
+%% Macros for paper 2
+\newcommand*{\CI}{\pi_{\text{CI}}}
+\newcommand*{\APP}{\pi_{\text{APP}}}
+\newcommand*{\LKJ}{\pi_{\text{LKJ}}}
+\newcommand*{\HC}{\pi_{\text{HC}}}
+\newcommand*{\CIHC}{\pi_{\text{CIHC}}}
+\newcommand*{\pos}{\text{POS}}
+
+%% Macros for paper 3
+\def\R{{\mathbb{R}}}
+\DeclareMathOperator{\logit}{logit}
+\DeclareMathOperator{\expit}{expit}
+\DeclareMathOperator{\DY}{\pi_{\text{DY}}}
+\DeclareMathOperator{\HPP}{\pi_{\text{HPP}}}
+\newcommand{\appropto}{\mathrel{\vcenter{
+  \offinterlineskip\halign{\hfil$##$\cr
+    \propto\cr\noalign{\kern2pt}\sim\cr\noalign{\kern-2pt}}}}}
+
+
+
+
+
+
+% references
+\newcommand{\chref}[1]{Chapter~\ref{ch:#1}\xspace}
+\newcommand{\chrefs}[2]{Chapters~\ref{ch:#1} and~\ref{ch:#2}\xspace}
+\newcommand{\secref}[1]{Section~\ref{sec:#1}\xspace}
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}\xspace}
+\newcommand{\figrefi}[2]{Figure~\ref{fig:#1}(#2)\xspace}
+\newcommand{\tabref}[1]{Table~\ref{tab:#1}\xspace}
+\newcommand{\lemref}[1]{Lemma~\ref{lem:#1}\xspace}
+\newcommand{\thmref}[1]{Theorem~\ref{thm:#1}\xspace}
+\newcommand{\defref}[1]{Definition~\ref{def:#1}\xspace}
+\newcommand{\exref}[1]{Example~\ref{ex:#1}\xspace}
+\newcommand{\equref}[1]{Equation~(\ref{eq:#1})\xspace}
+\newcommand{\inequref}[1]{Inequality~(\ref{eq:#1})\xspace}
+\newcommand{\lstref}[1]{Listing~\ref{lst:#1}\xspace}
+\newcommand{\pref}[1]{page~\pageref{p:#1}\xspace}
+% citations
+
+
+% special footnotes
+
+% from http://help-csli.stanford.edu/tex/latex-footnotes.shtml
+\long\def\symbolfootnote[#1]#2{\begingroup%
+\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+% Theorems, etc.
+
+\newtheoremstyle{mylemthm}% hnamei 
+        {6pt}% hSpace abovei 
+        {3pt}% hSpace belowi 
+        {\slshape}% hBody fonti 
+        {}% hIndent amounti1
+        {\bfseries}% hTheorem head fonti 
+        {.}% hPunctuation after theorem headi 
+        {.5em}% hSpace after theorem headi2
+        {}% hTheorem head spec (can be left empty, meaning `normal')i
+
+\theoremstyle{mylemthm}
+\newtheorem{assumption}{Assumption}[chapter]
+\newtheorem{condition}{Condition}[chapter]
+
+%\theoremstyle{definition}
+
+%% "inherent" from xxexample, but place box at the end of example.
+\newenvironment{example}{
+\begin{xxexample}
+}{
+\rightparend{$\Diamond$}
+\end{xxexample}
+}
+% \qed   \sqbullet \blackdiamond \vartriangleleft
+
+
+% DJL: I added more macros below 
+
+% I think just these ones should suffice
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+% you'll have to check that everything is numbered correctly
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{prop}{Proposition}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{remark}{Remark}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+
+% here's one more
+\newcommand{\T}{\intercal}
+
+% and one more
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+% last one for real
+\newcommand{\pn}{\mathbb{E}_n}
+
+% and one more
+\newcommand{\rp}{\mathbb{R}^p}
+
+% added by MTL (2019)
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\imp}{imp}
+\DeclareMathOperator{\opt}{opt}
+\DeclareMathOperator{\sign}{sign}
+\newcommand{\bignorm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\meani}{\displaystyle{\frac{1}{n}\sum_{i=1}^{n}}}
+\newcommand{\sumi}{\displaystyle{\sum_{i=1}^{n}}}
+\newcommand{\bhat}{\hat{\beta}}
+\newcommand{\btil}{\tilde{\beta}}
+\newcommand{\Dhat}{\hat{\Delta}}
+\newcommand{\Szsig}{S^{0}_{\sigma}}
+
+%% Added by SAR (2020):
+
+% for wide hat
+\usepackage{scalerel,stackengine}
+\stackMath
+\newcommand\reallywidehat[1]{%
+\savestack{\tmpbox}{\stretchto{%
+  \scaleto{%
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern.1pt\mathchar"0362\kern.1pt}%
+    {\rule{0ex}{\textheight}}%WIDTH-LIMITED CIRCUMFLEX
+  }{\textheight}% 
+}{2.4ex}}%
+\stackon[-6.9pt]{#1}{\tmpbox}%
+}
+
+% for commenting
+\newcommand{\sarah}[1]{\textcolor{green}{(Sarah: #1)}}
+
+% to name rows of subfigs
+% https://tex.stackexchange.com/questions/239715/add-titles-for-rows-and-columns-in-a-subfloat/239809
+\usepackage{mwe}
+\newlength{\tempheight}
+\newlength{\tempwidth}
+\newcommand{\rowname}[1]% #1 = text
+{\rotatebox{90}{\makebox[\tempheight][c]{\textbf{#1}}}}
+\newcommand{\columnname}[1]% #1 = text
+{\makebox[\tempwidth][c]{\textbf{#1}}}
+
+% Begin code from  PDF -> Latex (Rmd generated tex file)
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+% End code from  PDF -> Latex (Rmd generated tex file)
+
+% Personal project commands
+\input{0.header_thesis}

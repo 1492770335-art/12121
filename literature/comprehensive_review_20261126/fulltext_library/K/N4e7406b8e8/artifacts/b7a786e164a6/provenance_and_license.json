@@ -1,0 +1,30 @@
+{
+  "paper_id": "N4e7406b8e8",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "b7a786e164a650cd2046e28b92b98d5c71b9ee717f62e2ee0e0d63ab67cb3a86",
+  "source_url": "https://www.e-crt.org/upload/pdf/crt-2026-0086.pdf",
+  "original_version": "publishedVersion",
+  "bytes": "310118",
+  "pdf_pages": "8",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by-nc/4.0/",
+  "license_evidence_url": "https://www.e-crt.org/upload/pdf/crt-2026-0086.pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:47.360404+08:00",
+  "format": "pdf",
+  "title": "Total Body Irradiation, Busulfan, Fludarabine Conditioning for Pediatric Acute Myeloid Leukemia Patients Treated with Hematopoietic Stem Cell Transplantation in Second Complete Remission",
+  "authors": "Jae Wook Lee and Suejung Jo and Jae Won Yoo and Seongkoo Kim and Nack-Gyun Chung and Bin Cho",
+  "doi": "10.4143/crt.2026.0086",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "  This is an Open-Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License (http://creativecommons.org/licenses/by-nc/4.0/) "
+    }
+  ]
+}

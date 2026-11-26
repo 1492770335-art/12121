@@ -1,0 +1,28 @@
+{
+  "paper_id": "H06",
+  "category": "H",
+  "title": "Estimation and Inference of Heterogeneous Treatment Effects using Random Forests",
+  "authors": "Stefan Wager and Susan Athey",
+  "doi": "10.1080/01621459.2017.1319839",
+  "year": "2018",
+  "original_url": "https://doi.org/10.1080/01621459.2017.1319839",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "4ce3bc946f2f3aae9f0d2a485e5f6632b7e5cfd94639f4b50edd6347bb219e6a",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1510.04342"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/H06/README.md",
+  "status": "local_only"
+}

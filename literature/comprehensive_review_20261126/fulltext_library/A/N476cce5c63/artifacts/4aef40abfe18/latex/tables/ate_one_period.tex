@@ -1,0 +1,26 @@
+\begin{table}[H]
+\caption{Average Treatment Effects}
+\label{tab:ate_one}
+\centering
+\begin{threeparttable}
+
+{\footnotesize
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} ccc}
+\toprule
+& $t=1$ & $t=2$ \\
+& 2020 summer & 2020 winter \\
+\midrule
+Treated group ($D_t = T$) & -0.051 & -0.032 \\
+ & (0.013) & (0.013) \\
+\midrule
+Number of customers & 2400 & 2400 \\
+Number of observations & 591028 & 669212 \\
+\bottomrule
+\end{tabular*}
+}
+
+\begin{tablenotes}[flushleft]
+\footnotesize\item Notes: This table shows the estimation results for equation \ref{eq:reg_ate}. The dependent variable is the log of household-level electricity consumption over 30-minute intervals for summer 2020 in the first column and for winter 2020 in the second column. We include household fixed effects and time fixed effects for each 30-minute interval. The standard errors are clustered at the household level to adjust for serial correlation.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

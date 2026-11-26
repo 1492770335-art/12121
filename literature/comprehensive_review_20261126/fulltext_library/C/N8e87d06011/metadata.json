@@ -1,0 +1,28 @@
+{
+  "paper_id": "N8e87d06011",
+  "category": "C",
+  "title": "Prediction and tolerance intervals for dynamic treatment regimes",
+  "authors": "Daniel J Lizotte and Arezoo Tahmasebi",
+  "doi": "10.1177/0962280217708662",
+  "year": "2017",
+  "original_url": "https://doi.org/10.1177/0962280217708662",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c8aa6ec9a5858524072787b54ac0ee83e1091a834da925958dd10d891ff49204",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1704.07453"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "C/N8e87d06011/README.md",
+  "status": "local_only"
+}

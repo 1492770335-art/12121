@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2506.04626v2",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2506.04626v2",
+  "archive_sha256": "fdaec9653776c849e3db4707e1f67fc9789608c8dd099ad789f5bcd638acb1db",
+  "files": [
+    {
+      "path": "Camera_Ready.tex",
+      "bytes": 283802,
+      "sha256": "91242840932309cde46c00a69541ce9b571f638b745fbad119754960db11025f"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

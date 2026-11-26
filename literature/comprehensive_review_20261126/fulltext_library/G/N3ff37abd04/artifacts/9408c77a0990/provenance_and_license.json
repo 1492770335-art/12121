@@ -1,0 +1,30 @@
+{
+  "paper_id": "N3ff37abd04",
+  "category": "G",
+  "artifact_type": "main",
+  "sha256": "9408c77a0990b94767ebfba5fc9d11aa07274b88b78e3ca76b3a69ec610af83b",
+  "source_url": "https://www.mdpi.com/2227-7390/14/2/383/pdf?version=1769091973",
+  "original_version": "publishedVersion",
+  "bytes": "577948",
+  "pdf_pages": "28",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.mdpi.com/2227-7390/14/2/383/pdf?version=1769091973",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:59:00.311063+08:00",
+  "format": "pdf",
+  "title": "CONFIDE: CONformal Free Inference for Distribution-Free Estimation in Causal Competing Risks",
+  "authors": "Quang-Vinh Dang and Ngoc-Son-An Nguyen and Thi-Bich-Diem Vo",
+  "doi": "10.3390/math14020383",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "conditions of the Creative Commons\nAttribution (CC BY) license."
+    }
+  ]
+}

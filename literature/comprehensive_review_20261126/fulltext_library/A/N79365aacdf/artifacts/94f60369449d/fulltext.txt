@@ -1,0 +1,4242 @@
+Weighted Q-learning for optimal dynamic treatment regimes with nonignorable missing covariates
+
+Original PDF: [original.pdf](original.pdf). SHA256: `94f60369449dd937e4bb80c7d588a8886b21bb3cbcaa96e9dd8265a02c9ad688`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+Technical extraction; compare with original PDF page 1.
+Weighted Q-learning for optimal dynamic treatment
+regimes with nonignorable missing covariates
+Jian Sun ∗, Bo Fu †, and Li Su ‡
+Abstract
+Dynamic treatment regimes (DTRs) formalize medical decision-making as a se-
+quence of rules for different stages, mapping patient-level information to recommended
+treatments. In practice, estimating an optimal DTR using observational data from
+electronic medical record (EMR) databases can be complicated by nonignorable miss-
+ing covariates resulting from informative monitoring of patients. Since complete case
+analysis can provide consistent estimation of outcome model parameters under the
+assumption of outcome-independent missingness, Q-learning is a natural approach to
+accommodating nonignorable missing covariates. However, the backward induction
+algorithm used in Q-learning can introduce challenges, as nonignorable missing co-
+variates at later stages can result in nonignorable missing pseudo-outcomes at earlier
+stages, leading to suboptimal DTRs, even if the longitudinal outcome variables are fully
+observed. To address this unique missing data problem in DTR settings, we propose
+two weighted Q-learning approaches where inverse probability weights for missingness
+of the pseudo-outcomes are obtained through estimating equations with valid nonre-
+sponse instrumental variables or sensitivity analysis.
+The asymptotic properties of
+∗School of Data Science, Fudan University, Shanghai 200433, China. Email: jsun19@fudan.edu.cn.
+†School of Data Science, Fudan University, Shanghai 200433, China. Email: fu@fudan.edu.cn.
+‡MRC Biostatistics Unit, University of Cambridge, Cambridge, CB2 0SR, UK. Email:
+li.su@mrc-
+bsu.cam.ac.uk.
+1
+arXiv:2312.01735v5  [stat.ME]  10 Dec 2024
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+the weighted Q-learning estimators are derived, and the finite-sample performance of
+the proposed methods is evaluated and compared with alternative methods through
+extensive simulation studies. Using EMR data from the Medical Information Mart for
+Intensive Care database, we apply the proposed methods to investigate the optimal
+fluid strategy for sepsis patients in intensive care units.
+Keywords Backward-induction-induced missing pseudo-outcome; Future-independent
+missingness; Nonignorable missing data; Nonresponse instrumental variable; Q-learning;
+Sensitivity analysis.
+1
+Introduction
+Dynamic treatment regimes (DTRs) formalize medical decision-making as a sequence of
+decision rules, each corresponding to a specific decision stage, that map available information
+at patient-level to a recommended treatment (Murphy, 2003). Optimal DTRs have been
+estimated and evaluated in various biomedical areas, such as cancer (Wang et al., 2012) and
+sepsis (Yu and Zhang, 2022). In practice, estimating optimal DTRs becomes challenging
+when there are missing data in covariates, treatments, or outcomes.
+There is a rich literature on identifying optimal DTRs with complete data. Various
+methods have been developed, including Q-learning (Murphy, 2003), A-learning (Schulte
+et al., 2014), and their numerous variants (Kosorok and Laber, 2019). These methods rely
+on approximate dynamic programming methods. Direct-optimization methods, such as si-
+multaneous outcome weighted learning (Zhao et al., 2015), and model-based planning via
+g-computation (Xu et al., 2016) have also been employed.
+In contrast, limited research
+to date has been devoted to accommodating missing data when estimating optimal DTRs.
+For survival outcomes, methods for optimal DTRs estimation were developed by address-
+ing missingness from right-censoring (Simoneau et al., 2020). For handling missing data
+in covariates, treatments and outcomes in general, Shortreed et al. (2014) proposed a time-
+ordered nested conditional imputation strategy when estimating optimal DTRs in sequential
+2
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+multiple assignment randomized trials. Dong et al. (2020) applied the augmented inverse
+probability weighting method to Q-learning and a generalized version of outcome-weighted
+learning when dealing with missing data due to patients’ dropout. In simpler settings of
+estimating single-stage optimal treatment regimes, Shen et al. (2023) further discussed the
+multiple imputation method proposed by Shortreed et al. (2014) for estimating and evaluat-
+ing optimal individualized treatment rules that were not directly observed in the design. Also
+for the single-stage setting with missing data, Huang and Zhou (2020) investigated the per-
+formance of an augmented inverse probability weighted estimator in the direct-optimization
+framework. However, these existing methods all focus on ignorable missingness and could
+potentially yield sub-optimal DTRs when missing data for covariates, treatments or out-
+comes are nonignorable (Little and Rubin, 2014).
+In this research, we aim to address the issue of nonignorable missing covariates in the
+estimation of optimal DTRs, which is prominent in settings where patients are informatively
+monitored, e.g., in electronic medical records (EMR) databases or disease clinics. Our re-
+search was motivated by a recent investigation on optimal fluid strategy for sepsis patients
+in intensive care units (ICUs) (Speth et al., 2022). Using EMR data from the Medical In-
+formation Mart for Intensive Care (MIMIC-III) (Johnson et al., 2016), Speth et al. (2022)
+estimated an optimal two-stage DTR for treating sepsis patients with fluid resuscitation
+in ICUs by incorporating baseline covariates such as demographics, time-varying covari-
+ates such as mechanical ventilation usage and vasopressor administration, and the outcome
+measure of multi-organ failure at the first stage. However, according to the recommenda-
+tions of the ‘Surviving Sepsis Campaign’, hemodynamic variables should also be taken into
+account when reassessing the need for additional fluid administration following the initial
+resuscitation (Rhodes et al., 2017). Unfortunately, within the MIMIC-III database, certain
+hemodynamic variables, including blood pressure, respiratory rate, and body temperature,
+are subject to missingness at the conclusion of the initial resuscitation. Furthermore, as
+highlighted by Awad et al. (2017), patients in the MIMIC-III database were informatively
+monitored since patients with more severe conditions, who typically presented with more
+3
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+abnormal physiological indicators than others, received more intensive monitoring. Conse-
+quently, their measurements of hemodynamic variables were less likely to be missing. In
+this case, the missingness probabilities of the hemodynamic variables were directly related
+to their own values, indicating that the missing data mechanism was nonignorable miss-
+ing. This characteristic could potentially lead to sub-optimal estimation of DTRs if existing
+methods are employed.
+The identification and estimation of optimal DTRs become much more challenging when
+covariates are nonignorable missing. In the literature on handling nonignorable missing co-
+variates, it has been concluded that the parameters of an outcome regression model can
+be consistently estimated using complete case analysis as long as the missingness of the
+covariates is not directly related to the outcome (Yang et al., 2019). Therefore, considering
+that Q-learning relies on consistently estimated outcome models and is both flexible and
+straightforward to implement, it offers a natural approach for accommodating nonignor-
+able missing covariates when estimating optimal DTRs. However, when implementing the
+step-wise outcome regression algorithm in Q-learning, challenges arise not only from the
+missingness of the covariates but also from the missingness of the pseudo-outcomes, even if
+outcome variables are fully observed. This is because the Q-learning algorithm computes
+the pseudo-outcome in the preceding stage using covariates from the subsequent stage. As a
+result, if there are nonignorable missing covariates in the later stages, it can lead to nonig-
+norable missing pseudo-outcomes in the earlier stages. We provide a detailed illustration of
+this unique missing data problem with DTRs caused by backward-induction-induced nonig-
+norable missing pseudo-outcomes in Section 2.3.
+It is well known that with nonignorable missing outcomes, outcome regression models
+are generally not identifiable; see examples provided by Miao et al. (2016). Inspired by the
+nonignorable missing outcome literature, we propose two weighted Q-learning approaches
+to tackling nonignorable missing pseudo-outcomes in optimal DTR estimation. The first
+approach is to employ estimating equations to estimate a working model for missingness
+probability of the pseudo-outcome with valid nonresponse instrumental variables (Shao and
+4
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+Wang, 2016). The pseudo-outcome estimates based on observed data are then weighted
+by the inverse of the estimated missingness probabilities in the Q-learning algorithm. In
+scenarios where nonresponse instrumental variables are not available, we specify a sensitiv-
+ity parameter to quantify the residual association between the missing pseudo-outcome at
+stage t and its conditional missingness probability given observed information up to stage t.
+Thus the missingness probabilities of the pseudo-outcomes are functions of the sensitivity
+parameter. We develop a practical approach to calibrating the sensitivity parameter and
+then perform a sensitivity analysis to evaluate the impact of the pre-specified sensitivity
+parameter on the estimated optimal DTRs.
+2
+Method
+2.1
+Setting and notation
+We consider an observational cohort with n patients and finite T treatment stages. Let
+subscripts i = 1,...,n, t = 1,...,T denote patients and stages, respectively. Unless specified
+otherwise, we use capital letters to denote random variables and lowercase letters to indi-
+cate specific realizations of random variables. Complete data for the patients are assumed
+independent and identically distributed and thus we suppress the patient-specific subscript
+i. Let At ∈{−1,1} be the assigned treatment at stage t for t = 1,...,T. Xt ∈Rpt is a 1 × pt
+vector of covariates measured before At, and Yt denotes the longitudinal outcome measured
+after At at stage t.
+The final outcome of interest is a pre-specified function (e.g., sum or maximum) of the
+longitudinal outcome in T stages, Y = f(Y1,...,YT). Higher values of Y are assumed to
+be better. We define H1 = X1, and Ht = (Ht−1,At−1,Yt−1,Xt) for t = 2,...,T. Thus, Ht
+represents the information available before making the treatment decision at stage t. Let Ht
+denote the support of Ht. A DTR d consists of a set of decision rules (d1,...,dT), where
+dt ∶Ht →{−1,1} is a function that takes the observed history ht as input and outputs a
+5
+
+
+===== ORIGINAL PDF PAGE 6 =====
+FORMULA CHECK REQUIRED: original PDF page 6.
+treatment decision at stage t. An optimal DTR is the set of decision rules (dopt
+1 ,...,dopt
+T )
+that maximizes the expectation of the final outcome. We formalize this definition using the
+potential outcome framework.
+For t = 1,...,T, let Y ∗
+t (at) denote the potential longitudinal outcome at stage t and
+X∗
+t+1(at) denote the potential covariates at stage t + 1 if a patient, possibly contrary to
+fact, had received the treatment sequence at = (a1,...,at) by stage t. We then define the
+set of potential outcomes under at as O∗
+t (at) = {Y ∗
+1 (a1),X∗
+2 (a1),...,Y ∗
+t (at),X∗
+t+1(at)} for
+t = 1,...,T −1. The potential final outcome under a regime d is
+Y ∗(d) = ∑
+aT
+Y ∗(aT)
+T
+∏
+t=1
+I(dt [{X1,a1,Y ∗
+1 (a1),...,at−1,Y ∗
+t−1(at−1),X∗
+t (at−1)}] = at),
+where Y ∗(aT) = f {Y ∗
+1 (a1),Y ∗
+2 (a2),...,Y ∗
+T (aT)}. Define the value of a regime d to be
+V (d) = E{Y ∗(d)}. Let D denote all feasible regimes. An optimal DTR, dopt ∈D, satisfies
+that V (dopt) ≥V (d) for all d ∈D.
+2.2
+Q-learning with complete data
+In this section, we briefly review the Q-learning algorithm for estimating optimal DTRs with
+complete observational data.
+To estimate the value of candidate regimes from observed
+data, it is necessary to express the value of regimes solely in terms of observables rather
+than potential outcomes. This becomes feasible under the following, now standard, causal
+inference assumptions:
+Assumption 1 (Consistency). Y ∗
+t (at) = Yt for t = 1,...,T and X∗
+t+1(at) = Xt+1 for t =
+1,...,T −1 when at are actually received.
+Assumption 2 (Sequential ignorability). {O∗
+T−1(aT−1),Y ∗
+T (aT) ∶aT ∈⊗T
+t=1{−1,1}} á At ∣Ht
+for t = 1,...,T, where ⊗denotes the Cartesian product.
+Assumption 3 (Positivity). P(At = at ∣ht) > ϵ > 0 for at ∈{−1,1}, ht ∈Ht, and t = 1,...,T,
+where ϵ is a positive constant.
+6
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+Under Assumptions 1-3, the value of a DTR can be identified from the observed data.
+Specifically, in the 2-stage scenario we have E{Y ∗(d)} = E(E[{Y ∣H2,A2 = d2(H2)} ∣
+H1,A1 = d1(H1)]). This repeated expectation form suggests that the optimal DTR can be
+computed by a backward-induction procedure, which is based on the following recursively
+defined Q-functions. At the final stage T, QT (hT,aT) = E (Y ∣HT = hT,AT = aT). For
+t = T −1,...,1, Qt (ht,at) = E{maxat+1∈{−1,1} Qt+1(Ht+1,at+1) ∣Ht = ht,At = at}.
+The true Q-functions are unknown and must be estimated from the data. Since Q-
+functions represent conditional expectations, it is natural to estimate them using regression
+models. Note that in these models, the response variable is maxat+1∈{−1,1} Qt+1 (Ht+1,at+1)
+instead of Yt (t = 1,...,T −1).
+These response variables are commonly referred to as
+pseudo-outcomes, and we define Ypse,T = Y and Ypse,t = maxat+1∈{−1,1} Qt+1 (Ht+1,at+1) for
+t = 1,...,T −1.
+Subsequently, Qt(ht,at) = E (Ypse,t ∣ht,at) for t = 1,...,T.
+Since at ∈
+{−1,1}, any specified model for Qt(ht,at) can be decomposed as Qt(ht,at;θt) = qt,0(ht;βt)+
+atqt,1(ht;ψt), where θt = (βt,ψt), qt,0(ht) = Qt(ht,1)+Qt(ht,−1)
+2
+, and qt,1(ht) = Qt(ht,1)−Qt(ht,−1)
+2
+for t = 1...,T. As a result, the Q-function is divided into two components: (1) a stage t
+treatment-free component qt,0(ht;βt) which depends on (a subset of) the history ht before
+stage t but not on the stage t treatment at, and (2) a stage t treatment effect compo-
+nent atqt,1(ht;ψt) which depends on (a potentially different subset of) ht and specifically
+includes the main effect of treatment at and its interactions with tailoring variables (i.e.,
+effect modifiers). The blip function, as defined in Chakraborty and Moodie (2013), equals
+to atqt,1(ht;ψt) + qt,1(ht;ψt) under this setting. Therefore, we refer to ψt as the blip func-
+tion parameters. Using this modeling approach, we have dopt
+t
+(ht) = 2I{qt,1(ht;ψt) > 0} −1.
+Under Assumptions 1-3, the estimator̂ θt of θt can be recursively constructed by regress-
+ing Ypse,t on Ht and At .
+Then, the Q-learning estimator of dopt
+t
+can be obtained bŷ
+dopt
+t
+(ht) = 2I{qt,1(ht;̂ψt) > 0} −1 for t = 1,...,T.
+7
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+2.3
+Q-learning for DTRs with nonignorable missing covariates:
+why complete case analysis fails at earlier stages while work-
+ing at the final stage?
+We focus on the scenario that the treatment and longitudinal outcome, (At,Yt), are fully
+observed while the covariates, Xt, contain missing values. This scenario is frequently en-
+countered in practice because treatments are typically well-documented and the longitudinal
+outcomes of interest are usually key clinical disease activity indices which are regularly mea-
+sured. Moreover, the probability of a covariate being missing is likely to depend on the
+actual value of the covariate itself due to informative monitoring of patients. For instance,
+in the MIMIC-III data, patients who displayed symptoms of abnormal heart rates such as
+chest pain were more likely to have their heart rates recorded. Therefore, the absence of
+heart rate measurements could indicate nonignorable missingness, since patients with normal
+heart rates were less likely to be frequently monitored.
+Let Rt represent the missingness indicator for Xt such that Rt = 1 if all variables in Xt are
+fully observed and Rt = 0 if at least one component of Xt is missing. Define Rt = (R1,...,Rt)
+as the history of missingness indicators up to stage t. We use 1t to denote a 1 × t vector in
+which all elements are equal to 1 for t = 1,...,T. In ICU settings, the effect of a treatment is
+commonly evaluated by the patient’s longitudinal outcomes (e.g., physiological symptoms)
+observed several hours after treatment administration, while the treatment decision for a
+patient is based on the patient’s medical history. Because of the temporal ordering of these
+covariates, it is plausible that the vector of missingness indicators Rt does not directly
+depend on the patient’s variables measured after receiving the current stage treatment At.
+Thus we make the following assumption:
+Assumption 4 (Future-independent missingness). Rt á (Yt,Xt+1,Rt+1,...,XT,RT,AT,YT) ∣
+(Ht,At) for t = 1,...,T.
+Figure 1 is a directed acyclic graph illustrating Assumptions 2 and 4 in a 2-stage scenario. In
+8
+
+
+===== ORIGINAL PDF PAGE 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+this example, H1 = X1, H2 = (X1,A1,Y1,X2). R1 and R2 are missing indicators for X1 and
+X2, respectively. Graphically, A1 has no common parents with (Y1,X2,A2,Y2) except for
+H1, and A2 has no common parents with Y2 except for H2, encoding Assumption 2. Besides,
+R1 is d-separated from (Y1,X2,R2,A2,Y2) by (H1,A1), and (R1,R2) is d-separated from
+Y2 by (H2,A2) (VanderWeele and Robins, 2007), encoding Assumption 4.
+Figure 1: A direct acyclic graph illustrating Assumptions 2 and 4
+In the single-stage scenario, Assumption 4 degenerates to the outcome-independent
+missingness assumption (Yang et al., 2019), which posits that the missingness probability
+of covariates or confounders is conditionally independent of the outcome, given all vari-
+ables except for the outcome, i.e., R1 á Y1 ∣(X1,A1). Under this assumption, we have
+P(Y1 ∣X1,A1) = P(Y1 ∣X1,A1,R1 = 1), so that we can obtain unbiased parameter estimates
+of the outcome model with complete case analysis. Consequently, in the single-stage sce-
+nario, Q-learning based on complete case analysis yields consistently optimal individualized
+treatment rules. In this research, considering the plausibility of conditional independence en-
+sured by temporal ordering of the variables, we adapt the outcome-independent missingness
+assumption to longitudinal settings with multiple stages and make Assumption 4.
+9
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+Given Ht and At, the pseudo-outcome Ypse,t only depends on Yt and the variables mea-
+sured after stage t. Therefore, under Assumption 4, Ypse,t á Rt ∣(Ht,At) and we have
+P(Ypse,t ∣Ht,At) = P(Ypse,t ∣Ht,At,Rt = 1t) for t = 1,...,T. Thus, we can obtain consistent
+estimates of Qt (ht,at) by utilizing data from patients with complete data up to stage t if
+there are no missing values in Ypse,t. For example, at stage T, Ypse,T = Y is fully observed.
+Thus we can use complete case analysis to estimate QT(hT,aT).
+However, conditional on Rt = 1t (i.e., for complete cases up to stage t), although there
+is no missingness in Ht, the pseudo-outcome Ypse,t may contain missing values because Ypse,t
+depends on Xt+1, which can be missing (i.e., Rt+1 = 0) when Rt = 1t. We illustrate this
+backward-induction-induced missing pseudo-outcome problem in Figure 2 with a hypothet-
+ical example coming from the same setting of our simulation study in Section 3. In this
+example, all variables for Patient 3 at stage one are fully observed. Nevertheless, Ypse,1 for
+Patient 3 is unavailable because X22, a covariate required for computing Ypse,1, is missing.
+Figure 2: A hypothetical example illustrating the relationship between the missing data pat-
+tern of covariates and that of pseudo-outcomes. Gray areas represent missing information.
+The setting of the variables is the same as that in Simulation 1 in Web Appendix H.
+Let Rpse,t denote the missingness indicator of Ypse,t for t = 1,...,T. Because the missing-
+ness probabilities of Xt+1 depend on their own values, and Ypse,t is computed based on Xt+1,
+it is likely that Ypse,t is nonignorably missing. This backward-induction-induced nonignor-
+able missing pseudo-outcome problem would make identification and consistent estimation
+of Q-functions challenging. A complete case analysis for Q-learning would likely result in
+suboptimal DTR. In Section 3, we will use simulations to demonstrate this phenomenon.
+10
+
+
+===== ORIGINAL PDF PAGE 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+2.4
+Weighted Q-learning for DTRs with nonignorable missing pseudo-
+outcomes: a nonresponse instrument variable approach
+We propose two approaches for inverse probability weighted Q-learning to tackle the non-
+ignorable missing pseudo-outcome problem. The first involves utilizing valid nonresponse
+instrumental variables. Specifically, we consider a semiparametric model for Rpse,t:
+Assumption 5 (semiparametric working model for missingness probability of the pseudo-
+outcomes). For t = 1,...,T −1,
+P(Rpse,t = 1 ∣ht,at,ypse,t,Rt = 1t) = π(ut,ypse,t;γt) =
+1
+1 + exp{st(ut) + γtypse,t},
+(1)
+where Ut ⊂(Ht,At) is a proper subset of (Ht,At), P(Ypse,t ∣Ht,At) ≠P(Ypse,t ∣Ut), and
+st(⋅) is an unknown and unspecified function of ut.
+This semiparametric model assumption does not impose any parametric constraint on
+the function of ut in working model (1). Instead, it restricts the parametric form of ypse,t
+and requires that there is no interaction between ut and ypse,t in working model (1). It is
+noteworthy that the variables observed after stage t may exhibit an association with Rpse,t
+even after conditioning on (ht,at,ypse,t,Rt = 1t) and therefore model (1) may not be the
+true data-generating model for Rpse,t. However, weighting by the inverse of P(Rpse,t = 1 ∣
+ht,at,ypse,t,Rt = 1t) would suffice to balance the distribution of the variables between the
+patients with and without missing ypse,t for the purpose of estimating Qt(ht,at) and thus
+lead to consistent estimation of the Q-functions after weighting.
+Assumption 5 also implies that (Ht,At) can be decomposed as (Ht,At) = (Ut,Zt) such
+that Zt̸
+Ypse,t ∣Ut and Zt á Rpse,t ∣Ut,Ypse,t when Rt = 1t. That is, conditional on Ut,
+Zt is a predictor of the pseudo-outcome Ypse,t, but given Ut and Ypse,t, Zt is conditionally
+independent of the missingness indicator Rpse,t. Zt is referred to as the nonresponse instru-
+mental variables at stage t. The nonresponse instrumental variables, sometimes known as
+the ‘shadow variables’, are commonly employed in the literature for nonignorable missing
+11
+
+
+===== ORIGINAL PDF PAGE 12 =====
+FORMULA CHECK REQUIRED: original PDF page 12.
+outcomes. It has been demonstrated in previous studies of nonignorable missing outcomes
+(Shao and Wang, 2016; Miao and Tchetgen Tchetgen, 2016) that nonresponse instrumental
+variables facilitate the identification of the working model (1) and the outcome model. In
+certain scenarios, it may not be difficult to find valid nonresponse instrumental variables.
+For example, gender and weight are associated with the severity of sepsis in ICU patients
+(Kalani et al., 2020; Sakr et al., 2013). It is plausible that they are independent of the
+missing data mechanism of hemodynamic variables, given other pre-treatment covariates
+of the patients (e.g., comorbidities) and the severity of sepsis represented by Ypse,t. These
+characteristics render gender and weight suitable candidates for nonresponse instrumental
+variables.
+If Assumptions 5 holds, to estimate the working model (1), we have to overcome the
+challenge that st(⋅) is nonparametric. Following Shao and Wang (2016), we consider the
+idea of profiling and obtain the following kernel estimate of st(⋅) for a given γt.
+exp{̂sγt,t(ut)} =
+∑n
+i=1 (1 −rpse,t,i)Kct (ut −ut,i)I(Rt,i = 1t)
+∑n
+i=1 rpse,t,i exp(γtypse,t,i)Kct (ut −ut,i)I(Rt,i = 1t)
+,
+(2)
+where Kct(⋅) = c−1
+t K(⋅/ct), with K(⋅) being a symmetric kernel function and ct a bandwidth.
+For a fixed γt, the working model (1) can be expressed aŝ πt(ut,ypse,t;γt) = [1+exp{̂sγt,t(ut)+
+γtypse,t}]−1. Then, we can estimate γt with the following estimating equation,̂
+E [I(Rt = 1t)lt(zt){
+rpse,t̂
+πt(ut,ypse,t;γt) −1}] = 0,
+(3)
+wherê E[⋅] denotes the empirical mean, lt(zt) = (lt,1(zt),...,lt,L(zt)) is a user-specified
+differentiable vector function of the nonresponse instrumental variables of dimension L,
+L ≥2.
+Note that in estimating equations (3), if zt are constants, then the above equations are
+not solvable because they are under-identified. Nevertheless, when L > 2 and the equations
+are over-identified, we can employ the two-step generalized method of moments (GMM) to
+12
+
+
+===== ORIGINAL PDF PAGE 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+estimate γt. Let bt,j(rpse,t,ut,ypse,t;γt) = I(Rt = 1t)lt,j(zt){
+rpse,t̂
+πt(ut,ypse,t;γt) −1} for j = 1,...,L
+and Bt(γt) = (̂E[bt,1],̂E[bt,2],...,̂E[bt,L]).
+Then, the first-step GMM estimator of γt iŝ
+γ(1)
+t
+= arg min
+γt
+Bt(γt)Bt(γt)T.
+Based on the first-step GMM estimator, we can build a more efficient estimator of γt
+with a weight matrix Wt.
+Let Wt be the inverse matrix of the L × L matrix with the
+(j,j′) element as
+1
+n ∑n
+i=1 bt,j(rpse,t,ut,ypse,t;̂γ(1)
+t
+)bt,j′(rpse,t,ut,ypse,t;̂γ(1)
+t
+). Then the second-
+step GMM estimator of γt iŝ γt = arg min
+γt
+Bt(γt)WtBt(γt)T.
+With the estimated working model for the missingness probability, we can employ the
+weighted least square method to obtain consistent estimates of the Q-function parameters.
+Subsequently, the optimal treatment at stage t can be determined based on the estimated
+parameters. We henceforth refer to this approach as the estimating equation (EE) method.
+2.5
+Weighted Q-learning for DTRs with nonignorable missing pseudo-
+outcomes: a sensitivity analysis approach
+In real data applications, it might be challenging to find valid nonresponse instrument vari-
+ables for every stage based on domain knowledge. In such scenarios, we develop a sensitiv-
+ity analysis approach for the conditional missingness probability of Ypse,t. Specifically, we
+slightly modify Assumption 5 and introduce the following assumption.
+Assumption 6 (Semiparametric working model for missingness probability without nonre-
+sponse instrumental variables).
+P(Rpse,t = 1 ∣ht,at,ypse,t,Rt = 1t) = π(ht,at,ypse,t;γ′
+t) =
+1
+1 + exp{s′
+t(ht,at) + γ′
+typse,t},
+(4)
+where s′
+t(⋅) is an unknown and unspecified function of (ht,at) and γ′
+t is the pre-specified
+sensitivity parameter. Note that here we include all historical variables in (4).
+The sensitivity parameter γ′
+t quantifies the residual effect of Ypse,t on Rpse,t after adjust-
+13
+
+
+===== ORIGINAL PDF PAGE 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+ing for ht and at for patients with complete covariates up to stage t. Kim and Yu (2011)
+proposed a similar semiparametric exponential tilting model for nonignorable missing out-
+comes in cross-sectional settings, where external data were used to estimate their sensitivity
+parameter. In more general scenarios where external data are unavailable, the specification
+of sensitivity parameters in nonignorable missingness models (and in related problems of
+sensitivity analysis for unmeasured confounding) remains an active area of research. In Web
+Appendix A, we first discuss how to interpret the sign of γ′
+t using domain knowledge, and
+then develop a simulation-based approach to calibrating the magnitude of γ′
+t, building upon
+the methods by Yin and Shi (2019).
+After γ′
+t is specified, we can obtain the kernel estimate of exp{s′
+γ′
+t,t(ht,at)} in a similar
+manner as in equation (2):
+exp{̂s′
+γ′
+t,t(ht,at)} =
+∑n
+i=1 (1 −rpse,t,i)K′
+c′
+t (gt −gt,i)I(Rt,i = 1t)
+∑n
+i=1 rpse,t,i exp(γ′
+typse,t,i)K′
+c′
+t (gt −gt,i)I(Rt,i = 1t)
+,
+(5)
+where gt = (ht,at) and K′
+c′
+t(⋅) = c′
+t
+−1K′(⋅/c′
+t), with K′(⋅) being a symmetric kernel function
+and c′
+t a bandwidth.
+Subsequently, we can employ inverse probability weighting to obtain consistent estimates
+of the Q-functions and the optimal DTRs. If the working model (4) is correctly specified
+(including the sensitivity parameter γ′
+t) and certain regularity conditions for exp{s′
+γ′
+t,t(ht)}
+are satisfied, along with correctly specified Q-functions, the parameter estimators in the
+Q-functions are consistent. As the true value of γ′
+t is unknown, we conduct a sensitivity
+analysis by varying the value of γ′
+t in the determined range to assess its impact on the
+Q-learning results. We refer to this approach as the SA method.
+2.6
+Summary of the estimation steps
+We summarize the steps of the proposed weighted Q-learning approach as follows:
+1. Compute ypse,T = f(y1,y2,...,yT). Let MT(θT) =̂ E [I(RT = 1T)
+∂[{QT (hT ,aT ;θT )−ypse,T }2]
+∂θT
+].
+14
+
+
+===== ORIGINAL PDF PAGE 15 =====
+FORMULA CHECK REQUIRED: original PDF page 15.
+Then obtain̂ θT by solving the estimating equation MT(θT) = 0
+2. For t = T −1,...,1, repeat the following steps recursively:
+(a) Obtain stage t pseudo-outcome estimate aŝ ypse,t = max
+at+1
+Qt+1(ht+1,at+1;̂θt+1),
+denote the missingness indicator of̂ ypse,t aŝ Rpse,t.
+(b) Estimate P(̂Rpse,t = 1 ∣ht,at,̂ypse,t,Rt = 1t) using the EE or the SA method and
+denote the estimated probability aŝ πt.
+(c) Let Mt(θt) =̂ E (̂rpse,t̂
+πt I(Rt = 1t)
+∂[{Qt(ht,at;θt)−̂ypse,t}2]
+∂θt
+). Solve the estimating equa-
+tion
+Mt(θt) = 0 to obtain̂ θt.
+3. Obtain the optimal regime at stage t bŷ dopt
+t
+(ht) = arg max
+at
+Qt(ht,at;̂θt) for t =
+1,...,T.
+Remark 1. Recall that, since at ∈{−1,1}, Qt(ht,at;̂θt) can be written as qt,0(ht;̂βt) +
+atqt,1(ht;̂ψt). Subsequently,̂ ypse,t can be calculated by qt+1,0(ht+1;̂βt+1) + ∣qt+1,1(ht+1;̂ψt+1)∣
+and̂ dopt
+t
+(ht) is determined by the sign of qt,1(ht;̂ψt).
+Remark 2. The pseudo-outcome Ypse,t is determined by the specified parametric form of
+Qt+1(⋅) and the true values of θt+1 for t = 1,...,T −1. Since the true value of θt+1 is unknown
+in practice, we usê Ypse,t calculated by the parameter estimateŝ θt+1 in step (2). In this
+scenario,̂ Ypse,t differs slightly from Ypse,t, which leadŝ πt to differ slightly from π(ut,ypse,t)
+and π(ht,at,ypse,t), when the EE and SA methods are used respectively. Nevertheless, if all
+the models are correctly specified,̂ θt+1 serves as a consistent estimator for θt+1. Subsequently,̂
+Ypse,t converges to Ypse,t. It follows that the estimated optimal DTR̂ d will also converge to
+the true optimal DTR d. We formalize these asymptotic properties in the following section.
+Remark 3. Ypse,t = maxat+1∈{−1,1} Qt+1(Ht+1,at+1) implies that the missingness of Ypse,t is
+determined by the model for Qt+1(⋅) and the missingness of Ht+1. If all members of Ht+1 are
+employed in the calculation of Ypse,t, then Rpse,t = I(Rt+1 = 1t+1). Therefore, the missingness
+of covariates at stage t+2,...,T does not directly affect Rpse,t. Nevertheless, if nonignorable
+15
+
+
+===== ORIGINAL PDF PAGE 16 =====
+FORMULA CHECK REQUIRED: original PDF page 16.
+missing covariates in the later stages are not handled properly, it not only directly impacts
+the estimation at those stages but also has an influence on earlier stages. This is because
+bias would propagate and accumulate during the backward-induction procedure through the
+pseudo-outcomes calculated with biased Q-functions. Therefore, in this scenario increasing
+the total number of stages could lead to worse performance of the estimated optimal DTRs.
+We investigate this issue further in Simulation 4 in Web Appendix H.
+We provide R Markdown tutorials for implementing the proposed weighted Q-learning
+approaches using simulated data in the Supplementary Materials. In Web Appendices B-E,
+we establish the consistency and asymptotic normality of the estimators in Section 2.6 in the
+2-stage scenario. The form of the asymptotic covariance matrix of the estimated parameters
+at stage 1 is complicated. Therefore, following Shao and Wang (2016), we suggest using the
+bootstrap method to estimate variances and construct confidence intervals of the parameters
+in practice. Additionally, when non-regularity of stage 1 parameter estimators is of concern,
+the m-out-of-n bootstrap should be used for the inference (see details in Web Appendix G).
+3
+Simulation
+We conducted four simulation studies to evaluate the finite-sample performance of the pro-
+posed weighted Q-learning method with conditional missingness probabilities of pseudo-
+outcomes estimated by the EE or the SA method, which we denote as the WQ-EE method
+or the WQ-SA method, respectively. In Simulation 1, we focused on the scenario where
+Assumptions 1-5 were satisfied. In Simulation 2, we evaluated the robustness of the WQ-EE
+method against the violations of Assumption 5 when (1) the chosen instrumental variable
+was weakly associated with the missingness indicator and (2) there were interactions be-
+tween ut and ypse,t in the true conditional missingness probability model. In Simulation 3,
+we demonstrated our simulation-based approach to calibrating the sensitivity parameter and
+the performance of the WQ-SA method based on the specified sensitivity parameter values.
+In Simulation 4, we considered a 3-stage setting where the data generation mechanism and
+16
+
+
+===== ORIGINAL PDF PAGE 17 =====
+FORMULA CHECK REQUIRED: original PDF page 17.
+the true Q-functions in the first two stages were the same as those in Simulation 1. By
+comparing the results in Simulations 1 and 4, we investigated the impact of an increased
+number of total stages on the performance of the proposed methods. For comparison, we
+also assessed three other methods for handling partially missing covariate data in Q-learning:
+a naive method which ignored partially observed covariates (‘naive’), complete case analysis
+(‘CC’), and multiple imputation (‘MI’) (Little and Rubin, 2014). Q-learning when all the
+covariates are fully observed (‘All’) was used as the benchmark. More details can be found
+in Web Appendix H.
+All methods were evaluated in two aspects: Firstly, we compared their performances for
+estimating the blip function parameters ψt. Secondly, we assessed their abilities to iden-
+tify the true optimal DTR and compared their values of the estimated optimal DTRs. In
+Simulation 1, the WQ-EE method and CC analysis provided consistent estimates of blip
+function parameters at stage 2 (i.e., the final stage) due to the future-independent missing-
+ness assumption being satisfied and fully observed pseudo-outcomes. In contrast, naive and
+MI methods resulted in significant biases at this stage due to the misspecified Q-function
+models that excluded partially missing covariates in the naive method and the violation of
+ignorable missingness assumption required by the MI method, respectively. At stage 1, WQ-
+EE estimators remained consistent, while the CC method showed substantial biases that did
+not decrease with increasing sample size. This was because, at stage 1, not only were there
+nonignorable missing covariates, but the pseudo-outcomes were also nonignorably missing.
+The WQ-EE method demonstrated the highest proportion of correctly identifying the opti-
+mal treatments in both stages. In contrast, the DTRs obtained from CC and MI methods
+had much lower correct classification rates, and the mean final outcomes under the estimated
+DTRs were lower than that from the WQ-EE method. In Simulation 2, the WQ-EE method
+demonstrated robustness to mild model misspecification and consistently outperformed the
+other three methods, yielding higher mean final outcomes and correct classification rates
+when Assumption 5 was violated. In Simulation 3, the proposed simulation-based approach
+determined plausible ranges for the sensitivity parameter γ′
+1 that covered the true values
+17
+
+
+===== ORIGINAL PDF PAGE 18 =====
+FORMULA CHECK REQUIRED: original PDF page 18.
+of γ′
+1 across simulations, and the WQ-SA method with varied values of γ′
+1 was robust and
+outperformed the naive, CC, and MI methods. In Simulation 4, we compared the values and
+overall correct classification rates of the estimated DTRs from Simulations 1 and 4. These
+performance metrics decreased with the increased number of total stages, confirming that
+the impact of nonignorable missing covariates propagated over time.
+4
+Application to the MIMIC-III data
+We applied the proposed methods to the MIMIC-III data (Johnson et al., 2016) for investi-
+gating the optimal 2-stage fluid strategy to treat sepsis patients in ICUs.
+Sepsis is a life-threatening syndrome caused by the body’s response to infection, resulting
+in damage to its own tissues and organs. Timely and effective fluid resuscitation is crucial
+for stabilizing tissue hypoperfusion or septic shock in sepsis patients. The ‘Surviving Sepsis
+Campaign’ guideline strongly recommends administrating at least 30 mL/kg of intravenous
+(IV) fluid within the first 3 hours of ICU admission (Rhodes et al., 2017). To address the
+lack of robust evidence for the optimal fluid resuscitation strategy in the early hours of
+treatment, Speth et al. (2022) utilized MIMIC-III data to assess the optimal DTR during
+the 0-3 hours and 3-24 hours following admission to the medical ICU. Building upon Speth
+et al. (2022) and in line with the recommendation of the ‘Surviving Sepsis Campaign’ that
+additional fluid administration after initial resuscitation should be guided by reassessing the
+patient’s hemodynamic status, we incorporated hemodynamic variables in determining the
+optimal fluid resuscitation strategy during the 3-24 hours period after ICU admission (stage
+2).
+We followed similar patient selection criteria as outlined by Speth et al. (2022), focus-
+ing on adult septic patients admitted to the medical ICU after initially presenting to the
+emergency department. The detailed cohort eligibility criteria can be found in Web Ap-
+pendix I. The treatments in both stages, the baseline covariates, and the final outcome were
+defined according to Speth et al. (2022). Specifically, the stage 1 and stage 2 treatments
+18
+
+
+===== ORIGINAL PDF PAGE 19 =====
+FORMULA CHECK REQUIRED: original PDF page 19.
+were categorized as either fluid restrictive (<30 ml/kg) or fluid liberal (≥30 ml/kg) strate-
+gies in 0-3 hours and 3-24 hours post-ICU admission, respectively. The baseline covariates
+included gender, age, weight, racial groups, and Elixhauser comorbidity score. The out-
+come of interest was the Sequential Organ Failure Assessment (SOFA) score evaluated at
+24 hours post-admission. The SOFA score is a clinical tool used to assess the severity of
+organ dysfunction by assigning scores to various organ systems. A higher SOFA score indi-
+cates a more severe impairment. In our analysis, we used the negative value of the SOFA
+score at 24 hours post-admission as the final outcome to be maximized by the optimal fluid
+resuscitation strategy.
+For the intermediate variables considered before stage 2 treatment, we included mechan-
+ical ventilation and vasopressors within the first 3-hour period, as well as the patients’ SOFA
+score evaluated at 3 hours post-admission. Additionally, we also considered heart rate, blood
+pressure, Saturation of Peripheral Oxygen (SpO2), respiratory rate, temperature at 3 hours
+post-admission and urine output within 0-3 hours after admission. These hemodynamic
+variables contained missing values, which were likely to be nonignorable due to the infor-
+mative monitoring of the patients in the MIMIC-III database, as discussed previously. The
+missing proportions of the hemodynamic variables are provided in Web Table 10.
+There were 973 patients in the selected cohort, among them 53.2% were male and 78.7%
+were Caucasian. 45.5% of the patients received the fluid liberal strategy in 0-3 hours post-
+admission while 53.5% received the fluid liberal strategy in 3-24 hours post-admission. Over-
+all, 67.1% of patients had fully observed covariates at stage 2, while the rest of the patients
+had at least one covariate with missing values.
+As discussed in Section 2.3, it was plausible that Assumption 4 holds, that is, the missing
+data mechanism of the hemodynamic variables at 3 hours post-admission was unrelated to
+the patient’s SOFA score at 24 hours post-admission, conditioning on the patient’s medical
+history and treatments up to stage 2.
+Denote the negative of SOFA score at 24 hours
+post-admission under the optimal stage 2 treatment as Ypse,1. It was plausible that weight
+and gender were independent of the missingness of hemodynamic variables given baseline
+19
+
+
+===== ORIGINAL PDF PAGE 20 =====
+FORMULA CHECK REQUIRED: original PDF page 20.
+covariates and Ypse,1. Since weight and gender were associated with Ypse,1, they were suitable
+candidates for nonresponse instrumental variables. Additionally, the Elixhauser comorbidity
+score can be regarded as a mismeasured proxy of Ypse,1, which may also serve as a candidate
+for the nonresponse instrumental variable, according to Miao and Tchetgen (2018). We
+investigated the impact of using different sets of candidates for nonresponse instrumental
+variables in Table 1.
+Besides, we applied CC, MI, and the naive method that ignored
+hemodynamic variables for comparison. The improvement of SOFA at 24 hours was then
+calculated as the difference between the means of the observed SOFA scores at 24 hours and
+the expected SOFA scores at 24 hours under the estimated optimal DTR. We performed
+cross-validation and m-out-of-n bootstrap to assess the performance of the estimated optimal
+DTRs. More details of the estimation procedure are given in Web Appendix I.
+Table 1: Improvement of SOFA at 24 hours post-admission for sepsis patients in the selected
+cohort of the MIMIC-III database under the estimated optimal fluid strategies with different
+approaches to handling nonignorable missing covariates.
+Mean
+m
+Bootstrap std
+Bootstrap 95% CI
+WQ-EE (ECS)
+1.297
+823
+0.186
+(0.929, 1.667)
+WQ-EE (weight)
+1.432
+823
+0.179
+(1.083, 1.783)
+WQ-EE (ECS, weight)
+1.338
+823
+0.181
+(0.976, 1.681)
+WQ-EE (gender)
+1.430
+823
+0.210
+(1.012, 1.841)
+WQ-EE (gender, ECS)
+1.338
+823
+0.194
+(0.930, 1.696)
+WQ-EE (gender, weight)
+1.459
+823
+0.193
+(1.083, 1.833)
+WQ-EE (gender, weight, ECS)
+1.345
+823
+0.197
+(0.949, 1.730)
+CC
+1.190
+823
+0.168
+(0.861, 1.523)
+MI
+1.092
+827
+0.123
+(0.853, 1.340)
+naive
+0.909
+831
+0.116
+(0.685, 1.135)
+Note: Mean, the average of estimated improvement of SOFA based on cross-validation
+using 1000 random splits; m, the resample size in the m-out-of-n bootstrap selected using
+the double bootstrap method described in Web Appendix G; Bootstrap Std, the standard
+deviation of the m-out-of-n bootstrap estimates; Bootstrap 95% CI, 95% confidence inter-
+val constructed by m-out-of-n bootstrap percentiles; ECS, Elixhauser comorbidity score;
+WQ-EE (⋅), the WQ-EE method based on the corresponding nonresponse instrumental
+variables listed in parenthesis.
+Table 1 presents the estimated mean, standard error, and 95% confidence interval of the
+20
+
+
+===== ORIGINAL PDF PAGE 21 =====
+FORMULA CHECK REQUIRED: original PDF page 21.
+improvement of SOFA score at 24 hours post-admission. Notably, all three methods that
+considered hemodynamic variables outperformed the naive method, which aligns with the
+recommendation from the Surviving Sepsis Campaign. Furthermore, the estimated improve-
+ment of SOFA at 24 hours post-admission based on the WQ-EE method were notably larger
+than those based on the CC and MI methods.
+Importantly, while the WQ-EE method
+exhibited robustness to the choice of the three candidate nonresponse instrumental vari-
+ables, the estimated improvement of SOFA at 24 hours post-admission would be lower if the
+Elixhauser comorbidity score was included in the set of nonresponse instrumental variables.
+This could be attributed to the association between the Elixhauser comorbidity score and
+the missingness of hemodynamic variables. In Simulation 2, we have demonstrated that
+this association can affect the performance of the WQ-EE method. Therefore, we recom-
+mend excluding the Elixhauser comorbidity score from the set of nonresponse instrumental
+variables. The remaining three combinations of nonresponse instrumental variables showed
+similar means and standard errors for the estimated improvement of the final outcome.
+However, we cannot rule out that gender and weight could be weakly associated with the
+missingness of hemodynamic variables, even after conditioning on other covariates and the
+pseudo-outcome. Therefore, we also applied the proposed WQ-SA method in case none of the
+aforementioned variables were valid nonresponse instrument variables. We assumed γ′
+1 ≥0
+because patients with higher SOFA scores (i.e., lower final outcomes) were more severely ill,
+and they may undergo more intensive monitoring of their hemodynamic status. To calibrate
+the magnitude of γ′
+1, we applied our simulation-based approach described in Web Appendix
+A. Table 2 presented the medians of 1000 Wilcoxon rank-sum test p-values for checking
+the similarity between the ‘observed’ pseudo-outcomes estimates and the replications of
+‘observed’ pseudo-outcomes simulated under the working missingness model
+(4) with a
+specified value of γ′
+1.
+A large median of the p-values indicated that the replications of
+observed pseudo-outcomes were similar to the observed pseudo-outcome estimates in the
+MIMIC-III data, thus the corresponding value of γ′
+1 was considered to be plausible. From
+Table 2, we can see that the medians of the p-values were larger than 0.05 when γ′
+t lied in
+21
+
+
+===== ORIGINAL PDF PAGE 22 =====
+FORMULA CHECK REQUIRED: original PDF page 22.
+the range of [0,1] and it was smaller than 0.05 when γ′
+t ≥1.25. For the sake of prudence,
+we therefore considered a range of values for γ′
+1 within the interval [0,1.25].
+Table 2: Results for the simulation-based approach to determining a plausible range of the
+sensitivity parameter for the WQ-SA method in the MIMIC-III data application.
+γ′
+1
+0
+0.25
+0.5
+0.75
+1
+1.25
+1.5
+1.75
+Median of p-values
+0.207
+0.230
+0.190
+0.129
+0.063
+0.039
+0.021
+0.016
+Table 3 shows that when γ′
+1 = 0, the estimated improvement in SOFA at 24 hours
+post-admission was nearly identical to that of the CC method, which also assumed the
+future-independent missingness assumption and ignored the relationship between Ypse,1 and
+Rpse,1. The estimated improvement in SOFA at 24 hours post-admission increased rapidly as
+γ′
+1 changed from 0 to 0.75. When γ′
+1 changes from 0.75 to 1.25, the estimated improvement
+in SOFA at 24 hours post-admission stabilized at around 1.47.
+Table 3: The improvement of SOFA at 24 hours post-admission for sepsis patients in the
+selected cohort of the MIMIC-III database under the estimated optimal fluid strategies with
+different values of the sensitivity parameter γ′
+1 in the WQ-SA method
+γ′
+1
+Mean
+m
+Bootstrap std
+Bootstrap 95% CI
+0
+1.184
+823
+0.178
+(0.837, 1.534)
+0.25
+1.288
+823
+0.181
+(0.930, 1.642)
+0.5
+1.369
+823
+0.185
+(1.003, 1.726)
+0.75
+1.436
+823
+0.198
+(1.044, 1.821)
+1
+1.475
+823
+0.201
+(1.082, 1.873)
+1.25
+1.486
+823
+0.204
+(1.085, 1.887)
+Note: Mean, the average of estimated improvement of SOFA
+based on cross-validation using 1000 random splits; m, the re-
+sample size in the m-out-of-n bootstrap selected with the dou-
+ble bootstrap method described in Web Appendix G; Boot-
+strap Std, the standard deviation of the m-out-of-n bootstrap
+estimates; Bootstrap 95% CI, 95% confidence interval con-
+structed by m-out-of-n bootstrap percentiles.
+While the challenge of optimizing the management of septic patients is intricate and
+multifaceted, we employed the proposed methods to investigate whether incorporating par-
+tially missing hemodynamic variables could influence the fluid administration after the initial
+22
+
+
+===== ORIGINAL PDF PAGE 23 =====
+Technical extraction; compare with original PDF page 23.
+resuscitation to enhance the overall outcome of the septic patients. In line with the best
+practice recommendations of the Surviving Sepsis Campaign, our analysis results indicated
+that certain hemodynamic variables should be taken into account when formulating the fluid
+resuscitation strategy during the 3-24 hours following admission to the medical ICU because
+accounting for these nonignorable missing covariates with the proposed methods increased
+the estimated improvement of SOFA at 24 hours post-admission.
+5
+Discussion
+In this article, we proposed two weighted Q-learning approaches to estimating optimal DTRs
+with nonignorable missing covariates and consequent nonignorable missing pseudo-outcomes.
+To the best of our knowledge, this is the first attempt to estimate optimal DTRs in these chal-
+lenging nonignorable missingness scenarios. Specifically, we utilized the future-independent
+missingness assumption and developed a semi-parametric estimating equation-based ap-
+proach to estimating the conditional missingness probability of the pseudo-outcomes with
+valid nonresponse instruments. After obtaining the estimated conditional missingness prob-
+abilities, we applied inverse probability weighting to estimate the Q-function parameters.
+When nonresponse instrumental variables were not available, we developed a practical ap-
+proach to calibrating the sensitivity parameter in the WQ-SA method and conducted a sen-
+sitivity analysis to assess the impact of varied sensitivity parameter values on the estimated
+optimal DTRs. Our simulation results showed that the WQ-EE and WQ-SA estimators
+were consistent when their corresponding assumptions hold. They were also robust and out-
+performed the competing methods under mild model misspecifications. In the application
+to the MIMIC-III data, we showed that incorporating hemodynamic variables into optimal
+fluid strategy estimation and handling nonignorable missing covariates with the proposed
+methods can improve the SOFA score for sepsis patients in ICUs.
+In practice, the ignorable missingness assumption is unverifiable from observed data.
+Therefore, when researchers are not certain about missingness assumptions based on sub-
+23
+
+
+===== ORIGINAL PDF PAGE 24 =====
+FORMULA CHECK REQUIRED: original PDF page 24.
+stantive knowledge, we suggest using the proposed WQ-EE or WQ-SA method to accom-
+modate possible departures from ignorable missingness and the uncertainty brought by non-
+ignorable missingness when estimating optimal DTRs. Notably, the proposed methods are
+still valid under ignorable missingness (i.e., γt = 0 in Assumption 5, γ′
+t = 0 in Assumption 6).
+There are several directions for future work. First, this article exclusively addresses
+the issue of missing pseudo-outcomes due to MNAR covariates in optimal DTR estimation
+with Q-learning. However, in observational studies or EMR databases, patients may not
+progress through all stages of clinical intervention due to experiencing a terminal event or
+being censored before the end of the study. In such cases, it is desirable to integrate the
+terminal event and longitudinal outcome measurements for estimating optimal DTRs while
+accounting for the censoring and MNAR covariates. Second, the dimension of the covariates
+is often high in practice, especially in multiple-stage settings. In such scenarios, the kernel
+regression method is susceptible to the ‘curse of dimensionality’ problem. To address this
+challenge, one may consider dimension reduction techniques proposed in Tang et al. (2014).
+Third, our methods utilize inverse probability weighting on the sample with complete co-
+variates at different stages, whose size can be small when the majority of patients have at
+least one covariate with missing values. In this case, we could explore the multiple impu-
+tation method under nonignorable missingness (Tompsett et al., 2018) as a more practical
+alternative. Last, the proposed approach can be extended to other DTRs methods, such as
+A-learning.
+References
+Awad, A., Bader-El-Den, M., McNicholas, J., and Briggs, J. (2017). Early hospital mortality
+prediction of intensive care unit patients using an ensemble learning approach. Interna-
+tional journal of medical informatics 108, 185–195.
+Chakraborty, B. and Moodie, E. E. (2013).
+Statistical methods for dynamic treatment
+regimes. Springer-Verlag. doi 10, 4–1.
+24
+
+
+===== ORIGINAL PDF PAGE 25 =====
+FORMULA CHECK REQUIRED: original PDF page 25.
+Dong, L., Laber, E., Goldberg, Y., Song, R., and Yang, S. (2020). Ascertaining properties
+of weighting in the estimation of optimal treatment regimes under monotone missingness.
+Statistics in Medicine 39, 3503–3520.
+Huang, Y. and Zhou, X.-H. (2020). Identification of the optimal treatment regimen in the
+presence of missing covariates. Statistics in medicine 39, 353–368.
+Johnson, A. E., Pollard, T. J., Shen, L., Lehman, L.-w. H., Feng, M., Ghassemi, M., Moody,
+B., Szolovits, P., Anthony Celi, L., and Mark, R. G. (2016). Mimic-iii, a freely accessible
+critical care database. Scientific data 3, 1–9.
+Kalani, C., Venigalla, T., Bailey, J., Udeani, G., and Surani, S. (2020). Sepsis patients in
+critical care units with obesity: is obesity protective? Cureus 12,.
+Kim, J. K. and Yu, C. L. (2011). A semiparametric estimation of mean functionals with
+nonignorable missing data. Journal of the American Statistical Association 106, 157–165.
+Kosorok, M. R. and Laber, E. B. (2019). Precision medicine. Annual review of statistics
+and its application 6, 263–286.
+Little, R. J. and Rubin, D. B. (2014). Statistical Analysis with Missing Data, volume 333.
+John Wiley & Sons.
+Miao, W., Ding, P., and Geng, Z. (2016). Identifiability of normal and normal mixture
+models with nonignorable missing data. Journal of the American Statistical Association
+111, 1673–1683.
+Miao, W. and Tchetgen, E. T. (2018). Identification and inference with nonignorable missing
+covariate data. Statistica Sinica 28, 2049.
+Miao, W. and Tchetgen Tchetgen, E. J. (2016). On varieties of doubly robust estimators
+under missingness not at random with a shadow variable. Biometrika 103, 475–482.
+25
+
+
+===== ORIGINAL PDF PAGE 26 =====
+FORMULA CHECK REQUIRED: original PDF page 26.
+Murphy, S. A. (2003). Optimal dynamic treatment regimes. Journal of the Royal Statistical
+Society Series B: Statistical Methodology 65, 331–355.
+Rhodes, A., Evans, L. E., Alhazzani, W., Levy, M. M., Antonelli, M., Ferrer, R., Kumar, A.,
+Sevransky, J. E., Sprung, C. L., Nunnally, M. E., et al. (2017). Surviving sepsis campaign:
+international guidelines for management of sepsis and septic shock: 2016. Intensive care
+medicine 43, 304–377.
+Sakr, Y., Elia, C., Mascia, L., Barberis, B., Cardellino, S., Livigni, S., Fiore, G., Filippini,
+C., and Ranieri, V. M. (2013). The influence of gender on the epidemiology of and outcome
+from severe sepsis. Critical Care 17, 1–9.
+Schulte, P. J., Tsiatis, A. A., Laber, E. B., and Davidian, M. (2014). Q-and a-learning
+methods for estimating optimal dynamic treatment regimes. Statistical science: a review
+journal of the Institute of Mathematical Statistics 29, 640.
+Shao, J. and Wang, L. (2016). Semiparametric inverse propensity weighting for nonignorable
+missing data. Biometrika 103, 175–187.
+Shen, J., Hubbard, R. A., and Linn, K. A. (2023). Estimation and evaluation of individual-
+ized treatment rules following multiple imputation. Statistics in Medicine 42, 4236–4256.
+Shortreed, S. M., Laber, E., Scott Stroup, T., Pineau, J., and Murphy, S. A. (2014). A mul-
+tiple imputation strategy for sequential multiple assignment randomized trials. Statistics
+in medicine 33, 4202–4214.
+Simoneau, G., Moodie, E. E., Nijjar, J. S., Platt, R. W., Investigators, S. E. R. A. I. C.,
+et al. (2020). Estimating optimal dynamic treatment regimes with survival outcomes.
+Journal of the American Statistical Association 115, 1531–1539.
+Speth, K. A., Elliott, M. R., Marquez, J. L., and Wang, L. (2022). Penalized spline-involved
+tree-based (pensit) learning for estimating an optimal dynamic treatment regime using
+observational data. Statistical Methods in Medical Research 31, 2338–2351.
+26
+
+
+===== ORIGINAL PDF PAGE 27 =====
+FORMULA CHECK REQUIRED: original PDF page 27.
+Tang, N., Zhao, P., and Zhu, H. (2014). Empirical likelihood for estimating equations with
+nonignorably missing data. Statistica Sinica 24, 723.
+Tompsett, D. M., Leacy, F., Moreno-Betancur, M., Heron, J., and White, I. R. (2018). On
+the use of the not-at-random fully conditional specification (narfcs) procedure in practice.
+Statistics in medicine 37, 2338–2353.
+VanderWeele, T. J. and Robins, J. M. (2007). Directed acyclic graphs, sufficient causes,
+and the properties of conditioning on a common effect. American journal of epidemiology
+166, 1096–1104.
+Wang, L., Rotnitzky, A., Lin, X., Millikan, R. E., and Thall, P. F. (2012). Evaluation of
+viable dynamic treatment regimes in a sequentially randomized trial of advanced prostate
+cancer. Journal of the American Statistical Association 107, 493–508.
+Xu, Y., M¨uller, P., Wahed, A. S., and Thall, P. F. (2016). Bayesian nonparametric estimation
+for dynamic treatment regimes with sequential transition times. Journal of the American
+Statistical Association 111, 921–950.
+Yang, S., Wang, L., and Ding, P. (2019). Causal inference with confounders missing not at
+random. Biometrika 106, 875–888.
+Yin, P. and Shi, J. Q. (2019). Simulation-based sensitivity analysis for non-ignorably missing
+data. Statistical methods in medical research 28, 289–308.
+Yu, H. and Zhang, Q. (2022). A deep reinforcement computation model for sepsis treatment.
+In 2022 IEEE International Conference on Bioinformatics and Biomedicine (BIBM),
+pages 3217–3222. IEEE.
+Zhao, Y. Q., Zeng, D., Laber, E. B., and Kosorok, M. R. (2015). New statistical learning
+methods for estimating optimal dynamic treatment regimes. Journal of the American
+Statistical Association 110, 583–598.
+27
+
+
+===== ORIGINAL PDF PAGE 28 =====
+Technical extraction; compare with original PDF page 28.
+Supplementary Materials for “Weighted Q-learning for
+optimal DTRs with nonignorable missing covariates”
+Jian Sun ∗, Bo Fu †, and Li Su ‡
+1
+Web Appendix A: Calibrating the sensitivity param-
+eter in the WQ-SA method
+Although the importance of sensitivity analysis with respect to missing data has been rec-
+ognized in research and regulatory agencies’ guidelines for analysis and reporting of clinical
+trials (Little et al., 2012; European Medicines Agency, 2010, 2020), calibrating sensitivity
+parameters in nonignorable missingness models (and in related problems of sensitivity anal-
+ysis for unmeasured confounding) is still a challenging task and an active area of research
+(Yin and Shi, 2019; Franks et al., 2020; Sj¨olander et al., 2022). We first discuss how to
+determine the sign of the sensitivity parameter using domain knowledge. Then we describe
+how to calibrate the magnitude of the sensitivity parameter in the WQ-SA methods.
+1.1
+Determining the sign of the sensitivity parameter
+In practice, prior knowledge and domain expertise often can be used to reason about some
+characteristics of the missing data mechanism and determine the sign of sensitivity param-
+∗School of Data Science, Fudan University, Shanghai 200433, China. Email: jsun19@fudan.edu.cn.
+†School of Data Science, Fudan University, Shanghai 200433, China. Email: fu@fudan.edu.cn.
+‡MRC Biostatistics Unit, University of Cambridge, Cambridge, CB2 0SR, UK. Email:
+li.su@mrc-
+bsu.cam.ac.uk.
+1
+arXiv:2312.01735v5  [stat.ME]  10 Dec 2024
+
+
+===== ORIGINAL PDF PAGE 29 =====
+FORMULA CHECK REQUIRED: original PDF page 29.
+eters. In the working model (4) of the main text for the WQ-SA method, the sign of the
+sensitivity parameter γ′
+t has a relatively straightforward interpretation: for fixed ht and at, if
+γ′
+t > 0, then a smaller value of ypse,t leads to a smaller missingness probability, and vice versa.
+For example, in the MIMIC-III data, given the covariates and treatments up to stage t (i.e.,
+ht and at), patients with worse disease conditions (i.e., smaller values of ypse,t) were more
+likely to be monitored frequently and less likely to have missing values of ypse,t. Therefore,
+it is reasonable to assume that the sensitivity parameter γ′
+t is positive in this scenario.
+1.2
+The simulation-based sensitivity analysis approach by Yin and
+Shi (2019)
+We now turn to the more challenging task of specifying the plausible magnitude of the sen-
+sitivity parameters. The research on specifying the sensitivity parameters in nonignorable
+missingness models is relatively sparse in the literature. Yin and Shi (2019) developed a
+simulation-based approach to searching for plausible values of the sensitivity parameters in
+logistic models for nonignorable missingness probabilities. This simulation-based method
+was initially introduced by Gelman et al. (1996) for assessing the goodness-of-fit with a
+Bayesian posterior predictive model. It was further employed for model checking with miss-
+ing and latent data (Gelman et al., 2005; Copas and Shi, 2000; Copas and Eguchi, 2005;
+Daniels et al., 2012). Using K-nearest-neighbor (KNN) distance metrics, Yin and Shi (2019)
+compared the similarity between the observed outcome data with replications of observed
+outcomes simulated from the estimated full data distribution and the estimated missingness
+probabilities with fixed values of their sensitivity parameters. If the KNN distance metrics
+had small values, it indicated that the estimated full data distribution and the missing-
+ness probability model (including the specified values of the sensitivity parameters) were
+compatible with the observed outcome data, thus the specified sensitivity parameter values
+were considered to be plausible. Inspired by their methods, we propose a simulation-based
+approach to determining the plausible range of our sensitivity parameters in the WQ-SA
+2
+
+
+===== ORIGINAL PDF PAGE 30 =====
+FORMULA CHECK REQUIRED: original PDF page 30.
+method.
+1.3
+Distinctions between the nonignorable missing outcome set-
+tings in Yin and Shi (2019) and the setting with nonignorable
+missing pseudo-outcomes
+Before we proceed to describe the proposed approach, we emphasize some distinctions be-
+tween the nonignorable missing outcome settings examined by Yin and Shi (2019) and our
+DTR setting with nonignorable missing pseudo-outcomes. In typical nonignorable missing
+outcome settings in Yin and Shi (2019), the observed outcomes are directly available from the
+raw data. However, due to the potential outcome framework used in the DTR setting, the
+pseudo-outcomes before the final stage are conditional expectations of potential outcomes,
+thus not directly available from the raw data. Rather, we use estimated Q-functions to ob-
+tain estimates of the pseudo-outcomes in the backward-induction procedure. However, due
+to the nonignorable missing covariates in future stages, the estimates of pseudo-outcomes at
+the current stage are partially missing as well and we need to apply missing data methods
+to address the selection bias from this missingness. In analogy to the typical non-ignorable
+outcome settings, we can treat the ‘observed’ pseudo-outcome estimates as the ‘raw observed
+outcomes’ in the DTR setting and compare their distribution with the distribution of the
+replications of ‘observed’ pseudo-outcomes in our simulated-based approach. This is reason-
+able because, as discussed in Section 2.6 of the main text, the pseudo-outcome estimates
+converge to the pseudo-outcomes when all the models for the Q functions and the missing-
+ness probabilities are correctly specified. When describing the implementation steps in the
+next section, we still employ the pseudo-outcome notation and their models as described in
+the main text.
+3
+
+
+===== ORIGINAL PDF PAGE 31 =====
+FORMULA CHECK REQUIRED: original PDF page 31.
+1.4
+A simulation-based approach to calibrating the magnitude of
+the sensitivity parameter
+Let Y obs
+pse,t and Y mis
+pse,t denote the observed and unobserved values of Ypse,t, respectively, in the
+sample with complete covariates until stage t (i.e., the patients with Rt = 1t). Similarly, let̂
+Y obs
+pse,t denote the observed values of̂ Ypse,t in the sample with Rt = 1t. We propose to evaluate
+the plausibility of each pre-specified value of the sensitivity parameter γ′
+t by comparing the
+distribution of the observed pseudo-outcome estimateŝ Y obs
+pse,t with that of Y obs,γ′
+t
+pse,t , which are
+the replications of observed pseudo-outcomes simulated based on the estimated Q-function
+at stage t and the estimated working missingness model (4) corresponding to a specified
+value of γ′
+t.
+Let pr(⋅) and pr(⋅∣⋅) denote the probability density function and the conditional prob-
+ability density function, respectively. To simulate data with a specified value of γ′
+t, we first
+evaluate the density pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 0), which can be based on the following
+Lemma.
+Lemma 1. In the sample with complete covariates until stage t (i.e., Rt = 1t), the condi-
+tional density of the missing part of Ypse,t (i.e., with Rpse,t = 0) can be expressed by
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 0)
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 1)
+=
+exp(γ′
+typse,t)
+E{exp(γ′
+typse,t) ∣ht,at,Rt = 1t,Rpse,t = 1}
+.
+(1)
+In equation (1), pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 1) and E{exp(γ′
+typse,t) ∣ht,at,Rt =
+1t,Rpse,t = 1} can be estimated by some nonparametric methods such as kernel regres-
+sions based on̂ Y obs
+pse,t. Then for any given γ′
+t, we can generate samples from the estimated
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 0) and impute the missing values in Ypse,t for the patients
+with complete covariates until stage t (i.e., Rt = 1t). We denote these imputed pseudo-
+outcomes as Y γ′
+t,imp
+pse,t
+. Thus we have complete data Y γ′
+t,∗
+pse,t = (̂Y obs
+pse,t,Y γ′
+t,imp
+pse,t
+) for the patients
+with complete covariates until stage t. Under the future-independence missingness assump-
+tion (Assumption 4), we have E(Ypse,t ∣ht,at) = E(Ypse,t ∣ht,at,Rt = 1t), that is, the Q
+4
+
+
+===== ORIGINAL PDF PAGE 32 =====
+FORMULA CHECK REQUIRED: original PDF page 32.
+function model applies to the patients with Rt = 1t.
+Therefore, we fit the assumed Q-
+function model to Y γ′
+t,∗
+pse,t and estimate E(Ypse,t ∣ht,at,Rt = 1t). The density of the residuals
+of this conditional mean model can also be estimated by nonparametric methods. Combin-
+ing the estimated conditional mean model and the estimated density of the residuals, we
+can obtain the conditional distribution pr(yγ′
+t,∗
+pse,t ∣ht,at,Rt = 1t).
+Next, we take a sample Y γ′
+t,∗∗
+pse,t
+from the estimated pr(yγ′
+t,∗
+pse,t ∣ht,at,Rt = 1t) for the
+patients with complete covariates until stage t (i.e., Rt = 1t).
+The missingness indica-
+tor Rγ′
+t,∗
+pse,t given Y γ′
+t,∗∗
+pse,t and γ′
+t would be generated with the probabilitŷ π(ht,at,yγ′
+t,∗∗
+pse,t ;γ′
+t) =
+[1 + exp{̂s′
+γ′
+t,t(ht,at) + γ′
+tyγ′
+t,∗∗
+pse,t }]
+−1
+, wherê s′
+γ′
+t,t(ht,at) is estimated by equation (5) in the
+main text. Drop the values of Y γ′
+t,∗∗
+pse,t
+for those with Rγ′
+t,∗
+pse,t = 0 and denote the remaining
+part of Y γ′
+t,∗∗
+pse,t as Y γ′
+t,obs
+pse,t , which we refer to as the replications of observed pseudo-outcomes.
+Finally, we compare the distribution of Y γ′
+t,obs
+pse,t
+with that of̂ Y obs
+pse,t using the Wilcoxon rank-
+sum test. A large p-value of the Wilcoxon rank-sum test indicates that the replications
+of observed pseudo-outcomes are similar to the observed pseudo-outcome estimateŝ Y obs
+pse,t.
+Therefore, the specified value of γ′
+t is considered to be plausible.
+For each candidate value of γ′
+t, we formalize the proposed simulation-based approach in
+the following steps:
+1. Obtain exp{̂s′
+γ′
+t,t(ht,at)} using equation (5) in the main text.
+2. Based on the observed pseudo-outcome estimateŝ Y obs
+pse,t, estimate pr(ypse,t ∣ht,at,Rt =
+1t,Rpse,t = 1) and E{exp(γ′
+typse,t) ∣ht,at,Rt = 1t,Rpse,t = 1} nonparametrically. After-
+wards, we can estimate pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 0) using equation (1).
+3. Impute Y γ′
+t,imp
+pse,t
+for the patients with (Rt = 1t,Rpse,t = 0) by simulating from the
+estimated pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 0). Denote Y γ′
+t,∗
+pse,t = (̂Y obs
+pse,t,Y γ′
+t,imp
+pse,t
+).
+4. Based on Y γ′
+t,∗
+pse,t, estimate pr(yγ′
+t,∗
+pse,t ∣ht,at,Rt = 1t) with the assumed Q-function model
+and the nonparametric residual density estimator.
+5
+
+
+===== ORIGINAL PDF PAGE 33 =====
+FORMULA CHECK REQUIRED: original PDF page 33.
+5. Generate Y γ′
+t,∗∗
+pse,t from the estimated pr(yγ′
+t,∗
+pse,t ∣ht,at,Rt = 1t) for the patients with Rt =
+1t. Generate Rγ′
+t,∗
+pse,t from̂ π(ht,at,yγ′
+t,∗∗
+pse,t ;γ′
+t). Let Y γ′
+t,obs
+pse,t
+denote Y γ′
+t,∗∗
+pse,t with Rγ′
+t,∗
+pse,t = 1.
+6. Compare the distribution of Y γ′
+t,obs
+pse,t
+and̂ Y obs
+pse,t using the Wilcoxon rank-sum test.
+7. Repeat Steps (3)-(6) for many Monte Carlo replicates, report the median of the p-
+values. Let MCR denote the number of Monte Carlo replicates.
+Remark S1. In the above procedure, Steps (1)-(5) corresponds to Step (ii) in Section
+2.2 of Yin and Shi (2019) but they have been tailored to our proposed WQ-SA method. It
+involves the specifications for the sensitivity parameter values, the parametric model for the
+Q-functions, and the exponential tilting form of the working missingness model. Hence, the
+similarity between Y γ′
+t,obs
+pse,t
+and̂ Y obs
+pse,t can be used to assess both the plausibility of γ′
+t and the
+assumed models in the WQ-SA method.
+Remark S2. In Step (6) of the above procedure, we evaluated the similarity between
+Y γ′
+t,obs
+pse,t
+and̂ Y obs
+pse,t using the Wilcoxon rank-sum test. The Wilcoxon rank-sum test, which
+is also known as the Mann–Whitney U test, is widely used to determine if a two group
+sample follows the same distribution. It is a nonparametric test that does not depend upon
+any particular distributional form (or parameters). As suggested by Remark 3 in Yin and
+Shi (2019), various methods can be employed to measure the similarity between Y γ′
+t,obs
+pse,t
+and̂
+Y obs
+pse,t. The Wilcoxon rank-sum test performed well in Simulation 3 in Web Appendix G and
+in the MIMIC-III data example, and it can offer an interpretable measure of the similarity
+between Y γ′
+t,obs
+pse,t
+and̂ Y obs
+pse,t. In contrast, the KNN distance was computationally expensive,
+and results relied on tuning parameters in our numerical studies. Therefore, we chose the
+Wilcoxon rank-sum test as the similarity measure.
+Remark S3.
+To reduce the impact of random errors on the p-values caused by the
+generation of Y γ′
+t,imp
+pse,t
+and Y γ′
+t,∗∗
+pse,t , we repeated Steps (3)-(6) for MCR times. We reported the
+median of the resulting p-values since they had a skewed distribution.
+Remark S4. In analogy to the conventional significance level 0.05 for hypothesis testing
+based on p-values, we considered a threshold of the median p-value 0.05 to determine a
+6
+
+
+===== ORIGINAL PDF PAGE 34 =====
+FORMULA CHECK REQUIRED: original PDF page 34.
+plausible range in Simulation 3 and MIMIC-III data analysis. Specifically, a value of γ′
+t
+would be included in the plausible range if its corresponding median p-value was greater
+than 0.05.
+Remark S5. The simulation-based approach is for determining a plausible range of the
+sensitivity parameter, rather than serving as a method for obtaining its point estimate.
+Following the discussion in Yin and Shi (2019), we recommend using a set of sensitivity
+parameters within a range determined by a tolerance level of p-value medians, instead of a
+single value of sensitivity parameter, in the WQ-SA method.
+We evaluated the above approach in Simulation 3 in Web Appendix G and applied it to
+the MIMIC-III data analysis.
+2
+Web Appendix B: Asymptotic properties
+The consistency and asymptotic normality of the estimators in Section 2.6 of the main
+text can be established under suitable regularity conditions for estimating equations and an
+additional assumption that the optimal treatment is unique for all subjects at all stages.
+Note that the parameters are estimated separately using estimating equations recursively
+at each stage. Therefore, it is natural to establish the asymptotic properties of the stage-
+specific parameters recursively as well. For simplicity, we will focus on the two-stage setting,
+but extensions to the general T-stage setting follow directly.
+Theorem 1. In the 2-stage scenario, if Assumptions 1-4 hold, the Q-functions at stage 2
+are Lipschitz continuous and correctly specified, and M2(θ2) = 0 has a unique solution,̂
+θ2 −θ∗
+2
+d
+Ð→N(0,Σθ2),̂
+dopt
+2 (h2)
+p
+Ð→dopt
+2 (h2) for all h2 ∈H2,̂
+Ypse,1
+p
+Ð→Ypse,1,
+where θ∗
+2 stands or the true values of θ2.̂ θ2,̂ dopt
+2 (⋅), and̂ Ypse,1 denote the estimators of θ2,
+7
+
+
+===== ORIGINAL PDF PAGE 35 =====
+FORMULA CHECK REQUIRED: original PDF page 35.
+dopt
+2 (⋅), and Ypse,1, respectively. Notations
+d
+Ð→and
+p
+Ð→stand for converge in distribution
+and converge in probability, respectively. The detailed form of Σθ2 is given in Web Appendix
+C.
+Theorem 2. In the two-stage scenario, if Assumptions 1-5 hold, all models are Lipschitz
+continuous and correctly specified, and the estimating equations for the Q-functions and the
+estimating equation (3) in the main text each have a unique solution, then under certain
+additional regularity conditions,̂
+θ1,EE −θ∗
+1
+d
+Ð→N(0,Σθ1),̂
+dopt
+1,EE(h1)
+p
+Ð→dopt
+1 (h1) for all h1 ∈H1,
+where θ∗
+1 stands or the true values of θ1.̂ θ1,EE and̂ dopt
+1,EE(⋅) denote the estimators of θ1 and
+dopt
+1 (⋅) with the working model (1) in the main text estimated by the EE method, respectively.
+The regularity conditions and the detailed form of Σθ1 are given in Web Appendix D.
+Theorem 3. In the two-stage scenario, if Assumptions 1-4 and 6 hold, all models are
+Lipschitz continuous and correctly specified, the sensitivity parameter γ′ is correctly specified,
+and the estimating equations for the Q-functions each have a unique solution, then under
+certain additional regularity conditions,̂
+θ1,SA −θ∗
+1
+d
+Ð→N(0,Σ′
+θ1),̂
+dopt
+1,SA(h1)
+p
+Ð→dopt
+1 (h1) for all h1 ∈H1,
+where θ∗
+1 stands or the true values of θ1.̂ θ1,SA and̂ dopt
+1,SA(⋅) denote the estimators of θ1 and
+dopt
+1 (⋅) with the working model (4) in the main text estimated by the SA method, respectively.
+The regularity conditions and the detailed form of Σ′
+θ1 are given in Web Appendix E.
+8
+
+
+===== ORIGINAL PDF PAGE 36 =====
+FORMULA CHECK REQUIRED: original PDF page 36.
+3
+Web Appendix C: Proof of Theorem 1
+At stage 2, the parameters θ2 are estimated by solving M2(θ2) = 0, where M2(θ2) =̂
+E {I(R2 = 12)
+∂[{Q2(h2,a2;θ2)−ypse,2}2]
+∂θ2
+}. Under the conditions specified in Theorem 1, M2(θ2)
+is an unbiased estimating equation for θ2. With the unbiasedness of these estimating equa-
+tions, we can get the asymptotic property following Newey and McFadden (1994, Thm. 6.1).
+Using a first order Taylor expansion centered around θ∗
+2, we find
+M2(̂θ2) = M(θ∗
+2) + E {∂M2(θ∗
+2)
+∂θ2
+}(̂θ2 −θ∗
+2) + o(1),̂
+θ2 −θ∗
+2 = −E {∂M2(θ∗
+2)
+∂θ2
+}
+−1
+M2(θ∗
+2) + o(1).
+For simplicity, we use ∂f(α∗,β∗)
+∂α
+to denote the value of ∂f(α,β)
+∂α
+when α = α∗,β = β∗for any
+function f(⋅) and parameter values (α∗,β∗) in the Web Appendix.
+E
+⎡⎢⎢⎢⎢⎣
+E {∂M2(θ∗
+2)
+∂θ2
+}
+−1
+M2(θ∗
+2)
+⎤⎥⎥⎥⎥⎦
+= 0,
+V ar
+⎡⎢⎢⎢⎢⎣
+E {∂M2(θ∗
+2)
+∂θ2
+}
+−1
+M2(θ∗
+2)
+⎤⎥⎥⎥⎥⎦
+= E
+⎛
+⎜
+⎝
+⎡⎢⎢⎢⎢⎣
+E {∂M2(θ∗
+2)
+∂θ2
+}
+−1
+M2(θ∗
+2)
+⎤⎥⎥⎥⎥⎦
+⊗2⎞
+⎟
+⎠
+.
+Besides, M2(θ2) is defined as an empirical mean of a function of i.i.d. variable. According
+to the Central Limit Theorem, (̂θ2 −θ∗
+2)
+d
+Ð→N (0,E {[E {
+∂M2(θ∗
+2)
+∂θ2
+}
+−1
+M2(θ∗
+2)]
+⊗2
+}).
+The detailed form of
+∂M2(θ∗
+2)
+∂θ2
+can be derived by
+∂M2(θ∗
+2)
+∂θ2
+=̂ E [I(R2 = 12)∂2 {Q2(h2,a2;θ∗
+2) −ypse,2}2
+∂θ2
+2
+]
+=̂ E
+⎛
+⎜
+⎝
+2I(R2 = 12)
+∂[{Q2(h2,a2;θ∗
+2) −ypse,2}
+∂Q2(h2,a2;θ∗
+2)
+∂θ2
+]
+∂θ2
+⎞
+⎟
+⎠
+=̂ E ⎛
+⎝2I(R2 = 12)
+⎡⎢⎢⎢⎢⎣
+{∂Q2(h2,a2;θ∗
+2)
+∂θ2
+}
+2
++ {Q2(h2,a2;θ∗
+2) −ypse,2} ∂2Q2(h2,a2;θ∗
+2)
+∂θ2
+2
+⎤⎥⎥⎥⎥⎦
+⎞
+⎠,
+(2)
+9
+
+
+===== ORIGINAL PDF PAGE 37 =====
+FORMULA CHECK REQUIRED: original PDF page 37.
+where
+∂Q2(h2,a2;θ∗
+2)
+∂θ2
+and
+∂2Q2(h2,a2;θ∗
+2)
+∂θ2
+2
+depend on the specific form of Q2(h2,a2;θ2).
+Given that E(̂θ2 −θ∗
+2) = 0, according to the Law of Large Numbers,̂ θ2 converges to
+θ∗
+2 in probability. That is, for any ϵ > 0, P(∣̂θ2 −θ∗
+2∣> ϵ) = 0 as n →∞. Furthermore, the
+Lipschitz continuity of Q2(⋅) implies the existence of a Lipschitz constant Lp > 0 such that
+for all (θ′
+2, θ2), ∣Q2(h2,a2;θ′
+2) −Q2(h2,a2;θ2)∣≤Lp∣θ′
+2 −θ2∣. Therefore, for all h2 ∈H2 and
+a2 ∈{−1,1}, we have
+lim
+n→∞P{∣Q2(h2,a2;̂θ2) −Q2(h2,a2;θ∗
+2)∣≥ϵ} ≤lim
+n→∞P(Lp∣̂θ2 −θ∗
+2∣≥ϵ)
+= 0
+That is, Q2(h2,a2;̂θ2) converges in probability to Q2(h2,a2;θ∗
+2) for all fixed (h2,a2). Since
+Q2(h2,a2;θ2) can be decomposed as q2,0(h2;β2)+a2q2,1(h2;ψ2), q2,0(h2;̂β2) and q2,1(h2;̂ψ2)
+converge in probability to q2,0(h2;β∗
+2) and q2,1(h2;ψ∗
+2) for all fixed h2, respectively.
+Besides,̂ dopt
+2
+(h2) = 2I{q2,1(h2;̂ψ2) > 0} −1. Under the standard regularity assumption
+that P {q2,1(h2;̂ψ2) = 0} = 0, we have
+P {̂dopt
+2 (h2) ≠dopt
+2 (h2)} = P [I{q2,1(h2;̂ψ2) > 0} ≠I{q2,1(h2;ψ∗
+2) > 0}]
+= P{q2,1(h2;̂ψ2) > 0,q2,1(h2;ψ∗
+2) < 0} + P{q2,1(h2;̂ψ2) < 0,q2,1(h2;ψ∗
+2) > 0}
+Because lim
+n→∞q2,1(ht;̂ψt) = q2,1(ht;ψ∗
+t ), we have lim
+n→∞P {q2,1(h2;̂ψ2) > 0,q2,1(h2;ψ∗
+2) < 0} = 0
+and lim
+n→∞P {q2,1(h2;̂ψ2) < 0,q2,1(h2;ψ∗
+2) > 0} = 0. Therefore, for all h2 ∈H2,
+lim
+n→∞P {̂dopt
+2 (h2) ≠dopt
+2 (h2)} = 0,
+which means that̂ dopt
+2 (h2)
+p
+Ð→dopt
+2 (h2) for any fixed h2.
+Since Ypse,1 = maxa2∈{−1,1} Q2 (H2,a2;θ∗
+2), we have ypse,1 = Q2 {h2,dopt
+2 (h2);θ∗
+2} and̂
+ypse,1 = Q2 {h2,̂dopt
+2 (h2);̂θ2} for a given h2.
+Based on the convergence of̂ dopt
+2 (h2) and
+10
+
+
+===== ORIGINAL PDF PAGE 38 =====
+FORMULA CHECK REQUIRED: original PDF page 38.
+Q2(h2,a2;̂θ2), we have
+lim
+n→∞P(∣̂ypse,1 −ypse,1∣≥ϵ) = lim
+n→∞P [∣Q2 {h2,̂dopt
+2 (h2);̂θ2} −Q2 {h2,dopt
+2 (h2);θ∗
+2}∣≥ϵ]
+= lim
+n→∞P [∣Q2 {h2,̂dopt
+2 (h2);̂θ2} −Q2 {h2,dopt
+2 (h2);θ∗
+2}∣≥ϵ,̂dopt
+2 (h2) ≠dopt
+2 (h2)]
++ lim
+n→∞P [∣Q2 {h2,̂dopt
+2 (h2);̂θ2} −Q2 {h2,dopt
+2 (h2);θ∗
+2}∣≥ϵ,̂dopt
+2 (h2) = dopt
+2 (h2)]
+= lim
+n→∞P [∣Q2 {h2,dopt
+2 (h2);̂θ2} −Q2 {h2,dopt
+2 (h2);θ∗
+2}∣≥ϵ]
+= 0.
+Therefore,̂ ypse,1
+p
+Ð→ypse,1 for any fixed h2. Subsequently,̂ Ypse,1
+p
+Ð→Ypse,1.
+4
+Web Appendix D: Proof of Theorem 2
+At stage 1, the parameters θ1 are estimated by solving the estimating equation M1(θ1) = 0,
+where M1(θ1) =̂ E (̂rpse,1̂
+π1 I(R1 = 1)
+∂[{Q1(h1,a1;θ1)−̂ypse,1}2]
+∂θ1
+).
+Following Wallace and Moodie
+(2015) and Simoneau et al. (2020), we establish the asymptotic normality of̂ θ1 under the
+regularity condition that P({q2,1(H2;̂ψ2) = 0}) = 0. Since (̂Ypse,t,̂Rpse,t,̂πt) are calculated
+with (̂θ2,̂γ1), M1 depends (̂θ2,̂γ1) and thus can also be denoted as M1(θ1,̂θ2,̂γ1). The
+variance of θ1 must adjust for the plug-in estimates of nuisance parameters (θ2,γ1). By
+performing a first-order Taylor expression of M1(θ1,̂θ2,̂γ1) around (θ∗
+2,γ∗
+1), we have
+Madj,1(θ1) = M1(θ1,̂θ2,̂γ1) + E {∂M1(θ1,θ∗
+2,γ∗
+1)
+∂(θ2,γ1)
+}
+⎧⎪⎪⎪⎨⎪⎪⎪⎩
+⎛
+⎜
+⎝̂
+θ2̂
+γ1
+⎞
+⎟
+⎠
+−
+⎛
+⎜
+⎝
+θ∗
+2
+γ∗
+1
+⎞
+⎟
+⎠
+⎫⎪⎪⎪⎬⎪⎪⎪⎭
++ o(1),
+11
+
+
+===== ORIGINAL PDF PAGE 39 =====
+FORMULA CHECK REQUIRED: original PDF page 39.
+where E {
+∂M1(θ1,θ∗
+2,γ∗
+1)
+∂(θ2,γ1)
+} = E {(
+∂M1(θ1,θ∗
+2,γ∗
+1)
+∂θ2
+,
+∂M1(θ1,θ∗
+2,γ∗
+1)
+∂γ1
+)}, and we assume that M1 is in-
+finitely differentiable for (θ1,θ2,γ1). Therefore,
+Madj,1(̂θ1) = Madj,1(θ∗
+1) + E {∂Madj,1(θ∗
+1)
+∂θ1
+}(̂θ1 −θ∗
+1) + o(1),̂
+θ1 −θ∗
+1 = −E {∂Madj,1(θ∗
+1)
+∂θ1
+}
+−1
+Madj,1(θ∗
+1) + o(1).
+We need the following conditions to make sure that lim
+n→∞̂γ1 −γ∗
+1 = 0 and subsequently
+lim
+n→∞Madj,1(θ∗
+1) = 0.
+Condition 1. The kernel K(u1) has bounded derivatives of order δ, satisfies ∫K(u1)du1 =
+1, and has zero moments of order up to m −1 and nonzero m th-order moment.
+Condition 2. The true function of s1(u1) is continuously differentiable and bounded on
+an open set containing the support of u1.
+Condition 3. The moment E{exp(4γ1̂ypse,1)} is finite and the function E{exp(4γ1̂ypse,1) ∣
+u1}pr(u1) is bounded, where pr(u1) is the marginal density of u1.
+Condition 4. The bandwidth c1 = cn1 is such that cn1 →0,n1cp1
+n1 →∞,n1/2
+1 cp1+2δ
+n1
+/log n1 →
+∞, and n1c2m
+n1 →0 as n1 →∞, where p1 is the dimension of u1, n1 is the number of units
+with fully-observed covariates at stage 1.
+Let B′
+1(θ2,γ1) = ∂B1(θ2,γ1)TW1B1(θ2,γ1)
+∂γ1
+, with conditions 1-4 and the convergence of θ2, we
+have lim
+n→∞E{B′
+1(̂θ2,γ∗
+1)}
+p
+Ð→0 and lim
+n→∞W1
+p
+Ð→W ∗
+1 .
+12
+
+
+===== ORIGINAL PDF PAGE 40 =====
+FORMULA CHECK REQUIRED: original PDF page 40.
+By Taylor expansion, we have:
+⎛
+⎜
+⎝̂
+θ2̂
+γ1
+⎞
+⎟
+⎠
+−
+⎛
+⎜
+⎝
+θ∗
+2
+γ∗
+1
+⎞
+⎟
+⎠
+= −E [∂{M2(θ∗
+2),B′
+1(θ∗
+2,γ∗
+1)}
+∂(θ2,γ1)
+]
+−1 ⎛
+⎜
+⎝
+M2(θ∗
+2)
+B′
+1(θ∗
+2,γ∗
+1)
+⎞
+⎟
+⎠
++ o(1)
+= −
+⎛
+⎜
+⎝
+E
+⎡⎢⎢⎢⎢⎢⎣
+∂M2(θ∗
+2)
+∂θ2
+∂M2(θ∗
+2)
+∂γ1
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂θ2
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+⎤⎥⎥⎥⎥⎥⎦
+⎞
+⎟
+⎠
+−1
+⎛
+⎜
+⎝
+M2(θ∗
+2)
+B′
+1(θ∗
+2,γ∗
+1)
+⎞
+⎟
+⎠
++ o(1)
+= −
+⎛
+⎜
+⎝
+⎡⎢⎢⎢⎢⎢⎣
+E {
+∂M2(θ∗
+2)
+∂θ2
+}
+0
+E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂θ2
+}
+E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+}
+⎤⎥⎥⎥⎥⎥⎦
+⎞
+⎟
+⎠
+−1
+⎛
+⎜
+⎝
+M2(θ∗
+2)
+B′
+1(θ∗
+2,γ∗
+1)
+⎞
+⎟
+⎠
++ o(1)
+=
+⎡⎢⎢⎢⎢⎢⎣
+−[E {
+∂M2(θ∗
+2)
+∂θ2
+}]
+−1
+0
+[E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+}]
+−1
+E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂θ2
+}[E {
+∂M2(θ∗
+2)
+∂θ2
+}]
+−1
+−[E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+}]
+−1
+⎤⎥⎥⎥⎥⎥⎦
+⎛
+⎜
+⎝
+M2(θ∗
+2)
+B′
+1(θ∗
+2,γ∗
+1)
+⎞
+⎟
+⎠
++ o(1).
+Therefore,̂ γ1 −γ∗
+1 = E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂θ2
+}[E {
+∂M2(θ∗
+2)
+∂θ2
+}]
+−1
+M2(θ∗
+2) −[E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+}]
+−1
+B′
+1(θ∗
+2,γ∗
+1),
+Madj,1(θ1) = M1(θ1,θ∗
+2,γ∗
+1) −E {∂M1(θ1,θ∗
+2,γ∗
+1)
+∂θ2
+}[E {∂M2(θ∗
+2)
+∂θ2
+}]
+−1
+M2(θ∗
+2)
++ E {∂M1(θ1,θ∗
+2,γ∗
+1)
+∂γ1
+}[E {∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+}]
+−1
+E {∂B′
+1(θ∗
+2,γ∗
+1)
+∂θ2
+}[E {∂M2(θ∗
+2)
+∂θ2
+}]
+−1
+M2(θ∗
+2)
+−E {∂M1(θ1,θ∗
+2,γ∗
+1)
+∂γ1
+}[E {∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+}]
+−1
+B′
+1(θ∗
+2,γ∗
+1) + o(1).
+And we havê θ1,EE−θ∗
+1 →N(0,Σθ1), where Σθ1 = E {([E {
+∂Madj,1(θ∗
+1)
+∂θ1
+}]
+−1
+Madj,1(θ∗
+1))
+⊗2
+}.
+The detailed form of
+∂M2(θ∗
+2)
+∂θ2
+is provided in equation (2) in Web Appendix A. Assume
+that
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂θ2
+and
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+exist. To obtain Madj,1(θ1) from observed data, we give the
+detailed form of E {
+∂M1(θ1,θ∗
+2,γ∗
+1)
+∂θ2
+}, E {
+∂M1(θ1,θ∗
+2,γ∗
+1)
+∂γ1
+}, E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂θ2
+}, and E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+} in the
+following text. Since the missing indicator of Ypse,1 is mainly determined by the parametric
+form Q2, under the assumption that the variables employed in the computation of Ypse,1
+remain unchanged, we havê rpse,1 = rpse,1.
+Sincê ypse,1 is calculated with θ2, we denote it aŝ ypse,1(̂θ2). Note that̂ ypse,1(θ∗
+2) = ypse,1.
+13
+
+
+===== ORIGINAL PDF PAGE 41 =====
+FORMULA CHECK REQUIRED: original PDF page 41.
+Consequently,
+∂M1(θ1,θ∗
+2,γ∗
+1)
+∂θ2
+= ∂M1(θ1,̂ypse,1(θ∗
+2),γ∗
+1)
+∂{̂ypse,1(θ∗
+2)}
+∂{̂ypse,1(θ∗
+2)}
+∂θ2
+= ∂M1(θ1,ypse,1,γ∗
+1)
+∂ypse,1
+∂ypse,1
+∂θ2
+=
+∂̂E (rpse,1̂
+π1 r1
+∂[{Q1(h1,a1;θ1)−ypse,1}2]
+∂θ1
+)
+∂ypse,1
+∂ypse,1
+∂θ2
+=̂ E (2rpse,1r1
+∂Q1(h1,a1;θ1)
+∂θ1
+∂[̂π1{Q1(h1,a1;θ1) −ypse,1}]
+∂ypse,1
+) ∂ypse,1
+∂θ2
+=̂ E (2rpse,1r1
+∂Q1(h1,a1;θ1)
+∂θ1
+∂[1/̂π1{Q1(h1,a1;θ1) −ypse,1}]
+∂ypse,1
+) ∂ypse,1
+∂θ2
+=̂ E (2rpse,1r1
+∂Q1(h1,a1;θ1)
+∂θ1
+[−1̂
+π1
++ {Q1(h1,a1;θ1) −ypse,1}∂(1/̂π1)
+∂ypse,1
+]) ∂ypse,1
+∂θ2
+=̂ E (2rpse,1r1
+∂Q1(h1,a1;θ1)
+∂θ1
+[{γ∗
+1Q1(h1,a1;θ1) −γ∗
+1ypse,1 −1}exp{̂sγ∗
+1(u1) + γ∗
+1ypse,1} −1]) ∂ypse,1
+∂θ2
+,
+where ∂Q1(h1,a1;θ1)
+∂θ1
+and ∂ypse,1
+∂θ2
+depends on the specified form of the Q-functions.
+Similarly, we obtain
+∂M1(θ1,θ∗
+2,γ∗
+1)
+∂γ1
+using the following equations
+∂M1(θ1,θ∗
+2,γ∗
+1)
+∂γ1
+=
+∂M1{θ1,̂ypse,1(θ∗
+2),γ∗
+1}
+∂[1/̂π1{u1,̂ypse,1(θ∗
+2),γ∗
+1}]
+∂[1/̂π1{u1,̂ypse,1(θ∗
+2),γ∗
+1}]
+∂γ1
+=
+∂M1(θ1,ypse,1,γ∗
+1)
+∂{1/̂π1(u1,ypse,1,γ∗
+1)}
+∂{1/̂π1(u1,ypse,1,γ∗
+1)}
+∂γ1
+=
+∂̂E (rpse,1̂
+π1 r1
+∂[{Q1(h1,a1;θ1)−ypse,1}2]
+∂θ1
+)
+∂(1/̂π1)
+∂{1/̂π1(u1,ypse,1,γ∗
+1)}
+∂γ1
+=̂ E[2rpse,1r1 {Q1(h1,a1;θ1) −ypse,1} ∂Q1(h1,a1;θ1)
+∂θ1
+][∂{1/̂π1(u1,ypse,1,γ∗
+1)}
+∂γ1
+].
+(3)
+14
+
+
+===== ORIGINAL PDF PAGE 42 =====
+FORMULA CHECK REQUIRED: original PDF page 42.
+The explicit expression for ∂(1/̂π1)
+∂γ1
+can be derived with the following equations
+∂{1/̂π1(u1,ypse,1,γ∗
+1)}
+∂γ1
+= ∂[1 + exp{̂sγ∗
+1(u1)}exp(γ∗
+1ypse,1)]
+∂γ1
+= γ∗
+1 exp{̂sγ∗
+1(u1)}exp(γ∗
+1ypse,1) + ∂exp{̂sγ∗
+1(u1)}
+∂γ1
+exp(γ∗
+1ypse,1)
+= γ∗
+1 exp{̂sγ∗
+1(u1)}exp(γ∗
+1ypse,1) +
+∂{
+∑n
+i=1(1−rpse,1,i)Kc1(u1−u1,i)r1,i
+∑n
+i=1 rpse,1,i exp(γ∗
+1ypse,1,i)Kc1(u1−u1,i)r1,i}
+∂γ1
+exp(γ∗
+1ypse,1)
+= exp{̂sγ∗
+1(u1)}exp(γ∗
+1ypse,1){γ∗
+1 + ∑n
+i=1 rpse,1,iypse,1,i exp(γ∗
+1ypse,1,i)Kc1 (u1 −u1,i)r1,i
+∑n
+i=1 rpse,1,i exp(γ∗
+1ypse,1,i)Kc1 (u1 −u1,i)r1,i
+}.
+(4)
+Combining equations (3) and (4), we can obtain the detailed form of
+∂M1(θ1,θ∗
+2,γ∗
+1)
+∂γ1
+.
+The detailed form of E{
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+} and E{
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂θ2
+} can be derived following Shao and
+Wang (2016) when the following regularity conditions hold.
+Condition 5. There is a vector of the functional G(rpse,1,u1,ω) which is linear in ω =
+(ω1,ω2)T and such that:
+(i) for small enough ∥ω −ω∗∥, ∥̃m(rpse,1,u1,̂ypse,1,ω,γ1) −̃ m(rpse,1,u1,̂ypse,1,ω∗,γ1) −
+G(rpse,1,
+u1,ω −ω∗)∥⩽c(rpse,1,u1)(∥ω −ω∗∥)2, wherẽ m(rpse,1,u1,̂ypse,1,ω,γ1) is the L-dimensional
+vector. And its l-th component̃ ml(rpse,1,u1,̂ypse,1,ω,γ1), is defined as I(z1 = l)[rpse,1{1 +
+exp(γ1̂ypse,1)ω1(u1)/ω2(u1)}−1], where ω∗= [E(1−rpse,1 ∣u1),E(rpse,1 exp(γ∗
+1ypse,1) ∣u1)]T,
+and E{c(rpse,1,u1)} < ∞;
+(ii) ∥G(rpse,1,u1,ω)∥⩽e(rpse,1,u1)∥ω∥and E{e(rpse,1,u1)2} < ∞;
+(iii) there exists an almost everywhere continuous function v1(u1) with ∫∥v1(u1)∥du1 <
+∞, E{G(rpse,1,u1,ω)} = ∫v1(u1)ω(u1)du1 for all ∥ω∥⩽∞, and E{sup∥ζ∥⩽ϵ ∥v1(u1 +ζ)∥4} <
+∞for some ϵ > 0.
+Condition 6. For small enough ∥ω −ω0∥,̃m(rpse,1,u1,̂ypse,1,ω,γ1) is continuously differ-
+entiable in γ1 in a neighbourhood of (ypse,1,γ∗
+1). And there is a function k(rpse,1,u1) sat-
+15
+
+
+===== ORIGINAL PDF PAGE 43 =====
+FORMULA CHECK REQUIRED: original PDF page 43.
+isfying ∥∂̃m(rpse,1,u1,̂ypse,1,ω,γ1)
+∂γ1
+−
+∂̃m(rpse,1,u1,ypse,1,ω∗,γ∗
+1)
+∂γ1
+∥≤k(rpse,1,u1)(∥γ∗
+1 −γ1∥ϵ + ∥ω −ω∗∥ϵ +
+∥̂ypse,1 −ypse,1∥ϵ) for an ϵ > 0, E{k(rpse,1,u1)} < ∞. Besides, Γγ1 = E {
+∂̃m(rpse,1,u1,ypse,1,ω∗,γ∗
+1)
+∂γ1
+}
+and Γypse,1 = E {
+∂̃m(rpse,1,u1,ypse,1,ω∗,γ∗
+1)
+∂̂ypse,1
+} exist and are of full rank.
+Assume that Conditions 1 −6 hold. Then, as n →∞, E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂γ1
+} →2ΓT
+γ1W ∗
+1 Γγ1,
+E {
+∂B′
+1(θ∗
+2,γ∗
+1)
+∂θ2
+} →2ΓT
+ypse,1W ∗
+1 Γypse,1
+∂ypse,1
+∂θ2 .
+As mentioned by Shao and Wang (2016), the form of the asymptotic variance of this
+semi-parameteric estimator is complicated. Consequently, we suggest using the bootstrap
+method to estimate it.
+Besides, according to the Law of Large Numbers,̂ θ1,EE converges to θ1 in probability.
+Therefore, following the proof of Theorem 1, we can similarly prove the convergence in
+probability of̂ dopt
+1
+by proving that Q1(h1,a1;̂θ1,EE)
+p
+Ð→Q1(h1,a1;θ1) for any fixed (h1,a1).
+5
+Web Appendix E: Proof of Theorem 3
+We need the following conditions to guarantee that lim
+n→∞exp{̂s′
+γ′
+1,1(g1)} = exp{s′
+γ′
+1,1(g1)}:
+Condition 7. The kernel K′(g1) has bounded derivatives of order δ′, satisfies
+∫K′(g1)dg1 = 1, and has zero moments of order up to m−1 and nonzero m th-order moment.
+Condition 8. The true function of s′
+1(g1) is continuously differentiable and bounded on
+an open set containing the support of g1.
+Condition 9. The moment E[exp(4γ1̂ypse,1)] is finite and the function E[exp(4γ1̂ypse,1) ∣
+g1]pr(g1) is bounded, where pr(g1) is the marginal density of g1.
+Condition 10. The bandwidth c′
+1 = c′
+n1 is such that c′
+n1 →0,n1c′
+n1
+p′
+1 →∞,n1/2
+1 c′
+n1
+p′
+1+2δ′/log n1 →
+∞, and n1c′
+n1
+2m →0 as n1 →∞, where p′
+1 is the dimension of g1, n1 is the number of units
+with fully-observed covariates at stage 1.
+Under these conditions, exp{̂s′
+γ′
+1,1(h1)} is a consistent estimator of exp{s′
+γ′
+1,1(h1)}. There-
+fore, the estimated missingness probability model is consistent. And M1(θ1) is an unbiased
+estimation equation for θ1 (Newey and McFadden, 1994). Similar to Web Appendix D,
+where we provided the asymptotic properties of̂ θ1 for the WQ-EE method, we establish
+16
+
+
+===== ORIGINAL PDF PAGE 44 =====
+FORMULA CHECK REQUIRED: original PDF page 44.
+the asymptotic normality of̂ θ1 for the WQ-SA method under the regularity condition that
+P({q2,1(H2;̂ψ2) = 0}) = 0.
+Let M ′
+adj,1(θ1) = M1(θ1,θ∗
+2) + E {
+∂M1(θ1,θ∗
+2)
+∂θ2
+}(̂θ2 −θ∗
+2) + o(1). Then we have
+M ′
+adj,1(θ1) = M1(θ1,θ∗
+2) −E {∂M1(θ1,θ∗
+2)
+∂θ2
+}{∂M2(θ∗
+2)
+∂θ2
+}
+−1
+M2(θ∗
+2).
+And̂ θ1,SA −θ1 →N(0,Σ′
+θ1), where Σ′
+θ1 = E {([E {
+∂M′
+adj,1(θ1)
+∂θ1
+}]
+−1
+M ′
+adj,1(θ1))
+⊗2
+}. The
+explicit mathematical expression for
+∂M2(θ∗
+2)
+∂θ2
+can be found in equation (2) in Web Appendix
+C. Employing a similar approach to that outlined in Web Appendix D, we obtain
+∂M′
+adj,1(θ1)
+∂θ1
+=̂
+E (2rpse,1r1
+∂Q1(h1,a1;θ1)
+∂θ1
+[{γ1Q1(h1,a1;θ1) −γ1ypse,1 −1}exp{̂sγ∗
+1(h1) + γ1ypse,1} −1]) ∂ypse,1
+∂θ2 , where
+∂Q1(h1,a1;θ1)
+∂θ1
+and ∂ypse,1
+∂θ2
+depend on the specified form of the Q-functions. Because of the com-
+plexity of the asymptotic variance, we recommend utilizing the bootstrap method for its
+estimation. Following the derivation of Theorem 1, we can prove the convergence in proba-
+bility of̂ dopt
+1
+by proving that Q1(h1,a1;̂θ1,SA)
+p
+Ð→Q1(h1,a1;θ1) for any fixed (h1,a1).
+6
+Web Appendix F: Proof of Lemma 1
+Using Bayes’ Theorem, we have
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 0) = pr(ypse,t,ht,at,Rt = 1t,Rpse,t = 0)
+pr(ht,at,Rt = 1t,Rpse,t = 0)
+,
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 1) = pr(ypse,t,ht,at,Rt = 1t,Rpse,t = 1)
+pr(ht,at,Rt = 1t,Rpse,t = 1)
+.
+17
+
+
+===== ORIGINAL PDF PAGE 45 =====
+FORMULA CHECK REQUIRED: original PDF page 45.
+This leads to the following equations:
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 0)
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 1)
+= pr(ypse,t,ht,at,Rt = 1t,Rpse,t = 0)
+pr(ht,at,Rt = 1t,Rpse,t = 0)
+pr(ht,at,Rt = 1t,Rpse,t = 1)
+pr(ypse,t,ht,at,Rt = 1t,Rpse,t = 1)
+= P(Rpse,t = 0 ∣ypse,t,ht,at,Rt = 1t)
+P(Rpse,t = 1 ∣ypse,t,ht,at,Rt = 1t)
+P(Rpse,t = 1 ∣ht,at,Rt = 1t)
+P(Rpse,t = 0 ∣ht,at,Rt = 1t)
+.
+Under Assumption 6, we have P(Rpse,t=0∣ypse,t,ht,at,Rt=1t)
+P(Rpse,t=1∣ypse,t,ht,at,Rt=1t) = exp{s′
+t(ht,at) + γ′
+typse,t}. Be-
+sides,
+P(Rpse,t = 0 ∣ht,at,Rt = 1t)
+P(Rpse,t = 1 ∣ht,at,Rt = 1t)
+= ∫pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 0)P(Rpse,t = 0 ∣ht,at,Rt = 1t)
+P(Rpse,t = 1 ∣ht,at,Rt = 1t)
+dypse,t
+= ∫
+pr(ypse,t ∣ht,at,Rt = 1t)
+P (Rpse,t = 1 ∣ht,at,Rt = 1t)
+P (Rpse,t = 0 ∣ht,at,Rt = 1t,ypse,t)dypse,t
+= ∫
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 1)
+P (Rpse,t = 1 ∣ht,at,Rt = 1t,ypse,t)
+P (Rpse,t = 0 ∣ht,at,Rt = 1t,ypse,t)dypse,t
+= ∫
+P (Rpse,t = 0 ∣ht,at,Rt = 1t,ypse,t)
+P (Rpse,t = 1 ∣ht,at,Rt = 1t,ypse,t)
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 1)dypse,t
+= ∫exp{s′
+t(ht,at) + γ′
+typse,t}pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 1)dypse,t
+= E[exp{s′
+t(ht,at) + γ′
+typse,t} ∣ht,at,Rt = 1t,Rpse,t = 1].
+Therefore,
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 0)
+pr(ypse,t ∣ht,at,Rt = 1t,Rpse,t = 1)
+=
+exp{s′
+t(ht,at) + γ′
+typse,t}
+E[exp{s′
+t(ht,at) + γ′
+typse,t} ∣ht,at,Rt = 1t,Rpse,t = 1]
+=
+exp(γ′
+typse,t)
+E{exp(γ′
+typse,t) ∣ht,at,Rt = 1t,Rpse,t = 1}
+.
+This proves the equation (1) in Lemma 1.
+18
+
+
+===== ORIGINAL PDF PAGE 46 =====
+FORMULA CHECK REQUIRED: original PDF page 46.
+7
+Web Appendix G: The m-out-of-n bootstrap method
+for parameter inference in non-regularity scenarios
+The asymptotic properties for stage-1 parameters in Theorem 2 and Theorem 3 in Web
+Appendix B are based on regularity conditions (i.e., pn−regu = P{q2,1(h2;ψ2) = 0} = 0).
+However, the inference for the parameters in Q-learning for optimal DTRs may face the
+challenge of non-regularity (Chakraborty et al., 2010), which can undermine the validity
+of the asymptotic distribution provided in Web Appendix B and the ordinary n-out-of-
+n bootstrap method (Andrews, 2000). Specifically, in the two-stage scenario, the stage-
+1 pseudo-outcome and estimators are non-smooth functions of̂ ψ2 when P{q2,1(h2;̂ψ2) =
+0} > 0. As a result, the asymptotic distribution of (̂θ1 −θ1) would be non-normal. Small
+perturbations in the marginal distribution of H2, the parameter ψ2, or both, can lead to
+abrupt differences in the limiting distribution of̂ θ1, and thus make them non-regular. In
+this case, we followed Chakraborty et al. (2013) and employed the m-out-of-n bootstrap
+method, which is consistent in non-smooth scenarios, to construct confidence intervals.
+The m-out-of-n bootstrap uses a resample size m smaller than the original sample size
+n to asymptotically avoid the non-negligible probability concentrated at the discontinuous
+points of̂ Ypse,1 and̂ θ1 as functions of̂ ψ2 (Xu et al., 2015). Specifically, we would draw
+B bootstrap samples, each with a sample size m, and obtain B parameter estimates. The
+95% confidence interval is then constructed using the 2.5th and 97.5th percentiles of the B
+parameter estimates.
+For the choice of resample size m, Chakraborty et al. (2013) proposed a data adap-
+tive method that is directly connected with a measure of non-regularity. Specifically, they
+estimated pn−regu bŷ pn−regu =̂ E(I[n{q2,1(h2;̂ψ2)}2 ≤h2̂Σ21hT
+2 χ2
+1,1−ν]), wherê Σ21 was the
+plug-in estimator of nCov(̂ψ2,̂ψ2), χ2
+1,1−ν was the (1 −ν) × 100 percentile of the χ2 distri-
+bution with 1 degree of freedom, and ν was set as 0.001 in their simulation. We used the
+same value of ν in our simulations and MIMIC-III data analysis. The resample size m was
+19
+
+
+===== ORIGINAL PDF PAGE 47 =====
+FORMULA CHECK REQUIRED: original PDF page 47.
+set as m = ⌈n
+1+α(1−̂pn−regu)
+1+α
+⌉, where ⌈x⌉denotes the smallest integer ≥x and α was selected
+from a grid of candidate values from 0 to 1 using a double bootstrap method. Following
+Chakraborty et al. (2013), we applied the following double bootstrap method for choosing
+α from a grid of candidate values in our simulation and the MIMIC-III data example.
+1. Denote the estimate of the parameter of interest from original data as cT̂ψ1, where c
+is an arbitrary vector of the same dimension as ψ1.
+2. Draw B1 n-out-of-n first-level bootstrap samples from original data and calculate thê
+p(b1)
+n−regu with ν = 0.001 using the sample where R
+(b1)
+2
+= 1(b1)
+2
+(i.e., the sample with
+complete covariates in the b1th first-level bootstrap resampling) for b1 = 1,...,B1. Fix
+α at the smallest value in the grid.
+3. Compute the corresponding values of̂ m(b1) bŷ
+m(b1) =
+⎡⎢⎢⎢⎢⎢
+n
+1+α(1−̂p(b1)
+n−regu)
+1+α
+⎤⎥⎥⎥⎥⎥
+,
+b1 = 1,...,B1.
+4. Conditional on each first-level bootstrap sample, draw B2 m(b1)-out-of-n second-level
+(nested) bootstrap samples and estimate the parameter of interest cT̂ψ(b1b2)
+1,̂m(b1), b1 =
+1,...,B1, b2 = 1,...,B2.
+5. For b1 = 1,...,B1, compute the 2.5th and 97.5th percentiles of cT̂ψ(b1b2)
+1,̂m(b1); saŷ L(b1)
+db
+and̂
+U (b1)
+db , respectively.
+6. Estimate the coverage rate of the bootstrap confidence interval from all the first-level
+bootstrap datasets as
+1
+B1
+B1
+∑
+b1=1
+I{̂L(b1)
+db
+≤cT̂ψ1 ≤̂ U (b1)
+db }.
+7. If the above coverage rate is at or above the nominal level, then pick the current value
+of α as the final value. Otherwise, increment α to the next highest value in the grid.
+20
+
+
+===== ORIGINAL PDF PAGE 48 =====
+FORMULA CHECK REQUIRED: original PDF page 48.
+8. Repeat steps (3)–(7), until the coverage rate of the double bootstrap confidence interval
+attains the nominal coverage rate or the grid is exhausted.
+As discussed in Chakraborty et al. (2013), the number of bootstrap replications in the
+above double bootstrap procedure to select α (i.e., B1 and B2) does not need to be equal
+to the number of bootstrap replications used for inference (i.e., B) after α is selected. Since
+the kernel regression for estimating the missingness probability models in the WQ-EE and
+WQ-SA methods is computationally expensive, we set B1 = B2 = 200 in our simulation and
+the MIMIC-III data example.
+8
+Web Appendix H: Simulation
+We conducted four simulation studies to evaluate the finite-sample performance of the WQ-
+EE and the WQ-SA methods.
+In Simulation 1, we focused on the scenario where As-
+sumptions 1-5 were satisfied and demonstrated the performance of the WQ-EE method. In
+Simulation 2, we evaluated the robustness of the WQ-EE method against the violations of
+Assumption 5 when (1) the chosen instrumental variable was weakly associated with Rpse,t
+and (2) there were interactions between ut and ypse,t in the true missingness probability
+model. In Simulation 3, we evaluated the proposed simulation-based approach to specifying
+a plausible range of the sensitivity parameter and the performance of the WQ-SA method
+based on the specified range. In Simulation 4, we investigated the influence of an increased
+number of total stages when covariates are nonignorably missing.
+For comparison, we also assessed three other methods for handling partially missing
+covariate data in Q-learning: a naive method which ignored partially observed covariates
+(‘naive’), complete case analysis (‘CC’), and multiple imputation (‘MI’) (Little and Rubin,
+2014). Q-learning when all the covariates were fully observed (‘All’) was used as the bench-
+mark. In the naive method, we omitted all terms containing the partially observed covariates
+in the specified Q-functions. Consequently, the Q-functions were misspecified in this sce-
+21
+
+
+===== ORIGINAL PDF PAGE 49 =====
+FORMULA CHECK REQUIRED: original PDF page 49.
+nario as Assumption 2 was violated. In the CC method, we excluded all patients whose
+covariates were subject to missingness in estimation. In the MI method, we first imputed
+missing covariates using predictive mean matching multiple times, which was implemented
+through the R package MICE. Subsequently, we applied the standard Q-learning algorithm
+to the imputed data sets. Finally, we calculated the average of the estimated parameters
+from the imputed datasets to obtain the final estimates of the Q-function parameters.
+All methods were evaluated in two aspects. Firstly, we compared the performances of
+the methods for estimating the blip function parameters ψt. Secondly, we compared their
+abilities to identify the true optimal dynamic treatment regime (DTR) and the values of
+the estimated optimal DTRs. Besides, we also examined the coverage rates of the bootstrap
+confidence intervals for blip function parameters when the models in the WQ-EE and the
+WQ-SA methods were correctly specified in Simulation 1 and Simulation 3, respectively.
+8.1
+Simulation 1: comparative performance of the WQ-EE method
+when Assumptions 1-5 were satisfied We simulated data from an observational study with
+two stages of intervention. There were two covariates Xt,1 and Xt,2 at stage t = 1,2. Among
+these covariates, only X1,2 and X2,2 were partially observed, and their missingness indicators
+were R1 and R2, respectively. Denote expit(b) = exp(b)/{1+exp(b)} for b in R. The variables
+22
+
+
+===== ORIGINAL PDF PAGE 50 =====
+FORMULA CHECK REQUIRED: original PDF page 50.
+were generated as follows:
+⎛
+⎜
+⎝
+X1,1
+X2,1
+⎞
+⎟
+⎠
+∼N
+⎛
+⎜
+⎝
+⎛
+⎜
+⎝
+0
+0
+⎞
+⎟
+⎠
+,
+⎛
+⎜
+⎝
+1
+0.5
+0.5
+1
+⎞
+⎟
+⎠
+⎞
+⎟
+⎠
+;
+X1,2 ∼Uniform(0,2);R1 ∼Bernoulli({1 + exp(−3 + X1,2)}−1);
+A1 ∼2 × Bernoulli(expit(−1 + X1,1 + X1,2 −R1)) −1;
+Y1 = A1(ψ10 + 2 + ψ11X1,2) + β10 + β11X1,1 + β12X1,2 + ϵ1;ϵ1 ∼N(0,3);
+X2,2 ∼Uniform(0,2);R2 ∼Bernoulli({1 + exp(−1 + 0.5X1,2 −Y1 −X2,1 −0.5X2,2)}−1);
+A2 ∼2 × Bernoulli(expit(−1 −X1,1 −X1,2 + Y1 + X2,1 −R2)) −1;
+Y2 = A2(ψ20 + ψ2AA1 + ψ22X2,2) + β2AA1 + β22X2,1 + β23X2,2 + ϵ2;ϵ2 ∼N(0,1).
+The true values of the parameters θ1 = (ψ10,ψ11,β10,β11,β12) and θ2 = (ψ20,ψ2A,ψ22,β2A,β22,β23)
+were (1,−1,1.5,0.5,−0.5) and (1,−1,1,−1,1,−0.5), respectively. We generated 1000 data sets
+with sample sizes of 500 and 2000.
+We considered Y = Y1+Y2 as the final outcome. Under this setting, the true optimal treat-
+ment rule at stage 2 was 2I(ψ20 + ψ2Aa1 + ψ22x2,2 ≥0) −1. Because θ2 = (1,−1,1,−1,1,−0.5)
+and 1 −a1 + x2,2 ≥0, the optimal choice of A2 was always 1. Then, the pseudo-outcome
+at stage 1, Ypse,1, was equal to 1 −2A1 + Y1 + X2,1 + 0.5X2,2. Therefore, Q1(x1,1,x1,2,a1) =
+1.5 + β10 + a1(ψ10 + ψ11x1,2) + (0.5 + β11)x1,1 −β12x1,2. And the optimal treatment rule at
+stage 1 was 2I(ψ10 + ψ11X1,2 ≥0) −1. Note that the missingness indicators of X1,2 and
+X2,2 were directly associated with their own values, thus they were nonignorable missing.
+R1 only depended on X1,2, and R2 only depended on (X1,2,Y1,X2,1,X2,2), so the future-
+independent missingness assumption held.
+The missingness indicator for Ypse,1 was the
+same as that for X2,2, since Ypse,1 = 1 −2A1 + Y1 + X2,1 + 0.5X2,2 and (A1,Y1,X2,1) were fully
+observed. Besides, since P(R2 = 1 ∣H2) = {1+exp(−1+0.5X1,2−Y1−X2,1−0.5X2,2)}−1, it fol-
+lows that P(Rpse,1 = 1 ∣H1,A1,Ypse,1) = {1 + exp(0.5X1,2 −2A1 −Ypse,1)}−1, which indicates
+that Ypse,1 was nonignorable missing and X1,1 was conditional independent of Rpse,1 given
+23
+
+
+===== ORIGINAL PDF PAGE 51 =====
+FORMULA CHECK REQUIRED: original PDF page 51.
+(X1,2,A1,Ypse,1). Since X1,1 was also associated with Ypse,1 after conditioning on (X1,2,A1),
+we employed X1,1 as a nonresponse instrumental variable.
+Web Figure 1 shows the empirical distributions of the estimates of ψt = (ψ10,ψ11,ψ20,ψ2A,ψ22),
+which directly influence the estimated optimal DTR. At stage 2, the proposed WQ-EE
+method and the CC method yielded unbiased estimates of the blip function parameters
+since the future-independent missingness assumption held and the outcome at stage 2 was
+fully observed. In contrast, the naive and MI methods led to non-negligible biases of the blip
+function parameters. At stage 1, the estimators in the WQ-EE method remained unbiased
+while the estimators in the naive, CC, and MI methods displayed relatively large biases,
+which were not mitigated as the sample size increased. Note that the naive estimates of ψ11
+and ψ22 were unavailable, as we excluded the terms A1X1,2 and A2X2,2 from the specified
+Q-functions when implementing this method. And the misspecified Q-functions led to the
+relatively poor performance of the naive estimates. As for the bias of the CC estimates, it
+can be attributed to the violation of the ignorable missingness assumption of the pseudo-
+outcomes, which is necessary for the equation E(Ypse,1 ∣h1,a1) = E(Ypse,1 ∣h1,a1,R2 = 12)
+to hold. The bias of the MI estimates stemmed from the nonignorable missingness. It has
+been discussed that the standard MI method would be biased when data are nonignorably
+missing (Schafer and Graham, 2002).
+The proportion of patients whose optimal treatments in both stages were correctly iden-
+tified was high when employing the WQ-EE method, as demonstrated in Web Table 1. With
+the smaller sample size (n = 500), the WQ-EE method achieved an average correct classifi-
+cation rate of 89.9% across the 1000 simulated datasets, with a mean final outcome of 2.98.
+In general, larger sample sizes led to higher proportions of patients with their true optimal
+DTR correctly identified. In contrast, the DTRs obtained from the CC and MI methods
+had much lower correct classification rates and the mean final outcomes under the estimated
+DTRs were lower than that from the WQ-EE method.
+We further examined the coverage rates of the constructed confidence intervals. Follow-
+ing the recommendations and numerical studies of Shao and Wang (2016), we constructed
+24
+
+
+===== ORIGINAL PDF PAGE 52 =====
+FORMULA CHECK REQUIRED: original PDF page 52.
+Figure 1: Boxplots of blip function parameter estimates from the compared methods in
+Simulation 1. In each boxplot, white and gray boxes are the results for the sample sizes
+500 and 2,000, respectively. The horizontal line marks the true values of the blip function
+parameter estimates. Note that the naive method did not generate estimates of ψ11 and ψ22
+as ψ11 and ψ22 are the coefficients of partially missing X1,2 and X2,2 in the true treatment
+rules.
+25
+
+
+===== ORIGINAL PDF PAGE 53 =====
+FORMULA CHECK REQUIRED: original PDF page 53.
+Table 1: Performance of estimated DTRs in Simulation 1
+n=500
+n=2000
+Value
+Opt%
+Value
+Opt%
+All
+2.988 (0.057)
+0.928 (0.052)
+2.997 (0.028)
+0.964 (0.024)
+naive
+2.501 (0.053)
+0.500 (0.022)
+2.500 (0.027)
+0.499 (0.011)
+CC
+2.879 (0.128)
+0.773 (0.111)
+2.898 (0.059)
+0.777 (0.057)
+MI
+2.832 (0.139)
+0.729 (0.108)
+2.849 (0.071)
+0.730 (0.058)
+WQ-EE
+2.974 (0.069)
+0.899 (0.073)
+2.994 (0.029)
+0.949 (0.036)
+Note: Value, the value of the estimated regime; Opt%, the percentage of pa-
+tients correctly classified to their true optimal treatments in both stages; The
+numbers outside parentheses represent the sample means, while the numbers
+inside parentheses represent the sample standard errors.
+the confidence intervals with the bootstrap method due to the complicated form of the
+asymptotic covariance matrix. For stage-2 parameters, non-regularity is not an issue, allow-
+ing the use of the ordinary n-out-of-n bootstrap method to construct confidence intervals.
+For stage-1 parameters, we employed the m-out-of-n bootstrap method described in Web
+Appendix G to construct confidence intervals.
+Because the kernel regression for estimating missingness probabilities in the WQ-EE
+method slows down the computation, the adaptive selection of α for determining the boot-
+strap resample size m in each simulated dataset is computationally prohibitive. To reduce
+the computation burden in our simulations, we set B1 = B2 = 200 in the double bootstrap
+method and set α at the fixed value that was determined by calculating the average of the
+α values adaptively selected from 10 simulated datasets, each with a sample size 500. The
+parameter of interest in the double bootstrap procedure was set as ψ10.
+With the determined α, we conducted 500 bootstrap resampling for each of the 1000
+simulated datasets to calculate the n-out-of-n and m-out-of-n percentile bootstrap confidence
+intervals for the stage-2 and stage-1 blip function parameters, respectively. And the coverage
+rate of the bootstrap confidence intervals was calculated by the percentage of the confidence
+intervals that covered the true value of corresponding parameter.
+Web Table 2 shows the results for the coverage rates of the bootstrap confidence intervals
+26
+
+
+===== ORIGINAL PDF PAGE 54 =====
+FORMULA CHECK REQUIRED: original PDF page 54.
+when employing the WQ-EE method in Simulation 1. We see that these coverage rates were
+close to the nominal level 95%.
+Table 2: Coverage rates of the 95% bootstrap confidence intervals when employing the WQ-
+EE method in Simulation 1
+m
+ψ10
+ψ11
+ψ20
+ψ2A
+ψ22
+Sample size 500
+473
+0.947
+0.937
+0.951
+0.941
+0.946
+Sample size 2000
+1956
+0.947
+0.945
+0.953
+0.950
+0.945
+Note:
+m, the average resample size in the m-out-of-n bootstrap
+method in 1000 simulated datasets, rounded to integer. For stage-
+1 parameters (ψ10,ψ11), the 95% confidence intervals were con-
+structed by m-out-of-n bootstrap percentiles. For stage-2 parame-
+ters (ψ20,ψ2A,ψ22), the 95% confidence intervals were constructed by
+standard (n-out-of-n) bootstrap percentiles.
+8.2
+Simulation 2: comparative performance of the WQ-EE method
+when Assumption 5 is violated
+To investigate the robustness of the proposed WQ-EE method when Assumption 5 was
+violated, we kept all other data generating mechanisms unchanged, while altering the true
+model for Rpse,1 to P(Rpse,1 = 1) = {1 + exp(γzX1,1 + 0.5X1,2 −2A1 −Ypse,1)}−1. When γz = 0,
+the data generating mechanism was the same as that in Simulation 1 and Assumption
+5 was satisfied.
+However, when γz ≠0, X1,1 was associated with Rpse,1 conditional on
+(X1,2,A1,Ypse,1).
+Thus there were no nonresponse instrumental variables.
+We set γz ∈
+{−0.4,−0.2,0.2,0.4} such that X1,1 was weakly associated with P(Rpse,1 = 1) conditional on
+X1,2 and Ypse,1. We generated 1000 Monte Carlo samples with sample size n = 500.
+Since the future-independent missingness assumption still held in Simulation 2, the
+estimators for (ψ20,ψ2A,ψ22) in the WQ-EE method were still consistent. We report the
+performance of the estimators for (ψ10,ψ11) and the value and correct classification rate of
+the estimated optimal DTRs. The results were calculated by averaging over 1000 simulated
+data sets and are shown in Web Table 3. We see that the proposed WQ-EE method was
+robust when X11 was weakly related to Rpse,1. Despite the declining performance of the
+27
+
+
+===== ORIGINAL PDF PAGE 55 =====
+FORMULA CHECK REQUIRED: original PDF page 55.
+corresponding optimal DTR as the absolute value of γz increased, the WQ-EE method
+consistently outperformed the other three methods with higher mean final outcomes and
+correct classification rates.
+Table 3: Performance of the WQ-EE method without valid nonresponse
+instrumental variable in comparison with alternative methods in Simula-
+tion 2
+ψ10
+ψ11
+Value
+Opt%
+Method
+Bias
+Std
+Bias
+Std
+Mean
+Std
+Mean
+Std
+γz = −0.4
+naive
+-1.005
+0.168
+—
+—
+2.498
+0.054
+0.499
+0.022
+CC
+0.068
+0.188
+-0.447
+0.277
+2.881
+0.131
+0.773
+0.113
+MI
+0.166
+0.169
+-0.588
+0.242
+2.838
+0.144
+0.738
+0.116
+WQ-EE
+-0.042
+0.237
+0.113
+0.318
+2.971
+0.078
+0.896
+0.080
+γz = −0.2
+naive
+-1.008
+0.166
+—
+—
+2.498
+0.054
+0.500
+0.023
+CC
+0.062
+0.184
+-0.443
+0.266
+2.885
+0.126
+0.781
+0.113
+MI
+0.161
+0.165
+-0.591
+0.231
+2.838
+0.142
+0.733
+0.113
+WQ-EE
+-0.043
+0.243
+0.090
+0.315
+2.972
+0.081
+0.898
+0.076
+γz = 0.2
+naive
+-1.000
+0.155
+—
+—
+2.502
+0.052
+0.499
+0.022
+CC
+0.073
+0.185
+-0.482
+0.253
+2.871
+0.125
+0.766
+0.110
+MI
+0.174
+0.164
+-0.627
+0.227
+2.816
+0.144
+0.718
+0.113
+WQ-EE
+-0.040
+0.239
+0.031
+0.310
+2.974
+0.070
+0.899
+0.072
+γz = 0.4
+naive
+-1.007
+0.151
+—
+—
+2.501
+0.053
+0.499
+0.023
+CC
+0.088
+0.185
+-0.495
+0.274
+2.862
+0.132
+0.755
+0.114
+MI
+0.183
+0.163
+-0.639
+0.238
+2.808
+0.146
+0.705
+0.114
+WQ-EE
+-0.020
+0.233
+0.053
+0.321
+2.968
+0.074
+0.895
+0.078
+Note: Value, the value of the estimated regime; Opt%, the percentage of
+patients correctly classified to their true optimal treatments in both stages;
+Bias, the bias of the sample mean; Std, the sample standard error; Mean, the
+sample mean.
+We also considered scenarios where there were interactions between ypse,t and ut in the
+true missingness probability model. The true model for Rpse,1 was modified as P(Rpse,1 =
+1) = [1 + exp{0.5X1,2 −2A1 −Ypse,1 + γuy(X1,2 −1)Ypse,1}]−1, while the data generating mech-
+anism for other covariates was the same as that in Simulation 1. The specific form for the
+28
+
+
+===== ORIGINAL PDF PAGE 56 =====
+FORMULA CHECK REQUIRED: original PDF page 56.
+interaction, (X1,2 −1)Ypse,1, was chosen to ensure that the missing data proportions were
+largely similar between Simulations 1 and 2. We set γuy ∈{−0.2,−0.1,0.1,0.2} by allowing
+weak interactions between X1,2 and Ypse,1. We again generated 1000 simulated data sets
+with sample size n = 500. The results of the compared methods are shown in Web Table 4.
+The WQ-EE method exhibited superior performance compared to the other three methods
+despite the introduction of interaction terms involving Ypse,1, showcasing its robustness in
+the presence of mild model misspecification.
+Table 4: Performance of the WQ-EE method when interaction terms between ypse,t and ut
+were incorrectly omitted, in comparison with alternative methods in Simulation 2
+ψ10
+ψ11
+Value
+Opt%
+Method
+Bias
+Std
+Bias
+Std
+Mean
+Std
+Mean
+Std
+γuy = −0.2
+naive
+-1.011
+0.160
+—
+—
+2.500
+0.053
+0.500
+0.022
+CC
+0.124
+0.184
+-0.514
+0.269
+2.863
+0.139
+0.760
+0.115
+MI
+0.215
+0.162
+-0.656
+0.233
+2.808
+0.152
+0.712
+0.115
+WQ-EE
+-0.067
+0.239
+0.075
+0.324
+2.972
+0.072
+0.898
+0.073
+γuy = −0.1
+naive
+-1.002
+0.153
+—
+—
+2.500
+0.053
+0.499
+0.022
+CC
+0.084
+0.182
+-0.474
+0.270
+2.871
+0.132
+0.764
+0.116
+MI
+0.185
+0.159
+-0.624
+0.230
+2.820
+0.141
+0.715
+0.115
+WQ-EE
+-0.062
+0.228
+0.065
+0.318
+2.971
+0.072
+0.897
+0.075
+γuy = 0.1
+naive
+-1.002
+0.157
+—
+—
+2.499
+0.053
+0.500
+0.022
+CC
+0.046
+0.182
+-0.441
+0.258
+2.886
+0.119
+0.780
+0.105
+MI
+0.147
+0.163
+-0.595
+0.231
+2.832
+0.143
+0.734
+0.107
+WQ-EE
+-0.021
+0.233
+0.022
+0.307
+2.974
+0.074
+0.898
+0.077
+γuy = 0.2
+naive
+-1.010
+0.160
+—
+—
+2.497
+0.051
+0.499
+0.023
+CC
+0.046
+0.188
+-0.444
+0.263
+2.883
+0.124
+0.772
+0.112
+MI
+0.146
+0.168
+-0.590
+0.234
+2.835
+0.140
+0.732
+0.111
+WQ-EE
+0.023
+0.242
+-0.011
+0.308
+2.972
+0.079
+0.895
+0.082
+Note: Value, the value of the estimated regime; Opt%, the percentage of
+patients correctly classified to their true optimal treatments in both stages;
+Bias, the bias of the sample mean; Std, the sample standard error; Mean, the
+sample mean.
+29
+
+
+===== ORIGINAL PDF PAGE 57 =====
+FORMULA CHECK REQUIRED: original PDF page 57.
+8.3
+Simulation 3: The performance of the WQ-SA method and
+the proposed simulation-based approach to calibrating the
+magnitude of the sensitivity parameters
+To evaluate the performance of the WQ-SA method and the proposed simulation-based
+approach to calibrating the magnitude of the sensitivity parameters, we simulated data
+from a 2-stage scenario with two covariates at each stage. At stage t = 1,2, there existed two
+covariates, Xt,1 and Xt,2. Among these covariates, only X1,2 and X2,2 were partially observed,
+with their corresponding missingness indicators denoted as R1 and R2, respectively. The
+data-generation mechanism was as follows:
+⎛
+⎜
+⎝
+X1,1
+X2,1
+⎞
+⎟
+⎠
+∼N
+⎛
+⎜
+⎝
+⎛
+⎜
+⎝
+0
+0
+⎞
+⎟
+⎠
+,
+⎛
+⎜
+⎝
+1
+0.5
+0.5
+1
+⎞
+⎟
+⎠
+⎞
+⎟
+⎠
+;
+X1,2 ∼Uniform(0,2);
+R1 ∼Bernoulli({1 + exp(−1 −X1,2)}−1);
+A1 ∼2 × Bernoulli(expit(1 −X1,1 −X1,2 + R1)) −1;
+Y1 = A1(ψ′
+10 + 2 + ψ′
+11X1,2) + β′
+10 + β′
+11X1,1 + β′
+12X1,2 + ϵ′
+1;ϵ′
+1 ∼N(0,3);
+X2,2 ∼Uniform(0,2);
+R2 ∼Bernoulli([1 + exp{2.5 −exp(2X1,1) −0.5X1,2 + A1 + Y1 + X2,1 + 0.5X2,2}]−1);
+A2 ∼2 × Bernoulli(expit(−1 + X1,1 −2A1 + X2,1)) −1;
+Y2 = A2(ψ′
+20 + ψ′
+2AA1 + ψ′
+22X2,2) + β′
+2AA1 + β′
+22X2,1 + β′
+23X2,2 + ϵ′
+2;ϵ′
+2 ∼N(0,1).
+The true values of the parameters θ′
+1 = (ψ′
+10,ψ′
+11,β′
+10,β′
+11,β′
+12) and θ′
+2 = (ψ′
+20,ψ′
+2A,β′
+22,β′
+2A,β′
+22,β′
+23)
+were (−1,1,−2,−0.5,−1) and (1,−1,1,−1,1,−0.5), respectively. The final outcome was set
+to be Y = Y1 + Y2.
+The true optimal treatment rule at stage 2 was 2I(1−a1 +x2,2 ≥0)−1. Since a1 ∈{−1,1}
+30
+
+
+===== ORIGINAL PDF PAGE 58 =====
+FORMULA CHECK REQUIRED: original PDF page 58.
+and x2,2 ≥0, the optimal choice of A2 was always 1.
+With this optimal treatment at
+stage 2, Ypse,1 = 1 −2A1 + Y1 + X2,1 + 0.5X2,2. Then, the optimal treatment rule at stage
+1 was 2I(ψ10 + ψ11x1,2 ≥0) −1.
+Since the missingness indicators of X1,2 and X2,2 were
+directly related to their own values, they were nonignorably missing. The future-independent
+missingness assumption held because R1 only depended on X1,2, and R2 only depended on
+(X1,1,X1,2,A1,Y1,X2,1,X2,2).
+Because Ypse,1 = 1 −2A1 + Y1 + X2,1 + 0.5X2,2, Rpse,1 = R2,
+P(Rpse,1 = 1) = {1.5 −exp(2X1,1) −0.5X1,2 + 3A1 + Ypse,1}−1, Ypse,1 was nonignorably missing
+and there was no nonresponse instrumental variable. And the true value of the sensitivity
+parameter was γ′
+1 = 1 in this scenario.
+We first evaluated the performance of the simulation-based approach to calibrating the
+magnitude of the sensitivity parameter.
+As discussed in Web Appendix A, we assumed the sign of the sensitivity parameter γ′
+1
+was known and chose [0,7] as an initial range for γ′
+1. To zoom in to a more plausible range,
+we employed the simulation-based approach proposed in Web Appendix A. Specifically, we
+first generated 1000 data sets with sample size n = 500 and 2000, respectively. For each
+data set, to evaluate the candidate values of γ′
+1, we implemented the steps described in the
+end of Web Appendix A. Particularly, in Step (2), pr(ypse,1 ∣x1,1,x1,2,a1,R1 = 1,R2 = 1) was
+obtained by combing the kernel regression estimates of E(ypse,1 ∣x1,1,x1,2,a1,R1 = 1,R2 = 1)
+and its residual density estimates, which were obtained by kernel density estimation method
+with the R function density. And E{exp(γ′
+1ypse,1) ∣x1,1,x1,2,a1,R1 = 1,R2 = 1} was also
+estimated by kernel regression methods.
+In Step (3), based on the estimated pr(ypse,1 ∣
+x1,1,x1,2,a1,R1 = 0,R2 = 1), we imputed Y
+γ′
+1,imp
+pse,1
+for 1000 Monte Carlo replication times.
+And in Step (4), we estimated pr(y
+γ′
+1,∗
+pse,1 ∣x1,1,x1,2,a1,R1 = 1) with the correctly specified
+Q-function for the conditional mean and R function density for the residuals. Further,
+we generated the replications of observed pseudo-outcomes and compared them with the
+observed pseudo-outcome estimates using the Wilcoxon ranked sum test in Steps (5) and
+(6), respectively. Finally, we calculated the medians of the Wilcoxon ranked sum test p-
+values from the 1000 Monte Carlo replicates for each simulated data set, and we reported
+31
+
+
+===== ORIGINAL PDF PAGE 59 =====
+FORMULA CHECK REQUIRED: original PDF page 59.
+the summary statistics of these p-value medians from the 1000 simulated data sets and the
+probability to be included in the range of plausible values determined by the threshold of
+0.05 in Web Table 5.
+Table 5: Performance of the proposed simulation-based approach to determining a
+plausible range of the sensitivity parameter in Simulation 3
+γ′
+t
+0
+1
+2
+3
+4
+5
+6
+7
+Sample size = 500
+minimum
+0.211
+0.216
+0.049
+0.006
+0.002
+0.000
+0.000
+0.000
+median
+0.591
+0.615
+0.452
+0.273
+0.201
+0.143
+0.101
+0.073
+mean
+0.578
+0.601
+0.440
+0.297
+0.232
+0.185
+0.150
+0.122
+maximum
+0.754
+0.756
+0.744
+0.762
+0.695
+0.665
+0.671
+0.662
+inclusion probability
+1.000
+1.000
+0.997
+0.966
+0.895
+0.814
+0.722
+0.605
+Sample size = 2000
+minimum
+0.105
+0.338
+0.001
+0.000
+0.000
+0.000
+0.000
+0.000
+median
+0.377
+0.624
+0.045
+0.010
+0.003
+0.001
+0.000
+0.000
+mean
+0.381
+0.618
+0.061
+0.015
+0.008
+0.005
+0.003
+0.002
+maximum
+0.681
+0.757
+0.342
+0.225
+0.089
+0.108
+0.094
+0.072
+inclusion probability
+1.000
+1.000
+0.448
+0.055
+0.026
+0.013
+0.012
+0.007
+Note: minimum, minimum of p-value medians in the 1000 data sets; median, median of
+p-value medians in the 1000 data sets; mean, mean of p-value medians in the 1000 data
+sets; maximum, maximum of p-value medians in the 1000 data sets; inclusion probability,
+the probability to be included in the selected range based on threshold 0.05.
+We see that for both sample sizes, the summary statistics corresponding to the true
+value γ′
+1 = 1 were largest among candidate values of γ′
+1, and they decreased as the specified
+sensitivity parameter moving away from its true value.
+In analogy to the conventional
+significance level 0.05 for hypothesis testing based on p-values, we considered a threshold
+of the p-value medians 0.05 to determine a plausible range of γ′
+1 for each simulated data
+set, where a value of γ′
+1 was included in the determined range if its corresponding p-value
+median was greater than 0.05. The true value for γ′
+1 was 100% included in the determined
+ranges when applying this threshold to the 1000 data sets. This indicated that applying
+the 0.05 threshold for the p-value medians can ensure that the determined plausible ranges
+would cover the true value of γ′
+1.
+With larger sample sizes, the summary statistics of the p-value medians for the true
+32
+
+
+===== ORIGINAL PDF PAGE 60 =====
+FORMULA CHECK REQUIRED: original PDF page 60.
+value of γ′
+1 was stable while those for other values of γ′
+1 decreased. With a sample size of
+2000, γ′
+1 = 3 was included in the determined plausible range for sensitivity parameter in 54
+out of 1000 data sets, and larger values of γ′
+1 were selected even less frequently.
+We compared the performance of the WQ-SA method with γ′
+1 ∈[0,7] with other meth-
+ods. First we assessed their performance in estimating blip function parameters and optimal
+DTRs. Similar to Simulations 1 and 2, the future-independent missingness assumption still
+held in Simulation 3, and we reported the performance of the estimators for (ψ′
+10,ψ′
+11) and
+the values and correct classification rates of the estimated optimal DTRs. The results were
+calculated by averaging over 1000 simulated datasets and are shown in Web Table 6.
+We see that when the specified sensitivity parameter was equal to its true value, the
+WQ-SA method had the best performance. Notably, when γ′
+t = 0 was specified, it was equiv-
+alent to assuming ignorable missingness, that is, the missingness of Ypse,1 was conditionally
+independent with its own values. Except for this specification, the WQ-SA method exhibited
+relative robustness to the sensitivity parameter specification and consistently outperformed
+the naive, CC, and MI methods with higher mean final outcomes and correct classification
+rates under the estimated optimal DTRs.
+Finally, we examined the coverage rates of the confidence intervals for blip function
+parameters when employing the WQ-SA method with the correctly specified sensitivity pa-
+rameter value γ′
+t = 1. Similar to Simulation 1, the confidence intervals for stage-2 parameters
+were constructed by ordinary n-out-of-n bootstrap method, while those for stage-1 parame-
+ters were constructed by m-out-of-n bootstrap method described in Web Appendix G. And
+the bootstrap resample sizes were selected in the same way as in Simulation 1. Web Table
+7 shows the coverage rates of the bootstrap confidence intervals, which were close to the
+nominal level 95%.
+In summary, Simulation 3 demonstrated that the proposed simulation-based approach
+could identify a plausible range for the sensitivity parameter. Additionally, it showed that
+the WQ-SA method was robust and outperformed the naive, CC, and MI methods within a
+wide range of the sensitivity parameter. Furthermore, it confirmed that the 95% confidence
+33
+
+
+===== ORIGINAL PDF PAGE 61 =====
+FORMULA CHECK REQUIRED: original PDF page 61.
+Table 6: Performance of the WQ-SA method in Simulation 3
+ψ′
+10
+ψ′
+11
+Value
+Opt%
+Method
+Bias
+Std
+Bias
+Std
+Mean
+Std
+Mean
+Std
+Sample size = 500
+All
+0.016
+0.234
+-0.011
+0.158
+-1.018
+0.045
+0.923
+0.055
+naive
+1.171
+0.162
+—
+—
+-1.498
+0.035
+0.503
+0.023
+CC
+-0.319
+0.298
+-0.078
+0.209
+-1.131
+0.121
+0.767
+0.114
+MI
+-0.269
+0.264
+-0.178
+0.186
+-1.184
+0.138
+0.721
+0.113
+WQ-SA (γ′
+1 = 0)
+-0.037
+0.213
+-0.395
+0.298
+-1.134
+0.124
+0.760
+0.111
+WQ-SA (γ′
+1 = 1)
+-0.056
+0.241
+0.034
+0.335
+-1.033
+0.071
+0.893
+0.084
+WQ-SA (γ′
+1 = 2)
+-0.049
+0.251
+0.083
+0.347
+-1.034
+0.071
+0.891
+0.084
+WQ-SA (γ′
+1 = 3)
+-0.056
+0.252
+0.062
+0.339
+-1.036
+0.070
+0.889
+0.086
+WQ-SA (γ′
+1 = 4)
+-0.072
+0.256
+0.058
+0.344
+-1.037
+0.077
+0.887
+0.088
+WQ-SA (γ′
+1 = 5)
+-0.070
+0.264
+0.025
+0.349
+-1.041
+0.077
+0.883
+0.091
+WQ-SA (γ′
+1 = 6)
+-0.053
+0.263
+-0.015
+0.361
+-1.042
+0.079
+0.880
+0.093
+WQ-SA (γ′
+1 = 7)
+-0.060
+0.271
+-0.023
+0.359
+-1.044
+0.080
+0.879
+0.095
+Sample size = 2000
+All
+0.005
+0.118
+-0.002
+0.080
+-1.003
+0.020
+0.965
+0.025
+naive
+1.173
+0.077
+—
+—
+-1.500
+0.014
+0.500
+0.011
+CC
+-0.324
+0.153
+-0.075
+0.106
+-1.101
+0.053
+0.774
+0.057
+MI
+-0.296
+0.134
+-0.152
+0.096
+-1.148
+0.065
+0.731
+0.056
+WQ-SA (γ′
+1 = 0)
+-0.036
+0.102
+-0.421
+0.143
+-1.120
+0.056
+0.756
+0.055
+WQ-SA (γ′
+1 = 1)
+-0.026
+0.140
+0.035
+0.182
+-1.007
+0.022
+0.948
+0.037
+WQ-SA (γ′
+1 = 2)
+-0.019
+0.132
+-0.036
+0.177
+-1.008
+0.023
+0.943
+0.043
+WQ-SA (γ′
+1 = 3)
+-0.021
+0.158
+-0.019
+0.205
+-1.009
+0.024
+0.939
+0.043
+WQ-SA (γ′
+1 = 4)
+-0.020
+0.163
+-0.066
+0.200
+-1.012
+0.026
+0.931
+0.051
+WQ-SA (γ′
+1 = 5)
+-0.033
+0.165
+-0.098
+0.206
+-1.019
+0.029
+0.915
+0.056
+WQ-SA (γ′
+1 = 6)
+-0.032
+0.164
+-0.137
+0.203
+-1.027
+0.035
+0.897
+0.062
+WQ-SA (γ′
+1 = 7)
+-0.051
+0.168
+-0.139
+0.209
+-1.031
+0.037
+0.887
+0.063
+Note: WQ-SA (⋅), the WQ-SA method based on corresponding sensitivity parameters;
+Value, the value of the estimated regime; Opt%, the percentage of patients correctly
+classified to their true optimal treatments in both stages; Bias, the bias of the sample
+mean; Std, the sample standard error; Mean, the sample mean.
+34
+
+
+===== ORIGINAL PDF PAGE 62 =====
+FORMULA CHECK REQUIRED: original PDF page 62.
+Table 7: Coverage rates of the bootstrap 95% confidence intervals when employing the WQ-
+SA method in Simulation 3
+m
+ψ10
+ψ11
+ψ20
+ψ2A
+ψ22
+Sample size 500
+413
+0.961
+0.958
+0.950
+0.960
+0.961
+Sample size 2000
+1864
+0.946
+0.944
+0.947
+0.948
+0.939
+Note:
+m, the average resample size in the m-out-of-n bootstrap
+method in 1000 simulated datasets, rounded to integer. For stage-
+1 parameters (ψ10,ψ11), the 95% confidence intervals were con-
+structed by m-out-of-n bootstrap percentiles. For stage-2 parame-
+ters (ψ20,ψ2A,ψ22), the 95% confidence intervals were constructed by
+standard (n-out-of-n) bootstrap percentiles.
+intervals constructed by the bootstrap percentiles performed well when all the models were
+correctly specified for the WQ-SA method.
+8.4
+Simulation 4:
+the impact of an increased number of total
+stages with nonignorable missing covariates
+To investigate the influence of the nonignorable missing covariates when the number of
+total stages increases, we designed a simulation study with three stages of intervention. To
+facilitate comparisons with the 2-stage scenario in Simulation 1, we used the same data
+generation mechanism for stage 1 and stage 2 as that in Simulation 1, and generated data
+for stage 3 as follows:
+X3,1 ∼N(0,1);X3,2 ∼Uniform(0,2);
+R3 ∼Bernoulli({1 + exp(−Y1 −Y2 −0.5X3,1 −∣X3,2 −1∣)}−1);
+A3 ∼2 × Bernoulli(expit(−1 + X3,1 + X3,2)) −1;
+Y3 = β30 + A3(ψ30 + ψ3,1X3,2) + β31X31 + ϵ3;ϵ3 ∼N(0,1).
+The true values of the parameters θ3 = (ψ30,ψ31,β30,β31) were (−1,1,−0.5,0.5). R3 was the
+missingness indicator for the partially observed variable X3,2, while X3,1 was fully observed.
+35
+
+
+===== ORIGINAL PDF PAGE 63 =====
+FORMULA CHECK REQUIRED: original PDF page 63.
+Similar to Simulation 1, we generated 1000 data sets with sample sizes 500 and 2000.
+The final outcome was assumed to be Y = Y1 + Y2 + Y3. The true optimal treatment rule
+at stage 3 was 2I(ψ30 +ψ3,1X3,2 ≥0)−1. With the optimal treatment at stage 3, the pseudo-
+outcome at stage 2 was Ypse,2 = −0.5+∣−1+X3,2∣+0.5X3,1+Y1+Y2. Because the data generation
+mechanism at stages 1 and 2 was unchanged from Simulation 1 and E(Ypse,2 ∣H2,A2,Y2) =
+Y1 + Y2, the Q-functions, the optimal treatment rules at stages 1 and 2, and (Ypse,1,Rpse,1)
+were the same as those in Simulation 1. Since R3 only depended on (X3,1,X3,2), the future-
+independent missingness assumption held. Among the partially observed variables, only X3,2
+was employed in the calculation of Ypse,2. Therefore, Rpse,2 = R3. Combining the form of the
+pseudo-outcomes and the missingness mechanism, we have P(Rpse,2 = 1 ∣H2,A2,Ypse,2) =
+{1+exp(−Ypse,2)}−1. Since (X2,1,X2,2) were associated with Ypse,2 and independent of Rpse,2
+given Ypse,2, we employed (X2,1,X2,2) as nonresponse instrumental variables when estimating
+the missingness model for Rpse,2.
+Table 8: Performance of estimated DTRs in Simulation 4
+n=500
+n=2000
+Value
+Opt%
+Value
+Opt%
+All
+2.983 (0.064)
+0.904 (0.059)
+2.995 (0.031)
+0.950 (0.028)
+naive
+2.012 (0.064)
+0.255 (0.019)
+2.006 (0.031)
+0.252 (0.009)
+CC
+2.650 (0.174)
+0.576 (0.114)
+2.622 (0.122)
+0.560 (0.070)
+MI
+2.348 (0.192)
+0.450 (0.046)
+2.466 (0.103)
+0.479 (0.020)
+WQ-EE
+2.947 (0.085)
+0.837 (0.097)
+2.983 (0.034)
+0.910 (0.049)
+Note: Value, the value of the estimated regime; Opt%, the percentage of
+patients correctly classified to their true optimal treatments in all the stages;
+The numbers outside parentheses represent the sample means, while the num-
+bers inside parentheses represent the sample standard errors.
+Web Table 8 presents the performance of the methods in comparison in the 3-stage
+scenario. Compared to Web Table 1 in the 2-stage scenario, the means of the values under
+the estimated DTRs for all methods decreased. For the All and the WQ-EE method, this
+decrease was small and it became smaller as the sample size increased. It can be explained
+by the finite-sample bias accumulated in the backward-induction procedure. In contrast, for
+36
+
+
+===== ORIGINAL PDF PAGE 64 =====
+FORMULA CHECK REQUIRED: original PDF page 64.
+the naive, CC, and MI methods, the deterioration of performance was more pronounced,
+indicating that, if it is not handled properly, the consequence of the nonignorable missing
+covariates problem would be more severe when the number of total stages increases. To
+better understand the reasons behind the performance deterioration, we examined the cor-
+rect classification rates at different stages. Since we have presented the correct classification
+rates at stages 1 and 2 in Simulation 1, and the true Q-functions and optimal treatments
+rules at stages 1 and 2 in Simulation 1 and Simulation 4 were the same, we examined the
+correct classification rates at stage 3 and at stages 1 and 2, respectively.
+Table 9: Correct classification rates in Simulation 4
+n=500
+n=2000
+Stages 1&2
+Stage 3
+Stages 1&2
+Stage 3
+All
+0.919 (0.060)
+0.980 (0.017)
+0.958 (0.027)
+0.990 (0.008)
+naive
+0.501 (0.021)
+0.506 (0.021)
+0.501 (0.011)
+0.504 (0.010)
+CC
+0.594 (0.117)
+0.958 (0.035)
+0.568 (0.067)
+0.981 (0.016)
+MI
+0.485 (0.040)
+0.931 (0.058)
+0.506 (0.016)
+0.936 (0.026)
+WQ-EE
+0.873 (0.098)
+0.958 (0.035)
+0.928 (0.054)
+0.981 (0.016)
+Note: Stages 1&2, the correct classification rate at stages 1 and 2; Stage 3,
+the correct classification rate at stage 3; The numbers outside parentheses
+represent the sample means, while the numbers inside parentheses represent
+the sample standard errors.
+We used the results in Web Table 9 to investigate why the increased number of total
+stages led to lower overall correct classification rate if nonignorable missing covariate were
+not handled properly. For the naive method, its correct classification rate at stages 1 and
+2 in Simulation 4 was almost the same as that in Simulation 1 (Web Table 1), and the
+decrease in its overall correct classification rate in Web Table 8 was mainly explained by
+its poor average correct classification rate at stage 3, which was near 0.5. In contrast, for
+the CC and the MI method, the average correct classification rates at stage 3 was higher
+than 0.93, but their average correct classification rates at stages 1 and 2 dropped a lot
+compared to those in Simulation 1 (Web Table 1). And this decrease was due to the bias
+from nonignorable missing pseudo-outcomes accumulated over more stages in the backward
+37
+
+
+===== ORIGINAL PDF PAGE 65 =====
+FORMULA CHECK REQUIRED: original PDF page 65.
+induction procedure.
+In summary, an increased number of total stages would generally lead to lower overall
+correct classification rates of the estimated optimal DTRs when covariates had nonignorable
+missing values. If the nonignorable missingness was properly addressed, the decrease in the
+overall correct classification rates would be small and could be mitigated by increasing the
+sample size. However, if the nonignorable missingness was not properly handled, the decrease
+in overall correct classification rates could be substantial due to the bias accumulated in the
+backward-induction procedure.
+9
+Web Appendix I: Additional details of the MIMIC-
+III data and the estimation procedure
+The proposed methods were applied to the electronic medical records and administrative
+data from the MIMIC-III database (Johnson et al., 2016). MIMIC-III is a retrospectively
+collected and freely available database accessible through PhysioNet (Goldberger et al.,
+2000). The MIMIC-III database contains de-identified and anonymized health information
+from over 45,000 patients who were treated in the Intensive Care Units (ICUs) of Beth Israel
+Deaconess Medical Center in Boston, Massachusetts. We utilized similar patient selection
+criteria as in Speth et al. (2022). The detailed patient selection criteria are presented in
+Web Figure 2.
+As depicted in Web Figure 2, This study included adult patients (age ≥18) diagnosed
+with acute emergent sepsis who were transferred from the Emergency Department (ED)
+and admitted to the medical ICU. Patients must be sent to the medical ICU within 1 hour
+after hospital admission and had documented fluid intake within the first hour after hospital
+admission. Furthermore, following Speth et al. (2022), to ensure a relatively homogeneous
+patient cohort, we only included patients who survived for a minimum of 48 hours after ICU
+admission.
+38
+
+
+===== ORIGINAL PDF PAGE 66 =====
+Technical extraction; compare with original PDF page 66.
+Figure 2: Eligibility criteria and patient population for the selected cohort from the MIMIC-
+III database.
+39
+
+
+===== ORIGINAL PDF PAGE 67 =====
+FORMULA CHECK REQUIRED: original PDF page 67.
+Since there were very few patients with hemodynamic variables recorded precisely at
+180 minutes after ICU admission, we calculated the mean of the hemodynamic variables
+recorded within a half-hour window around the third hour.
+That is, we used the data
+collected between 2.5 and 3.5 hours after ICU admission as surrogates for the values of the
+hemodynamic variables three hours after ICU admission. If a hemodynamic variable had
+no record during this specific time interval, we considered the corresponding record three
+hours after admission to be missing. Under this criterion, the missing data proportion of
+hemodynamic variables is provided in Web Table 10.
+Table 10: The missing proportion of hemodynamic variables 3 hours after ICU admission in
+the MIMIC-III data
+covariates
+missing proportion
+heartrate at 3 hours
+7.50 %
+mean blood pressure at 3 hours
+10.2 %
+SpO2 at 3 hours
+10.4 %
+respiratory rate at 3 hours
+10.2 %
+temperature at 3 hours
+19.8 %
+urine output in 0-3 hours
+0.00 %
+Following Xu et al. (2015), we performed cross-validation and m-out-of-n bootstrap to
+assess the performance of the estimated optimal DTRs. Specifically, to estimate the expected
+out-of-sample improvement of SOFA score at 24 hours post-admission, we randomly split
+the MIMIC-III data for 1000 times. For each split, we used 4/5 of the data (rounded to the
+nearest integer) as the training set and the remaining data as the testing set. The semipara-
+metric missingness probability model and the Q-functions were re-estimated based on the
+training set of that split. The expected outcome in the testing set, under the estimated DTR,
+was then computed using the estimated missingness probability models and Q-functions. It
+should be noted that the optimal DTR may differ across different splits. Nevertheless, the
+average of the expected optimal outcomes in the testing sets from repeated splitting can be
+interpreted as the expected SOFA score at 24 hours after ICU admission that would have
+been obtained with out-of-sample data under the estimated regimes.
+40
+
+
+===== ORIGINAL PDF PAGE 68 =====
+FORMULA CHECK REQUIRED: original PDF page 68.
+For the inference of the improvement of SOFA score at 24 hours post-admission, we
+further calculated the bootstrap standard deviation and the 95% confidence interval using
+the m-out-of-n bootstrap method based on the original data (i.e., without cross-validation).
+We used the double bootstrap method described in Web Appendix G to determine the
+bootstrap resample size m, with the number of bootstrap replications set as B1 = B2 = 200.
+Specifically, when selecting m and conducting m-out-of-n bootstrap for the MI method, we
+followed the suggestion from Shen et al. (2023) and used 25 imputations.
+References
+Andrews, D. W. (2000). Inconsistency of the bootstrap when a parameter is on the boundary
+of the parameter space. Econometrica pages 399–405.
+Chakraborty, B., Laber, E. B., and Zhao, Y. (2013). Inference for optimal dynamic treatment
+regimes using an adaptive m-out-of-n bootstrap scheme. Biometrics 69, 714–723.
+Chakraborty, B., Murphy, S., and Strecher, V. (2010). Inference for non-regular parameters
+in optimal dynamic treatment regimes. Statistical methods in medical research 19, 317–
+343.
+Copas, J. and Eguchi, S. (2005). Local model uncertainty and incomplete-data bias (with
+discussion). Journal of the Royal Statistical Society Series B: Statistical Methodology 67,
+459–513.
+Copas, J. and Shi, J. Q. (2000). Meta-analysis, funnel plots and sensitivity analysis. Bio-
+statistics 1, 247–262.
+Daniels, M. J., Chatterjee, A. S., and Wang, C. (2012). Bayesian model selection for incom-
+plete data using the posterior predictive distribution. Biometrics 68, 1055–1063.
+European Medicines Agency (2010).
+Guideline on missing data in confirmatory
+41
+
+
+===== ORIGINAL PDF PAGE 69 =====
+FORMULA CHECK REQUIRED: original PDF page 69.
+clinical trials.
+https://www.ema.europa.eu/en/documents/scientific-guideline/
+guideline-missing-data-confirmatory-clinical-trials_en.pdf.
+European Medicines Agency (2020).
+ICH E9 (R1) addendum on estimands and
+sensitivity analysis in clinical trials to the guideline on statistical principles for
+clinical trials.
+https://www.ema.europa.eu/en/documents/scientific-guideline/
+draft-ich-e9-r1-addendum-estimands-and-sensitivity-analysis-clinical-trials-guideline
+en.pdf.
+Franks, A., D’Amour, A., and Feller, A. (2020). Flexible sensitivity analysis for observational
+studies without observable implications. Journal of the American Statistical Association
+115, 1730–1746.
+Gelman, A., Meng, X.-L., and Stern, H. (1996). Posterior predictive assessment of model
+fitness via realized discrepancies. Statistica sinica pages 733–760.
+Gelman, A., Van Mechelen, I., Verbeke, G., Heitjan, D. F., and Meulders, M. (2005). Mul-
+tiple imputation for model checking: Completed-data plots with missing and latent data.
+Biometrics 61, 74–85.
+Goldberger, A. L., Amaral, L. A., Glass, L., Hausdorff, J. M., Ivanov, P. C., Mark, R. G.,
+Mietus, J. E., Moody, G. B., Peng, C.-K., and Stanley, H. E. (2000). Physiobank, phys-
+iotoolkit, and physionet: components of a new research resource for complex physiologic
+signals. circulation 101, e215–e220.
+Johnson, A. E., Pollard, T. J., Shen, L., Lehman, L.-w. H., Feng, M., Ghassemi, M., Moody,
+B., Szolovits, P., Anthony Celi, L., and Mark, R. G. (2016). Mimic-iii, a freely accessible
+critical care database. Scientific data 3, 1–9.
+Little, R. J., D’agostino, R., Cohen, M. L., Dickersin, K., Emerson, S. S., Farrar, J. T.,
+Frangakis, C., Hogan, J. W., Molenberghs, G., Murphy, S. A., et al. (2012). The prevention
+42
+
+
+===== ORIGINAL PDF PAGE 70 =====
+FORMULA CHECK REQUIRED: original PDF page 70.
+and treatment of missing data in clinical trials. New England Journal of Medicine 367,
+1355–1360.
+Little, R. J. and Rubin, D. B. (2014). Statistical Analysis with Missing Data, volume 333.
+John Wiley & Sons.
+Newey, W. K. and McFadden, D. (1994). Large sample estimation and hypothesis testing.
+Handbook of econometrics 4, 2111–2245.
+Schafer, J. L. and Graham, J. W. (2002). Missing data: our view of the state of the art.
+Psychological methods 7, 147.
+Shao, J. and Wang, L. (2016). Semiparametric inverse propensity weighting for nonignorable
+missing data. Biometrika 103, 175–187.
+Shen, J., Hubbard, R. A., and Linn, K. A. (2023). Estimation and evaluation of individual-
+ized treatment rules following multiple imputation. Statistics in Medicine 42, 4236–4256.
+Simoneau, G., Moodie, E. E., Nijjar, J. S., Platt, R. W., Investigators, S. E. R. A. I. C.,
+et al. (2020). Estimating optimal dynamic treatment regimes with survival outcomes.
+Journal of the American Statistical Association 115, 1531–1539.
+Sj¨olander, A., Gabriel, E. E., and Cioc˘anea-Teodorescu, I. (2022). Sensitivity analysis for
+causal effects with generalized linear models. Journal of Causal Inference 10, 441–479.
+Speth, K. A., Elliott, M. R., Marquez, J. L., and Wang, L. (2022). Penalized spline-involved
+tree-based (pensit) learning for estimating an optimal dynamic treatment regime using
+observational data. Statistical Methods in Medical Research 31, 2338–2351.
+Wallace, M. P. and Moodie, E. E. (2015). Doubly-robust dynamic treatment regimen esti-
+mation via weighted least squares. Biometrics 71, 636–644.
+Xu, Y., Yu, M., Zhao, Y.-Q., Li, Q., Wang, S., and Shao, J. (2015). Regularized outcome
+weighted subgroup identification for differential treatment effects. Biometrics 71, 645–653.
+43
+
+
+===== ORIGINAL PDF PAGE 71 =====
+FORMULA CHECK REQUIRED: original PDF page 71.
+Yin, P. and Shi, J. Q. (2019). Simulation-based sensitivity analysis for non-ignorably missing
+data. Statistical methods in medical research 28, 289–308.
+44
+

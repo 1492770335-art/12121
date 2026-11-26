@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2109.11679v4",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2109.11679v4",
+  "archive_sha256": "f10f7524089405b1cab6d418fa0b90b4952e64a98889cc5c9522edf66e109aa2",
+  "files": [
+    {
+      "path": "optimal_score.tex",
+      "bytes": 170634,
+      "sha256": "336f22c0023ec110d6a91f40d0bd4cea61c5653321d9ca02ee01b0dec5327a05"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

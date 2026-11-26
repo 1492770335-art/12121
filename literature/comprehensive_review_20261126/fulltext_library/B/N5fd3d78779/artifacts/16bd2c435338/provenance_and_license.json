@@ -1,0 +1,30 @@
+{
+  "paper_id": "N5fd3d78779",
+  "category": "B",
+  "artifact_type": "main",
+  "sha256": "16bd2c435338f44b973ebf103ed3b650f57a1143e4cd7912ed082322c9534afa",
+  "source_url": "https://www.esri.ie/pubs/QEC2025WIN_SA_Bercholz.pdf",
+  "original_version": "publishedVersion",
+  "bytes": "964763",
+  "pdf_pages": "31",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.esri.ie/pubs/QEC2025WIN_SA_Bercholz.pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:41.627650+08:00",
+  "format": "pdf",
+  "title": "Distributional impact of tax and welfare policies: Budget 2026",
+  "authors": " and Maxime Bercholz and Karina Doorley and Claire Keane and Cian Mowlds and Richard O'Shea and Agathe Simon",
+  "doi": "10.26504/qec2025win_sa_bercholz",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "This Open Access work is licensed under a Creative Commons Attribution 4.0 International License\n(https://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "paper_id": "Nfa85d8db32",
+  "category": "I",
+  "artifact_type": "main",
+  "sha256": "1913019a806e373c72acce69f8bdc2055a888aad27efa5b61a6199c091e6db45",
+  "source_url": "https://www.mdpi.com/2227-9091/12/8/120/pdf?version=1722501832",
+  "original_version": "publishedVersion",
+  "bytes": "3496166",
+  "pdf_pages": "18",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.mdpi.com/2227-9091/12/8/120/pdf?version=1722501832",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:44.997014+08:00",
+  "format": "pdf",
+  "title": "The Impact of Financial Stress and Uncertainty on Green and Conventional Bonds and Stocks: A Nonlinear and Nonparametric Quantile Analysis",
+  "authors": "Muhammad Mar’I and Mehdi Seraj and Turgut Tursoy",
+  "doi": "10.3390/risks12080120",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "conditions of the Creative Commons\nAttribution (CC BY) license (https://\ncreativecommons.org/licenses/by/"
+    }
+  ]
+}

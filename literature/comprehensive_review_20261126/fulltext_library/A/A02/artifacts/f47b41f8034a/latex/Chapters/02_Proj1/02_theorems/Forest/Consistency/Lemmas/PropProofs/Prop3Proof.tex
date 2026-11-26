@@ -1,0 +1,88 @@
+%\documentclass{article}
+%\input{header}
+%\input{header2}
+
+%\begin{document}
+{ %begin tmp commands
+\newcommand{\eesnht}{\estfunc_{\Snhat,t}}
+\newcommand{\eesnhtm}{\estfunc_{\Snhat,t^-}}
+\newcommand{\eesnhtzero}{\estfunc_{\Snhat,t=0}}
+\newcommand{\argxi}{(X_i)}
+\newcommand{\sumotn}{\sum_{i=1}^n}
+
+\begin{proof}[Proof of Proposition \ref{prop:ChoProp4}]
+We utilize proof by induction on $t \in (0, \tau]$.
+%first time point = 0
+$\sumotn \eesnhtzero \argxi  = \sumotn \bigg\{ I(X>0) + \omdi I(X \leq 0) \frac{\survfunc(0\mid\hist)}{\survfunc(X\mid\hist)}  - \survfunc(0\mid \hist) \bigg\} = \sumotn \bigg\{ I(X>0) - \survfunc(0\mid\hist)\bigg\} = \sumotn \bigg\{ 1-1\bigg\} = 0$.
+%induction outline
+Then for all $0 < t \leq \tau$, if $\sumotn \eesnhtm \argxi = 0$ implies $\sumotn \estfunclabel \argxi = 0$, the desired result holds.
+
+\newcommand{\leftt}{t^-}
+\newcommand{\hypoth}{\sumotn \eesnhtm = 0}
+\newcommand{\xigt}{I(X_i > t)}
+\newcommand{\xigtm}{I(X_i > \leftt)}
+\newcommand{\xilet}{I(X_i \leq t)}
+\newcommand{\xiletm}{I(X_i \leq \leftt)}
+
+\newcommand{\argtmgH}{(\leftt\mid\hist)}
+\newcommand{\argXigH}{(X_i\mid\hist)}
+\newcommand{\efSnhat}{\frac{\Snhat\argtgH}{\Snhat\argXigH}}
+
+We re-write $\estfunclabelSnhat$ in terms of counting notation, using jumps such that $\xilet = \xiletm + d\xilet$ and $\xigt = \xigtm + d\xigt$.
+\newcommand{\mkmfracj}{\frac{\sum_{j=1}^n \delta_j dI(X_j>t)}{\sum_{j=1}^n I(X_j>\leftt)}}
+\begin{align*}
+\sumotn \eesnht &= \sumotn \xigt + \sumotn \bigg[ \omdi \xilet \efSnhat -\Snhat\argtgH \bigg] \eqnspace
+&= \sumotn \xigt + \sumotn \bigg[ \frac{\omdi \xilet}{\Snhat\argXigH} -1 \bigg] \Snhat\argtgH  \eqnspace
+&= \sumotn \xigtm + \sumotn d\xigt \eqnspace 
+&\quad \quad \quad +  \sumotn \bigg[ \frac{\omdi \xiletm}{\Snhat\argXigH} - 1 \bigg]\Snhat\argtgH 
+ \eqnspace
+&\quad \quad \quad + \sumotn \bigg[ \frac{\omdi d\xilet}{\Snhat\argXigH} \bigg]\Snhat\argtgH \eqnspace
+&= \sumotn\bigg[ \xigtm + d\xigt \bigg] \eqnspace
+&\quad \quad \quad + \sumotn\bigg[ \frac{\omdi \xiletm}{\Snhat\argXigH} - 1 \bigg] \Snhat\argtmgH \eqnspace
+&\quad \quad \quad + \sumotn\bigg[ \frac{\omdi \xiletm}{\Snhat\argXigH} - 1 \bigg]  \Snhat\argtmgH \mkmfracj
+\eqnspace
+&\quad \quad \quad + \sumotn\bigg[  \frac{\omdi \xilet}{\Snhat\argXigH}\bigg] \Snhat\argtgH,
+\end{align*}
+where the second equality is because
+\begin{align*}
+\sumotn \bigg[ &\frac{\omdi \xiletm}{\Snhat\argXigH} - 1 \bigg] \Snhat\argtgH 
+\eqnspace
+&= \sumotn\bigg( \frac{\omdi [\xiletm + d\xilet]}{\Snhat\argXigH} - 1 \bigg)\Snhat\argtgH\eqnspace
+&= \sumotn\bigg( \frac{\omdi \xiletm}{\Snhat\argXigH} 
++ \frac{\omdi d\xilet}{\Snhat\argXigH}
+- 1 \bigg)\Snhat\argtgH\eqnspace
+&= \sumotn\bigg( \frac{\omdi \xiletm}{\Snhat\argXigH} 
+- 1 \bigg)\Snhat\argtgH
++ \bigg( \frac{\omdi d\xilet}{\Snhat\argXigH} \bigg)\Snhat\argtgH,
+\end{align*}
+and the third equality is because $\Snhat\argtgH = \Snhat \argtmgH + \Snhat\argtmgH \frac{\sumotn \delta_i d\xigt}{\sumotn \xigtm}$ from the definition of modified Kaplan-Meier estimator in \cite{cho_multi-stage_2023}.
+
+Since we know by hypothesis that $\sumotn \eesnhtm = \sumotn [\xigtm + \omdi \xiletm \frac{\Snhat\argtmgH}{\Snhat\argXigH} - \Snhat\argtgH]= 0$, we re-write $\estfunclabelSnhat$ into smaller components.
+
+\newcommand{\tone}{\sumotn d\xigt }
+\newcommand{\ttwo}{\sumotn\delta_id\xigt
+}
+\newcommand{\xiet}{I(X_i=t)}
+\newcommand{\tthree}{\sumotn\omdi\xiet}
+\begin{align*}
+%\label{prop3breakdown}
+\sumotn \estfunclabelSnhat &= 
+\tone \eqnspace
+&\quad \quad + \sumotn \xigtm 
++ \sumotn \bigg[ \frac{\omdi \xiletm}{\Snhat\argXigH}-1 \bigg] \Snhat\argtmgH \label{prop3breakdown1}\tag{\ref{prop:ChoProp4}.1} \eqnspace
+&\quad \quad + \sumotn\bigg[ \frac{\omdi \xiletm}{\Snhat\argXigH} - 1 \bigg]  \Snhat\argtmgH \mkmfracj \label{prop3breakdown2}\tag{\ref{prop:ChoProp4}.2}
+\eqnspace
+&\quad \quad + \sumotn\bigg[  \frac{\omdi \xilet}{\Snhat\argXigH}\bigg] \Snhat\argtgH \label{prop3breakdown3}\tag{\ref{prop:ChoProp4}.3} \eqnspace
+&= \tone - \ttwo + \tthree \eqnspace
+&= -\sumotn\xiet + \sumotn \delta_i \xiet + \sumotn \omdi \xiet \eqnspace
+&=0,
+\end{align*}
+where $\cref{prop3breakdown1} = \hypoth$ by hypothesis, and the derivations from \cref{prop3breakdown2} and \cref{prop3breakdown3} to the next line are given below.
+
+We use the hypothesis for \cref{prop3breakdown2}. Since $\hypoth$, then $\sumotn\bigg[ \frac{\omdi \xiletm}{\Snhat\argXigH} - 1 \bigg]  \Snhat\argtmgH = -\sumotn\xigtm$, so $\sumotn\bigg[ \frac{\omdi \xiletm}{\Snhat\argXigH} - 1 \bigg]  \Snhat\argtmgH \mkmfracj =  -\sumotn\xigtm \mkmfracj = -\sumotn \delta_i d\xigt$.
+
+For \cref{prop3breakdown3}, this term is not equal to $0$ when $\delta_i = 0$ and $d\xilet = 1$. We note that $d\xilet = \xiet = 1$ when $t = X_i$, and $0$ otherwise. In other words, when $d\xilet = 1$, $\Snhat\argXi = \Snhat\argt$. Because $\xilet$ is increasing and the jump at $t=X_i$ is positive (from $0$ to $1$), the derivative is positive. Then, when \cref{prop3breakdown3} is not $0$, $\sumotn\bigg[  \frac{\omdi \xilet}{\Snhat\argXigH}\bigg] \Snhat\argtgH = \sumotn\bigg[  \frac{\omdi \xiet}{\Snhat\argtgH}\bigg] \Snhat\argtgH = \sumotn \omdi \xiet$. We note that, using the same logic, $d\xigt = -\xiet$, since the function $\xigt$ is decreasing and the jump at $t=X_i$ goes from $1$ to $0$.
+\end{proof}
+} %end of tmp commands
+
+%\end{document}

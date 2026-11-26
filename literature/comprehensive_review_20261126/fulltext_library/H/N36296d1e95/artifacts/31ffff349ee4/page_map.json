@@ -1,0 +1,950 @@
+[
+  {
+    "pdf_page": 1,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 7,
+    "markdown_end_line": 33,
+    "txt_start_line": 9,
+    "txt_end_line": 32
+  },
+  {
+    "pdf_page": 2,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "1",
+      "2",
+      "3"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "assumption"
+    ],
+    "markdown_start_line": 34,
+    "markdown_end_line": 93,
+    "txt_start_line": 33,
+    "txt_end_line": 89
+  },
+  {
+    "pdf_page": 3,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "4",
+      "29",
+      "30"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "condition"
+    ],
+    "markdown_start_line": 94,
+    "markdown_end_line": 157,
+    "txt_start_line": 90,
+    "txt_end_line": 150
+  },
+  {
+    "pdf_page": 4,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "31",
+      "56",
+      "57"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 158,
+    "markdown_end_line": 221,
+    "txt_start_line": 151,
+    "txt_end_line": 211
+  },
+  {
+    "pdf_page": 5,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "58",
+      "83",
+      "84"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 222,
+    "markdown_end_line": 285,
+    "txt_start_line": 212,
+    "txt_end_line": 272
+  },
+  {
+    "pdf_page": 6,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "85",
+      "109",
+      "110"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "Appendix D"
+    ],
+    "markdown_start_line": 286,
+    "markdown_end_line": 347,
+    "txt_start_line": 273,
+    "txt_end_line": 331
+  },
+  {
+    "pdf_page": 7,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "111",
+      "127",
+      "128"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 348,
+    "markdown_end_line": 402,
+    "txt_start_line": 332,
+    "txt_end_line": 383
+  },
+  {
+    "pdf_page": 8,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 403,
+    "markdown_end_line": 472,
+    "txt_start_line": 384,
+    "txt_end_line": 450
+  },
+  {
+    "pdf_page": 9,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "145",
+      "164",
+      "165"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 473,
+    "markdown_end_line": 529,
+    "txt_start_line": 451,
+    "txt_end_line": 504
+  },
+  {
+    "pdf_page": 10,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "174",
+      "175"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 530,
+    "markdown_end_line": 600,
+    "txt_start_line": 505,
+    "txt_end_line": 572
+  },
+  {
+    "pdf_page": 11,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "194"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 601,
+    "markdown_end_line": 656,
+    "txt_start_line": 573,
+    "txt_end_line": 625
+  },
+  {
+    "pdf_page": 12,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "195",
+      "215",
+      "216"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 657,
+    "markdown_end_line": 716,
+    "txt_start_line": 626,
+    "txt_end_line": 682
+  },
+  {
+    "pdf_page": 13,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 717,
+    "markdown_end_line": 774,
+    "txt_start_line": 683,
+    "txt_end_line": 737
+  },
+  {
+    "pdf_page": 14,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "231",
+      "242"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 775,
+    "markdown_end_line": 854,
+    "txt_start_line": 738,
+    "txt_end_line": 814
+  },
+  {
+    "pdf_page": 15,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "251"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 855,
+    "markdown_end_line": 922,
+    "txt_start_line": 815,
+    "txt_end_line": 879
+  },
+  {
+    "pdf_page": 16,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "265",
+      "266"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 923,
+    "markdown_end_line": 972,
+    "txt_start_line": 880,
+    "txt_end_line": 926
+  },
+  {
+    "pdf_page": 17,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "267",
+      "i"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 973,
+    "markdown_end_line": 1041,
+    "txt_start_line": 927,
+    "txt_end_line": 992
+  },
+  {
+    "pdf_page": 18,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "291",
+      "308",
+      "309"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1042,
+    "markdown_end_line": 1098,
+    "txt_start_line": 993,
+    "txt_end_line": 1046
+  },
+  {
+    "pdf_page": 19,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "310",
+      "335",
+      "336"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1099,
+    "markdown_end_line": 1162,
+    "txt_start_line": 1047,
+    "txt_end_line": 1107
+  },
+  {
+    "pdf_page": 20,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "337",
+      "362",
+      "363"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1163,
+    "markdown_end_line": 1226,
+    "txt_start_line": 1108,
+    "txt_end_line": 1168
+  },
+  {
+    "pdf_page": 21,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "364",
+      "387",
+      "388"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1227,
+    "markdown_end_line": 1286,
+    "txt_start_line": 1169,
+    "txt_end_line": 1225
+  },
+  {
+    "pdf_page": 22,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "389",
+      "414",
+      "415"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1287,
+    "markdown_end_line": 1350,
+    "txt_start_line": 1226,
+    "txt_end_line": 1286
+  },
+  {
+    "pdf_page": 23,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "416",
+      "441",
+      "442"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1351,
+    "markdown_end_line": 1414,
+    "txt_start_line": 1287,
+    "txt_end_line": 1347
+  },
+  {
+    "pdf_page": 24,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "443",
+      "468",
+      "469"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "assumption"
+    ],
+    "markdown_start_line": 1415,
+    "markdown_end_line": 1478,
+    "txt_start_line": 1348,
+    "txt_end_line": 1408
+  },
+  {
+    "pdf_page": 25,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "470",
+      "495",
+      "496"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "condition"
+    ],
+    "markdown_start_line": 1479,
+    "markdown_end_line": 1543,
+    "txt_start_line": 1409,
+    "txt_end_line": 1470
+  },
+  {
+    "pdf_page": 26,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "497",
+      "521",
+      "522"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1544,
+    "markdown_end_line": 1605,
+    "txt_start_line": 1471,
+    "txt_end_line": 1529
+  },
+  {
+    "pdf_page": 27,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "523",
+      "537",
+      "538"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1606,
+    "markdown_end_line": 1647,
+    "txt_start_line": 1530,
+    "txt_end_line": 1568
+  },
+  {
+    "pdf_page": 28,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "539",
+      "553",
+      "554"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1648,
+    "markdown_end_line": 1718,
+    "txt_start_line": 1569,
+    "txt_end_line": 1636
+  },
+  {
+    "pdf_page": 29,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "555",
+      "594",
+      "595"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1719,
+    "markdown_end_line": 1811,
+    "txt_start_line": 1637,
+    "txt_end_line": 1726
+  },
+  {
+    "pdf_page": 30,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "596",
+      "637",
+      "638"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1812,
+    "markdown_end_line": 1907,
+    "txt_start_line": 1727,
+    "txt_end_line": 1819
+  },
+  {
+    "pdf_page": 31,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "639",
+      "680",
+      "681"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1908,
+    "markdown_end_line": 2003,
+    "txt_start_line": 1820,
+    "txt_end_line": 1912
+  },
+  {
+    "pdf_page": 32,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "682",
+      "716",
+      "717"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 2004,
+    "markdown_end_line": 2085,
+    "txt_start_line": 1913,
+    "txt_end_line": 1991
+  },
+  {
+    "pdf_page": 33,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "CVD"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 2086,
+    "markdown_end_line": 2279,
+    "txt_start_line": 1992,
+    "txt_end_line": 2182
+  },
+  {
+    "pdf_page": 34,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "0",
+      "2",
+      "CVD"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 2280,
+    "markdown_end_line": 2476,
+    "txt_start_line": 2183,
+    "txt_end_line": 2376
+  },
+  {
+    "pdf_page": 35,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 2477,
+    "markdown_end_line": 2581,
+    "txt_start_line": 2377,
+    "txt_end_line": 2478
+  },
+  {
+    "pdf_page": 36,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "718"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 2582,
+    "markdown_end_line": 2699,
+    "txt_start_line": 2479,
+    "txt_end_line": 2593
+  },
+  {
+    "pdf_page": 37,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "719",
+      "721",
+      "722"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "Appendix A"
+    ],
+    "markdown_start_line": 2700,
+    "markdown_end_line": 2751,
+    "txt_start_line": 2594,
+    "txt_end_line": 2642
+  },
+  {
+    "pdf_page": 38,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "723",
+      "737",
+      "738"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "Appendix B"
+    ],
+    "markdown_start_line": 2752,
+    "markdown_end_line": 2821,
+    "txt_start_line": 2643,
+    "txt_end_line": 2709
+  },
+  {
+    "pdf_page": 39,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "748",
+      "749"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "Appendix C"
+    ],
+    "markdown_start_line": 2822,
+    "markdown_end_line": 2910,
+    "txt_start_line": 2710,
+    "txt_end_line": 2795
+  },
+  {
+    "pdf_page": 40,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 2911,
+    "markdown_end_line": 3136,
+    "txt_start_line": 2796,
+    "txt_end_line": 3018
+  },
+  {
+    "pdf_page": 41,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "753",
+      "777",
+      "778"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "Appendix D"
+    ],
+    "markdown_start_line": 3137,
+    "markdown_end_line": 3201,
+    "txt_start_line": 3019,
+    "txt_end_line": 3080
+  },
+  {
+    "pdf_page": 42,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "779",
+      "810",
+      "811"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3202,
+    "markdown_end_line": 3277,
+    "txt_start_line": 3081,
+    "txt_end_line": 3153
+  },
+  {
+    "pdf_page": 43,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "812",
+      "846",
+      "847"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3278,
+    "markdown_end_line": 3366,
+    "txt_start_line": 3154,
+    "txt_end_line": 3239
+  },
+  {
+    "pdf_page": 44,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "848",
+      "881",
+      "882"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3367,
+    "markdown_end_line": 3455,
+    "txt_start_line": 3240,
+    "txt_end_line": 3325
+  },
+  {
+    "pdf_page": 45,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "883",
+      "917",
+      "918"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3456,
+    "markdown_end_line": 3555,
+    "txt_start_line": 3326,
+    "txt_end_line": 3422
+  },
+  {
+    "pdf_page": 46,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "952",
+      "953"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3556,
+    "markdown_end_line": 3640,
+    "txt_start_line": 3423,
+    "txt_end_line": 3504
+  },
+  {
+    "pdf_page": 47,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "954",
+      "989",
+      "990",
+      "991"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3641,
+    "markdown_end_line": 3740,
+    "txt_start_line": 3505,
+    "txt_end_line": 3601
+  },
+  {
+    "pdf_page": 48,
+    "pdf_page_label": "",
+    "printed_number_candidates": [
+      "1000",
+      "1001"
+    ],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3741,
+    "markdown_end_line": 3780,
+    "txt_start_line": 3602,
+    "txt_end_line": 3638
+  },
+  {
+    "pdf_page": 49,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3781,
+    "markdown_end_line": 3791,
+    "txt_start_line": 3639,
+    "txt_end_line": 3646
+  },
+  {
+    "pdf_page": 50,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3792,
+    "markdown_end_line": 3801,
+    "txt_start_line": 3647,
+    "txt_end_line": 3653
+  },
+  {
+    "pdf_page": 51,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3802,
+    "markdown_end_line": 3811,
+    "txt_start_line": 3654,
+    "txt_end_line": 3660
+  },
+  {
+    "pdf_page": 52,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3812,
+    "markdown_end_line": 3821,
+    "txt_start_line": 3661,
+    "txt_end_line": 3667
+  },
+  {
+    "pdf_page": 53,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3822,
+    "markdown_end_line": 3831,
+    "txt_start_line": 3668,
+    "txt_end_line": 3674
+  },
+  {
+    "pdf_page": 54,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "Supplementary F"
+    ],
+    "markdown_start_line": 3832,
+    "markdown_end_line": 3850,
+    "txt_start_line": 3675,
+    "txt_end_line": 3690
+  },
+  {
+    "pdf_page": 55,
+    "pdf_page_label": "",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": false,
+    "requires_formula_check": false,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 3851,
+    "markdown_end_line": 3866,
+    "txt_start_line": 3691,
+    "txt_end_line": 3701
+  }
+]

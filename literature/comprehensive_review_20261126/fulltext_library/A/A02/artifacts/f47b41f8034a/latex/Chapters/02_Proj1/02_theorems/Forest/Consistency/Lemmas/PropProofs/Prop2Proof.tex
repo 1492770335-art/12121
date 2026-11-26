@@ -1,0 +1,140 @@
+\begin{comment}
+\documentclass[12pt]{article}
+\input{header}
+\input{header2}
+%\begin{document}
+\end{comment}
+
+\begin{proof}[Proof of Proposition \ref{prop:ChoProp3}] 
+
+{% begin temporary command space
+\newcommand{\termone}{I(X>t)}
+\newcommand{\termtwo}{\omdi(X\leq t) \frac{\Snhat\argt}{\Snhat\argX}}
+\newcommand{\termthree} {\Snhat\argt}
+\newcommand{\estfunclongtrue}{\termone + \termtwo - \termthree}
+\newcommand{\bigE}{E_{\unnormdirac\estfunctruesurvlabel\mid\unnormdirac}}
+\newcommand{\bigEone}{E_{\unnormdirac\estfunctruesurvlabel\mid\unnormdirac = 1}}
+\newcommand{\smallE}{E_{\unnormdirac}}
+By hypothesis, $\norm{\esteqlabelSnhat}_L = \suptzerototauh \bigg| \PdotSnhat \bigg| \to 0$. We want to show that $\PdotSnhat \to 0$ uniformly over $\histlower \in \history$ and $t \in [0, \tau]$ implies $
+\sup_{t,\histlower} u_n(t \mid \histlower) \to 0$ for $u_n$ defined below. We know 
+\begin{align}
+\label{eq:three_components}
+\PdotSnhat = \PopP_{\cdot\mid \histlower} \bigg\{ 
+\termone
++\termtwo
+-\termthree
+\bigg\}.
+\end{align}
+We individually examine each term in \cref{eq:three_components}.
+%first term
+For the first term, because $T\perp C$, we have 
+\begin{align}
+\label{eq:component1}
+\Pd \left( \termone \right) &= E\left( \termone \mid \heh \right) = \Pr(X>t\mid \heh ) = \Pr(T>t, C>t\mid \heh ) \notag \eqnspace
+%component1
+&= \Pr(T>t\mid \heh )\Pr(C>t\mid \heh ) = \truesurv(t\mid \heh)\left( 1 - G(t\mid \heh) \right). \tag{\ref{eq:three_components}.1}
+\end{align}
+} %end tmp command space
+{ % temporary command space
+\newcommand{\indx}{I(X\leq t)}
+\newcommand{\fracX}{\frac{\Snhat\argt}{\Snhat\argX}}
+\newcommand{\fracC}{\frac{\Snhat\argt}{\Snhat\argC}}
+\newcommand{\fracCheh}{\frac{\Snhat(t\mid \heh)}{\Snhat(C\mid\heh)}}
+\newcommand{\argcheh}{(c\mid\heh)}
+\newcommand{\argtheh}{(t\mid\heh)}
+\newcommand{\arguheh}{(u\mid\heh)}
+\newcommand{\intc}{\int_c^\infty}
+For the second term,
+\begin{align*}
+\label{eq:component2}
+\Pd \left\{ \omd \indx \fracX \right\} &= E\left( \omd \indx \fracX \bigg| \heh \right) %\notag \eqnspace
+\end{align*}
+\begin{align}
+&= E\left( I(C\leq t) \fracC \bigg| \heh, \delta = 0 \right) \notag \eqnspace
+&=\intzerotot \, \intc \fracCheh \, f_{T,C}(u,c \mid \heh )\, du \, dc \notag \eqnspace
+&=\intzerotot \frac{1}{\Snhat\argcheh} \intc \Snhat\argtheh f_T\arguheh \, du \, f_C\argcheh \, dc \notag \eqnspace
+%component2
+&= \intzerotot \frac{f_C\argcheh\truesurv\argcheh}{\Snhat\argcheh}\, dc \, \Snhat\argtheh, \tag{\ref{eq:three_components}.2}
+\end{align}
+\begin{comment}
+\Pd \left\{ \omd &\indx \fracX \right\} = E\left( \omd \indx \fracX \bigg| \heh \right) \notag \eqnspace
+&= E\left( I(C\leq t) \fracC \bigg| \heh, \delta = 0 \right) \notag \eqnspace
+&=\intzerotot \, \intc \fracCheh \, f_{T,C}(u,c \mid \heh )\, du \, dc \notag \eqnspace
+&=\intzerotot \frac{1}{\Snhat\argcheh} \intc \Snhat\argtheh f_T\arguheh \, du \, f_C\argcheh \, dc \notag \eqnspace
+%component2
+&= \intzerotot \frac{f_C\argcheh\truesurv\argcheh}{\Snhat\argcheh}\, dc \, \Snhat\argtheh, \tag{\ref{eq:three_components}.2}
+\end{comment}
+where the last equality holds because \begin{align*}
+\intc \Snhat\argtheh \, f_T\arguheh \, du = \Snhat\argtheh \, F_T\argu \bigg|^\infty_c &= \Snhat\argtheh \, (1-F_T\argc) \eqnspace &= \Snhat\argtheh \, (1- \truesurv\argc).
+\end{align*}
+The last term is
+\begin{align}
+\label{eq:component3}
+\Pd \{ -\Snhat\argt\} 
+%componenet3
+= -\Snhat\argtheh.
+\tag{\ref{eq:three_components}.3}
+\end{align}
+\newcommand{\fracsn}{\frac{\Snhat\argtheh}{\Snhat\argtheh}}
+\newcommand{\fracSoSn}{\frac{\truesurv\argtheh}{\Snhat\argtheh}}
+Combining \cref{eq:component1}, \cref{eq:component2}, \cref{eq:component3}, we have
+\begin{align*}
+\PdotSnhat &= 
+%component1
+\truesurv(t\mid \heh)\left( 1 - G(t\mid \heh) \right) \eqnspace
+%component2
+&\quad\quad\quad+ \intzerotot \frac{f_C\argcheh\truesurv\argcheh}{\Snhat\argcheh}\, dc \, \Snhat\argtheh
+%component3
+-\Snhat\argtheh \eqnspace
+&= \truesurv(t\mid \heh) -\Snhat\argtheh 
+-  \truesurv(t\mid \heh) G(t\mid \heh) \eqnspace
+&\quad\quad\quad+ \Snhat\argtheh\intzerotot \frac{f_C\argcheh\truesurv\argcheh}{\Snhat\argcheh}\, dc
+ \eqnspace
+&= \fracsn \truesurv(t\mid \heh) -\Snhat\argtheh \\
+&\quad \quad \quad  
+-  \fracsn \truesurv(t\mid \heh) G(t\mid \heh) \\
+&\quad \quad \quad + \Snhat\argtheh G\argtheh - \Snhat\argtheh G\argtheh
+\eqnspace
+&\quad\quad\quad+\Snhat\argtheh\intzerotot \frac{\truesurv\argcheh}{\Snhat\argcheh}\, dG\argcheh \eqnspace
+&= \Snhat\argtheh \bigg\{ \fracSoSn - 1 -\left[ \fracSoSn - 1 \right] G\argtheh \\
+&\quad \quad \quad \quad \quad \quad \quad  \quad \quad \quad 
+- G\argtheh + \intzerotot \frac{\truesurv\argcheh}{\Snhat\argcheh}\, dG\argcheh \bigg\}.
+\end{align*}
+\newcommand{\en}{\epsilon_n}
+\newcommand{\un}{u_n}
+Now, letting $\en\argtheh =  \fracSoSn - 1$, and noting that
+\begin{align*}
+\intzerotot &\frac{\truesurv\argcheh}{\Snhat\argcheh}\, dG\argcheh - G\argtheh \eqnspace &=\intzerotot \frac{\truesurv\argcheh}{\Snhat\argcheh}\, dG\argcheh - \intzerotot 1 \, dG\argcheh \eqnspace
+&=\intzerotot \left[ \frac{\truesurv\argcheh}{\Snhat\argcheh}\, - 1 \right] \, dG\argcheh =\intzerotot \en\argcheh \, dG\argcheh,
+\end{align*} 
+we have $\PdotSnhat$
+\begin{align*}
+ &= \Snhat\argtheh \bigg\{ \en\argtheh (1 - G\argtheh) \eqnspace
+&\quad\quad\quad\quad\quad\quad\quad\quad+ \intzerotot \frac{\truesurv\argcheh}{\Snhat\argcheh}\, dG\argcheh - G\argtheh  \bigg\} \eqnspace
+&= \Snhat\argtheh \bigg\{ \en\argtheh (1 - G\argtheh) + \intzerotot \en\argcheh\, dG\argcheh  \bigg\}. %\eqnspace
+%&\equiv \Snhat\argtheh \un\argtheh.
+\end{align*}
+Setting $\un \equiv \en\argtheh (1 - G\argtheh) + \intzerotot \en\argcheh\, dG\argcheh$, and taking the derivative on both sides, we get %using product rule
+\begin{equation*}
+\begin{aligned}
+d\un\argtheh &= d\bigg[ \en\argtheh (1 - G\argtheh) + \intzerotot \en\argcheh\, dG\argcheh \bigg] \eqnspace
+&=d\en\argt(1 - G\argtheh) + \bigg(d(1 - G\argtheh)\bigg) \en\argtheh \eqnspace
+&\quad \quad + \en\argtheh dG\argtheh \eqnspace
+&=d\en\argt(1 - G\argtheh) - dG\argtheh \, \en\argtheh \eqnspace
+&\quad \quad + \en\argtheh dG\argtheh \eqnspace
+&=d\en\argt(1 - G\argtheh) \eqnspace
+\implies d\en\argtheh &= \frac{d\un\argt}{1 - G\argtheh}.
+\end{aligned}
+\end{equation*}
+Using integration by parts, we have
+\begin{align*}
+\en\argtheh &= \intzerotot \frac{d\un\argt}{1 - G\argtheh} \eqnspace
+&= \frac{\un\arguheh}{1-G\arguheh}\bigg|^t_0 - \intzerotot \frac{\un\arguheh \, dG\arguheh}{(1-G\arguheh)^2} \eqnspace
+&= \frac{\un\argtheh}{1-G\argtheh} - \intzerotot \frac{\un\arguheh \, dG\arguheh}{(1-G\arguheh)^2}. 
+\end{align*}
+By Assumption \ifnum\jasa=1 4
+ \else \ref{assump:CuiAssump1}\fi, $1-G\argtheh \ge 1- G(\tau\mid\heh) > 0$. Thus, $\un\argtheh \to 0$ implies $\en\argtheh \to 0$. Since $\un\argtheh \to 0$ by hypothesis, we have $\fracSoSn - 1 \to 0$. Thus, $\norm{\Snhat - \truesurv}_\infty \to 0$.
+} %end tmp command space
+
+\end{proof}
+%\end{document}

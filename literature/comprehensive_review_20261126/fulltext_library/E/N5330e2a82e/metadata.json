@@ -1,0 +1,36 @@
+{
+  "paper_id": "N5330e2a82e",
+  "category": "E",
+  "title": "The optimal dynamic treatment rule superlearner: considerations, performance, and application to criminal justice interventions",
+  "authors": "Lina M. Montoya and Mark J. van der Laan and Alexander R. Luedtke and Jennifer L. Skeem and Jeremy R. Coyle and Maya L. Petersen",
+  "doi": "10.1515/ijb-2020-0127",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1515/ijb-2020-0127",
+  "local_fulltext": true,
+  "public_pdf": [
+    "E/N5330e2a82e/artifacts/5a4374d6d5da/original.pdf"
+  ],
+  "public_markdown": [
+    "E/N5330e2a82e/artifacts/5a4374d6d5da/fulltext.md"
+  ],
+  "public_txt": [
+    "E/N5330e2a82e/artifacts/5a4374d6d5da/fulltext.txt"
+  ],
+  "original_tex": [
+    "E/N5330e2a82e/artifacts/5a4374d6d5da/latex/main.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "5a4374d6d5da3e2336f73b4748f66137db05fde019474fc56d0f233e4fa20d62",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2101.12326",
+      "provenance": "E/N5330e2a82e/artifacts/5a4374d6d5da/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N5330e2a82e/README.md",
+  "status": "public_fulltext"
+}

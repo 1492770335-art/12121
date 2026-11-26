@@ -1,0 +1,41 @@
+{
+  "paper_id": "C02",
+  "category": "C",
+  "title": "Near-optimal Individualized Treatment Recommendations.",
+  "authors": "Haomiao Meng and Ying-Qi Zhao and Haoda Fu and Xingye Qiao",
+  "doi": "",
+  "year": "2020",
+  "original_url": "https://jmlr.org/papers/v21/20-334.html",
+  "local_fulltext": true,
+  "public_pdf": [
+    "C/C02/artifacts/5918935bb87a/original.pdf"
+  ],
+  "public_markdown": [
+    "C/C02/artifacts/5918935bb87a/fulltext.md"
+  ],
+  "public_txt": [
+    "C/C02/artifacts/5918935bb87a/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "ce9ae5eb00917dd5b411ed265e1cb00cb35ab64813392c01ee6f455eaa9eb5f8",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2004.02772"
+    },
+    {
+      "sha256": "5918935bb87a8677d47cb37363ce4b3815bf2c047599504aa697218bbf12d654",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://jmlr.org/papers/volume21/20-334/20-334.pdf",
+      "provenance": "C/C02/artifacts/5918935bb87a/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "C/C02/README.md",
+  "status": "public_fulltext"
+}

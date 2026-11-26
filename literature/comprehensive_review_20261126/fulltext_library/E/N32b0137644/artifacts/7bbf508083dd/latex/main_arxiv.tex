@@ -1,0 +1,134 @@
+\documentclass[12pt]{article} %
+\usepackage{times}
+\usepackage{url}            %
+\usepackage{booktabs}       %
+\usepackage{amsfonts}       %
+\usepackage{nicefrac}       %
+\usepackage{microtype}      %
+\usepackage{mkolar_definitions}
+\usepackage{xspace}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{color}
+\usepackage{color, colortbl}
+\usepackage{enumitem}
+\usepackage{comment}
+\usepackage{bm}
+ \usepackage[margin=1.25in]{geometry}
+
+
+\usepackage[scaled=.9]{helvet}
+
+\usepackage{url}
+\usepackage{authblk}
+\usepackage{csquotes}
+
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue]{hyperref}
+
+
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\bibpunct{(}{)}{;}{a}{,}{,}
+
+\newenvironment{packed_enum}{
+  \begin{enumerate}
+    \setlength{\itemsep}{1pt}
+    \setlength{\parskip}{-1pt}
+    \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+\newcount\Comments  %
+\Comments=1 %
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkred}{rgb}{0.7,0,0}
+\definecolor{teal}{rgb}{0.3,0.8,0.8}
+\definecolor{orange}{rgb}{1.0,0.5,0.0}
+\definecolor{purple}{rgb}{0.8,0.0,0.8}
+\newcommand{\kibitz}[2]{\ifnum\Comments=1{\textcolor{#1}{\textsf{\footnotesize #2}}}\fi}
+\newcommand{\xz}[1]{\noindent{\textcolor{red}{\{{\bf XZ:} \em #1\}}}}
+\newcommand{\wen}[1]{\noindent{\textcolor{red}{\{{\bf WS:} \em #1\}}}}
+
+\definecolor{Gray}{gray}{0.9}
+
+\input{notation.tex}
+
+\newcommand{\defeq}{\triangleq}
+\newcommand{\Otilde}{\tilde{O}}
+\newcommand{\sa}{(s,a)}
+\renewcommand{\arraystretch}{2.}
+
+\input{math_commands.tex}
+\usepackage{mkolar_definitions}
+\ifdefined\usebigfont
+\renewcommand{\mddefault}{bx}
+\renewcommand\seriesdefault{b}
+\renewcommand\bfdefault{bx} %
+\usepackage{times}
+\usepackage[fontsize=13pt]{scrextend}
+\AtBeginDocument{\newgeometry{letterpaper,left=1.56in,right=1.56in,top=1.71in,bottom=1.77in}}
+\else
+\fi
+
+\newcommand{\ie}{\emph{i.e.}}
+\newcommand{\eg}{\emph{e.g.}}
+\newcommand{\Ie}{\emph{I.e.}}
+\newcommand{\Eg}{\emph{E.g.}}
+\newcommand{\etc}{\emph{etc.}}
+
+
+\begin{document}
+\title{Offline Minimax Soft-Q-learning Under Realizability and Partial Coverage }
+\author[1]{Masatoshi Uehara\thanks{uehara.masatoshi@gene.com} \footnote{This work is done when the author was at Cornell University.}} 
+\author[1]{Nathan Kallus \thanks{kallus@cornell.edu}}
+\author[2]{Jason D. Lee\thanks{jasonlee@princeton.edu  }}
+\author[1]{Wen Sun \thanks{ws455@cornell.edu}}
+
+\affil[1]{Genentech}
+\affil[2]{Princeton University}
+\date{}
+
+\maketitle
+
+\begin{abstract}
+\input{main_folder/abstract} 
+\end{abstract}
+
+\vspace{-0.8cm}
+
+\vspace{-0.15cm}
+
+
+\input{main_folder/introduction} 
+
+\input{main_folder/preliminary} 
+
+
+
+\input{./main_folder/algorithms}
+
+\input{./main_folder/convergence}
+
+\input{./main_folder/finite_sample}
+
+\input{./main_folder/discussion}
+
+
+
+\bibliography{ref}
+
+
+\appendix 
+
+\input{./further_related}
+
+
+\input{proof}
+
+
+
+
+\end{document} 

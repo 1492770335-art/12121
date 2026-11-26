@@ -1,0 +1,15 @@
+
+\section{Preliminaries}
+
+
+We consider an infinite-horizon discounted MDP $\Mcal =\langle \Scal,\Acal, P,r,\gamma,\mu_0\rangle$ where $\Scal$ is the state space, $\Acal$ is the finite action space, $\gamma \in [0,1)$ is the discount factor, reward $r$ is a random variable following $P_r(\cdot \mid s,a)$ on $[R_{\min},R_{\max}]$ ($R_{\min}\geq 0$), $\mu_0$ is the initial distribution. A policy $\pi:\Scal \to \Delta(\Acal)$ is a map from the state to the distribution over actions. We denote the discounted state-action occupancy distribution under a policy $\pi$ starting from an initial distribution $\mu_0$ by $d_{\pi,\mu_0}(s,a)$. With slight abuse of notation, we denote $d_{\pi,\mu_0}(s)=\sum_a d_{\pi,\mu_0}(s,a)$. We define the value under $\pi$ as $J(\pi)\coloneqq \EE_{\pi}[\sum_{t=0}^{\infty} \gamma^t \tilde r(s_t,a_t)]$ where the expectation is taken under $\pi$. We denote the optimal policy $\argmax_{\pi} J(\pi)$ by $\pi^{\star}$, and its Q-function $\EE_{\pi^{\star}}[\sum_t \gamma^t \tilde r(s_t,a_t)\mid s_0=s,a_0=a] $ by $q^{\star}(s,a)$. 
+
+In offline RL, using offline data $\Dcal=\{(s_i,a_i,r_i,s'_i):i=1,\dots,n\}$, we search for the policy $\pi^{\star}$ that maximizes the policy value. We suppose each $(s_i,a_i,r_i,s'_i)$ is sampled {i.i.d.} from $s_i\sim P_b, a_i\sim \pi_b(\cdot\mid s), r_i\sim P_r(\cdot \mid s_i,a_i),s'_i\sim P(\cdot \mid s_i,a_i)$. We denote the sample average of $f$ by $\EE_n[f(s,a,r,s')]=\frac1n\sum_{i=1}^nf(s_i,a_i,r_i,s'_i)$, and the expectation of $f$ with respect to the offline data distribution by $\EE[f(s,a,r,s')]$ (without any scripts). The policy $\pi_b$ used to collect data is typically referred to as a behavior policy. 
+With slight abuse of notation, we denote $P_b(s,a)=P_b(s)\pi_b(a\mid s)$. %
+
+
+
+
+\textbf{Notation.} 
+We denote the support of $P_b(\cdot)$ by $(\Scal \times \Acal)_b$, and the $L^{\infty}$-norm on $(\Scal \times \Acal)_b$ by $\|\cdot\|_{\infty,b}$. 
+The $L^{\infty}$-norm on $(\Scal \times \Acal)$ is denoted by $\|\cdot\|_{\infty}$. We define $w_{\pi}(s,a)=d_{\pi,\mu_0}(s,a)/P_b(s,a)$ (if it exists). We define $\mathrm{sofmax}(h)=\frac{\exp(h(s,a))}{\sum_a \exp(h(s,a))}$ and $\|h\|_2=\EE_{(s,a)\sim P_b}[h^2(s,a)]^{1/2}$ for $h:\Scal \times \Acal \to \RR$. We denote universal constants by $c_1,c_2,\dots$. We use the convention $a/0=\infty$ when $a\neq 0$ and $0/0=0$. 

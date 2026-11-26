@@ -1,0 +1,34 @@
+{
+  "paper_id": "N0823fd9721",
+  "category": "D",
+  "title": "Parameter Estimation of Birnbaum-Saunders Distribution under Competing Risks Using the Quantile Variant of the Expectation-Maximization Algorithm",
+  "authors": "Chanseok Park and Min Wang",
+  "doi": "10.3390/math12111757",
+  "year": "2024",
+  "original_url": "https://doi.org/10.3390/math12111757",
+  "local_fulltext": true,
+  "public_pdf": [
+    "D/N0823fd9721/artifacts/280f115aa3a1/original.pdf"
+  ],
+  "public_markdown": [
+    "D/N0823fd9721/artifacts/280f115aa3a1/fulltext.md"
+  ],
+  "public_txt": [
+    "D/N0823fd9721/artifacts/280f115aa3a1/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "280f115aa3a1d8cdbacc2a27e5539910809f58f6c15b482240f7a7aebfb55b1d",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.mdpi.com/2227-7390/12/11/1757/pdf?version=1717653862",
+      "provenance": "D/N0823fd9721/artifacts/280f115aa3a1/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/N0823fd9721/README.md",
+  "status": "public_fulltext"
+}

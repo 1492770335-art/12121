@@ -1,0 +1,28 @@
+{
+  "paper_id": "E03",
+  "category": "E",
+  "title": "Statistical inference for the mean outcome under a possibly non-unique optimal treatment strategy",
+  "authors": "Alexander R. Luedtke and Mark J. van der Laan",
+  "doi": "10.1214/15-aos1384",
+  "year": "2016",
+  "original_url": "https://doi.org/10.1214/15-aos1384",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "75f19bedcd775ad21563e892ee7d7885c4ec2dce42de64117fc20782b6d79d50",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1603.07573"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/E03/README.md",
+  "status": "local_only"
+}

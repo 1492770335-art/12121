@@ -1,0 +1,28 @@
+{
+  "paper_id": "N0ce1953394",
+  "category": "E",
+  "title": "Targeted optimal treatment regime learning using summary statistics",
+  "authors": "J Chu and W Lu and S Yang",
+  "doi": "10.1093/biomet/asad020",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1093/biomet/asad020",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "bb13a082924b5f7eb7ed4a09fef19bb8ec7730a65b4cf26ce69c730f39b94b11",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2201.06229"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N0ce1953394/README.md",
+  "status": "local_only"
+}

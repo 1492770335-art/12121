@@ -1,0 +1,9 @@
+In Figure \ref{fig:sims_simpleexp_crit1}, we plot the results from our simulation setting, where each dot represents a simulation iteration for each method. The left side shows the mean truncated OS and the right side shows the area under the cause 1 cumulative incidence curve.
+
+Overall, the variance of the truncated mean criterion across simulations for our proposed method is generally smaller than those of other methods. The variance for simulations with $N = 700$ training data is smaller than that for $N = 300$, but there does not appear to be any obvious difference between the two treatment assigning mechanisms. The zero-order model only picks one treatment for the entire sample, thereby having a single regime across samples for the same setting. Thus, in the chance that the ``worse" treatment is selected, it can be harmful to patients. We can see that compared to the zero-order model and observed policy, our proposed method has higher average survival. Compared to the proposed model, both dtrSurv and PMCR have lower average survival and higher average cumulative incidence. APIWE and the observed policy tend to have better CI but has a lower average survival, meaning they are more catered towards the priority cause, at the expense of OS.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Chapters/02_Proj1/03_figures/CR02.SimpleExp_SimulationResults_20240831_crit1.png}
+    \caption{Results from exponential setting simulations. (Left) Estimated mean truncated OS time, and (right) the estimated integrated priority cause CIF under each estimated policy. Each dot represents one simulation replicate. The boxplots are the quartile summary of the points and the black dots are the average values of each method. The rows and columns of boxes represent a data generation scenario, study design and sample size.}
+	\label{fig:sims_simpleexp_crit1}
+\end{figure}

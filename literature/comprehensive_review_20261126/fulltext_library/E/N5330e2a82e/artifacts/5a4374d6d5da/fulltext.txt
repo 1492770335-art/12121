@@ -1,0 +1,2360 @@
+The optimal dynamic treatment rule superlearner: considerations, performance, and application to criminal justice interventions
+
+Original PDF: [original.pdf](original.pdf). SHA256: `5a4374d6d5da3e2336f73b4748f66137db05fde019474fc56d0f233e4fa20d62`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+Technical extraction; compare with original PDF page 1.
+The Optimal Dynamic Treatment Rule
+SuperLearner: Considerations, Performance,
+and Application
+Lina Montoya *1, Mark van der Laan2, Alexander Luedtke3,
+Jennifer Skeem4, Jeremy Coyle2, and Maya Petersen2
+1University of North Carolina, Chapel Hill, Department of
+Biostatistics
+2University of California, Berkeley, Division of Biostatistics
+3University of Washington, Department of Statistics
+4University of California, Berkeley, Departments of Social Welfare
+and Public Policy
+October 2021
+*Email address for correspondence: lmontoya@unc.edu
+1
+arXiv:2101.12326v3  [stat.AP]  26 Oct 2021
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+Abstract
+The optimal dynamic treatment rule (ODTR) framework offers an ap-
+proach for understanding which kinds of patients respond best to speciﬁc
+treatments – in other words, treatment effect heterogeneity. Recently, there
+has been a proliferation of methods for estimating the ODTR. One such
+method is an extension of the SuperLearner algorithm – an ensemble method
+to optimally combine candidate algorithms extensively used in prediction
+problems – to ODTRs. Following the “causal roadmap,” we causally and
+statistically deﬁne the ODTR and provide an introduction to estimating it
+using the ODTR SuperLearner. Additionally, we highlight practical choices
+when implementing the algorithm, including choice of candidate algorithms,
+metalearners to combine the candidates, and risk functions to select the best
+combination of algorithms. Using simulations, we illustrate how estimat-
+ing the ODTR using this SuperLearner approach can uncover treatment ef-
+fect heterogeneity more effectively than traditional approaches based on ﬁt-
+ting a parametric regression of the outcome on the treatment, covariates and
+treatment-covariate interactions. We investigate the implications of choices
+in implementing an ODTR SuperLearner at various sample sizes. Our re-
+sults show the advantages of: (1) including a combination of both ﬂexible
+machine learning algorithms and simple parametric estimators in the library
+of candidate algorithms; (2) using an ensemble metalearner to combine can-
+didates rather than selecting only the best-performing candidate; (3) using
+the mean outcome under the rule as a risk function. Finally, we apply the
+ODTR SuperLearner to the “Interventions” study, an ongoing randomized
+controlled trial, to identify which justice-involved adults with mental illness
+beneﬁt most from cognitive behavioral therapy (CBT) to reduce criminal
+re-offending.
+2
+
+
+===== ORIGINAL PDF PAGE 3 =====
+Technical extraction; compare with original PDF page 3.
+1
+Introduction
+The primary objective of a clinical trial is often to evaluate the overall, average
+effect of a treatment on an outcome in a given population [1, 2, 3]. To accom-
+plish this objective in the point treatment setting, baseline covariate, treatment,
+and outcome data are often collected and the average treatment effect (ATE) is
+estimated, quantifying the average impact of the treatment in a population. Re-
+searchers may then interpret the impact of the treatment as beneﬁcial, neutral, or
+harmful. In this interpretation, the treatment’s impact is one-size-ﬁts-all; in other
+words, the effect of the treatment is interpreted as the same for everyone in the
+study population. But, it may be the case that an intervention tends to yield better
+outcomes for certain kinds of people but not for others. For example, because
+justice-involved people with mental illness are a heterogeneous group with di-
+verse symptoms, risk factors, and other treatment-relevant characteristics [4, 5],
+assigning Cognitive Behavioral Therapy (CBT) may decrease the probability of
+recidivism for individuals with high risk of recidivism but not low risk of recidi-
+vism [6]. The ATE analysis may lead one to conclude that there is no treatment
+effect in a given population, when there is, in fact, a differential treatment effect
+for levels of variables.
+Precision health aims to shift the question from “which treatment works best”
+to “which treatment works best for whom?” (sometimes, it further asks: at what
+time? And/or at what dose? [3]). The point of moving towards this question
+is to move towards better participant outcomes. While a range of novel study
+designs can help to address these questions by generating data in which individu-
+alized treatment effects are unconfounded [3, 7, 8], data from classic randomized
+controlled trials also provide a rich data source for discovering treatment effect
+heterogeneity. Under the assumption of no unmeasured confounding, the same
+methods can be applied to observational data.
+One way of learning which treatment works best for whom is to estimate ef-
+fects within subgroups. Following our above example within the ﬁeld of criminal
+justice, one could split the sample into older defendants versus younger defen-
+dants, and look at the average effect of CBT on recidivism within these two age
+categories. Such a classic subgroup analysis helps to move a step closer to under-
+standing the treatment that works best for whom. However, the need to restrict the
+number of tests performed and to pre-specify analyses limits traditional subgroup
+analyses to comparing intervention effects in a small set of subgroups in which
+heterogeneous treatment effects are expected [2, 9]. In practice, the participant
+characteristics that are most important for determining the best-suited intervention
+may not be clear based on background knowledge. Further, effectively predicting
+the type of intervention that an individual will best respond to may require ac-
+counting for a wide range of participant characteristics and complex interactions
+3
+
+
+===== ORIGINAL PDF PAGE 4 =====
+Technical extraction; compare with original PDF page 4.
+between them. For instance, identifying the individuals most likely to respond to
+CBT versus, for example, treatment as usual (TAU) may require considering not
+only risk level, but also age, educational attainment, sex, substance abuse, psy-
+chological distress, and internal motivation to adhere to treatment – as well as
+various interactions between these. In summary, the challenge is to take a wide
+range of participant characteristics and ﬂexibly learn how to best combine them
+into a strategy or rule that assigns to each participant the speciﬁc intervention that
+works best for him or her.
+Estimating the optimal dynamic treatment rule (ODTR) for a given population
+offers a formal approach for learning about heterogeneous treatment effects and
+developing such a strategy. A dynamic treatment rule can be thought of as a rule
+or algorithm where the input is participant characteristics and the output is an in-
+dividualized treatment choice for each person [10, 11, 12, 13]. An ODTR (also
+known as an optimal treatment regime, optimal strategy, individualized treatment
+rule, optimal policy, etc.) is the dynamic treatment rule that yields the best overall
+participant outcomes [14, 15]. In our criminal justice example, a dynamic treat-
+ment rule takes as input participant characteristics such as age, criminal history,
+and education level and outputs a treatment decision – either CBT or TAU. The
+ODTR is the dynamic treatment rule under which the highest proportion of pa-
+tients are not re-arrested. It is the most effective and, if one incorporates cost or
+constraints on resources [16], efﬁcient way of allocating the interventions at our
+disposal based on measured individual characteristics.
+There have been major advances in estimating the ODTR within the ﬁelds of
+statistics and computer science, with important extensions to the case where treat-
+ment decisions are made at multiple points in time. Regression-based approaches,
+such as Q-learning, learn the ODTR by modeling the outcome regression (i.e., the
+expected outcome given treatment and covariates) directly [14, 17, 18, 19, 20].
+Robins and Murphy developed methods of estimating the ODTR by modeling
+blip-to-reference functions (i.e., the strata-speciﬁc effect of the observed treat-
+ment versus control) and regret functions (i.e., the strata-speciﬁc loss incurred
+when given the optimal treatment versus the observed treatment), respectively
+[14, 15, 21]. Direct-estimation approaches to learning the ODTR, such as out-
+come weighted learning (OWL), aim to search among a large class of candidate
+rules for the one that yields the best expected outcome [22, 23, 24]. These are ex-
+amples of broad classes of ODTR estimators; within and outside of them there has
+been a proliferation of methods to estimate the ODTR (see [3, 25, 26] for reviews
+of the state of the art in estimating ODTRs and precision medicine).
+Given the vast number of methods available for estimating the ODTR, the
+question becomes: which approach to use? In some settings, some algorithms
+may work better than others. SuperLearning [27] (or, more speciﬁc to prediction,
+stacked regression [28]) was originally proposed as a method for data-adaptively
+4
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+choosing or combining prediction algorithms. The basic idea is to deﬁne a library
+of candidate algorithms and choose the candidate or the combination of candi-
+dates that gives the best performance based on V-fold cross-validation. This re-
+quires deﬁning: (1) the algorithms to include in the library, (2) a parametric family
+of weighted combinations of these algorithms, the “metalearning” step [29], and
+(3) the choice of performance metric (i.e., risk) as the criterion for selecting the
+optimal combination of algorithms. Given these three requirements, one can esti-
+mate the risk for each combination of algorithms using V-fold cross-validation,
+and choose the combination with the lowest cross-validated risk. The Super-
+Learner framework has been implemented extensively for prediction problems
+[27, 30, 31, 32], and has been extended to the ODTR setting [33, 34]. In par-
+ticular, Luedtke and van der Laan showed that in the randomized controlled trial
+(RCT) and sequential multiple assignment randomized trial (SMART) [7, 25, 35]
+settings, under the assumption that the loss function is bounded, the ODTR Su-
+perLearner estimator will be asymptotically equivalent to the ODTR estimator
+chosen by the oracle selector (that is, the ODTR estimator, among the candidate
+ODTR estimators, that yields the lowest risk under the true data distribution [27]).
+This implies that the ODTR SuperLearner will asymptotically do as well as or
+better than any single candidate estimator in the library, provided that none of the
+candidate algorithms are based on correctly speciﬁed parametric models. If there
+is a well-speciﬁed regression in the library, the ODTR SuperLearner estimator of
+the ODTR will achieve near parametric rates of convergence to the true rule.
+These theoretical results lay important groundwork for understanding the asymp-
+totic beneﬁts to using the algorithm; however, less has been published on how the
+ODTR SuperLearner performs in ﬁnite samples, the practical implications of key
+choices when implementing the algorithm, and illustrations of implementing this
+algorithm on real RCT data. In this paper, we provide an introduction to the im-
+plementation of the ODTR SuperLearner in the point treatment setting, and use
+simulations to investigate the tradeoffs inherent in these user-supplied choices and
+how they may differ with varying sample sizes. In particular, we examine: (1)
+how to select the candidate algorithms for estimating the ODTR; speciﬁcally, the
+costs and beneﬁts to expanding the library to include a wider set of diverse ODTR
+algorithms, including simple parametric regressions versus more data adaptive al-
+gorithms, and blip-based versus direct estimation algorithms; (2) implications of
+the choice of parametric family for creating weighted combinations for candidate
+ODTR learners (i.e., choice of metalearner); and, (3) implications of the choice of
+risk function used to judge performance and thereby select the optimal weighted
+combination of candidate learners. We do this ﬁrst for sample sizes 1,000, and
+then for a reduced sample size of 300 to investigate the implications of a smaller
+sample size for the relative performance of each ODTR SuperLearner conﬁgura-
+tion. Finally, we apply the ODTR SuperLearner to real data generated from the
+5
+
+
+===== ORIGINAL PDF PAGE 6 =====
+FORMULA CHECK REQUIRED: original PDF page 6.
+Correctional Intervention for People with Mental Illness, or “Interventions,” trial,
+an ongoing RCT in which justice-involved adults with mental illness were either
+randomized to CBT or TAU. In applying the ODTR SuperLearner to this sample,
+we aim to identify which people beneﬁt most from CBT versus TAU, in order to
+reduce recidivism.
+Of note, we refer the reader to our companion paper [36] in which we describe
+and show performance of various estimators for the value of a given or learned
+treatment rule. Speciﬁcally, once one has estimated the ODTR, as demonstrated
+in this paper, it may be of interest to evaluate it – that is, to ask the causal question:
+how would expected outcomes have differed had everyone received treatment as-
+signed by the optimal rule? As with the current paper, we additionally apply the
+techniques we outline in that paper to estimation of the value of a rule applied to
+the “Interventions” Study.
+The organization of this article is as follows. First, we step through the causal
+roadmap (as described in [37]) for deﬁning the true ODTR for a given popula-
+tion. We focus on the case in which baseline covariates are measured, a single
+binary treatment is randomized, and an outcome is measured. We then give a
+brief introduction to some estimators of the ODTR, and in particular, describe the
+SuperLearner approach for estimating the optimal rule that builds on Luedtke and
+van der Laan’s work [33]. We investigate the implications of the three sets of
+implementation choices outlined above in ﬁnite samples using simulations (with
+corresponding R code illustrating implementation of all estimators considered),
+and the performance under such options. Lastly, we show results for the ODTR
+SuperLearner algorithm applied to the “Interventions” Study. We close with con-
+cluding remarks and future directions. In the Appendix, we provide a Notation
+Table with terms frequently used throughout this manuscript and our companion
+manuscript, in addition to deﬁnitions of each of the terms, as a reference to reader.
+2
+Causal Roadmap and ODTR Framework
+2.1
+Data and Causal Model
+Consider point-treatment data where W ∈W are baseline covariates, A ∈{0,1}
+is the treatment, and Y ∈R is the outcome measured at the end of the study. Our
+data can be described by the following structural causal model (SCM), M F [38]:
+W = fW(UW),
+A = fA(W,UA),
+Y = fY(W,A,UY),
+6
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+where the full data X = (W,A,Y) are endogenous nodes, U = (UW,UA,UY) ∼PU
+are unmeasured exogenous variables, and f = (fW, fA, fY) are structural equa-
+tions. If it is known that data were generated from an RCT using simple random-
+ization with equal probability to each arm, then the above structural causal model
+would state that Y may be affected by both W and A, but that W does not affect A
+(as in the “Interventions” trial); this design can be represented in the above model
+by letting UA ∼Bernoulli(p = 0.5) and A = UA. In this point treatment setting,
+a dynamic treatment rule is a function d that takes as input some decision func-
+tion V of the measured baseline covariates W and outputs a treatment decision:
+V →d(V) ∈{0,1}. For the remainder of the paper, we consider the case where
+V = W; in other words, we consider treatment rules that potentially respond to
+all measured baseline covariates. However, consideration of dynamic rules based
+on a more restrictive set of baseline covariates is also of frequent pratical interest,
+allowing, for example, for consideration of dynamic rules based on measurements
+that can be more readily attained; all methods described extend directly to this
+case. We denote the set of all dynamic treatment rules as D.
+The “Interventions” data consist of baseline covariates W, which include inter-
+vention site, sex, ethnicity, age, Colorado Symptom Index (CSI) score (a measure
+of psychiatric symptoms), level of substance use, Level of Service Inventory (LSI)
+score (a risk score to predict future recidivism that summarizes risk factors like
+criminal history, educational and employment problems, and attitudes support-
+ive of crime), number of prior adult convictions, most serious offense, Treatment
+Motivation Questionnaire (TMQ) score (a measure of internal motivation for un-
+dergoing treatment), and substance use level; the randomized treatment A, either a
+manualized Cognitive Behavioral Intervention for people criminal justice system
+(abbreviated CBT; A = 1) or treatment as usual (TAU), primarily psychiatric or
+correctional services (A = 0); and a binary outcome Y of recidivism, an indicator
+that the person was not re-arrested within one year after study enrollment (Y = 1
+if a participant was re-arrested within one year after enrollment; Y = 0 otherwise).
+In Table 2 we show the distribution of the data.
+2.2
+Target Causal Parameter
+Let d(W) be a deterministic function that takes as input a vector of baseline covari-
+ates, and gives as output a treatment assignment (in this case, either 0 or 1). For a
+given rule d, we intervene on the above SCM to derive counterfactual outcomes:
+W = fW(UW),
+A = d(W),
+Yd(W) = fY(W,d(W),UY).
+7
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+Here, Yd(W) is the counterfactual outcome for a person if his/her treatment A were
+assigned using the dynamic treatment rule d(W); to simplify notation we refer
+to this counterfactual outcome as Yd. The counterfactual outcomes for a person
+if he/she were assigned treatment or control are denoted Y1 and Y0, respectively.
+Together, the distribution of the exogenous variables PU and structural equations
+f imply a distribution of the counterfactual outcomes, and the SCM provides a
+model for the set of possible counterfactual distributions: PU,X ∈M F.
+Our target parameter of interest in this paper is the ODTR, deﬁned as the rule
+that, among all candidate rules D, yields the best expected outcomes. Using the
+convention that larger values of Y correspond to better outcomes, an ODTR is
+deﬁned as a maximizer of EPU,X[Yd] over all candidate rules
+d∗∈argmax
+d∈D
+EPU,X[Yd].
+(1)
+Any such ODTR can be deﬁned in terms of the conditional average treatment
+effect (CATE), namely EPU,X[Y1 −Y0|W], which is the effect of treatment for a
+given value of covariates W. Any ODTR assigns treatment 1 and 0 to all strata of
+covariates for which the CATE is positive and negative, respectively. If the CATE
+is 0 for a particular W (i.e., there is no treatment effect for that strata of W), the
+ODTR as deﬁned above may have more than one maximizing rule and therefore
+may be non-unique; this is why the RHS of equation 1 above is a set [39]. An
+ODTR can take an arbitrary value for strata at which the CATE is 0. If we assume
+that assigning treatment 0 is preferable to assigning treatment 1 in the absence of
+a treatment effect, then we would prefer the following ODTR as a function of the
+CATE:
+d∗(W) ≡I
+h
+EPU,X[Y1 −Y0|W] > 0
+i
+.
+In other words, if a person’s expected counterfactual outcome is better un-
+der treatment versus no treatment given his or her covariate proﬁle, then assign
+treatment; otherwise, assign control. A person’s counterfactual outcome under
+the ODTR is Yd∗, and the expected outcome had everyone received the treatment
+assigned by the ODTR is EPU,X[Yd∗].
+Following our applied example, Y1, Y0, and Yd are the counterfactual outcomes
+for a person if he/she were given CBT, TAU, and either CBT or TAU based on
+the rule d, respectively; here, d∗is the rule for assigning CBT versus TAU using
+participants’ covariates that would yield the highest probability of no re-arrest,
+EPU,X[Yd∗].
+8
+
+
+===== ORIGINAL PDF PAGE 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+2.3
+Identiﬁcation and Statistical Parameter
+We assume that our observed data were generated by sampling n independent ob-
+servations Oi ≡(Wi,Ai,Yi), i = 1,...,n, from a data generating system described
+by M F above (e.g., the “Interventions” study consists of 441 independent and
+identically distributed, or i.i.d., observations of O). The density of O can be fac-
+torized as:
+p0(O) = pW,0(W)g0(A|W)pY,0(Y|A,W),
+where pW,0 is the true density of W; g0 is the true conditional probability of A
+given W, or the treatment mechanism; pY,0 is the true conditional density of Y
+given A and W. The distribution of the data P0 is an element of the statistical
+model M , which in our RCT example is semi-parametric. Further, if the data are
+generated from an RCT design, as in the “Interventions” study, then the true g0 is
+known, and the backdoor criteria (with the implied randomization assumption [38,
+40]), Yd ⊥A|W for all d ∈D, and the positivity assumption, Pr
+
+mina∈{0,1} g0(A =
+a|W) > 0
+
+= 1, hold by design; in an observational data setting the randomization
+assumption requires measurement of a sufﬁcient set of baseline covariates, and the
+positivity assumption may also pose greater challenges [41].
+Deﬁne Q(a,w) ≡E[Y|A = a,W = w] for all a ∈{0,1},w ∈W . Under the
+above assumption, EPU,X[Yd] (a parameter of the counterfactual distribution) is
+identiﬁed as E0[Q0(A = d(W),W)] (a parameter of the observed distribution) for
+any candidate rule d. Thus, the ODTR is identiﬁed by
+d∗
+0 ∈argmax
+d∈D
+E0[Q0(A = d(W),W)].
+In addition, the CATE is identiﬁed as Q0(1,W) −Q0(0,W), where the latter
+is sometimes referred to as the blip function B0(W). Then, the true optimal rule
+can also be deﬁned as a parameter of the observed data distribution using the blip
+function:
+d∗
+0(W) ≡I[B0(W) > 0].
+Analogous to the deﬁnition of the ODTR as a function of the CATE, in words,
+the blip function essentially says that if treatment for a type of participant W = w
+is effective (i.e., greater than 0), treat that type of person. If not, do not treat
+him/her. If all participants were assigned treatment in this way, then this would
+result in the highest expected outcome, which is the goal.
+9
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+3
+Estimation of the ODTR
+We denote estimators with a subscript n, so that, for example, an estimator of the
+true ODTR d∗
+0 is d∗
+n. Estimates are functions of Pn, which is the empirical distri-
+bution that gives each observation weight 1
+n. Further, if V-fold cross-validation is
+employed, the empirical data are uniformly and at random split into V mutually
+exclusive sets. For set indices v ∈{1,...,V}, each set of data serves as a validation
+set; the complement is its training set. Let Pn,v be the empirical distribution of the
+validation sample v, and Pn,−v be the empirical distribution of the complementary
+training set.
+In what follows, we brieﬂy describe examples of common methods for es-
+timating the ODTR. We ﬁrst describe methods that estimate the ODTR via an
+estimate of the blip function. We then describe methods that directly estimate a
+rule that maximizes the mean outcome.
+3.1
+Blip-based Approaches
+Blip-based approaches aim to learn the blip, which implies an ODTR. A beneﬁt
+of doing this is that one can look at the distribution of the predicted estimates of
+the blip for a given sample. Having the blip distribution allows one to identify
+the patients in a sample who beneﬁt most (or least, or little) from treatment. Ad-
+ditionally, estimating the blip function can allow for estimating the ODTR under
+resource constraints; for example, an ODTR in which only k% of the population
+can receive treatment [16]. Below we illustrate two methods of estimating the
+ODTR by way of the blip function (i.e., blip-based estimators of the ODTR).
+Single stage Q-learning
+A plug-in estimator naturally follows from the above
+deﬁnition of the optimal rule. One can build the estimate Qn(A,W) of Q0(A,W)
+using any regression-based approach for estimating an outcome regression and
+predict at Qn(1,W) and Qn(0,W). This provides an estimate of the blip: Bn(W) =
+Qn(1,W) −Qn(0,W), which implies an estimate of the optimal rule: d∗
+n(W) =
+I[Bn(W) > 0].
+Estimating the blip function
+Consider the double-robust pseudo-outcome:
+D(Q,g)(O) = 2A−1
+g(A|W)[Y −Q(A,W)]+Q(1,W)−Q(0,W).
+Importantly, E0[D(Q,g)(O)|W] = B0(W) if Q = Q0 or g = g0. Using this result,
+one could estimate the blip by regressing the pseudo-outcome Dn(Qn,gn) (which
+we abbreviate from here on as Dn) on W using any regression-based approach. As
+10
+
+
+===== ORIGINAL PDF PAGE 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+in the previous method, this estimate of the blip implies an estimate of the optimal
+rule d∗
+n(W) = I[Bn(W) > 0].
+3.2
+Direct Estimation Approaches for Maximizing the Expected
+Outcome
+Instead of estimating the blip function, which implies an ODTR, one could es-
+timate the ODTR directly by selecting a rule d that maximizes the estimated
+EU,X[Yd]. Below we illustrate outcome weighted learning (OWL) – one exam-
+ple of a direct-estimation method for the ODTR.
+Single stage outcome weighted learning
+We brieﬂy describe the general con-
+cept of outcome weighted learning here, but refer to (author?) [22] and (author?)
+[42] for a more thorough explanation. The optimal rule deﬁned above as a func-
+tion of P0 could equivalently be written as an inverse probability of treatment
+weighted (IPTW) estimand:
+d∗
+0 ∈argmax
+d∈D
+E0[Q0(A = d(W),W)] = argmax
+d∈D
+E0
+"
+Y
+g0(A|W)I[A = d(W)]
+#
+.
+Written this way, estimating d∗
+0 could be regarded as a classiﬁcation problem,
+where the weighted outcome
+Y
+g0(A|W) helps us learn what kind of patients should
+get treatment: if a certain kind of patient W = w has large weighted outcomes and
+they were treated according to candidate rule d, future patients with that covari-
+ate proﬁle should be treated using that rule. Conversely, the smaller the weighted
+outcome among patients W who were treated according to d, the larger the “mis-
+classiﬁcation error” and the less likely those kinds of patients should be treated
+according to d. This maximization problem is equivalent to the following mini-
+mization problem:
+d∗
+0 ∈argmin
+d∈D
+E0
+"
+Y
+g0(A|W)I[A̸ = d(W)]
+#
+.
+(2)
+Now, if patients W = w who did not follow the rule d have large weighted out-
+comes (and thus larger “misclassiﬁcation error”), those kinds of patients should
+be given the opposite treatment that d proposes. Note that in the RCT setting, if
+one uses the known g0 and if treatments are given with equal probability, then this
+reduces to ﬁnding the rule that minimizes the mean outcome among patients who
+11
+
+
+===== ORIGINAL PDF PAGE 12 =====
+FORMULA CHECK REQUIRED: original PDF page 12.
+did not follow the rule. Equation 2 could alternatively be written as a minimization
+problem for, instead of a rule d, a function f:
+f ∗
+0 ∈argmin
+f∈F
+E0
+"
+Y
+g0(A|W)I
+h
+A̸ = sign(f(W))+1
+2
+i#
+.
+(3)
+where sign(x) = −1 if x ≤0 and sign(x) = 1 if x > 0. Under the true data distri-
+bution P0, f0 is the blip function, B0. In order to solve this minimization problem
+using data, we can use a plug-in estimator of (3). However, since it is a 0-1 func-
+tion (in particular, it is discontinuous and non-convex), one could use a convex
+surrogate function to approximate it, to instead minimize:
+f ∗
+n (W) ∈argmin
+f∈F
+1
+n
+n
+∑
+i=1
+Yi
+gn(Ai|Wi)Φ((1−(2Ai −1)f(Wi))+λ ∥f∥2 ,
+(4)
+where Φ(t) is a surrogate loss function (e.g., hinge loss, exponential loss, logistic
+loss), ∥f∥is a norm of f, and λ is a penalization parameter on f to avoid overﬁt-
+ting of the rule. This can also be generalized with the IPTW function replaced by
+the augmented IPTW [33, 42]. Once f ∗
+n is found as the solution to equation (4),
+the estimated ODTR is:
+d∗
+n(W) = sign(f ∗
+n (W)).
+3.3
+SuperLearner to Estimate ODTR
+The overarching goal of SuperLearner is to let a user-supplied library of candidate
+algorithms, such as speciﬁc implementations of the general approaches described
+above, “team up” to improve estimation of the ODTR. In order to implement
+the ODTR SuperLearner, there are three user-supplied decisions one must make.
+First, one must build the library of candidate algorithms to include. These could
+include algorithms for estimating the blip function (which imply a rule), algo-
+rithms that search for the ODTR directly (such as OWL estimators), static rules
+that determine treatment regardless of covariates, or combinations of the above
+classes of algorithms. Second, in what is sometimes referred to as the metalearn-
+ing step, one can either implement a SuperLearner that chooses one algorithm out
+of the library of candidate algorithms to include (i.e., “discrete” SuperLearner),
+or a SuperLearner that is a combination the candidate algorithms (i.e., “contin-
+uous” SuperLearner). For the latter, one again has a choice of metalearner; we
+consider weighted convex combinations of candidate estimators of the blip and
+combinations of estimates of the rules themselves (through a weighted “majority
+vote”). Finally, one must choose the risk function used to judge the performance
+12
+
+
+===== ORIGINAL PDF PAGE 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+of the weighted combinations of algorithms, estimated using V-fold cross valida-
+tion (noting that V-fold cross validation is appropriate in our setting of i.i.d. data;
+other cross-validation schemes can be considered in different settings). Here, we
+consider two risk functions: the mean-squared error (MSE) and the mean outcome
+under the candidate rule.
+The steps for implementing the ODTR SuperLearner are as follows; they
+closely follow the implementation of the canonical SuperLearner for regression
+[27]:
+1. Choose J candidate algorithms for estimating the optimal rule dn,j(W) for
+j = 1,...,J. Candidates can include approaches based on estimating the blip
+(where the jth candidate estimate of the blip is denoted Bn,j(W)). Can-
+didates can include, for example, different regression speciﬁcations of Dn
+on W, where the candidate regressions might consist of a parametric lin-
+ear regression (corresponding to a classic approach of ﬁtting a parametric
+outcome regression on A and W and an interaction term) as well as more
+ﬂexible machine learning type approaches such as neural networks [43],
+multivariate adaptive regression splines [44], or recursive partitioning and
+regression trees [45]. Candidate algorithms might also include approaches
+for estimating the optimal rule directly, such as an OWL estimator. Finally,
+the static treatment rules that treat all patients or treat no patients, regardless
+of their covariate values, can also be included as candidates. Inclusion of
+both simple parametric regression estimators, as well as static rules such as
+treating all and treating none, is important to allow for the possibility that
+the underlying true ODTR may in fact be simple (or well-approximated by
+a simple rule), and providing less aggressive candidates in the SuperLearner
+library can help protect against overﬁtting in ﬁnite samples.
+2. Split the data into V exhaustive and mutually exclusive folds. Let each fold
+in turn serve as the validation set and the complement data as the training
+set.
+3. Fit each of the J candidate algorithms on the training set. Importantly, can-
+didate algorithms might depend on nuisance parameters, and those nuisance
+parameters should be ﬁt on the training set, as well. For example, if a can-
+didate algorithm regresses Dn on W to estimate the blip (which implies an
+ODTR), then Q and g should be ﬁt and predicted on the training set, and
+then plugged into D to ﬁt that candidate algorithm on the same training set
+(this is also called “nested” cross-validation, described in detail by [34]).
+4. Predict the estimated blip or the treatment assigned under the estimated
+ODTR for each observation in the validation set for each algorithm, based
+on the corresponding training set ﬁt.
+13
+
+
+===== ORIGINAL PDF PAGE 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+5. Choose to either implement the discrete SuperLearner, which selects one
+algorithm out of the candidate algorithms, or the continuous SuperLearner,
+which creates a weighted average of the candidate algorithms.
+(a) Continuous SuperLearner. Create different convex combinations of
+the candidate blip or treatment rule estimates that were predicted on
+the validation set (i.e., convex combinations of the predictions from the
+previous step). Formally, deﬁne an estimator of Bn,α(W) or dn,α(W)
+as a convex combination of the candidate algorithms (indexed by j);
+each convex combination of algorithms is indexed by a weight vector
+α. A given convex combination of blip estimates is denoted as:
+Bn,α(W) = ∑
+j
+α jBn,j(W),αj ≥0∀j,∑
+j
+αj = 1.
+Alternatively, the predicted treatments under the candidate ODTRs can
+be combined as a weighted “majority vote” of the convex combination
+of the candidate rules:
+dn,α(W) = I
+h
+∑
+j
+α jdn,j(W) > 1
+2
+i
+,αj ≥0∀j,∑
+j
+αj = 1.
+Here, α1,...,αJ are non-negative and sum to 1.
+(b) Discrete SuperLearner.
+The discrete SuperLearner, which chooses
+only one candidate algorithm, can be thought of as a special case of the
+continuous SuperLearner, where algorithms are still combined using a
+convex combination, but each algorithm weight αj must be either 0 or
+1. Such an approach may be particularly advantageous when sample
+size is small:
+Bn,α(W) = ∑
+j
+α jBn,j(W),αj ∈{0,1}∀j,∑
+j
+α j = 1
+dn,α(W) = I
+h
+∑
+j
+αjdn,j(W) > 1
+2
+i
+,α j ∈{0,1}∀j,∑
+j
+α j = 1.
+Here, α1,...,αJ are either 0 or 1 and sum to 1.
+6. Calculate an estimated risk within each validation set for each combination
+of algorithms (i.e., for each convex combination indexed by a particular
+value for α). Here, we discuss two choices of risk functions for step (5)
+above, and their corresponding validation set-speciﬁc estimates. First, the
+14
+
+
+===== ORIGINAL PDF PAGE 15 =====
+FORMULA CHECK REQUIRED: original PDF page 15.
+mean-squared error risk, which we will refer to as RMSE, is deﬁned, for a
+given candidate blip function Bα(W), as:
+R0,MSE(Q,g,B)(O) = E0[(D(Q,g)(O)−Bα(W))2],
+where the risk function is indexed by nuisance parameters Q(A,W) and
+g(A|W). If either Q = Q0 or g = g0, then R0,MSE(Q,g,B) = E0
+h
+(B0(W)−Bα(W))2i
+,
+which also equals EPU,X
+h
+(Y1 −Y0 −Bα(W))2i
+, is identiﬁed as R0,MSE, and
+the risk function is minimized by the true value of the blip. The valida-
+tion set v-speciﬁc estimated risk of a candidate blip estimate, Rv,n,MSE, is
+calculated by ﬁrst computing the estimated pseudo-outcome Dn,v(O) in the
+validation set using estimates of the Q and g ﬁt on the corresponding train-
+ing set, i.e., Dn,v(Qn,v,gn,v)(O). The risk for each candidate blip estimate
+indexed by a given α is then estimated by taking the empirical mean of the
+squared difference between this estimated pseudo-outcome and the alpha-
+speciﬁc blip estimate based on the training data, applied to individuals in
+the validation set:
+Rv,n,MSE = 1
+nv ∑
+i∈Val(v)
+(Dn,v(Qn,v,gn,v)(Oi)−Bn,α,v(Wi))2 ,
+where nv is the number of persons in validation set v, Val(v) is the indices
+i for which Oi is in the validation set, and Bn,α,v denotes an alpha-speciﬁc
+blip estimate, ﬁt on the training data training set. Of note, because this risk
+function is a function of the blip estimate, use of this risk function restricts
+the library of candidate ODTR estimators to those based on estimating the
+blip.
+The second risk function, which we call RE[Yd], uses the expected rule-
+speciﬁc outcome as criterion:
+R0,E[Yd](d)(O) = −EPU,X[Yd] = −E0[Q0(A = d(W),W)],
+For a given estimate dn, we estimate its cross validated risk with the cross-
+validated targeted maximum likelihood estimator (CV-TMLE) of 1
+V ∑V
+v=1 EPU,X[Ydn,v]
+with dn,v being the estimator ﬁt on the training sample Pn,−v. We describe
+this CV-TMLE in more detail in [36]; brieﬂy, this involves ﬁtting Q0 and
+g0 on the training set (i.e., Qn,v and gn,v), computing a TMLE update of
+Qn,v on the validation sample using gn,v (i.e., Q∗
+n,v), evaluating the empirical
+15
+
+
+===== ORIGINAL PDF PAGE 16 =====
+FORMULA CHECK REQUIRED: original PDF page 16.
+mean over the validation sample of Q∗
+n,v(dn,v(W),W), and averaging the lat-
+ter across all splits v = 1,...,V. Intuitively, SuperLearner aims to selects the
+combination of treatment rule algorithms that minimizes a cross-validated
+empirical risk, so it makes sense to have that risk be the negative of the
+expected outcome, such that SuperLearner chooses the combination of al-
+gorithms that maximizes the expected outcome, since that is the ultimate
+goal of the ODTR. Candidate estimators for the SuperLearner that use the
+expected mean outcome under the rule as the risk function can include both
+blip estimators that imply treatment rules as well as direct estimators of
+the treatment rules. When the expected rule-speciﬁc outcome is chosen as
+the risk function, a further practical choice is how to estimate this quantity;
+while we focus here on a CV-TMLE due to its favorable theoretical proper-
+ties (double robustness, semi-parametric efﬁciency, and greater protection
+against overﬁtting through the use of sample splitting [46]), one can use
+any estimator of treatment speciﬁc mean outcomes to estimate this quantity
+[10, 11, 47].
+7. Average the risks across the validation sets resulting in one estimated cross
+validated risk for each candidate convex combination (i.e., each possible
+choice of α).
+8. Choose the estimator (i.e., the convex combination α) that yields the small-
+est cross-validated empirical risk. Call this “best” weighting of the algo-
+rithms αn.
+9. Fit each candidate estimator Bn,j(W) of the blip or dn,j(W) of the optimal
+rule on the entire data set. Generate predictions for each candidate algo-
+rithm individually, and then combine them using the weights αn obtained in
+the previous step. This is the SuperLearner estimate of the ODTR, where
+d∗
+n,B(W) = I[Bn,αn(W) > 0] or d∗
+n,d(W) = dn,αn(W) directly.
+We summarize the practical implications of 3 key choices for implementing
+ODTR SuperLearner here and in Table 1.
+• The ﬁrst choice is the selection of candidate algorithms. For illustration, we
+consider having a library with only blip function estimators (called “Blip
+only” library) or a library with blip estimators, direct-estimation estimators,
+and static treatment rules that treat everyone or no one (called “Full” li-
+brary). If one chooses to include direct-search estimators of the ODTR or
+static rules (i.e., functions that do not output a blip estimate in the process),
+then one is constrained to using the vote-based metalearner and RE[Yd] risk
+function, because the blip-based metalearner and RMSE risk function both
+16
+
+
+===== ORIGINAL PDF PAGE 17 =====
+FORMULA CHECK REQUIRED: original PDF page 17.
+rely on estimates of the blip for combining and choosing the algorithms,
+respectively.
+• The second choice concerns how to combine algorithms, or the metalearner.
+We consider either the metalearner that (a) selects only one candidate algo-
+rithm (called “Discrete”), (b) uses a weighted average to combine predicted
+blip estimates and directly plugs those into the risk (called “Blip-based”), or
+(c) uses a weighted average to combine predicted treatments under the can-
+didate combinations of rules and creates a weighted majority vote of these
+candidate rules as input into the risk (called “Vote-based”).
+• The third choice is that of the risk function – either the MSE (RMSE) or the
+mean outcome under the candidate rule (RE[Yd]). For the second and third
+choices, if one uses the vote-based metalearner, then the RMSE risk cannot
+be used because RMSE requires an estimate of the blip to choose the best
+algorithm, and the vote-based metalearner does not output an estimate of
+the blip.
+Choice 1: Library
+Blip only
+Full
+Choice 2: Metalearner
+Discrete
+Continuous
+Discrete
+Continuous
+Blip-based
+Vote-based
+Blip-based
+Vote-based
+Choice 3: Risk
+RMSE
+RE[Yd]
+RMSE
+RE[Yd]
+RMSE
+RE[Yd]
+RMSE
+RE[Yd]
+RMSE
+RE[Yd]
+RMSE
+RE[Yd]
+Possible?
+
+
+
+
+
+
+
+
+
+
+
+
+Table 1: Summary of the possible ODTR SuperLearner conﬁgurations across the
+library, metalearner, and risk dimensions. The last row (“Possible?”) indicates
+whether the particular conﬁguration is possible to implement. The checkmarks
+() in the following table indicate that it is possible to construct that kind of
+ODTR SuperLearner algorithm; the x-marks () indicate otherwise.
+4
+Simulation: Comparisons and Considerations of
+SuperLearner ODTR Estimators
+We use simulations to: (1) illustrate the potential beneﬁt to estimating the ODTR
+using a SuperLearner approach, as compared to a more traditional approach to
+studying treatment effect heterogeneity based on ﬁtting an outcome regression
+with interaction terms on covariates and treatment, as is often standard practice;
+and (2) investigate the implications of practical choices when implementing an
+ODTR SuperLearner in ﬁnite samples, including speciﬁcation of candidate algo-
+rithms in the library, choice of metalearner, and choice of risk function.
+17
+
+
+===== ORIGINAL PDF PAGE 18 =====
+FORMULA CHECK REQUIRED: original PDF page 18.
+4.1
+Data Generating Processes
+All simulations were implemented in R [48], and the code, simulated data, and
+results can be found at https://github.com/lmmontoya/SL.ODTR. In the future,
+we plan to integrate the SL.ODTR software to the Targeted Learning software
+ecosystem, tlverse [49]. We examine these comparisons using two types of data
+generating processes (DGPs). Each simulation consists of 1,000 iterations of ei-
+ther n = 1,000 or n = 300, to assess the impacts of the different conﬁgurations
+as a function of sample size. Both DGPs generate the covariates, treatment, and
+outcome as follows:
+W1,W2,W3,W4 ∼Normal(µ = 0,σ2 = 1),
+A ∼Bernoulli(p = 0.5),
+Y ∼Bernoulli(p = Q0(A,W)).
+Here, each covariate is generated from an independent Normal distribution. The
+probability of having a successful outcome differs for the two DGPs, which, in
+this case, means that the blip functions differ as well. The ﬁrst DGP is an example
+of a complex blip function, and the second DGP is one with a blip function that
+is a simpler function of one variable. The ﬁrst DGP is directly from work by
+Luedtke and van der Laan [16, 33, 50], and the second is modiﬁed from the ﬁrst.
+The probability of a successful outcome for DGP 1 is:
+Q0(A,W) =0.5expit(1−W 2
+1 +3W2 +5W 2
+3 A−4.45A)
++0.5expit(−0.5−W3 +2W1W2 +3|W2|A−1.5A),
+then the true blip function is:
+B0(W) =0.5[expit(1−W 2
+1 +3W2 +5W 2
+3 −4.45)+expit(−0.5−W3 +2W1W2 +3|W2|−1.5)
+−expit(1−W 2
+1 +3W2)−expit(−0.5−W3 +2W1W2)],
+For DGP 1, the true value of the true optimal rule EPU,X[Yd∗] ≈0.5626 and the true
+optimal proportion treated EPU,X[d∗] ≈55.0%. The true value had everyone been
+given treatment EPU,X[Y1] ≈0.4638 and the true value had everyone not been given
+treatment EPU,X[Y0] ≈0.4643. In the Appendix, we show results for simulations
+for a third DGP, following DGP 1, but with dependent covariates.
+DGP 2’s probability of the outcome’s success is:
+Q0(A,W) = expit(W1 +0.1A+W1A).
+Thus the true blip function is:
+B0(W) =expit(W1 +0.1+W1)−expit(W1).
+18
+
+
+===== ORIGINAL PDF PAGE 19 =====
+FORMULA CHECK REQUIRED: original PDF page 19.
+For DGP 2, EPU,X[Yd∗] ≈0.5595 and EPU,X[d∗] ≈54.0%; EPU,X[Y1] ≈0.5152 and
+EPU,X[Y0] ≈0.5000.
+4.2
+ODTR Estimators
+For each data generating process, we consider a number of estimators of the
+ODTR. First, mirroring epidemiologic practice, we model the outcome as an ad-
+ditive function of the treatment and covariates, and interactions with the treatment
+and all covariates. Such an approach translates to using the following parametric
+model for the outcome regression:
+h(E[Y|A,W]) = β0 +
+k
+∑
+i=1
+βiWi +
+ 
+γ0 +
+k
+∑
+i=1
+γiWi
+!
+A,
+where h(.) denotes a link function, and k is the number of baseline covariates in
+W. Using a linear link, the following parametric model for the blip function is
+implied:
+B(W) = γ0 +
+k
+∑
+i=1
+γiWi.
+Next, we examine the ﬁnite sample implications of the aforementioned user-
+supplied choices in implementing a SuperLearner estimator of the ODTR, provid-
+ing guidance for practical data analysis. First, we examine the choice of library.
+We consider the library that only combines candidate blip estimators (“Blip only”
+library; i.e., a library with candidate algorithms suited for regressing Dn on W)
+versus a library that has blip estimators, direct-estimation algorithms, and static
+treatment rules (“Full” library). The “Blip only” libraries consist of either:
+(a) Algorithms based on simple parametric models (denoted “Parametric blip
+algorithms”). This consisted of univariate GLMs regressing the estimated
+pseudo-outcome on each covariate.
+(b) Machine learning algorithms only (denoted “ML blip algorithms”), such as
+SL.glm (generalized linear models), SL.mean (the average), SL.glm.interaction
+(generalized linear models with interactions between all pairs of variables),
+SL.earth (multivariate adaptive regression splines [44]), SL.nnet (neural
+networks [43]), SL.svm (support vector machines [51]), and SL.rpart (re-
+cursive partitioning and regression trees [45]) from the SuperLearner pack-
+age [52]
+(c) A combination of (a) and (b) above, denoted “Parametric + ML blip algo-
+rithms”
+19
+
+
+===== ORIGINAL PDF PAGE 20 =====
+Technical extraction; compare with original PDF page 20.
+The “Full” library includes other ODTR algorithms like direct-estimation meth-
+ods, static rules, and other blip-based methods. Speciﬁcally, the “Full” library in-
+cludes either the “ML blip algorithms” or “Parametric + ML blip algorithms” from
+the “Blip only” libraries above, in addition to Q-learning [25], OWL [22], resid-
+ual weighted learning (RWL) [53], efﬁcient augmentation and relaxation learn-
+ing (EARL) [54], optimal classiﬁcation algorithms [55] (the latter 4 are from
+the DynTxRegime package [56], with function names owl, rwl, earl, and
+optimalClass, respectively), and static rules that treat all patients and no pa-
+tients, regardless of the patient covariate proﬁles. For the algorithms from the
+DynTxRegime package, except for nuisance parameters Qn and gn, we use de-
+fault parameters, and the rule as a function of all covariates. Additionally, for the
+optimal classiﬁcation algorithm, the solver method is recursive partitioning for
+regression trees (rpart). Thus, the possible “Full” libraries are:
+(d) Algorithms from the “ML blip algorithms” library, plus direct maximizers
+and static rules, denoted “ML blip algorithms and E[Yd] maximizers”
+(e) All possible algorithms – that is, algorithms from the “Parametric + ML
+blip algorithms” library, plus direct maximizers and static rules, denoted
+“All blip algorithms and E[Yd] maximizers”
+Second, we examine the performance of different metalearners for combining
+the candidate ODTR algorithms. We examine the blip-based metalearner using
+the “Blip only” libraries, and the discrete and vote-based metalearners using both
+the “Blip only” libraries and “Full” libraries.
+Third, we examine the performance of ODTR estimators that use either the
+MSE RMSE or the expected outcome under the candidate rule RE[Yd] as risk criteria
+for choosing the optimal linear combination of candidate ODTR algorithms. In
+particular, CV-TMLE is used for estimating RE[Yd].
+We fully estimate the ODTR SuperLearner by additionally estimating nui-
+sance parameters (as opposed to using the true nuisance parameter functions) in a
+nested fashion [34] as described above. Speciﬁcally, we estimate Qn and gn using
+the canonical SuperLearner [27, 52] and a correctly speciﬁed parametric regres-
+sion (speciﬁcally, a logistic regression of A on the intercept), respectively. We use
+10-fold cross-validation throughout.
+4.3
+Performance Metrics
+We measure performance by computing the percent accuracy of the algorithm;
+that is, the mean across simulation repetitions of the proportion of individuals
+for whom the treatment assigned by the estimated ODTR matches the true opti-
+mal treatment (i.e., the treatment that would have been assigned under the true
+20
+
+
+===== ORIGINAL PDF PAGE 21 =====
+FORMULA CHECK REQUIRED: original PDF page 21.
+ODTR). We also evaluate performance metrics of the difference between the true
+conditional expected counterfactual outcome under the estimated rule, averaged
+across the sample, compared to the true expected counterfactual outcome under
+the true optimal rule En[Q0(Y|A = d∗
+n,W)] −E0[Yd∗
+0] (as an approximation to the
+regret E0[Q0(Y|A = d∗
+n,W)]−E0[Yd∗
+0]). We compute the mean and variance of this
+difference across the simulation repetitions. Instead of presenting the raw variance
+of the regret, we present the variance relative to that of the regret yielded by esti-
+mating the blip (and thus the optimal rule) using the “Parametric blip algorithms”
+library. Additionally, we compute 2.5th and 97.5th quantiles of the distribution of
+En[Q0(Y|A = d∗
+n,W)] across the simulation repetitions.
+4.4
+Simulation Results
+Figure 1 displays simulation results (in addition to tables in the appendix). Be-
+low we discuss results speciﬁc to each DGP, conﬁguration dimension, and sample
+size. In general, results within each DGP (i.e., across sample sizes) follow gener-
+ally similar patterns; however, any differences in performance between libraries,
+metalearners, or risks are more pronounced for the smaller sample size.
+4.4.1
+DGP 1 Results - “Complex” Blip Function
+Above, we showed that DGP 1 yields a blip function that is a complex function
+of all of the available covariates. Here, for a larger sample size, we would expect
+a beneﬁt to more aggressive approaches to estimating the ODTR, such as includ-
+ing more ﬂexible machine learning-based approaches in the library of candidates,
+as well as use of more aggressive metalearners (either vote- or blip-based) over
+a discrete SuperLearner due to the better ability of these approaches to approxi-
+mate the true underlying function. That said, for smaller sample sizes, this beneﬁt
+might be attenuated, or even result in worse performance than simpler alternatives.
+For this DGP, at sample size of 1,000, indeed we ﬁnd a beneﬁt to the use of both
+more aggressive metalearners and larger libraries. Interestingly, this beneﬁt is
+maintained for sample size 300. Speciﬁcally, libraries that included data adaptive,
+machine learning algorithms (as opposed to algorithms based on incorrectly speci-
+ﬁed parametric models alone) more accurately and precisely approximate the rule,
+even for sample size of 300. Results also show that for both sample sizes, within
+the discrete metalearner, the RE[Yd] risk performs better than RMSE risk, and more
+saliently, the blip-based and vote-based metalearners perform better than the dis-
+crete SuperLearner. Finally, as predicted by theory, all SuperLearner approaches
+evaluated substantially outperform a traditional parametric regression approach at
+both sample sizes. Below we describe results speciﬁc to each sample size. Of
+21
+
+
+===== ORIGINAL PDF PAGE 22 =====
+FORMULA CHECK REQUIRED: original PDF page 22.
+note, we see results similar to those described below when there is dependence
+between covariates in the DGP, as shown in the Appendix.
+n = 1,000
+Libraries that contain machine learning algorithms (i.e., “ML blip
+algorithms,” “Parametric + ML blip algorithms,” “ML blip algorithms and EYd
+maximizers, ” and “Blip algorithms and EYd maximizers”) overall perform better
+than libraries with algorithms based on parametric models only (i.e., “Parametric
+blip algorithms”) and the standard GLM (i.e., “GLM”), across all performance
+metrics. For example, the percent match between the true ODTR and the esti-
+mated ODTR spans from 72.0%-77.7% for any library with machine learning al-
+gorithms, whereas the percent match for libraries with only parametric algorithms
+spans from 56.4% to 58.0%.
+There are no stark differences within the libraries that contain machine learn-
+ing algorithms across the metalearner and risk dimensions, except when using
+a discrete metalearner and RMSE risk. Speciﬁcally, the discrete metalearner that
+uses RMSE has a higher average regret and relative variance than all other algo-
+rithms that use machine learning (e.g., for the “Parametric + ML blip algorithms”
+“Blip only” library that uses a discrete metalearner, the average regret when us-
+ing RMSE versus RE[Yd] is -0.0389 versus -0.0284, respectively, and the relative
+variance when using RMSE versus RE[Yd] is 2.137 versus 0.7781, respectively).
+n = 300
+As expected, given the limited data available to estimate a complex
+underlying function, both accuracy of treatment assignment and approximated
+regret (the extent to which the expected outcome under the estimated rule fell
+short of the best outcomes achievable) deteriorate with smaller sample sizes. That
+said, even in this challenging situation of a complex true pattern of treatment effect
+heterogeneity and limited data with which to discover it, the ODTR SuperLearner
+would have improved the expected outcome by approximately 4.5% relative to the
+static rule that treats everyone, an approach that would have been suggested based
+on estimation of the ATE.
+Libraries with algorithms based on only parametric models perform worse
+than libraries that contain machine learning algorithms in terms of average regret
+and accuracy. For example, SuperLearner ODTRs that contain libraries with algo-
+rithms based on parametric blip models match 54.0%-55.4% of the time with the
+true ODTR, while the SuperLearners that contain libraries with machine learning
+algorithms match 60.9%-66.1% of the time. These results parallel those found
+with sample size 1,000, except the discrepancy between libraries with machine
+learning algorithms and parametric algorithms is not as pronounced.
+Similar to the n = 1,000 case, among the libraries that used machine learn-
+ing algorithms, using the performance of the rule as risk is better across all per-
+22
+
+
+===== ORIGINAL PDF PAGE 23 =====
+Technical extraction; compare with original PDF page 23.
+formance metrics than using MSE as risk for the discrete metalearner. As long
+as machine learning methods are included in the library, performance is similar
+across risk functions and choice of metalearners, with the exception of the MSE
+risk combined with the discrete metalearner.
+4.4.2
+DGP 2 Results - “Simple” Blip Function
+As shown above, DGP 2 has a true blip function that is a simple function of one
+covariate (referred to here as a “simple” blip function). Here, the true optimal
+rule is described by a simple parametric model for the blip; thus, we expect this
+approach to perform well. However, in practice one is unlikely to be sure that the
+truth can be well approximated by a simple rule; it is thus of interest to evaluate
+what price is paid for expanding the library to include more aggressive machine
+learning algorithms and metalearners. In particular, one might expect that, for
+smaller sample size, adding machine learning-based candidates and more com-
+plex metalearners risks substantial drop-off in performance. However, specifying
+a library that includes algorithms based on simpler parametric models, in addi-
+tion to machine learning approaches, may help mitigate this risk. In fact, for this
+particular DGP, we see, across metalearners and risks, only a small price in perfor-
+mance from adding machine learning algorithms to a library including parametric
+regressions. In short, having an ODTR SuperLearner library that also includes
+algorithms based on parametric models is better than having a library that only
+consists of data adaptive, machine learning algorithms. Within the libraries that
+did contain parametric algorithms, particularly for the discrete metalearner, using
+the RMSE risk yields slightly better performance than using the RE[Yd] risk; for
+other metalearners there is little difference in performance in terms of risk. Per-
+formance of the metalearners varies slightly by sample size. Below we describe
+results speciﬁc to each sample size.
+n = 1,000
+In terms of accuracy, the libraries that only contain parametric al-
+gorithms perform the best, followed closely by libraries that contain algorithms
+based on parametric models and machine learning algorithms, followed by the
+library with only machine learning algorithms. This pattern is evident in the per-
+cent match with the true ODTR: for example, within the discrete metalearner with
+RMSE risk, the percent accuracy is 90.7% for the library with parametric algo-
+rithms only (“Parametric blip algorithms” library), 88.8% for the library that con-
+tain both parametric algorithms and machine learning algorithms (“Parametric +
+ML blip algorithms”), and 81.9% for the library that contains machine learning
+algorithms only (“ML blip algorithms”). This same pattern is apparent in terms
+of average regret; that is, the libraries that contain algorithms based on parametric
+blip models or a combination of parametric and machine learning algorithms have
+23
+
+
+===== ORIGINAL PDF PAGE 24 =====
+FORMULA CHECK REQUIRED: original PDF page 24.
+the lowest average regret (-0.0041 to -0.0095), while the libraries that only contain
+machine learning algorithms have the highest average regret (-0.0100 to -0.0138).
+Modeling the blip with a single, parametric regression, an approach often used in
+standard epidemiological analysis, and, in this case, is incorrectly speciﬁed, yields
+an average regret of -0.0100 (higher than the libraries with a combination of para-
+metric algorithms and/or machine learning algorithms, and at the same level as
+having machine learning algorithms only).
+Within the libraries that contain parametric algorithms and use a discrete met-
+alearner, using the RMSE risk yields better performance than the RE[Yd] risk. For
+example, the mean regret and relative variance for the discrete metalearner that
+only used algorithms based on parametric models in the library is -0.0041 and
+1.0267, respectively, when using RMSE risk, and -.0046 and 1.3174, respectively,
+when using RE[Yd] risk. Otherwise, there were no apparent differences in perfor-
+mance by risk.
+For libraries that contain parametric algorithms and use RMSE, the discrete
+ODTR SuperLearner performs better than the blip-based ODTR SuperLearner,
+with regards to all performance metrics. For example, the average regret and
+relative variance for the library with only parametric algorithms that uses RMSE is
+-0.0041 and 1.0267, respectively, when using a discrete metalearner versus -.0059
+and 1.1855, respectively, when using the blip-based metalearner. This pattern
+is also evident for the library that has both parametric algorithms and machine
+learning algorithms.
+n = 300
+As in the case where n = 1,000, the library with only algorithms based
+on parametric models performs best in terms of accuracy, followed by libraries
+with parametric algorithms and machine learning algorithms, and ﬁnally libraries
+with only machine learning algorithms; again, however, DGP 1 illustrates the risks
+of such a strategy. Moreover, even at this small sample size, there is only a small
+price to pay for adding machine learning-based learners to a library that also in-
+cludes simple parametric algorithms. For example, for the discrete metalearner
+that uses RMSE, the percent accuracy for the library that uses only parametric al-
+gorithms is 78.0%, followed by a 75.5% accuracy when there is a combination of
+parametric algorithms and machine learning, while the library with only machine
+learning algorithms had a 61.7% match with the true ODTR. While this pattern
+parallels that of the n = 1,000 case, the dropoff in accuracy when the library uses
+only parametric algorithms versus when the library only uses machine learning
+algorithms is larger in terms of accuracy in the smaller sample size (16.3% differ-
+ence) versus the larger sample size (8.8% difference).
+Similar to the n = 1,000 case, among libraries that contain algorithms based
+on parametric models and in the discrete metalearner case, RMSE yields slightly
+24
+
+
+===== ORIGINAL PDF PAGE 25 =====
+FORMULA CHECK REQUIRED: original PDF page 25.
+better performance results than RE[Yd]. In contrast to the n = 1,000 case, for li-
+braries that contain parametric algorithms and used RMSE, the blip-based met-
+alearner performs slightly better than the discrete metalearner, with regards to all
+performance metrics. For example, the average regret and relative variance for
+the library with only parametric algorithms that use RMSE is -0.0188 and 1.6102,
+respectively, when using a blip-based metalearner versus -0.0190 and 1.8109, re-
+spectively, when using the discrete metalearner.
+5
+Application of ODTR SuperLearner to “Interven-
+tions” Study
+In the “Interventions” study, 231 (52.2%) participants received CBT and 210
+(47.8%) TAU. Out of the 441 participants, 271 (61.5%) were not re-arrested within
+the year. The estimated probability of no re-arrest had everyone been assigned
+CBT is 62.2%, and the estimated probability of no-arrest had everyone been as-
+signed TAU is 60.7%; there was no signiﬁcant difference between these two prob-
+abilities (risk difference: 1.51%, CI: [-8.03%,11.06%]). After adjusting for co-
+variates using TMLE to improve the precision on this ATE estimate [57], the risk
+difference is, similarly, 1.53% (CI: [-7.31%, 10.37%]).
+Figure 2 shows subgroup plots for each covariate – that is, the unadjusted
+difference in probability of no re-arrest between those who received CBT versus
+TAU, within each covariate group level. One might begin to identify trends to-
+wards differential treatment effects; for example, participants may have beneﬁted
+more from CBT at the San Francisco site, or if they had offended three or more
+times. Accurate interpretation of any such subgroup analyses, however, requires
+variance estimates and hypothesis tests with appropriate correction for multiple
+testing. In addition, as mentioned before, it may be the case that the best way to
+assign treatment is by using information on more than one variable at a time, and
+even interactions between those variables.
+Thus, we estimated the ODTR on the “Interventions” data to determine which
+justice-involved adults with mental illness should receive CBT. Speciﬁcally, we
+implemented the ODTR SuperLearner with a blip-only library, a continuous, blip-
+based metalearner, and RE[Yd] risk function. We chose a blip-based library in order
+to generate estimates of the blip, which themselves can be informative. The library
+for d∗
+n consisted of a combination of simple parametric regressions (univariate
+GLMs with each covariate) and machine learning algorithms (SL.glm, SL.mean,
+SL.glm.interaction, SL.earth, and SL.rpart). As in the simulations, the
+outcome regression Qn was estimated using the canonical SuperLearner, gn was
+estimated as an intercept-only logistic regression, and we used 10-fold cross vali-
+25
+
+
+===== ORIGINAL PDF PAGE 26 =====
+FORMULA CHECK REQUIRED: original PDF page 26.
+dation.
+Interestingly, despite implementing a continuous metalearner, the ODTR Su-
+perLearner algorithm assigned all weight on a GLM that modeled the blip as a
+linear function of only substance use. As shown in Figure 3, a plot depicting the
+distribution of the predicted blip estimates for all participants, the algorithm can
+be interpreted as such: if a justice-involved person with mental illness has a low
+substance use score, give him/her CBT; otherwise, give him/her TAU. Under this
+ODTR estimate, for this sample, 52.38% of the participants would receive CBT.
+6
+Conclusions
+We described the ODTR SuperLearner and illustrated its performance for sam-
+ple DGPs under different conﬁgurations of the algorithm and ﬁnite sample sizes.
+These results build on existing work [33, 34] by fully estimating the ODTR and
+including an expanded SuperLearner library with not only blip-based regression
+estimators, but also direct-estimation methods and static interventions. We high-
+lighted the three categories of practical choices one must consider when imple-
+menting the ODTR SuperLearner: (1) the ODTR SuperLearner library of can-
+didate algorithms, namely, whether to include parametric regression algorithms,
+machine learning algorithms, or both, and whether to include only estimators that
+output a predicted blip or include a combination of blip estimators, direct estima-
+tors, and static treatment rules; (2) the metalearner used for combining candidate
+algorithms, namely, whether to restrict selection to a single algorithm or combine
+the algorithms; and, (3) the risk function used to choose the “best” estimator or
+combination of estimators of the candidate ODTR algorithms.
+Simulation-based results illustrate the shortcomings of an approach to treat-
+ment effect heterogeneity based on approximating the blip as an additive function
+of the available covariates, or equivalently, modeling the outcome as an additive
+function of the treatment and covariates, and interactions between the treatment
+and all covariates, which is common practice in epidemiologic analyses for het-
+erogeneous treatment effects [1, 58, 59, 60]. With respect to choice of library,
+we recommend specifying a library with both simple parametric algorithms and
+more aggressive data adaptive algorithms, as well as static rules such as treat all or
+treat none, allowing for ﬂexible estimation of both simple and complex underlying
+rules. Inclusion of a full range of algorithms from simple to aggressive was par-
+ticularly important for small sample sizes. In terms of the choice of metalearner,
+both vote- and blip-based ensemble learners performed well; a vote-based met-
+alearner has the advantage, however, of allowing for the integration of a larger
+library of candidate algorithms (including direct estimation approaches) and ease
+of integration of static rules. Of note, in these simulations, vote- and blip-based
+26
+
+
+===== ORIGINAL PDF PAGE 27 =====
+Technical extraction; compare with original PDF page 27.
+metalearners outperformed the discrete ODTR SuperLearner approach, even for
+sample size 300. However, we caution that this may not always be the case and
+when sample size is small, a discrete SuperLearner approach may provide ben-
+eﬁts – in fact, one could include a convex metalearner as a candidate algorithm.
+Finally, with respect to choice of risk function, both MSE and the expected out-
+come under the rule performed well; in practice one might prefer RE[Yd] because it
+allows for the use of a larger library of candidate algorithms.
+Additionally, as an illustration of how to apply the ODTR SuperLearner to real
+data, we estimated the ODTR using the “Interventions” study to determine which
+types of justice-involved adults with mental illness should be assigned CBT ver-
+sus TAU, to yield the highest probability of no re-arrest. Preliminary results show
+that the ODTR SuperLearner placed all weight on an algorithm based on a sim-
+ple parametric model with only substance use; thus, the algorithm suggests that, in
+this sample, participants with lower levels of substance use may beneﬁt more from
+CBT. We note that this is an example of a case in which the ODTR SuperLearner
+generated a ODTR estimate that was fully interpretable – although we used a
+continuous metalearner and thus the SuperLearner could have allowed for combi-
+nations of algorithms, the SuperLearner happened to only choose one algorithm:
+a GLM with substance use as a regressor. To guarantee interpretability in the Su-
+perLearner (for example, if working with practitioners who may want a treatment
+decision rule that could be easily written down [3, 61]), one could implement the
+ODTR SuperLearner with a discrete metalearner and a simple parametric library
+only.
+Importantly, in a companion paper, we evaluate this ODTR – that is, we ask
+the causal question: what would have been the probability of no re-arrest had par-
+ticipants been assigned CBT according the ODTR SuperLearner (i.e., using only
+substance use)? Further, is assigning CBT according to the ODTR SuperLearner
+signiﬁcantly better than assigning CBT to everyone or no one? In this way, we
+can determine if it is of clinical signiﬁcance to assign CBT according to this rule –
+namely, if assigning CBT using only substance use scores results in a statistically
+signiﬁcant reduction of recidivism, and if so, how much better one does with this
+ODTR compared to a non-individualized rule (such as giving CBT to all). Under
+the appropriate causal assumptions, one could use any of the methods for estimat-
+ing treatment speciﬁc means to interpret this estimate as the expected outcome
+under the true optimal rule or the estimated optimal rule.
+Future work could extend these simulations to the multiple treatment (i.e.,
+more than 2 treatment levels) [34] and multiple timepoint setting (i.e., estimat-
+ing a sequential ODTR from, for example, a SMART design [7, 25, 35] instead
+of an RCT design). We also plan to apply the ODTR SuperLearner on the full
+“Interventions” dataset (n = 720), once data collection is ﬁnished.
+This work contributes to understanding the toolbox of methods for analyzing
+27
+
+
+===== ORIGINAL PDF PAGE 28 =====
+Technical extraction; compare with original PDF page 28.
+TAU (A = 0)
+CBT (A = 1)
+n
+211
+230
+No re-arrest (Y = 1) (%)
+128 (60.7)
+143 (62.2)
+Site = San Francisco (%)
+87 (41.2)
+104 (45.2)
+Gender = Female (%)
+38 (18.0)
+37 (16.1)
+Ethnicity = Hispanic (%)
+50 (23.7)
+42 (18.3)
+Age (mean (SD))
+38.08 (11.05)
+37.01 (11.22)
+CSI (mean (SD))
+32.35 (11.13)
+33.46 (11.27)
+LSI (mean (SD))
+5.59 (1.33)
+5.50 (1.48)
+SES (mean (SD))
+3.81 (1.89)
+3.81 (2.12)
+Prior adult convictions (%)
+Zero to two times
+74 (35.1)
+93 (40.4)
+Three or more times
+134 (63.5)
+129 (56.1)
+Missing
+3 (1.4)
+8 (3.5)
+Most serious offense (mean (SD))
+5.29 (2.54)
+5.09 (2.52)
+Motivation (mean (SD))
+3.22 (1.36)
+3.27 (1.37)
+Substance use (%)
+0
+53 (25.1)
+76 (33.0)
+1
+47 (22.3)
+55 (23.9)
+2
+109 (51.7)
+98 (42.6)
+Missing
+2 (0.9)
+1 (0.4)
+Table 2: Distribution of baseline covariates in the “Interventions” data set, strati-
+ﬁed by randomized treatment assignment (TAU denotes Treatment as Usual, CBT
+denotes Cognitive Behavioral Therapy).
+the heterogeneity in how patients respond to treatment. By learning which pa-
+tients respond best to what treatment in a ﬂexible manner, we can improve patient
+outcomes – moving us closer to the goals of precision health.
+7
+Acknowledgments
+Research reported in this publication was supported by the National Institute Of
+Allergy And Infectious Diseases of the National Institutes of Health under Award
+Number R01AI074345 and F31AI140962. The content is solely the responsibility
+of the authors and does not necessarily represent the ofﬁcial views of the National
+Institutes of Health.
+28
+
+
+===== ORIGINAL PDF PAGE 29 =====
+FORMULA CHECK REQUIRED: original PDF page 29.
+References
+[1] Issa J Dahabreh, Rodney Hayward, and David M Kent. Using group data to
+treat individuals: understanding heterogeneous treatment effects in the age
+of precision medicine and patient-centred evidence. International Journal of
+Epidemiology, 45(6):2184–2193, 2016.
+[2] David M Kent, Ewout Steyerberg, and David van Klaveren. Personalized
+evidence based medicine: predictive approaches to heterogeneous treatment
+effects. British Medical Journal, 363:k4245, 2018.
+[3] M R Kosorok and E B Laber. Precision medicine. Annual Review of Statis-
+tics and its Application, 6:263–286, 2019.
+[4] Jennifer L Skeem, Sarah Manchak, and Jillian K Peterson. Correctional pol-
+icy for offenders with mental illness: Creating a new paradigm for recidivism
+reduction. Law and Human Behavior, 35(2):110–126, 2011.
+[5] Jennifer L Skeem, Eliza Winter, Patrick J Kennealy, Jennifer Eno Louden,
+and Joseph R Tatar II.
+Offenders with mental illness have criminogenic
+needs, too:
+toward recidivism reduction.
+Law and Human Behavior,
+38(3):212–224, 2014.
+[6] Mark W Lipsey, Nana A Landenberger, and Sandra J Wilson. Effects of
+cognitive-behavioral programs for criminal offenders. Campbell Systematic
+Reviews, 3(1):1–27, 2007.
+[7] Huitian Lei, Inbal Nahum-Shani, K Lynch, David Oslin, and Susan A Mur-
+phy. A ”SMART” design for building individualized treatment sequences.
+Annual Review of Clinical Psychology, 8:21–48, 2012.
+[8] Feifang Hu and William F Rosenberger. The theory of response-adaptive
+randomization in clinical trials. John Wiley and Sons, 2006.
+[9] Ilya Lipkovich, Alex Dmitrienko, and Ralph B D’Agostino. Tutorial in bio-
+statistics: data-driven subgroup identiﬁcation and analysis in clinical trials.
+Statistics in Medicine, 36(1):136–196, 2017.
+[10] O Bembom and M J van der Laan. A practical illustration of the importance
+of realistic individualized treatment rules in causal inference.
+Electronic
+Journal of Statistics, 1:574–596, 2007.
+[11] Mark J. van der Laan and Maya L. Petersen. Causal effect models for re-
+alistic individualized treatment and intention to treat rules. International
+Journal of Biostatistics, 3(1):1557–4679, 2007.
+29
+
+
+===== ORIGINAL PDF PAGE 30 =====
+FORMULA CHECK REQUIRED: original PDF page 30.
+[12] James M Robins. A new approach to causal inference in mortality stud-
+ies with a sustained exposure period - application to control of the healthy
+worker survivor effect. Mathematical Modelling, 7:9–12, 1986.
+[13] Bibhas Chakraborty and Erica E M Moodie. Statistical Methods for Dy-
+namic Treatment Regimes. Springer, 2013.
+[14] Susan A Murphy.
+Optimal dynamic treatment regimes.
+Journal of the
+Royal Statistical Society: Series B (Statistical Methodology), 65(2):331–
+355, 2003.
+[15] James M Robins. Optimal structural nested models for optimal sequential
+decisions. In Proceedings of the Second Seattle Symposium in Biostatistics,
+pages 189–326. Springer, 2004.
+[16] Alexander R Luedtke and Mark J van der Laan.
+Optimal individualized
+treatments in resource-limited settings. The International Journal of Bio-
+statistics, 12(1):283–303, 2016.
+[17] Eric B Laber, Kristin A Linn, and Leonard A Stefanski. Interactive model
+building for q-learning. Biometrika, 101(4):831–847, 2014.
+[18] Phillip J Schulte, Anastasios A Tsiatis, Eric B Laber, and Marie Davidian. Q-
+and a-learning methods for estimating optimal dynamic treatment regimes.
+Statistical Science, 29(4):640–661, 2014.
+[19] Erica E M Moodie, Bibhas Chakraborty, and Michael S Kramer. Q-learning
+for estimating optimal dynamic treatment rules from observational data.
+Canadian Journal of Statistics, 40(4):629–645, 2012.
+[20] Min Qian and Susan A Murphy. Performance guarantees for individualized
+treatment rules. Annals of Statistics, 39(2):1180–1210, 2011.
+[21] E. E. Moodie, T. S. Richardson, and D. A. Stephens. Demystifying optimal
+dynamic treatment regimes. Biometrics, 63(2):447–455, 2007.
+[22] Yingqi Zhao, Donglin Zeng, A John Rush, and Michael R Kosorok. Estimat-
+ing individualized treatment rules using outcome weighted learning. Journal
+of the American Statistical Association, 107(499):1106–1118, 2012.
+[23] Baqun Zhang, Anastasios A Tsiatis, Marie Davidian, Min Zhang, and Eric
+Laber. Estimating optimal treatment regimes from a classiﬁcation perspec-
+tive. Stat, 1(1):103–114, 2012.
+30
+
+
+===== ORIGINAL PDF PAGE 31 =====
+FORMULA CHECK REQUIRED: original PDF page 31.
+[24] Ying-Qi Zhao, Donglin Zeng, Eric B Laber, and Michael R Kosorok.
+New statistical learning methods for estimating optimal dynamic treatment
+regimes. Journal of the American Statistical Association, 110(510):583–
+598, 2015.
+[25] Michael R Kosorok and Erica EM Moodie. Adaptive Treatment Strategies
+in Practice: Planning Trials and Analyzing Data for Personalized Medicine.
+Society for Industrial and Applied Mathematics, 2015.
+[26] Ying-Qi Zhao and Eric B Laber. Estimation of optimal dynamic treatment
+regimes. Clinical Trials, 11(4):400–407, 2014.
+[27] Mark J van der Laan, Eric C Polley, and Alan E Hubbard. Super learner.
+Statistical Applications in Genetics and Molecular Biology, 6(1), 2007.
+[28] Leo Breiman. Stacked regressions. Machine Learning, 24(1):49–64, 1996.
+[29] Erin LeDell, Mark J van der Laan, and Maya Petersen. Auc-maximizing
+ensembles through metalearning. The International Journal of Biostatistics,
+12(1):203–218, 2016.
+[30] Romain Pirracchio, Maya L Petersen, and Mark J van der Laan. Improv-
+ing propensity score estimators’ robustness to model misspeciﬁcation using
+super learner. American Journal of Epidemiology, 181(2):108–119, 2014.
+[31] Romain Pirracchio, Maya L Petersen, Marco Carone, Matthieu Resche
+Rigon, Sylvie Chevret, and Mark J van der Laan. Mortality prediction in in-
+tensive care units with the super icu learner algorithm (sicula): a population-
+based study. The Lancet Respiratory Medicine, 3(1):42–52, 2015.
+[32] Maya L Petersen, Erin LeDell, Joshua Schwab, Varada Sarovar, Robert
+Gross, Nancy Reynolds, Jessica E Haberer, Kathy Goggin, Carol Golin, Ju-
+lia Arnsten, Marc I Rosen, Robert H Remien, David Etoori, Ira B Wilson,
+Jane M Simoni, Judith A Erlen, Mark J van der Laan, Honghu Liu, and
+David R Bangsberg. Super learner analysis of electronic adherence data im-
+proves viral prediction and may provide strategies for selective hiv rna mon-
+itoring. Journal of Acquired Immune Deﬁciency Syndromes, 69(1):109–118,
+2015.
+[33] Alexander R Luedtke and Mark J van der Laan. Super-learning of an optimal
+dynamic treatment rule. International Journal of Biostatistics, 12(1):305–
+332, 2016.
+31
+
+
+===== ORIGINAL PDF PAGE 32 =====
+FORMULA CHECK REQUIRED: original PDF page 32.
+[34] Jeremy Robert Coyle. Computational Considerations for Targeted Learning.
+PhD thesis, University of California, Berkeley, 2017.
+[35] Daniel Almirall, Inbal Nahum-Shani, Nancy E Sherwood, and Susan A Mur-
+phy. Introduction to SMART designs for the development of adaptive inter-
+ventions: with application to weight loss research. Translational Behavioral
+Medicine, 4(3):260–274, 2014.
+[36] Lina Montoya, Mark van der Laan, Alexander Luedtke, Jennifer Skeem,
+Jeremy Coyle, and Maya Petersen.
+The optimal dynamic treatment rule
+superlearner: Considerations, performance, and application. arXiv preprint
+arXiv:2101.12326, 2021.
+[37] Maya L Petersen and Mark J van der Laan. Causal models and learning from
+data: integrating causal modeling and statistical estimation. Epidemiology,
+25:418–426, 2014.
+[38] Judea Pearl. Causality: Models, Reasoning, and Inference. Cambridge Uni-
+versity Press, 2000.
+[39] Alexander R Luedtke and Mark J van der Laan. Statistical inference for
+the mean outcome under a possibly non-unique optimal treatment strategy.
+Annals of Statistics, 44(2):713–742, 2016.
+[40] James M Robins and Miguel A Hernan. Estimation of the causal effects of
+time-varying exposures. Longitudinal Data Analysis, 553:553–599, 2009.
+[41] Maya L Petersen, Kristin E Porter, Susan Gruber, Yue Wang, and Mark J
+van der Laan.
+Diagnosing and responding to violations in the positivity
+assumption. Statistical Methods in Medical Research, 21(1):31–54, 2012.
+[42] Daniel B Rubin and Mark J van der Laan. Statistical issues and limitations in
+personalized medicine research with clinical trials. The International Jour-
+nal of Biostatistics, 8(1):1557–4679, 2012.
+[43] Brian D Ripley.
+Pattern Recognition and Neural Networks.
+Cambridge
+University Press, 1996.
+[44] Jerome H Friedman. Multivariate adaptive regression splines. The Annals of
+Statistics, 19(1):1–67, 1991.
+[45] Leo Breiman, Jerome H Friedman, Richard A Olshen, and Charles J Stone.
+Classiﬁcation and Regression Trees. Routledge, 1984.
+32
+
+
+===== ORIGINAL PDF PAGE 33 =====
+FORMULA CHECK REQUIRED: original PDF page 33.
+[46] Mark J van der Laan and Sherri Rose. Targeted Learning: Causal Inference
+for Observational and Experimental Data. Springer, 2011.
+[47] Mark J van der Laan and Susan Gruber. Targeted minimum loss based esti-
+mation of an intervention speciﬁc mean outcome. U.C. Berkeley Division of
+Biostatistics Working Paper Series, 2011.
+[48] R Core Team. R: A Language and Environment for Statistical Computing.
+R Foundation for Statistical Computing, Vienna, Austria, 2020.
+[49] Jeremy Coyle. tlverse: Umbrella Package for Targeted Learning in R, 2021.
+R package version 0.0.1.
+[50] Mark J van der Laan and Alexander R Luedtke. Targeted learning of the
+mean outcome under an optimal dynamic treatment rule. Journal of Causal
+Inference, 3(1):61–95, 2015.
+[51] Chih-Chung Chang and Chih-Jen Lin. Libsvm: A library for support vector
+machines. ACM Transactions on Intelligent Systems and Technology, 2(3):1–
+27, 2011.
+[52] Eric Polley, Erin LeDell, Chris Kennedy, and Mark van der Laan. Super-
+Learner: Super Learner Prediction, 2020. R package version 2.0-28.
+[53] Xin Zhou, Nicole Mayer-Hamblett, Umer Khan, and Michael R Kosorok.
+Residual weighted learning for estimating individualized treatment rules.
+Journal of the American Statistical Association, 112(517):169–187, 2017.
+[54] Ying-Qi Zhao, Eric B Laber, Yang Ning, Sumona Saha, and Bruce E Sands.
+Efﬁcient augmentation and relaxation learning for individualized treatment
+rules using observational data.
+Journal of Machine Learning Research,
+20(48):1–23, 2019.
+[55] Baqun Zhang, Anastasios A Tsiatis, Marie Davidian, Min Zhang, and Eric
+Laber. Estimating optimal treatment regimes from a classiﬁcation perspec-
+tive. Stat, 1(1):103–114, 2012.
+[56] Shannon T Holloway, Eric B Laber, Kristin A Linn, Baqun Zhang, Marie
+Davidian, and Anastasios A Tsiatis. DynTxRegime: Methods for Estimating
+Optimal Dynamic Treatment Regimes, 2019. R package version 4.1.
+[57] Kelly L Moore and Mark J van der Laan. Covariate adjustment in random-
+ized trials with binary outcomes: targeted maximum likelihood estimation.
+Statistics in Medicine, 28(1):39–64, 2009.
+33
+
+
+===== ORIGINAL PDF PAGE 34 =====
+FORMULA CHECK REQUIRED: original PDF page 34.
+[58] Ravi Varadhan, Jodi B Segal, Cynthia M Boyd, Albert W Wu, and Carlos O
+Weiss. A framework for the analysis of heterogeneity of treatment effect
+in patient-centered outcomes research. Journal of Clinical Epidemiology,
+66(8):818–825, 2013.
+[59] Salim Yusuf, Janet Wittes, Jeffrey Probstﬁeld, and Herman A Tyroler. Anal-
+ysis and interpretation of treatment effects in subgroups of patients in ran-
+domized clinical trials. The Journal of the American Medical Association,
+266(1):93–98, 1991.
+[60] David van Klaveren, Yvonne Vergouwe, Vasim Farooq, Patrick W Serruys,
+and Ewout W Steyerberg. Estimates of absolute treatment beneﬁt for indi-
+vidual patients required careful modeling of statistical interactions. Journal
+of Clinical Epidemiology, 68(11):1366–1374, 2015.
+[61] Zachary D Cohen and Robert J DeRubeis. Treatment selection in depression.
+Annual Review of Clinical Psychology, 14:209–236, 2018.
+8
+Appendix
+8.1
+Notation Table
+Notation
+Deﬁnition
+Observed Data Random Variables
+W
+Vector of covariates
+A
+Treatment or exposure
+Y
+Outcome
+Counterfactual outcomes
+Y1
+Counterfactual outcome under treatment
+Y0
+Counterfactual outcome under control
+Yd
+Counterfactual outcome under dynamic treatment rule
+Models and distributions
+M F
+Causal model
+M
+Statistical model
+PU,X
+Probability distribution for full data X (including
+counterfactual outcomes) and unobserved
+variables U. PU,X ∈M F.
+P0
+True probability distribution for observed data O.
+P0 ∈M .
+34
+
+
+===== ORIGINAL PDF PAGE 35 =====
+FORMULA CHECK REQUIRED: original PDF page 35.
+Pn
+Empirical probability distribution that places
+weight 1
+n on each observation
+Pn,v
+Empirical probability distribution of the validation
+sample
+Pn,−v
+Empirical probability distribution of the training
+sample
+Causal parameters
+Ψ F
+d (PU,X) = EPU,X[Yd]
+Expected counterfactual outcome (value) had everyone
+received a given dynamic treatment rule d
+EPU,X[Y1 −Y0|W]
+Conditional average treatment effect (CATE)
+Ψ F
+d∗
+0(PU,X) = EPU,X[Yd∗
+0]
+Expected counterfactual outcome (value) had everyone
+received the ODTR d∗
+0
+Ψ F
+d∗n(PU,X) = EPU,X[Yd∗n]
+Expected counterfactual outcome (value) had everyone
+received the sample-speciﬁc estimate of the ODTR d∗
+n
+Ψ F
+d∗n,v(PU,X) = 1
+V ∑V
+v=1 EPU,X[Yd∗n,v]
+Average of the expected validation set counterfactual
+outcomes (values) under the training set-speciﬁc
+estimates of the ODTR d∗
+n,v
+Statistical parameters
+g0(A|W)
+True probability of treatment given covariates
+(i.e., treatment mechanism; P0(A|W))
+Q0(A,W)
+True conditional mean outcome given treatment
+and covariates (i.e., outcome regression; E[Y|A,W])
+d∗
+0(W)
+True optimal dynamic treatment rule (ODTR)
+B0(W)
+Blip function (identiﬁcation result of the CATE)
+ψ0,d =Ψd(P0) = E0[Q0(d(W),W)]
+True value of a given dynamic treatment rule d
+ψ0,d∗
+0 =Ψd∗
+0(P0) = E0[Q0(d∗
+0(W),W)]
+True value of the ODTR
+ψ0,d∗n ≡Ψd∗n(P0) = E0[Q0(d∗
+n(W),W)]
+True value of the sample-speciﬁc estimate of the ODTR
+ψ0,d∗n,v =Ψd∗n,v(P0)
+= 1
+V ∑V
+v=1 E0[Q0(d∗
+n,v(W),W)]
+Average of the true values of the training set-speciﬁc
+estimates of the ODTR
+Estimates
+gn(A|W)
+Estimate of the true treatment mechanism
+Qn(A,W)
+Estimate of the outcome regression
+35
+
+
+===== ORIGINAL PDF PAGE 36 =====
+FORMULA CHECK REQUIRED: original PDF page 36.
+Dn(Qn,gn)(O)
+Estimated pseudo-outcome. Regress this on
+W to get estimate of blip.
+d∗
+n(W)
+ODTR estimated on the entire sample
+d∗
+n,v(W)
+Training sample-speciﬁc estimate of the ODTR
+dn,j(W)
+Estimate of ODTR under jth candidate algorithm
+dn,α(W)
+A convex combination of candidate ODTR estimates,
+with algorithm-speciﬁc weights given by α
+d∗
+n,B(W),d∗
+n,d
+ODTR estimated on the entire sample
+using blip and direct estimation approaches, respectively
+Bn(W)
+Estimate of the blip
+Bn,j(W)
+Estimate of blip under jth candidate algorithm
+Bn,α(W)
+A convex combination of candidate blip estimates,
+with algorithm-speciﬁc weights given by α
+ˆψd = ˆΨd(Pn)
+Estimate of the value of a given dynamic treatment
+rule d (estimator is either IPTW, IPTW-DR,
+TMLE, or CV-TMLE)
+ˆψd∗n = ˆΨd∗n(Pn)
+Estimate of the value of sample-speciﬁc estimate
+of the ODTR (estimator is either IPTW,
+IPTW-DR, or TMLE)
+ˆψd∗n,v = ˆΨd∗n,v(Pn)
+Estimate of the value of training-set speciﬁc
+estimate of the ODTR (estimator is CV-TMLE)
+Risk functions
+RMSE
+Risk for ODTR SuperLearner targeting the blip
+function using mean-squared error
+RE[Yd]
+Risk for ODTR SuperLearner targeting the
+expected rule-speciﬁc outcome
+Other
+d(W)
+A given dynamic treatment rule. A function that takes
+as input covariates W (or function of W) and
+outputs a treatment decision.
+D
+Set of all dynamic treatment rules
+α = {α1,...,αJ}
+Weight vector for convex combination of
+J candidate algorithms
+36
+
+
+===== ORIGINAL PDF PAGE 37 =====
+FORMULA CHECK REQUIRED: original PDF page 37.
+αn
+“Best” weighting of the algorithms, i.e., convex
+combination α that yields the smallest cross-validated
+empirical risk
+c
+IC(O)
+Working inﬂuence curve of an estimator, a function
+of the observed data O
+37
+
+
+===== ORIGINAL PDF PAGE 38 =====
+FORMULA CHECK REQUIRED: original PDF page 38.
+n
+Library
+Metalearner
+Risk R
+Avg. Regret
+Var. Relative to GLM
+% Match
+1,000
+Blip only
+GLM
+N/A
+N/A
+-0.0765
+1.0000 (Var = 0.0001)
+56.7
+Parametric blip models
+Discrete
+MSE
+-0.0757
+2.2119
+56.4
+E[Yd]
+-0.0721
+1.8161
+58.0
+Continuous
+Blip-based
+MSE
+-0.0773
+1.7008
+56.1
+E[Yd]
+-0.0744
+1.6762
+57.7
+Vote-based
+E[Yd]
+-0.0733
+1.6635
+57.8
+ML blip models
+Discrete
+MSE
+-0.0393
+2.4105
+72.0
+E[Yd]
+-0.0281
+0.7664
+76.9
+Continuous
+Blip-based
+MSE
+-0.0253
+0.5708
+77.7
+E[Yd]
+-0.0268
+0.6024
+77.0
+Vote-based
+E[Yd]
+-0.0277
+0.7006
+76.7
+Parametric + ML blip models
+Discrete
+MSE
+-0.0389
+2.1327
+72.0
+E[Yd]
+-0.0284
+0.7781
+76.8
+Continuous
+Blip-based
+MSE
+-0.0262
+0.6493
+77.4
+E[Yd]
+-0.0276
+0.6351
+76.7
+Vote-based
+E[Yd]
+-0.0299
+0.8021
+75.7
+Full
+ML blip models and EYd maximizers
+Discrete
+E[Yd]
+-0.0277
+0.7844
+76.6
+Continuous
+Vote-based
+E[Yd]
+-0.0288
+0.7463
+76.8
+All blip models and EYd maximizers
+Discrete
+E[Yd]
+-0.0281
+0.8083
+76.4
+Continuous
+Vote-based
+E[Yd]
+-0.0290
+0.7772
+76.4
+300
+Blip only
+GLM
+N/A
+N/A
+-0.0827
+1.0000 (Var = 0.0003)
+55.0
+Parametric blip models
+Discrete
+MSE
+-0.0849
+1.5846
+54.0
+E[Yd]
+-0.0815
+1.5871
+55.4
+Continuous
+Blip-based
+MSE
+-0.0850
+1.5509
+54.1
+E[Yd]
+-0.0824
+1.5346
+55.4
+Vote-based
+E[Yd]
+-0.0817
+1.6227
+55.4
+ML blip models
+Discrete
+MSE
+-0.0665
+2.4337
+60.9
+E[Yd]
+-0.0545
+1.5571
+65.0
+Continuous
+Blip-based
+MSE
+-0.0546
+1.5906
+65.3
+E[Yd]
+-0.0522
+1.3185
+66.1
+Vote-based
+E[Yd]
+-0.0555
+1.3437
+64.9
+Parametric + ML blip models
+Discrete
+MSE
+-0.0649
+2.4343
+61.1
+E[Yd]
+-0.0555
+1.6545
+64.5
+Continuous
+Blip-based
+MSE
+-0.0538
+1.6002
+65.4
+E[Yd]
+-0.0531
+1.3822
+65.7
+Vote-based
+E[Yd]
+-0.0572
+1.5197
+64.1
+Full
+ML blip models and EYd maximizers
+Discrete
+E[Yd]
+-0.0571
+1.6907
+64.4
+Continuous
+Vote-based
+E[Yd]
+-0.0548
+1.5835
+65.3
+All blip models and EYd maximizers
+Discrete
+E[Yd]
+-0.0559
+1.6624
+64.8
+Continuous
+Vote-based
+E[Yd]
+-0.0587
+1.5285
+63.8
+Table 4: DGP 1 (“complex blip”) results: Performance metrics (average, relative
+variance) of the approximate regret En[Q0(Y|A = d∗
+n,W)]−E0[Yd∗
+0] (the difference
+between the average true conditional mean outcome under the estimated ODTR
+versus the true ODTR) for the SuperLearners generated by DGP 1. Percent agree-
+ment between the treatment assigned under the true versus estimated ODTR.
+38
+
+
+===== ORIGINAL PDF PAGE 39 =====
+FORMULA CHECK REQUIRED: original PDF page 39.
+n
+Library
+Metalearner
+Risk R
+Avg. Regret
+Var. Relative to GLM
+% Match
+1,000
+Blip only
+GLM
+N/A
+N/A
+-0.0100
+1.0000 (Var = 0.0003)
+84.5
+Parametric blip models
+Discrete
+MSE
+-0.0041
+1.0267
+90.7
+E[Yd]
+-0.0046
+1.3174
+90.2
+Continuous
+Blip-based
+MSE
+-0.0059
+1.1855
+89.0
+E[Yd]
+-0.0086
+1.5630
+86.0
+Vote-based
+E[Yd]
+-0.0057
+1.3902
+89.5
+ML blip models
+Discrete
+MSE
+-0.0138
+1.8439
+81.9
+E[Yd]
+-0.0119
+1.6144
+83.8
+Continuous
+Blip-based
+MSE
+-0.0107
+1.3294
+84.2
+E[Yd]
+-0.0100
+1.1477
+84.9
+Vote-based
+E[Yd]
+-0.0104
+1.1776
+84.5
+Parametric + ML blip models
+Discrete
+MSE
+-0.0065
+1.1875
+88.8
+E[Yd]
+-0.0088
+1.4343
+86.7
+Continuous
+Blip-based
+MSE
+-0.0078
+1.2204
+86.8
+E[Yd]
+-0.0092
+1.3069
+85.4
+Vote-based
+E[Yd]
+-0.0095
+1.4221
+85.2
+Full
+ML blip models and EYd maximizers
+Discrete
+E[Yd]
+-0.0116
+1.6804
+84.1
+Continuous
+Vote-based
+E[Yd]
+-0.0109
+1.3875
+84.4
+All blip models and EYd maximizers
+Discrete
+E[Yd]
+-0.0076
+1.4027
+88.1
+Continuous
+Vote-based
+E[Yd]
+-0.0083
+1.2160
+86.7
+300
+Blip only
+GLM
+N/A
+N/A
+-0.0224
+1.0000 (Var = 0.0004)
+75.0
+Parametric blip models
+Discrete
+MSE
+-0.0190
+1.8019
+78.0
+E[Yd]
+-0.0233
+2.0950
+74.5
+Continuous
+Blip-based
+MSE
+-0.0188
+1.6102
+76.7
+E[Yd]
+-0.0231
+1.8938
+73.0
+Vote-based
+E[Yd]
+-0.0216
+2.1003
+74.6
+ML blip models
+Discrete
+MSE
+-0.0371
+1.6533
+61.7
+E[Yd]
+-0.0310
+1.4898
+66.8
+Continuous
+Blip-based
+MSE
+-0.0319
+1.4242
+66.4
+E[Yd]
+-0.0286
+1.2123
+69.2
+Vote-based
+E[Yd]
+-0.0291
+1.2973
+68.7
+Parametric + ML blip models
+Discrete
+MSE
+-0.0207
+1.8830
+75.5
+E[Yd]
+-0.0253
+1.7460
+71.7
+Continuous
+Blip-based
+MSE
+-0.0235
+1.5428
+73.4
+E[Yd]
+-0.0258
+1.3637
+71.5
+Vote-based
+E[Yd]
+-0.0262
+1.4567
+71.3
+Full
+ML blip models and EYd maximizers
+Discrete
+E[Yd]
+-0.0302
+1.5305
+67.3
+Continuous
+Vote-based
+E[Yd]
+-0.0286
+1.4512
+68.7
+All blip models and EYd maximizers
+Discrete
+E[Yd]
+-0.0220
+1.7749
+74.6
+Continuous
+Vote-based
+E[Yd]
+-0.0228
+1.5302
+73.5
+Table 5: DGP 2 (“simple blip”) results: Performance metrics (average, relative
+variance) of the approximate regret En[Q0(Y|A = d∗
+n,W)]−E0[Yd∗
+0] (the difference
+between the average true conditional mean outcome under the estimated ODTR
+versus the true ODTR) for the SuperLearners generated by DGP 2. Percent agree-
+ment between the treatment assigned under the true versus estimated ODTR.
+39
+
+
+===== ORIGINAL PDF PAGE 40 =====
+FORMULA CHECK REQUIRED: original PDF page 40.
+8.2
+Simulation Extension to DGP with Dependent Covariates
+We include extra simulations illustrating a DGP scenario where covariates are
+dependent, as follows:
+W1 ∼Normal(µ = 0,σ2 = 1)
+W2,W3,W4 ∼N
+
+µ =
+0
+0
+
+,Σ =
+
+
+1.0
+0.3
+0.7
+0.3
+1.0
+0.8
+0.7
+0.8
+1.0
+
+
+
+
+A ∼Bernoulli(p = 0.5)
+Y ∼Bernoulli(p = Q0(A,W)),
+where Q0(A,W) =0.5expit(1−W 2
+1 +3W2 +5W 2
+3 A−4.45A)+
+0.5expit(−0.5−W3 +2W1W2 +3|W2|A−1.5A),
+then the true blip function is:
+B0(W) =0.5[expit(1−W 2
+1 +3W2 +5W 2
+3 −4.45)+expit(−0.5−W3 +2W1W2 +3|W2|−1.5)
+−expit(1−W 2
+1 +3W2)−expit(−0.5−W3 +2W1W2)].
+The true expected outcome under the true ODTR Ψ F
+d∗
+0(PU,X) ≈0.5595 and the
+true optimal proportion treated EPU,X[d∗
+0] ≈54.0%. The mean outcome had every-
+one and no one been treated are, respectively, EPU,X[Y1] ≈0.5152 and EPU,X[Y0] ≈
+0.5000.
+40
+
+
+===== ORIGINAL PDF PAGE 41 =====
+Technical extraction; compare with original PDF page 41.
+Figure 1: (Caption on the following page.)
+41
+
+
+===== ORIGINAL PDF PAGE 42 =====
+FORMULA CHECK REQUIRED: original PDF page 42.
+Figure 1: Performance of candidate estimators of the ODTR. Plot shows mean
+and 2.5th and 97.5th quantiles of the empirical mean of the true expected coun-
+terfactual outcome under the estimated ODTR, i.e., En[Q0(Y|A = d∗
+n,W)], an ap-
+proximation of E0[Q0(Y|A = d∗
+n(W),W)], for DGP 1 (top two) and DGP 2 (bot-
+tom two). The horizontal black line depicts EPU,X[Yd∗
+0]; red line depicts EPU,X[Y1];
+blue line depicts EPU,X[Y0] (where sometimes the blue and red lines coincide and
+thus overlap). We compare the ODTR SuperLearner to an incorrectly speciﬁed
+GLM (in gray, with N/A as the metalearner and a diamond with no ﬁll). We
+also compare (1) having a SuperLearner library with (a) only algorithms that es-
+timate the blip (i.e., “Blip only” libraries) that only have parametric algorithms
+(blue) or only have machine-learning blip algorithms (red) or both (purple) ver-
+sus (b) an expanded or “Full” library with blip function regressions estimated via
+machine learning only (orange-yellow) or machine learning and parametric algo-
+rithms (green), with methods that directly estimate the ODTR and static rules, (2)
+having a metalearner (depicted on the x-axis) either that chooses one algorithm
+(i.e., the “discrete” SuperLearner) or combines blip predictions/treatment predic-
+tions (i.e., the “continuous” SuperLearner), and (3) using the MSE risk function
+(RMSE as a square) versus the mean outcome under the candidate rule risk func-
+tion (RE[Yd] as a triangle). The percent match at the top of each plot reports the
+average across simulation repetitions of the percent of the sample assigned their
+true optimal treatment by the estimated rule.
+42
+
+
+===== ORIGINAL PDF PAGE 43 =====
+Technical extraction; compare with original PDF page 43.
+Figure 2: Subgroup plots for each of the covariates for the “Interventions” data.
+The x-axis for each of the plots is the different levels of the covariates; the y-axis
+is the difference in proportion of people who were not re-arrested between those
+who received CBT versus TAU, in that covariate subgroup.
+43
+
+
+===== ORIGINAL PDF PAGE 44 =====
+Technical extraction; compare with original PDF page 44.
+Figure 3: Distribution of predicted blip estimates from the ODTR SuperLearner.
+The frequencies are divided into three groups because the ODTR SuperLearner
+allocated all coefﬁcient weights to a GLM using substance use, a variable with
+only 3 treatment levels. One can interpret the ODTR SuperLearner for this sample
+as follows: CBT may reduce the probability of re-arrest among justice-involved
+adults with low levels of substance use. Estimation and inference of the value of
+the ODTR SuperLearner compared to, for example, treating everyone or no one,
+informs us if there is, in fact, a differential effect by substance use, and thus a
+beneﬁt to assigning CBT in this individualized way.
+44
+
+
+===== ORIGINAL PDF PAGE 45 =====
+Technical extraction; compare with original PDF page 45.
+Figure 4: (Caption on the following page.)
+45
+
+
+===== ORIGINAL PDF PAGE 46 =====
+FORMULA CHECK REQUIRED: original PDF page 46.
+Figure 4: Performance of candidate estimators of the ODTR. Plot shows mean
+and 2.5th and 97.5th quantiles of the empirical mean of the true expected coun-
+terfactual outcome under the estimated ODTR, i.e., En[Q0(Y|A = d∗
+n,W)], an ap-
+proximation of E0[Q0(Y|A = d∗
+n(W),W)], for DGP 1 (top two) and DGP 2 (bot-
+tom two). The horizontal black line depicts EPU,X[Yd∗
+0]; red line depicts EPU,X[Y1];
+blue line depicts EPU,X[Y0] (where sometimes the blue and red lines coincide and
+thus overlap). We compare the ODTR SuperLearner to an incorrectly speciﬁed
+GLM (in gray, with N/A as the metalearner and a diamond with no ﬁll). We
+also compare (1) having a SuperLearner library with (a) only algorithms that es-
+timate the blip (i.e., “Blip only” libraries) that only have parametric algorithms
+(blue) or only have machine-learning blip algorithms (red) or both (purple) ver-
+sus (b) an expanded or “Full” library with blip function regressions estimated via
+machine learning only (orange-yellow) or machine learning and parametric algo-
+rithms (green), with methods that directly estimate the ODTR and static rules, (2)
+having a metalearner (depicted on the x-axis) either that chooses one algorithm
+(i.e., the “discrete” SuperLearner) or combines blip predictions/treatment predic-
+tions (i.e., the “continuous” SuperLearner), and (3) using the MSE risk function
+(RMSE as a square) versus the mean outcome under the candidate rule risk func-
+tion (RE[Yd] as a triangle). The percent match at the top of each plot reports the
+average across simulation repetitions of the percent of the sample assigned their
+true optimal treatment by the estimated rule.
+46
+

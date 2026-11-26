@@ -1,0 +1,28 @@
+{
+  "paper_id": "N80e1501cd8",
+  "category": "A",
+  "title": "Estimating optimal dynamic treatment regimes with Gaussian process emulation",
+  "authors": "Daniel Rodriguez Duque and David A Stephens and Erica E M Moodie",
+  "doi": "10.1093/biomtc/ujaf174",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1093/biomtc/ujaf174",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "06f818fdfea3742f237a76d80aae5b12880c9984b634edde209d1829d37f682b",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2105.12259"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/N80e1501cd8/README.md",
+  "status": "local_only"
+}

@@ -1,0 +1,1419 @@
+Asymmetric and Time-Varying Connectedness of FinTech with Equities, Bonds, and Cryptocurrencies: A Quantile-on-Quantile Perspective
+
+Original PDF: [original.pdf](original.pdf). SHA256: `55f85022aab0a5383b2f8eae145b3e8e395a9384bb3639c8a9517abc91e988a5`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+FORMULA CHECK REQUIRED: original PDF page 1.
+Academic Editor: Ying Yuan
+Received: 6 November 2025
+Revised: 21 November 2025
+Accepted: 5 December 2025
+Published: 10 December 2025
+Citation: Karimi, Mohammad Sharif,
+Omar Esqueda, and Naveen Mahasen
+Weerasinghe. 2025. Asymmetric and
+Time-Varying Connectedness of
+FinTech with Equities, Bonds, and
+Cryptocurrencies: A Quantile-
+on-Quantile Perspective. Risks 13: 246.
+https://doi.org/10.3390/
+risks13120246
+Copyright: © 2025 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license
+(https://creativecommons.org/
+licenses/by/4.0/).
+Article
+Asymmetric and Time-Varying Connectedness of FinTech
+with Equities, Bonds, and Cryptocurrencies:
+A Quantile-on-Quantile Perspective
+Mohammad Sharif Karimi 1
+, Omar Esqueda 1,*
+and Naveen Mahasen Weerasinghe 2
+1
+College of Business, Tarleton State University, 1333 W. Washington St., Stephenville, TX 76401, USA;
+mkarimi@tarleton.edu
+2
+Verité Research, 165/1 Park Road, Colombo 00500, Sri Lanka; naveenm.weerasinghe@gmail.com
+*
+Correspondence: esqueda@tarleton.edu
+Abstract
+This study employs a quantile-on-quantile connectedness approach to analyze the asym-
+metric, distribution-dependent, and time-varying spillovers between FinTech indices and
+traditional financial markets. The results show that spillovers are concentrated in the
+distribution tails, with FinTech indices exhibiting strong co-movements with equities and
+Bitcoin under extreme conditions, while linkages with U.S. Treasury bonds are weaker
+and often inverse. Net connectedness analysis reveals that the S&P 500 and Bitcoin act
+as the primary transmitters of shocks into FinTech indices, whereas Treasuries generally
+serve as receivers, except during stress episodes when safe-haven flows or heightened
+credit risk reverse the direction of spillovers. The dynamic ∆TCI (Difference between the
+total direct connectedness and the reverse total connectedness) further demonstrates that
+FinTech indices serve as net transmitters in stable markets but become receivers during
+crises such as the COVID-19 pandemic, the Federal Reserve’s tightening cycle of 2022–2023,
+and the FTX-driven crypto collapse. Segmental heterogeneity is also evident: distributed
+ledger firms are highly sensitive to cryptocurrency dynamics, alternative finance providers
+respond strongly to both equity and bond markets, and digital payments firms are pri-
+marily influenced by equity spillovers. Overall, the findings underscore FinTech’s dual
+role—transmitting shocks during tranquil periods but amplifying systemic vulnerabilities
+during crises. For investors, diversification benefits are state-dependent and largely disap-
+pear under adverse conditions. For regulators and policymakers, the results highlight the
+systemic importance of FinTech–equity and crypto–ledger linkages and the need to inte-
+grate FinTech exposures into macroprudential surveillance to contain volatility spillovers
+and safeguard financial stability.
+Keywords: Bitcoin; fintech returns; stock market; credit risk; quantile regression
+JEL Classification: G32; E44
+1. Introduction
+The infusion of technology into financial services, commonly known as financial
+technology (FinTech), has precipitated a significant transformation in the landscape
+of investment, reaching substantial importance in asset allocation during recent years.
+McKinsey and Company (2023) reports that the aggregate market value of fintech firms,
+public and private, is about $1.5 trillion. In addition, the fintech industry is expected to
+Risks 2025, 13, 246
+https://doi.org/10.3390/risks13120246
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+Risks 2025, 13, 246
+2 of 27
+grow 15% annually, compared to 6% for traditional banking.1 This evolution has attracted
+investors’ attention and reshaped traditional finance paradigms. The core advantages of
+FinTech include enhanced accessibility, increased efficiency, and improved decision-making
+capabilities. The integration of FinTech with investment strategies has the potential to
+democratize access to financial markets, allowing a broader segment of the population
+to participate in investment opportunities. In this paper, we examine the performance of
+Fintech investments and their association with various macroeconomic factors.
+Extant literature on FinTech firms identifies an intricate dynamic affecting this rapidly
+growing sector. Macroeconomic factors such as interest rates, credit risk, cryptocurrency
+prices, and overall market returns are the most relevant determinants of returns in the
+FinTech sector. Interest rates serve as a critical determinant of financial performance
+for FinTech companies, particularly those engaged in lending. As evidenced in Agustin
+(2023), interest rates influence the profitability of FinTech lending operations, where firms
+typically generate revenues through both interest and fees. Furthermore, other investi-
+gations reveal a correlation between interest rates and financial asset prices, implying an
+association between FinTech performance and benchmark interest rates (Khan et al. 2018;
+Iqbal et al. 2022).
+The average level of Credit risk in the economy is another vital factor identified in the
+literature. FinTech firms often leverage technology to assess borrower creditworthiness,
+which can alter traditional risk assessments and, consequently, stock returns. According to
+Chu and Wei (2023), FinTech lending competition impacts both credit access and pricing,
+potentially shifting the market landscape for established financial institutions.
+The integration of blockchain technology and cryptocurrency offerings by FinTech
+companies involves additional complexities in financial markets and increases the com-
+plexity of valuing FinTech firms. Cryptocurrencies often exhibit high volatility (Klein et al.
+2018), influencing investors’ perceptions of risk and return within the FinTech sector. Un-
+derstanding the relationship between conventional financial performance metrics and those
+of cryptocurrency influenced FinTech firms becomes crucial for comprehending broader
+market trends (Indarwati and Widarjono 2021; Iqbal et al. 2021). Studies indicate that
+FinTech firms engaged in cryptocurrency services have become increasingly sensitive to
+macroeconomic shifts due to evolving competition in digital finance and changing risk-
+reward assessments among market participants (Sadorsky 2024; Peltomäki 2025). Overall,
+the current body of literature underscores the intricate interplay between macroeconomic
+factors and FinTech stock performance, illustrating that ongoing research in this domain is
+vital for understanding and navigating the complexities of modern financial ecosystems.
+Our findings display an asymmetric, quantile-dependent, and time-varying relation-
+ship between FinTech indices and traditional financial markets. Spillovers, which can be
+defined as how volatility is transmitted across different indices, are concentrated in the
+distribution tails, with FinTech indices showing strong co-movements with equities and
+Bitcoin under extreme market conditions, while the relationship with U.S. Treasury bonds
+is weaker and often inverse. In addition, S&P-500 returns and Bitcoin act as the primary
+net transmitters of shocks into FinTech indices, whereas Treasury instruments typically
+function as net receivers except during stress periods, when safe-haven flows or heightened
+credit risk temporarily reverse the direction of spillovers. FinTech assets provide diversifi-
+cation benefits only during periods of low volatility yet lose this advantage during crises
+when spillovers from equities and bond markets dominate. FinTech indices align more
+closely with risky growth-oriented assets, particularly equities and cryptocurrencies, under
+adverse shocks.
+This study provides important implications for regulators and policymakers, who
+must acknowledge the systemic significance of FinTech–equity and crypto–ledger linkages.
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+Risks 2025, 13, 246
+3 of 27
+Shocks originating in these markets can rapidly propagate through FinTech channels
+and magnify financial instability. The findings also yield practical insights for portfolio
+managers and investors by highlighting the conditional and state-dependent nature of
+diversification benefits in FinTech assets. Furthermore, this study advances the existing
+literature by explicitly employing the quantile-on-quantile connectedness framework to
+examine risk transmission across fintech and credit markets. While prior studies typically
+rely on mean-based or single-quantile connectedness measures, this approach captures
+how spillovers vary simultaneously across different parts of the return distribution. By
+modeling cross-quantile dependence, the framework provides a more nuanced view of
+shock propagation, particularly under extreme market conditions, thereby addressing an
+important methodological gap in fintech literature.
+The remainder of the paper is structured as follows. Section 2 reviews the relevant
+literature. Section 3 details the data and methodology. Section 4 presents the empirical
+findings and results. Section 5 concludes the study with a discussion of the main findings
+and their policy implications.
+2. Literature Review
+2.1. Credit Markets
+We employ the default risk premium to gauge the condition of the credit market. The
+default risk premium equals the additional yield investors expect from corporate bonds
+as compensation for the risk of default relative to Treasury bonds of the same maturity.
+Gilchrist and Zakrajšek (2012) emphasize that this premium can reflect broader economic
+conditions, influencing investment decisions and firm behavior, including those within the
+fintech sector. Increased default risk premiums often correlate with economic downturns,
+leading to higher costs of borrowing for firms, which can adversely affect their operational
+capabilities and investment strategies. Chava and Purnanandam (2010) examine firm-
+specific credit risk, documenting that higher default risk premiums are associated with
+higher expected stock returns, consistent with the high-risk, high-return relationship.
+For the financial performance of fintech firms, the ramifications can be particularly
+pronounced. This sector is heavily reliant on external financing, and the increasing cost
+of capital due to higher corporate bond yields can hinder growth and scale (Singh and
+Singla 2023). This aligns with Chiu et al. (2018b), who argue that fluctuations in default risk
+premiums can alter the landscape of available financing options, thus impacting overall
+firm performance and market valuations. Elevated credit market risk perceptions typically
+lead to wider credit spreads, resulting in higher borrowing costs (Horobet, et al. 2023).
+Default risk premiums or credit spreads, serve as a direct indicator of credit risk.
+Financial research substantiates that widening credit spreads often result in deteriorations
+in firm returns (Chiu et al. 2018a). For fintech firms, which face additional scrutiny due to
+their unconventional business practices and emerging market positions, the relationship
+between credit spreads and equity returns is especially relevant.
+Credit risk, proxied by the default risk premium, captures the behavior observed in cor-
+porate bond markets. Sharma and Khurana (2025) note that increased perceived economic
+uncertainty, such as during financial crises, often elevates default risk perceptions, widen-
+ing credit spreads. The implications for fintech firms are pronounced, as greater economic
+uncertainty can constrain their access to financing and inflate borrowing costs, limiting
+growth trajectory and profitability, and affecting stock valuations negatively. Anginer and
+Yildizhan (2010) highlight that during periods of economic strain or heightened uncertainty,
+the risk-return dynamics for fintech firms are particularly at risk, as their market valuations
+may suffer from lower investor confidence as well as reduced market liquidity. These
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+Risks 2025, 13, 246
+4 of 27
+dynamics reinforce the significance of monitoring the prevalent degree of credit risk as an
+indicator of broader market trends impacting FinTech companies.
+The relationship between credit market conditions and risk-return profiles of fintech
+companies is underscored by the higher financial risks associated with these firms. Najaf
+et al. (2021) provide evidence that fintech portfolios generally exhibit more financial risk
+compared to traditional finance sectors, correlating this with a higher market valuation.
+As credit conditions tighten, the risks that investors associate with fintech also elevate,
+impacting the return dynamics associated with FinTech investment. Finkelstein-Shapiro
+et al. (2022) highlight that fintech innovations can improve credit access but may also expose
+firms to greater risks if macroeconomic conditions weaken. Zhang (2021) provides evidence
+that Baa-rated corporate bond spreads are influenced by general economic conditions,
+such as interest rates and stock market volatility, which consequently can impact the
+expected stock returns for firms in volatile sectors, including fintech. He establishes that
+fluctuations in credit spreads do affect the stock performance of firms as the market adjusts
+risk expectations based on macroeconomic influences.
+In sum, the prevailing conditions of the credit market, particularly the dynamics of
+default risk premiums, hold substantial sway over the operational landscape for fintech
+firms. These firms encounter a dual challenge: navigating the high-risk perception that
+comes with their business models while also capitalizing on the opportunities arising from
+a changing credit market. Increasing default risk premiums, reflected through widening
+credit spreads, often portend higher borrowing costs and potentially diminished growth
+prospects for fintech firms. Given the expected association between credit spreads and
+the FinTech industry, we empirically test the dynamics between credit risk and the be-
+havior of FinTech stocks’ returns. To our knowledge, our paper is the first to explore this
+research question.
+2.2. Cryptocurrencies
+The behavior of cryptocurrency prices is crucial in shaping the financial performance
+of fintech firms, especially given the increasing integration of cryptocurrencies into the
+broader financial ecosystem. Traditionally perceived as a speculative investment, Abakah
+et al. (2023) and Smales (2019) suggest that these financial assets can serve as a hedge
+against traditional capital market instruments. However, there is a nuanced association
+between cryptocurrencies and the stock market behavior. Extant literature indicates that
+several factors, such as volatility, market sentiment, and investor behavior, influence the
+dynamic relationship between cryptocurrency prices and stock returns. For instance,
+Elroukh (2023) discusses how cryptocurrencies can serve various purposes—such as invest-
+ments, means of payment, and stores of value—making them less sensitive to traditional
+stock market influences, which are more directly impacted by corporate profitability or
+economic conditions.
+Furthermore, the role of market sentiment reflected in Bitcoin pricing is crucial. For
+example, Ghaemi Asl et al. (2021) document that investor sentiment significantly impacts
+Bitcoin’s price, leading to a spillover effect on related assets, including fintech stocks. This
+influence suggests that movements in Bitcoin prices driven by positive or negative market
+sentiment can lead to correlated movements in the stock prices of fintech firms. Specifically,
+when Bitcoin experiences increased demand, it can create investor enthusiasm that extends
+to the broader fintech sector. Conversely, when Bitcoin prices decline, fear and uncertainty
+may negatively affect fintech stock returns. This interconnectedness extends to portfolio
+management implications, especially as cryptocurrencies have emerged as a distinct asset
+class. Abakah et al. (2024) offer insights into the dependence dynamics between Bitcoin,
+fintech stocks, and equity markets in the Asia-Pacific region. Fluctuations in Bitcoin prices
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+Risks 2025, 13, 246
+5 of 27
+appear to correlate with the performance of fintech stocks, creating potential spillover
+effects (Abakah et al. 2024). This necessitates careful consideration in portfolio strategies,
+as volatility in cryptocurrencies can propagate similar volatility in fintech stocks, as iden-
+tified by Aydo˘gan et al. who analyze return and volatility spillovers in their research
+(Aydo˘gan et al. 2022).
+Field and Inci (2023) document that fintech firms holding cryptocurrencies may ex-
+perience shifts in their risk profiles, including adjustments to beta values and overall
+stock returns under varying market conditions. The literature consistently highlights a
+multifaceted relationship between cryptocurrency prices and the stock returns of fintech
+firms, underscoring the importance of this dynamic in shaping their financial performance
+and strategic approaches. Based on this expected relationship, our novel research ques-
+tions empirically explore the effect of bitcoin prices on the risk and returns of firms in the
+FinTech industry.
+2.3. FinTech Performance and the Macroeconomy
+Chan and Ji (2020) find that when interest rates are lower, savers search for alternatives
+to traditional banking that may offer higher rates, hence, boosting the deposits and inflows
+to FinTech firms in the banking area. Similarly, Moro-Visconti (2021) highlights that
+low-interest rates foster an environment conducive to fintech innovations, subsequently
+resulting in increased market participation and greater customer engagement. Furthermore,
+fluctuations in interest rates can negatively impact investor confidence and the allocation
+of capital to fintech ventures, especially during economic downturns characterized by
+widening yield-bond spreads (Kassner 2024). This insight underscores the importance
+of fintech firms developing adaptive strategies to mitigate the adverse effects of interest
+rate volatility.
+Assefa et al. (2017) argue that lower interest rates correlate with higher equity re-
+turns, which aligns with the inverse relationship between discount rates and fundamental
+valuations established in the discounted cash flow model. Similarly, Li et al. (2017) note
+that increased availability of fintech funding, which tends to occur when lending rates are
+lower, closely correlates with the stock returns of incumbent retail banks. This suggests
+that a thriving economic environment benefits both traditional banking and fintech sectors.
+This dynamic interplay between interest rates and their various implications—such as
+lending rates and the cost of capital—enhances our understanding of how fintech firms
+can leverage favorable interest rates and periods of positive stock market performance to
+maximize returns.
+From the perspective of asset pricing models, the behavior of the stock market signif-
+icantly impacts returns across all sectors of the economy, including the fintech industry.
+According to Gil-Corbacho et al. (2023), the returns on fintech stocks are influenced by
+the prevailing state of the economy. Xu et al. (2022) note that during periods of stable
+economic growth, firms within the fintech industry may experience improved access to
+capital, effectively enhancing their market performance. The COVID-19 pandemic has
+notably accelerated digital transformation, significantly influencing the stock returns of
+many fintech firms. Zhang and Tong (2023) document that, in the wake of the pandemic,
+companies like Square and PayPal experienced substantial stock price increases (over 250%
+and 110%, respectively) as digital payment solutions became essential during lockdowns.
+This phenomenon reflects the market’s recognition of fintech companies’ potential amid
+shifting consumer behavior and a growing reliance on digital financial services.
+Understanding the interdependence between traditional financial firms and the fintech
+sector is crucial for analyzing stock performance dynamics, as it reveals how shifts in one
+sector can significantly influence the other. Li et al. (2017) uncover a positive relationship
+
+
+===== ORIGINAL PDF PAGE 6 =====
+Technical extraction; compare with original PDF page 6.
+Risks 2025, 13, 246
+6 of 27
+between fintech funding and incumbent bank stock returns, underscoring how traditional
+financial institutions must adapt to the growing fintech landscape. This interplay sug-
+gests that market conditions influencing traditional financial stocks may similarly affect
+fintech returns, given the increasing convergence of their operational frameworks and
+economic implications.
+In summary, the literature consistently indicates that credit risk, interest rates, cryp-
+tocurrency prices, and stock market returns are critical determinants of fintech firm returns.
+Nevertheless, the literature reveals a complex and multifaceted relationship between over-
+all stock market returns and the performance of the fintech sector, influenced by varying
+factors such as market sentiment, investor behavior, and regional economic conditions.
+Ongoing research is necessary to better recognize the evolving dynamics as the fintech
+sector matures within the global financial market landscape.
+3. Data and Methodology
+3.1. Data
+Our analysis utilizes three primary FinTech indices as the dependent variables: the
+S&P Kensho Distributed Ledger Index (KLDGER), the S&P Kensho Alternative Finance
+Index (KALFIN), and the S&P Kensho Future Payments Index (KPYMNT). The independent
+variables comprise Bitcoin prices (USD), the S&P 500 Total Return Index, the U.S. 10-year
+Treasury benchmark bond yield (USBD10Y), and A-rated U.S. Treasury bonds—the latter
+serving as a proxy for the default risk premium relative to 10-year corporate bonds. A
+comprehensive description of all variables is provided in Table 1.
+Table 1. Description of Indices Used in the Analysis.
+Code
+Full Name
+Description
+KLDGER
+S&P Kensho Distributed Ledger Index
+Measures the performance of companies engaged in the development
+and commercialization of distributed-ledger and
+blockchain technologies.
+KALFIN
+S&P Kensho Alternative Finance Index
+Tracks firms providing innovative and digital-based financial services
+such as peer-to-peer lending, crowdfunding, and online
+wealth management.
+KPYMNT
+S&P Kensho Future Payments Index
+Represents companies offering digital payment platforms,
+transaction-processing technologies, and
+payment-automation solutions.
+BTC.USD
+Bitcoin Price (USD)
+Market price of Bitcoin denominated in U.S. dollars, representing
+cryptocurrency market dynamics.
+SP500TR
+S&P 500 Total Return Index
+Captures the performance of the 500 largest U.S. companies,
+including dividends reinvested.
+USBD10Y
+10-Year U.S. Treasury Bond Yield
+Benchmark yield on U.S. government bonds with a 10-year maturity,
+reflecting the risk-free interest rate.
+Credit Risk
+Corporate Bond Spread
+Defined as the yield spread between A-rated corporate bonds and the
+10-year U.S. Treasury yield, representing default risk premium.
+Note: All the data have been collected through Thomson Reuters Datastream, Yahoo Finance and FRED.
+The dataset employed in this analysis consists of daily observations from 18 May 2018
+to 11 April 2025, a period characterized by several key structural and financial regime
+shifts. The outbreak of the COVID-19 pandemic (2020–2021) dramatically altered global
+financial conditions by accelerating the digital transformation of financial services, re-
+shaping investor behavior, and increasing reliance on remote, technology-driven payment
+and financial platforms. These developments directly impacted the fintech industry and
+cryptocurrency adoption.
+Following the pandemic-induced recession, the global economy entered a period of
+aggressive monetary tightening beginning in early 2022. Major central banks—including
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+Risks 2025, 13, 246
+7 of 27
+the U.S. Federal Reserve—rapidly increased interest rates to combat inflation, resulting
+in reduced liquidity, higher borrowing costs, and heightened uncertainty in financial
+markets. These changes are particularly relevant for digital-finance-related firms that are
+sensitive to capital conditions and innovation funding cycles. Over the same period, the
+cryptocurrency market experienced multiple high-amplitude cycles. The sharp price surge
+during 2020–2021 was followed by significant corrections driven by regulatory actions,
+institutional withdrawals, and speculative unwindings. These fluctuations generated
+substantial volatility spillovers to both traditional markets and fintech-related securities.
+Considering these concurrent structural shifts, the selected period provides an ideal
+context to examine the dynamic interdependence between fintech innovations, cryptocur-
+rency valuations, and macro-financial environments. Incorporating these regime changes
+early in the empirical design ensures better contextualization of our findings and en-
+hances the interpretation of time-varying transmission mechanisms explored in this study.
+To ensure stationarity, all variables were transformed into simple returns, calculated as
+(Pt/Pt−1 −1). The summary of the descriptive statistics for the variables is presented in
+Table 2.
+Table 2. Summary Statistics of Return Series.
+Statistic
+KLDGER
+KALFIN
+KPYMNT
+USBD10Y
+BTC.USD
+SP500TR
+Tbond A
+Mean
+0.0007
+0.0001
+0.0004
+0.0009
+0.0022
+0.0005
+0.0004
+Variance
+0.0014
+0.0004
+0.0003
+0.0012
+0.0017
+0.0002
+0.0007
+Skewness
+0.4622
+−0.1153
+−0.3724
+2.0861
+−0.1806
+−0.3192
+0.4206
+Kurtosis
+2.1836
+2.7182
+5.6526
+41.7339
+7.1571
+13.8792
+1.9922
+JB
+406.354 a
+537.804 a
+2345.969 a
+126824.3 a
+3705.434 a
+13922.034 a
+338.083 a
+ERS
+−14.197 a
+−11.269 a
+−9.588 a
+−14.301 a
+−17.847 a
+−7.931 a
+−18.149 a
+Q(20)
+60.553 a
+78.489 a
+134.99 a
+227.84 a
+49.816 a
+436.21 a
+308.69 a
+Q2(20)
+744.68 a
+1610.2 a
+2085.9 a
+1829.4 a
+107.97 a
+3472.1 a
+837.12 a
+Note: a refers to 1% level. where the JB test is performed to test the normality of the series (Jarque and Bera
+1980). The Elliott, Rothenberg, and Stock (ERS) unit root test is used to test stationarity of the series (Elliott et al.
+1992). The Ljung–Box tests Q(20) and Q2(20) test for autocorrelation in the series and squared series up to 20 lags
+(Ljung and Box 1978).
+According to the results reported in Table 2, the Jarque–Bera (JB) statistics indicate
+that none of the variables follow a normal distribution, which is consistent with the well-
+documented properties of financial time series data. The results further show that the
+excess kurtosis is positive for all variables, suggesting a leptokurtic distribution, with the
+exception of KLDGER and KALFIN, which exhibit platykurtic behavior. Stationarity tests
+based on the Elliott et al. (1992) (ERS) procedure confirm that all variables are stationary,
+thereby making them suitable for further econometric analysis.
+As expected, the highest variance is observed in Bitcoin prices, reflecting the well-
+known volatility of cryptocurrency markets relative to traditional financial assets. In
+addition, the Ljung–Box Q(20) statistics reveal evidence of serial correlation in the squared
+residuals, while the Ljung–Box Q2(20) statistics are highly significant across all series,
+indicating the presence of heteroskedasticity and volatility clustering—a common fea-
+ture in financial return data. These findings suggest that models capable of capturing
+time-varying volatility dynamics, such as GARCH-type specifications, are appropriate for
+further analysis.
+The results of the Kendall correlation matrix reported in Table 3 show that both the
+KLDGER and KALFIN return indices exhibit positive correlations with all variables, with
+the exception of the A-rated Treasury bonds, which display a weak negative association.
+This suggests that FinTech-related indices tend to move in the same direction as traditional
+financial markets and Bitcoin but diverge from safer fixed-income securities.
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+Risks 2025, 13, 246
+8 of 27
+Table 3. Kendall Correlation Matrix of Return Series.
+KLDGER
+KALFIN
+KPYMNT
+USBD10Y
+BTC.USD
+SP500TR
+Tbond A
+KLDGER
+1.000
+0.503
+0.485
+0.063
+0.362
+0.418
+−0.028
+KALFIN
+0.503
+1.000
+0.624
+0.095
+0.213
+0.539
+−0.044
+KPYMNT
+0.485
+0.624
+1.000
+0.049
+0.205
+0.612
+−0.038
+USBD10Y
+0.063
+0.095
+0.049
+1.000
+0.013
+0.090
+−0.316
+BTC.USD
+0.362
+0.213
+0.205
+0.013
+1.000
+0.175
+0.017
+SP500TR
+0.418
+0.539
+0.612
+0.090
+0.175
+1.000
+−0.071
+Tbond A
+−0.028
+−0.044
+−0.038
+−0.316
+0.017
+−0.071
+1.000
+Among the independent variables, the S&P 500 Total Return Index demonstrates the
+strongest correlation with all three FinTech indices (KLDGER, KALFIN, and KPYMNT),
+highlighting the close co-movement between equity markets and FinTech performance. In
+contrast, the 10-year U.S. Treasury benchmark yield (USBD10Y) and Bitcoin prices display
+relatively lower correlation coefficients, reflecting more independent dynamics. Notably,
+the negative correlation between A-rated Treasury bonds and the other variables further
+emphasizes their role as a safe-haven asset that behaves differently from riskier financial
+instruments. As shown in Figure 1, the return plots provide a clear visualization of the
+behavior of all variables over time.
+ 
+Figure 1. Cont.
+
+
+===== ORIGINAL PDF PAGE 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+Risks 2025, 13, 246
+9 of 27
+Figure 1. Return plots for all variables.
+3.2. Methodology
+We have chosen to use the novel methodology introduced by Gabauer and Stenfors
+(2024) in order to understand the connection between quantiles of the fintech variables
+against bitcoin prices, the S&P 500 total return index and A rated treasury bonds along
+with the 10-year U.S. benchmark bond yield returns. This novel technique facilitates
+the assessment of how the extreme values, or tails, of different market distributions are
+interrelated. Specifically, it enables the analysis of whether, and to what extent, tail risk
+originating in one market is transmitted to another. Moreover, it provides insight into the
+connections between different quantiles across different returns, such as the association
+between upper quantiles (right tails) of one market and either the upper or lower quantiles
+(right or left tails) of another; thereby offering a nuanced understanding of asymmetric
+spillovers in extreme market events.
+Before presenting the formal structure of the model, it is useful to briefly clarify
+how the Quantile-on-Quantile VAR (QQ-VAR) connectedness framework differs from
+more traditional approaches used in the financial econometrics’ literature. Traditional
+VAR models examine how shocks effect on average, focusing on the conditional mean
+of returns. These models implicitly assume that spillover mechanisms remain relatively
+stable across different market conditions. However, financial markets often behave very
+differently during severe downturns, high-volatility periods, or extreme positive episodes.
+A mean-based VAR cannot uncover these state-dependent transmission channels.
+In contrast, the QQ-VAR connectedness framework allows both the origin and destina-
+tion of spillovers to vary across the entire return distribution. Instead of estimating a single
+spillover measure for all states of the market, the QQ approach examines how a shock in
+one variable at a specific quantile, such as a large negative return, affects another variable
+at different points in its own distribution. This quantile-on-quantile structure provides a
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+Risks 2025, 13, 246
+10 of 27
+much richer picture of dependence, capturing asymmetries, nonlinearities, tail behaviors,
+and crisis-specific spillover patterns that traditional VAR approaches cannot identify.
+This methodology developed by Gabauer and Stenfors (2024) innovatively extends the
+QQ connectedness method by Chatziantoniou et al. (2021) in order to allow seeing interde-
+pendency between different quantiles. For example, the previous methods would compare
+between direct quantiles as (e.g., τ1 = 0.05 and τ2 = 0.05), however the new methodology is
+able to compare reverse quantile connectedness (e.g., τ1 = 0.05 and τ2 = 0.95).
+The connectedness model uses Quantile Vector Autoregressive (QVAR) model as the
+underlying powerhouse which can be written as,
+zt = µ(τ) + ∑
+p
+j=1 Ωj(τ) zt−j + ut(τ)
+(1)
+zt and zt−1 K × 1 vectors represent the endogenous variables and its lags with τ as
+quantiles for the range [0, 1]. µ(τ) is the conditional mean with K × 1 dimensions. Ωj(τ)
+is the K × K matrix of the coefficients of the models. p refers to the number of lags in
+the model and ut(τ) is the error vector of K × 1 dimensions which also includes a K × K
+variance-covariance matrix denoted as Φ(τ).
+The derivation of the generalized forecast error variance decomposition (GFEVD), as
+proposed by Koop et al. (1996), begins by applying the Wold decomposition theorem; cru-
+cial step in the novel Gabauer and Stenfors (2024) methodology. Through this process, the
+QVAR model is initially reformulated into its quantile vector moving average (QVMA(∞))
+representation, which serves as the foundation for obtaining the GFEVD.
+zt = µ(τ) + ∑
+p
+j=1 Ωj(τ)zt−j + ut(τ) = µ(τ) + ∑
+∞
+i=0 Ai(τ)ut−i(τ)
+(2)
+In this specific equation, Ai(τ) denotes the sequence of quantile-dependent moving-
+average coefficient matrices. Each Ai(τ) captures the dynamic effect of a structural shock
+that occurred i periods earlier and therefore describes how shocks propagate across vari-
+ables over time at a given quantile level τ. Subsequently, the H-step (forecast horizon)
+ahead GFEVD measures the extent to which a shock originating in series j impacts series i,
+as determined by the following expression:
+ϕg
+i←j,τ(H) =
+∑H−1
+h=0 (e′
+iAh(τ)Φ(τ)ej)2
+Φii(τ)∑H−1
+h=0
+
+e′
+iAh(τ)Φ(τ)Ah(τ)′ei
+
+gSOTi←j,τ(H) =
+ϕg
+i←j,τ(H)
+∑k
+j=1 ϕg
+i←j,τ(H)
+(3)
+where ϕg
+i←j,τ(H) mentions the proportion of the H-step-ahead forecast error variance of
+variable i explained by shocks in variable j, at quantile τ, and gSOTi←j,τ(H) mentions the
+generalized version of the H-step-ahead forecast error variance of variable i explained by
+shocks in variable j, at quantile τ. Let ei be a K × 1 zero vector with unity at its i-th position.
+Since the row sum of ϕg
+i←j,τ(H) does not necessarily equal one, normalization is required.
+This is achieved by dividing each element by its respective row sum, resulting in the scaled
+GFEVD (gSOTi←j,τ(H)), as per Diebold and Yilmaz (2012).
+Central to the connectedness methodology of Gabauer and Stenfors (2024), the scaled
+GFEVD provides the means to quantify total directional connectedness both to and from
+other series. The TO connectedness quantifies the influence exerted by a given series
+on the rest of the sample (cf. Equation (4)), while the FROM connectedness measures
+the cumulative effect of all other series on the series of interest (cf. Equation (5)). These
+
+
+===== ORIGINAL PDF PAGE 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+Risks 2025, 13, 246
+11 of 27
+measures, calculated from the scaled GFEVD, offer a systematic approach to assessing the
+direction and magnitude of market interconnectedness.
+Sgen,to
+i→·,τ =
+K
+∑
+k=1, i̸=j
+gSOTj←i,τ
+(4)
+Sgen,from
+i←·,τ
+=
+K
+∑
+k=1, i̸=j
+gSOTi←j,τ
+(5)
+To quantify the net effect of a series within the connectedness framework, the NET
+total directional connectedness is calculated as the difference between the TO and FROM
+measures, as formalized in Equation (6). The TO component indicates the directional impact
+of the series on others, while the FROM component represents the influence exerted by all
+other series on the one in question. Thus, the NET measure captures the balance between
+these two directional effects. Specifically, Sgen,to
+i→·,τ represents the directional generalized
+spillover transmitted from variable i to all other variables at quantile τ. Similarly, Sgen,f rom
+i←·,τ
+represents the directional generalized spillover transmitted from all other variables to
+variable i at quantile τ.
+Sgen,net
+i,τ
+= Sgen,to
+i→·,τ −Sgen,from
+i←·,τ
+(6)
+In the bivariate setting as in this study, a positive value of the NET directional con-
+nectedness measure indicates that series i transmits more shocks to series j than it receives
+from j. Thus, series i functions as a net transmitter of shocks. Conversely, a negative NET
+measure implies that series i receives more shocks from series j than it transmits, thereby
+identifying i as a net receiver of shocks. Equation (7) yields the adjusted Total Connect-
+edness Index (TCI) of Chatziantoniou et al. (2021), which quantifies the overall degree of
+interconnectedness in the system. Higher TCI values indicate greater market-wide risk.
+TCIτ(H) =
+K
+K −1
+K
+∑
+k=1
+Sgen,from
+i←·,τ
+≡
+K
+∑
+k=1
+Sgen,to
+i→·,τ
+(7)
+Primary reason quantile-on-quantile (QQ) connectedness framework is being used for
+this analysis banks on its ability to capture the complex and often asymmetric ways that
+financial and macroeconomic variables interact; not just on average, but at different points
+of their distributions. Unlike the well-known Diebold-Yilmaz (DY) approach developed in
+Diebold and Yılmaz (2014), which looks at average (mean-level) relationships through a
+standard VAR model, the QQ-VAR framework explores how these connections behave in
+the extremes—such as during times of market stress or calm.
+This is particularly important for financial markets, where what happens at the tails,
+the most extreme highs and lows—can reveal risks that are not obvious if we only look
+at average behavior. By examining relationships across a range of quantiles, the QQ
+framework provides us a perspective to help identify the difference between routine
+market movements and those that signal high uncertainty or the onset of a crisis. It enables
+us to pinpoint when markets are more vulnerable to transmitting severe shocks, as opposed
+to just normal fluctuations.
+Furthermore, the QQ-VAR framework is comparatively flexible because it does not
+require the strong distributional or parametric assumptions typically imposed in standard
+time-series models. Unlike methods that rely on specifying a particular volatility process
+such as GARCH-type models, the QQ-VAR does not model conditional variance directly
+and therefore does not assume a fixed form for how volatility evolves over time. Instead, it
+operates across quantiles and allows the dependence structure between variables to vary
+
+
+===== ORIGINAL PDF PAGE 12 =====
+Technical extraction; compare with original PDF page 12.
+Risks 2025, 13, 246
+12 of 27
+throughout the distribution. This enables the model to capture differences in how shocks
+propagate during periods of market stress versus stability, as well as to accommodate
+nonlinearities and potential structural changes that are common in financial data. QQ-VAR
+model does not model the volatility however see the connectedness of return volatility
+among different quantiles between different time series.
+By embracing the diversity of spillover effects throughout the entire distribution—not
+just the center—the QQ-VAR framework gives us a richer and more realistic perception of fi-
+nancial market interconnectedness. This deeper perspective is crucial not only for academic
+research but also for practical tasks like managing risk, designing policy responses, and
+anticipating rare but impactful market events. Building on this methodological foundation,
+the next section presents the empirical results, highlighting how these quantile-specific
+interconnections evolve over time and under different market conditions.
+4. Empirical Findings
+In this section, the empirical results are obtained using a 200-day rolling-window
+Quantile Vector Autoregressive (QVAR) model with a forecast horizon of 20 steps ahead
+(H = 20). The estimations are conducted separately for each bivariate specification, with
+the three FinTech indices serving as dependent variables. This framework allows for the
+investigation of the dynamic interconnections between FinTech performance and bonds
+with varying credit ratings across different quantiles of the return distribution.
+The lag order of the model is set to p = 1, selected according to the Bayesian Information
+Criterion (BIC), which provides a parsimonious specification while ensuring robustness in
+financial time series analysis. The use of a rolling-window approach accounts for potential
+structural breaks, regime shifts, and evolving market dynamics, thereby capturing time-
+varying relationships that may be overlooked in static models.
+From a methodological perspective, the QVAR framework extends the traditional
+VAR by allowing for the modeling of conditional quantiles rather than conditional means.
+This feature is particularly advantageous in financial applications, as it enables the analysis
+of tail dependencies, asymmetric spillovers, and heterogeneous responses across differ-
+ent market states (e.g., bearish, normal, and bullish conditions). Consequently, QVAR
+provides a more comprehensive understanding of the dependence structure and risk trans-
+mission mechanisms between FinTech indices and bond markets compared to mean-based
+linear models.
+4.1. Total Connectedness Indices
+Figure 2 shows the dynamic total connectedness of each FinTech variable with the
+4 independent variables in each bi-variate case. The quantiles range from 0.05 till 0.95
+in gaps of 0.05. Panel on the right shows the total connectedness of KLDGER FinTech
+variable which comprise companies that involve in distributed ledger services and different
+types of U.S. Bonds in with different credit ratings. The middle section shows the total
+connectedness of the KALFIN FinTech variable, which comprises companies that provide
+alternative financing and different types of U.S. Bonds in with different credit ratings.
+Finally, the rightmost column shows the total connectedness of KPYMNTS FinTech variable
+which comprise companies providing products or services for general-purpose platforms
+allowing consumers to transact with a digital balance, and different types of U.S. Bonds in
+with different credit ratings. For reading the graphs, areas of intense connectedness appear
+in dark blue, whereas lighter and near-white tones correspond to minimal interdependence.
+
+
+===== ORIGINAL PDF PAGE 13 =====
+Technical extraction; compare with original PDF page 13.
+Risks 2025, 13, 246
+13 of 27
+KLDGER on each series 
+KALFIN on each series 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 2. Cont.
+
+
+===== ORIGINAL PDF PAGE 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+Risks 2025, 13, 246
+14 of 27
+KPYMNT on each series 
+Figure 2. TCI for all dependent variables on independent series bi-variate cases. Note: Darker cells
+represent higher connectedness. The results are derived from a QVAR(τ1,τ2) model estimated over
+a 200-day rolling window, with the lag order selected as one according to the BIC. Forecasts are
+computed 20 steps ahead. The analysis spans quantiles from 0.05 to 0.95, in increments of 0.05.
+The peak average total connectedness can be seen as 95% with the variables KPYMNT
+and SP500TR between direct quantiles (τ1 = 0.95; τ2 = 0.95). The lowest values come from
+the middle quantiles, suggesting that nonextreme values do not have much interconnect-
+edness. However, the tails of each return are highly connected. Moving deeper into the
+analysis, we will continue analyzing each dependent variable and its connected to each of
+the independent variables.
+Considering the KLDGER variable which includes companies with ledger distribution
+such as blockchain technology, the connectedness with SP500TR and BTC is the highest in
+direct quantiles for both (τ1 = 0.05; τ2 = 0.05 and τ1 = 0.95; τ2 = 0.95). The connectedness
+is slightly higher for SP500TR. The relationship is similar for 10-year benchmark U.S.
+bonds. However, the U.S. treasury bonds of ratings A are quite the opposite which shows
+that inversely related quantile connectedness is slightly greater than the direct quantiles
+(τ1 = 0.05; τ2 = 0.95 and τ1 = 0.95; τ2 = 0.05).
+For the KALFIN index, which represents firms engaged in alternative financing (e.g.,
+peer-to-peer lending, crowdfunding), the connectedness structure largely mirrors that of
+KLDGER. Specifically, SP500TR and BTC exhibit strong direct quantile connectedness,
+highlighting their alignment with riskier asset classes. Meanwhile, A-rated bonds consis-
+tently demonstrate inverse quantile connectedness, again emphasizing a flight-to-quality
+phenomenon during stress conditions. The 10-year benchmark bonds exhibit notable direct
+
+
+===== ORIGINAL PDF PAGE 15 =====
+Technical extraction; compare with original PDF page 15.
+Risks 2025, 13, 246
+15 of 27
+connectedness, suggesting that alternative finance is more exposed to macroeconomic and
+interest rate shocks compared to digital ledger technologies.
+A more distinct pattern emerges for the KPYMNT index, which captures firms provid-
+ing digital payments infrastructure. Here, all bonds exhibit inverse quantile connectedness,
+and the magnitudes are substantially stronger compared to KLDGER and KALFIN. This in-
+dicates that high returns in payment-oriented FinTech companies are associated with lower
+bond returns, reflecting a potential substitution effect between traditional fixed-income
+instruments and payment innovations. The evidence also points toward capital realloca-
+tion dynamics, where investor preferences shift between bond markets and high-growth
+FinTech payment providers, particularly during extreme quantile movements. Conversely,
+SP500TR and BTC maintain strong positive connectedness at direct quantiles, implying
+that the payments segment behaves more like an equity- and crypto-linked growth sector
+than a traditional financial service.
+Taken together, the results highlight several important patterns:
+Asymmetric Connectedness: Stronger connectedness at extreme quantiles underscores the
+nonlinear and tail-dependent nature of FinTech–bond interactions, consistent with financial
+contagion and stress-period co-movement theories.
+Equity and Crypto Alignment: FinTech indices—especially KLDGER and KALFIN—are
+more tightly linked to SP500TR and BTC, suggesting that these sectors behave like growth-
+oriented, high-risk assets rather than defensive investments.
+Bond Market Divergence: The inverse quantile connectedness with A-rated bonds, es-
+pecially for KPYMNT, reflects a flight-to-quality effect and highlights the risk-hedging
+properties of safer fixed-income securities.
+Segment-Specific Dynamics: The payments sector (KPYMNT) shows the strongest diver-
+gence from bond markets, implying that innovations in digital transactions may act as a
+substitute for traditional debt markets from an investor allocation perspective. From a
+portfolio diversification perspective, the findings suggest that FinTech assets, particularly
+payment-related firms, can provide diversification benefits against bond-heavy portfolios,
+but only under normal conditions. In times of stress, however, the strong tail dependence
+indicates that these assets may co-move with equities and cryptocurrencies, thereby limiting
+their safe-haven potential. For policymakers and regulators, the asymmetric relationships
+imply that shocks in the FinTech sector could propagate differently depending on the
+segment—posing greater systemic risks through payment platforms relative to distributed
+ledger or alternative finance firms.
+4.2. Net Directional Connectedness
+Figure 3 illustrates the net directional connectedness across bivariate cases for each
+FinTech index against the independent variables. The trichromatic gradient shows blue
+for positive spillovers (FinTech indices as net transmitters), gold for negative spillovers
+(independent variables as net transmitters), and white for values near zero.
+The figure confirms that BTC and SP500TR consistently emerge as strong net transmit-
+ters, while U.S. Treasury bonds (both A-rated and the 10-year benchmark) tend to act as net
+receivers. Importantly, the KALFIN index exhibits the highest overall transmission inten-
+sity, highlighting the vulnerability of alternative finance firms to external market shocks. In
+contrast, the KPYMNT index shows more asymmetric dynamics, with pronounced inverse
+connectedness against bonds.
+
+
+===== ORIGINAL PDF PAGE 16 =====
+Technical extraction; compare with original PDF page 16.
+Risks 2025, 13, 246
+16 of 27
+KLDGER on each series 
+KALFIN on each series 
+ 
+ 
+ 
+ 
+Figure 3. Cont.
+
+
+===== ORIGINAL PDF PAGE 17 =====
+FORMULA CHECK REQUIRED: original PDF page 17.
+Risks 2025, 13, 246
+17 of 27
+KPYMNT on each series 
+ 
+ 
+ 
+Figure 3. NET for all dependent variables on independent series bi-variate cases. Note: The net
+directional spillover measures across quantiles from a QVAR(τ1,τ2) model estimated over a 200-day
+rolling window, with the lag order selected as one according to the BIC. Forecasts are computed
+20 steps ahead. The analysis spans quantiles from 0.05 to 0.95, in increments of 0.05.
+4.2.1. U.S. 10-Year Benchmark Bonds
+For the 10-year Treasury yields, the results show moderate gold shading in several
+lower quantiles (northwest corners), particularly for KLDGER and KPYMNT, suggesting
+that these bonds often transmit shocks into FinTech sectors when yields are at low levels.
+However, the effects are weaker compared to equities and BTC, implying that benchmark
+rates serve as secondary transmitters.
+4.2.2. Credit Risk
+Credit risk more pronounced negative spillovers (gold zones), especially in the north-
+west quantiles of KLDGER and KALFIN. This indicates that when A-rated bonds experience
+lower quantile returns, they transmit shocks to FinTech indices, reflecting the default risk
+premium channel. At higher quantiles, however, the connectedness often shifts to blue,
+suggesting that FinTech variables can also act as transmitters in bullish bond environments.
+4.2.3. Bitcoin (BTC)
+Contrary to expectations of high volatility, Bitcoin shows moderate but localized
+transmission effects. For KLDGER, BTC transmits positively (blue) in the upper quantiles,
+consistent with their shared technological foundation in blockchain. For KPYMNT, how-
+ever, BTC’s spillovers are weaker, suggesting a less direct link between cryptocurrency and
+digital payment platforms.
+
+
+===== ORIGINAL PDF PAGE 18 =====
+FORMULA CHECK REQUIRED: original PDF page 18.
+Risks 2025, 13, 246
+18 of 27
+4.2.4. S&P 500 Total Return Index (SP500TR)
+The equity market spillovers are by far the strongest. In particular, the KALFIN
+index displays large negative values (deep gold) at (τ1 = 0.275; τ2 = 0.95, indicating that
+SP500TR dominates as a net transmitter into FinTech sectors under bullish conditions.
+Similarly, for KPYMNT, extreme negative values appear in the lower quantiles (−18.3–
+18.3−18.3), reinforcing the dominance of equity markets over payment-based FinTech
+firms. The KLDGER index also receives strong spillovers, though less intense than KALFIN
+or KPYMNT.
+4.2.5. Segment-Specific Insights
+•
+KLDGER (Distributed Ledger Technologies): More sensitive to BTC and SP500TR,
+reflecting blockchain–crypto–equity linkages.
+•
+KALFIN (Alternative Finance): Exhibits the highest connectedness overall, strongly
+influenced by equity markets and moderately by bonds, underscoring its exposure to
+systemic financial risks.
+•
+KPYMNT (Digital Payments): Shows the sharpest negative spillovers from SP500TR,
+suggesting strong competition or substitution effects between equity markets and
+payment innovations.
+4.2.6. The Net Connectedness Analysis Provides Several Key Insights
+1.
+Equity dominance: SP500TR consistently emerges as the strongest net transmitter,
+with especially intense effects on KALFIN and KPYMNT.
+2.
+Crypto–ledger linkage: BTC spillovers are most relevant for KLDGER, consistent with
+blockchain-related interdependencies.
+3.
+Bond asymmetry: Treasury instruments act as conditional transmitters, with A-rated
+bonds transmitting risk premia at lower quantiles, while 10-year benchmark yields
+show more balanced but weaker effects.
+4.
+FinTech heterogeneity: Payment firms (KPYMNT) are more vulnerable to equity
+spillovers, alternative finance (KALFIN) to systemic shocks, and distributed ledger
+firms (KLDGER) to crypto-market dynamics.
+It is noted that Payment-focused FinTech companies exhibit stronger equity depen-
+dence because their underlying business models are fundamentally tied to transaction
+volume, macroeconomic momentum, and investor sentiment, factors that closely track
+equity market cycles. Unlike alternative finance or distributed-ledger firms, whose per-
+formance is shaped by credit conditions or blockchain-specific technological shifts, digital
+payment firms grow primarily by expanding user adoption, merchant integration, and
+platform activity. These drivers accelerate in bullish environments characterized by higher
+consumer spending, increased e-commerce transactions, and strong capital inflows into
+growth-oriented technology sectors. As a result, payment-oriented FinTech behaves like a
+high-beta technology subsector, responding more directly to equity valuations, liquidity
+conditions, and shifts in market-wide risk appetite. The pronounced equity dependence
+also reflects the relative absence of intrinsic hedging mechanisms within payment firms:
+unlike blockchain-related firms that can partially anchor value to crypto-market cycles or
+alternative-finance firms that are linked to credit provisioning, payment companies offer
+services that correlate closely with aggregate economic activity and thus inherit the cyclical
+exposure of equity markets.
+4.2.7. Portfolio Implications
+From an investment perspective, these results highlight important trade-offs for port-
+folio diversification. The fact that equity markets (SP500TR) dominate as net transmitters
+
+
+===== ORIGINAL PDF PAGE 19 =====
+FORMULA CHECK REQUIRED: original PDF page 19.
+Risks 2025, 13, 246
+19 of 27
+implies that FinTech indices provide limited diversification benefits when paired with
+equities, particularly during extreme market conditions. Conversely, the inverse connect-
+edness between FinTech indices and credit risk suggests that high-grade bonds may still
+function as a diversification option against FinTech-related risks, though their effectiveness
+diminishes under stress. The relatively modest transmission from Bitcoin—except toward
+blockchain-related firms—implies that crypto exposure does not always amplify systemic
+risk across the broader FinTech sector. Overall, investors seeking to diversify across FinTech,
+equities, and bonds should recognize the quantile-dependent and asymmetric nature of
+spillovers, as diversification benefits are strongest in moderate regimes but can collapse in
+tail events.
+4.2.8. Dynamically Related Total Connectedness Indices
+Figure 4 plots the time-varying dynamics of direct and reverse Total Connectedness
+Indices (TCI), along with their differences (∆TCI), for each FinTech index against U.S.
+bonds, Bitcoin, and the S&P 500. The results show that distributed ledger firms (KLDGER)
+are persistently dominated by spillovers from Bitcoin, with ∆TCI remaining negative
+during the crypto boom of 2020–2021 and turning sharply more negative during the
+downturn following the FTX collapse in late 2022, reflecting the structural dependence of
+blockchain companies on cryptocurrency cycles. Following the failure of FTX in November
+2022, FinTech indices experienced heightened negative spillovers from Bitcoin, reflecting
+credibility shocks and concerns over digital finance stability. Blockchain-oriented firms
+(KLDGER) were the most exposed due to their technological and sentiment linkage with
+crypto markets.
+Against Treasury bonds, ∆TCI for KLDGER turns negative in early 2020 during the
+COVID-19 outbreak, indicating that bond markets acted as strong net transmitters amid
+a flight-to-safety episode, and again during the Federal Reserve’s tightening cycle of
+2022–2023, underscoring the systemic influence of fixed-income markets during monetary
+policy shocks. During the COVID-19 pandemic (Q1 2020–mid-2021), spillovers from
+Treasury markets and equities into FinTech intensified sharply. This reflects strong flight-
+to-quality behavior and heightened sensitivity of FinTech firms to systemic risk. Digital
+ledger and alternative finance firms were heavily driven by crypto-equity sentiment during
+this stress period. The aggressive rate hikes of 2022–2023 shifted FinTech assets into
+strong net-receiver positions, indicating vulnerability to liquidity constraints and declining
+risk appetite. Spillover dominance from U.S. equity and bond markets highlights the
+dependence of FinTech growth on accommodative monetary conditions.
+The alternative finance index (KALFIN) displays a similar pattern: Treasury markets
+dominated in early 2020, while equity spillovers intensified during the post-pandemic
+recovery, with SP500TR serving as the persistent transmitter after 2020. KALFIN also shows
+more bidirectional spillovers with Bitcoin compared to KLDGER, with ∆TCI fluctuating
+between positive and negative values, suggesting that alternative finance both absorbed
+shocks from crypto markets and transmitted them back during periods of stress. The
+digital payments index (KPYMNT) emerges as the most equity-sensitive, with ∆TCI against
+SP500TR overwhelmingly negative across the sample and reaching extreme values near
+–100 during the COVID-19 shock and again in late 2022, indicating that digital payments
+firms are almost entirely dictated by equity market dynamics. KPYMNT is also strongly
+affected by Treasury spillovers during crises, while Bitcoin spillovers become more pro-
+nounced after 2021 as the crypto cycle reversed. Taken together, the figure demonstrates
+that FinTech indices act as net transmitters only under stable conditions but become net
+receivers during systemic episodes such as the COVID-19 pandemic, the Fed’s rate hikes of
+2022–2023, and the crypto collapse of 2022. These results highlight FinTech’s vulnerability
+
+
+===== ORIGINAL PDF PAGE 20 =====
+Technical extraction; compare with original PDF page 20.
+Risks 2025, 13, 246
+20 of 27
+to external market shocks, with blockchain firms most tied to crypto markets, alternative
+finance to both bonds and equities, and digital payments to equity cycles, limiting their
+potential role as diversifiers during periods of financial instability.
+Figure 4 illustrates the dynamic total connectedness indices—both direct and reverse—
+between the FinTech indices and the selected benchmarks. The left column presents the
+relationships for the KLDGER index, the middle column for KALFIN, and the right column
+for KPYMNT, each paired with the USBD10Y, Tbond A, BTC.USD, and SP500TR series,
+respectively. Periods in which the reverse TCI exceeds the direct TCI correspond to strong
+negative associations between the respective series.
+ 
+ 
+ 
+Figure 4. Cont.
+
+
+===== ORIGINAL PDF PAGE 21 =====
+FORMULA CHECK REQUIRED: original PDF page 21.
+Risks 2025, 13, 246
+21 of 27
+ 
+ 
+Figure 4. Direct and Reverse Total Connectedness Indices, dependent variables on independent
+series bi-variate cases. Note: The dynamic directly and reversely related quantiles total connectedness
+indices are based on a QVAR(τ1,τ2) model estimated over a 200-day rolling window, with the lag
+order selected as one according to the BIC. Forecasts are computed 20 steps ahead. The analysis spans
+quantiles from 0.05 to 0.95, in increments of 0.05.
+Figure 4 illustrates the dynamic total connectedness indices—both direct and reverse—
+between the FinTech indices and the selected benchmarks, with the left, middle, and right
+panels corresponding to KLDGER, KALFIN, and KPYMNT, respectively, each paired with
+the USBD10Y, Tbond A, BTC.USD, and SP500TR series. Periods in which the reverse TCI
+exceeds the direct TCI correspond to strong negative associations, highlighting episodes
+where external markets dominate FinTech dynamics. The relationships with the 10-year
+
+
+===== ORIGINAL PDF PAGE 22 =====
+FORMULA CHECK REQUIRED: original PDF page 22.
+Risks 2025, 13, 246
+22 of 27
+benchmark bonds (USBD10Y) are broadly positive from mid-2018 until around Q2 2022,
+after which alternating phases of positive and negative connectedness emerge. All three
+indices show a pronounced shift into negative correlation territory during Q4 2022, with
+KPYMNT experiencing the steepest decline, followed by a partial recovery in mid-2023,
+another downturn in early 2024, and a rebound into positive territory by Q1 2025. These
+fluctuations suggest that certain FinTech segments—particularly payment technologies—
+are highly sensitive to shifts in long-term yields and broader macro-financial conditions.
+The Spread with A-Corp Bonds series(credit risk) displays a cyclical pattern, with
+moderately positive correlations from mid-2018 through late 2020, a sharp reversal into
+negative territory in early 2021, a rebound peaking in early 2023, and another downturn in
+Q4 2023. By early 2025, correlations are slightly positive for KLDGER and KALFIN, but
+remain marginally negative for KPYMNT, implying that even high-grade credit risk do
+not consistently provide safe-haven properties for FinTech exposures and instead reflect
+shifting monetary policy and risk sentiment. The Bitcoin relationships show predominantly
+positive connectedness with KLDGER and KALFIN, particularly during late 2019 to early
+2020 and again in early 2024, whereas KPYMNT exhibits greater instability, with persistent
+negative associations from mid-2022 through early 2023 and another drop in Q1 2025.
+This divergence indicates that distributed ledger and alternative finance firms tend to
+move in tandem with cryptocurrency markets, while payment-oriented FinTech often
+decouples due to different adoption drivers and regulatory constraints. The SP500TR
+plots reveal consistently strong positive linkages with all three FinTech indices during
+the post-COVID recovery from late 2020 to mid-2021, following an initial dip toward
+negative territory during the onset of the pandemic in March 2020. Toward the end
+of the sample in May 2025, a similar pattern emerges, suggesting that equity market
+dynamics may again reflect recessionary conditions. Overall, the results demonstrate a
+complex and evolving structure of interconnectedness, with positive phases aligning with
+investor optimism and favorable macroeconomic conditions, and negative phases reflecting
+risk aversion, regulatory disruptions, or sector-specific shocks. The heterogeneity across
+KLDGER, KALFIN, and KPYMNT underscores the differentiated exposures within the
+FinTech sector and highlights the implications for diversification, hedging, and monitoring
+cross-market risk transmission during periods of heightened uncertainty.
+The combined evidence from Figures 2–4 highlights the asymmetric, quantile-
+dependent, and time-varying nature of connectedness between FinTech indices and tra-
+ditional asset markets. The total connectedness results (Figure 2) show that spillovers are
+concentrated in the tails, with strong co-movements between FinTech indices, equities, and
+Bitcoin under extreme market conditions, while bond linkages are weaker and often inverse.
+The net connectedness analysis (Figure 3) further reveals that SP500TR and Bitcoin are
+the dominant net transmitters, while Treasury instruments act largely as receivers, except
+during stress episodes when credit risk premia or safe-haven flows reverse the transmission
+channel. The dynamic ∆TCI patterns (Figure 4) add an important temporal dimension,
+showing that FinTech indices act as net transmitters in stable periods but shift into net
+receivers during crises such as the COVID-19 pandemic, the Federal Reserve’s monetary
+tightening cycle of 2022–2023, and the crypto collapse in late 2022. Segmental differences
+are also evident: KLDGER is most sensitive to crypto cycles, KALFIN is influenced by both
+equities and bonds, and KPYMNT is overwhelmingly driven by equity market dynamics.
+Collectively, these findings suggest that FinTech markets are deeply integrated with global
+financial systems, but their exposure channels differ across subsectors, amplifying systemic
+vulnerabilities during stress events.
+Taken together, the empirical evidence reveals a clear and meaningful segmentation
+within the FinTech ecosystem, with each subsector exhibiting a distinct pattern of intercon-
+
+
+===== ORIGINAL PDF PAGE 23 =====
+Technical extraction; compare with original PDF page 23.
+Risks 2025, 13, 246
+23 of 27
+nectedness with equities, bonds, and cryptocurrencies. Distributed-ledger firms (KLDGER)
+display the strongest alignment with Bitcoin and equity markets across both tails of the
+distribution, underscoring their dependence on blockchain-driven sentiment and broader
+risk-on dynamics. Alternative-finance firms (KALFIN) emerge as the most interconnected
+segment overall, absorbing substantial spillovers from SP500TR and, to a lesser extent,
+benchmark bonds; highlighting their heightened sensitivity to systemic market conditions,
+credit-risk premia, and macro-financial shocks. By contrast, payment-technology firms
+(KPYMNT) diverge sharply from bond markets, exhibiting consistently inverse connected-
+ness across quantiles and the most pronounced vulnerability to equity-market spillovers,
+especially during stress episodes. This segment-specific structure implies that while all Fin-
+Tech indices exhibit asymmetric and tail-dependent transmission patterns, the underlying
+channels differ substantively: blockchain firms are predominantly driven by crypto-equity
+cycles, alternative finance responds to both equity and fixed-income shocks, and digital
+payments are overwhelmingly shaped by equity dynamics. These heterogeneous spillover
+pathways highlight the importance of treating FinTech not as a homogeneous asset class but
+as a set of differentiated sectors with unique exposure profiles, systemic risk implications,
+and policy-relevant interdependencies.
+Our findings align with established theories of financial contagion and tail dependence,
+which posit that cross-market linkages intensify under extreme stress conditions. The
+stronger spillovers observed in the lower and upper quantiles confirm tail-dependent shock
+transmission, while the tendency of FinTech indices to transition into net-receiver roles
+during major crises is consistent with contagion dynamics documented in prior literature.
+Moreover, the cyclical behavior of FinTech segments is heterogeneous. Distributed-ledger
+(KLDGER) and alternative-finance firms (KALFIN) behave predominantly as pro-cyclical
+assets, with spillovers from equities and Bitcoin strengthening during periods of elevated
+risk appetite and market expansion. In contrast, digital payment firms (KPYMNT) display
+more counter-cyclical linkages with bond markets in normal conditions, suggesting a
+temporary reallocation of capital toward payment technologies when fixed-income returns
+weaken. However, during systemic stress events such as COVID-19, the Fed tightening
+cycle, or the crypto-market collapse, all FinTech segments become pro-cyclical, thereby
+losing their diversification benefits and acting as net receivers of market shocks.
+In conclusion, while FinTech indices contribute to the expansion and innovation of
+financial markets, their interconnectedness with equities, bonds, and cryptocurrencies limits
+their role as diversification instruments, particularly under tail-risk scenarios. Investors
+should recognize that FinTech assets provide diversification benefits only in tranquil periods
+but lose this advantage during crises when spillovers from equities and bond markets
+dominate. For regulators and policymakers, the results underscore the systemic importance
+of monitoring FinTech–equity and crypto–ledger linkages, as shocks from these markets can
+propagate quickly into FinTech sectors and amplify instability. Moreover, the asymmetric
+behavior of Treasury bonds highlights that safe-haven properties cannot be taken for
+granted, as credit risk and policy-driven shifts can reverse their role. Policymakers should
+therefore integrate FinTech exposures into broader systemic risk assessments, strengthen
+regulatory oversight of crypto–FinTech interactions, and encourage robust risk management
+practices in payment and alternative finance sectors. By recognizing these vulnerabilities,
+both market participants and regulators can better prepare for the potential amplification
+of financial shocks through FinTech channels, ensuring that innovation contributes to
+resilience rather than fragility in global markets.
+
+
+===== ORIGINAL PDF PAGE 24 =====
+FORMULA CHECK REQUIRED: original PDF page 24.
+Risks 2025, 13, 246
+24 of 27
+5. Conclusions and Policy Implications
+The empirical results demonstrate that the connectedness between FinTech indices
+and traditional financial markets is asymmetric, quantile-dependent, and time-varying.
+The total connectedness analysis indicates that spillovers are concentrated in the distribu-
+tion tails, with FinTech indices showing strong co-movements with equities and Bitcoin
+under extreme market conditions, while the relationship with U.S. Treasury bonds is
+weaker and often inverse. The net connectedness findings reveal that the S&P 500 Total
+Return Index and Bitcoin act as the primary net transmitters of shocks into FinTech indices,
+whereas Treasury instruments typically function as net receivers except during stress pe-
+riods, when safe-haven flows or heightened credit risk temporarily reverse the direction
+of spillovers. The dynamic ∆TCI analysis further highlights that FinTech indices serve
+as net transmitters during stable market conditions, but shift into net receivers during
+crises such as the COVID-19 outbreak, the Federal Reserve’s tightening cycle of 2022–2023,
+and the crypto crash following the FTX collapse. Segmental heterogeneity is also evident:
+distributed ledger firms (KLDGER) are most sensitive to cryptocurrency dynamics, alter-
+native finance providers (KALFIN) respond strongly to both equity and bond markets,
+and digital payments firms (KPYMNT) are overwhelmingly influenced by equity mar-
+ket spillovers. These results collectively underscore the dual role of FinTech as both a
+transmitter of shocks under normal conditions and a receiver of systemic stress during
+periods of heightened volatility. Overall, the study emphasizes that FinTech innovation,
+while expanding financial opportunities, also introduces new channels of vulnerability.
+For regulators, the key policy implication is the need to integrate FinTech exposures into
+macroprudential surveillance frameworks, strengthen oversight of crypto–FinTech interac-
+tions, and ensure that risk management practices in FinTech-related firms are sufficiently
+robust to withstand external shocks. For investors, the results highlight the importance of
+recognizing the state-dependent nature of diversification benefits in FinTech, with tranquil
+periods offering opportunities for portfolio enhancement but crises exposing heightened
+co-movement risks. By situating FinTech within the broader financial system rather than as
+an isolated innovation-driven sector, these findings provide a foundation for both scholars
+and policymakers to better understand and mitigate the potential for FinTech to amplify
+systemic instability.
+From a policy perspective, these findings carry important implications for both in-
+vestors and regulators. For investors, the results suggest that FinTech assets provide limited
+diversification benefits in periods of financial stress, as their performance is largely dictated
+by equity and bond market spillovers. While they may offer some diversification poten-
+tial in tranquil conditions, FinTech indices align more closely with risky growth-oriented
+assets, particularly equities and cryptocurrencies, under adverse shocks. For regulators
+and policymakers, the evidence highlights the systemic importance of FinTech–equity
+and crypto–ledger linkages, as shocks originating in these markets can rapidly propagate
+through FinTech channels and amplify financial instability. Moreover, the behavior of
+Treasury bonds demonstrates that even high-grade sovereign debt does not consistently
+act as a safe haven for FinTech exposures, as monetary policy shifts and changes in credit
+risk premia can alter the transmission mechanism. These results underscore the need for
+integrating FinTech exposures into systemic risk assessments, strengthening oversight of
+FinTech–crypto interactions, and developing macroprudential tools to address volatility
+spillovers. By recognizing these vulnerabilities, regulators can better mitigate contagion
+risks while ensuring that FinTech innovation contributes to the stability and resilience of
+global financial markets.
+Despite its contributions, this study is not without limitations. First, the analysis is
+restricted to three S&P Kensho FinTech indices, which, although representative of dis-
+
+
+===== ORIGINAL PDF PAGE 25 =====
+Technical extraction; compare with original PDF page 25.
+Risks 2025, 13, 246
+25 of 27
+tributed ledger technologies, alternative finance, and digital payments, do not capture the
+full breadth of the rapidly evolving FinTech ecosystem, such as insurtech, robo-advisory,
+or decentralized finance (DeFi). Second, the focus on daily data from 2018–2025 provides
+valuable insights into recent market dynamics, but longer historical datasets would allow
+for a deeper assessment of structural changes across different monetary policy regimes
+and crisis episodes. Third, while the quantile-based connectedness framework effectively
+captures nonlinear and tail-dependent spillovers, incorporating higher-dimensional mod-
+els such as panel QVAR or network-based connectedness measures could further enrich
+the understanding of cross-market interactions. Future research could expand the scope
+by including a wider set of FinTech subsectors, examining cross-country comparisons to
+explore the role of institutional and regulatory environments, and assessing how emerging
+technologies such as central bank digital currencies (CBDCs) and tokenized assets may
+reshape FinTech–market linkages. By addressing these avenues, future studies can build
+on the current findings to provide a more comprehensive picture of FinTech’s role in global
+financial stability.
+Author Contributions: M.S.K.: Conceptualization, methodology, validation, formal analysis, review
+and editing, visualization. O.E.: Conceptualization, writing, original draft preparation, data curation.
+N.M.W.: data curation, methodology, validation, review and editing. All authors have read and
+agreed to the published version of the manuscript.
+Funding: This research received no external funding.
+Data Availability Statement: The data used in the article can be made available upon request and
+written authorization from the data providers due to their proprietary restrictions.
+Use of Artificial Intelligence: During the preparation of this work, the authors used Chat GPT
+(OpenAI) to assist with sentence structure refinement and to check for spelling and grammatical
+errors. After using this tool/service, the authors reviewed and edited the content as needed and take
+full responsibility for the content of the publication.
+Conflicts of Interest: The authors declare no conflict of interest.
+Note
+1
+https://www.mckinsey.com/industries/financial-services/our-insights/fintechs-a-new-paradigm-of-growth, accessed on 22
+August 2025.
+References
+Abakah, Emmanuel Joel Aikins, Aviral Kumar Tiwari, Sudeshna Ghosh, and Buhari Do˘gan. 2023. Dynamic effect of Bitcoin, fintech
+and artificial intelligence stocks on eco-friendly assets, Islamic stocks and conventional financial markets: Another look using
+quantile-based approaches. Technological Forecasting and Social Change 192: 122566. [CrossRef]
+Abakah, Emmanuel Joel Aikins, Nader Trabelsi, Aviral Kumar Tiwari, and Samia Nasreen. 2024. Bitcoin, Fintech stocks and Asian
+Pacific equity markets: A dependence analysis with implications for portfolio management. The Journal of Risk Finance 25: 792–839.
+[CrossRef]
+Agustin, Grisvia. 2023. The Rise of Financial Technology and Its Credit Risk in Indonesia. International Journal of Accounting and Finance
+in Asia Pasific 6: 98–109. [CrossRef]
+Anginer, Deniz, and Celim Yildizhan. 2010. Is There a Distress Risk Anomaly?: Corporate Bond Spread as a Proxy for Default Risk.
+Development Research Group, Finance and Private Sector Development Team. Washington, DC: World Bank. [CrossRef]
+Assefa, Tibebe A., Omar A. Esqueda, and André Varella Mollick. 2017. Stock returns and interest rates around the World: A panel data
+approach. Journal of Economics and Business 89: 20–35. [CrossRef]
+Aydo˘gan, Berna, Gülin Vardar, and Caner Taço˘glu. 2022. Volatility spillovers among G7, E7 stock markets and cryptocurrencies. Journal
+of Economic and Administrative Sciences 40: 364–87. [CrossRef]
+Chan, Stephanie, and Yang Ji. 2020. Do interest rate liberalization and fintech mix? Impact on shadow deposits in China. China &
+World Economy 28: 4–22. [CrossRef]
+
+
+===== ORIGINAL PDF PAGE 26 =====
+Technical extraction; compare with original PDF page 26.
+Risks 2025, 13, 246
+26 of 27
+Chatziantoniou, Ioannis, David Gabauer, and Alexis Stenfors. 2021. Interest rate swaps and the transmission mechanism of monetary
+policy: A quantile connectedness approach. Economics Letters 204: 109891. [CrossRef]
+Chava, Sudheer, and Amiyatosh Purnanandam. 2010. Is Default Risk Negatively Related to Stock Returns? The Review of Financial
+Studies 23: 2523–59. [CrossRef]
+Chiu, Tzu-Ting, Yuyan Guan, and Jeong-Bon Kim. 2018a. The Effect of Risk Factor Disclosures on the Pricing of Credit Default Swaps.
+Contemporary Accounting Research 35: 2191–224. [CrossRef]
+Chiu, Wan-Chien, Chih-Wei Wang, and Juan Ignacio Peña. 2018b. Does the source of debt financing affect default risk? Review of
+Financial Economics 36: 232–51. [CrossRef]
+Chu, Yinxiao, and Jianxing Wei. 2023. Fintech Lending and Credit Market Competition. Journal of Financial and Quantitative Analysis
+59: 2199–225. [CrossRef]
+Diebold, Francis X., and Kamil Yilmaz. 2012. Better to give than to receive: Predictive directional measurement of volatility spillovers.
+International Journal of Forecasting 28: 57–66. [CrossRef]
+Diebold, Francis X., and Kamil Yılmaz. 2014. On the network topology of variance decompositions: Measuring the connectedness of
+financial firms. Journal of Econometrics 182: 119–34. [CrossRef]
+Elliott, Graham, Thomas Rothenberg, and James Stock. 1992. Efficient Tests for an Autoregressive Unit Root. Cambridge: National Bureau
+of Economic Research. [CrossRef]
+Elroukh, Ahmed W. 2023. Does banning cryptocurrencies affect stock markets? Studies in Economics and Finance 41: 998–1011. [CrossRef]
+Field, Jack, and A. Can Inci. 2023. Risk translation: How cryptocurrency impacts company risk, beta and returns. Journal of Capital
+Markets Studies 7: 5–21. [CrossRef]
+Finkelstein-Shapiro,
+Alan,
+Federico S. Mandelman,
+and Victoria Nuguer.
+2022.
+Fintech Entry,
+Firm Financial In-
+clusion, and Macroeconomic Dynamics in Emerging Economies.
+IDB Working Paper Series.
+Available online:
+https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4221531 (accessed on 29 August 2025).
+Gabauer, David, and Alexis Stenfors. 2024. Quantile-on-quantile connectedness measures: Evidence from the US treasury yield curve.
+Finance Research Letters 60: 104852. [CrossRef]
+Ghaemi Asl, Mahdi, Muhammad Mahdi Rashidi, and Seyed Ali Hosseini Ebrahim Abad. 2021. Emerging digital economy companies
+and leading cryptocurrencies: Insights from blockchain-based technology companies. Journal of Enterprise Information Management
+34: 1506–50. [CrossRef]
+Gilchrist, Simon, and Egon Zakrajšek. 2012. Credit Spreads and Business Cycle Fluctuations. American Economic Review 102: 1692–720.
+[CrossRef]
+Gil-Corbacho, Azahara, María Mar Miralles-Quirós, and José Luis Miralles-Quirós. 2023. Stock market performance differences
+between fintech and traditional financial firms. Studies of Applied Economics 41. [CrossRef]
+Horobe¸t, Alexandra, Irina Mnohoghitnei, Lucian Bela¸scu, and Ionut, Marius Croitoru. 2023. ESG Reporting and Capital Market
+Investors: Insights from the Global Technology and Fintech Industries. Studies in Business and Economics 18: 178–95. [CrossRef]
+Indarwati, Septiana, and Agus Widarjono. 2021. The Determinant of Indonesian Stock Returns’ Volatility: Evidence from Islamic and
+Conventional Stock Market. Shirkah: Journal of Economics and Business 6: 277–96. [CrossRef]
+Iqbal, Muhammad, Arianto Muditomo, and Alindha Farezha. 2022. The Existence of Islamic Fintech in Encouraging National Economic
+Growth. Jurnal Ilmiah Ekonomi Islam 8: 3145–52. [CrossRef]
+Iqbal, Muhammad, Prameswara Samofa Nadya, and Saripudin Saripudin. 2021. Islamic Fintech Growth Prospects in Accelerating
+MSMEs Growth during the COVID-19 pandemic: Evidence in Indonesia. International Journal of Islamic Economics and Finance
+Studies 7: 126–40. [CrossRef]
+Jarque, Carlos M., and Anil K. Bera. 1980. Efficient tests for normality, homoscedasticity and serial independence of regression residuals.
+Economics Letters 6: 255–59. [CrossRef]
+Kassner, Andreas Joel. 2024. Factors influencing investment into PropTech and FinTech—Only new rules or a new game? Journal of
+European Real Estate Research 17: 395–411. [CrossRef]
+Khan, Muhammad Tahir, Asaf Khan, Adnan Ahmad, and Obaid Ullah Bashir. 2018. Impact of Macroeconomic Factors on Stock Returns
+of KSE 100 Index. Journal of Business & Tourism 4: 133–45. [CrossRef]
+Klein, Tony, Hien Pham Thu, and Thomas Walther. 2018. Bitcoin is not the New Gold—A comparison of volatility, correlation, and
+portfolio performance. International Review of Financial Analysis 59: 105–16. [CrossRef]
+Koop, Gary, M. Hashem Pesaran, and Simon M. Potter. 1996. Impulse response analysis in nonlinear multivariate models. Journal of
+Econometrics 74: 119–47. [CrossRef]
+Li, Yinqiao, Renée Spigt, and Laurens Swinkels. 2017. The impact of FinTech start-ups on incumbent retail banks’ share prices. Financial
+Innovation 3: 26. [CrossRef]
+Ljung, M. Greta, and George E. P. Box. 1978. On a measure of lack of fit in time series models. Biometrika 65: 297–303. [CrossRef]
+
+
+===== ORIGINAL PDF PAGE 27 =====
+Technical extraction; compare with original PDF page 27.
+Risks 2025, 13, 246
+27 of 27
+McKinsey and Company. 2023. Fintechs: A New Paradigm of Growth. New York: McKinsey and Company, October 24. Available online:
+https://www.mckinsey.com/industries/financial-services/our-insights/fintechs-a-new-paradigm-of-growth (accessed on 22
+August 2025).
+Moro-Visconti, Roberto. 2021. FinTech Valuation. In Handbook of Digital Finance and Financial Inclusion. Amsterdam: Elsevier, pp. 245–79.
+[CrossRef]
+Najaf, Khakan, Christophe Schinckus, and Liew Chee Yoong. 2021. VaR and market value of Fintech companies: An analysis and
+evidence from global data. Managerial Finance 47: 915–36. [CrossRef]
+Peltomäki, Jarkko. 2025. The Fintech Sector as an Investment: Old Wine in a New Bottle? Economic Notes 54: e70011. [CrossRef]
+Sadorsky, Perry. 2024. Using Precious Metals to Reduce the Downside Risk of FinTech Stocks. FinTech 3: 537–50. [CrossRef]
+Sharma, Meena, and Sakshi Khurana. 2025. Impact of Effective Generic Business Strategies on Probability of Default: A Study of NSE
+Listed Firms. NMIMS Management Review 33: 29–39. [CrossRef]
+Singh, Gurmeet, and Ravi Singla. 2023. Default Risk and Stock Returns: Evidence from Indian Corporate Sector. Vision: The Journal of
+Business Perspective 27: 347–59. [CrossRef]
+Smales, Lee A. 2019. Bitcoin as a safe haven: Is it even worth considering? Finance Research Letters 30: 385–93. [CrossRef]
+Xu, Lei, Qian Liu, Bin Li, and Chen Ma. 2022. Fintech business and firm access to bank loans. Accounting & Finance 62: 4381–421.
+[CrossRef]
+Zhang, Wenqi. 2021. Explain the Determinants of Credit Spreads in the US. Open Journal of Business and Management 9: 775–94.
+[CrossRef]
+Zhang, Ying, and Zixin Tong. 2023. Comparing the ARIMA and LSTM Models on the Stock Price of FinTech Companies. Academic
+Journal of Business & Management 5: 38–43. [CrossRef]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.
+

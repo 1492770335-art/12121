@@ -1,0 +1,1744 @@
+# Longitudinal mediation analysis of time-to-event endpoints in the presence of competing risks
+
+Original PDF: [original.pdf](original.pdf). SHA256: `9108275f22f48d2a14bc7bc81ad34bd03cdd60a94a05475ff8931cb6541bdb0a`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+Technical extraction; compare with original PDF page 1.
+
+````text
+Received: Added at production
+Revised: Added at production
+Accepted: Added at production
+DOI: xxx/xxxx
+RESEARCH ARTICLE
+Longitudinal mediation analysis of time–to–event endpoints in
+the presence of competing risks
+Tat-Thang Vo*1,2 | Hilary Davies-Kershaw3 | Ruth Hackett4 | Stijn Vansteelandt1,5
+1Department of Applied Mathematics,
+Computer Science and Statistics, Ghent
+University, Ghent, Belgium
+2Université de Paris, CRESS, INSERM,
+INRA, Paris, France
+3Department of Population Health, London
+School of Hygiene and Tropical Medicine,
+London, UK
+4Health Psychology Section, Department of
+Psychology, King’s College London,
+London, UK
+5Department of Medical Statistics, London
+School of Hygiene and Tropical Medicine,
+London, UK
+Correspondence
+*Tat-Thang Vo, Department of Applied
+Mathematics, Computer Science and
+Statistics, Ghent University, Krijgslaan 281,
+S9, Ghent 9000, Belgium. Email:
+TatThang.Vo@ugent.be
+Summary
+This proposal is motivated by an analysis of the English Longitudinal Study of Age-
+ing (ELSA), which aims to investigate the role of loneliness in explaining the negative
+impact of hearing loss on dementia. The methodological challenges that complicate
+this mediation analysis include the use of a time-to-event endpoint subject to com-
+peting risks, as well as the presence of feedback relationships between the mediator
+and confounders that are both repeatedly measured over time. To account for these
+challenges, we introduce natural eﬀect proportional (cause-speciﬁc) hazard mod-
+els. These extend marginal structural proportional (cause-speciﬁc) hazard models to
+enable eﬀect decomposition. We show that under certain causal assumptions, the
+path-speciﬁc direct and indirect eﬀects indexing this model are identiﬁable from the
+observed data. We next propose an inverse probability weighting approach to esti-
+mate these eﬀects. On the ELSA data, this approach reveals little evidence that the
+total efect of hearing loss on dementia is mediated through the feeling of loneliness,
+with a non-statistically signiﬁcant indirect eﬀect equal to 1.012 (hazard ratio (HR)
+scale; 95% conﬁdence interval (CI) 0.986 to 1.053).
+KEYWORDS:
+Longitudinal mediation analysis, Natural eﬀect model, Inverse weighting, Survival outcome
+1
+INTRODUCTION
+This article is motivated by an analysis of the English Longitudinal Study of Ageing, a longitudinal cohort study of individuals
+aged 50 and older living in the community in England1,2, which follows participants biennially since 2002/03. In previous studies,
+it was shown that both self-reported hearing loss and loneliness are signiﬁcantly associated with a higher risk of dementia2,3,4.
+The question of interest, which we shall address here, is whether loneliness mediates the impact of hearing loss on incident
+physician-diagnosed dementia.
+The focus on time-to-event endpoints (dementia) complicates the planned mediation analysis. It renders the popular diﬀerence-
+and product-of-coeﬃcient methods inappropriate5,6,7, necessitating the use of more complex causal mediation analysis methods.
+While such methods have been developed for the analysis of time-to-event endpoints, most ignore that the mediator is not
+assessed at baseline and that subjects may therefore experience the event prior to the mediator being assessed8,9,10. Further
+complications arise from the mediator, loneliness, being repeatedly measured. While useful to better capture mediation via the
+entire longitudinal mediator process11, this also gives rise to complex time-varying confounding patterns whereby mediators
+0Abbreviations: ANA, anti-nuclear antibodies; APC, antigen-presenting cells; IRF, interferon regulatory factor
+arXiv:2007.03288v1  [stat.ME]  7 Jul 2020
+
+````
+
+## PDF page 2
+
+FORMULA CHECK REQUIRED: original PDF page 2.
+
+````text
+2
+Vo ET AL
+(e.g. loneliness) and confounders (e.g. comorbidities) mutually inﬂuence each other over time. These complications have been
+addressed in a number of recent works12,13,11.
+A further complication that we must consider, and that we have not previously found being addressed in the literature, is
+the presence of competing risks by death. With observed - as opposed to counterfactual - event times, the modelling of cause-
+speciﬁc hazards is well known to simplify the handling of competing risks. However, the modelling of (cause-speciﬁc) hazards
+is not readily possible in the previous mediation analysis works12,13,11, which instead focus on the analysis of survival chances.
+In view of this, in this paper, we will here introduce so-called natural eﬀect proportional (cause-speciﬁc) hazard models, which
+directly parameterise the direct and indirect eﬀects of a given exposure on the cause-speciﬁc hazard of the considered event.
+We will extend the weighting-based approach proposed by Mittinty and Vansteelandt14 for longitudinal natural eﬀect models to
+enable the planned mediation analysis of an exposure via repeatedly measured mediators on a time-to-event endpoint subject to
+competing risks.
+We proceed as follows. In the next section, we ﬁrst describe the setting of interest. We then extend the natural eﬀect propor-
+tional hazard model to take into account the longitudinal nature of the mediator. In the same section, we discuss the assumptions
+under which the path-speciﬁc direct and indirect eﬀects derived from such model are identiﬁable from data, and provide a step-
+by-step procedure for estimating these eﬀects. In section 3, we apply the proposed approach to analyze data from the English
+Longitudinal Study of Ageing1,2. We end with some ﬁnal remarks and a discussion.
+2
+PROPOSAL
+2.1
+Natural Eﬀect Models for longitudinal mediators and a time-to-event endpoint subject to
+competing risks
+Consider an observational study in which independent individuals 푖= 1, … , 푛are exposed to a categorical factor 퐴푖coded as
+0, 1, … , 푃−1 for 푃diﬀerent categories. Longitudinal measurements of the mediator 푀푖0, 푀푖1 … , 푀푖퐾and of the covariates
+퐿푖0, 퐿푖1 … , 퐿푖퐾are subsequently recorded at baseline (subscript 0) and at visits 1, … , 퐾, along with (i) a time-to-event endpoint
+푇푖and (ii) an index 퐷푖specifying whether the main event (퐷푖= 1) or the competing one (퐷푖= 2) happens. Denote 푡푘, 푘= 1 … 퐾
+the ﬁxed time point after the onset of the exposure at which the measurements of 푀푘and 퐿푘are pre-planned for all patients.
+Assume that these measurements are only recorded until the last visit 퐾or until event 퐷푖= 1 or 퐷푖= 2 happens, whichever
+comes ﬁrst. The time-to-event endpoint may be censored administratively or due to loss to follow-up, in which case 퐷푖= 0.
+The causal diagram in ﬁgure 1 depicts the relationships between the variables over time. It also represents a non-parametric
+structural equation model with independent errors. In the diagram, 퐿푘includes the indicator 퐼(푇≥푡푘) of having survived visit
+푘. Throughout, we will denote the history of measurements up to visit 푘using a bar, i.e. 푀푘= (푀0, 푀1, … 푀푘).
+To deﬁne the direct and indirect eﬀects of interest, we will make use of so-called path-speciﬁc eﬀects, expressed as a (cause-
+speciﬁc) hazard ratio. In particular, we deﬁne the counterfactual variables 푇푎,푎∗and 퐷푎,푎∗as the time to the main or competing
+event (whichever comes ﬁrst) and the corresponding event index that would be observed if the exposure 퐴were set to 푎and the
+mediator levels changed to the levels that we would have seen if the exposure were set to 푎∗and the levels of the time-varying
+confounders were as observed under this joint intervention on 퐴and 푀퐾, respectively. The total causal eﬀect (TE) on the cause-
+푗-speciﬁc hazard when the exposure changes from 푎to 푎∗is then expressed as 퐻푅푗
+푇퐸=
+휆푗
+푎∗,푎∗(푡)
+휆푗
+푎,푎(푡) , which can be decomposed
+into the direct eﬀect (DE) 퐻푅푗
+퐷퐸=
+휆푗
+푎∗,푎(푡)
+휆푗
+푎,푎(푡) and the indirect eﬀect (IE) 퐻푅푗
+퐼퐸=
+휆푗
+푎∗,푎∗(푡)
+휆푗
+푎∗,푎(푡) , where 퐻푅푗
+푇퐸= 퐻푅푗
+퐼퐸× 퐻푅푗
+퐷퐸.
+The indirect eﬀect 퐻푅푗
+퐼퐸hence reﬂects the part of the treatment eﬀect (on the cause-푗-speciﬁc hazard) that is mediated via the
+pathways 퐴→푀푘→… →푇, where 푘= 1, 2, …. These pathways start from the treatment 퐴and go directly to one of the
+mediator levels before getting to the event time 푇by any intermediate path. In contrast, the direct eﬀect 퐻푅푗
+퐷퐸reﬂects the part
+of the treatment eﬀect (on the cause-푗-speciﬁc hazard) that does not go through any of the above pathways.
+We are now ready to deﬁne the cause–푗–speciﬁc natural eﬀect proportional hazard model, accounting for longitudinal
+mediators, as follows:
+휆푗
+푎,푎∗(푡) = 휆푗
+0(푡)푒훼1푗푎+훼2푗푎∗
+(1)
+for all 푎, 푎∗, where 휆푗
+0(푡), 훼1푗and 훼2푗are unknown. Under model (1), the total, direct and indirect eﬀect can be expressed on the
+hazard ratio scale as 퐻푅푗
+푇퐸= 푒(훼1푗+훼2푗)(푎∗−푎); 퐻푅푗
+퐼퐸= 푒훼2푗(푎∗−푎) and 퐻푅푗
+퐷퐸= 푒훼1푗(푎∗−푎), respectively. To assess the possibility
+
+````
+
+## PDF page 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+Vo ET AL
+3
+퐴
+푀1
+푀2
+...
+푀⌊푡⌋
+푇
+퐿0
+퐿1
+퐿2
+...
+퐿⌊푡⌋
+푈푙
+푈푚
+FIGURE 1 Causal diagram. 푈푙: unmeasured confounders aﬀecting 퐿and (푇, 퐷). 푈푚: unmeasured confounders aﬀecting
+diﬀerent measurements of 푀over time
+of mediator-exposure interaction, one can alternatively consider model:
+휆푗
+푎,푎∗(푡) = 휆푗
+0(푡)푒훼1푗푎+훼2푗푎∗+훼3푗푎.푎∗
+(2)
+Under model (2), the total causal eﬀect on the hazard ratio scale is expressed as 퐻푅푗
+푇퐸= 푒(훼1푗+훼2푗+훼3푗(푎∗+푎)))(푎∗−푎) and is decom-
+posed into the indirect eﬀect 퐻푅푗
+퐼퐸= 푒(훼2푗+훼3푗푎)(푎∗−푎) and the direct eﬀect 퐻푅푗
+퐷퐸= 푒(훼1푗+훼3푗푎∗)(푎∗−푎). Finally, note that other
+models for survival outcomes, such as the Aalen model, can also be extended to the current context.
+2.2
+Estimation
+To estimate the parameters in model (1), we will assume that the set of baseline covariates 퐿0 is suﬃcient to control for con-
+founding of the relationship between 퐴and (푇, 퐷), as well as between 퐴and 푀푡at any time. Besides, we assume there are no
+unmeasured confounders of the relationship between the time-to-event outcome and the mediator at any time. In ﬁgure 1, the
+latter assumption is satisﬁed since conditioning on the exposure 퐴and the history of the time-varying confounder 퐿up to time
+푡is suﬃcient to adjust for confounding of the relationship between the time-to-event outcome 푇and the mediator level at time 푡.
+Our development allows for the presence of unmeasured common causes of the mediators over time (i.e. denoted 푈푚in ﬁgure 1)
+and separate, independent unmeasured common causes of the baseline/time-varying confounders and the survival time (푇, 퐷)
+(i.e. denoted 푈푙).
+In what follows, we generalize the standard estimation procedure for the popular marginal strutural models to ﬁt models (1)
+and (2). For this, we make the assumption that censoring is non-informative, in the sense that at any time, the instantaneous risk
+of the event among patients who then drop out of the study is not diﬀerent (at all future times) from that of patients who remain,
+conditional on the exposure level. Under the aforementioned assumptions, Appendix 1 shows that consistent estimators of the
+parameters indexing model (1) can be obtained by solving the estimating equation:
+
+````
+
+## PDF page 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+4
+Vo ET AL
+∞
+∫
+0
+∑
+푖,푎,푎∗
+⎧
+⎪
+⎨
+⎪⎩
+( 푎
+푎∗
+)
+−
+∑
+푎,푎∗̂ 퐸
+[( 푎
+푎∗
+)
+푅푗
+푖(푡)푊푖(⌊푡⌋, 푎, 푎∗)푒훼1푗푎+훼2푗푎∗]
+∑
+푎,푎∗̂ 퐸
+[
+푅푗
+푖(푡)푊푖(⌊푡⌋, 푎, 푎∗)푒훼1푗푎+훼2푗푎∗]
+⎫
+⎪
+⎬
+⎪⎭
+⋅
+⋅푅푗
+푖(푡)푊푖(⌊푡⌋, 푎, 푎∗)
+(
+푑푁푗
+푖(푡) −휆푗
+0(푡)푒훼1푗푎+훼2푗푎∗)
+= 0
+where 푅푗
+푖(푡) = 퐼(푇푖≥푡, 퐷푖= 푗); 푑푁푗
+푖(푡) = 퐼(푇푖= 푡, 퐷푖= 푗) and 퐼(.) denotes the indicator function. Besides,
+푊푖(⌊푡⌋, 푎, 푎∗) =
+∏
+푠∶푡푠≤⌊푡⌋Pr(푀푠,푖|퐴푖= 푎∗, 푀푠−1,푖, 퐿푠,푖, 푇푖≥푡푠)
+∏
+푠∶푡푠≤⌊푡⌋Pr(푀푠,푖|퐴푖= 푎, 푀푠−1,푖, 퐿푠,푖, 푇푖≥푡푠)
+×
+퐼(퐴푖= 푎)
+Pr(퐴푖= 푎|퐿0,푖)
+denotes the weight of individual 푖at time 푡and at exposure levels 푎and 푎∗. The second component of the weight ensures that
+the exposure-outcome association is adjusted for confounding by 퐿0. It creates a pseudo-population in which the exposure is
+no longer associated with 퐿0 and hence removes confounding by 퐿0
+15. The ﬁrst component of the weight then distinguishes
+between the direct and indirect paths by correcting for the fact that the observed mediator value at each time point before 푡may
+diﬀer from the counterfactual value that is of interest at that time. Note that the notation ⌊푡⌋here is slightly diﬀerent from its
+standard deﬁnition, to take into account the fact that if a patient experiences an event or leaves the study at time 푡= 푡푘of visit
+푘, no measurement of 푀푘and 퐿푘is possible at that time. More precisely,
+⌊푡⌋=
+{
+푡푘−1 if
+푡= 푡푘
+푡푘
+if
+푡푘< 푡< 푡푘+1
+where 푘= 1, … , 퐾. From this, the ﬁtting procedure is described as follows:
+Step 1– Postulate and ﬁt a suitable model for the exposure 퐴conditional on the baseline confounders (퐿0) based on the
+original data set. For instance, a multinomial logistic model can be used for a categorical exposure with 푃possible values:
+log Pr(퐴= 푎|퐿0 = 푙0)
+Pr(퐴= 0|퐿0 = 푙0) = 훽0,푎+ 훽1,푎푙0,
+(3)
+where 푎= 1, … , 푃−1 and Pr(퐴= 0|퐿0 = 푙0) = 1∕(1 + ∑푃−1
+푎=1 푒훽0,푎+훽1,푎푙0).
+Step 2– Convert the original dataset to a long or counting-process format, in which the observation period [0, 푡푖] of subject
+푖is broken into ⌊푡푖⌋+ 1 intervals if 푡푖> ⌊푡푖⌋> 푡1, into 푡푖intervals if 푡푖= ⌊푡푖⌋> 푡1 and is kept unchanged if ⌊푡푖⌋< 푡1. Each
+interval 푘will have the following information encoded:
+(a) The beginning of the interval, which equals the time 푡푘−1 of visit 푘−1, with 푡0 = 0.
+(b) The end of the interval, which equals the time 푡푘of visit 푘or the event/censoring time 푡푖for the last interval.
+(c) The event status at the end of the interval.
+(d) The exposure 퐴푖and the baseline covariates 퐿0푖, whose values remain unchanged across all intervals.
+(e) The history of the mediator and the longitudinal confounders recorded up to the end of the interval. Note that the history
+of 퐿and 푀for subject 푖up to the time 푡푖is similar to their history up to the last visit prior to time 푡푖.
+Table 1 provides a toy example in which three patients receive a binary treatment and are followed up for a total of three years,
+with two visits pre-planned at the end of year 1 and 2. Patient 3 is free of event till the end of the study and hence has the mediator
+level fully recorded at the two intermediate visits. In contrast, patient 1 and 2 experience an event after 1.5 and 0.9 years, due to
+which they have no (i.e. patient 2) or only one (i.e. patient 1) mediator level recorded. Table 2 illustrate how the information of
+these three hypothetical individuals is encoded in a counting-process format.
+Step 3– Postulate and ﬁt a suitable model for the mediator at a time point 푡, conditional on the exposure, the longitudinal
+confounder 퐿푡and previous measurements of the mediator (i.e. 푀푡−1), by using the long data set. For instance, one may assume
+multinomial logistic models for a categorical mediator 푀푘with possible values 0, … , 푄. The model for 푀푘is thus:
+log Pr(푀푘= 푞|퐴= 푎, 푀푘−1 = 푚푘−1, 퐿푘=̄ 푙푘, 푇≥푡푘)
+Pr(푀푘= 0|퐴= 푎, 푀푘−1 = 푚푘−1, 퐿푘= 푙푘, 푇≥푡푘)
+= 훾0푞+ 훾1푞푎+ 훾′
+2푞푚푘−1 + 훾′
+3푞푙푡
+(4)
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+Vo ET AL
+5
+TABLE 1 Illustrating example: A toy dataset in standard short format. Here, 푚푖푗and 푙푖푗denote the mediator and longitudinal
+confounder level of individual 푗recorded at visit 푡푖, respectively. The treatment 퐴is binary (0 vs. 1) and there are two competing
+events, coded as 1 and 2.
+Individual
+Following-up time
+Status
+퐴
+푀1
+푀2
+퐿0
+퐿1
+퐿2
+(years)
+1
+1.5
+1
+1
+푚11
+−
+푙01
+푙11
+−
+2
+0.9
+2
+0
+−
+−
+푙02
+−
+−
+3
+3.0
+0
+1
+푚13
+푚23
+푙03
+푙13
+푙23
+TABLE 2 The counting-process format of the dataset in table 1
+Individual
+Start
+Stop
+Status
+퐴
+푀푡
+푀푡−1
+퐿푡
+퐿푡−1
+퐿0
+1
+0
+1
+0
+1
+0
+0
+0
+0
+푙01
+1
+1
+1.5
+1
+1
+푚11
+0
+푙01
+0
+푙01
+2
+0
+0.9
+2
+0
+0
+0
+0
+0
+푙02
+3
+0
+1
+0
+1
+0
+0
+0
+0
+푙03
+3
+1
+2
+0
+1
+푚13
+0
+푙13
+0
+푙03
+3
+2
+3
+0
+1
+푚23
+푚13
+푙23
+푙13
+푙03
+TABLE 3 Extended data set for the example in Table 1
+Individual
+Start
+Stop
+Status
+퐴
+퐴∗
+푀푡
+푀푡−1
+퐿푡
+퐿푡−1
+퐿0
+1
+0
+1
+0
+1
+1
+0
+0
+0
+0
+푙01
+1
+1
+1.5
+1
+1
+1
+푚11
+0
+푙01
+0
+푙01
+2
+0
+0.9
+2
+0
+0
+0
+0
+0
+0
+푙02
+3
+0
+1
+0
+1
+1
+0
+0
+0
+0
+푙03
+3
+1
+2
+0
+1
+1
+푚13
+0
+푙13
+0
+푙03
+3
+2
+3
+0
+1
+1
+푚23
+푚13
+푙23
+푙13
+푙03
+1
+0
+1
+0
+1
+0
+0
+0
+0
+0
+푙01
+1
+1
+1.5
+1
+1
+0
+푚11
+0
+푙01
+0
+푙01
+2
+0
+0.9
+2
+0
+1
+0
+0
+0
+0
+푙02
+3
+0
+1
+0
+1
+0
+0
+0
+0
+0
+푙03
+3
+1
+2
+0
+1
+0
+푚13
+0
+푙13
+0
+푙03
+3
+2
+3
+0
+1
+0
+푚23
+푚13
+푙23
+푙13
+푙03
+where 푞= 1, … , 푄.
+Step 4– A new data set is then constructed by copying the original data set (in long format) 푃times and including an additional
+variable 퐴∗to capture the 푃possible values of the exposure relative to the indirect path. 퐴∗is set to the actual value of the
+exposure 퐴for the ﬁrst replication, to the other potential values of 퐴for the remaining replications. For the example discussed
+in table 1 and 2, the corresponding extended data set is provided in table 3.
+Step 5– Compute weights by applying the ﬁtted models from steps 1 and 3 to the new data set. At visit 푘, the weight for the
+푖푡ℎindividual is 푤푖(푘, 푎, 푎∗) = 푤푡푡푚
+푖(푎) ⋅푤푚푒푑
+푖
+(푘, 푎, 푎∗), where:
+푤푡푡푚
+푖(푎) =
+푃−1
+∑
+푎=0
+퐼(퐴푖= 푎)
+Pr(퐴푖= 푎|퐿0푖= 푙0푖)
+and
+푤푚푒푑
+푖
+(푘, 푎, 푎∗) =
+∏
+푠∶푡푠≤푡푘
+Pr(푀푠,푖= 푚푠,푖|퐴푖= 푎∗, 푀푠−1,푖= 푚푠−1,푖, 퐿푠,푖=̄ 푙푠,푖, 푇푖≥푡푠)
+Pr(푀푠,푖= 푚푠,푖|퐴푖= 푎, 푀푠−1,푖= 푚푠−1,푖, 퐿푠,푖= 푙푠,푖, 푇푖≥푡푠)
+
+````
+
+## PDF page 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+6
+Vo ET AL
+퐴
+푀푡
+푇
+퐿0
+퐿푡
+푅퐶(푡)
+푈푙
+푈푚
+(a)
+퐴
+푀푡−1
+푀푡
+푇
+퐿0
+퐿푡−1
+퐿푡
+푅퐶(푡)
+푈푙
+푈푚
+(b)
+FIGURE 2 (Simpliﬁed) causal diagram when censoring presents – (a) Censoring is non-informative conditional on the exposure
+and (b) Censoring is non-informative at time 푡conditional on the exposure and the history up to that time
+where the subscript 푡푡푚and 푚푒푑denotes treatment and mediator, respectively. At the end of the follow-up time, the weight for
+a patient having 푇푖= 푡푖is 푤푖(푡푖, 푎, 푎∗) = 푤푖(⌊푡푖⌋, 푎, 푎∗).
+Step 6– Fit the natural eﬀect cause-speciﬁc proportional hazard model (1) and (2) by proportiona hazard regression of the
+cause-speciﬁc event time on 퐴and 퐴∗on the basis of the expanded data set, using the weights computed in the previous step.
+Step 7– Derive conﬁdence intervals for the parameters in model (1) and (2) by using the non-parametric bootstrap. For this,
+one ﬁrst generates 푆bootstrap samples with replacement from the original dataset, then repeats all the above steps for each
+bootstrap sample. The 95% conﬁdence interval for each parameter in model (1) and (2) is computed by using the 2.5% and 97.5%
+quantiles of the bootstrap distribution of the corresponding estimator.
+2.3
+Addressing complications due to censoring
+Denote 퐶the time-to-censoring. As stated above, when the censoring is non-informative conditional on the exposure (ﬁgure 2a),
+the provided estimating procedure remains valid without further adjustment. When censoring is dependent upon the baseline
+covariate vector 퐿0 and the exposure 퐴, one could adjust for censoring by alternatively focusing on the so-called conditional
+cause-speciﬁc natural eﬀect proportional hazard model, that is,
+휆푗
+푎,푎∗(푡|퐿0 = 푙0) = 휆푗
+0(푡)푒훼1푗푎+훼2푗푎∗+훼′
+2푗푙0
+(5)
+Note that an interaction between 푎∗and 푙0 could also be permitted in such model to assess the possibility of mediator-baseline
+covariate interaction. The procedure discussed in section 2.2 can then be applied to estimate the parameters in this model, with
+a slight adjustment in step 6 where apart from 퐴and 퐴∗, the covariates 퐿0 (and the product of 퐴∗and 퐿0 if mediator- baseline
+covariate interaction is assessed) are also included into the proportional hazard regression model. In practice, it might however
+be the case that censoring is dependent upon post-baseline factors such as the longitudinal mediator and confounder levels that
+are measured prior to censoring (ﬁgure 2b). In Appendix A2, we show that if at any time 푡, the risk of future events for patients
+who drop out of the study is not diﬀerent from that of patients who have the same exposure, mediator and covariate history up
+to time 푡but remain in the study, the so-called inverse probability of censoring weighting approach can be used to account for
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+Vo ET AL
+7
+censoring. More precisely, the parameters indexing models (1) and (2) are then estimated by solving the following equation:
+∞
+∫
+0
+∑
+푖,푎,푎∗
+⎧
+⎪
+⎪
+⎨
+⎪
+⎪⎩
+( 푎
+푎∗
+)
+−
+∑
+푎,푎∗̂ 퐸
+[( 푎
+푎∗
+)
+⋅푅푖(푡) ⋅퐼(퐶푖> 푡) ⋅푊푖(⌊푡⌋) ⋅푒훼1푗푎+훼2푗푎∗]
+∑
+푎,푎∗̂ 퐸[푅푖(푡) ⋅퐼(퐶푖> 푡) ⋅푊푖(⌊푡⌋) ⋅푒훼1푗푎+훼2푗푎∗]
+⎫
+⎪
+⎪
+⎬
+⎪
+⎪⎭
+⋅
+⋅푅푖(푡) ⋅퐼(퐶푖> 푡) ⋅푊푖(⌊푡⌋) (푑푁푖(푡) −휆0(푡) ⋅푒훼1푗푎+훼2푗푎∗푑푡) = 0
+where
+푊푖(⌊푡⌋, 푎, 푎∗) =
+∏
+푠∶푡푠≤⌊푡⌋̂ Pr(푀푠,푖|퐴푖= 푎∗, 푀푠−1,푖, 퐿푠,푖, 푇푖≥푡푠, 퐶푖≥푡푠)
+∏
+푠∶푡푠≤⌊푡⌋̂ Pr(푀푠,푖|퐴푖= 푎, 푀푠−1,푖, 퐿푠,푖, 푇푖≥푡푠, 퐶푖≥푡푠)
+⋅
+퐼(퐴푖= 푎)̂
+Pr(퐴푖= 푎|퐿0,푖)
+⋅
+⋅
+1
+∏
+푠∶0≤푠≤푡
+[
+1 −̂ 휆퐶(푠|푇푖> 푠, 푀⌊푠⌋,푖, 퐿⌊푠⌋,푖, 퐿0,푖, 퐴푖= 푎)
+]
+and 휆퐶(.) denoting the cause-speciﬁc hazard function of the time-to-censoring. Here, ∏
+푠푥푠is deﬁned as a product limit. With
+the above weight 푊푖(⌊푡⌋, 푎, 푎∗), the additional component that accounts for the informative censoring can make the overall
+weight become unstable (e.g. when the censoring hazard is close to 1 in some strata). To overcome this, one can then use
+stabilized (censoring) weights which incorporate a numerator deﬁned in the same way as the denominator but adjusting only for
+the exposure, that is:
+∏
+푠∶0≤푠≤푡
+[1 −̂ 휆퐶(푠|퐴푖= 푎)]
+∏
+푠∶0≤푠≤푡
+[
+1 −̂ 휆퐶(푠|푇푖> 푠, 푀⌊푠⌋,푖, 퐿⌊푠⌋,푖, 퐿0,푖, 퐴푖= 푎)
+]
+One then needs to postulate two models for the censoring hazard at time 푡, with one conditioning on exposure and the other
+conditioning on exposure, baseline covariates and the history of the longitudinal mediator and confounders up to time 푡, where
+only the latter model needs to be correct. For instance, 휆퐶(푡|퐴푖= 푎푖) = 휆′
+0퐶(푡)푒휂푎푖and
+휆퐶(푡|푇푖> 푡, 푀⌊푠⌋,푖= 푚⌊푠⌋,푖, 퐿⌊푠⌋,푖= 푙⌊푠⌋,푖, 퐿0,푖= 푙0,푖, 퐴푖= 푎푖) = 휆0퐶(푡)푒휃0푎푖+휃1푙0,푖+휃′
+2푚⌊푠⌋,푖+휃′
+3푙⌊푠⌋,푖
+(6)
+As a result, in step 5 of the estimation procedure, apart from computing the mediator and treatment weights, one needs to
+additionally derive the censoring weight. More precisely, the weight for the 푖푡ℎindividual at visit 푘is now 푤푡푡푚
+푖(푎, 푎∗)⋅푤푚푒푑
+푖
+(푘, 푎)⋅
+푤푐푒푛
+푖
+(푘, 푎), where the subscript cen denotes censoring, i.e.,
+푤푐푒푛
+푖
+(푘, 푎) =
+1
+∏
+푠∶0≤푠≤푡푘
+[
+1 −̂ 휆퐶(푠|푇푖> 푠, 푚푠,푐,푖, 푙푠,푐,푖, 푙0,푖, 푎)
+]
+while 푤푡푡푚
+푖(푎, 푎∗) and 푤푚푒푑
+푖
+(푘, 푎, 푎∗) are computed as above. If a proportional hazard censoring model as (6) is ﬁtted, the baseline
+censoring hazard 휆0퐶(푡) and 휆′
+0퐶(푡) at time 푡can be estimated by the standard Breslow estimator. Once the individual weights
+are computed, the natural eﬀect cause-speciﬁc proprotional hazard model (1) and (2) can be ﬁtted using these weights and the
+conﬁdence intervals for the estimates can be derived via the nonparametric bootstrap, as described above.
+3
+ILLUSTRATING EXAMPLE
+We illustrate the proposed approach on the ELSA data. In this ongoing study, the ﬁrst contact with the participants was in
+2002/03 (wave 1). These participants were then followed up biennially, with measures collected via computer-assisted face-to-
+face interview and self-completion questionnaires. For this illustration, the data are available until one year after the last wave in
+2016/17. As stated above, the question of interest here is whether the feeling of loneliness mediates the impact of hearing loss
+on dementia, accounting for mortality as a competing event.
+For this analysis, we used the hearing measurement recorded at wave 2 (e.g. 2004/05) and dichotomized subjects into two
+groups, namely normal (퐴= 0) and limited (퐴= 1) hearing ability. The longitudinal mediator "loneliness" was recorded
+from wave 3 (2006/07) to wave 7 (2014/15) and had two potential values, namely frequent (푀= 1) vs. infrequent feeling of
+loneliness (푀= 0). Alongside the mediator, four longitudinal confounders were recorded over time (i.e. wave 3 to wave 7),
+namely depression status (yes vs. no), mobility score (continuous), smoking status (non-smoker vs. current smoker) and alcohol
+
+````
+
+## PDF page 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+8
+Vo ET AL
+status (non-drinker vs. current drinker). The baseline covariates consisted of age, gender, ethnicity (white vs. non-white), wealth
+(1=low, 5=high), education level (1 = no formal qualiﬁcation, 2 = intermediate and 3 = higher education), marital status (yes
+vs. no), the use of hearing aids (yes vs. no), the presence of other comorbidities (i.e. hypertension, diabetes, stroke and cancer –
+yes vs. no) and the baseline values of the aforementioned time-varying confounders. A detailed description of these covariates
+was provided elsewhere2,16,3,4.
+We assumed that the relationship between the variables obeys the causal structure depicted in ﬁgure 1. Here, the mediators
+and confounders measured at time 푡푘−1 are time-varying confounders of the relationship between the mediator measured at time
+푡푘and the outcome. To derive the treatment weights (step 1), we ﬁrst considered a logistic (treatment) model adjusting for the
+main eﬀects of all baseline covariates. To assess the potential of covariate-covariate interactions, we used a LASSO variable
+selection process (R package glmnet) to select the most important interaction terms from the set of all possible two-by-two
+covariate interactions. The chosen interactions were then added into the treatment model. The tuning parameter in the LASSO
+was selected by leave-one-out cross-validation.
+To derive the mediation weights (step 3), we ﬁrst considered a logistic (mediator) model adjusting for 푡푘, 푀푘−1, 퐿푘and the
+main eﬀects of all baseline covariates. To assess whether the conditional distribution of 푀푘had a residual dependence upon
+the history of 푀and 퐿that preceded the time 푡푘−1 (for 푀) and 푡푘(for 퐿), we used the LASSO to determine the ﬁrst post-
+baseline measurement of 푀and 퐿that were predictive for 푀푘, conditional on the later measurements. This measurement and
+all measurements following this one were included into the mediator model. Next, we assessed whether there were important
+(i) treatment-baseline/longitudinal covariate interactions, (ii) time-baseline covariate interactions and (iii) baseline covariate-
+covariate interactions that should be adjusted for. For each step, an independent LASSO variable selection process was performed
+to select the most important interaction terms from all possible interactions of the same type. The interactions that were chosen
+in the previous step were always included in the model of the subsequent steps (which implies no shrinkage on these terms in
+the subsequent steps). The tuning parameter in each LASSO procedure was selected by leave-one-out cross-validation. The ﬁnal
+model was reﬁtted before calculating the mediation weights.
+To derive the censoring weights, we ﬁrst considered a cause-speciﬁc proportional hazard model adjusting for 푀푘, 퐿푘, the
+exposure 퐴and the main eﬀects of all baseline covariates 퐿0. To assess whether the censoring hazard at time 푡had a residual
+dependence upon the history of 푀and 퐿that preceded the time 푡푘for 푀and for 퐿, we implemented a backward elimination
+process, using the Akaike information criterion to determine the ﬁrst post-baseline measurement of 푀and 퐿that were predictive
+for the censoring hazard at time 푡, conditional on the later measurements. This measurement and all measurements following
+this one were included into the censoring proportional hazard model. Next, as for the mediator model, we assessed whether there
+were important (i) treatment-baseline/longitudinal covariate interactions and (ii) baseline covariate-covariate interactions that
+should be adjusted for. For each step, an independent backward elimination process was performed to select the most important
+interaction terms from all possible interactions of the same type. The interactions that were chosen in the previous step were
+always included in the model of the subsequent steps (which implies no exclusion of these terms in the subsequent steps).
+Note that we used backward elimination for the construction of the censoring models (as opposed to LASSO) due to the lack
+of prepackaged software that can apply LASSO or other penalized variable selection methods on a counting format survival
+dataset. Results of the variable selection processes for the treatment, mediator and censoring models are reported in Online
+Supplementary Material ﬁle.
+The two natural eﬀect proportional hazard models (i.e. model (1) and (2)) speciﬁc for dementia and for death were then
+ﬁtted using the calculated weights. The conﬁdence intervals of the total, direct and indirect hazard ratios were derived by the
+non-parametric bootstrap method, with 5000 samples taken from the original data set by sampling with replacement. We then
+established the cumulative incidence curves of dementia and of death under diﬀerent sets of 푎and 푎∗. These curves reﬂect the
+cumulative failure rates over time for a particular cause (e.g. dementia), acounting for the presence of other competing events
+(e.g. death). To estimate the curves, we considered dementia and death as two terminal states of a multi-state model where
+the transition from dementia to death was treated as an absorbing state, i.e. the one that subjects never exist17. For pedagogic
+purposes, we only use the results of the natural eﬀect model (1) (i.e. without interaction between 푎and 푎∗) to establish these
+curves.
+As can be seen from table 5, the total eﬀect of hearing loss on the time to dementia diagnosis was statistically signiﬁcant
+(Model 1, HR = 1.843; 95%CI 1.100 to 2.710). Model (1) further suggested that this total eﬀect was weakly mediated through
+the feeling of loneliness, with a non-statistically signiﬁcant indirect eﬀect equal to 1.012 (HR scale; 95%CI 0.986 to 1.053).
+This expresses that the hazard of dementia would become 1.012 times higher if all patients were to have limited hearing ability
+but the loneliness levels were switched from the values that would have been observed if they had normal hearing ability to the
+
+````
+
+## PDF page 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+Vo ET AL
+9
+0
+2
+4
+6
+8
+10
+0.00
+0.01
+0.02
+0.03
+0.04
+0.05
+Years after hearing measurement at wave 2
+Cumulative risk of dementia diagnosis
+a = 0, a* = 0
+a = 1, a* = 0
+a = 1, a* = 1
+0
+2
+4
+6
+8
+10
+0.00
+0.02
+0.04
+0.06
+0.08
+Years after hearing measurement at wave 2
+Cumulative risk of death
+a = 0, a* = 0
+a = 1, a* = 0
+a = 1, a* = 1
+FIGURE 3 Estimated cumulative incidence curve of dementia diagnosis
+TABLE 4 Data analysis: estimation of the natural eﬀect models
+Model
+Coeﬃcient
+Estimate
+95%CI
+p-value
+(1)
+Dementia (푗= 1)
+훼1푗
+0.599
+(0.090; 1.001)
+0.007
+훼2푗
+0.012
+(-0.014; 0.051)
+0.438
+Death (푗= 2)
+훼1푗
+-0.126
+(-0.483; 0.143)
+0.462
+훼2푗
+0.001
+(-0.013; 0.011)
+0.913
+(2)
+Dementia (푗= 1)
+훼1푗
+0.591
+(0.093; 1.003)
+0.007
+훼2푗
+0.002
+(-0.012; 0.017)
+0.827
+훼3푗
+0.017
+(-0.023; 0.079)
+0.520
+Death (푗= 2)
+훼1
+-0.121
+(-0.480; 0.148)
+0.485
+훼2
+0.005
+(-0.011; 0.023)
+0.584
+훼3
+-0.009
+(-0.049; 0.022)
+0.632
+value observed under limited hearing. In contrast, the total eﬀect of hearing loss on mortality was not statistically signiﬁcant
+(Model 1, HR = 0.882; 95%CI 0.625 to 1.148). There was no statistical evidence of an indirect eﬀect through the feeling of
+loneliness (HR = 1.001, 95%CI 0.987 to 1.011). These ﬁndings did not change when considering model (2) with interaction
+(table 4 - p-value of the interaction coeﬃcient equals 0.520 for dementia and 0.632 for death).
+Figure 3 provides the estimated cumulative incidence curve of dementia for diﬀerent 푎and 푎∗, which visualizes the weak
+indirect eﬀect of hearing loss on dementia through the suggested longitudinal mediator. At some time points, there are large
+jumps in these curves due to the fairly high rate of interval censoring in the dataset (i.e. if the date for dementia diagnosis (or
+
+````
+
+## PDF page 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+10
+Vo ET AL
+TABLE 5 Data analysis: the eﬀect of limited vs. normal hearing ability on the time-to-event outcomes, mediated through the
+feeling of loneliness. The mediated proportion is calculated on log scale
+Model
+Eﬀect
+Hazard ratio
+95%CI
+Mediated proportion
+(1)
+Dementia
+Total eﬀect (퐴= 1 vs. 퐴= 0)
+1.843
+(1.100; 2.711)
+Direct eﬀect
+1.821
+(1.095; 2.721)
+Indirect eﬀect
+1.012
+(0.986; 1.053)
+2.0%
+Death
+Total eﬀect (퐴= 1 vs. 퐴= 0)
+0.882
+(0.625; 1.148)
+Direct eﬀect
+0.882
+(0.617; 1.154)
+Indirect eﬀect
+1.001
+(0.987; 1.011)
+-0.8%
+(2)
+Dementia
+Total eﬀect (퐴= 1 vs. 퐴= 0)
+1.839
+(1.100; 2.713)
+Direct eﬀect
+1.836
+(1.091; 2.716)
+Indirect eﬀect
+1.002
+(0.988; 1.017)
+0.3%
+Total eﬀect (퐴= 0 vs. 퐴= 1)
+0.544
+(0.369; 0.912)
+Direct eﬀect
+0.554
+(0.367; 0.912)
+Indirect eﬀect
+0.981
+(0.925; 1.022)
+3.2%
+Death
+Total eﬀect (퐴= 1 vs. 퐴= 0)
+0.882
+(0.622; 1.148)
+Direct eﬀect
+0.878
+(0.614; 1.151)
+Indirect eﬀect
+1.005
+(0.989; 1.023)
+-4.0%
+Total eﬀect (퐴= 0 vs. 퐴= 1)
+1.134
+(0.871; 1.605)
+Direct eﬀect
+1.129
+(0.862; 1.617)
+Indirect eﬀect
+1.004
+(0.981; 1.036)
+3.2%
+for death) was not known but person had a new diagnosis (or passed away) from one visit to the next, then we considered the
+midpoint between two visits as the event date). Finally, the above results should be interpreted with caution as there might be
+important time-varying confounders of the mediator-outcome association that were not taken into account. The ﬁndings could
+also be biased if the involved models were incorrectly speciﬁed or censoring was informative (e.g. elderly patients who live
+alone might not come to the control visit due to dementia-related problems).
+4
+DISCUSSION
+In this paper, we have generalized the weighting-based strategy proposed for natural eﬀect models in single mediation analysis
+to the setting where the mediator of interest is repeatedly measured over time (hence subject to longitudinal confounders) and
+the primary outcome is a time-to-event endpoint, subject to competing risks. The proposed approach yields consistent estimates
+for the natural direct and indirect eﬀects if the causal assumptions hold and the natural eﬀect model and the conditional dis-
+tribution of the exposure, mediator and censoring are correctly speciﬁed. As noted by Steen et al18, the mediator model needs
+careful consideration, especially when the exposure (and the baseline covariates) are highly predictive of the mediator, for then
+even minor misspeciﬁcation can have a major impact on the weights and lead to biased results. Apart from (mediator) model
+misspeciﬁcation, the estimated weights may become unstable or even extreme when at each time point, there is an inadequate
+overlap between the conditional distributions of the mediator under diﬀerent treatment/exposure conditions, as may be the case
+when the exposure has a strong eﬀect on the mediator. While the presence of extreme weights might appear as a limitation
+at ﬁrst, it may also diagnose severe model extrapolation that often goes unnoticed when using a repeated regression approach
+proposed for the same setting18. Simple weighting-based approaches also tend to yield larger standard errors (compared to
+imputation or regression-based approaches) due to lack in eﬃciency. This can be especially problematic when the mediator is
+continuous. In that case, the weight-based approaches tend to be unstable even under proper model speciﬁcation and adequate
+
+````
+
+## PDF page 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+Vo ET AL
+11
+overlap of the mediator distributions across treatment groups, which may result in considerable ﬁnite sample bias in the natural
+eﬀect estimates. The repeated regression approach might be more appropriate when dealing with continuous mediators19,20.
+Several proposals can be made to improve the suggested approach. Future research might focus on the development of doubly
+or multiply robust estimators21 to improve the robustness and eﬃciency of the current weight-based approach. The proposed
+strategy can also be easily extended to take into account multiple mediators 푀(1), … , 푀(푉) that are repeatedly measured over
+time. When these mediators are causally ordered then as suggested by Vanderweele and Vansteelandt (2014), one can ﬁrst eval-
+uate the eﬀect mediated through 푀(1), then examine how much this changes when 푀(1) and 푀(2) are jointly considered as
+mediators. This then reveals the additional contribution of 푀(2) beyond 푀(1) alone. The process is then carried on by sequentially
+adding one mediator at a time until all 푉mediators are included22. By accounting for multiple, repeatedly measured mediators,
+results of the analysis may allow one to get closer to evaluating the entire mediation process that underlies the treatment mecha-
+nism in practice. Finally, future research should also extend the proposed approach to account for continuous exposures, which
+are quite common in epidemiology and social science.
+ACKNOWLEDGMENTS
+The ﬁrst author was supported by the funding from the European UnionâĂŹs Horizon 2020 research and innovation program,
+under the Marie Sklodowska-Curie grant agreement (grant no.: 676207).
+Conﬂict of interest
+The authors declare no potential conﬂict of interests.
+SUPPORTING INFORMATION
+The following supporting information is available as part of the online article:
+Data analysis 1. Results of the construction of the propensity score model, the mediator model at each time point and the
+censoring model
+Data analysis 2 R codes for the analysis of the ELSA data.
+References
+1. Steptoe A, Breeze E, Banks J, Nazroo J. Cohort proﬁle: the English longitudinal study of ageing. International journal of
+epidemiology 2013; 42(6): 1640–1648.
+2. Davies HR, Cadar D, Herbert A, Orrell M, Steptoe A. Hearing impairment and incident dementia: Findings from the English
+Longitudinal Study of Ageing. Journal of the American Geriatrics Society 2017; 65(9): 2074–2081.
+3. Davies-Kershaw HR, Hackett RA, Cadar D, Herbert A, Orrell M, Steptoe A. Vision Impairment and Risk of Dementia:
+Findings from the English Longitudinal Study of Ageing. Journal of the American Geriatrics Society 2018; 66(9): 1823–
+1829.
+4. Rafnsson SB, Orrell M, dâĂŹOrsi E, Hogervorst E, Steptoe A. Loneliness, social integration, and incident dementia over 6
+years: Prospective ﬁndings from the English Longitudinal Study of Ageing. The Journals of Gerontology: Series B 2020;
+75(1): 114–124.
+5. VanderWeele TJ. Mediation Analysis: A Practitioner’s Guide. Annual Review of Public Health 2016; 37(1): 17-32. PMID:
+26653405doi: 10.1146/annurev-publhealth-032315-021402
+6. Robins JM, Greenland S. Identiﬁability and Exchangeability for Direct and Indirect Eﬀects. Epidemiology 1992; 3(2):
+143–155.
+
+````
+
+## PDF page 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+12
+Vo ET AL
+7. Pearl J. Direct and indirect eﬀects. In: Morgan Kaufmann Publishers Inc. ; 2001: 411–420.
+8. Lange T, Rasmussen M, Thygesen LC. Assessing natural direct and indirect eﬀects through multiple pathways. American
+journal of epidemiology 2013; 179(4): 513–518.
+9. Huang YT, Yang HI. Causal mediation analysis of survival outcome with multiple mediators. Epidemiology (Cambridge,
+Mass.) 2017; 28(3): 370.
+10. Vandenberghe S, Duchateau L, Slaets L, Bogaerts J, Vansteelandt S. Surrogate marker analysis in cancer clinical trials
+through time-to-event mediation techniques. Statistical methods in medical research 2018; 27(11): 3367–3385.
+11. Vansteelandt S, Linder M, Vandenberghe S, Steen J, Madsen J. Mediation analysis of time-to-event endpoints accounting
+for repeatedly measured mediators subject to time-varying confounding. Statistics in medicine 2019.
+12. Zheng W, Laan v. dM. Longitudinal mediation analysis with time-varying mediators and exposures, with application to
+survival outcomes. Journal of causal inference 2017; 5(2).
+13. Lin SH, Young JG, Logan R, VanderWeele TJ. Mediation analysis for a survival outcome with time-varying exposures,
+mediators, and confounders. Statistics in medicine 2017; 36(26): 4153–4166.
+14. Mittinty MN, Vansteelandt S. Longitudinal Mediation Analysis Using Natural Eﬀect Models. arXiv preprint
+arXiv:1912.01200 2019.
+15. Lange T, Vansteelandt S, Bekaert M. A simple uniﬁed approach for estimating natural direct and indirect eﬀects. American
+journal of epidemiology 2012; 176(3): 190–195.
+16. Hackett RA, Davies-Kershaw H, Cadar D, Orrell M, Steptoe A. Walking speed, cognitive function, and dementia risk in
+the English longitudinal study of ageing. Journal of the American Geriatrics Society 2018; 66(9): 1670–1675.
+17. Putter H, Fiocco M, Geskus RB. Tutorial in biostatistics: competing risks and multi-state models. Statistics in medicine
+2007; 26(11): 2389–2430.
+18. Steen J, Loeys T, Moerkerke B, Vansteelandt S. Medﬂex: an R package for ﬂexible mediation analysis using natural eﬀect
+models. Journal of Statistical Software 2017; 76(11).
+19. Steen J, Loeys T, Moerkerke B, Vansteelandt S. Flexible mediation analysis with multiple mediators. American journal of
+epidemiology 2017; 186(2): 184–193.
+20. Vansteelandt S, Bekaert M, Lange T. Imputation strategies for the estimation of natural direct and indirect eﬀects.
+Epidemiologic Methods 2012; 1(1): 131–158.
+21. Bang H, Robins JM. Doubly robust estimation in missing data and causal inference models. Biometrics 2005; 61(4): 962–
+973.
+22. VanderWeele T, Vansteelandt S. Mediation analysis with multiple mediators. Epidemiologic methods 2014; 2(1): 95–115.
+23. Vo TT, Superchi C, Boutron I, Vansteelandt S. The conduct and reporting of mediation analysis in recently published
+randomized controlled trials: results from a methodological systematic review. Journal of clinical epidemiology 2019.
+24. Shpitser I. Counterfactual Graphical Models for Longitudinal Mediation Analysis With Unobserved Confounding. Cognitive
+Science 2013; 37(6): 1011-1035. doi: 10.1111/cogs.12058
+25. Daniel R, De Stavola B, Cousens S, Vansteelandt S. Causal mediation analysis with multiple mediators. Biometrics 2015;
+71(1): 1–14.
+26. Vansteelandt S, Daniel RM. Interventional eﬀects for mediation analysis with multiple mediators. Epidemiology (Cam-
+bridge, Mass.) 2017; 28(2): 258.
+
+````
+
+## PDF page 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+Vo ET AL
+13
+27. Nguyen QC, Osypuk TL, Schmidt NM, Glymour MM, Tchetgen Tchetgen EJ. Practical guidance for conducting mediation
+analysis with multiple mediators using inverse odds ratio weighting. American journal of epidemiology 2015; 181(5): 349–
+356.
+28. Demakakos P, Hamer M, Stamatakis E, Steptoe A. Low-intensity physical activity is associated with reduced risk of incident
+type 2 diabetes in older adults: evidence from the English Longitudinal Study of Ageing. Diabetologia 2010; 53(9): 1877–
+1885.
+29. Huber M. Identifying causal mechanisms (primarily) based on inverse probability weighting. Journal of Applied Econo-
+metrics 2014; 29(6): 920–943.
+30. Imai K, Keele L, Yamamoto T. Identiﬁcation, inference and sensitivity analysis for causal mediation eﬀects. Statistical
+science 2010: 51–71.
+31. Tchetgen EJT, Shpitser I. Semiparametric theory for causal mediation analysis: eﬃciency bounds, multiple robustness, and
+sensitivity analysis. Annals of statistics 2012; 40(3): 1816.
+32. Lesko CR, Lau B. Bias due to confounders for the exposure-competing risk relationship. Epidemiology (Cambridge, Mass.)
+2017; 28(1): 20.
+How to cite this article: Vo T., Davies-Kershaw H., Hackett R., and Vansteelandt S. (2020), Longitudinal mediation analysis
+of time–to–event endpoints in the presence of competing risks, Statistics in Medicine., xxxx;xx:x–x.
+APPENDIX
+A – FORMAL PROOF OF THE PROPOSAL
+We here describe the derivations of the estimating procedure discussed in section 2. Assume that the causal diagram in ﬁgure
+1 represents a non-parametric structural equation model with independent errors and that the natural eﬀect Cox model (1) is
+correctly speciﬁed. For the sake of simplicity, we ﬁrst assume that no censoring presents. The added complexity due to censoring
+will be subsequently addressed. Let 퐹be the score for (훼1, 훼2) for all individuals in the sample. To simplify the proof, we will
+denote 푊푖(⌊푡⌋, 푎, 푎∗) as 푊푖(⌊푡⌋). One then has:
+퐸(퐹) = ∫
+∑
+푖,푎,푎∗
+⎡
+⎢
+⎢
+⎢⎣
+( 푎
+푎∗
+)
+−
+∑
+푎,푎∗
+( 푎
+푎∗
+)
+⋅푒훼1푎+훼2푎∗⋅퐸[푅푖(푡) ⋅푊푖(⌊푡⌋)]
+∑
+푎,푎∗푒훼1푎+훼2푎∗⋅퐸[푅푖(푡) ⋅푊푖(⌊푡⌋)]
+⎤
+⎥
+⎥
+⎥⎦
+⋅
+⋅퐸[푅푖(푡) ⋅푊푖(⌊푡⌋) ⋅푑푁푖(푡)]
+We now consider the expression 퐸[푅(푡) ⋅푊(⌊푡⌋) ⋅푑푁(푡)], that is:
+퐸[푅(푡) ⋅푊(⌊푡⌋) ⋅푑푁(푡)]
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 퐴, 푀푡, 퐿푡, 퐿0) ⋅푅(푡) ⋅푊(⌊푡⌋)
+}
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 퐴, 푀푡, 퐿푡, 퐿0) ⋅푅(푡) ⋅푊∗(⌊푡⌋) ||||
+퐴= 푎
+}
+Pr(퐴= 푎)
+where
+푊∗(⌊푡⌋) =
+∏
+푠∶푡푠≤⌊푡⌋Pr(푀푠|퐴= 푎∗, 푀푠−1, 퐿푠, 푇≥푡푠)
+∏
+푠∶푡푠≤⌊푡⌋Pr(푀푠|퐴= 푎, 푀푠−1, 퐿푠, 푇≥푡푠)
+×
+1
+Pr(퐴= 푎|퐿0).
+Denote 푡−= 푡−훿푡where 훿푡> 0 is a small positive quantity such that ⌊푡⌋< 푡−< 푡. One then has:
+
+````
+
+## PDF page 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+14
+Vo ET AL
+퐸[푅(푡) ⋅푊(푡) ⋅푑푁(푡)]
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡) ⋅퐼(푇≥푡−) ⋅푊∗(⌊푡⌋) ||||
+퐴= 푎
+}
+Pr(푎)
+= 퐸
+{
+퐸
+[
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡) ⋅퐼(푇≥푡−)⋅
+⋅푊∗(⌊푡⌋) ||||
+푇≥푡−, 퐴= 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0
+] ||||
+퐴= 푎
+}
+Pr(푎)
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡−) ⋅푊∗(⌊푡⌋)⋅
+⋅Pr
+[
+푇≥푡|푇≥푡−, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0
+] ||||
+퐴= 푎
+}
+Pr(푎)
+where 퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) is a short-hand notation for 퐸(푑푁(푡)|푇≥푡, 퐴= 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) and so on. Note
+that Pr
+[
+푇≥푡|푇≥푡−, 퐴= 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0
+]
+= 1 −휆(푡|푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0)훿푡. This implies that:
+퐸[푅(푡) ⋅푊(푡) ⋅푑푁(푡)] = 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡−)⋅
+⋅푊∗(⌊푡⌋) ⋅
+[
+1 −휆(푡|푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0)훿푡
+] ||||
+퐴= 푎
+}
+Pr(푎)
+Applying the above arrangements in a backward fashion till when the time point ⌊푡⌋is reached, one then obtains:
+퐸[푅(푡) ⋅푊(푡) ⋅푑푁(푡)]
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥⌊푡⌋) ⋅푊∗(⌊푡⌋)⋅
+∏
+푠∶⌊푡⌋≤푠≤푡
+[
+1 −휆(푠|푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0)
+] ||||
+퐴= 푎
+}
+Pr(푎)
+= 퐸
+{
+∫
+퐸(푑푁(푡)|푇≥푡, 푎, 푚⌊푡⌋, 푀⌊푡−1⌋, 푙⌊푡⌋, 퐿⌊푡−1⌋, 퐿0) ⋅퐼(푇≥⌊푡⌋) ⋅푊∗(⌊푡−1⌋) ⋅
+⋅Pr(푚푡|푎∗, 푀⌊푡−1⌋, 퐿⌊푡⌋, 퐿0, 푇≥푡) ⋅Pr(푙푡|푎, 퐿⌊푡−1⌋, 푀⌊푡−1⌋, 퐿0, 푇≥푡) ⋅
+⋅
+∏
+푠∶⌊푡⌋≤푠≤푡
+[
+1 −휆(푠|푎, 푚⌊푡⌋, 푀⌊푡−1⌋, 푙⌊푡⌋, 퐿⌊푡−1⌋, 퐿0)
+]
+푑푚⌊푡⌋푑푙⌊푡⌋
+||||
+퐴= 푎
+}
+Pr(푎)
+where ∏
+푠푎푠is deﬁned as a product limit. The above procedure continues to be repeated in a backward fashion till when the
+starting time point 푡= 0 is reached, which then gives:
+퐸[푅(푡) ⋅푊(푡) ⋅푑푁(푡)]
+= 퐸
+{
+∫
+퐸(푑푁(푡)|푇≥푡, 푎, 푚⌊푡⌋, 푙⌊푡⌋, 퐿0) ⋅
+∏
+푠∶0<푠≤푡
+[
+1 −휆(푠|푎, 푚⌊푠⌋, 푙⌊푠⌋, 퐿0)
+]
+⋅
+⋅
+∏
+푠∶0<푠≤⌊푡⌋
+Pr(푚푠|푎∗, 푚푠−1, 푙푠, 퐿0, 푇≥푡푠)⋅
+⋅Pr(푙푠|푙푠−1, 푚푠−1, 퐿0, 푎, 푇≥푡푠) 푑푚⌊푡⌋푑푙⌊푡⌋
+||||
+퐴= 푎
+}
+Pr(푎)
+Note that ∏
+푠∶0<푠≤푡
+[
+1 −휆(푠|푎, 푚⌊푠⌋, 푙⌊푠⌋, 퐿0)
+]
+= Pr(푇≥푡|푎, 푚⌊푡⌋, 푙⌊푡⌋, 퐿0). This implies that:
+
+````
+
+## PDF page 15
+
+FORMULA CHECK REQUIRED: original PDF page 15.
+
+````text
+Vo ET AL
+15
+퐸[푅(푡) ⋅푊(푡) ⋅푑푁(푡)]
+= 퐸
+{
+∫
+퐸(푑푁(푡)|푇≥푡, 푎, 푚⌊푡⌋, 푙⌊푡⌋, 퐿0) ⋅Pr(푇≥푡|푎, 푚⌊푡⌋, 푙⌊푡⌋, 퐿0)⋅
+⋅
+∏
+푠∶0<푠≤푡
+Pr(푚푠|푎∗, 푚푠−1, 푙푠, 퐿0, 푇≥푡푠)⋅
+⋅Pr(푙푠|푙푠−1, 푚푠−1, 퐿0, 푎, 푇≥푡푠), 푑푚⌊푡⌋푑푙⌊푡⌋
+||||
+퐴= 푎
+}
+Pr(푎)
+= ∫
+퐸(푑푁(푡)|푎, 푚푡, 푙푡, 푙0) ⋅
+∏
+푠∶0<푠≤⌊푡⌋
+Pr(푚푠|푎∗, 푚푠−1, 푙푠, 푙0, 푇≥푡푠)⋅
+⋅Pr(푙푠|푙푠−1, 푚푠−1, 푙0, 푎, 푇≥푡푠) ⋅Pr(푙0|푎) × Pr(푎)
+Pr(푎|푙0)
+푑푚⌊푡⌋푑푙⌊푡⌋푑푙0
+= 퐸
+[
+푑푁푎,푎∗(푡)
+]
+= 퐸
+[
+푅푎,푎∗(푡)
+]
+⋅퐸
+[
+푑푁푎,푎∗(푡)|푅푎,푎∗(푡) = 1
+]
+where the prior-to-last equaling follows by the derivation of Vansteelandt et al11. In a similar way, one can show that 퐸[푅(푡) ⋅
+푊(푡)] = 퐸(푅푎,푎∗(푡)). These imply that:
+퐸(퐹) = ∫
+∑
+푖,푎,푎∗
+⎡
+⎢
+⎢
+⎢⎣
+( 푎
+푎∗
+)
+−
+∑
+푎,푎∗
+( 푎
+푎∗
+)
+⋅푒훼1푎+훼2푎∗⋅퐸
+[
+푅푎,푎∗
+푖
+(푡)
+]
+∑
+푎,푎∗푒훼1푎+훼2푎∗⋅퐸
+[
+푅푎,푎∗
+푖
+(푡)
+]
+⎤
+⎥
+⎥
+⎥⎦
+⋅
+⋅퐸
+[
+푅푎,푎∗(푡)
+]
+⋅퐸
+[
+푑푁푎,푎∗(푡)|푅푎,푎∗(푡) = 1
+]
+= ∫
+∑
+푖,푎,푎∗
+⎡
+⎢
+⎢
+⎢⎣
+( 푎
+푎∗
+)
+−
+∑
+푎,푎∗
+( 푎
+푎∗
+)
+푒훼1푎+훼2푎∗⋅퐸
+[
+푅푎,푎∗
+푖
+(푡)
+]
+∑
+푎,푎∗푒훼1푎+훼2푎∗⋅퐸
+[
+푅푎,푎∗
+푖
+(푡)
+]
+⎤
+⎥
+⎥
+⎥⎦
+⋅
+⋅퐸
+[
+푅푎,푎∗(푡)
+]
+⋅
+{
+퐸
+[
+푑푁푎,푎∗(푡)|푅푎,푎∗(푡) = 1
+]
+−휆0(푡) ⋅푒훼1푎+훼2푎∗}
+= 0
+The ﬁnal equaling follows by the fact that the natural proportional hazard model is correctly speciﬁed, for then
+퐸[푑푁푖(푡)푎,푎∗(푡)|푇푎,푎∗
+푖
+≥푡] = 휆0(푡) ⋅푒훼1푎+훼2푎∗
+B – ADDRESSING INFORMATIVE CENSORING
+When censoring presents but is non-informative given the exposure group, the score 퐹for (훼1, 훼2) for all individuals in the
+sample can be written as:
+퐹=
+∞
+∫
+0
+∑
+푖,푎,푎∗
+⎧
+⎪
+⎨
+⎪⎩
+( 푎
+푎∗
+)
+−
+∑
+푎,푎∗퐸
+[( 푎
+푎∗
+)
+⋅푅푖(푡) ⋅퐼(퐶푖> 푡) ⋅푊푖(⌊푡⌋) ⋅푒훼1푎+훼2푎∗]
+∑
+푎,푎∗퐸[푅푖(푡) ⋅퐼(퐶푖> 푡) ⋅푊푖(⌊푡⌋) ⋅푒훼1푎+훼2푎∗]
+⎫
+⎪
+⎬
+⎪⎭
+⋅
+⋅푅푖(푡) ⋅퐼(퐶푖> 푡) ⋅푊푖(⌊푡⌋)
+(
+푑푁푖(푡) −휆0(푡) ⋅푒훼1푎+훼2푎∗푑푡
+)
+Note that:
+
+````
+
+## PDF page 16
+
+FORMULA CHECK REQUIRED: original PDF page 16.
+
+````text
+16
+Vo ET AL
+퐸[푅(푡) ⋅퐼(퐶≥푡) ⋅푊(푡) ⋅푑푁(푡)]
+= 퐸
+{
+퐸
+[
+퐼(퐶≥푡) ⋅푅(푡) ⋅푑푁(푡) ⋅푊(⌊푡⌋) ||||
+퐴, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0
+]}
+= 퐸
+{
+푊(⌊푡⌋) ⋅Pr(퐶≥푡|퐴, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0, 푇≥푡)⋅
+⋅퐸[푑푁(푡)|퐴, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0, 푇≥푡] ⋅Pr(푇≥푡|퐴, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0)
+}
+= 퐸
+{
+푊(⌊푡⌋) ⋅Pr(퐶≥푡|퐴) ⋅퐸[푑푁(푡)|퐴, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0, 푇≥푡] ⋅Pr(푇≥푡|퐴, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0)
+}
+= Pr(퐶≥푡|퐴= 푎) ⋅퐸
+{
+푊∗(⌊푡⌋) ⋅퐸[푑푁(푡)|푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0, 푇≥푡]
+⋅Pr(푇≥푡|푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ||||
+퐴= 푎
+}
+Pr(푎)
+The prior-to-last equaling results from the assumption that the censoring is non-informative given the treatment group (e.g.
+ﬁgure 3). Following the same reasoning as above, one can show that:
+퐸[푅(푡) ⋅퐼(퐶≥푡) ⋅푊(푡) ⋅푑푁(푡)] = Pr(퐶≥푡|퐴= 푎) ⋅퐸[푅푎,푎∗(푡)] ⋅
+⋅퐸[푑푁푎,푎∗(푡)|푅푎,푎∗(푡) = 1]
+and similarly,
+퐸[푅(푡) ⋅퐼(퐶≥푡) ⋅푊(푡)] = Pr(퐶≥푡|퐴= 푎) ⋅퐸[푅푎,푎∗(푡)]
+The score will thus remain the same as in the case of no censoring, with an added proportional constant, i.e. Pr(퐶> 푡|퐴= 푎).
+As a result,
+퐸(퐹) = ∫
+∑
+푖,푎,푎∗
+퐸
+⎧
+⎪
+⎨
+⎪⎩
+⎡
+⎢
+⎢
+⎢⎣
+( 푎
+푎∗
+)
+−
+∑
+푎,푎∗
+( 푎
+푎∗
+)
+⋅푒훼1푎+훼2푎∗⋅퐸
+(
+푅푎,푎∗
+푖
+(푡)
+)
+⋅Pr(퐶> 푡|퐴= 푎)
+∑
+푎,푎∗푒훼1푎+훼2푎∗⋅퐸
+(
+푅푎,푎∗
+푖
+(푡)
+)
+⋅Pr(퐶> 푡|퐴= 푎)
+⎤
+⎥
+⎥
+⎥⎦
+⋅
+⋅퐸
+[
+푅푎,푎∗
+푖
+(푡)
+]
+⋅
+[
+퐸[푑푁푖(푡)푎,푎∗(푡)|푇푎,푎∗
+푖
+≥푡] −휆0(푡) ⋅푒훼1푎+훼2푎∗]}
+⋅Pr(퐶> 푡|퐴= 푎)
+= 0
+which results from the fact that the natural proportional hazard model is correctly speciﬁed.
+When censoring is only non-informative at time 푡given the exposure group and the history of mediator and covariates up to
+that time, the weight of each patient at time 푡needed to be adjusted as described in section 2.3. To prove this, we consider once
+again the expression 퐸[푅(푡) ⋅퐼(퐶> 푡) ⋅푊(⌊푡⌋) ⋅푑푁(푡)]. Note that the weight 푊(⌊푡⌋) now has an additional censoring-weight
+component (see section 2.3), for then:
+퐸[푅(푡) ⋅퐼(퐶> 푡) ⋅푊(⌊푡⌋) ⋅푑푁(푡)]
+= 퐸
+{
+퐸(푑푁(푡)|퐶≥푡, 푇≥푡, 퐴, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅푅(푡) ⋅퐼(퐶> 푡) ⋅푊(⌊푡⌋)
+}
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 퐴, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅푅(푡) ⋅퐼(퐶> 푡) ⋅푊∗(⌊푡⌋) ||||
+퐴= 푎
+}
+Pr(퐴= 푎)
+where
+푊∗(푡) =
+∏
+푠∶0≤푠≤⌊푡⌋Pr(푀푠|퐴= 푎∗, 푀⌊푠⌋−1, 퐿⌊푠⌋, 푇≥푡푠, 퐶≥푡푠)
+∏
+푠∶0≤푠≤⌊푡⌋Pr(푀푠|퐴= 푎, 푀⌊푠⌋−1, 퐿⌊푠⌋, 푇≥푡푠, 퐶≥푡푠)
+⋅
+1
+Pr(퐴= 푎|퐿0)⋅
+⋅
+1
+∏
+푠∶0≤푠≤푡
+[
+1 −휆퐶(푠|푇> 푠, 푚푠, 푙푠, 푙0, 푎)
+]
+
+````
+
+## PDF page 17
+
+FORMULA CHECK REQUIRED: original PDF page 17.
+
+````text
+Vo ET AL
+17
+Note that the second equaling results from the fact that censoring is non-informative at any time 푡, given the history up to that
+time. Now denote 푡−= 푡−훿푡where 훿푡> 0 is a small positive quantity such that ⌊푡⌋< 푡−< 푡, one then has:
+퐸[푅(푡) ⋅퐼(퐶> 푡) ⋅푊(⌊푡⌋) ⋅푑푁(푡)]
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡) ⋅퐼(푇≥푡−)⋅
+⋅퐼(퐶≥푡) ⋅퐼(퐶≥푡−) ⋅푊∗(⌊푡⌋) ||||
+퐴= 푎
+}
+Pr(푎)
+= 퐸
+{
+퐸
+[
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡) ⋅퐼(푇≥푡−) ⋅퐼(퐶≥푡)⋅
+⋅퐼(퐶≥푡−) ⋅푊∗(⌊푡⌋) ||||
+푇≥푡−, 퐶≥푡−, 퐴= 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0
+] ||||
+퐴= 푎
+}
+Pr(푎)
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡−) ⋅퐼(퐶≥푡−) ⋅푊∗(⌊푡⌋)⋅
+⋅E
+[
+퐼(푇≥푡) ⋅퐼(퐶≥푡) ||||
+푇≥푡−, 퐶≥푡−, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0
+] ||||
+퐴= 푎
+}
+Pr(푎)
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡−) ⋅퐼(퐶≥푡−) ⋅푊∗(⌊푡⌋)
+⋅Pr[퐶≥푡|푇≥푡, 퐶≥푡−, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0]⋅
+⋅Pr[푇≥푡|푇≥푡−, 퐶≥푡−, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0] ||||
+퐴= 푎
+}
+Pr(푎)
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡−) ⋅퐼(퐶≥푡−) ⋅푊∗(⌊푡⌋)
+⋅[1 −휆퐶(푡|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0)훿푡]⋅
+⋅Pr[푇≥푡|푇≥푡−, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0] ||||
+퐴= 푎
+}
+Pr(푎)
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡−) ⋅퐼(퐶≥푡−) ⋅푊∗(⌊푡⌋)
+⋅[1 −휆퐶(푡|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0)훿푡] ⋅[1 −휆(푡|푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0)훿푡] ||||
+퐴= 푎
+}
+Pr(푎)
+The last two equalings result from the fact that Pr
+[
+퐶≥푡|푇≥푡, 퐶≥푡−, 퐴= 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0
+]
+=
+1 −휆퐶(푡|푇
+≥
+푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0)훿푡and that Pr[푇≥푡|푇≥푡−, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0] = Pr[푇≥푡|푇≥푡−, 퐶≥푡−, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0] due to the
+assumption of conditionally non-informative censoring. This implies that:
+퐸[푅(푡) ⋅퐼(퐶> 푡) ⋅푊(⌊푡⌋) ⋅푑푁(푡)]
+= 퐸
+{
+퐸(푑푁(푡)|푇≥푡, 푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0) ⋅퐼(푇≥푡−) ⋅퐼(퐶≥푡−) ⋅
+⋅
+∏
+푠∶0≤푠≤⌊푡⌋Pr(푀푠|퐴= 푎∗, 푀⌊푠⌋−1, 퐿⌊푡⌋, 푇≥푡푠, 퐶≥푡푠)
+∏
+푠∶0≤푠≤⌊푡⌋Pr(푀푠|퐴= 푎, 푀⌊푠⌋−1, 퐿⌊푠⌋, 푇≥푡푠, 퐶≥푡푠)
+⋅
+1
+Pr(퐴= 푎|퐿0)⋅
+⋅
+1 −휆(푡|푎, 푀⌊푡⌋, 퐿⌊푡⌋, 퐿0)
+∏
+푠∶0≤푠≤푡−
+[
+1 −휆퐶(푠|푇> 푠, 푚푠, 푙푠, 푙0, 푎)
+]
+||||
+퐴= 푎
+}
+Pr(푎)
+Applying the above arrangements in a backward fashion as is done in the case of no censoring, one will obtain the result that:
+퐸[푅(푡) ⋅퐼(퐶> 푡) ⋅푊(⌊푡⌋) ⋅푑푁(푡)] = 퐸
+[
+푅푎,푎∗(푡)
+]
+⋅퐸
+[
+푑푁푎,푎∗(푡)|푅푎,푎∗(푡) = 1
+]
+The rest of the proof is thus the same as in the case of no censoring.
+
+````
+

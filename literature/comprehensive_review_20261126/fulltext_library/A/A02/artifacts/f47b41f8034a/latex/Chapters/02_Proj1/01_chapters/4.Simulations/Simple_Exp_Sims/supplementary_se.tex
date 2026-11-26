@@ -1,0 +1,20 @@
+Since $T$ follows an exponential distribution, $\survfunc(t) = \exp\{-(\lambdaoneshort+\lambdatwoshort)t\}$ by definition of survival function. %derive
+We derive $Pr(T \leq t_0, \epsilon = 1|Z_i)$ below using the property of independence as well as $1 = Pr(\epsilon = 1) + Pr(\epsilon = 2) =  \frac{\lambdaoneshort}{\lambdaoneshort + \lambdatwoshort} +  \frac{\lambdatwoshort}{\lambdaoneshort + \lambdatwoshort}$, and the derivation for $Pr(T \leq t_0, \epsilon = 2|Z_i)$ is defined similarly.
+
+\begin{align*}
+\label{eq_sim_subdistr_simpleexp}
+Pr(T \leq t_0, \epsilon = 1|Z_i) 
+&= Pr(T_1 \leq t_0, T_2 \leq t_0, T_1 < T_2)\\
+&= Pr(T_1 < T_2 \leq t_0) \\
+&= \int^{t_0}_0 \int^{t_2}_0 f(t_1, t_2) dt_1 dt_2\\
+&= \int^{t_0}_0 \int^{t_2}_0 f(t_1) f(t_2) dt_1 dt_2\\
+&= \int^{t_0}_0 \int^{t_2}_0 \lambdaoneshort \exp(-\lambdaoneshort t_1) \lambdatwoshort \exp(-\lambdatwoshort t_2) dt_1 dt_2\\
+&= \int^{t_0}_0 \lambdatwoshort \exp(-\lambdatwoshort t_2) \int^{t_2}_0 \lambdaoneshort \exp(-\lambdaoneshort t_1) dt_1 dt_2\\
+&= \int^{t_0}_0 \lambdatwoshort \exp(-\lambdatwoshort t_2) [1-\exp(-\lambdaoneshort t_2)]dt_2\\
+&= \lambdatwoshort \left( \int^{t_0}_0 e^{-\lambdatwoshort t_2}dt_2 - \int^{t_0}_0 e^{-(\lambdaoneshort +\lambdatwoshort) t_2}dt_2 \right)\\
+&= -\lambdatwoshort \left(-\frac{1}{\lambdatwoshort} (1- e^{-\lambdatwoshort t_0}) \right) - \lambdatwoshort \left(\frac{1}{\lambdaoneshort + \lambdatwoshort} (1 - e^{-(\lambdaoneshort +\lambdatwoshort) t_0}) \right)\\
+&= \left(1- e^{-\lambdatwoshort t_0} \right) - \frac{\lambdatwoshort}{\lambdaoneshort + \lambdatwoshort}\left(  1 - e^{-(\lambdaoneshort +\lambdatwoshort) t_0} \right)\\
+&= 1- e^{-\lambdatwoshort t_0} - \frac{\lambdatwoshort}{\lambdaoneshort + \lambdatwoshort} + \frac{\lambdatwoshort}{\lambdaoneshort + \lambdatwoshort}\left(e^{-(\lambdaoneshort +\lambdatwoshort) t_0} \right)\\
+&= 1 - \frac{\lambdatwoshort}{\lambdaoneshort + \lambdatwoshort} - e^{-\lambdatwoshort t_0} + \frac{\lambdatwoshort}{\lambdaoneshort + \lambdatwoshort}\left(e^{-(\lambdaoneshort +\lambdatwoshort) t_0} \right)\\
+&= \frac{\lambdaoneshort}{\lambdaoneshort + \lambdatwoshort} - e^{-\lambdatwoshort t_0} + \frac{\lambdatwoshort}{\lambdaoneshort + \lambdatwoshort}\left(e^{-(\lambdaoneshort +\lambdatwoshort) t_0} \right).
+\end{align*}

@@ -1,0 +1,28 @@
+{
+  "paper_id": "H03",
+  "category": "H",
+  "title": "A generalized theory of separable effects in competing event settings",
+  "authors": "Mats J. Stensrud and Miguel A. Hernán and Eric J Tchetgen Tchetgen and James M. Robins and Vanessa Didelez and Jessica G. Young",
+  "doi": "10.1007/s10985-021-09530-8",
+  "year": "2021",
+  "original_url": "https://doi.org/10.1007/s10985-021-09530-8",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "1e89e3c5e774aff597df2d1c49d819cd633bb9bf26b8aa8adb40614f7260fb7e",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2004.14824"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/H03/README.md",
+  "status": "local_only"
+}

@@ -1,0 +1,7 @@
+We estimated the criterion $\phi$ for each policy $d$ as:
+\begin{equation}
+    \hat{\phi}_\text{OS}(d) = \frac{\sum_{i:\text{test set}}(T_i \wedge \tau)W_i^\text{OS}(d)}{\sum_{i:\text{test set}}W_i^\text{OS}(d)} \text{ and }
+    \hat{\phi}_\text{PC}(d) = \frac{\sum_{i:\text{test set}}(T_{1i} \wedge \tau)W_i^\text{PC}(d)}{\sum_{i:\text{test set}}W_i^\text{PC}(d)},
+\end{equation}
+where $W_i^\text{OS}(d) = \frac{I(d(z_i)=A_i)\delta_{0i}}{\hat{Pr}(A_i|z_i)\hat{Pr}(C_i>T_i|z_i)}$ and $W_i^\text{PC}(d) = \frac{I(d(z_i)=A_i)\delta_{1i}}{\hat{Pr}(A_i|z_i)\hat{Pr}(C_i \wedge T_{2i} > T_{1i}|z_i)}$.
+Recall that $\delta_{1i} = I(T_{1i} \le C_i\wedge T_{2i})$. Following \cite{cho_multi-stage_2023}, we used the test set to estimate the propensity scores and censoring probabilities via random forests and random survival forests, respectively, adjusting for the same covariates as in the ITR estimation. However, in the propensity score model, treatment is the outcome rather than a predictor. We performed 10-fold cross-validation (CV) to avoid overfitting ($K_{\text{cv}} = 10$). We split each CV fold into training ($80\%)$ and testing ($20\%$) datasets. We set $\tol = 0.1$, and set the number of trees to $300$, minimum node size to $5$, and minimum number of events to be $2$.

@@ -1,0 +1,17 @@
+\begin{table*}[htbp]
+\centering
+\caption{Performance metrics for different survival methods. \textbf{Bold} = best; {\ul underline} = runner-up; $^{\star}p<0.05$, $^{\star\star}p<0.01$ vs DPE (WSR, except Sharpness).}
+\begin{tabular}{lcccc}
+\toprule
+{Model} & {{Extended D-Calibration}} & {{Oracle Calibration}} & {{Sharpness}} & {{Real CRPS}} \\
+\midrule
+Excl.\ Censor & {\ul $0.154^{\star \star}$} & {\ul $0.492^{\star \star}$} & \textbf{ 8.646} & $0.093^{\star\star}$ \\
+LogNorm & $0.832^{\star\star}$ & $1.761^{\star\star}$ & 12.101 & $0.164^{\star\star}$ \\
+% NormallyFit & $0.943^{\star\star}$ & $1.340^{\star\star}$ & \textbf{6.684} & $0.149^{\star\star}$ \\
+CQRNN & $0.293^{\star\star}$ & $0.585^{\star\star}$ & {\ul 9.039} & $0.114^{\star\star}$ \\
+S-CRPS & $ 0.189^{\star\star} $ & $0.513^{\star\star} $ & 9.296 & {\ul $0.092^{\star\star}$} \\
+DPE (Our Method) & \textbf{0.086} & \textbf{0.486} & 11.218 & \textbf{0.086} \\
+\bottomrule
+\end{tabular}
+\label{table:table2}
+\end{table*}

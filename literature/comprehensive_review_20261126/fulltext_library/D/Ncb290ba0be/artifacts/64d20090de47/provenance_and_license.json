@@ -1,0 +1,31 @@
+{
+  "paper_id": "Ncb290ba0be",
+  "category": "D",
+  "artifact_type": "main",
+  "sha256": "64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4",
+  "source_url": "https://arxiv.org/pdf/2610.40138",
+  "original_version": "submittedVersion",
+  "bytes": "1042869",
+  "pdf_pages": "11",
+  "arxiv_id": "2610.40138v1",
+  "license_url": "http://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://arxiv.org/abs/2610.40138v1",
+  "license_evidence_quote": "view license http://creativecommons.org/licenses/by/4.0/",
+  "decision": "public_allowed",
+  "reason": "arxiv_exact_version_creative_commons",
+  "checked_at": "2026-11-27T00:58:55.043408+08:00",
+  "format": "pdf",
+  "title": "A Deep Learning Framework for Quantile Demand Forecasting in E-commerce with Doubly Censored Data",
+  "authors": "Ziwen Ye and Jiawen Wei and Teng Song and Chen Chen and Guangrui Ma",
+  "doi": "10.1145/3799682.3840587",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "original_rights_html": "<div class=\"abs-license\"><a href=\"http://creativecommons.org/licenses/by/4.0/\" title=\"Rights to this article\" class=\"has_license\">\n          <img alt=\"license icon\" role=\"presentation\" src=\"https://arxiv.org/icons/licenses/by-4.0.png\"/>\n          <span>view license</span>\n        </a></div>",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "This work is licensed under a Creative Commons Attribution 4.0 International License."
+    }
+  ]
+}

@@ -1,0 +1,1147 @@
+[
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline1",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline1\" display=\"inline\" overflow=\"scroll\"><ns0:mn>1</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline2",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline2\" display=\"inline\" overflow=\"scroll\"><ns0:mn>238</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline3",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline3\" display=\"inline\" overflow=\"scroll\"><ns0:mn>292</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline4",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline4\" display=\"inline\" overflow=\"scroll\"><ns0:mn>248</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline5",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline5\" display=\"inline\" overflow=\"scroll\"><ns0:mn>290</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline6",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline6\" display=\"inline\" overflow=\"scroll\"><ns0:mn>4</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline7",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline7\" display=\"inline\" overflow=\"scroll\"><ns0:mn>0.6</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline8",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline8\" display=\"inline\" overflow=\"scroll\"><ns0:mi>p</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline9",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline9\" display=\"inline\" overflow=\"scroll\"><ns0:mn>0.4</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline10",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline10\" display=\"inline\" overflow=\"scroll\"><ns0:mn>98</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline11",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline11\" display=\"inline\" overflow=\"scroll\"><ns0:mn>97</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline12",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline12\" display=\"inline\" overflow=\"scroll\"><ns0:mn>88</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline13",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline13\" display=\"inline\" overflow=\"scroll\"><ns0:mn>11</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline14",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline14\" display=\"inline\" overflow=\"scroll\"><ns0:mn>11</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline15",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline15\" display=\"inline\" overflow=\"scroll\"><ns0:mn>18</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline16",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline16\" display=\"inline\" overflow=\"scroll\"><ns0:mn>9</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline17",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline17\" display=\"inline\" overflow=\"scroll\"><ns0:mrow><ns0:mo>,</ns0:mo><ns0:mtext>Ch 9</ns0:mtext></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline20",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline20\" display=\"inline\" overflow=\"scroll\"><ns0:mo>&gt;</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline21",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline21\" display=\"inline\" overflow=\"scroll\"><ns0:mn>10</ns0:mn><ns0:mi mathvariant=\"normal\">%</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline22",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline22\" display=\"inline\" overflow=\"scroll\"><ns0:mn>12</ns0:mn><ns0:mi mathvariant=\"normal\">%</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline18",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline18\" display=\"inline\" overflow=\"scroll\"><ns0:mi>n</ns0:mi></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline19",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline19\" display=\"inline\" overflow=\"scroll\"><ns0:mi>n</ns0:mi></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline23",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline23\" display=\"inline\" overflow=\"scroll\"><ns0:mi>N</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline24",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline24\" display=\"inline\" overflow=\"scroll\"><ns0:mi>Z</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline25",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline25\" display=\"inline\" overflow=\"scroll\"><ns0:mi>Z</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline26",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline26\" display=\"inline\" overflow=\"scroll\"><ns0:mi>Z</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>1</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline27",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline27\" display=\"inline\" overflow=\"scroll\"><ns0:mi>T</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline28",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline28\" display=\"inline\" overflow=\"scroll\"><ns0:mi>C</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline29",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline29\" display=\"inline\" overflow=\"scroll\"><ns0:mi>δ</ns0:mi><ns0:mo>=</ns0:mo><ns0:mi>I</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>T</ns0:mi><ns0:mo>≤</ns0:mo><ns0:mi>C</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline30",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline30\" display=\"inline\" overflow=\"scroll\"><ns0:mrow><ns0:mover><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">~</ns0:mo></ns0:mover></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline31",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline31\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline32",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline32\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>i</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msub></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline33",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline33\" display=\"inline\" overflow=\"scroll\"><ns0:mn>0</ns0:mn><ns0:mo>&lt;</ns0:mo><ns0:msub><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msub><ns0:mo>&lt;</ns0:mo><ns0:msub><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>2</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msub><ns0:mo>&lt;</ns0:mo><ns0:mo>…</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline34",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline34\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>i</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msub></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline35",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline35\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msub><ns0:mo>=</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline36",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline36\" display=\"inline\" overflow=\"scroll\"><ns0:mi>x</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline37",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline37\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline38",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline38\" display=\"inline\" overflow=\"scroll\"><ns0:mi>β</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline39",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline39\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline40",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline40\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline41",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline41\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline42",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline42\" display=\"inline\" overflow=\"scroll\"><ns0:mi>Z</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline43",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline43\" display=\"inline\" overflow=\"scroll\"><ns0:mi>x</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline44",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline44\" display=\"inline\" overflow=\"scroll\"><ns0:mi>t</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline45",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline45\" display=\"inline\" overflow=\"scroll\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">lim</ns0:mi></ns0:mrow></ns0:mrow><ns0:mrow><ns0:mi>ϵ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">→</ns0:mo></ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub><ns0:mspace width=\"0.2em\" /><ns0:mfrac><ns0:mrow><ns0:mi>P</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:mi>t</ns0:mi><ns0:mo>≤</ns0:mo><ns0:mi>T</ns0:mi><ns0:mo>&lt;</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo>+</ns0:mo><ns0:mi>ϵ</ns0:mi><ns0:mrow><ns0:mrow><ns0:mo stretchy=\"false\">|</ns0:mo></ns0:mrow></ns0:mrow><ns0:mi>T</ns0:mi><ns0:mo>≥</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo>,</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo>,</ns0:mo><ns0:mi>x</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mrow><ns0:mi>ϵ</ns0:mi></ns0:mfrac><ns0:mspace width=\".1em\" /></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline46",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline46\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>λ</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline47",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline47\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">Λ</ns0:mi></ns0:mrow></ns0:mrow><ns0:mrow><ns0:mrow><ns0:mo>(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo>)</ns0:mo></ns0:mrow></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline48",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline48\" display=\"inline\" overflow=\"scroll\"><ns0:msubsup><ns0:mo>∫</ns0:mo><ns0:mn>0</ns0:mn><ns0:mi>t</ns0:mi></ns0:msubsup><ns0:mrow><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>u</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mi>d</ns0:mi><ns0:mi>u</ns0:mi></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline49",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline49\" display=\"inline\" overflow=\"scroll\"><ns0:mi>Z</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline50",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline50\" display=\"inline\" overflow=\"scroll\"><ns0:mi>x</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline51",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline51\" display=\"inline\" overflow=\"scroll\"><ns0:mi>P</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:mi>T</ns0:mi><ns0:mo>&gt;</ns0:mo><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mrow><ns0:mo stretchy=\"false\">|</ns0:mo></ns0:mrow></ns0:mrow><ns0:mi>Z</ns0:mi><ns0:mrow><ns0:mo>,</ns0:mo><ns0:mi mathvariant=\"normal\">x</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline52",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline52\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>.</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline53",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline53\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo>,</ns0:mo><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">Λ</ns0:mi></ns0:mrow></ns0:mrow><ns0:mrow><ns0:mrow><ns0:mo>(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo>)</ns0:mo></ns0:mrow></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline54",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline54\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">S</ns0:mi></ns0:mrow></ns0:mrow><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline55",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline55\" display=\"inline\" overflow=\"scroll\"><ns0:mi>x</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline56",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline56\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>Y</ns0:mi><ns0:mi>i</ns0:mi></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline57",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline57\" display=\"inline\" overflow=\"scroll\"><ns0:mi>i</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline58",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline58\" display=\"inline\" overflow=\"scroll\"><ns0:mi>t</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline59",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline59\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>Y</ns0:mi><ns0:mi>i</ns0:mi></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mn>1</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline60",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline60\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>Y</ns0:mi><ns0:mi>i</ns0:mi></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline61",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline61\" display=\"inline\" overflow=\"scroll\"><ns0:mi>t</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline62",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline62\" display=\"inline\" overflow=\"scroll\"><ns0:mi>Y</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:munder><ns0:mo>∑</ns0:mo><ns0:mi>i</ns0:mi></ns0:munder><ns0:mrow><ns0:msub><ns0:mi>Y</ns0:mi><ns0:mi>i</ns0:mi></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline63",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline63\" display=\"inline\" overflow=\"scroll\"><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline64",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline64\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo>≤</ns0:mo><ns0:mrow><ns0:mover><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">~</ns0:mo></ns0:mover></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline65",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline65\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>−</ns0:mo><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline66",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline66\" display=\"inline\" overflow=\"scroll\"><ns0:mrow><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow><ns0:mo>/</ns0:mo><ns0:mrow><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline67",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline67\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline68",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline68\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>cHR</ns0:mtext></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline69",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline69\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline70",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline70\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>cHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">Λ</ns0:mi></ns0:mrow></ns0:mrow><ns0:mrow><ns0:mrow><ns0:mo>(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo>)</ns0:mo></ns0:mrow></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>/</ns0:mo></ns0:mrow><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">Λ</ns0:mi></ns0:mrow></ns0:mrow><ns0:mrow><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline71",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline71\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>τ</ns0:mi><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">th</ns0:mi></ns0:mrow></ns0:mrow></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline72",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline72\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>T</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline73",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline73\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>T</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline74",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline74\" display=\"inline\" overflow=\"scroll\"><ns0:msubsup><ns0:mi>t</ns0:mi><ns0:mi>τ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msubsup><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:mo>−</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo>−</ns0:mo><ns0:mi>τ</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline75",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline75\" display=\"inline\" overflow=\"scroll\"><ns0:msubsup><ns0:mi>t</ns0:mi><ns0:mi>τ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msubsup><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:mo>−</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo>−</ns0:mo><ns0:mi>τ</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline76",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline76\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mrow><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:mo>−</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline77",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline77\" display=\"inline\" overflow=\"scroll\"><ns0:mi>Z</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline78",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline78\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline79",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline79\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>/</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline80",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline80\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline81",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline81\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline82",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline82\" display=\"inline\" overflow=\"scroll\"><ns0:mi>τ</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline83",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline83\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline84",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline84\" display=\"inline\" overflow=\"scroll\"><ns0:mi>τ</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline85",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline85\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline86",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline86\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline87",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline87\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline88",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline88\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline89",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline89\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline90",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline90\" display=\"inline\" overflow=\"scroll\"><ns0:mi>t</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline91",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline91\" display=\"inline\" overflow=\"scroll\"><ns0:mo stretchy=\"false\">[</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo>,</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">]</ns0:mo><ns0:mo>,</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo>≤</ns0:mo><ns0:mrow><ns0:mover><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">~</ns0:mo></ns0:mover></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline92",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline92\" display=\"inline\" overflow=\"scroll\"><ns0:mrow><ns0:mspace width=\".1em\" /></ns0:mrow><ns0:mtext>HR</ns0:mtext></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline93",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline93\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mrow><ns0:mo>=</ns0:mo><ns0:mspace width=\".1em\" /></ns0:mrow><ns0:mrow><ns0:msubsup><ns0:mo>∫</ns0:mo><ns0:mn>0</ns0:mn><ns0:mrow><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">t</ns0:mi></ns0:mrow></ns0:mrow><ns0:mo>*</ns0:mo></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mrow><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mrow><ns0:mrow><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mrow></ns0:mfrac></ns0:mrow><ns0:mi>d</ns0:mi><ns0:mi>G</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mrow><ns0:mo>/</ns0:mo><ns0:mrow><ns0:msubsup><ns0:mo>∫</ns0:mo><ns0:mn>0</ns0:mn><ns0:mrow><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">t</ns0:mi></ns0:mrow></ns0:mrow><ns0:mo>*</ns0:mo></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mrow><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mrow><ns0:mrow><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mrow></ns0:mfrac></ns0:mrow><ns0:mi>d</ns0:mi><ns0:mi>G</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline94",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline94\" display=\"inline\" overflow=\"scroll\"><ns0:mi>λ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mrow><ns0:mo>+</ns0:mo><ns0:mspace width=\".1em\" /></ns0:mrow><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline95",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline95\" display=\"inline\" overflow=\"scroll\"><ns0:mi>G</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline96",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline96\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline97",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline97\" display=\"inline\" overflow=\"scroll\"><ns0:mi>P</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>T</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo>&lt;</ns0:mo><ns0:msup><ns0:mi>T</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline98",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline98\" display=\"inline\" overflow=\"scroll\"><ns0:mfrac><ns0:mrow><ns0:mi>P</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>T</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo>&lt;</ns0:mo><ns0:msup><ns0:mi>T</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>−</ns0:mo><ns0:mi>P</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>T</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo>&lt;</ns0:mo><ns0:msup><ns0:mi>T</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mfrac></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline99",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline99\" display=\"inline\" overflow=\"scroll\"><ns0:mrow><ns0:mspace width=\".1em\" /></ns0:mrow><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline100",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline100\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo>≤</ns0:mo><ns0:mrow><ns0:mspace width=\".1em\" /></ns0:mrow><ns0:mrow><ns0:mover><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">~</ns0:mo></ns0:mover></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline101",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline101\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mspace width=\".1em\" /></ns0:mrow><ns0:msubsup><ns0:mo>∫</ns0:mo><ns0:mn>0</ns0:mn><ns0:mrow><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mrow><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow><ns0:mi>d</ns0:mi><ns0:mi>t</ns0:mi></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline102",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline102\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>−</ns0:mo><ns0:mspace width=\".1em\" /></ns0:mrow><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline103",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline103\" display=\"inline\" overflow=\"scroll\"><ns0:mrow><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mrow><ns0:mo>/</ns0:mo><ns0:mrow><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline104",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline104\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>RMST</ns0:mtext></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline105",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline105\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo>,</ns0:mo><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">Λ</ns0:mi></ns0:mrow></ns0:mrow><ns0:mrow><ns0:mrow><ns0:mo>(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo>)</ns0:mo></ns0:mrow></ns0:mrow></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline106",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline106\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">S</ns0:mi></ns0:mrow></ns0:mrow><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline107",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline107\" display=\"inline\" overflow=\"scroll\"><ns0:mi>Z</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline108",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline108\" display=\"inline\" overflow=\"scroll\"><ns0:mi>x</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline109",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline109\" display=\"inline\" overflow=\"scroll\"><ns0:mi>E</ns0:mi><ns0:mo stretchy=\"false\">[</ns0:mo><ns0:mi>X</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">|</ns0:mo></ns0:mrow><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">]</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline110",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline110\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline111",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline111\" display=\"inline\" overflow=\"scroll\"><ns0:mi>E</ns0:mi><ns0:mo stretchy=\"false\">[</ns0:mo><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mrow><ns0:mo stretchy=\"false\">|</ns0:mo></ns0:mrow><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">]</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline112",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline112\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline113",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline113\" display=\"inline\" overflow=\"scroll\"><ns0:mi>t</ns0:mi></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline116",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline116\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline117",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline117\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline118",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline118\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline119",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline119\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline120",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline120\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi mathvariant=\"normal\">Λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline121",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline121\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline122",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline122\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>cHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline123",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline123\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline124",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline124\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>RMST</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline125",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline125\" display=\"inline\" overflow=\"scroll\"><ns0:mi>N</ns0:mi></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline126",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline126\" display=\"inline\" overflow=\"scroll\"><ns0:mi>N</ns0:mi><ns0:mo>−</ns0:mo><ns0:mn>1</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline127",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline127\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline128",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline128\" display=\"inline\" overflow=\"scroll\"><ns0:mi>τ</ns0:mi><ns0:mtext>th</ns0:mtext></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline129",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline129\" display=\"inline\" overflow=\"scroll\"><ns0:mi>ln</ns0:mi><ns0:mspace width=\"0.2em\" /><ns0:mo fence=\"false\" stretchy=\"false\">{</ns0:mo><ns0:msub><ns0:mi>t</ns0:mi><ns0:mi>τ</ns0:mi></ns0:msub><ns0:mo fence=\"false\" stretchy=\"false\">}</ns0:mo><ns0:mo>=</ns0:mo><ns0:msup><ns0:mi mathvariant=\"bold-italic\">x</ns0:mi><ns0:mi>T</ns0:mi></ns0:msup><ns0:mi mathvariant=\"bold-italic\">β</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>τ</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>+</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>τ</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline130",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline130\" display=\"inline\" overflow=\"scroll\"><ns0:mi>τ</ns0:mi><ns0:mtext>th</ns0:mtext></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline131",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline131\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>τ</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline132",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline132\" display=\"inline\" overflow=\"scroll\"><ns0:mi>τ</ns0:mi><ns0:mo>∈</ns0:mo><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo>,</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline133",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline133\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>τ</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline134",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline134\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mi>exp</ns0:mi><ns0:mspace width=\"0.2em\" /><ns0:mo fence=\"false\" stretchy=\"false\">{</ns0:mo><ns0:msup><ns0:mi mathvariant=\"bold-italic\">x</ns0:mi><ns0:mi>T</ns0:mi></ns0:msup><ns0:mi mathvariant=\"bold-italic\">β</ns0:mi><ns0:mo fence=\"false\" stretchy=\"false\">}</ns0:mo><ns0:msubsup><ns0:mi>λ</ns0:mi><ns0:mn>0</ns0:mn><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msubsup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline135",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline135\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline136",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline136\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>cHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline137",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline137\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline138",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline138\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline139",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline139\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mspace width=\".1em\" /><ns0:mfrac><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">exp</ns0:mi></ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>x</ns0:mi><ns0:mi>T</ns0:mi></ns0:msup><ns0:mi>β</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mspace width=\".1em\" /></ns0:mrow><ns0:mrow><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">exp</ns0:mi></ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mo>−</ns0:mo><ns0:msub><ns0:mi>γ</ns0:mi><ns0:mn>1</ns0:mn></ns0:msub><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mspace width=\".1em\" /></ns0:mrow><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>+</ns0:mo><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">exp</ns0:mi></ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mo>−</ns0:mo><ns0:msub><ns0:mi>γ</ns0:mi><ns0:mn>2</ns0:mn></ns0:msub><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo>−</ns0:mo><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mspace width=\".1em\" /></ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:mfrac><ns0:msub><ns0:mi>λ</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline140",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline140\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>γ</ns0:mi><ns0:mn>1</ns0:mn></ns0:msub></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline141",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline141\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>γ</ns0:mi><ns0:mn>2</ns0:mn></ns0:msub></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline142",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline142\" display=\"inline\" overflow=\"scroll\"><ns0:mi>exp</ns0:mi><ns0:mspace width=\"0.2em\" /><ns0:mo fence=\"false\" stretchy=\"false\">{</ns0:mo><ns0:msub><ns0:mi>γ</ns0:mi><ns0:mn>1</ns0:mn></ns0:msub><ns0:mo fence=\"false\" stretchy=\"false\">}</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline143",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline143\" display=\"inline\" overflow=\"scroll\"><ns0:mi>exp</ns0:mi><ns0:mspace width=\"0.2em\" /><ns0:mo fence=\"false\" stretchy=\"false\">{</ns0:mo><ns0:msub><ns0:mi>γ</ns0:mi><ns0:mn>2</ns0:mn></ns0:msub><ns0:mo fence=\"false\" stretchy=\"false\">}</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline144",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline144\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mi>exp</ns0:mi><ns0:mspace width=\"0.2em\" /><ns0:mo fence=\"false\" stretchy=\"false\">{</ns0:mo><ns0:msup><ns0:mi>x</ns0:mi><ns0:mi>T</ns0:mi></ns0:msup><ns0:mi>β</ns0:mi><ns0:mo>+</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo fence=\"false\" stretchy=\"false\">}</ns0:mo><ns0:msub><ns0:mi>λ</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline145",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline145\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msub><ns0:mi>γ</ns0:mi><ns0:mn>1</ns0:mn></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mi>γ</ns0:mi><ns0:mn>2</ns0:mn></ns0:msub><ns0:mi>I</ns0:mi><ns0:mo fence=\"false\" stretchy=\"false\">{</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo>≥</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo fence=\"false\" stretchy=\"false\">}</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline146",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline146\" display=\"inline\" overflow=\"scroll\"><ns0:mi>I</ns0:mi></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline147",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline147\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline148",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline148\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline149",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline149\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline150",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline150\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mi>exp</ns0:mi><ns0:mspace width=\"0.2em\" /><ns0:mo fence=\"false\" stretchy=\"false\">{</ns0:mo><ns0:msup><ns0:mi>x</ns0:mi><ns0:mi>T</ns0:mi></ns0:msup><ns0:mi>β</ns0:mi><ns0:mo>+</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo fence=\"false\" stretchy=\"false\">}</ns0:mo><ns0:msub><ns0:mi>λ</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline151",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline151\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline152",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline152\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:munder><ns0:mo>∑</ns0:mo><ns0:mi>d</ns0:mi></ns0:munder><ns0:msub><ns0:mi>B</ns0:mi><ns0:mi>d</ns0:mi></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:msub><ns0:mi>γ</ns0:mi><ns0:mi>d</ns0:mi></ns0:msub></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline153",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline153\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>B</ns0:mi><ns0:mi>d</ns0:mi></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline154",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline154\" display=\"inline\" overflow=\"scroll\"><ns0:mi>t</ns0:mi></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline155",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline155\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline156",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline156\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline157",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline157\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline158",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline158\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msub><ns0:mi>λ</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>+</ns0:mo><ns0:msup><ns0:mi>x</ns0:mi><ns0:mi>T</ns0:mi></ns0:msup><ns0:mi>β</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>+</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline159",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline159\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>λ</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline160",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline160\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline161",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline161\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline162",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline162\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline163",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline163\" display=\"inline\" overflow=\"scroll\"><ns0:mi>T</ns0:mi></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline164",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline164\" display=\"inline\" overflow=\"scroll\"><ns0:mn>0</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline166",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline166\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline167",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline167\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline168",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline168\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>λ</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline169",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline169\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline170",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline170\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline171",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline171\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline172",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline172\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline173",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline173\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline174",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline174\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline175",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline175\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline176",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline176\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline177",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline177\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline178",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline178\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline179",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline179\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline180",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline180\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline181",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline181\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline182",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline182\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline183",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline183\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline184",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline184\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline185",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline185\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline186",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline186\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline187",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline187\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline188",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline188\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mi>exp</ns0:mi><ns0:mspace width=\"0.2em\" /><ns0:mo fence=\"false\" stretchy=\"false\">{</ns0:mo><ns0:msup><ns0:mi>x</ns0:mi><ns0:mi>T</ns0:mi></ns0:msup><ns0:mi>β</ns0:mi><ns0:mo>+</ns0:mo><ns0:mi>Z</ns0:mi><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo fence=\"false\" stretchy=\"false\">}</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline189",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline189\" display=\"inline\" overflow=\"scroll\"><ns0:mi>γ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline190",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline190\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline191",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline191\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline192",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline192\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline193",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline193\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>RMST</ns0:mtext></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline194",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline194\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline195",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline195\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline196",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline196\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi mathvariant=\"normal\">∞</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline197",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline197\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline198",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline198\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline199",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline199\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline200",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline200\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline201",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline201\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline202",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline202\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline203",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline203\" display=\"inline\" overflow=\"scroll\"><ns0:mn>1</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline204",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline204\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline205",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline205\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline206",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline206\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline207",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline207\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline208",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline208\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline209",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline209\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline210",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline210\" display=\"inline\" overflow=\"scroll\"><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline211",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline211\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mspace width=\".1em\" /><ns0:mi mathvariant=\"normal\">∀</ns0:mi><ns0:mspace width=\".1em\" /><ns0:mi>t</ns0:mi><ns0:mo>≥</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline212",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline212\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mspace width=\".1em\" /><ns0:mi mathvariant=\"normal\">∀</ns0:mi><ns0:mspace width=\".1em\" /><ns0:mi>t</ns0:mi><ns0:mo>≥</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline213",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline213\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:mspace width=\".1em\" /><ns0:mtext>HR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mn>1</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline214",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline214\" display=\"inline\" overflow=\"scroll\"><ns0:mi mathvariant=\"normal\">∀</ns0:mi><ns0:mspace width=\".1em\" /><ns0:mi>t</ns0:mi><ns0:mo>≥</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline215",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline215\" display=\"inline\" overflow=\"scroll\"><ns0:mrow><ns0:mover><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">~</ns0:mo></ns0:mover></ns0:mrow></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline216",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline216\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:mspace width=\".1em\" /><ns0:mrow><ns0:mi mathvariant=\"normal\">Δ</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo>)</ns0:mo></ns0:mrow><ns0:mo>=</ns0:mo><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">t</ns0:mi></ns0:mrow></ns0:mrow><ns0:mo>*</ns0:mo></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow><ns0:mo>−</ns0:mo><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo></ns0:mrow><ns0:msup><ns0:mrow><ns0:mrow><ns0:mi mathvariant=\"normal\">t</ns0:mi></ns0:mrow></ns0:mrow><ns0:mo>*</ns0:mo></ns0:msup><ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo></ns0:mrow><ns0:mspace width=\".1em\" /><ns0:mn>0</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline217",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline217\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:mspace width=\".1em\" /><ns0:mtext>aHR</ns0:mtext><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mn>1</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline218",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline218\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>≤</ns0:mo><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mspace width=\".1em\" /><ns0:mi mathvariant=\"normal\">∀</ns0:mi><ns0:mspace width=\".1em\" /><ns0:mi>t</ns0:mi><ns0:mo>≥</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline219",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline219\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>≤</ns0:mo><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mspace width=\".1em\" /><ns0:mi mathvariant=\"normal\">∀</ns0:mi><ns0:mspace width=\".1em\" /><ns0:mi>t</ns0:mi><ns0:mo>≥</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">⇒</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>≥</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline220",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline220\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msup><ns0:mi>S</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mspace width=\".1em\" /><ns0:mi mathvariant=\"normal\">∀</ns0:mi><ns0:mi>t</ns0:mi><ns0:mo>≥</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>\n"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline222",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline222\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>,</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo>≥</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline223",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline223\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>≤</ns0:mo><ns0:msup><ns0:mi>λ</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>,</ns0:mo><ns0:mi>t</ns0:mi><ns0:mo>≥</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline224",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline224\" display=\"inline\" overflow=\"scroll\"><ns0:mi>w</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msub><ns0:mi>t</ns0:mi><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>i</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msub><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline225",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline225\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline226",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline226\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:mi mathvariant=\"normal\">Δ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>−</ns0:mo><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline227",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline227\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:mi mathvariant=\"normal\">Δ</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>=</ns0:mo><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>1</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>−</ns0:mo><ns0:msup><ns0:mtext>RMST</ns0:mtext><ns0:mrow><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mn>0</ns0:mn><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow></ns0:msup><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>≤</ns0:mo><ns0:mn>0</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline228",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline228\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup><ns0:mo>∈</ns0:mo><ns0:mo fence=\"false\" stretchy=\"false\">{</ns0:mo><ns0:msub><ns0:mi>t</ns0:mi><ns0:mn>1</ns0:mn></ns0:msub><ns0:mo>,</ns0:mo><ns0:mo>…</ns0:mo><ns0:mo>,</ns0:mo><ns0:msub><ns0:mi>t</ns0:mi><ns0:mi>K</ns0:mi></ns0:msub><ns0:mo fence=\"false\" stretchy=\"false\">}</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline229",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline229\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:mtext>aHR</ns0:mtext><ns0:mo>=</ns0:mo><ns0:mn>1</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline230",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline230\" display=\"inline\" overflow=\"scroll\"><ns0:msub><ns0:mi>H</ns0:mi><ns0:mn>0</ns0:mn></ns0:msub><ns0:mo>:</ns0:mo><ns0:mtext>aHR</ns0:mtext><ns0:mo>≥</ns0:mo><ns0:mn>1</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline231",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline231\" display=\"inline\" overflow=\"scroll\"><ns0:msubsup><ns0:mi>t</ns0:mi><ns0:mn>1</ns0:mn><ns0:mo>*</ns0:mo></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline232",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline232\" display=\"inline\" overflow=\"scroll\"><ns0:msubsup><ns0:mi>t</ns0:mi><ns0:mn>2</ns0:mn><ns0:mo>*</ns0:mo></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "mml-inline233",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"mml-inline233\" display=\"inline\" overflow=\"scroll\"><ns0:msup><ns0:mi>t</ns0:mi><ns0:mo>*</ns0:mo></ns0:msup></ns0:math>"
+  }
+]

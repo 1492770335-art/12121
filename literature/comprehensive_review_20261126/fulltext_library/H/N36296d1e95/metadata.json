@@ -1,0 +1,34 @@
+{
+  "paper_id": "N36296d1e95",
+  "category": "H",
+  "title": "Estimating restricted mean survival time and expected life-years lost in the presence of competing risks within flexible parametric survival models",
+  "authors": "Sarwar I. Mozumder and Mark J. Rutherford and Paul C. Lambert",
+  "doi": "10.1186/s12874-021-01213-0",
+  "year": "2021",
+  "original_url": "https://doi.org/10.1186/s12874-021-01213-0",
+  "local_fulltext": true,
+  "public_pdf": [
+    "H/N36296d1e95/artifacts/31ffff349ee4/original.pdf"
+  ],
+  "public_markdown": [
+    "H/N36296d1e95/artifacts/31ffff349ee4/fulltext.md"
+  ],
+  "public_txt": [
+    "H/N36296d1e95/artifacts/31ffff349ee4/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "31ffff349ee4e28d72efca3fc1b7181278c61f343c30d9f8ca15c0602c996114",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.researchsquare.com/article/rs-14402/v3.pdf?c=1631858326000",
+      "provenance": "H/N36296d1e95/artifacts/31ffff349ee4/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/N36296d1e95/README.md",
+  "status": "public_fulltext"
+}

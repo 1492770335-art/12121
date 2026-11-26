@@ -1,0 +1,28 @@
+{
+  "paper_id": "J08",
+  "category": "J",
+  "title": "Inference on Directionally Differentiable Functions",
+  "authors": "Zheng Fang and Andres Santos",
+  "doi": "10.1093/restud/rdy049",
+  "year": "2018",
+  "original_url": "https://doi.org/10.1093/restud/rdy049",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "614ac2e985181235a6e8cc47fd5a29b42d4f5ffeaf0c429eda41c212d13e16e9",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1404.3763"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "J/J08/README.md",
+  "status": "local_only"
+}

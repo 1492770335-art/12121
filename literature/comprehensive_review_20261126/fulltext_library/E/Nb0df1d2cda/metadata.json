@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nb0df1d2cda",
+  "category": "E",
+  "title": "Model Selection for Treatment Choice: Penalized Welfare Maximization",
+  "authors": "Eric Mbakop and Max Tabord-Meehan",
+  "doi": "10.3982/ecta16437",
+  "year": "2021",
+  "original_url": "https://doi.org/10.3982/ecta16437",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "a9d82aee29281fbd70c6e6f5ea180dbfc186d310cd35ce126d70c63e914447f7",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1609.03167"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Nb0df1d2cda/README.md",
+  "status": "local_only"
+}

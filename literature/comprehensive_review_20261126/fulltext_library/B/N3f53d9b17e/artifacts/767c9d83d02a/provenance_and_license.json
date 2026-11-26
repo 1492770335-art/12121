@@ -1,0 +1,30 @@
+{
+  "paper_id": "N3f53d9b17e",
+  "category": "B",
+  "artifact_type": "main",
+  "sha256": "767c9d83d02ad8408c7f0846b73605baf8bce554d7a6023f18c025a7ad906298",
+  "source_url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/3A5547A33592323B23CA6E000FCA6D09/S0266466626100498a.pdf/div-class-title-minimax-regret-treatment-rules-with-finite-samples-when-a-quantile-is-the-object-of-interest-div.pdf",
+  "original_version": "publishedVersion",
+  "bytes": "385264",
+  "pdf_pages": "36",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/3A5547A33592323B23CA6E000FCA6D09/S0266466626100498a.pdf/div-class-title-minimax-regret-treatment-rules-with-finite-samples-when-a-quantile-is-the-object-of-interest-div.pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:51.595832+08:00",
+  "format": "pdf",
+  "title": "MINIMAX REGRET TREATMENT RULES WITH FINITE SAMPLES WHEN A QUANTILE IS THE OBJECT OF INTEREST",
+  "authors": "Patrik Guggenberger and Nihal Mehta and Nikita Pavlov",
+  "doi": "10.1017/s0266466626100498",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "under the terms of the Creative Commons Attribution licence (https://creativecommons.org/licenses/by/4.0),"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "paper_id": "Nf2c4076178",
+  "category": "B",
+  "title": "Stabilized Direct Learning for Efficient Estimation of Individualized Treatment Rules",
+  "authors": "Kushal S. Shah and Haoda Fu and Michael R. Kosorok",
+  "doi": "10.1111/biom.13818",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1111/biom.13818",
+  "local_fulltext": true,
+  "public_pdf": [
+    "B/Nf2c4076178/artifacts/b851d7404447/original.pdf"
+  ],
+  "public_markdown": [
+    "B/Nf2c4076178/artifacts/b851d7404447/fulltext.md"
+  ],
+  "public_txt": [
+    "B/Nf2c4076178/artifacts/b851d7404447/fulltext.txt"
+  ],
+  "original_tex": [
+    "B/Nf2c4076178/artifacts/b851d7404447/latex/ms.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "b851d740444705f4f99fab57ad112909696d7161c243b2693eb8a7821b4607ea",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2112.03981",
+      "provenance": "B/Nf2c4076178/artifacts/b851d7404447/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/Nf2c4076178/README.md",
+  "status": "public_fulltext"
+}

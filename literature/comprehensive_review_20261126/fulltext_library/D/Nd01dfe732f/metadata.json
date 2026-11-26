@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nd01dfe732f",
+  "category": "D",
+  "title": "Scalable estimation and inference for censored quantile regression process",
+  "authors": "Xuming He and Xiaoou Pan and Kean Ming Tan and Wen-Xin Zhou",
+  "doi": "10.1214/22-aos2214",
+  "year": "2022",
+  "original_url": "https://doi.org/10.1214/22-aos2214",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "28c4a0cb7a78c3ad086f76f61df306b6fd094283e1b47685e43d4c757266cdeb",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2210.12629"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/Nd01dfe732f/README.md",
+  "status": "local_only"
+}

@@ -1,0 +1,1526 @@
+Comparison of estimated personalized treatment rules under varying interference structures and treatment rates using dynamic weighted ordinary least squares
+
+Original PDF: [original.pdf](original.pdf). SHA256: `1d52ff2cc8b46d3dc87de3db0a13a6d3e0b57ff08da1a8388cb9082f5573cc26`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+FORMULA CHECK REQUIRED: original PDF page 1.
+RESEARCH
+Open Access
+BMC Medical Research 
+Methodology
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+https://doi.org/10.1186/s12874-026-02936-8
+Comparison of estimated personalized 
+treatment rules under varying interference 
+structures and treatment rates using dynamic 
+weighted ordinary least squares
+Alexandra Mossman1*, Ranjani Somayaji1, Sonya Heltshe3, Yeying Zhu2 and Michael Wallace2*
+​*​C​o​r​r​e​s​p​o​n​d​e​n​c​e​:​
+Alexandra Mossman
+alexandra.mossman@ucalgary.ca
+Michael Wallace
+michael.wallace@uwaterloo.ca
+1Department of Medicine, University of Calgary, 3330 Hospital Drive NW, 
+Calgary, Alberta T2N 4N1, Canada
+2Department of Statistics and Actuarial Science, University of Waterloo, 
+200 University Avenue West, Waterloo N21 3G1, Ontario, Canada
+3Cystic Fibrosis Foundation Therapeutics Development Network 
+Coordinating Center, Seattle Children’s Research Institute, 4800 Sand 
+Point Way NE, Seattle 98105, Washington, USA
+© The Author(s) 2026. Open Access  This article is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 
+International License, which permits any non-commercial use, sharing, distribution and reproduction in any medium or format, as long as you 
+give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if you modified the 
+licensed material. You do not have permission under this licence to share adapted material derived from this article or parts of it. The images or 
+other third party material in this article are included in the article’s Creative Commons licence, unless indicated otherwise in a credit line to the 
+material. If material is not included in the article’s Creative Commons licence and your intended use is not permitted by statutory regulation or 
+exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit ​h​t​t​p​:​/​/​c​r​e​a​t​i​
+v​e​c​o​m​m​o​n​s​.​o​r​g​/​l​i​c​e​n​s​e​s​/​b​y​-​n​c​-​n​d​/​4​.​0​/​.​
+Abstract
+Dynamic treatment regimes (DTRs) are statistical methods that use patient-specific information to estimate an 
+optimal sequence of treatments, with the end goal of maximizing a desired outcome of interest. DTRs have many 
+useful applications to chronic disease management when patient characteristics are monitored over multiple 
+periods of follow up to determine whether to continue a course of treatment or adopt an alternate strategy. 
+Applications of DTRs to interference networks, or settings where an individual’s outcome can be affected by the 
+treatments received by other individuals in the network, have received relatively little attention in the literature. 
+Previous work has established DTR estimation for couples in households and in networks where general forms 
+of interference are taking place, but the extent to which interference needs to be accounted for to avoid biased 
+estimates of optimal treatment rules remains unknown. In this paper, we demonstrate how one such DTR 
+method, dynamic weighted ordinary least squares regression (dWOLS), can be modified to account for both 
+within- and between-group interference in nested hierarchical networks, and we compare our implementation 
+with other dWOLS approaches with mis-specified exposure mappings. Our findings show that both the overall 
+rate of treatment and the proportion of individuals experiencing interference from assigned neighbours can affect 
+the performance of dWOLS regardless of the specified exposure mapping. Although standard dWOLS may be 
+acceptable in some settings when the overall rate of treatment and proportion of egos assigned alters is expected 
+to be low, our results demonstrate the improved performance of a dWOLS implementation that accounts for both 
+within- and between-group interference, regardless of the overall rate of treatment or proportion of egos assigned 
+alters.
+Keywords  Dynamic treatment regime, Interference, Causal inference, Observational data
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+Page 2 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+​Background
+Dynamic treatment regimes (DTRs) are key statistical 
+methods for developing personalized treatment strate­
+gies, particularly in the context of chronic diseases where 
+patient characteristics are monitored over time and a 
+course of treatment may be changed in response to the 
+patient’s needs. Estimating the optimal DTR over one 
+or more time intervals, or stages, of treatment trans­
+lates to determining the sequence of decision rules that 
+maximizes a patient’s expected outcome, conditional on 
+their demographic and clinical characteristics as well as 
+their history of prior treatments at each stage [1]. While 
+DTRs can be estimated from a special class of random­
+ized trials known as sequential multiple assignment ran­
+domized trials (SMARTs), they can also be constructed 
+using longitudinal observational data under several key 
+assumptions and by accounting for complexities such as 
+time-varying confounding variables [2].
+A key assumption in the DTR literature is the stable 
+unit treatment value assumption (SUTVA), which states 
+that an individual’s outcome is independent of the treat­
+ments received by other individuals [3]. Much DTR 
+development has modelled individual outcomes only in 
+terms of one’s own treatments and characteristics, yet 
+there are many settings known as interference networks 
+where the treatments or actions taken by an individual 
+can affect the outcome of others. A well-known example 
+is when an individual’s susceptibility to viral infection is 
+influenced by the number of household members who 
+are vaccinated [4, 5], and evaluating indirect effects of 
+treatments or policies is also of interest across cluster-
+level trials for infectious disease research, such as the 
+SEARCH study evaluating community-based strate­
+gies for HIV prevention and treatment and the SHINE 
+study testing strategies to reduce Staphylococcus aureus 
+infection within households [6]. Figure 1 illustrates a 
+directed acyclic graph (DAG) for the simplest case where 
+an individual (or an ego as defined in [7]) has their out­
+come affected by both their own treatment and covari­
+ate as well as those of another individual (defined as an 
+alter [7]). An interference network often represents the 
+connections or “links” between individuals as edges of 
+a pre-specified graph [8–12], and an exposure mapping 
+summarizes the treatments received by a group of indi­
+viduals in the network [8].
+DTR estimation under interference networks is a rela­
+tively recent area of research, and challenges include 
+identifying interference structures and determining 
+the ways in which characteristics or treatments of mul­
+tiple individuals interact with one another. Although 
+the exposure mapping is a low-dimensional summary of 
+alter treatments to include as a tailoring variable in DTR 
+methods, its true form is often unknown or difficult to 
+represent due to the complex and often dynamic nature 
+of social and spatial networks. Specification of the expo­
+sure mapping to capture interference in a dataset, as well 
+as the choice to include alter covariates in the ego’s out­
+come model, may also affect the weighting criterion in 
+regression-based DTR methods that is needed to ensure 
+that estimators for treatment parameters are unbiased. 
+Jiang et al. [7] first established balancing weight condi­
+tions for dynamic weighted ordinary least squares regres­
+sion (dWOLS) that guarantee consistency of estimators 
+and maintain the double robustness property of standard 
+dWOLS under interference networks. Mussavi Rizi et al. 
+[13] proposed a joint optimization strategy for dWOLS 
+to simultaneously maximize the outcome of two indi­
+viduals in a dyadic network, i.e. a pair of individuals in a 
+household. These analyses were applied to data from the 
+Population Assessment of Tobacco and Health (PATH) 
+study [14], where it was assumed that an ego’s cigarette 
+dependence could be affected by an alter’s use of e-cig­
+arettes in the same household [7]. In these analyses, 
+every ego was assigned at least one alter within the same 
+household under a partial inference or clustered interfer­
+ence assumption, which restricts interference to occur 
+only within some, but not between, groups of individuals 
+to avoid the problem being computationally intractable 
+[15–18].
+While it is often left to the discretion of the researcher 
+as to whether interference should be accounted for in an 
+analysis, an interesting question arises when interference 
+may be occurring among some, but not all, individuals in 
+a network, rather than assuming complete violation of 
+the SUTVA. For instance, if only inline-eq-IEq5 of households in 
+the PATH dataset had individuals whose outcomes were 
+affected by household members’ treatments, we may 
+say that “interference is occurring among inline-eq-IEq6 of indi­
+viduals selected for analysis”, and in cases such as this, a 
+researcher using a “standard” dWOLS analysis that does 
+not account for interference may still correctly estimate 
+Fig. 1  Illustration of a DAG for two individuals in the simplest interference 
+network structure when the SUTVA is violated and the alter’s treatment 
+is treated as a precision variable to optimize the ego’s outcome. Here, 
+inlin e-eq-IEq1, and inline-eq-IEq2 represent the covariate, treatment, and outcome 
+of the ego, respectively, while inline-eq-IEq3 and inline-eq-IEq4 represent the covariate 
+and treatment of the alter, respectively
+ 
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+Page 3 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+the optimal treatment rule most of the time. However, if 
+interference were taking place in the majority of house­
+holds, say inline-eq-IEq7, then failing to account for interference in 
+a DTR analysis may result in higher bias for the param­
+eter estimates used to construct the optimal treatment 
+rule. While in practice it is difficult to determine whether 
+interference may be present in a dataset, context-specific 
+factors can be used to determine whether it is suitable to 
+account for interference in a personalized treatment rule. 
+For example, previous research has already shown that 
+phenomena related to substance use disorder (SUD) and 
+addiction, such as drug use, smoking, and alcohol use, 
+are associated with network structure, with behaviours 
+spreading through close and distant social ties [19–23], 
+and social relationships among people with SUD can 
+be influenced by factors such as treatment participa­
+tion [24–26]. There is also evidence that personalized 
+interventions for treatment can be leveraged to enhance 
+existing social network compositions, such as through 
+support groups and one-on-one peer connections [27, 28].
+Determining the extent to which interference is present 
+in a dataset may also be important if the effect of a pre­
+dictor in the optimal treatment rule depends on an alter’s 
+treatment status. For example, if a caregiver is decid­
+ing whether their patient (ego) would benefit from vir­
+tual delivery of a peer support program to quit smoking 
+or an in-person delivery, the optimal treatment rule for 
+that individual may depend on several factors, including 
+the person’s age and average number of days gone with­
+out smoking, as well as their number of friends who have 
+chosen an in-person delivery. However, the ego’s average 
+number of days gone without smoking may be higher if 
+they have more alters who have chosen the in-person 
+delivery, but lower if they have more alters who have cho­
+sen the virtual delivery. Whether or not the alters have 
+chosen one versus another level of treatment will, in turn, 
+depend on the overall probability of treatment assign­
+ment in a given network setting, assuming that all indi­
+viduals receive treatment independently of one another. 
+In this paper, our aim is to illustrate how the extent and 
+structure of interference occurring among individuals 
+can affect the bias of estimated optimal treatment rules 
+in DTR implementations with exposure mappings that 
+either fail to account for interference, partially account 
+for interference, or correctly specify the structure of 
+interference present.
+Methods
+Dynamic weighted ordinary least squares (dWOLS) under 
+network interference
+In the DTR framework, it is assumed that treatment deci­
+sions are made sequentially over several time intervals, or 
+stages, for the patient, with inline-eq-IEq8 representing their binary 
+treatment at the t-th stage of T total time intervals, 
+i n li ne -eq- IEq9. A sequence of past treatments is expressed 
+as in line-eq-IEq10 (inline-eq-IEq1 1
+), which represents the sequence of 
+treatments up to and including stage t, while inli ne-eq-IEq12 
+(inlin e-eq -IEq13 ) denotes the sequence of future treatments 
+at stage i n line-eq-IEq14 and onwards. By defining inline-eq-IEq15 as a patient’s 
+collection of non-treatment measurements at time t, 
+such as age, smoking status, blood pressure, and so forth, 
+the patient’s t-th stage history can be expressed as inline-eq-IEq16, 
+which includes previous treatments inline-eq-IEq17 through inline-eq-IEq18 in 
+addition to inline-eq-IEq19.
+Wallace and Moodie [29] proposed dynamic weighted 
+ordinary least squares regression (dWOLS) as a DTR 
+method adapted from two other DTR methods, 
+Q-learning and G-estimation [29]. To maximize the 
+expected outcome for a patient given their full history, inline-eq-IEq20
+, the expected mean (possibly counterfactual) outcome of 
+interest Y under treatment regimen inline-eq-IEq21 can be expressed 
+as follows:
+	
+displ ay - eq - Equ1
+where i nline-eq-IEq22 is the outcome under the sequence of treat­
+ments inline-eq-IEq23 , inlin e-eq-IEq24 is the treatment-free function with 
+covariates inline-eq-IEq25 that are irrespective to treatment, and 
+inline -e q-IEq26 is the blip model, defined as
+	 displa y-e q -
+E
+qu2
+which represents the expected difference in outcome 
+between a person who used treatment in l ine-eq-IEq27 at stage t 
+and one who received the reference treatment inli
+n
+e -eq-IEq28
+, with both persons having the same history inline-eq-IEq29 and 
+receiving the optimal sequence of future treatments 
+inli
+ne-eq-IEq30 after stage t. The optimal treatment at stage t is 
+that which maximizes the corresponding blip function 
+in the outcome model, and in the case of binary treat­
+ment, it follows that the optimal treatment is inli
+n
+e-eq-IEq3
+1 
+if inline -e q-I E q32 and inli
+n
+e -eq-IEq33 otherwise. Determining 
+the optimal t-th treatment decision therefore involves 
+estimating the blip parameters inline-eq-IEq34 in each of the blip func­
+tions inline -eq -IEq 3 5
+. In dWOLS, the blip 
+parameters are estimated at each stage t of analysis in the 
+following steps: 
+1.	 Let inl i ne-eq-IEq36, the observed outcome at the 
+last stage i n line-eq-IEq37 of analysis. For all previous 
+stages i n line-eq-IEq38, the pseudo-outcome is defined as 
+inl i n e -e
+q-IEq 39
+,where 
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+Page 4 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+inline-eq-IEq6
+2
+.” Here, “Age” is a subset of the variables con­
+tained in inline-eq-IEq63 used to tailor the optimal treatment rule. 
+A pseudo-outcome is then constructed for the previous 
+stage which removes any effects of nonoptimal treat­
+ment at stage 2, e.g. inl i n e -eq-I
+E
+q 64
+, which is then regressed on the patient’s covariates and 
+treatment to estimate the blip parameters at stage 1, e.g. 
+i
+nline-eq-IEq65 and i
+nline-eq-IEq66. Additionally, dWOLS offers consistent esti­
+mators of the blip parameters at each stage provided that 
+the blip model is correctly specified and at least one of 
+the treatment model and treatment-free model are cor­
+rectly specified, lending dWOLS its double-robustness.
+Jiang et al. [7] previously introduced implementations 
+of dWOLS in networks with interference, showing that a 
+failure to account for interference in the blip model can 
+lead to biased estimators of blip parameters and, in turn, 
+mis-identified treatment rules. In the context of network 
+analysis for DTR estimation, we consider the ego to be 
+the person of primary interest for whom the optimal 
+treatment rule is being estimated, while the alters are all 
+individuals or contacts linked to the ego in some way and 
+whose treatments are assumed to be pre-determined [7]. 
+Jiang et al. [7] defined the network propensity function for 
+ego k in a one-stage setting as
+	display-eq-Equ 7
+where in l ine-eq-IEq67 denotes treatment status of ego k, inline-eq-IEq68 
+represents the alters of ego k with treatment status 1, inline-eq-IEq69 
+represents the covariates for ego k, inline-eq-IEq70 represents the set 
+of alters for ego k, and inline-eq-IEq71 represents the covariates 
+for ego k’s alters. By defining the standard propensity as 
+in l ine- e q-IEq72, the network propensity function 
+may be expressed as
+	display-eq-Equ 8
+	d isplay-eq- E qu9
+Jiang et al. [7] showed that the double robustness of 
+dWOLS can be recovered under network interference 
+provided that at least one of the treatment and treat­
+ment-free models is correctly specified using weights 
+that have the same balancing condition as in standard 
+dWOLS. However, when the treatment-free model con­
+tains interference terms such as alter covariates, the 
+authors proposed weights that satisfy the following bal­
+ancing condition to guarantee consistency of the blip 
+parameter estimators as well as parameter estimators for 
+the alter components (known as spillover terms):
+	displa y-e q-Eq u10
+	
+displa y-e q -Equ3
+	
+ represents the difference in outcome from an 
+individual who has been prescribed treatment inline-eq-IEq40 at 
+stage t compared to a person with identical history 
+who has received the optimal treatment inli
+ne-eq-IEq41
+, with 
+all future treatments from stage i n line-eq-IEq42 onwards being 
+optimal for both patients. Here, the intuition is that 
+by adding “future” regrets to the observed outcome, 
+any effects of non-optimality from future treatments 
+are removed, allowing inline-eq-IEq43 to estimate the stage t blip 
+parameters that will in turn dictate the optimal stage 
+t treatment rule.
+2.	 Propose a treatment model 
+inline- e q-I Eq4 4
+ to 
+obtain estimates of parameters inline-eq-IEq45 and construct 
+weights that satisfy the balancing condition 
+	
+display-e q-E qu4
+	
+ where inlin e -eq- I Eq46 ; a possible choice may 
+be absolute value weights of the form 
+	
+displ ay- eq- E qu5
+3.	 Perform a weighted regression of inline-eq-IEq47, i n li ne-e q-IEq48
+, on in
+line-eq-IEq49 and in
+line-eq-IEq50, i nline-eq-IEq5
+1
+, two (possibly 
+identical) subsets of variables contained 
+in the collection of covariates for patient j, 
+through a proposed outcome model such as 
+inli
+ne
+- eq- I Eq5 2
+.
+4.	 Use the resulting estimates inline-eq-IEq53 at stage t to determine 
+the corresponding optimal treatment rule, for 
+instance, “inli
+n
+e -eq-IEq54 if inli n e-eq-I E q55”.
+5.	 Construct the pseudo-outcome inline-eq-IEq56 for the previous 
+stage using inline-eq-IEq57 and repeat the above steps as 
+necessary.
+By obtaining estimates of parameters inline-eq-IEq58 and construct­
+ing weights that satisfy
+	
+display-e q-E qu6
+where 
+inlin e -eq- I Eq59 , 
+possible 
+confounding 
+effects of treatment on blip parameter estimates are 
+removed in the regressions. In a two-stage setting, the 
+observed outcome is first regressed on the patient’s his­
+tory at stage 2 to obtain estimates of the blip parameters 
+at stage 2, e.g. “inli
+n
+e -eq-IEq60 if i
+nli n e
+-eq-IEq6 1
+, otherwise 
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+Page 5 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+where inline-eq-IEq73 is a function that depends only on the variables 
+inli ne-eq-IEq74 and the degree inline-eq-IEq75. One possible form of 
+weights is network weights, defined as
+	
+di spla y -eq-Equ 1 1
+where i n line-eq-IEq76 [7].
+Simulation study: varying the overall proportion of egos 
+assigned alters
+Nested hierarchical settings reflect many settings of clini­
+cal relevance, such as when patients are nested in treat­
+ment facilities which are in turn nested within broader 
+communities, or when patients are treated by different 
+clinicians within the same facility. In a one-stage setting, 
+we consider I different hierarchies (Level 3 of grouping), 
+with J distinct subgroups nested in each hierarchy (Level 
+2 of grouping) and n individuals (Level 1) in each J-level 
+subgroup for a total network size of i n l i n e -eq-IEq77 
+individuals. In our simulations, egos are sampled at 
+random without replacement from each of the I hier­
+archies, with the remaining individuals designated as 
+potential alters. We generate an i-th level cluster-level 
+covariate in l ine- eq-IEq78 and an individual-level covariate 
+inli n e-eq -IEq79 in the treatment model for individual k in 
+subgroup j nested within hierarchy i. Treatment status is 
+modeled as inli n e-eq-IEq80
+ where
+	
+display-eq- E q u 1 2
+and the intercepts inl i ne-e q-IE q81
+ rep­
+resent random effects at the I and J clustering levels, 
+respectively, with inl i ne-eq-IEq82. Outcomes for the egos are 
+modelled as inli n e-eq-IE q83, where
+	
+disp lay-eq-Eq u 13
+where inline-eq-IEq84 is defined as the total number of alters 
+relative to a designated ego with treatment status 
+inli n e-eq-IEq85, and we note that inline-eq-IEq86 of inline-eq-IEq87 in each of 
+the I hierarchies, i n line- eq-IE q88
+, have at least 
+one alter (not necessarily treated). By setting inline-eq-IEq89 to 0.80, 
+or inline-eq-IEq9 0
+, we can set average probability of receiving 
+treatment to inline-eq-IEq91 or inline-eq-IEq92, and given that all individuals 
+are treated independently of each other, this in turn can 
+affect whether inline-eq- I Eq93 for egos who are assigned at 
+least one alter.
+For individuals without any assigned alters, the optimal 
+treatment rule is
+	
+disp l a y- eq-E q u1 4
+and for individuals with assigned alters, the optimal 
+treatment rule is
+	
+disp la y- eq-E q u 1 5
+By fixing the number of subgroups in each hierarchy 
+to i n line-eq-IEq94 and ensuring that all randomly selected egos 
+whose outcomes are affected by alters’ treatment are 
+assigned exactly i n l i n e - e q-IEq95 alters, for each ego, 
+inline - eq -IEq96 or 2, depending on which of the ego’s alters 
+received the treatment assignment of i n line-eq-IEq97. We consider 
+four methods for this analysis: 
+1.	 Method 1 (ME1): we implement a standard dWOLS 
+approach that does not account for interference in 
+the form of an exposure mapping in the treatment-
+free or blip components of the outcome model. That is, 
+	
+dis pla y- eq -E qu 16
+2.	 Method 2 (ME2): we consider an exposure mapping 
+that determines whether an ego has at least one 
+treated alter, that is, 
+	
+dis pla y- eq -E qu 17
+	
+ Here, the rationale lies in that the researcher 
+is confident that there is at least some form of 
+interference taking place between individuals, but 
+may be unable to accurately determine the total 
+number of treated alters relative to an ego. ME2 
+therefore represents the simplest case of including an 
+alter’s treatment as a precision variable to estimate 
+the optimal treatment rule when at least one of the 
+ego’s alters receives treatment, regardless of whether 
+it is from a within- or between-group alter.
+3.	 Method 3 (ME3): we only account for within-group 
+interference whereby inline-eq-IEq98 includes treated 
+alters relative to ego k only if they are in the same 
+group j in hierarchy i, that is, 
+
+
+===== ORIGINAL PDF PAGE 6 =====
+FORMULA CHECK REQUIRED: original PDF page 6.
+Page 6 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+	
+dis pla y- eq -E qu 18
+	
+ to reflect a scenario whereby a researcher accounts 
+for interference from alters within an ego’s group 
+but assumes interference does not occur between 
+groups. In this way, ME3 specifies an exposure 
+mapping that assumes partial interference within a 
+hierarchical network.
+4.	 Method 4 (ME4): we correctly account for both 
+within- and between-group interference whereby 
+inline-eq-IEq99 includes treated alters relative to ego k 
+regardless if they are in the same or different group j 
+in hierarchy i. That is, 
+	
+dis pla y- eq -E qu 19
+	
+ and ME4 is therefore the theoretical gold-standard 
+for performance.
+To assess the double-robustness property of the differ­
+ent dWOLS method, we mis-specify either one of the 
+treatment or treatment-free models via omission of the 
+non-linear term in inline-eq-IEq100. We simulate 1000 datasets with 
+i n line-eq-IEq101, i n line-eq-IEq102, inlin e -eq-IEq103, in l ine-eq-IEq104, in l ine-eq-IEq105 for a total of 
+500 egos for whom we are estimating the optimal treat­
+ment rule. We set i n line -eq -IE q10 6
+. 
+Mixed effects model parameters for treatment were esti­
+mated using the “glmer” function in the “lme4” package 
+in R. Across all four methods, we use the same standard 
+overlap weights, i.e.
+	 disp l ay-eq - Equ20
+rather than network propensity weights, as our outcome 
+model does not contain alter covariates in X in the treat­
+ment-free component and we wish to primarily investi­
+gate mis-specification of the exposure mapping on blip 
+parameter estimates and the overall optimal treatment 
+rates.
+We 
+also 
+consider 
+a 
+two-stage 
+setting 
+where 
+inli n e-eq -IEq107 and inline - eq-I Eq108 represent simu­
+lated cluster- and individual-level covariates respec­
+tively in the first stage, and inli n e-e q -IEq109
+ and 
+inline - eq-IEq110
+ in the second stage. As in the one-
+stage setting, we fix the number of subgroups in each 
+hierarchy to i n line-eq-IEq111 to ensure that all inline-eq-IEq112 of randomly 
+selected egos whose outcomes are affected by alters’ 
+treatment are assigned exactly 2 alters. Full details are 
+outlined in Appendix 1.
+Simulation study: varying the ratio of within- to between-
+group alters
+In this study, we consider the case where every ego is 
+assigned exactly one alter who may either be from the 
+same (within) group or a different (between) group in 
+the same hierarchy. Such a scenario may arise when the 
+researcher has information on the ego’s alter and wishes 
+to determine how weights are constructed for the ego; 
+specifically, it is of interest to assess the performance 
+of theoretically-preferred network weights depending 
+on how alter-specific information is incorporated. The 
+covariates and probability of treatment are the same as 
+outlined in Simulation study: varying the overall propor­
+tion of egos assigned alters section, but here, outcomes 
+are modelled as inli n e-eq-IE q113 and contain covariates 
+specific to the alter, where
+	
+disp lay-eq-Eq u 21
+and we note that inline-eq-IEq114 of inline-eq-IEq115, i n line- eq-IE q116
+, have a between-group alter while inlin e -eq-IEq117 of inline-eq-IEq118 
+have a within-group alter. The optimal treatment rule is
+	
+disp la y- eq - Equ22
+To assess the performance of network weights when both 
+within- and between-group interference is accounted for 
+versus when only within-group interference is assumed, 
+we consider four methods for this analysis which may 
+incorporate alter-specific information in the following 
+ways: 
+1.	 Method 1 (ME1): the treatment-free model is 
+misspecified through non-linearity in the ego’s 
+covariate, and we implement a dWOLS approach 
+with network weights only if the ego has been 
+assigned a within-group alter and standard weights 
+otherwise; that is, 
+	
+disp lay-eq - Equ23
+	
+ if the ego has a within-group alter, and otherwise, 
+	
+disp l ay-eq - Equ24
+2.	 Method 2 (ME2): the treatment-free model 
+is misspecified in the alter’s covariate, and we 
+implement a dWOLS approach with network 
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+Page 7 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+weights only if the ego has been assigned a within-
+group alter and standard weights otherwise; that is, 
+	
+disp lay-eq - Equ25
+	
+ if the ego has a within-group alter, and otherwise, 
+	
+disp l ay-eq - Equ26
+3.	 Method 3 (ME3): the treatment-free model is 
+misspecified through non-linearity in the ego’s 
+covariate, and we implement a dWOLS approach 
+with network weights for all egos that accounts for 
+within- or between-group alters.
+4.	 Method 4 (ME4): the treatment-free model 
+is misspecified in the alter’s covariate, and we 
+implement a dWOLS approach with network 
+weights that accounts for within- or between-group 
+alters.
+We will test these methods under the two scenarios: one 
+where the treatment model is mis-specified via omis­
+sion of the non-linear term in inline-eq-IEq119, and one where the 
+treatment model is correctly specified. Mixed effects 
+model parameters for treatment were estimated using 
+the “glmer” function in the “lme4” package in R. We set 
+i n line -e q- IEq120 as our blip parameters and simulate 
+1000 datasets with i n line-eq-IEq121, i n line-eq-IEq122, inlin e -eq-IEq123, in l ine-eq-IEq124
+, and in l ine-eq-IEq125, fixing the number of subgroups J in each 
+hierarchy to i n line-eq-IEq126 so that each of the 500 egos for anal­
+ysis has exactly one alter. We set inline-eq-IEq127 to 0.80 so that the 
+average probability of receiving treatment, conditional on 
+a hierarchy’s random effects, is inline-eq-IEq128.
+Performance metrics
+For performance metrics, we define the mean optimal 
+treatment rate (MOTR) as the proportion of individuals 
+in the simulated datasets who would be optimally treated 
+if they had received the treatment determined by the 
+estimated optimal treatment rule, as outlined in [1]. We 
+also include empirical standard error (EmpSE) estimates, 
+defined in Morris et al. [30] as
+	
+d
+i
+spla y -
+eq-Eq
+u27
+where inline-eq-IEq129 is the estimated MOTR in simulated dataset r 
+and inline-eq-IEq130 is the mean of inline-eq-IEq131 across all 1000 simulated datasets.
+Results
+Varying the overall proportion of egos assigned with alters
+The MOTR and EmpSE for each method under differ­
+ent probabilities of overall treatment assignment and 
+proportions p of ego-alter assignments in the one-stage 
+setting are shown in Tables 1 and 2, with blip parameter 
+estimates shown in Appendix 1. When the treatment-
+free model is mis-specified and the overall probability of 
+treatment assignment is relatively low (inline-eq-IEq132), the MOTRs 
+from ME1 and ME3 are similar when the overall pro­
+portion of egos assigned to alters is relatively low (inline-eq-IEq133), 
+while the MOTRs from ME2 and ME4 remain similar as 
+the overall proportion of egos assigned to alters increases 
+from 0.20 to 0.80. As p increases from 0.20 to 0.80, the 
+MOTR from ME1 reaches a minimum of inline-eq-IEq13 4
+ when 
+i n line-eq-IEq135 compared to the much lower observed optimal 
+Table 1  Mean optimal treatment rates in the one-stage setting where inl ine-eq-IEq15
+1
+ and the overall proportion 
+p of egos assigned alters varies
+Treatment model mis-specified
+Method
+p
+MOTR
+EmpSE
+0.20
+0.40
+0.60
+0.80
+0.20
+0.40
+0.60
+0.80
+Observed
+0.313
+0.320
+0.327
+0.335
+0.0380
+0.0371
+0.0378
+0.0407
+ME1
+0.904
+0.815
+0.736
+0.652
+0.0398
+0.0724
+0.1030
+0.1270
+ME2
+0.974
+0.967
+0.960
+0.954
+0.0156
+0.0182
+0.0206
+0.0246
+ME3
+0.935
+0.881
+0.831
+0.767
+0.0277
+0.0482
+0.0647
+0.0900
+ME4
+0.977
+0.974
+0.971
+0.968
+0.0152
+0.0175
+0.0187
+0.0217
+Treatment model mis-specified
+Method
+p
+MOTR
+EmpSE
+0.20
+0.40
+0.60
+0.80
+0.20
+0.40
+0.60
+0.80
+Observed
+0.313
+0.320
+0.327
+0.335
+0.0380
+0.0371
+0.0378
+0.0407
+ME1
+0.897
+0.811
+0.730
+0.641
+0.0431
+0.0759
+0.113
+0.139
+ME2
+0.955
+0.945
+0.937
+0.931
+0.0296
+0.0339
+0.0356
+0.0354
+ME3
+0.923
+0.872
+0.822
+0.754
+0.0336
+0.0517
+0.0708
+0.101
+ME4
+0.958
+0.950
+0.945
+0.940
+0.0290
+0.0330
+0.0357
+0.0343
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+Page 8 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+treatment rate of inline-eq-IEq136. Similarly, the MOTR from ME3 
+decreases as p increases but reaches a minimum of inline-eq-IEq137 
+without accounting for treatments of between-group 
+alters. This is likely attributed to most individuals having 
+a low probability of treatment assignment and, therefore, 
+most alters have a treatment status of i n line-eq-IEq138. Our find­
+ings are similar when the overall probability of treatment 
+assignment is relatively low (inline-eq-IEq139) and the treatment 
+model is mis-specified.
+In the one-stage setting, when the treatment-free model 
+is mis-specified and the overall probability of treatment 
+assignment is relatively high (inline-eq-IEq140), we again find that the 
+MOTRs from ME1 and ME3 are similar when the over­
+all proportion of egos assigned to alters is relatively low 
+(inline-eq-IEq141), while the MOTRs from ME2 and ME4 remain 
+similar as p increases from 0.20 to 0.80. However, as p 
+increases to 0.80, the MOTR from ME1 decreases so that 
+only about inline-eq-IEq142 of individuals receive the optimal treat­
+ment when interference is not accounted for. The MOTR 
+from ME3 drops below inline-eq-IEq143 when i n line-eq-IEq144, whereas 
+under a low probability of treatment assignment, it 
+dropped below inline-eq-IEq145 when i n line-eq-IEq146 (Fig. 2).
+Our findings in the two-stage setting where the treat­
+ment-free model is mis-specified and the average prob­
+ability of treatment is inline-eq-IEq147 are consistent with what is 
+observed in the one-stage simulations (Table 4 in Appen­
+dix 1). The MOTR for ME2 and ME4, which account for 
+both forms of within- and between-group interference 
+in the exposure mapping, are higher at stages 1 and 2 
+compared to the MOTR for ME1 and ME3 across both 
+stages. Although ME2 produces biased estimates of inline-eq-IEq148 
+and inline-eq-IEq149, compared to the corresponding blip parameter 
+estimates under ME4 in Fig. 3, it indirectly accounts for 
+both within- and between-group interference through 
+the exposure mapping inline-e q -IEq150 and, as such, its per­
+formance in terms of the MOTR is comparable to that of 
+ME4 where the exposure mapping is correctly specified.
+Varying the ratio of within and between group alters
+Our results from the simulation study outlined in Simu­
+lation study: varying the ratio of within- to between-
+group alters section are summarized in Table 3. As the 
+proportion of between-group alters increases relative to 
+the proportion of within-group alters assigned among 
+egos, ME1 and ME3 perform well in terms of the MOTR. 
+This suggests that when the ego’s component of the treat­
+ment-free model is mis-specified, standard weights may 
+perform as well as network weights in dWOLS. However, 
+when the alter’s component of the treatment free model 
+is mis-specified, the MOTR treatment rates tend to be 
+lower and have high variability, as further evidenced by 
+blip parameter estimates for ME2 and ME4 (Figs. 12 and 
+13 in Appendix 2). Consistent with similar findings in 
+Jiang et al. [7], mis-specification of the network weights 
+to only account for within-group alters (ME2) performs 
+slightly worse in terms of the MOTR than if between-
+group alters are also accounted for in the network 
+weights (ME4) as the proportion of between-group alters 
+to within-group alters increases.
+Discussion
+Previous work on DTR development under interference 
+has assumed settings where all egos are assigned at least 
+one alter and the SUTVA is completely violated. In prac­
+tice, determining whether interference is taking place 
+in a dataset is not straightforward, as violations of the 
+Table 2  Mean optimal treatment rates in the one-stage setting where inl i n e - e q- I E q1 5 2
+ and the overall proportion 
+p of egos assigned alters varies
+Treatment model mis-specified
+Method
+p
+MOTR
+EmpSE
+0.20
+0.40
+0.60
+0.80
+0.20
+0.40
+0.60
+0.80
+Observed
+0.648
+0.597
+0.550
+0.492
+0.0325
+0.0338
+0.0436
+0.0608
+ME1
+0.843
+0.722
+0.649
+0.602
+0.0511
+0.0744
+0.0785
+0.0706
+ME2
+0.970
+0.961
+0.954
+0.946
+0.0155
+0.0176
+0.0188
+0.0207
+ME3
+0.905
+0.829
+0.777
+0.739
+0.0347
+0.0537
+0.0651
+0.0552
+ME4
+0.978
+0.976
+0.975
+0.974
+0.0148
+0.0151
+0.0151
+0.0157
+Treatment-free model mis-specified
+Method
+p
+MOTR
+EmpSE
+0.20
+0.40
+0.60
+0.80
+0.20
+0.40
+0.60
+0.80
+Observed
+0.648
+0.597
+0.550
+0.492
+0.0325
+0.0338
+0.0436
+0.0608
+ME1
+0.841
+0.721
+0.648
+0.600
+0.0523
+0.0779
+0.0809
+0.0730
+ME2
+0.955
+0.945
+0.939
+0.932
+0.0274
+0.0280
+0.0274
+0.0279
+ME3
+0.899
+0.825
+0.772
+0.735
+0.0376
+0.0568
+0.0694
+0.0586
+ME4
+0.961
+0.956
+0.956
+0.954
+0.0273
+0.0280
+0.0270
+0.0264
+
+
+===== ORIGINAL PDF PAGE 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+Page 9 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+SUTVA will often be specific to the nature of the dataset 
+at hand and can occur for some, but not all, individuals 
+under analysis. Through our simulations, we show that 
+even when interference is present unbeknownst to the 
+researcher, a dWOLS implementation with mis-specified 
+exposure mapping may still perform well when (1) the 
+overall probability of treatment assignment in a hierar­
+chy is relatively low or (2) the proportion of individuals 
+assigned at least one alter is around inline-eq-IEq166. As expected, 
+omitting interference entirely from the analysis as a 
+precision variable leads to suboptimal treatment rules, 
+particularly as the proportion of egos assigned alters 
+increases. However, an exposure mapping that specifies 
+the presence of at least one treated alter irrespective of 
+their group can still yield high MOTRs, which can be use­
+ful to an analyst when the partial interference assumption 
+Fig. 2  Blip parameter estimates under ME2 in Study 2b when inline-eq-IEq153 of egos are assigned an alter in stages one and two ((a) and (b), respectively) versus 
+when inline-eq-IEq154 of egos are assigned an alter ((c) and (d), respectively). Dashed lines represent true parameter values, while each boxplot displays estimates 
+of inline-eq-IEq155, inline-eq-IEq156, inline-eq-IEq157, and inline-eq-IEq158, from left to right
+ 
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+Page 10 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+is unlikely to be met in a network. The extent to which 
+interference may be present in a dataset can therefore 
+influence (1) whether or not this needs to be accounted 
+for when personalizing treatment regimes and (2) how 
+treatments may be tailored based on the connectedness 
+of one’s social network and relaxations of the partial 
+interference assumption.
+In addition to applications in management of SUD, 
+our findings also have implications for leveraging social 
+network analysis within the DTR framework to inform 
+personalized treatment strategies for mental health care. 
+For example, among people with cystic fibrosis (CF), 
+there are unique individual-specific barriers that may 
+affect access to evidence-based mental health treatment, 
+Fig. 3  Blip parameter estimates under ME4 in Study 2b when inline-eq-IEq159 of egos are assigned an alter in stages one and two ((a) and (b), respectively) versus 
+when inline-eq-IEq160 of egos are assigned an alter ((c) and (d), respectively). Dashed lines represent true parameter values, while each boxplot displays estimates 
+of inline-eq-IEq161, inline-eq-IEq162, inline-eq-IEq163, and inline-eq-IEq164, from left to right
+ 
+
+
+===== ORIGINAL PDF PAGE 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+Page 11 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+including frequent medical appointments and strict 
+infection control measures [31]. Findings from a previ­
+ous study showed that social network factors among 
+adults with CF can also play a role in mitigating poor 
+mental health, such as having strong ties who are well-
+educated and aware of their CF status [28]. When decid­
+ing between online versus an in-person intervention for 
+mental health care in this population, a health provider 
+may tailor their patient’s treatment regimen based on the 
+individual’s course of CF, as well as whether at least one 
+of their network ties (such as patients from the same or 
+different CF clinic) have been known to respond posi­
+tively to online versus in-person treatment. However, if 
+an online intervention is in its early stages of dissemi­
+nation, or if an individual lacks strong network ties, an 
+in-person intervention may be recommended instead, 
+elucidating how the extent of interference as well as the 
+overall rate of treatment are factors that can be adapted 
+into DTR estimation as seen in our simulations.
+Our work has several key limitations that motivate 
+further development in DTRs under interference net­
+works. In our simulations, we demonstrated within- and 
+between-group interference occurring under hierarchi­
+cal networks with random ego-alter assignments, but in 
+practice, the probability of interacting with an alter from 
+the same or a different group could be modelled to deter­
+mine whether such a pairing should be made. In the case 
+of an ego having an alter assigned from an independent 
+group, their outcomes are likely to be correlated when 
+the alter’s treatment affects their own individual outcome 
+as well as the ego’s outcome. However, we emphasize that 
+in our simulation studies, we are not attempting to max­
+imize the expected outcomes of both the ego and their 
+corresponding alters simultaneously, and every ego is 
+assigned a distinct set of alters so that there is no pos­
+sibility of two egos’ outcomes being correlated from the 
+treatment effect of a shared alter. In our two-stage simu­
+lation, the proportion of ego-alter assignments at stage 1 
+remained the same in stage 2, and the stage 2 outcome 
+did not depend on history from stage 1 given the stage 2 
+covariates. Future work may investigate scenarios where 
+the proportion of ego-alter assignments varies across 
+stages; for instance, at the first stage of treatment, only 
+inline-eq-IEq167 of individuals for analysis may be assigned an alter, 
+but by stage two, this may increase to inline-eq-IEq168. Alternatively, 
+the number of alters whose treatment affects an ego’s 
+outcome may increase or decrease over stages to reflect 
+the dynamic nature of social relationships.
+DTR development under network interference remains 
+a complex area of research that warrants careful con­
+sideration of an ego’s social network dynamics and the 
+nature of the condition for which they are being treated. 
+Our work contributes to an understanding of how DTRs 
+perform under settings where the extent of interference 
+is not fully understood or only partially accounted for, 
+which in turn can motivate the design of surveys or ques­
+tionnaires prior to the data collection stage of a study. 
+Future work investigating more complex applications of 
+DTRs to varying interference structures through social 
+and spatial networks have important applications in areas 
+such as SUD and addiction management, infectious dis­
+ease modelling, and pandemic preparedness.
+Table 3  Mean optimal treatment rates, inl i n e - e q- I E q1 6 5
+Treatment model mis-specified
+Method
+p
+MOTR
+EmpSE
+0.20
+0.40
+0.60
+0.80
+0.20
+0.40
+0.60
+0.80
+Observed
+0.514
+0.518
+0.520
+0.522
+0.0644
+0.0640
+0.0649
+0.0645
+ME1
+0.867
+0.859
+0.853
+0.842
+0.0391
+0.0437
+0.0485
+0.0586
+ME2
+0.702
+0.692
+0.664
+0.661
+0.164
+0.169
+0.171
+0.175
+ME3
+0.890
+0.890
+0.892
+0.891
+0.0320
+0.0331
+0.0338
+0.0326
+ME4
+0.730
+0.736
+0.731
+0.729
+0.154
+0.147
+0.154
+0.152
+Treatment model correctly specified
+Method
+p
+MOTR
+EmpSE
+0.20
+0.40
+0.60
+0.80
+0.20
+0.40
+0.60
+0.80
+Observed
+0.514
+0.518
+0.520
+0.522
+0.0644
+0.0640
+0.0649
+0.0645
+ME1
+0.867
+0.859
+0.852
+0.842
+0.0391
+0.0436
+0.0479
+0.0580
+ME2
+0.695
+0.687
+0.658
+0.657
+0.167
+0.169
+0.172
+0.176
+ME3
+0.890
+0.890
+0.892
+0.891
+0.0318
+0.0327
+0.0334
+0.0321
+ME4
+0.726
+0.730
+0.726
+0.723
+0.157
+0.148
+0.157
+0.155
+
+
+===== ORIGINAL PDF PAGE 12 =====
+FORMULA CHECK REQUIRED: original PDF page 12.
+Page 12 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Appendix 1
+Additional simulation study results for Simulation study: varying the overall proportion of egos assigned alters section
+ 
+Fig. 4  Blip parameter estimates in one-stage setting when the overall rate of treatment is inline-eq-IEq169 and the treatment-free model is mis-specified
+In the two-stage setting outlined in Simulation study: 
+varying the overall proportion of egos assigned alters 
+section, the ego’s outcome is inli n e-eq-IE q177 and
+	
+disp l ay- eq-Equ 2 8
+with inli n e-eq -IEq178 and inline - eq-I Eq179 represent­
+ing simulated cluster- and individual-level covariates 
+respectively in the first stage, and inli n e-e q-IEq18
+0
+ 
+and inline - eq-
+IEq18
+1
+ in the second stage. As in the 
+one-stage setting, we fix the number of subgroups in each 
+hierarchy to i n line-eq-IEq182 to ensure that all inline-eq-IEq183 of randomly 
+selected egos whose outcomes are affected by alters’ 
+treatment are assigned exactly 2 alters. We set i n line-eq-IEq184 
+and i n line-eq-IEq185 to assess blip and spillover parameter esti­
+mates when small and large proportions of egos who are 
+assigned alters, respectively. We set inline-eq-IEq186 to 0.80 so that the 
+average probability of receiving treatment, conditional on 
+a hierarchy’s random effects, is inline-eq-IEq187.
+
+
+===== ORIGINAL PDF PAGE 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+Page 13 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Fig. 5  Blip parameter estimates in one-stage setting when the overall rate of treatment is inline-eq-IEq170 and the treatment-free model is mis-specified
+
+
+===== ORIGINAL PDF PAGE 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+Page 14 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Fig. 6  Blip parameter estimates in one-stage setting when the overall rate of treatment is inline-eq-IEq171 and the treatment model is mis-specified
+
+
+===== ORIGINAL PDF PAGE 15 =====
+FORMULA CHECK REQUIRED: original PDF page 15.
+Page 15 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Fig. 7  Blip parameter estimates in one-stage setting when the overall rate of treatment is inline-eq-IEq172 and the treatment model is mis-specified
+
+
+===== ORIGINAL PDF PAGE 16 =====
+FORMULA CHECK REQUIRED: original PDF page 16.
+Page 16 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Appendix 2 
+Additional simulation study results for Simulation study: varying the ratio of within- to between-group alters section
+Fig. 8  Spillover parameter estimates in one-stage setting when the overall rate of treatment is inline-eq-IEq173 (boxplots (a) and (b)) and inline-eq-IEq174 (boxplots (c) and (d)), 
+and the treatment-free model is mis-specified
+
+
+===== ORIGINAL PDF PAGE 17 =====
+FORMULA CHECK REQUIRED: original PDF page 17.
+Page 17 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Fig. 9  Spillover parameter estimates in one-stage setting when the overall rate of treatment is inline-eq-IEq175 (boxplots (a) and (b)) and inline-eq-IEq176 (boxplots (c) and 
+(d)), and the treatment model is mis-specified
+Table 4  Mean optimal treatment rates in two-stage setting with treatment-free model mis-specified, inl i n e - e q- I E q1 8 8
+Method
+p
+MOTR
+EmpSE
+0.20
+0.80
+0.20
+0.80
+Stage 1
+Observed
+0.862
+0.682
+0.0275
+0.0868
+ME1
+0.682
+0.598
+0.0389
+0.0809
+ME2
+0.744
+0.772
+0.0504
+0.0550
+ME3
+0.709
+0.668
+0.0442
+0.0552
+ME4
+0.745
+0.778
+0.0509
+0.0586
+Stage 2
+Observed
+0.811
+0.593
+0.0314
+0.0852
+ME1
+0.730
+0.690
+0.0256
+0.0539
+ME2
+0.819
+0.846
+0.0393
+0.0445
+ME3
+0.773
+0.746
+0.0308
+0.0369
+ME4
+0.823
+0.866
+0.0397
+0.0461
+
+
+===== ORIGINAL PDF PAGE 18 =====
+FORMULA CHECK REQUIRED: original PDF page 18.
+Page 18 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Fig. 10  Spillover parameter estimates under ME2 in Study 2b when inline-eq-IEq189 of egos are assigned an alter in stages one and two ((a) and (b), respectively) 
+versus when inline-eq-IEq190 of egos are assigned an alter ((c) and (d), respectively)
+
+
+===== ORIGINAL PDF PAGE 19 =====
+FORMULA CHECK REQUIRED: original PDF page 19.
+Page 19 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Fig. 11  Spillover parameter estimates under ME4 in Study 2b when inline-eq-IEq191 of egos are assigned an alter in stages one and two ((a) and (b), respectively) 
+versus when inline-eq-IEq192 of egos are assigned an alter ((c) and (d), respectively)
+ 
+
+
+===== ORIGINAL PDF PAGE 20 =====
+FORMULA CHECK REQUIRED: original PDF page 20.
+Page 20 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Fig. 12  Blip parameter estimates when the treatment model is mis-specified
+
+
+===== ORIGINAL PDF PAGE 21 =====
+FORMULA CHECK REQUIRED: original PDF page 21.
+Page 21 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Fig. 13  Blip parameter estimates when the treatment model is correctly specified
+
+
+===== ORIGINAL PDF PAGE 22 =====
+FORMULA CHECK REQUIRED: original PDF page 22.
+Page 22 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+Fig. 14  Spillover parameter estimates when the treatment model is mis-specified (boxplots (a) and (b)) and correctly specified (boxplots (c) and (d))
+Acknowledgements
+This manuscript is based on research conducted by AM in her doctoral 
+dissertation, titled ’Dynamic Treatment Regimes for Within- and Between-
+Group Interference in Clustered and Hierarchical Datasets,’ available from: 
+https:/​/uwspac​e.uwate​rloo​.ca/it​ems/75b​6f9a8-0​d36-​467c-97f3-5117c6ced448.
+Authors' contributions
+AM: Conceptualization, Writing - original draft, Coding - designing and 
+running the analyses. RS: Writing - review and editing. SH: Writing - review and 
+editing. YZ: Supervision, Writing - review and editing. MW: Supervision, Writing 
+- review and editing.
+Funding
+AM was supported by the Natural Sciences and Engineering Research 
+Council of Canada (NSERC) Canadian Graduate Scholarship program. YZ was 
+supported by Grant Number RGPIN-2017-04064 from the Natural Sciences 
+and Engineering Research Council of Canada. MW was supported by Project 
+Grant number 377144 from the Canadian Institutes of Health Research.
+Data availability
+The simulated data and code supporting the conclusions of this article are 
+available in the “Comparison of estimated personalized treatment rules under 
+interference” repository, in https:/​/doi.or​g/10.52​81/z​enodo.20383583.
+Declarations
+Ethics approval and consent to participate
+Not applicable.
+Consent for publication
+Not applicable.
+Competing interests
+The authors declare no competing interests.
+Received: 26 February 2026 / Accepted: 29 June 2026
+References
+1.	
+Wallace MP, Moodie EE, Stephens DA. Reward ignorant modeling of dynamic 
+treatment regimes. Biom J. 2018;60(5):991–1002.
+2.	
+Chakraborty B. Statistical methods for dynamic treatment regimes: reinforce­
+ment learning, causal inference, and personalized medicine. Statistics for 
+Biology and Health. New York: Springer; 2013.
+
+
+===== ORIGINAL PDF PAGE 23 =====
+FORMULA CHECK REQUIRED: original PDF page 23.
+Page 23 of 23
+Mossman et al. BMC Medical Research Methodology          (2026) 26:244 
+3.	
+Rubin DB. Randomization analysis of experimental data: the Fisher random­
+ization test comment. J Am Stat Assoc. 1980;75(371):591–3.
+4.	
+Halloran ME, Struchiner CJ. Study designs for dependent happenings. Epide­
+miology. 1991;2(5):331–8.
+5.	
+Halloran ME, Struchiner CJ. Causal Inference in Infectious Diseases. Epidemi­
+ology. 1995;6(2):142–51.
+6.	
+Balzer LB, Zheng W, van der Laan MJ, Petersen ML. A new approach to hierar­
+chical data analysis: targeted maximum likelihood estimation for the causal 
+effect of a cluster-level exposure. Stat Methods Med Res. 2019;28(6):1761–80.
+7.	
+Jiang C, Wallace MP, Thompson ME. Dynamic treatment regimes with inter­
+ference. Can J Stat. 2023;51(2):469–502.
+8.	
+Aronow PM, Samii C. Estimating average causal effects under general 
+interference, with application to a social network experiment. Ann Appl Stat. 
+2017;11(4):1912–47. https:/​/doi.or​g/10.12​14/1​6-AOAS1005.
+9.	
+Athey S, Eckles D, Imbens GW. Exact p-values for network interference. J Am 
+Stat Assoc. 2018;113(521):230–40.
+10.	 Forastiere L, Mealli F, Wu A, Airoldi E. Estimating causal effects under interfer­
+ence using bayesian generalized propensity scores. 2018. arXiv preprint 
+arXiv:1807.11038.
+11.	 Forastiere L, Airoldi EM, Mealli F. Identification and estimation of treatment 
+and interference effects in observational studies on networks. J Am Stat 
+Assoc. 2021;116(534):901–18.
+12.	 Karwa V, Airoldi EM. A systematic investigation of classical causal inference 
+strategies under mis-specification due to network interference. 2018. arXiv 
+preprint arXiv:1810.08259.
+13.	 Rizi MM, Dubin JA, Wallace MP. Dynamic treatment regimes on dyadic net­
+works. Stat Med. 2024;43(30):5944–67.
+14.	 Population Assessment of Tobacco and Health (PATH). Population Assess­
+ment of Tobacco and Health (PATH) Study [United States] Restricted-Use Files. 
+Inter-university Consortium for Political and Social Research. 2020. ​h​t​t​p​s​:​/​/​d​o​i​
+.​o​r​g​/​1​0​.​3​8​8​6​/​I​C​P​S​R​3​6​2​3​1​.​v​2​5​.​
+15.	 Sobel ME. What do randomized studies of housing mobility demonstrate? Causal 
+inference in the face of interference. J Am Stat Assoc. 2006;101(476):1398–407.
+16.	 Giffin A, Reich BJ, Yang S, Rappold AG. Generalized Propensity Score Approach 
+to Causal Inference with Spatial Interference. Biometrics. 2023;79(3):2220–31.
+17.	 Barkley BG, Hudgens MG, Clemens JD, Ali M, Emch ME. Causal inference 
+from observational studies with clustered interference, with application to a 
+cholera vaccine study. Ann Appl Stat. 2020;14(3):1432–48. ​h​t​t​p​s​:​/​/​d​o​i​.​o​r​g​/​1​0​.​
+1​2​1​4​/​1​9​-​A​O​A​S​1​3​1​4​.​
+18.	 Hudgens MG, Halloran ME. Toward causal inference with interference. J Am 
+Stat Assoc. 2008;103(482):832–42.
+19.	 Kumar N, Oles W, Howell BA, Janmohamed K, Lee ST, Funaro MC, et al. The 
+role of social network support in treatment outcomes for medication for opi­
+oid use disorder: A systematic review. J Subst Abuse Treat. 2021;127:108367.
+20.	 Christakis NA, Fowler JH. The collective dynamics of smoking in a large social 
+network. N Engl J Med. 2008;358(21):2249–58.
+21.	 Fowler JH, Christakis NA. Cooperative behavior cascades in human social 
+networks. Proc Natl Acad Sci. 2010;107(12):5334–8.
+22.	 Kim DA, Hwong AR, Stafford D, Hughes DA, O’Malley AJ, Fowler JH, et al. 
+Social network targeting to maximise population behaviour change: a cluster 
+randomised controlled trial. Lancet. 2015;386(9989):145–53.
+23.	 Shakya HB, Stafford D, Hughes DA, Keegan T, Negron R, Broome J, et al. 
+Exploiting social influence to magnify population-level behaviour change 
+in maternal and child health: study protocol for a randomised controlled 
+trial of network targeting algorithms in rural Honduras. BMJ Open. 
+2017;7(3):e012996.
+24.	 Falade-Nwulia O, Felsher M, Kidorf M, Tobin K, Yang C, Latkin C. The 
+impact of social network dynamics on engagement in drug use reduction 
+programs among men and women who use drugs. J Subst Abuse Treat. 
+2022;137:108713.
+25.	 Hoffmann JP, Su SS, Pach A. Changes in network characteristics and 
+HIV risk behavior among injection drug users. Drug Alcohol Depend. 
+1997;46(1–2):41–51.
+26.	 Neaigus A, Friedman SR, Goldstein M, Ildefonso G, Curtis R, Jose B. Using 
+Dyadic Data for a Network Analysis of HIV Infection and Risk Behaviors 
+Among Injecting Drug. Soc Networks Drug Abuse HIV Transm. 1995;151:20.
+27.	 Harrigan M, Bennett K, Mulrennan S, Jessup M. Living with cystic fibrosis dur­
+ing the COVID-19 pandemic: a social connectedness perspective. Int J Qual 
+Stud Health Well-being. 2022;17(1):2062820.
+28.	 Sun H, Francis HM, Polo J, Esposito C, Papia K, Yeley J. The impact of personal-
+level social networks on treatment adherence, depression, anxiety, and 
+perceived stigma among adults with cystic fibrosis: an egocentric network 
+analysis. Int J Behav Med. 2025;33:367–82. ​h​t​t​p​s​:​/​/​d​o​i​.​o​r​g​/​1​0​.​1​0​0​7​/​s​1​2​5​2​9​-​0​2​
+5​-​1​0​3​8​2​-​x​.​
+29.	 Wallace MP, Moodie EE. Doubly-robust dynamic treatment regimen estima­
+tion via weighted least squares. Biometrics. 2015;71(3):636–44.
+30.	 Morris TP, White IR, Crowther MJ. Using simulation studies to evaluate statisti­
+cal methods. Stat Med. 2019;38(11):2074–102.
+31.	 Verkleij M, Georgiopoulos AM, Friedman D. Development and evaluation of 
+an internet-based cognitive behavioral therapy intervention for anxiety and 
+depression in adults with cystic fibrosis (eHealth CF-CBT): an international 
+collaboration. Internet Interv. 2021;24:100372.
+Publisher's Note
+Springer Nature remains neutral with regard to jurisdictional claims in 
+published maps and institutional affiliations.
+

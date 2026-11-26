@@ -1,0 +1,11 @@
+# Ndf5ed6286f — Penalized Q-learning for dynamic treatment regimens
+
+Rui Song and Weiwei Wang and Donglin Zeng and Michael R. Kosorok
+
+DOI: 10.5705/ss.2012.364
+Original: https://doi.org/10.5705/ss.2012.364
+Availability: **local_only**
+
+No full-text Markdown/TXT is published for this entry. See licensing decisions in metadata.json; a public URL or arXiv nonexclusive distribution license is not a redistribution grant.
+
+[Original reading-location note](reading_note.md). This note is a preparation record, not a completed theorem review.

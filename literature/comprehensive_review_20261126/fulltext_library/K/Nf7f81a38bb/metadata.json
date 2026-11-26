@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nf7f81a38bb",
+  "category": "K",
+  "title": "Conditioning for acute myeloid leukemia: looking beyond intensity",
+  "authors": "Jason S. Gilbert and Filippo Milano",
+  "doi": "10.3324/haematol.2026.300787",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3324/haematol.2026.300787",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "62ff3eaa6e00c20e3f7ff754d9ef532aad302897bf2a753b8a912c8cf25956f1",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://haematologica.org/article/download/13462/79937"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/Nf7f81a38bb/README.md",
+  "status": "local_only"
+}

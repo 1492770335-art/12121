@@ -1,0 +1,28 @@
+{
+  "paper_id": "N9929e90163",
+  "category": "D",
+  "title": "Online survival analysis with quantile regression",
+  "authors": "Yi Deng and Shuwei Li and Liuquan Sun and Baoxue Zhang",
+  "doi": "10.1007/s11222-026-10870-4",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1007/s11222-026-10870-4",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "344e33fd234e64d44441062a625c37c628da6e060aa992b615afcf4d352c1423",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2507.15696"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/N9929e90163/README.md",
+  "status": "local_only"
+}

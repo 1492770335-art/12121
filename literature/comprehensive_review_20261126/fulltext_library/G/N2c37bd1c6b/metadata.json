@@ -1,0 +1,28 @@
+{
+  "paper_id": "N2c37bd1c6b",
+  "category": "G",
+  "title": "DeepPseudo: Pseudo Value Based Deep Learning Models for Competing Risk Analysis",
+  "authors": "Md Mahmudur Rahman and Koji Matsuo and Shinya Matsuzaki and Sanjay Purushotham",
+  "doi": "10.1609/aaai.v35i1.16125",
+  "year": "2021",
+  "original_url": "https://doi.org/10.1609/aaai.v35i1.16125",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "d02575bd16c89de3275d385e94c3fa07c73e275a625453b0dc1bf58bb16e983e",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://ojs.aaai.org/index.php/AAAI/article/download/16125/15932"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/N2c37bd1c6b/README.md",
+  "status": "local_only"
+}

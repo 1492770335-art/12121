@@ -1,0 +1,34 @@
+{
+  "paper_id": "N2b4fb3717a",
+  "category": "B",
+  "title": "Leveraging win time endpoint and combining moderators for personalized treatment recommendation in time-to-event clinical trials",
+  "authors": "Stephanie Pan and Janice Weinberg and Sara Lodi and Prasad Patil and Michael P. LaValley",
+  "doi": "10.1186/s12874-026-02960-8",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1186/s12874-026-02960-8",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [
+    "B/N2b4fb3717a/artifacts/1d48b8e946b1/fulltext.md"
+  ],
+  "public_txt": [
+    "B/N2b4fb3717a/artifacts/1d48b8e946b1/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [
+    "B/N2b4fb3717a/artifacts/1d48b8e946b1/original.xml"
+  ],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "1d48b8e946b18eeff08c4e0902b6c9df67216aa16989c279bc634b454a30ba49",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13753155/fullTextXML",
+      "provenance": "B/N2b4fb3717a/artifacts/1d48b8e946b1/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/N2b4fb3717a/README.md",
+  "status": "public_fulltext"
+}

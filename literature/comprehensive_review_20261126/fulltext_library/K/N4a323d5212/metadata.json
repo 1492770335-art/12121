@@ -1,0 +1,34 @@
+{
+  "paper_id": "N4a323d5212",
+  "category": "K",
+  "title": "Innovations in conditioning and post-transplant maintenance in AML: genomically informed revelations on the graft-versus-leukemia effect",
+  "authors": "H. Moses Murdock and Vincent T. Ho and Jacqueline S. Garcia",
+  "doi": "10.3389/fimmu.2024.1359113",
+  "year": "2024",
+  "original_url": "https://doi.org/10.3389/fimmu.2024.1359113",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/N4a323d5212/artifacts/609bead624c3/original.pdf"
+  ],
+  "public_markdown": [
+    "K/N4a323d5212/artifacts/609bead624c3/fulltext.md"
+  ],
+  "public_txt": [
+    "K/N4a323d5212/artifacts/609bead624c3/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "609bead624c3e8d59a1ca1e54f37cf597a0e1195d32050495bb79f3407e0394b",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1359113/pdf",
+      "provenance": "K/N4a323d5212/artifacts/609bead624c3/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N4a323d5212/README.md",
+  "status": "public_fulltext"
+}

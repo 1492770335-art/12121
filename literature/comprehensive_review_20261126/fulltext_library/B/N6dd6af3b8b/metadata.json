@@ -1,0 +1,28 @@
+{
+  "paper_id": "N6dd6af3b8b",
+  "category": "B",
+  "title": "Utilitarian or Quantile-Welfare Evaluation of Health Policy?",
+  "authors": "Charles F. Manski and John Mullahy",
+  "doi": "10.2139/ssrn.5487072",
+  "year": "2025",
+  "original_url": "https://doi.org/10.2139/ssrn.5487072",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "98c75109f2c5f6efa720e01015e791fb9ce46fdfe095e573962d8c93f3e678b8",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://doi.org/10.3386/w34247"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/N6dd6af3b8b/README.md",
+  "status": "local_only"
+}

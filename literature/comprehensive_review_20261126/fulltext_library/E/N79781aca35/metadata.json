@@ -1,0 +1,28 @@
+{
+  "paper_id": "N79781aca35",
+  "category": "E",
+  "title": "Comparing cluster-level dynamic treatment regimens using sequential, multiple assignment, randomized trials: Regression estimation and sample size considerations",
+  "authors": "Timothy NeCamp and Amy Kilbourne and Daniel Almirall",
+  "doi": "10.1177/0962280217708654",
+  "year": "2017",
+  "original_url": "https://doi.org/10.1177/0962280217708654",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "da949b30b737619369eaac45947eb18890473b336b7f9aad7c012b9ee5803d49",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1607.04039"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N79781aca35/README.md",
+  "status": "local_only"
+}

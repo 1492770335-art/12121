@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2112.04571v4",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2112.04571v4",
+  "archive_sha256": "2a4b3436b622661c8654e575b3a0c5b29d02edfb1718cd9c194dfe37e0e59e2e",
+  "files": [
+    {
+      "path": "ADTR-Rev2.tex",
+      "bytes": 153365,
+      "sha256": "d486d7bd53cf6d456d8d501d7efd5e8a8419984a8bbbc943635d3fa5da553a9f"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

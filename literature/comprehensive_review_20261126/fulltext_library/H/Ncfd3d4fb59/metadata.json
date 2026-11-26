@@ -1,0 +1,28 @@
+{
+  "paper_id": "Ncfd3d4fb59",
+  "category": "H",
+  "title": "Causal inference for semi-competing risks data",
+  "authors": "Daniel Nevo and Malka Gorfine",
+  "doi": "10.1093/biostatistics/kxab049",
+  "year": "2022",
+  "original_url": "https://doi.org/10.1093/biostatistics/kxab049",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "24b7183e7e74462aec60099a24531bd50f7842d6abeda1317a78d1c3d682833e",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2010.04485"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/Ncfd3d4fb59/README.md",
+  "status": "local_only"
+}

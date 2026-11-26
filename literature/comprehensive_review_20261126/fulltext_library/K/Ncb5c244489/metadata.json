@@ -1,0 +1,34 @@
+{
+  "paper_id": "Ncb5c244489",
+  "category": "K",
+  "title": "A randomized pilot trial comparing anti-thymocyte globulin with anti-thymocyte globulin plus post transplant cyclophosphamide for prophylaxis against acute and chronic graft versus host disease in matched donor hematopoietic cell transplants – a study from the Cell Therapy Transplant Canada/ Australasian Leukemia Lymphoma Group Consortium",
+  "authors": "Irwin Walker and Uday Deotare and Mohamed Elemary and Mahmoud Elsawy and Geneviève Gallagher and David Kliman and Tony Panzarella and Nada Hamad and Kirk R. Schultz and Jan Storek and Kristjan Paulson",
+  "doi": "10.1038/s41409-026-03024-7",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1038/s41409-026-03024-7",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/Ncb5c244489/artifacts/1091a94ce436/original.pdf"
+  ],
+  "public_markdown": [
+    "K/Ncb5c244489/artifacts/1091a94ce436/fulltext.md"
+  ],
+  "public_txt": [
+    "K/Ncb5c244489/artifacts/1091a94ce436/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "1091a94ce43623cd4c69cb47636b35a1979980e69b7363be8892fa6bba80dbe2",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "source_url": "https://harvest.usask.ca/bitstreams/9ee85ced-4d16-4486-b079-ccd2452207ef/download",
+      "provenance": "K/Ncb5c244489/artifacts/1091a94ce436/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/Ncb5c244489/README.md",
+  "status": "public_fulltext"
+}

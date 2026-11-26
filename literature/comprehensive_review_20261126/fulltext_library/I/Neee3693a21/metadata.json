@@ -1,0 +1,34 @@
+{
+  "paper_id": "Neee3693a21",
+  "category": "I",
+  "title": "Turbofan Engine Remaining Useful Life Prediction with Reliable Prediction Intervals via LSTM-Based Quantile Regression and Conformal Calibration",
+  "authors": "Runsheng Diao and Mingzhe Zhou and Guanglei Meng and Shanze Wang",
+  "doi": "10.3390/s26072249",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3390/s26072249",
+  "local_fulltext": true,
+  "public_pdf": [
+    "I/Neee3693a21/artifacts/acf0186bccbe/original.pdf"
+  ],
+  "public_markdown": [
+    "I/Neee3693a21/artifacts/acf0186bccbe/fulltext.md"
+  ],
+  "public_txt": [
+    "I/Neee3693a21/artifacts/acf0186bccbe/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "acf0186bccbe419cc5ee23df95f8811cb7aad5cdc47f21d58baae5cf648c03d9",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.mdpi.com/1424-8220/26/7/2249/pdf?version=1775387604",
+      "provenance": "I/Neee3693a21/artifacts/acf0186bccbe/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/Neee3693a21/README.md",
+  "status": "public_fulltext"
+}

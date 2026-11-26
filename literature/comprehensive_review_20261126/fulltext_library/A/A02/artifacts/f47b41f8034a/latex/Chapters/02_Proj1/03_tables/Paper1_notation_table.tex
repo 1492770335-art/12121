@@ -1,0 +1,61 @@
+\begin{longtable}{|c|p{0.8\linewidth}|}
+\caption{Summary of notation} \label{tab:proj1notation} \\ % Caption and label
+\hline
+\multicolumn{2}{|l|}{\textbf{Basic notation}} \\
+\hline
+    %$k$ & Treatment stage. 1, 2, \dots, $K$ \\
+    $\tau$ & Study length \\
+    $n$ & Number of training examples \\
+    $\epsilon$ & Event cause \\
+    $i$ & Subject index. 1, 2, \dots, $n$\\
+    $j$ &  Cause index. 1, 2, \dots , $J$\\
+    $k$ &  Group or Node index. 1, 2, \dots , $K$\\
+    \hline
+    \multicolumn{2}{|l|}{\textbf{Predictors}} \\
+    \hline
+    $A$ & Action \\
+    $Z$ & Covariate information \\
+    $H$ & History $(a,Z)$\\
+    %$d$ & Dimension of $Z$ \\
+    $d(Z)$ & Decision rule given $Z$ \\
+    \hline
+    \multicolumn{2}{|l|}{\textbf{Overall outcomes}} \\
+    \hline
+    $T$ & Failure time due to any cause. $T = \min(T_1, T_2, \dots, T_J)$\\
+    $C$ & Overall censoring time \\
+    $X$ & Observed length. $X = T \wedge C$ \\
+    $\delta$ & Overall Censoring indicator. $\delta = 1(T \leq C)$ \\
+    \hline
+    \multicolumn{2}{|l|}{\textbf{Cause-specific outcomes}} \\
+    \hline
+    $T_j$ & Failure time due to cause $j$ \\
+    %$U$ & Time to next treatment \\
+    %$V$ & Uncensored length . $V = T \wedge U$ \\
+    $\delta_j$ & Cause $j$ Censoring indicator. $\delta_j = 1(T \leq C, T = T_j)$ \\
+    %$\gamma$ & Treatment indicator. $\gamma = 1(T \leq U)$ \\
+    %$B$ & Baseline time at stage $k$. $B = \sum_{k'=1}^{k-1} X_{k'}$, $k > 1$, $B_1 = 0$ \\
+    %$L$ & Remaining life at stage $k$. $L = T - B$ \\
+    \hline
+    \multicolumn{2}{|l|}{\textbf{Theoretical settings}} \\
+    \hline
+    $L_S, L_G$ & Lipschitz constants of Assumption 7 \\
+    $n_{\text{min}}$ & Minimum terminal node size in Assumptions 5 \\
+    $\beta$ & Rate of minimum terminal node size in Assumption 5 \\
+    $\alpha$ & Regular split constant in Assumption 6 \\
+    $\assumpcovbound$ & Covariate density bound in Assumptions 8 \\
+    $c_1$ & At-risk probability bound at $\tau$ in Assumption 7 \\
+    \hline
+    \multicolumn{2}{|l|}{\textbf{Survival and cumulative incidence functions}} \\
+    \hline
+    $S$ & Overall failure survival function \\
+    $F_j$ & Cause $j$ cumulative incidence function. $F_j(t) = \Pr(T \leq t, \epsilon = j)$ \\
+    $G$ & Overall or generic censoring survival function \\
+    \hline
+    \multicolumn{2}{|l|}{\textbf{Values}} \\
+    \hline
+    $\phi_1^{\mu}(S)$ & Mean truncated survival time. $\phi^{\mu}(S) = E[S \wedge \tau]$ \\
+    %$\phi_1^{\sigma,t}(S)$ & Survival probability at time $t$. $\phi^{\sigma,t}(S) = S(t)$ \\
+    $\phi_2^{\mu}(F_j)$ & Mean truncated cumulative incidence time. $\phi^{\mu}(F_j) = E[F_j \wedge \tau]$ \\
+    %$\phi_2^{\sigma,t}(F_j)$ & Cumulative incidence probability at time $t$. $\phi^{\sigma,t}(F_j) = F_j(t)$ \\
+    \hline
+\end{longtable}

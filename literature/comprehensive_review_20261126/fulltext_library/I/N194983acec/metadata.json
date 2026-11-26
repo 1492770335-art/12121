@@ -1,0 +1,34 @@
+{
+  "paper_id": "N194983acec",
+  "category": "I",
+  "title": "Asymmetric and Time-Varying Connectedness of FinTech with Equities, Bonds, and Cryptocurrencies: A Quantile-on-Quantile Perspective",
+  "authors": "Mohammad Sharif Karimi and Omar Esqueda and Naveen Mahasen Weerasinghe",
+  "doi": "10.3390/risks13120246",
+  "year": "2025",
+  "original_url": "https://doi.org/10.3390/risks13120246",
+  "local_fulltext": true,
+  "public_pdf": [
+    "I/N194983acec/artifacts/55f85022aab0/original.pdf"
+  ],
+  "public_markdown": [
+    "I/N194983acec/artifacts/55f85022aab0/fulltext.md"
+  ],
+  "public_txt": [
+    "I/N194983acec/artifacts/55f85022aab0/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "55f85022aab0a5383b2f8eae145b3e8e395a9384bb3639c8a9517abc91e988a5",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.mdpi.com/2227-9091/13/12/246/pdf",
+      "provenance": "I/N194983acec/artifacts/55f85022aab0/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/N194983acec/README.md",
+  "status": "public_fulltext"
+}

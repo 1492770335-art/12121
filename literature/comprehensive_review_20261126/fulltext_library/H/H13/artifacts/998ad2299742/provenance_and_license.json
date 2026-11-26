@@ -1,0 +1,30 @@
+{
+  "paper_id": "H13",
+  "category": "H",
+  "artifact_type": "main",
+  "sha256": "998ad22997422ec9f8abddfe8ced85632eeea3698bd023c56d02edbc9a7eb0ff",
+  "source_url": "https://www.jstage.jst.go.jp/article/jea/advpub/0/advpub_JE20250662/_pdf",
+  "original_version": "publishedVersion",
+  "bytes": "776289",
+  "pdf_pages": "11",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.jstage.jst.go.jp/article/jea/advpub/0/advpub_JE20250662/_pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:38.454284+08:00",
+  "format": "pdf",
+  "title": "Methodological Tutorial Series for Epidemiological Studies: Beyond the Hazard Ratio: Causal Inference From Time-to-event Data With Dependent Censoring, Confounding, and Competing Risks",
+  "authors": "Takuya Kawahara and Sho Komukai and Kosuke Inoue and Tomohiro Shinozaki",
+  "doi": "10.2188/jea.je20250662",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "Copyright © 2026 Takuya Kawahara et al. This is an open access article distributed under the terms of Creative Commons Attribution License,"
+    }
+  ]
+}

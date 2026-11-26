@@ -1,0 +1,36 @@
+{
+  "paper_id": "N93d7eb2e44",
+  "category": "E",
+  "title": "Safe Policy Learning through Extrapolation: Application to Pre-trial Risk Assessment",
+  "authors": "Eli Ben-Michael and D. James Greiner and Kosuke Imai and Zhichao Jiang",
+  "doi": "10.1080/01621459.2025.2489135",
+  "year": "2025",
+  "original_url": "https://doi.org/10.1080/01621459.2025.2489135",
+  "local_fulltext": true,
+  "public_pdf": [
+    "E/N93d7eb2e44/artifacts/ea9a0b62cdd7/original.pdf"
+  ],
+  "public_markdown": [
+    "E/N93d7eb2e44/artifacts/ea9a0b62cdd7/fulltext.md"
+  ],
+  "public_txt": [
+    "E/N93d7eb2e44/artifacts/ea9a0b62cdd7/fulltext.txt"
+  ],
+  "original_tex": [
+    "E/N93d7eb2e44/artifacts/ea9a0b62cdd7/latex/optimal_score.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "ea9a0b62cdd7fbac2770bafa74bc6622fc5ce5db175117873a417c035119b5cc",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2109.11679",
+      "provenance": "E/N93d7eb2e44/artifacts/ea9a0b62cdd7/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N93d7eb2e44/README.md",
+  "status": "public_fulltext"
+}

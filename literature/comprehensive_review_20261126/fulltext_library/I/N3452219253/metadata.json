@@ -1,0 +1,28 @@
+{
+  "paper_id": "N3452219253",
+  "category": "I",
+  "title": "Proper Scoring Rules for Estimation and Forecast Evaluation",
+  "authors": "Kartik Waghmare and Johanna Ziegel",
+  "doi": "10.1146/annurev-statistics-042424-050626",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1146/annurev-statistics-042424-050626",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "4b31c51aa2822ee9603c5185302fc17a7d923ba31fec26204db20f9a8f87e03d",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2504.01781"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/N3452219253/README.md",
+  "status": "local_only"
+}

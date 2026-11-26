@@ -1,0 +1,34 @@
+{
+  "paper_id": "N8e49951c41",
+  "category": "E",
+  "title": "Comparison of estimated personalized treatment rules under varying interference structures and treatment rates using dynamic weighted ordinary least squares",
+  "authors": "Alexandra Mossman and Ranjani Somayaji and Sonya Heltshe and Yeying Zhu and Michael Wallace",
+  "doi": "10.1186/s12874-026-02936-8",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1186/s12874-026-02936-8",
+  "local_fulltext": true,
+  "public_pdf": [
+    "E/N8e49951c41/artifacts/1d52ff2cc8b4/original.pdf"
+  ],
+  "public_markdown": [
+    "E/N8e49951c41/artifacts/1d52ff2cc8b4/fulltext.md"
+  ],
+  "public_txt": [
+    "E/N8e49951c41/artifacts/1d52ff2cc8b4/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "1d52ff2cc8b46d3dc87de3db0a13a6d3e0b57ff08da1a8388cb9082f5573cc26",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "source_url": "https://ucalgary.scholaris.ca/bitstreams/83a07128-03ae-42d3-9acd-98cb6fe4d2f9/download",
+      "provenance": "E/N8e49951c41/artifacts/1d52ff2cc8b4/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N8e49951c41/README.md",
+  "status": "public_fulltext"
+}

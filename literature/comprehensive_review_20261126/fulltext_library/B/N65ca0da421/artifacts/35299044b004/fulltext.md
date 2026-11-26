@@ -1,0 +1,10981 @@
+# Efficient Learning of Optimal Individualized Treatment Rules for Heteroscedastic or Misspecified Treatment-Free Effect Models
+
+Original PDF: [original.pdf](original.pdf). SHA256: `35299044b004e7b87d34697630a5a6f159217831313bc5dbfcd19488be46b9d7`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+Technical extraction; compare with original PDF page 1.
+
+````text
+Eﬃcient Learning of Optimal Individualized Treatment Rules for
+Heteroscedastic or Misspeciﬁed Treatment-Free Eﬀect Models
+Weibin Mo and Yufeng Liu∗
+University of North Carolina at Chapel Hill
+Abstract
+Recent development in data-driven decision science has seen great advances in individual-
+ized decision making. Given data with individual covariates, treatment assignments and out-
+comes, researchers can search for the optimal individualized treatment rule (ITR) that maximizes
+the expected outcome. Existing methods typically require initial estimation of some nuisance
+models. The double robustness property that can protect from misspeciﬁcation of either the
+treatment-free eﬀect or the propensity score has been widely advocated. However, when model
+misspeciﬁcation exists, a doubly robust estimate can be consistent but may suﬀer from down-
+graded eﬃciency. Other than potential misspeciﬁed nuisance models, most existing methods do
+not account for the potential problem when the variance of outcome is heterogeneous among
+covariates and treatment. We observe that such heteroscedasticity can greatly aﬀect the esti-
+mation eﬃciency of the optimal ITR. In this paper, we demonstrate that the consequences of
+misspeciﬁed treatment-free eﬀect and heteroscedasticity can be uniﬁed as a covariate-treatment
+dependent variance of residuals. To improve eﬃciency of the estimated ITR, we propose an Eﬃ-
+cient Learning (E-Learning) framework for ﬁnding an optimal ITR in the multi-armed treatment
+setting. We show that the proposed E-Learning is optimal among a regular class of semipara-
+metric estimates that can allow treatment-free eﬀect misspeciﬁcation. In our simulation study,
+E-Learning demonstrates its eﬀectiveness if one of or both misspeciﬁed treatment-free eﬀect
+and heteroscedasticity exist. Our analysis of a Type 2 Diabetes Mellitus (T2DM) observational
+study also suggests the improved eﬃciency of E-Learning.
+Keywords and Phrases: Double robustness; Heteroscedasticity; Individualized treatment
+rules; Model misspeciﬁcation; Multi-armed treatments; Semiparametric eﬃciency
+∗Address for correspondence: Yufeng Liu, Department of Statistics and Operations Research, Department of
+Genetics, Department of Biostatistics, Carolina Center for Genome Sciences, Lineberger Comprehensive Cancer
+Center, University of North Carolina at Chapel Hill.
+354 Hanes Hall, Chapel Hill, NC 27599, USA. E-mail:
+yﬂiu@email.unc.edu.
+1
+arXiv:2109.02570v1  [stat.ME]  6 Sep 2021
+
+````
+
+## PDF page 2
+
+FORMULA CHECK REQUIRED: original PDF page 2.
+
+````text
+1
+Introduction
+Individualized decision making is very essential in various scientiﬁc ﬁelds. One of the common goals
+is to ﬁnd the optimal individualized treatment rule (ITR) mapping from the individual characteris-
+tics or contextual information to the treatment assignment, that maximizes the expected outcome,
+known as the value function (Manski, 2004; Qian and Murphy, 2011). Such a goal can be seen
+from applications in many diﬀerent areas. In disease management, the physician needs to decide
+whether to introduce or switch a therapy based on patients’ characteristics in order to optimize
+his/her clinical outcome (Bertsimas et al., 2017). In public management, decision makers may seek
+for a policy that allocates resources based on individual proﬁles and maximizes the overall eﬃciency
+(Kube et al., 2019). In a context-based recommender system, contextual information such as time,
+location and social connection can be incorporated to increase eﬀectiveness of the recommendation
+(Aggarwal, 2016).
+There is a vast literature on estimating an optimal ITR. Among various existing methods, there
+are two main strategies. The ﬁrst strategy is to estimate the outcome mean model given covariates
+and treatment, which is often referred as the model-based approach.
+The optimal ITR can be
+induced by maximizing the mean outcome over treatment conditional on covariates.
+Existing
+methods including Q-Learning (Watkins, 1989; Qian and Murphy, 2011), A-Learning (Murphy,
+2003; Lu et al., 2013; Shi et al., 2018), dynamic Weighted Ordinary Least Square (dWOLS) (Wallace
+and Moodie, 2015) and Robust D-Learning (RD-Learning) (Meng and Qiao, 2020) all fall into this
+category. Some related approaches focus on a transformed outcome model, such as the Subgroup
+Identiﬁcation approach (Tian et al., 2014; Chen et al., 2017) and D-Learning (Qi and Liu, 2018;
+Qi et al., 2020). The second strategy, known as the direct-search approach, is to estimate the value
+function nonparametrically, and maximize the value function estimate over a prespeciﬁed ITR
+class to obtain an optimal ITR. A well-known example using this strategy is the inverse-probability
+weighted estimate (IPWE) (Zhao et al., 2012; Zhou et al., 2017; Liu et al., 2018; Kitagawa and
+Tetenov, 2018). For these two strategies, the model-based approach relies on a correctly speciﬁed
+outcome mean model, while the direct-search approach based on the IPWE requires correctly
+estimating the propensity score function. In order to improve these two strategies, various papers
+proposed to combine the strength of both. In particular, Zhang et al. (2012); Zhao et al. (2019);
+Athey and Wager (2021) considered to combine the outcome model with the IPWE to obtain the
+augmented IPWE (AIPWE) of the value function. Such an estimate can be more robust to the
+2
+
+````
+
+## PDF page 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+model speciﬁcation for the outcome model or the propensity score model.
+Among the aforementioned approaches, the double robustness property has been studied and
+advocated to protect from potential model misspeciﬁcations. In the model-based approaches, the
+optimal ITR only depends on the interaction eﬀect between covariates and treatment within the
+outcome mean model. Then the treatment-free eﬀect that only depends on covariates can be a
+nuisance component. Robins (2004) investigated the incorrectly speciﬁed parametric model for the
+treatment-free eﬀect, and introduced the G-estimating equation that can incorporate additional
+information from the propensity score. The G-estimator can be doubly robust in the sense that
+the estimate remains consistent even if one of the treatment-free eﬀect model and the propensity
+score model is misspeciﬁed. As special cases, Lu et al. (2013); Ertefaie et al. (2021) developed
+least-squares approaches that can equivalently solve the G-estimating equation and enjoy double
+robustness. Wallace and Moodie (2015); Meng and Qiao (2020) took a diﬀerent approach to hedge
+the risk of treatment-free eﬀect misspeciﬁcation. Speciﬁcally, they proposed the weighted least-
+squares problem that utilizes the propensity score information to construct balancing weights, and
+the resulting estimates can also be doubly robust. In the direct-search approaches, the AIPWE of
+the value function is doubly robust in a slightly diﬀerent way. Speciﬁcally, the AIPWE incorporates
+the outcome mean function and the propensity score function.
+When estimating the outcome
+mean and propensity score functions, even if one of their model speciﬁcations is incorrect, the
+corresponding AIPWE can still remain consistent.
+The double robustness property has also been widely studied in the causal inference literature
+(Robins et al., 1994, 1995; Ding and Li, 2018). One problem of particular interest is to study the
+case when one of or both model misspeciﬁcations happen. Kang and Schafer (2007) provided a
+comprehensive empirical study on how model misspeciﬁcation can aﬀect the resulting estimates.
+They concluded that the misspeciﬁed outcome mean model can be generally more harmful than the
+misspeciﬁed propensity score model. When both models are misspeciﬁed, the doubly robust esti-
+mate can perform even worse than the IPWE. Later studies further developed improved estimates
+and inference procedures to overcome such challenges (Tan, 2010; Rotnitzky et al., 2012; Vermeulen
+and Vansteelandt, 2015; Benkeser et al., 2017). These studies have also motivated some improve-
+ment of the AIPWE for the ITR problem. Speciﬁcally, when the outcome mean model is incorrectly
+speciﬁed, Cao et al. (2009) proposed an optimal estimation strategy for the misspeciﬁed outcome
+mean model in the sense that the resulting AIPWE can have the smallest variance. Pan and Zhao
+(2021) further extended this work to the ITR problem, and utilized augmented inverse-probability
+3
+
+````
+
+## PDF page 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+weighted estimating equations for the outcome mean model estimation.
+Motivated from Kang and Schafer (2007) that the misspeciﬁed treatment-free eﬀect can have
+more severe consequence, we focus on addressing this challenge. In our study, we ﬁnd that the
+misspeciﬁed treatment-free eﬀect in the model-based approach can have a consequence similar to
+heteroscedasticity (Carroll, 1982). More speciﬁcally, both misspeciﬁed treatment-free eﬀect and
+heteroscedasticity can cause the variance of residuals being dependent on covariates and treatment.
+Therefore, we take the approach of semiparametric eﬃcient estimation under heteroscedasticity
+(Ma et al., 2006) and propose an Eﬃcient Learning (E-Learning) framework for the optimal ITR
+in the multi-armed treatment setting. Our proposed E-Learning can enjoy the following properties:
+1. When nuisance models are correctly speciﬁed, E-Learning performs semiparametric eﬃcient esti-
+mation. Our framework can allow the variance of outcome depends on covariates and treatment,
+and hence is more general than existing semiparametric eﬃcient procedures such as G-Estimation
+and its equivalents;
+2. E-Learning is doubly robust with respect to the treatment-free eﬀect model and the propensity
+score model;
+3. In presence of misspeciﬁed treatment-free eﬀect, E-Learning is optimal with the minimal ?n-
+asymptotic variance among a regular class of semiparametric estimates based on the given work-
+ing treatment-free eﬀect function. Our optimality incorporates the standard semiparametric
+eﬃciency (Tsiatis, 2007) as a special case for the ITR problem.
+This paper contributes to existing literature in terms of the followings:
+1. Parallel to the improved doubly robust procedure in Pan and Zhao (2021) for direct-search ap-
+proaches, E-Learning is an improved doubly robust method for model-based approaches. Specif-
+ically, E-Learning performs optimal eﬃciency improvement when one of or both misspeciﬁed
+treatment-free eﬀect and heteroscedasticity exist;
+2. E-Learning incorporates many existing approaches as special cases, including Q-Learning, G-
+Estimation, A-Learning, dWOLS, Subgroup Identiﬁcation, D-Learning and RD-Learning. It
+provides a more general framework to study the double robustness and estimation eﬃciency for
+these methods;
+3. We develop E-Learning for the setting with multiple treatments.
+In particular, E-Learning
+utilizes a generalized equiangular coding of multiple treatment arms to develop the eﬃcient esti-
+4
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+mating function. This can be the ﬁrst work to incorporate equiangularity in the semiparametric
+framework among those utilizing the equiangular coding (Zhang and Liu, 2014; Zhang et al.,
+2020; Qi et al., 2020; Meng et al., 2020; Xue et al., 2021);
+4. In our simulation study, our proposed E-Learning demonstrates superior performance over exist-
+ing methods when one of or both misspeciﬁed treatment-free eﬀect and heteroscedasticity exist,
+which conﬁrms the superior performance of the proposed E-Learning. In the analysis of a Type
+2 Diabetes Mellitus (T2DM) observational study, E-Learning also demonstrates its improved
+eﬃciency compared to other methods.
+The rest of this paper is organized as follows. In Section 2, we introduce the methodology
+of E-Learning. In particular, mathematical setups and notations are introduced in Section 2.1.
+A motivating example is discussed in Section 2.2 to demonstrate the consequence of misspeci-
+ﬁed treatment-free eﬀect and heteroscedasticity. Semiparametric eﬃcient estimating equation is
+developed in Section 2.3.
+E-Learning and its implementation details are proposed in Sections
+2.4 and 2.5. In Section 3, we discuss the connection of E-Learning with the existing literature.
+In Section 4, we establish theoretical results for E-Learning. Simulation studies and the appli-
+cation to the T2DM dataset are provided in Sections 5 and 6 respectively.
+Some discussions
+are given in Section 7. Additional discussions, including nonlinear simulation studies, an anal-
+ysis of the ACTG 175 dataset, technical proofs, additional tables and ﬁgures can be found in
+the Supplementary Material.
+The R code for the implementation of this paper is available at
+https://github.com/harrymok/E-Learning.git.
+2
+Methodology
+In this section, we ﬁrst introduce the ITR problem as a semiparametric estimation problem. Then
+we study the semiparametric eﬃcient estimation procedure and propose E-Learning.
+2.1
+Setup
+Consider the data pX, A, Y q, where X P X Ď Rp denotes the covariates, A P A “ t1, 2, ¨ ¨ ¨ , Ku
+is the treatment assignment with K treatment options, and Y P R is the observed outcome. For
+1 ď k ď K, let Y pkq be the potential outcome under the assigned treatment k. An ITR is a
+mapping from covariates to treatment assignment d : X Ñ A. The value function of an ITR is
+5
+
+````
+
+## PDF page 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+deﬁned as Vpdq :“ ErY pdpXqqs. Assuming that a larger outcome is better, the goal is to ﬁnd the
+optimal ITR that maximizes the value function d‹ P argmaxd:XÑA Vpdq.
+Assume the identiﬁability conditions (Rubin, 1974): (consistency) Y “ Y pAq; (unconfounded-
+ness) A KK tY pkquK
+k“1|X; (strict overlap) for 1 ď k ď K, PpA “ k|Xq ě pA for some pA ą 0. Then
+the value function can be written as Vpdq “ ErY |A “ dpXqs “ E
+!řK
+k“1 EpY |X, A “ kqIrdpXq “ ks
+)
+.
+Consequently, the optimal ITR satisﬁes d‹pxq P argmax1ďkďK EpY |X “ x, A “ kq for any x P X.
+This motivates us to study the following semiparametric model:
+Y “ µ0pXq ` γpX, A; βq ` ϵ,
+subject to
+Kř
+k“1
+γpX, k; βq “ 0;
+Epϵ|X, Aq “ 0;
+σ2pX, Aq :“ Epϵ2|X, Aq ă `8;
+pX, A, ϵq „ pX pxqpA pa|xqpϵpϵ|x, aq.
+(1)
+Here, µ0pXq is the treatment-free eﬀect, and γpX, A; βq is the interaction eﬀect between X and A
+that is parametrized by the p-dimensional parameter vector β P B Ď Rp. In particular, it requires
+that the parametrized interaction eﬀect satisﬁes a sum-to-zero constraint for identiﬁability. The
+dependency on β may be suppressed for ease of notation in our later presentation.
+Moreover,
+σ2pX, Aq is the variance function of ϵ that can depend on pX, Aq.
+Finally, pX pxq, pA pa|xq
+and pϵpϵ|x, aq are density functions. Then the nuisance component η :“ ppX , pA , pϵ, µ0q is left
+unspeciﬁed only with the moment restriction
+ş
+ϵpϵpϵ|x, aqdϵ “ 0.
+Given the true parameter β in Model (1), the optimal ITR is d‹pxq P argmax1ďkďK γpx, k; βq.
+In Theorem 1 below, we show that maximizing the value function can be directly related to ﬁnding
+a good estimate of the interaction eﬀect γpX, Aq in Model (1).
+Theorem 1 (Estimation and Regret Bound). Consider Model (1). Let pγnpX, Aq be an estimate
+of γpX, Aq, pdnpxq P argmax1ďkďK pγnpx, kq, and d‹pxq P argmax1ďkďK γpx, kq. Then
+Vpd‹q ´ Vppdnq ď 2 max
+1ďkďK E |pγnpX, kq ´ γpX, kq| .
+Here, pγn is ﬁxed and E takes expectation over X.
+The proof of Theorem 1 is similar to Murphy (2005, Lemma 2) and is included in the Sup-
+plementary Material.
+It implies that minimizing the estimation error of the interaction eﬀects
+tγpX, kquK
+k“1 can also minimize the regret. In this paper, we focus on ﬁnding an eﬃcient estimate
+of the parametric interaction eﬀect γpX, A; βq.
+6
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+2.2
+A Motivating Example
+We introduce a motivating example to demonstrate that several existing approaches, including
+Q-Learning, G-Estimation, A-Learning, dWOLS, Subgroup Identiﬁcation, D-Learning and RD-
+Learning, may not be optimal if either the treatment-free eﬀect µ0pXq is misspeciﬁed, or the
+variance function Epϵ2|X, Aq depends on pX, Aq.
+In contrast, the E-Learning estimate can be
+much more eﬃcient. All these methods are compared in Section 3.
+Consider the covariate X with a symmetric distribution on R, the treatment A „ Bernoullip1{2q,
+and the error term ϵ „ Np0, 1q, where X, A, ϵ are mutually independent. Suppose the outcome Y
+is generated by
+Y “
+c1|X|
+lomon
+treatment-free eﬀect
+` pA ´ 1{2qβ0
+loooooomoooooon
+interaction eﬀect
+`
+d
+1 ` 2c2
+2AX2
+loooooomoooooon
+variance function
+ϵ,
+for some β0 ě 0. When estimating from the training data, suppose that we specify Xη for the
+treatment-free eﬀect with η to be estimated, and pA ´ 1{2qβ for the interaction eﬀect with β to be
+estimated. If c1 “ 0, then the treatment-free eﬀect is correctly speciﬁed, with the true parameter
+η “ 0; otherwise, the treatment-free eﬀect is misspeciﬁed. If c2 “ 0, then the variance function is
+1, and homogeneous with respect to pX, Aq; otherwise, we have a heteroscedastic model with the
+variance of error depending on pX, Aq.
+Denote En as the empirical average over the training dataset of size n. Then for this particular
+example, Q-Learning (Watkins, 1989), G-Estimation (Robins, 2004), A-Learning (Murphy, 2003),
+dWOLS (Wallace and Moodie, 2015), Subgroup Identiﬁcation (Tian et al., 2014), D-Learning (Qi
+and Liu, 2018) and RD-Learning (Meng and Qiao, 2020) are equivalent to the following Ordinary
+Least-Squares (OLS) problem:
+ppηn, pβnq P argmin
+η,βPR
+EnrY ´ Xη ´ pA ´ 1{2qβs2.
+(2)
+Note that if c1 “ c2 “ 0 with correctly speciﬁed treatment-free eﬀect and homoscedasticity, then
+pβn is semiparametric eﬃcient. For the general c1 and c2, the OLS estimates pβn and pηn are asymp-
+totically independent, with ?npηn
+DÑ Np0, ν2q for some ν2 ą 0 and
+?nppβn ´ β0q “ ?nrEpA ´ 1{2q2 ` OPp1qs´1En
+„
+pA ´ 1{2q
+ˆ
+c1|X| `
+b
+1 ` 2c2
+2AX2ϵ
+˙
+DÑ Np0, v2q,
+where the ?n-asymptotic variance of pβn is given by v2 “ 4Er1 ` pc2
+1 ` c2
+2qX2s “ 4Ep1 ` c2X2q with
+7
+
+````
+
+## PDF page 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+c2 :“ c2
+1 ` c2
+2. Notice that the residual is pe “ Y ´ Xpηn ´ p2A ´ 1qpβn “ c1|X| `
+a
+1 ` 2c2
+2AX2ϵ `
+OPpn´1{2q. Then we have Eppe2|Xq “ 1 ` c2X2 ` OPpn´1q, which clearly depends on X.
+Motivated from the heteroscedastic residual, we deﬁne qvϵpxq :“ 4p1 ` c2x2q.
+Consider the
+solutions to the generalized least-squares problem
+ppηeﬀ,n, pβeﬀ,nq P argmin
+η,βPR
+En
+!
+qv´1
+ϵ pXqrY ´ Xη ´ pA ´ 1{2qβs2)
+.
+(3)
+Then pβeﬀ,n and pηeﬀ,n are asymptotically independent, with ?npηeﬀ,n
+DÑ Np0, rν2q for some rν2 ą 0,
+?nppβeﬀ,n´β0q “ ?n
+"
+E
+„ pA ´ 1{2q2
+4p1 ` c2X2q
+
+` OPp1q
+*´1
+En
+»
+–
+pA ´ 1{2q
+´
+c1|X| `
+a
+1 ` 2c2
+2AX2ϵ
+¯
+4p1 ` c2X2q
+ﬁ
+ﬂD
+Ñ Np0, v2
+eﬀq,
+where the ?n-asymptotic variance of pβeﬀ,n is given by v2
+eﬀ“ 4
+“
+Ep1 ` c2X2q´1‰´1. The asymptotic
+relative eﬃciency of pβeﬀ,n with respect to pβn is v2{v2
+eﬀ“ Ep1 ` c2X2qE
+´
+1
+1`c2X2
+¯
+ě 1. That is,
+pβeﬀ,n has a smaller ?n-asymptotic variance than pβn. The strict inequality generally holds if c ‰ 0
+and X is non-degenerate.
+Next we consider an extreme case to illustrate that pβeﬀ,n can be much more eﬃcient than pβn.
+Suppose X „ qfpMqpxq ` p1 ´ qqfp8qpxq, where fpMqpxq is a symmetric probability density function
+(PDF) with compact support on r´M, Ms, fp8qpxq is a symmetric PDF on R with
+ş
+R x2fp8qpxqdx “
+`8, and q P p0, 1s is the mixture probability. Then for c ‰ 0, v2 ě 4r1 ` c2EX„fp8qpX2qs “ `8,
+while v2
+eﬀď
+“
+qEX„fpMqp1 ` c2X2q´1‰´1 ď 4p1 ` c2M2q{q. Here, v2 “ `8 implies that pβn cannot
+even be OPpn´1{2q, while in contrast, pβeﬀ,n has a bounded ?n-asymptotic variance v2
+eﬀ. Therefore, if
+either the treatment-free eﬀect is misspeciﬁed pc1 ‰ 0q, or the variance function is not homogeneous
+pc2 ‰ 0q, then pβn can have much worse perforamance than the more eﬃcient estimate pβeﬀ,n.
+From the motivating example above, we can conclude that the eﬃciency of many existing
+approaches can be improved when either misspeciﬁed treatment-free eﬀect or heteroscedasticity
+happens. In fact, our example shows that misspeciﬁed treatment-free eﬀect or heteroscedasticity
+can cause the dependency of Eppe2|Xq “ 1 ` c2X2 on X. Motivated from eﬃcient estimation under
+heteroscedasticity (Ma et al., 2006) and our motivating example, we introduce the working variance
+function voptpXq “ 1 ` c2X2, and consider the generalized least-squares estimate as in (3). The
+estimation eﬃciency can be greatly improved in this case.
+Xiao et al. (2019, Theorem 6) pointed out a phenomenon similar to our ﬁnding in Section 2.2,
+while their methodology and theoretical properties diﬀer from ours. To be speciﬁc, Xiao et al.
+8
+
+````
+
+## PDF page 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+(2019) replaced the squared loss by general robust loss functions. Under the assumption ϵ KK A|X,
+their estimate based on the quantile loss function can be shown consistent and ?n-asymptotic
+normal. However, it remains unclear whether the ?n-asymptotic normality still holds, and if so,
+how large the corresponding ?n-asymptotic variance is, when treatment-free eﬀect misspeciﬁcation
+and heteroscedasticity exist. In contrast, we show in Theorem 5 that, under a more general setting,
+our proposed estimation strategy using the working variance function qvϵpxq is optimal, with the
+smallest ?n-asymptotic variance, for heteroscedastic and misspeciﬁed treatment-free eﬀect models.
+This implies that E-Learning is more general with better optimality guarantee than Xiao et al.
+(2019).
+The methodology introduced in this section is special in the sense that the treatment assign-
+ment is binary, i.e. A P t0, 1u. For multiple treatment options A P t1, 2, ¨ ¨ ¨ , Ku with K ą 2,
+the estimation problem is no longer an inverse-variance weighted least-squares problem. We will
+motivate our general methodology from the semiparametric eﬃcient estimate of Model (1).
+2.3
+Semiparametric Eﬃcient Estimate
+In this section, we derive the semiparametric eﬃcient estimate of β for Model (1). The eﬃcient
+estimating function can be related to some existing methods in the literature. The connections are
+discussed in Sections 3.1 and 3.2.
+2.3.1
+Eﬃcient Score
+In order to obtain the corresponding estimating equation, we ﬁrst show the procedures to calculate
+the semiparametric eﬃcient score following Tsiatis (2007). To that end, we take the following steps
+to derive: 1) the nuisance tangent space; 2) the eﬃcient score; 3) the eﬃcient estimating function.
+We ﬁrst derive the nuisance tangent space with respect to η following Tsiatis (2007, Chapter
+7). The same result was also used in Ma et al. (2006); Liang and Yu (2020).
+Lemma 1 (Nuisance Tangent Space). Consider Model (1). Deﬁne H :“ thpX, A, ϵq | h : X ˆ
+A ˆ R Ñ Rp, EhpX, A, ϵq “ 0, E}hpX, A, ϵq}2
+2 ă `8u, which is equipped with the norm } ¨ } :“
+pE} ¨ }2
+2q1{2. Then the nuisance tangent space is
+Λ “
+!
+H P H : EpHϵ|X, Aq “ EpHϵ|Xq
+)
+.
+The proof of Lemma 1 is included in the Supplementary Material.
+9
+
+````
+
+## PDF page 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+Next we discuss how to obtain the eﬃcient score of Model (1). The eﬃcient score is deﬁned
+as the projection of the score vector onto the orthogonal complement ΛK of the nuisance tangent
+space. Notice that the moment restriction in Lemma 1 is equivalent to
+EpHϵ|X, A “ 1q “ EpHϵ|X, A “ 2q “ ¨ ¨ ¨ “ EpHϵ|X, A “ Kq.
+Then we can introduce a set of coding vectors tωkuK
+k“1 Ď RK´1, such that řK
+k“1 ckωk “ 0 if and
+only if c1 “ c2 “ ¨ ¨ ¨ “ cK. Equivalently, we can let Ω:“
+a
+1 ´ 1{Krω1, ω2, ¨ ¨ ¨ , ωKs⊺P RKˆpK´1q,
+and require that p1{
+?
+Kq1Kˆ1 is the only left singular vector corresponding to the singular value
+0 of Ω. In the following Lemma 2, we show that any coding vectors satisfying such a requirement
+are equiangular up to normalization.
+Lemma 2 (Equiangularity). Let Ω:“
+a
+1 ´ 1{Krω1, ω2, ¨ ¨ ¨ , ωKs⊺P RKˆpK´1q such that p1{
+?
+Kq1Kˆ1
+is the only left singular vector corresponding to the singular value 0. Then tpΩ⊺Ωq´1{2ωkuK
+k“1 are
+equiangular.
+The equiangular coding representation in Zhang and Liu (2014); Zhang et al. (2020); Qi et al.
+(2020) is an example that satisﬁes Lemma 2. The equiangular coding vectors tωkuK
+K“1 can be
+useful to deﬁne the following RK´1-valued decision function associated with the interaction eﬀect.
+Lemma 3 (Angle-Based Decision Function). Consider Model (1). For the coding vectors tωkuK
+k“1 Ď
+RK´1 as in Lemma 2, deﬁne an RK´1-valued decision function⃗fpx; βq :“ pΩ⊺Ωq´1 řK
+k“1 γpx, k; βqωk.
+Then we have
+γpx, k; βq “
+ˆ
+1 ´ 1
+K
+˙
+xωk,⃗fpx; βqy;
+1 ď k ď K.
+Moreover, the optimal ITR is given by
+d‹pxq P argmax
+1ďkďK
+xωk,⃗fpx; βqy.
+(4)
+Without loss of generality, assume that }ωk}2 “ 1 for 1 ď k ď K. For ease of notation, we
+denote⃗f “⃗fpx; βq. Then the angle between ωk and⃗f satisﬁes cos =pωk,⃗fq “ xωk,⃗fy{}⃗f}2. The
+decision rule (4) is equivalent to argmin1ďkďK =pωk,⃗fq. That is, among K coding vectors tωkuK
+k“1,
+the decision function⃗f seeks for the arm that the corresponding coding vector has the least angle
+with respect to⃗f.
+10
+
+````
+
+## PDF page 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+Based on the coding vectors, the tangent space in Lemma 1 can be rewritten as
+Λ “
+#
+H P H : OpˆpK´1q “
+K
+ÿ
+k“1
+EpHϵ|X, A “ kqω⊺
+k “ E
+ˆ Hω⊺
+Aϵ
+pA pA|Xq
+ˇˇˇˇX
+˙+
+.
+Then we can obtain ΛK and the projection operator onto it as in the following Lemma 4. For a
+vector a, we denote ab2 :“ aa⊺.
+Lemma 4 (Projection onto ΛK). Let Λ be the tangent space in Lemma 1, tωkuK
+k“1 Ď RK´1 be the
+coding vectors satisfying řK
+k“1 ckωk “ 0 if and only if c1 “ c2 “ ¨ ¨ ¨ “ cK. Then
+ΛK “
+"HpXqωAϵ
+pA pA|Xq
+ˇˇˇˇH : X Ñ RpˆpK´1q
+*
+.
+Furthermore, the projection operator onto ΛK is
+EpH|ΛKq “ E
+" Hω⊺
+Aϵ
+pA pA|Xq
+ˇˇˇˇX
+*
+VϵpXq´1
+ωAϵ
+pA pA|Xq,
+where VϵpXq :“ řK
+k“1
+σ2pX,kqωb2
+k
+pA pk|Xq
+P RpK´1qˆpK´1q. Here, if VϵpXq is degenerate, then VϵpXq´1
+represents its measurable generalized inverse.
+The eﬃcient score of the semiparametric model (1) is deﬁned as the projection of the score
+vector, the gradient of the log-likelihood with respect to β, onto ΛK (Tsiatis, 2007). Proposition 2
+provides the explicit form of the eﬃcient score.
+Proposition 2 (Eﬃcient Score). Consider Model (1), the coding vectors tωkuK
+k“1 Ď RK´1 as in
+Lemma 2, and the angle-based representation in Lemma 3. The semiparametric eﬃcient score is
+Seﬀpβq “ 9FpX; βq⊺Ω⊺ΩVϵpXq´1 ˆ
+ωA
+pA pA|Xq ˆ ϵ,
+where 9FpX; βq :“ pB{Bβ⊺q⃗fpX; βq P RpK´1qˆp, and VϵpXq´1 is the same as in Lemma 4.
+As a consequence of Proposition 2, we can ﬁnally deﬁne the eﬃcient estimating function:
+φeﬀpβ; qµ0, qpA , qσ2q
+:“
+„
+Y ´ qµ0pXq ´
+ˆ
+1 ´ 1
+K
+˙
+xωA,⃗fpX; βqy
+
+looooooooooooooooooooooooooomooooooooooooooooooooooooooon
+residual
+ˆ 9FpX; βq⊺Ω⊺Ω
+« K
+ÿ
+k“1
+qσ2pX, kqωb2
+k
+qpA pk|Xq
+ﬀ´1
+ωA
+qpA pA|Xq
+looooooooooooooooooooooooooooooomooooooooooooooooooooooooooooooon
+eﬃcient instrument
+,
+(5)
+11
+
+````
+
+## PDF page 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+which depends on the nuisance functions qµ0pXq, qpA pA|Xq and qσ2pX, Aq. In particular, Seﬀpβq “
+φeﬀpβ; µ0, pA , σ2q. That is, if the parameters β of interest and all nuisance functions pµ0, pA , σ2q
+match with the truth in Model (1), then the estimating function becomes the eﬃcient score.
+2.4
+E-Learning
+In Section 2.3, we have obtained the eﬃcient estimating function φeﬀpβ; qµ0, qpA , qσ2q from (5). An
+E-Learning estimate of β solves
+Enrφeﬀpβ; pµ0,n, pA ,n, pσ2
+nqs “ 0,
+(6)
+where ppµ0,n, pA ,nq are the ﬁnite-sample estimates of treatment-free eﬀect and treatment assignment
+probability in Model (1). Furthermore, pσ2
+npX, Aq is an estimate of the optimal variance function
+σ2
+optpX, A; pµ0,nq :“ rpµ0,npXq ´ µ0pXqs2 ` σ2pX, Aq.
+(7)
+The optimality of σ2
+optpX, A; pµ0,nq is justiﬁed in Theorem 5 in Section 4.1.2. However, (7) can
+depend on the true treatment-free eﬀect function µ0pXq and variance function σ2pX, Aq, which
+are unknown. Motivated from the example in Section 2.2, we can consider the working residual
+pe :“ Y ´ pµ0,npXq ´ γpX, A; βq, such that Eppe2|X, A, pµ0,nq “ rpµ0,npXq ´ µ0pXqs2 ` σ2pX, Aq “
+σ2
+optpX, A; pµ0,nq. Therefore, pσ2
+npX, Aq can be obtained by regressing pe2 on pX, Aq.
+Similar to the general methodology in Davidian and Carroll (1987), the E-Learning estimate of
+β can be solved by the following three steps:
+Step 1. Obtain a consistent estimate pβp0q
+n
+of β. This can be done by solving (6) with pσp0q2
+n
+“ 1 that
+results in a consistent estimate of β. The consistency is guaranteed by Proposition 3;
+Step 2. Obtain pσ2
+npX, Aq. Speciﬁcally, we ﬁrst compute the working residual pe “ Y ´ pµ0,npXq ´
+γpX, A; pβp0q
+n q, and then perform a nonparametric regression using pe2 as the response and
+pX, Aq as the covariates to estimate the optimal working variance function;
+Step 3. Solve (6) again using pσ2
+npX, Aq from Step 2 to obtain the E-Learning estimate pβn.
+More implementation details are discussed in Section 2.5.
+Note that the estimation procedure in this section relies on the parametric model for the inter-
+action eﬀect γpX, A; βq. A typical parametric assumption is γpX, A; Bq :“ p1 ´ 1{KqxωA, B⊺Xy,
+12
+
+````
+
+## PDF page 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+where the angle-based decision function in Lemma 3 is modeled linearly as⃗fpX; Bq “ B⊺X with
+B P RpˆpK´1q. However, this should not restrict the applicability of E-Learning. When the true
+interaction eﬀect is nonlinear, we can still consider the basis expansion of X. For example, we can
+use Xp3q :“ pX1, X2
+1, X3
+1; ¨ ¨ ¨ , Xp, X2
+p, X3
+pq⊺as the covariate vector instead. In the Supplementary
+Material Section S.1, we demonstrate the eﬀectiveness of E-Learning with the linear and cubic
+polynomial basis. Although the true interaction eﬀect may not be correctly speciﬁed by the linear
+or cubic polynomial, our results can still show the strong advantage of cubic E-Learning when
+compared to other methods based on the same corresponding function basis.
+2.5
+Implementation
+For the implementation of E-Learning, we ﬁrst need to estimate the treatment assignment probabil-
+ities tpA pk|XquK
+k“1 and the treatment-free eﬀect µ0pXq. Then we follow the three-step procedures
+in Section 2.4 for E-Learning estimation.
+2.5.1
+Estimating the Propensity Score Function
+Suppose the treatment assignment probability pA is unknown. The ﬁrst approach of estimating
+pA is to consider the penalized multinomial logistic regression (Friedman et al., 2010). Speciﬁcally,
+consider the multinomial logistic working model qpA pk|X; τ1, τ2, ¨ ¨ ¨ , τKq :“
+exppτ ⊺
+k Xq
+řK
+k1“1 exppτ ⊺
+k1Xq. The
+propensity score parameters τ1, τ2, ¨ ¨ ¨ , τK P Rp can be estimated by the following penalized log-
+likelihood maximization:
+max
+τ1,¨¨¨ ,τKPRp
+#
+En
+« K
+ÿ
+k“1
+τ ⊺
+k XIpA “ kq ´ log
+˜ K
+ÿ
+k1“1
+eτ ⊺
+k1X
+¸ﬀ
+´ λA
+pÿ
+j“1
+˜ K
+ÿ
+k“1
+τ 2
+jk
+¸1{2 +
+,
+where the group-LASSO penalty řp
+j“1
+´řK
+k“1 τ 2
+jk
+¯1{2
+takes tτjkuK
+k“1 for the j-th variable across all
+treatments as a group, and λA is a tuning parameter and can be chosen using cross validation.
+In observational studies, the propensity scores can be vulnerable to model misspeciﬁcation.
+Another approach for estimating pA is to consider ﬂexible nonparametric regression using the
+regression forest (Athey et al., 2019). Speciﬁcally, for each 1 ď k ď K, we run a regression forest
+using IpA “ kq as the response and X as the covariates. Then each ﬁtted regression forest provides
+a prediction for ErIpA “ kq|Xs. The ﬁnal estimate of pA pk|Xq is the prediction after normalization
+such that the summation over k “ 1, ¨ ¨ ¨ , K is one.
+13
+
+````
+
+## PDF page 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+2.5.2
+Estimating the Treatment-Free Eﬀect Function
+Similar to Section 2.5.1, the treatment-free eﬀect function µ0 can be estimated from a parametric
+model or nonparametric regression.
+For parametric estimation, we consider the linear working
+model qµ0pX; ηq “ η⊺X. In this case, the outcome mean model in (1) is fully parametrized. For
+example, if γpX, A; Bq “ p1 ´ 1{KqxωA, B⊺Xy, then we can consider the following joint penalized
+inverse-probability weighted least-squares problem with the ℓ1-penalty:
+min
+ηPRp,BPRpˆpK´1q
+#
+En
+«
+1
+pA ,npA|Xq
+ˆ
+Y ´ η⊺X ´
+ˆ
+1 ´ 1
+K
+˙
+xωA, B⊺Xy
+˙2ﬀ
+` λµ0 p}η}1 ` }B}1q
++
+,
+where pA ,n is the estimated treatment assignment probability, λµ0 is a tuning parameter and can be
+chosen using cross validation. Here, if pA ,npA|Xq is the correct treatment assignment probability,
+then the above estimate for η can be consistent even if the model for the interaction eﬀect γpX, A; βq
+is incorrect. If the model for the interaction eﬀect γpX, A; βq is correct, then the above estimate
+for η can also be consistent for any arbitrary pA ,n besides the correct one.
+For nonparametric regression, we ﬁrst divide the data into K subsets according to the received
+treatments. For each 1 ď k ď K, we use Y as the response and X as the covariates to ﬁt a regression
+forest on the data subset tpXi, Yiq : Ai “ ku. Then each ﬁtted regression forest corresponds to
+the prediction of EpY |X, A “ kq. We average the predictions over k “ 1, ¨ ¨ ¨ , K to obtain the
+treatment-free eﬀect estimate.
+2.5.3
+Estimating the Variance Function
+Suppose pe is the working residual in Step 2.
+In order to estimate the variance function, we
+speciﬁcally consider the regression forest using pe2 as the response and pX, Aq as the covariates.
+Then pσ2
+npX, kq is the regression forest prediction at pX, kq for 1 ď k ď K.
+In the simulation study in Section 5.3, we also study another two nonparametric regression
+methods, the Multivariate Adaptive Regression Splines (MARS) (Friedman, 1991) and the COm-
+ponent Selection and Smoothing Operator (COSSO) (Lin and Zhang, 2006). Here, the COSSO
+estimate of the working variance function is based on the following Smoothing Spline ANalysis Of
+VAriance (SS-ANOVA) model: Eppe2|X, Aq “ ν0`řp
+j“1 fjpXjq`řK
+k“1 αk `řp
+j“1
+řK
+k“1 fjkpXjq`u,
+where ν0 is the global main eﬀect, tfjpXjqup
+j“1 are the covariate main eﬀects, tαkuK
+k“1 are the treat-
+ment main eﬀects, tfjkpXjqu1ďjďp,1ďkďK are the covariate-treatment interaction eﬀects, and u is
+the remainder term that is not modeled.
+14
+
+````
+
+## PDF page 15
+
+FORMULA CHECK REQUIRED: original PDF page 15.
+
+````text
+2.5.4
+Solving the Regularized E-Learning Estimating Equation
+In this section, we consider further regularization Jpβq on the parameters of interest. One example
+from Qi et al. (2020) is to consider the linear angle-based decision function⃗fpX; Bq “ B⊺X in
+Lemma 3, where the covariate vector X P Rp can be high-dimensional. They introduced the row-
+wise group-LASSO penalty on the matrix coeﬃcient B “ rβjkspˆpK´1q P RpˆpK´1q as JpBq :“
+}B}2,1 “ řp
+j“1přK´1
+k“1 β2
+jkq1{2, which encourages sparsity among input covariates. Another example
+can be the extension to nonlinear modeling of the decision function⃗fpXq, where a functional
+penalty Jp⃗fq is applied.
+To incorporate regularization in E-Learning from (6), we solve the penalized estimating equa-
+tions (Johnson et al., 2008):
+min
+βPRp
+"1
+2
+››Enrφeﬀpβ; pµ0,n, pA ,n, pσ2
+nqs
+››2
+W ` λJpβq
+*
+,
+(8)
+where }x}2
+W :“ x⊺Wx with some weighting matrix W P Rpˆp. A typical choice of W can be Ipˆp or
+the inverse of the empirical information matrix
+␣
+EnrpB{Bβ⊺qφeﬀpβ; pµ0,n, pA ,n, pσ2
+nqs
+(´1. Problem (8)
+can be solved by the accelerated proximal gradient method (Nesterov, 2013) with the gradient β ÞÑ
+Enrφeﬀpβ; pµ0,n, pA ,n, pσ2
+nqs. A comprehensive lists of the proximal operators on various penalties
+Jpβq can be found in Mo and Liu (2021). For a ﬁxed λ, the estimation procedure follows the three
+steps in Section 2.4. The parameter λ can be further tuned by cross validation. The IPWE of the
+value function is used as the tuning criteria. Denote pβnpλq as the solution to (8). The corresponding
+ITR becomes pdnpX; λq :“ argmax1ďkďK γpX, k; pβnpλqq. Let tpXi, Ai, Yiqunvalid
+i“1
+be the validation
+dataset. Then the criteria for λ is
+1
+nvalid
+řnvalid
+i“1
+Ir pdnpXi;λq“Ais
+pA ,npAi|Xiq Yi, which is larger the better.
+More implementation details for E-Learning are discussed in Sections S.4 and S.5 in the Sup-
+plementary Material.
+3
+Connections to Existing Literature
+In this section, we discuss the connection of the E-Learning estimating function (5) to several
+methods in the existing literature. It can be shown that with more assumptions in addition to
+Model (1), several existing methods can be equivalent to (5). That is, E-Learning can incorporate
+these methods as special cases. The motivating example in Section 2.2 is such a special case. In
+Sections 3.1 and 3.2, we discuss the equivalence and the speciﬁc additional assumptions. In Section
+15
+
+````
+
+## PDF page 16
+
+FORMULA CHECK REQUIRED: original PDF page 16.
+
+````text
+3.3, we further provide the general comparisons for these methods and some other nonparametric
+methods in the literature.
+3.1
+Binary Treatment
+We ﬁrst consider the binary treatment case K “ 2 and relate the eﬃcient estimating function (5)
+to some existing methods. We follow the convention to denote A “ t0, 1u. Then we have one-
+dimensional coding for two treatment arms as ω0, ω1, which satisﬁes c0ω0 ` c1ω1 “ 0 if and only
+if c0 “ c1. Then we have ω1 “ ´ω0. Without loss of generality, we can assume that ω1 “ 1 and
+ω0 “ ´1, which become the sign coding of treatments. Then Ω⊺Ω“ 1.
+The variance matrix from Proposition 2 becomes a scalar: vϵpXq :“
+σ2pX,1q
+pA p1|Xq ` σ2pX,0q
+pA p0|Xq. The
+decision function fpX; βq is R-valued, such that γpX, A; βq “ p1{2qωAfpX; βq.
+Then the E-
+Learning eﬃcient estimating function (5) becomes
+φeﬀpβ; qµ0, qpA , qσ2q “ rY ´ qµ0pXq ´ p1{2qωAfpX; βqsqv´1
+ϵ pXqωA
+qpA pA|Xq
+9fpX; βq,
+(9)
+where 9fpX; βq :“ pB{BβqfpX; βq P Rp. Moreover, (9) is also equivalent to the following weighed
+least-squares problem:
+min
+βPRp En
+" qv´1
+ϵ pXq
+qpA pA|XqrY ´ qµ0pXq ´ p1{2qωAfpX; βqs2
+*
+.
+(10)
+There are some connections for this formulation to several methods in the existing literature.
+Q-Learning
+Consider the additional assumptions: (a) homoscedasticity σ2pX, 1q “ σ2pX, 0q “
+σ2; and (b) complete-at-random treatment assignment pA p1|Xq “ pA p0|Xq “ 1{2.
+Then E-
+Learning (10) reduces to an OLS problem. If we also assume that: (c) the treatment-free eﬀect
+satisﬁes µ0pXq “ X⊺pη ` β{2q, where pβ, ηq are jointly estimated, then E-Learning (10) can be
+equivalent to the standard Q-Learning (Watkins, 1989) in this case:
+min
+η,βPRp EnpY ´ X⊺η ´ AX⊺βq2.
+G-Estimation, A-Learning and dWOLS
+Consider the additional assumption: (a) homoscedas-
+ticity σ2pX, 1q “ σ2pX, 0q “ σ2. Then v´1
+ϵ pXq “ σ´2pA p1|XqpA p0|Xq. Without loss of gener-
+ality, we can further assume that σ2 “ 1. Denote πA pXq :“ pA p1|Xq “ EpA|Xq. Then we have
+16
+
+````
+
+## PDF page 17
+
+FORMULA CHECK REQUIRED: original PDF page 17.
+
+````text
+v´1
+ϵ
+pXqωA
+pA pA|Xq “ A ´ πA pXq “ |A ´ πA pXq|ωA and
+v´1
+ϵ
+pXq
+pA pA|Xq “ |A ´ πA pXq|.
+Robins (2004) proposed the G-Estimation strategy for dynamic treatment regimes, which is
+equivalent to the standard A-Learning (Murphy, 2003) in the single-stage setting. In particular,
+G-Estimation solves the estimating equation
+En
+!
+rY ´ pµ0,npXq ´ AX⊺βs
+“
+A ´ pπA ,npXq
+‰
+X
+)
+“ 0,
+while A-Learning is equivalent to the estimating equation
+En
+! “
+Y ´ pm0,npXq ´
+`
+A ´ pπA ,npXq
+˘
+X⊺β
+‰ “
+A ´ pπA ,npXq
+‰
+X
+)
+“ 0.
+Then G-Estimation and A-Learning are equivalent to E-Learning (9) in this case up to reparametriza-
+tion, where pµ0,npXq is replaced by pm0,npXq ´ pπA ,npXqX⊺β.
+Wallace and Moodie (2015) proposed the dWOLS method. In the single-stage setting, they
+considered the following weighted least-squares problem:
+min
+η,βPRp En
+!
+wpX, AqpY ´ X⊺η ´ AX⊺βq2)
+,
+where wpX, Aq satisﬁes the balancing condition πA pXqwpX, 1q “ r1 ´ πA pXqswpX, 0q.
+Note
+that wpX, Aq “ |A ´ πA pXq| meets this balancing condition. Assume that: (b) the treatment
+assignment probability πA pXq “ pA p1|Xq is known; and (c) the treatment-free eﬀect satisﬁes
+µ0pXq “ X⊺pη ` β{2q, where pβ, ηq are jointly estimated. Then dWOLS with wpX, Aq “ |A ´
+πA pXq| is equivalent to E-Learning (10):
+min
+η,βPRp En
+!
+|A ´ πA pXq|pY ´ X⊺η ´ AX⊺βq2)
+.
+Subgroup Identiﬁcation, D-Learning and RD-Learning
+Consider the additional assump-
+tions: (a) the variance function satisﬁes vϵpXq “ σ2pX,1q
+pA p1|Xq ` σ2pX,0q
+pA p0|Xq “ vϵ, which is a constant; (b)
+the treatment assignment probability pA pA|Xq is known; and (c) the treatment-free eﬀect satisﬁes
+µ0pXq “ 0. Then E-Learning (10) is equivalent to the standard Subgroup Identiﬁcation (Tian
+et al., 2014; Chen et al., 2017) and the binary D-Learning (Qi and Liu, 2018):
+min
+βPRp En
+"
+1
+pA pA|XqrY ´ p1{2qωAX⊺βs2
+*
+.
+17
+
+````
+
+## PDF page 18
+
+FORMULA CHECK REQUIRED: original PDF page 18.
+
+````text
+If both (b) and (c) are relaxed, then E-Learning (10) is equivalent to the augmented Subgroup
+Identiﬁcation (Chen et al., 2017, Web Appendix B) and the binary RD-Learning (Meng and Qiao,
+2020):
+min
+βPRp En
+"
+1
+pA ,npA|XqrY ´ pµ0,npXq ´ p1{2qωAX⊺βs2
+*
+.
+3.2
+Multiple Treatments and Partially Linear Model
+For general K ě 3, we consider the linear decision function⃗fpX; Bq “ B⊺X, where B P RpˆpK´1q
+is a parameter matrix. By Lemma 3, Model (1) becomes
+Y “ µ0pXq `
+ˆ
+1 ´ 1
+K
+˙
+xωA, B⊺Xy ` ϵ;
+Epϵ|X, Aq “ 0;
+σ2pX, Aq “ Epϵ2|X, Aq ă `8, (11)
+which is a Heteroscedasticitic Partially Linear Model (HPLM) (Ma et al., 2006).
+Denote VecpBq P RppK´1q as the vectorization of B. The we further have⃗fpX; Bq “ pIpK´1qˆpK´1qb
+Xq⊺VecpBq and 9FpX; Bq “ rB{BVecpBq⊺s⃗fpX; βq “ pIpK´1qˆpK´1qbXq⊺, where b denotes the Kro-
+necker product. The E-Learning eﬃcient estimating function (5) becomes
+φeﬀpB; qµ0, qpA , qσ2q “ rpΩ⊺Ωq b Idˆds
+loooooooomoooooooon
+constant matrix
+ˆ
+„
+Y ´ qµ0pXq ´
+ˆ
+1 ´ 1
+K
+˙
+xωA, B⊺Xy
+
+ˆ
+qVϵpXq´1ωA
+qpA pA|Xq
+b X,
+(12)
+where qVϵpXq :“ řK
+k“1
+qσ2pX,kqωb2
+k
+qpA pk|Xq , and qVϵpXq´1 denotes the generalized inverse if not invertible.
+Consider the additional assumption: (a) the variance function satisﬁes VϵpXq “ řK
+k“1
+σ2pX,kqωb2
+k
+pA pk|Xq
+“
+Vϵ, which is a constant matrix. Then E-Learning (12) is equivalent to the multi-arm RD-Learning:
+min
+BPRpˆpK´1q En
+#
+1
+pA ,npA|Xq
+„
+Y ´ pµ0,npXq ´
+ˆ
+1 ´ 1
+K
+˙
+xωA, B⊺Xy
+2+
+.
+Notice that the multi-arm D-Learning (Qi et al., 2020) cannot be equivalent to E-Learning. In
+fact, D-Learning solves the following vectorized least-squares problem:
+min
+BPRpˆpK´1q En
+"
+1
+2KpA pA|Xq }KY ωA ´ B⊺X}2
+2
+*
+.
+(13)
+The estimating function of (13) is
+„
+Y ´
+ˆ
+1 ´ 1
+K
+˙
+xωA, B⊺Xy
+
+ˆ
+ωA
+pA pA|Xq b X
+looooooooooooooooooooooooooooooomooooooooooooooooooooooooooooooon
+eﬃcient estimating function if (a) and µ0pXq “ 0
+`
+1
+pA pA|Xq
+„ˆ
+1 ´ 1
+K
+˙
+ωb2
+A ´ 1
+K IpK´1qˆpK´1q
+
+VecpXb2Bq
+looooooooooooooooooooooooooooooooooooooomooooooooooooooooooooooooooooooooooooooon
+:“φDpX,Aq
+.
+18
+
+````
+
+## PDF page 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+Note that ErφDpX, Aq|Xs “ 0 and ErφDpX, Aqb2s is strictly positive deﬁnite, which contributes
+an extra term to the ?n-asymptotic variance of the D-Learning estimate. This suggests that when
+K ě 3, the D-Learning estimate can generally have a larger asymptotic variance than E-Learning.
+3.3
+General Comparisons
+In Table 1, we provide the comparisons of the methods discussed in Sections 3.1 and 3.2. We also
+compare several popular nonparametric approaches including Outcome Weighted Learning (OWL)
+(Zhao et al., 2012), Residual Weighted Learning (RWL) (Zhou et al., 2017; Liu et al., 2018), Eﬃcient
+Augmentation and Relaxation Learning (EARL) (Zhao et al., 2019), and Policy Learning (Athey
+and Wager, 2021; Zhou et al., 2018). In particular, EARL and Policy Learning utilize the AIPWE
+of the value function, which incorporates the outcome and propensity score models and is doubly
+robust. The listed methods are also compared in the simulation studies in Section 5.2.
+Table 1: Comparisons of E-Learning with Several Existing Methods in the Literature
+Method
+Nuisance Models
+Doubly
+Robust
+Assumptions for Being Optimal
+Allow
+K ě 3
+Outcome
+Propensity
+Treatment-
+Free
+Eﬀect
+Propensity
+Variance
+E-Learning
+Yes
+Yes
+Yes
+Arbitrary
+Correct
+Hetero.
+Yes
+Q-Learning
+Yes
+No
+No
+Correct
+1{K
+Homo.
+Yes
+G-Estimation
+Yes
+Yes
+Yes
+Correct
+Correct
+Homo.
+No
+A-Learning
+Yes
+Yes
+Yes
+No
+dWOLS
+Yes
+Yes
+Yes
+No
+Subgroup
+Identiﬁcation
+Std.
+No
+Yes
+No
+0
+Known
+Const.
+Yes
+Aug.
+Yes
+Yes
+No
+Correct
+Known
+Const.
+Yes
+RD-Learning
+Yes
+Yes
+Yes
+Correct
+Correct
+Const.
+Yes
+D-Learning
+K “ 2
+No
+Yes
+No
+0
+Known
+Const.
+Yes
+K ě 3
+N/A
+OWL
+No
+Yes
+No
+No
+RWL
+Yes
+Yes
+No
+No
+EARL
+Yes
+Yes
+Yes
+No
+Policy Learning
+Yes
+Yes
+Yes
+Yes
+1 “Being optimal” is deﬁned as the estimate of β in Model (1) achieves the smallest ?n-asymptotic variance among the
+class of estimates in Deﬁnition 1.
+2 Methods of Subgroup Identiﬁcation include the standard (std.) and augmented (aug.) versions.
+3 Variance assumptions are:
+homo.
+ô constant σ2pX, Aq; hetero.
+ô general σ2pX, Aq; const.
+ô VϵpXq “
+řK
+k“1
+σ2pX,kqωb2
+k
+pA pk|Xq
+is a constant matrix.
+We also discuss the estimation optimality for β in Table 1.
+Note that the nonparametric
+methods do not assume Model (1). Therefore, the estimation optimality for β is not available. In
+Theorem 5 in Section 4.1.2, we establish that the E-Learning estimate of β achieves the smallest
+19
+
+````
+
+## PDF page 20
+
+FORMULA CHECK REQUIRED: original PDF page 20.
+
+````text
+?n-asymptotic variance among the class of estimates in Deﬁnition 1. This is also referred as “being
+optimal” in Table 1. Since the methods discussed in Sections 3.1 and 3.2, except for D-Learning
+with K ě 3, are equivalent to E-Learning under speciﬁc additional assumptions, this also implies
+that the equivalent methods are optimal under those speciﬁc additional assumptions. However,
+this is not true for the general case. In contrast, our proposed E-Learning remains optimal under
+the most general scenario among all these methods.
+4
+Theoretical Properties
+We investigate some theoretical properties of E-Learning. In particular, in Section 4.1, we establish
+estimation properties based on the eﬃcient estimating function (5). In Section 4.2, we further
+relate the asymptotic properties to the regret bound of the estimated ITR.
+4.1
+Asymptotic Properties
+We ﬁrst focus on estimation properties of the proposed E-Learning. In Proposition 3, we show the
+double robustness property of the estimating function (5).
+Proposition 3 (Double Robustness). Consider Model (1) and the estimating function (5). Suppose
+qµ0pXq, qpA pA|Xq and qσ2pX, Aq are arbitrary nuisance functions. Then we have
+Erφeﬀpβ; qµ0, pA , qσ2qs “ Erφeﬀpβ; µ0, qpA , qσ2qs “ 0.
+If either qµ0 “ µ0 or qpA “ pA , then Erφeﬀpβ; qµ0, qpA , qσ2qs “ 0 at the true parameter β in
+Model (1).
+By assuming the positivity of the information matrix at β (Assumption 4.3), the
+consistency of pβn P argminβPB
+1
+2
+›››Enrφeﬀp pβn; qµ0, qpA , qσ2qs
+›››
+2
+2 can be established by the consistency
+of an M-estimator (van der Vaart and Wellner, 1996, Corollary 3.2.3). This implies the doubly
+robust property of pβn. If pqµ0, qpA , qσ2q are replaced by their ﬁnite-sample estimate ppµ0,n, pA ,n, pσ2
+nq,
+then Lemma 5 can be further applied to obtain consistency. Based on the connections from Section
+3, Proposition 3 provides a more general framework to explain the double robustness property
+discussed in Robins (2004); Lu et al. (2013); Wallace and Moodie (2015); Meng and Qiao (2020).
+Our next goal is to study how model speciﬁcations can aﬀect estimation eﬃciency. In Section
+4.1.1, we study the asymptotic properties of the parameter estimate under correctly speciﬁed mod-
+els. In Section 4.1.2, we further consider the case of misspeciﬁed treatment-free eﬀect, and show
+20
+
+````
+
+## PDF page 21
+
+FORMULA CHECK REQUIRED: original PDF page 21.
+
+````text
+that there exists an optimal choice of the working variance function for eﬃciency improvement.
+4.1.1
+Correctly Speciﬁed Models
+For simplicity, we assume that the treatment assignment probability pA is known, so that the
+estimating function is consistent due to Proposition 3. This assumption can be relaxed to assuming a
+consistent estimate pA ,n of pA , and the theoretical results can be extended following the cross-ﬁtting
+argument in Ertefaie et al. (2021). For example, we can assume a correctly speciﬁed parametric
+model for pA .
+We make additional assumptions on the squared integrability of Model (1) and the convergence
+of the plug-in treatment-free eﬀect and variance function estimates. The estimated variance func-
+tion pσ2
+npX, Aq is furthered assumed uniformly bounded away from 0 to ensure that the smallest
+eigenvalue of pVϵ,npXq “ řK
+k“1rpσ2
+npX, kq{pA pk|Xqsωb2
+k
+is uniformly bounded away from 0, so that
+the largest eigenvalue of pVϵ,npXq´1 can be bounded from above.
+This can also be relaxed by
+considering a speciﬁc generalized inverse of pVϵ,npXq to extend the theoretical results.
+Assumption 1 (Treatment Assignment Probability). The treatment assignment probability pA
+is known, such that for some pA ą 0, we have pA pa|xq ě pA for all x P X and a P A.
+Assumption 2 (Squared Integrability). Consider Model (1) and the angle-based decision function⃗
+fpX; βq in Lemma 3. We assume the following:
+• ErµpXq2s ă `8;
+• E sup qβPB γpX, A; qβq2 ă `8;
+• Epϵ2q “ Eσ2pX, Aq ă `8;
+• 9FpX; qβq “ pB{Bβ⊺q⃗fpX; qβq P RpK´1qˆp exists for qβ P B, and E sup qβPB }9FpX; qβq}2
+2 ă `8,
+where } ¨ }2 is the spectral norm on RpK´1qˆp.
+Assumption 3 (Convergence of Plug-in Estimates).
+• There exists some qµ0 : X Ñ R, such that Erqµ0pXq2s ă `8 and p1{nq řn
+i“1rpµ0,npXiq ´
+qµ0pXiqs2 “ OPpn´1q.
+• There exists some 0 ă σ2 ď sσ2 ă `8 and qσ2 : XˆA Ñ R`, such that σ2 ď pσ2
+npx, aq, qσ2px, aq ď
+sσ2, and }pσ2
+n ´ qσ2}8 “ supxPX,aPA |pσ2
+npx, aq ´ qσ2px, aq| “ OPpn´1{2q.
+21
+
+````
+
+## PDF page 22
+
+FORMULA CHECK REQUIRED: original PDF page 22.
+
+````text
+Given Assumptions 1-3, we show in Lemma 5 that the plug-in estimating equation associated with
+(5) is ?n-asymptotically equivalent to the limiting estimating equation.
+Lemma 5 (Plug-in Estimating Equation). Consider Model (1) and the estimating function (5).
+Under Assumptions 1-3, we have
+sup
+qβPB
+En
+›››φeﬀp qβ; pµ0,n, pA , pσ2
+nq ´ φeﬀp qβ; qµ0, pA , qσ2q
+›››
+2 “ OPpn´1{2q.
+Lemma 5 implies that the plug-in estimates ppµ0,n, pσ2
+nq do not aﬀect the ?n-asymptotic properties
+of the estimating function (5). Then we can show the asymptotic normality of pβeﬀ,n as the solution
+to Enrφeﬀp pβeﬀ,n; pµ0,n, pA , pσ2
+nqs “ 0 following the argument in Newey (1994).
+Moreover, if the
+treatment-free eﬀect and the variance function are correctly speciﬁed, i.e., pqµ0, qσ2q “ pµ0, σ2q in
+Model (1), then pβeﬀ,n is semiparametric eﬃcient, in the sense that its ?n-asymptotic variance
+achieves the semiparametric variance lower bound.
+We summarize the regularity conditions in
+Assumption 4.
+Assumption 4 (Regularity Conditions). Consider Model (1) and the angle-based representation
+in Lemma 3. We assume the following:
+4.1 B is a compact subset in Rp and the true parameter β P ˚
+B, where ˚
+B is the interior of B;
+4.2 :Fpx; qβq “ pB{Bβq9Fpx; qβq P RpK´1qˆpˆp exists and satisﬁes E sup qβPB }:FpX; qβq}2
+2 ă `8, where
+} ¨ }2 is the operator norm of pRp, } ¨ }2q Ñ pRpK´1qˆp, } ¨ }2q;
+4.3 Deﬁne qVϵpXq :“ řK
+k“1
+qσ2pX,kqωb2
+k
+qpA pk|Xq
+and qIpβq :“ E
+”
+9FpX; βq⊺Ω⊺ΩqVϵpXq´1Ω⊺Ω9FpX; βq
+ı
+, where
+qVϵpXq´1 denotes the generalized inverse if not invertible. Assume qIpβq is positive deﬁnite;
+4.4 The true parameter β is a unique solution to Erφeﬀpβ; qµ0, pA , qσ2qs “ 0.
+Note that the deﬁnition of qIpβq only depends on the working variance function qσ2 through
+qVϵpXq. We denote qI to reﬂect that it depends on qσ2. It can be shown that for any qβ P B, we have
+qIp qβq “ Er´pB{Bβ⊺qφeﬀp qβ; qµ0, pA , qσ2qs. In Theorem 4, we establish the semiparametric eﬃciency
+of E-Learning. For symmetric matrices A and B, the matrix inequality A ď B means that B ´ A is
+positive semi-deﬁnite.
+Theorem 4 (Semiparametric Eﬃciency under Correct Speciﬁcation). Consider Model (1) and the
+angle-based representation in Lemma 3. Suppose pβeﬀ,n is the solution to the estimating equation
+22
+
+````
+
+## PDF page 23
+
+FORMULA CHECK REQUIRED: original PDF page 23.
+
+````text
+Enrφeﬀp pβeﬀ,n; pµn, pA , pσ2
+nqs “ 0 from (6). Then under Assumptions 1-4, we have
+pβeﬀ,n ´ β “ qIpβq´1Enrφeﬀpβ; qµ0, pA , qσ2qs ` OPpn´1{2q.
+Moreover, if pqµ0, qσ2q “ pµ0, σ2q, then pβeﬀ,n is semiparametric eﬃcient, in the sense that for any
+other Regular and Asymptotic Linear (RAL) estimate pβn, we have
+Ipβq´1 “ lim
+nÑ8 nVarp pβeﬀ,nq ď lim
+nÑ8 nVarp pβnq,
+where Ipβq :“ E
+”
+9FpX; βq⊺Ω⊺ΩVϵpXq´1Ω⊺Ω9FpX; βq
+ı
+is the semiparametric information matrix.
+For speciﬁc parametric models of⃗fpX; βq, the information matrix can be simpliﬁed. In the
+binary treatment case discussed in Section 3.1, we have vϵpXq “ σ2pX,1q
+pA p1|Xq ` σ2pX,0q
+pA p0|Xq, which becomes
+a scalar weight. It is shown that E-Learning is equivalent to the generalized least-squares problem
+(10) with the weight v´1
+ϵ pXqpA pA|Xq´1, which is also the overlap weight under heteroscedasticity
+(Crump et al., 2006; Li and Li, 2019). Then the information is Ipβq “ ErvϵpXq´19fpX; βqb2s,
+where 9fpX; βq :“ pB{BβqfpX; βq. For HPLM (11) in the multiple treatment case (Section 3.2), the
+information matrix becomes IpBq “ E
+“
+VϵpXq´1 b Xb2‰
+.
+In Theorem 4, if qµ0 ‰ µ0, then pβeﬀ,n is not semiparametric eﬃcient. A natural question is to
+ask whether there exists some qσ2 such that pβeﬀ,n is still “optimal” in certain sense. This motivates
+our discussion in Section 4.1.2.
+4.1.2
+Misspeciﬁed Treatment-Free Eﬀect Model
+Going beyond the double robustness and semiparametric eﬃciency of the estimating function (5),
+we are further interested in certain optimality when misspeciﬁed treatment-free eﬀect happens.
+Speciﬁcally, we ﬁrst deﬁne the regular class of semiparametric estimates of β.
+Deﬁnition 1 (Regular Class of Semiparametric Estimates). Denote pβn “ pβnpqµ0q as an estimate
+based on n observations independent and identically distributed from Model (1), and take the
+working treatment-free eﬀect function qµ0 as its input. We deﬁne a regular class of semiparametric
+estimates Bnpqµ0q as follows. For any pβnpqµ0q P Bnpqµ0q, there exists some h : X ˆ A Ñ Rp, which
+can depend on pβ, qηq, such that:
+23
+
+````
+
+## PDF page 24
+
+FORMULA CHECK REQUIRED: original PDF page 24.
+
+````text
+• The estimate pβnpqµ0q corresponds to the estimating function
+φpβ; qµ0q “ rY ´ qµ0pXq ´ γpX, A; βqshpX, A; β, qηq.
+That is, Enrφp pβnpqµ0q; qηqs “ 0;
+• (Consistency) ErhpX, A; β, qηq|Xs “ 0.
+Note that the consistency condition is equivalent to Erφpβ; qµ0qs “ 0 for any qµ0 : X Ñ R.
+This can be concluded from that ErhpX, A; β, qηq|Xs “ 0 if and only if for any qµ0, we have
+0 “ Erφpβ; qµ0qs “ E
+!
+rµ0pXq ´ qµ0pXqsErhpX, A; β, qηq|Xs
+)
+.
+The consistency can be met by
+any doubly robust estimates with a correct propensity score, such as G-Estimation, A-Learning,
+dWOLS, and RD-Learning.
+If qµ0 is the true treatment-free eﬀect µ0 in Model (1), then by Tsiatis (2007, Theorem 4.2),
+any semiparametric RAL estimate of β must have an inﬂuence function in the form of φpβ; µ0q
+in Deﬁnition 1. That is, for any RAL estimate rβn, there exists some pβnpµ0q P Bnpµ0q, such that
+rβn “ pβnpµ0q ` OPpn´1{2q under Model (1). Therefore, Bnpµ0q can represent the equivalent classes
+of RAL estimates, where two RAL estimates are “equivalent” if and only if their ?n-asymptotic
+variances are the same. In particular, Bnpµ0q consists of the “regular versions” such that their
+estimating functions coincide with their IFs.
+Deﬁnition 1 provides a useful class of estimates with a speciﬁc form of dependency on the
+working treatment-free eﬀect function qµ0.
+In fact, the following Theorem 5 shows that, given
+a working treatment-free eﬀect function qµ0, there exists some optimal RAL estimate among the
+regular class Bnpqµ0q, in the sense that its ?n-asymptotic variance is the smallest.
+Theorem 5 (Optimal Eﬃciency Improvement under Misspeciﬁcation). Given a working treatment-
+free eﬀect function qµ0 : X Ñ R, consider Model (1) and the regular class of semiparametric esti-
+mates Bnpqµ0q in Deﬁnition 1. Deﬁne
+σ2
+optpX, A; qµ0q :“ rqµ0pXq ´ µ0pXqs2 ` σ2pX, Aq,
+and pβeﬀ,npqµ0q P Bnpqµ0q as the solution to Enrφeﬀp pβeﬀ,npqµ0q; qµ0, pA , σ2
+optqs “ 0 from (6). Then
+under Assumptions 1-4, we have
+Ipβ; qµ0q´1 “ lim
+nÑ8 nVarr pβeﬀ,npqµ0qs ď lim
+nÑ8 nVarr pβnpqµ0qs;
+@ pβnpqµ0q P Bnpqµ0q,
+24
+
+````
+
+## PDF page 25
+
+FORMULA CHECK REQUIRED: original PDF page 25.
+
+````text
+where VϵpX; qµ0q :“ řK
+k“1
+σ2
+optpX,A;qµ0qωb2
+k
+pA pk|Xq
+and Ipβ; qµ0q :“ E
+”
+9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1Ω⊺Ω9FpX; βq
+ı
+.
+Note that Theorem 5 can be more general than the semiparametric eﬃciency in Theorem 4,
+in the sense that the optimality in Theorem 5 is for a general working treatment-free eﬀect func-
+tion.
+Speciﬁcally, if qµ0 “ µ0, then Bnpµ0q in Deﬁnition 1 represents the equivalent classes of
+RAL estimates with the ?n-asymptotic variance as the equivalence relationship.
+In that case,
+Theorem 5 recovers Theorem 4 that pβeﬀ,n has the smallest ?n-asymptotic variance.
+As a re-
+mark, we would like to point out that Theorem 5 can be extended to the estimating equation
+Enrφeﬀp pβeﬀ,n; pµ0,n, pA , pσ2
+nqs “ 0 with plug-in nuisance function estimates ppµ0,n, pσ2
+nq. The argument
+is similar to Theorem 4, and we omit the details here.
+If the working treatment-free eﬀect function qµ0 is not identical to the true treatment-free eﬀect
+function µ0 in Model (1), then Theorem 5 suggests an optimal variance function σ2
+optpX, A; qµ0q.
+For the binary treatment case, the optimal working variance function can correspond to
+vϵpx; qµ0q “ σ2
+optpx, 1; qµ0q
+pA p1|xq
+` σ2
+optpx, 0; qµ0q
+pA p0|xq
+“ σ2px, 1q
+pA p1|xq ` σ2px, 0q
+pA p0|xq ` rqµ0pxq ´ µ0pxqs2
+pA p1|xqpA p0|xq .
+The corresponding generalized least-squares estimate from (10) can achieve the smallest ?n-
+asymptotic variance among the regular class of estimates Bnpqµ0q.
+The motivating example in
+Section 2.2 is a special case when we further assume pA p1|Xq “ pA p0|Xq “ 1{2.
+Remark (General Asymptotic Variance). It can be useful to compute the ?n-asymptotic variance
+for arbitrary working treatment-free eﬀect and variance function pqµ0, qσ2q. Suppose pβn is the solution
+to Erφeﬀp pβn; qµ0, pA , qσ2qs “ 0. Then we have
+Erφeﬀpβ; qµ0, pA , qσ2qb2s “ E
+”
+9FpX; βq⊺Ω⊺ΩqVϵpXq´1VϵpX; qµ0qqVϵpXq´1Ω⊺Ω9FpX; βq
+ı
+,
+(14)
+and Er´pB{Bβ⊺qφeﬀpβ; qµ0, pA , qσ2qs “ qIpβq. The ?n-asymptotic variance is given by the sandwich
+form limnÑ8 nVarp pβnq “ qIpβq´1rp14qsqIpβq´1.
+Remark (Incorrect Propensity Score). In our theoretical analysis, we assume that the propensity
+score is known or can be consistently estimated. In Section S.3 in the Supplementary Material, we
+further discuss the case when the propensity score is incorrect. Although the optimality of Theorem
+5 cannot be recovered in this case, the covariate-dependent variance adjustment for the optimal
+working variance function qσ2
+optpX, Aq can still be helpful. We demonstrate in our simulation studies
+(Section 5) that E-Learning still outperforms other methods even with incorrect propensity.
+25
+
+````
+
+## PDF page 26
+
+FORMULA CHECK REQUIRED: original PDF page 26.
+
+````text
+In Theorem 5, we establish the optimality of using the working variance function σ2
+optpX, A; qµ0q
+in the proposed E-Learning. As discussed in Section 2.4, the optimal working variance function can
+be identiﬁed by the expectation of the squared working residual. This can conﬁrm the optimality
+of the E-Learning estimate.
+4.2
+Regret Bound
+In this section, we relate the theoretical results for estimation in Section 4.1 to the regret bound
+for the estimated ITR. Recall from Theorem 1 that the estimation error of the interaction eﬀect
+can dominate the regret. We further make compactness assumption on covariates to establish the
+regret bound.
+Assumption 5 (Compact Covariate Domain). The support of the distribution pX pxq is compact.
+Theorem 6 (Regret Bound for RAL Estimate). Consider Model (1) and the angle-based repre-
+sentation in Lemma 3.
+Suppose ?np pβn ´ βq
+DÑ Npp0, Σq for some Σ ą 0.
+Deﬁne pdnpxq :“
+argmax1ďkďKxωk,⃗fpx; pβnqy and d‹pxq :“ argmax1ďkďKxωk,⃗fpx; βqy. Then under Assumptions
+2, 4.2 and 5, we have
+lim sup
+nÑ8
+?nrVpd‹q ´ EVppdnqs ď 2 lim
+nÑ8
+#
+n
+K
+ÿ
+k“1
+ErγpX, k; pβnq ´ γpX, k; βqs2
++1{2
+“ 2
+ˆ
+1 ´ 1
+K
+˙1{2
+trace
+!
+E
+”
+9FpX; βq⊺Ω⊺Ω9FpX; βq
+ı
+Σ
+)1{2
+.
+The regret bound in Theorem 6 can be tight compared to Theorem 1, since Theorem 6 only
+relaxes the absolute estimation error to the squared estimation error, and the maximization to the
+summation. Theorem 6 further implies that the regret bound and the estimation error are both in
+?n-order, where the leading constant depends on the ?n-asymptotic variance Σ of the estimated
+parameters pβn. In particular, denote } ¨ }F as the Frobenius norm. Then we have
+trace
+!
+E
+”
+9FpX; βq⊺Ω⊺Ω9FpX; βq
+ı
+Σ
+)
+ď
+›››E
+”
+9FpX; βq⊺Ω⊺Ω9FpX; βq
+ı›››
+F ˆ }Σ}F,
+with equality if 9FpX; βq contains X and we take supremum over all possible covariate distribution
+pX on both sides. This suggests that an RAL estimate with the smallest ?n-asymptotic variance
+Σ can achieve the minimal regret bound. This complements the theoretical results in Sections 4.1.1
+and 4.1.2 that establish the optimality of E-Learning estimate of β in terms of the ?n-asymptotic
+26
+
+````
+
+## PDF page 27
+
+FORMULA CHECK REQUIRED: original PDF page 27.
+
+````text
+variance. In particular, if we use the eﬃcient estimate pβeﬀ,npqµ0q with the optimal choice of working
+variance function σ2
+optpX, A; qµ0q, then the ?n-asymptotic variance Σ becomes Ipβ; qµ0q´1, and the
+regret bound above is the smallest among all RAL estimates in Bpqµ0q.
+To conclude this section, we have established that E-Learning is doubly robust and optimal
+with the smallest ?n-asymptotic variance among the class of regular semiparametric estimates in
+Deﬁnition 1, which can allow multiple treatments, heteroscedasticity and misspeciﬁed treatment-
+free eﬀect.
+The corresponding regret bound can also have an optimal leading constant in the
+n´1{2-order.
+5
+Simulation Study
+We consider several simulation studies to compare the proposed E-Learning with existing meth-
+ods from the literature and demonstrate the superiority of E-Learning. In particular, the data
+generation based on the heteroscedasticitic partially linear model (11) is assumed throughout this
+section, where the interaction eﬀect is linear. In the Supplementary Material Section S.1, we con-
+sider additional simulation setups with nonlinear interaction eﬀects, and explore the competitive
+performance of E-Learning with the linear or cubic polynomial basis.
+5.1
+Data Generating Process and Model Speciﬁcations
+The synthetic data generation process is as follows. Let n P t100, 200, 400, 800, 1600u be the training
+sample size, p P t10, 50, 100u be the number of variables, and K P t2, 3, 5, 7u be the number
+of treatments. First, we generate the coeﬃcients of the treatment-covariate-interaction eﬀect by
+prβ0k, rβ1k, rβ2k, rβ3k, rβ4k, rβ5kq „ Uniformtu P R6 : }u}2 “ 1u independently for 1 ď k ď K, βjk :“
+rβjk ´ 1
+K
+řK
+k1“1 rβjk1 for 0 ď j ď 5, and βk :“ pβ0k, β1k, β2k, β3k, β4k, β5k,
+p´5
+hkkkikkkj
+0, ¨ ¨ ¨ , 0q⊺for 1 ď k ď K.
+Then we generate the data from:
+X „ Npp0, Ipˆpq;
+PpA “ k|Xq “
+pA pk|Xq
+loooomoooon
+propensity score
+“
+epX, kq
+řK
+k1“1 epX, k1q
+;
+1 ď k ď K;
+Y |pX, Aq “ µ0pXq ´ Erµ0pXqs
+looooooooooomooooooooooon
+treatment-free eﬀect
+` β⊺
+Ap1, X⊺q⊺
+looooomooooon
+interaction eﬀect
+`
+σpX, Aq
+looomooon
+variance function
+ˆNp0, 1q.
+For the coeﬃcient vectors tβkuK
+k“1, the optimal ITR is d‹pxq “ argmax1ďkďK β⊺
+kp1, x⊺q⊺. Here, the
+true treatment-free eﬀect function µ0pxq, variance functions tσ2px, kquK
+k“1 and the propensity score
+27
+
+````
+
+## PDF page 28
+
+FORMULA CHECK REQUIRED: original PDF page 28.
+
+````text
+functions tepx, kquK
+k“1 are deﬁned according to Table 2.
+Table 2: True Models and the Implying Model Speciﬁcations in the Simulation Studies
+Correctly Speciﬁed
+Misspeciﬁed
+Treatment-Free Eﬀect
+Homo-
+scedastic
+Hetero-
+scedastic
+Homo-
+scedastic
+Hetero-
+scedastic
+Variance
+Truth
+µ0pxq “
+1
+?
+K
+řK
+k1“1 xk1
+1
+K
+řK
+k1“1 e
+?
+2xk1
+epx, kq “ exk{2
+Correctly
+Speciﬁed
+Propensity Score
+σ2px, kq “
+1
+e2
+?
+2xk
+1
+e2
+?
+2xk
+µ0pxq “
+1
+?
+K
+řK
+k1“1 xk1
+1
+K
+řK
+k1“1 e
+?
+2xk1
+epx, kq “ |xk|1{2
+Mis-
+speciﬁed
+σ2px, kq “
+1
+e2
+?
+2xk
+1
+e2
+?
+2xk
+1 The treatment-free eﬀect is estimated by a linear working model.
+2 The propensity score is estimated by a multinomial logistic working model.
+When estimating the treatment-free eﬀect µ0pXq ´ Erµ0pXqs, we consider a linear working
+model qµ0pX; ηq “ η⊺p1, X⊺q⊺. Then the treatment-free eﬀect model is correctly speciﬁed if the
+truth is µ0pxq “
+1
+?
+K
+řK
+k1“1 xk1, while misspeciﬁed if the truth is µ0pxq “
+1
+K
+řK
+k1“1 e
+?
+2xk1.
+In
+Figure S.2 in the Supplementary Material, we provide the ﬁtted treatment-free eﬀect plots when
+the model is correctly and incorrectly speciﬁed. It shows that the estimated treatment-free eﬀect
+is consistent if correctly speciﬁed, and deviates from the truth if misspeciﬁed. When estimating
+the propensity score functions tpA pk|XquK
+k“1, we consider a multinomial logistic working model
+qpA pk|X; τ1, τ2, ¨ ¨ ¨ , τKq “
+exprτ ⊺
+k p1,X⊺q⊺s
+řK
+k1“1 exprτ ⊺
+k1p1,X⊺q⊺s. Then the propensity score model is correctly speci-
+ﬁed if the truth is generated from epx, kq “ exk{2, while misspeciﬁed if the truth is generated from
+epx, kq “ |xk|1{2. In Figure S.3 in the Supplementary Material, we provide the ﬁtted propensity
+score plots when the model is correctly and incorrectly speceiﬁed, and demonstrate how the mis-
+speciﬁed model aﬀects the ﬁtted propensity scores. As discussed in Section 2.4, if one of or both
+misspeciﬁed treatment-free eﬀect model and heteroscedasticity exist, the squared residuals can de-
+pend on pX, Aq. In Figures S.4-S.7, we provide the residual plots in all these cases to demonstrate
+such dependencies.
+5.2
+Binary Treatments
+In this section, we consider the binary treatment case (K “ 2) and compare E-Learning with
+existing methods from literature discussed in Table 1 in Section 3.3. The implementation details
+of these methods are provided in Section S.4 in the Supplementary Material.
+For the implementation of E-Learning, we consider HPLM (11) and solve the regularized esti-
+28
+
+````
+
+## PDF page 29
+
+FORMULA CHECK REQUIRED: original PDF page 29.
+
+````text
+mating equation in Section 2.5.4 with the row-wise group-LASSO penalty. We follow the implemen-
+tation in Section 2.5 for the estimation of the treatment-free eﬀect with the linear working model,
+the propensity score with the multinomial logistic working model, and the variance function with re-
+gression forest. The tuning parameter λ is chosen based on 10-fold cross validation. We consider the
+oracle working variance function σ2
+optpX, Aq “ rqµ0pXq´µ0pXqs2`σ2pX, Aq and the estimated one
+from the regression forest using the squared residual as the response and pX, Aq as the covariates.
+At the testing stage, a testing covariate sample tXiuntest“10000
+i“1
+i.i.d.
+„ Npp0, Ipˆpq is generated, and the
+testing value of an estimated ITR pd is computed as pVtestp pdq “
+1
+ntest
+řntest
+i“1
+řK
+k“1 β⊺
+kp1, X⊺
+i q⊺IrpdpXiq “
+ks. Recall that the optimal ITR is d‹pxq “ argmax1ďkďK β⊺
+kp1, x⊺q⊺. Then we report the testing
+regret, pVtestpd‹q´ pVtestppdq, and the testing misclassiﬁcation rate,
+1
+ntest
+řntest
+i“1 IrpdpXiq ‰ d‹pXiqs. The
+training-testing process is replicated for 100 times for each of the model speciﬁcation scenarios in
+Table 2.
+9
+1
+9
+1
+9
+1
+98
+9
+13
+12
+13
+13
+13
+13
+9
+1
+9
+1
+9
+1
+9
+1
+9
+1
+12
+13
+10
+13
+13
+13
+13
+11
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+8
+9
+1
+8
+9
+1
+8
+5
+11
+13
+13
+6
+5
+13
+5
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+8
+9
+1
+8
+9
+1
+10
+5
+11
+3
+5
+13
+9
+1
+2
+9
+1
+2
+8
+7
+9
+12
+8
+7
+9
+1
+8
+7
+9
+1
+8
+3
+5
+10
+5
+5
+5
+13
+9
+1
+2
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+8
+9
+1
+8
+5
+10
+10
+12
+13
+12
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+8
+9
+1
+8
+10
+10
+5
+5
+10
+5
+13
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+2
+9
+1
+7
+5
+10
+13
+12
+5
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+100
+200
+400
+800
+1600 100
+200
+400
+800
+1600 100
+200
+400
+800
+1600 100
+200
+400
+800
+1600
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+n
+Misclassification Rate (smaller the better)
+method
+1: E−Learning (Oracle)
+2: E−Learning
+3: dWOLS
+4: G−Estimation
+5: A−Learning
+6: Supgroup Identification
+7: RD−Learning
+8: Q−Learning
+9: D−Learning
+10: EARL
+11: RWL
+12: OWL
+13: Policy Tree
+p = 10, K = 2
+Testing Misclassification Rates Averaged over 100 Replications
+Figure 1: Testing misclassiﬁcation rates (smaller the better) for n P t100, 200, 400, 800, 1600u,
+p “ 10, K “ 2 and each of the model speciﬁcation scenarios in Table 2. Methods in Table 1 are
+compared, where E-Learning (Oracle) corresponds to E-Learning with the oracle working variance
+function, and Policy Tree corresponds to Policy Learning with decision trees.
+29
+
+````
+
+## PDF page 30
+
+FORMULA CHECK REQUIRED: original PDF page 30.
+
+````text
+0.058
+0.059
+0.055
+0.056
+0.052
+0.067
+0.059
+0.05
+0.081
+0.076
+0.094
+0.094
+0.184
+0.05
+0.051
+0.058
+0.058
+0.054
+0.076
+0.051
+0.048
+0.095
+0.075
+0.097
+0.115
+0.2
+0.115
+0.13
+0.236
+0.238
+0.255
+0.274
+0.252
+0.37
+0.252
+0.262
+0.268
+0.269
+0.303
+0.138
+0.146
+0.3
+0.299
+0.321
+0.32
+0.297
+0.368
+0.299
+0.283
+0.27
+0.291
+0.3
+0.103
+0.125
+0.17
+0.173
+0.182
+0.212
+0.223
+0.28
+0.258
+0.209
+0.217
+0.232
+0.224
+0.093
+0.123
+0.191
+0.19
+0.191
+0.201
+0.198
+0.211
+0.279
+0.185
+0.202
+0.233
+0.225
+0.122
+0.157
+0.263
+0.266
+0.254
+0.289
+0.278
+0.373
+0.291
+0.277
+0.268
+0.286
+0.295
+0.132
+0.178
+0.314
+0.314
+0.339
+0.334
+0.317
+0.365
+0.328
+0.314
+0.286
+0.292
+0.315
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+Mean
+1
+0.25 0.5 0.75
+Mean
+1
+0.25 0.5 0.75
+Mean
+1
+0.25 0.5 0.75
+Mean
+1
+0.25 0.5 0.75
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Misclassification Rate (smaller the better)
+type
+first best
+second best
+n = 400, p = 10, K = 2
+Testing Misclassification Rates across 100 Replications
+Figure 2: Testing misclassiﬁcation rates (smaller the better) for n “ 400, p “ 10, K “ 2 and
+each of the model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where E-
+Learning (Oracle) corresponds to E-Learning with the oracle working variance function, and Policy
+Tree corresponds to Policy Learning with decision trees. First and second best methods in terms
+of the averaged misclassiﬁcation rates are annotated in horizontal lines. The minimal averaged
+misclassiﬁcation rate is shown by the vertical line.
+We ﬁrst consider the low-dimensional setting (p “ 10). Figure 1 reports the testing misclassiﬁ-
+cation rates for the training sample sizes n P t100, 200, 400, 800, 1600u and each of the speciﬁcation
+scenarios listed in Table 2, while Figure 2 provides more details for n “ 400.
+In the case of
+correctly speciﬁed treatment-free eﬀect, correctly speciﬁed propensity score, and homoscedasticity
+(upper-left panel of the plots), E-Learning, Q-Learning, G-Estimation, A-Learning, RD-Learning,
+dWOLS and Subgroup Identiﬁcation have similar testing performance, since all of them leverage
+the correct parametric model assumption. Here, although Subgroup Identiﬁcation does not rely on
+a speciﬁc parametric model assumption, it is equivalent to RD-Learning in this case as discussed
+in Section 3.1. Therefore, it can enjoy similar performance as other model-based methods. In
+contrast, D-Learning, OWL, RWL, EARL and Policy Tree are based on nonparametric models,
+30
+
+````
+
+## PDF page 31
+
+FORMULA CHECK REQUIRED: original PDF page 31.
+
+````text
+and can have inferior performance in this case. When one of or both misspeciﬁed treatment-free
+eﬀect and heteroscedasticity happen (columns 2-4 of the plots), the E-Learning procedures with
+the oracle and estimated working variance function both demonstrate the best performance among
+all methods. In particular, the advantages of E-Learning are more evident as n increases. Such a
+superiority can still maintain even if the propensity score model is misspeciﬁed (second rows of the
+plots). This suggests that incorrect propensity score can have relatively small impacts.
+In the Supplementary Material, we further provide more plots of misclassiﬁcation rates for
+n P t100, 200, 800, 1600u (Figures S.8-S.11) and testing regrets (Figures S.12-S.17). All of them
+show the same patterns as in Figures 1 and 2. In order to further demonstrate the superiority of
+E-Learning in presence of moderately large number of variables, we also study the case of p “ 50
+and report the testing performance in Figures S.18 and S.19. They show that even though the
+increase in p can result in worse performance of all methods, the eﬃciency gain in suﬃciently large
+samples pn “ 200, 400, 800, 1600q of E-Learning remains.
+5.3
+Multiple Treatments
+We consider the multiple treatment case (K “ 3) and compare E-Learning with model-based
+methods that can allow multiple treatments (Q-Learning, D-Learning, RD-Learning). In particular,
+we are interested in the following questions:
+(I) Eﬃciency of diﬀerent methods as n increases across all model speciﬁcations in Table 2;
+(II) The impacts of increase in the number of variables p;
+(III) The impacts of increase in the number of treatments K;
+(IV) Eﬀects of diﬀerent nonparametric estimation methods for variance function on the perfor-
+mance of E-Learning.
+For Question I, we consider the same setup as in Section 5.2 but with K “ 3. The testing
+results are provided in Figure S.20 in the Supplementary Material.
+In particular, E-Learning
+shows the same superiority over Q-Learning, D-Learning, RD-Learning as in the binary case. For
+Question II, we consider K “ 3 and varying p P t10, 50, 100u (Figures S.21 and S.22). As the
+number of variables p increases, the performance of all methods become worse. For p “ 50, 100,
+Q-Learning, D-Learning and RD-Learning have much worse performance when one of or both
+treatment-free eﬀect misspeciﬁcation and heteroscedasticity happen, even with the sample size
+31
+
+````
+
+## PDF page 32
+
+FORMULA CHECK REQUIRED: original PDF page 32.
+
+````text
+n “ 1600. The misclassiﬁcation rates of these methods are 0.562, 0.429 and 0.433 respectively
+for incorrectly speciﬁed treatment-free eﬀect and heteroscedasticity with n “ 1600 and p “ 100.
+In contrast, for suﬃciently large sample sizes (n “ 400, 800, 1600), the number of variables p
+has less impacts on E-Learning with the oracle working variance function, while it requires sizes
+(n “ 800, 1600) for E-Learning with the estimated working variance function to have comparable
+performance across p’s. The reason for requiring larger sample sizes is due to the challenge of the
+high-dimensional nonparametric estimation of the working variance function. The misclassiﬁcation
+rates of E-Learning for incorrectly speciﬁed treatment-free eﬀect and heteroscedasticity with n “
+1600 and p “ 100 are 0.167 for the oracle working variance function and 0.248 for the estimated
+working variance function respectively. These results can conﬁrm the superiority of E-Learning
+even when the number of variables increases to 100.
+In order to study Question III, we consider p “ 10 and varying K P t2, 3, 5, 7u. Notice that
+increasing the number of treatments can have two folds of eﬀects.
+On one hand, the eﬀective
+dimensionality generally increases in K. For HPLM (11), the interaction eﬀect γpX, A; Bq “ p1 ´
+1{KqxωA, B⊺Xy is indexed by the matrix-valued parameter B P RpˆpK´1q. The eﬀective dimension
+is ppK ´ 1q and increases with K. Moreover, the number of variance functions tσ2
+optpX, kquK
+k“1
+also increases in K, which means more nuisance functions to be nonparametrically estimated. On
+the other hand, more treatments can lead to a harder classiﬁcation problem. In particular, the
+misclassiﬁcation rate of a random treatment rule drand with PrdrandpXq “ ks “ 1{K for 1 ď k ď K
+is 1 ´ 1{K. Then the misclassiﬁcation rate of the random treatment rule increases in K, which
+suggests that the diﬃculty of the learning problem is also increasing. In Figures S.23 and S.24
+in the Supplementary Material, Q-Learning, D-Learning and RD-Learning have poor performance
+in presence of one of or both treatment-free eﬀect misspeciﬁcation and heteroscedasticity. When
+both treatment-free eﬀect misspeciﬁcation and heteroscedasticity exist, the misclassiﬁcation rates
+of these methods with n “ 1600 and K “ 7 are 0.811, 0.648 and 0.645 respectively. Notice that the
+misclassiﬁcation rate of the random treatment rule in this case is 1´1{7 “ 0.857, which suggests that
+the performance of Q-Learning is close to the random treatment rule. In contrast, the E-Learning
+procedures with oracle working variance and estimated working variance have misclassiﬁcation rates
+0.299 and 0.424 in this case, which signiﬁcantly outperform other methods.
+Finally, for Question IV, we consider p P t10, 50, 100u, K “ 3 and the comparisons among
+E-Learning procedures with the oracle optimal working variance function, the working variance
+function estimated by regression forest, MARS and COSSO. The numerical results in Figures
+32
+
+````
+
+## PDF page 33
+
+FORMULA CHECK REQUIRED: original PDF page 33.
+
+````text
+S.25 and S.26 suggest that E-Learning with regression forest can have better performance than
+E-Learning with MARS or COSSO, and the superiority remains even for p “ 50, 100. Therefore,
+we recommend using regression forest for the working variance function estimation in E-Learning.
+6
+Application to a Type 2 Diabetes Mellitus (T2DM) Study
+We consider a T2DM dataset from an observational study based on the Clinical Practice Research
+Datalink (CPRD) (Herrett et al., 2015; Chen et al., 2018). The study population comprises T2DM
+patients of age ě 21 years (registered at a CPRD practice) who received at least one of the long-
+acting insulins (Glargine or Detemir), the intermediate-acting insulins, the short-acting insulins,
+and the Glucagon-Like Peptide 1 Receptor Agonists (GLP-1 RAs) of Exenatide and Liraglutide
+during 01/01/2012 - 12/31/2013.
+The treatment exposure A is deﬁned as: 1) the long-acting
+insulins alone (with no addition of any short or intermediate-acting insulin within 60 days); 2)
+the intermediate-acting insulins alone (with no addition of any short or long-acting insulins within
+60 days); 3) any insulin regimens including a short-acting insulin (the short-acting insulins either
+alone or in combinations with any long or intermediate-acting insulin); 4) the GLP-1 RAs alone.
+Here, for patients who received one of the insulins as well as the GLP-1 RAs, the corresponding
+treatment is deﬁned as the earliest received one.
+The primary outcome Y of this study is the change of the Hemoglobin A1c (HbA1c) lab value
+(%, smaller the better) between Day 182 and Day 1 (deﬁned as the ﬁrst treatment date). The
+following individual covariates X are measured: age, gender, ethnicity, weight, height, Body Mass
+Index (BMI), High Density Lipoprotein (HDL), Low Density Lipoprotein (LDL), baseline HbA1c,
+smoking status, and comorbidities (any of angina, congestive heart failure, myocardial infarction,
+stroke, retinopathy, macular edema, renal status, neuropathy, and lower extremity amputation).
+The total number of records from this study is 1139, with the primary outcome available for
+591 records and missing for the rest. Among the 591 observations, there is a large proportion
+of missingness in HDL and LDL. Therefore, for HDL and LDL, we ﬁrst discretize the available
+observations into two levels: if the observation is above the median, then set as high; otherwise,
+set as low. Then we code the missing observations as n/a. Consequently, all possible levels of
+LDL and HDL become: high, low, and n/a. For categorical variables (gender, ethnicity, smoking
+status and comorbidities), we also code the missing observations as n/a and combine it with the
+original levels of these variables. Finally, the remaining numerical variables (age, weight, height,
+33
+
+````
+
+## PDF page 34
+
+FORMULA CHECK REQUIRED: original PDF page 34.
+
+````text
+BMI, baseline HbA1c) have mild missingness, and we remove the records that contain any missing
+entries among these variables. After pre-processing the dataset as above, there remains 430 records
+for further analysis.
+Next, we estimate the propensity scores from the dataset using the regression forest estimator
+in Section 2.5.1. Then we are ready to apply E-Learning, RD-Learning, D-Learning, Q-Learning
+and Policy Tree to the analysis of this dataset. In order to estimate the expected change of HbA1c
+under the ﬁtted ITRs, we randomly sample two disjoint subsets from the dataset for training and
+testing. We choose various training sample sizes as n P t100, 200, 300u, and a testing sample size
+ntest “ 100. On the training set, we consider estimation of the propensity scores based on regression
+forest in the same way as that on the full dataset. We also apply diﬀerent estimation methods of
+the treatment-free eﬀect for RD-Learning, including: 1) the linear model on X with the ℓ1-penalty
+(ﬁtted by glmnet) as in Section 5, 2) the regression forest on X, 3) ﬁtted treatment-free eﬀect
+as the mean of the primary outcome on the training set, and 4) ﬁtted treatment-free eﬀect as
+0. We ﬁnd that the ﬁtted treatment-free eﬀect as 0 can result in better testing performance for
+RD-Learning. Therefore, we also use 0 as the estimated treatment-free eﬀect in E-Learning. Since
+a smaller outcome is better for this problem, we negate the outcome before ﬁtting all models.
+Other implementation details of all these methods remain the same as in Section 5. On the testing
+dataset, we use the IPWE
+1
+ntest
+řntest
+i“1
+Ir pdpXiq“Ais
+pA pAi|Xiq Yi to estimate the expected change in HbA1c under
+the estimated ITR pd. The training-testing process is repeated for 500 times on this dataset.
+The testing results are reported in Figure 3. E-Learning enjoys the best testing performance
+among all training sample sizes. As the training sample size n increases, the advantage of E-Learning
+is more evident compared with other methods. This can conﬁrm the eﬃciency improvement of E-
+Learning by using an optimal working variance function on this dataset. Among patients in the
+T2DM dataset, E-Learning recommends 19.77% for long-acting insulins, 18.14% for intermediate-
+acting insulins, 30.23% for short-acting insulins, and 31.86% for GLP-1 RAs. The ﬁtted E-Learning
+coeﬃcients are reported in Table 3. In particular, short-acting insulins (A = 3) is recommended
+for the patients with average covariates. Patients as former smokers are more recommended for the
+short-acting insulins than other patients. The general beneﬁts of short-acting insulins are consistent
+with the results in Chen et al. (2018); Meng et al. (2020). Moreover, it can be observed that the
+coeﬃcients for baseline HbA1c in Table 3 increase in the treatment arm. In fact, the averaged
+baseline HbA1c values among recommended treatments A “ 1, 2, 3, 4 are 7.35%, 10.67%, 10.91%
+and 11.18% respectively. This suggests that patients with worse baseline HbA1c are recommended
+34
+
+````
+
+## PDF page 35
+
+FORMULA CHECK REQUIRED: original PDF page 35.
+
+````text
+−2.373
+(0.033)
+−2.333
+(0.035)
+−2.291
+(0.036)
+−2.104
+(0.037)
+−2.096
+(0.035)
+−2.184
+(0.035)
+−1.996
+(0.039)
+−2.199
+(0.036)
+−2.373
+(0.033)
+−2.502
+(0.035)
+−2.426
+(0.033)
+−2.477
+(0.033)
+−2.262
+(0.034)
+−2.276
+(0.036)
+−2.219
+(0.035)
+−1.85
+(0.039)
+−2.099
+(0.036)
+−2.502
+(0.035)
+−2.665
+(0.032)
+−2.537
+(0.029)
+−2.499
+(0.03)
+−2.419
+(0.029)
+−2.344
+(0.033)
+−2.259
+(0.033)
+−1.688
+(0.035)
+−1.966
+(0.034)
+−2.665
+(0.032)
+n: 100
+n: 200
+n: 300
+Mean
+(S.E.)
+0
+−2
+−3
+−1
+Mean
+(S.E.)
+0
+−2
+−3
+−1
+Mean
+(S.E.)
+0
+−2
+−3
+−1
+Policy Tree
+RD−Learning
+(t.f. by glmnet)
+RD−Learning
+(t.f. by reg. forest)
+RD−Learning
+(t.f. = mean(Y))
+Q−Learning
+D−Learning
+RD−Learning
+(t.f. = 0)
+E−Learning
+(t.f. = 0)
+Change in HbA1c (%, smaller the better)
+type
+best
+mean change in HbA1c over the full data = −2.163%
+Testing Performance across 500 Replications on the T2DM Dataset
+Figure 3:
+Testing changes in HbA1c (%, smaller the better) for training sample sizes n P
+t100, 200, 300u on the T2DM dataset. Here, t.f. represents the ﬁtted treatment-free eﬀect, and
+reg. forest corresponds to the regression forest.
+for faster-acting therapies, where the GLP-1 RAs (A = 4) can be regarded as an alternative for the
+rapid-acting insulin (Ostroﬀ, 2016). Such a phenomenon is also consistent with the recommended
+treatment ordinality pointed out by Chen et al. (2018).
+7
+Discussion
+In this paper, we propose E-Learning for learning an optimal ITR under heteroscedasticity or mis-
+speciﬁed treatment-free eﬀect. In particular, E-Learning is developed from semiparametric eﬃcient
+estimation in the multi-armed treatment setting. When nuisance models are correctly speciﬁed,
+even if heteroscedasticity exists, the ?n-asymptotic variance of the estimated parameters achieve
+the semiparametric variance lower bound. When the treatment-free eﬀect model is misspeciﬁed,
+E-Learning targets the optimal working variance function, so that the ?n-asymptotic variance of
+the estimated parameters is still the smallest among the class of regular semiparametric estimates.
+In summary, E-Learning extends the optimality of existing model-based methods to allow multi-
+ple treatments, heteroscedasticity and treatment-free eﬀect misspeciﬁcation. The eﬃciency gain
+35
+
+````
+
+## PDF page 36
+
+FORMULA CHECK REQUIRED: original PDF page 36.
+
+````text
+Table 3: E-Learning Coeﬃcients on the T2DM Dataset
+A = 1
+A = 2
+A = 3
+A = 4
+Intercept
+-0.164
+-0.053
+0.168
+0.048
+gender (male)
+-0.008
+-0.014
+0.029
+-0.007
+ethnic (others)
+ethnic (white)
+-0.023
+0.081
+-0.029
+-0.03
+smoke (former)
+-0.001
+-0.174
+0.361
+-0.186
+smoke (no)
+smoke (yes)
+comorbidity (yes)
+HDL (low)
+0.033
+-0.009
+-0.053
+0.029
+HDL (high)
+LDL (low)
+0.004
+0.115
+-0.122
+0.003
+LDL (high)
+0.007
+-0.002
+-0.023
+0.018
+baseline HbA1c
+-0.492
+0.139
+0.168
+0.185
+age
+-0.058
+0.169
+0.106
+-0.217
+weight
+height
+BMI
+Note:
+Larger coeﬃcients encourage better outcome.
+Coeﬃcients are ﬁtted at standardized scales of covariates.
+Blank coeﬃcients are 0’s. Absolute value ą 0.1 are bolded.
+of E-Learning is demonstrated by our simulation studies when either of or both heteroscedasticity
+and misspeciﬁed treatment-free eﬀect happen, where existing methods can have much worse per-
+formance. This also can be consistent with Kang and Schafer (2007)’s ﬁnding that the misspeciﬁed
+treatment-free eﬀect can have severe consequences.
+Our proposed E-Learning requires the parametric assumption on the interaction eﬀect. While
+we mainly consider the linear interaction eﬀect in our simulation studies and the data applications
+for illustration purpose, a nonlinear interaction eﬀect can also be allowed. In that case, we may
+consider the basis expansion under this framework. E-Learning with the cubic polynomial basis can
+be a concrete example. Our nonlinear simulation examples in the Supplementary Material Section
+S.1 further demonstrate the advantage of E-Learning with the cubic polynomial basis.
+For a more ﬂexible interaction eﬀect model, the kernel extension of E-Learning can also be
+possible. In particular, under certain conditions, it can be shown that an extension of the weighted
+least-squares problem based on Kennedy (2020) can be ?n-asymptotically equivalent to our E-
+Learning estimating equations (6). However, the implementation of such an extension can be very
+diﬀerent from our Section 2.4, and there remains some theoretical challenges to address along this
+line. Because of the competitive performance of E-learning using basis expansion, we believe kernel
+E-learning has the potential to work well and leave possible kernel extensions as a future work.
+Another direction of future work can be the high-dimensional problem. In Section 2.5.4, we
+36
+
+````
+
+## PDF page 37
+
+FORMULA CHECK REQUIRED: original PDF page 37.
+
+````text
+propose to solve the regularized estimating equation, which can handle high-dimensional parameter
+estimation. However, the nonparametric estimation of the working variance function is also a po-
+tential challenge when the dimension is growing. In our simulation study, our proposed E-Learning
+with estimated working variance function requires larger sample sizes in presence of increasing
+numbers of variables and treatments. In the literature, there exists three possible strategies to
+accommodate this challenge: 1) considering index models for the variance function that can allow
+dimension reduction (Zhu et al., 2013; Lian et al., 2015); 2) estimating the central variance sub-
+space for suﬃcient dimension reduction (Zhu and Zhu, 2009; Luo et al., 2014; Ma and Zhu, 2019);
+3) performing simultaneous nonlinear variable selection during nonparametric regression (Lin and
+Zhang, 2006; Laﬀerty and Wasserman, 2008; Zhang et al., 2011; Allen, 2013). These can have
+potential for further improvement of E-Learning.
+Acknowledgments
+The authors would like to thank the Editor, the Associate Editor, and reviewers, whose helpful
+comments and suggestions led to a much improved presentation. The research was supported in
+part by NSF grants DMS-1821231 and DMS-2100729, and NIH grant R01GM126550.
+References
+Aggarwal, C. C. (2016), Recommender Systems: The Textbook, Cham: Springer.
+Allen, G. I. (2013), “Automatic feature selection via weighted kernels and regularization,” Journal
+of Computational and Graphical Statistics, 22, 284–299.
+Athey, S., Tibshirani, J., and Wager, S. (2019), “Generalized random forests,” The Annals of
+Statistics, 47, 1148–1178.
+Athey, S. and Wager, S. (2021), “Policy learning with observational data,” Econometrica, 89, 133–
+161.
+Benkeser, D., Carone, M., van der Laan, M. J., and Gilbert, P. B. (2017), “Doubly robust non-
+parametric inference on the average treatment eﬀect,” Biometrika, 104, 863–880.
+Bertsimas, D., Kallus, N., Weinstein, A. M., and Zhuo, Y. D. (2017), “Personalized diabetes
+management using electronic medical records,” Diabetes Care, 40, 210–217.
+Cao, W., Tsiatis, A. A., and Davidian, M. (2009), “Improving eﬃciency and robustness of the
+doubly robust estimator for a population mean with incomplete data,” Biometrika, 96, 723–734.
+Carroll, R. J. (1982), “Adapting for heteroscedasticity in linear models,” The Annals of Statistics,
+10, 1224–1233.
+37
+
+````
+
+## PDF page 38
+
+FORMULA CHECK REQUIRED: original PDF page 38.
+
+````text
+Chen, J., Fu, H., He, X., Kosorok, M. R., and Liu, Y. (2018), “Estimating individualized treatment
+rules for ordinal treatments,” Biometrics, 74, 924–933.
+Chen, S., Tian, L., Cai, T., and Yu, M. (2017), “A general statistical framework for subgroup
+identiﬁcation and comparative treatment scoring,” Biometrics, 73, 1199–1209.
+Crump, R. K., Hotz, V. J., Imbens, G. W., and Mitnik, O. A. (2006), “Moving the Goalposts:
+Addressing Limited Overlap in the Estimation of Average Treatment Eﬀects by Changing the
+Estimand,” Working Paper 0330, National Bureau of Economic Research, http://www.nber.
+org/papers/t0330.
+Curth, A., Alaa, A. M., and van der Schaar, M. (2020), “Estimating Structural Target Functions
+using Machine Learning and Inﬂuence Functions,” arXiv preprint arXiv:2008.06461.
+Davidian, M. and Carroll, R. J. (1987), “Variance function estimation,” Journal of the American
+Statistical Association, 82, 1079–1091.
+Ding, P. and Li, F. (2018), “Causal inference: A missing data perspective,” Statistical Science, 33,
+214–237.
+Ertefaie, A., McKay, J. R., Oslin, D., and Strawderman, R. L. (2021), “Robust Q-learning,” Journal
+of the American Statistical Association, 116, 368–381.
+Friedman, J., Hastie, T., and Tibshirani, R. (2010), “Regularization paths for generalized linear
+models via coordinate descent,” Journal of Statistical Software, 33, 1–22.
+Friedman, J. H. (1991), “Multivariate adaptive regression splines,” The Annals of Statistics, 19,
+1–67.
+Herrett, E., Gallagher, A. M., Bhaskaran, K., Forbes, H., Mathur, R., van Staa, T., and Smeeth,
+L. (2015), “Data resource proﬁle: Clinical practice research datalink (CPRD),” International
+Journal of Epidemiology, 44, 827–836.
+Johnson, B. A., Lin, D., and Zeng, D. (2008), “Penalized estimating functions and variable selection
+in semiparametric regression models,” Journal of the American Statistical Association, 103, 672–
+680.
+Kang, J. D. and Schafer, J. L. (2007), “Demystifying double robustness: A comparison of alternative
+strategies for estimating a population mean from incomplete data,” Statistical Science, 22, 523–
+539.
+Kennedy, E. H. (2020), “Optimal doubly robust estimation of heterogeneous causal eﬀects,” arXiv
+preprint arXiv:2004.14497.
+Kitagawa, T. and Tetenov, A. (2018), “Who should be treated? Empirical welfare maximization
+methods for treatment choice,” Econometrica, 86, 591–616.
+Kube, A., Das, S., and Fowler, P. J. (2019), “Allocating interventions based on predicted outcomes:
+A case study on homelessness services,” Proceedings of the AAAI Conference on Artiﬁcial Intel-
+ligence, 33, 622–629.
+Laﬀerty, J. and Wasserman, L. (2008), “Rodeo: Sparse, greedy nonparametric regression,” The
+Annals of Statistics, 36, 28–63.
+38
+
+````
+
+## PDF page 39
+
+FORMULA CHECK REQUIRED: original PDF page 39.
+
+````text
+Li, F. and Li, F. (2019), “Propensity score weighting for causal inference with multiple treatments,”
+The Annals of Applied Statistics, 13, 2389–2415.
+Lian, H., Liang, H., and Carroll, R. J. (2015), “Variance Function Partially Linear Single-Index
+Models,” Journal of the Royal Statistical Society: Series B (Statistical Methodology), 77, 171–194.
+Liang, M. and Yu, M. (2020), “A Semiparametric Approach to Model Eﬀect Modiﬁcation,” Journal
+of the American Statistical Association, to appear.
+Lin, Y. and Zhang, H. H. (2006), “Component selection and smoothing in multivariate nonpara-
+metric regression,” The Annals of Statistics, 34, 2272–2297.
+Liu, Y., Wang, Y., Kosorok, M. R., Zhao, Y.-Q., and Zeng, D. (2018), “Augmented outcome-
+weighted learning for estimating optimal dynamic treatment regimens,” Statistics in Medicine,
+37, 3776–3788.
+Lu, W., Zhang, H. H., and Zeng, D. (2013), “Variable selection for optimal treatment decision,”
+Statistical Methods in Medical Research, 22, 493–504.
+Luo, W., Li, B., and Yin, X. (2014), “On eﬃcient dimension reduction with respect to a statistical
+functional of interest,” The Annals of Statistics, 42, 382–412.
+Ma, Y., Chiou, J.-M., and Wang, N. (2006), “Eﬃcient semiparametric estimator for heteroscedastic
+partially linear models,” Biometrika, 93, 75–84.
+Ma, Y. and Zhu, L. (2019), “Semiparametric Estimation and Inference of Variance Function with
+Large Dimensional Covariates,” Statistica Sinica, 29, 567–588.
+Manski, C. F. (2004), “Statistical treatment rules for heterogeneous populations,” Econometrica,
+72, 1221–1246.
+Meng, H. and Qiao, X. (2020), “A Robust Method for Estimating Individualized Treatment Eﬀect,”
+arXiv preprint arXiv:2004.10108.
+Meng, H., Zhao, Y.-Q., Fu, H., and Qiao, X. (2020), “Near-optimal Individualized Treatment
+Recommendations,” Journal of Machine Learning Research, 21, 1–28.
+Mo, W. and Liu, Y. (2021), “Supervised Learning,” in Wiley StatsRef: Statistics Reference Online,
+Wiley Online Library, to appear.
+Murphy, S. A. (2003), “Optimal dynamic treatment regimes,” Journal of the Royal Statistical
+Society: Series B (Statistical Methodology), 65, 331–355.
+— (2005), “A generalization error for Q-learning,” Journal of Machine Learning Research, 6, 1073–
+1097.
+Nesterov, Y. (2013), “Gradient methods for minimizing composite functions,” Mathematical Pro-
+gramming, 140, 125–161.
+Newey, W. K. (1994), “The asymptotic variance of semiparametric estimators,” Econometrica, 62,
+1349–1382.
+Nie, X. and Wager, S. (2021), “Quasi-oracle estimation of heterogeneous treatment eﬀects,”
+Biometrika, 108, 299–319.
+39
+
+````
+
+## PDF page 40
+
+FORMULA CHECK REQUIRED: original PDF page 40.
+
+````text
+Ostroﬀ, J. L. (2016), “GLP-1 receptor agonists: An alternative for rapid-acting insulin,” U.S.
+Pharmacist, 41, 3–6.
+Pan, Y. and Zhao, Y.-Q. (2021), “Improved doubly robust estimation in learning optimal individ-
+ualized treatment rules,” Journal of the American Statistical Association, 116, 283–294.
+Qi, Z., Liu, D., Fu, H., and Liu, Y. (2020), “Multi-armed angle-based direct learning for esti-
+mating optimal individualized treatment rules with various outcomes,” Journal of the American
+Statistical Association, 115, 678–691.
+Qi, Z. and Liu, Y. (2018), “D-learning to estimate optimal individual treatment rules,” Electronic
+Journal of Statistics, 12, 3601–3638.
+Qian, M. and Murphy, S. A. (2011), “Performance guarantees for individualized treatment rules,”
+The Annals of Statistics, 39, 1180–1210.
+Robins, J. M. (2004), “Optimal structural nested models for optimal sequential decisions,” in
+Proceedings of the Second Seattle Symposium in Biostatistics, eds. Lin, D. Y. and Heagerty, P. J.,
+New York, NY, USA: Springer, vol. 179 of Lecture Notes in Statistics, pp. 189–326.
+Robins, J. M., Rotnitzky, A., and Zhao, L. P. (1994), “Estimation of regression coeﬃcients when
+some regressors are not always observed,” Journal of the American Statistical Association, 89,
+846–866.
+— (1995), “Analysis of semiparametric regression models for repeated outcomes in the presence of
+missing data,” Journal of the American Statistical Association, 90, 106–121.
+Rotnitzky, A., Lei, Q., Sued, M., and Robins, J. M. (2012), “Improved double-robust estimation in
+missing data and causal inference models,” Biometrika, 99, 439–456.
+Rubin, D. B. (1974), “Estimating causal eﬀects of treatments in randomized and nonrandomized
+studies.” Journal of Educational Psychology, 66, 688–701.
+Shi, C., Fan, A., Song, R., and Lu, W. (2018), “High-dimensional A-learning for optimal dynamic
+treatment regimes,” The Annals of Statistics, 46, 925–957.
+Tan, Z. (2010), “Bounded, eﬃcient and doubly robust estimation with inverse weighting,”
+Biometrika, 97, 661–682.
+Tian, L., Alizadeh, A. A., Gentles, A. J., and Tibshirani, R. (2014), “A simple method for estimating
+interactions between a treatment and a large number of covariates,” Journal of the American
+Statistical Association, 109, 1517–1532.
+Tsiatis, A. (2007), Semiparametric Theory and Missing Data, Springer Series in Statistics, New
+York, NY, USA: Springer.
+van der Vaart, A. W. and Wellner, J. A. (1996), Weak Convergence and Empirical Processes: With
+Applications to Statistics, Springer Series in Statistics, Verlag, NY, USA: Springer.
+Vermeulen, K. and Vansteelandt, S. (2015), “Bias-reduced doubly robust estimation,” Journal of
+the American Statistical Association, 110, 1024–1036.
+Wallace, M. P. and Moodie, E. E. M. (2015), “Doubly-robust dynamic treatment regimen estimation
+via weighted least squares,” Biometrics, 71, 636–644.
+40
+
+````
+
+## PDF page 41
+
+FORMULA CHECK REQUIRED: original PDF page 41.
+
+````text
+Watkins, C. J. C. H. (1989), “Learning from Delayed Rewards,” Ph.D. thesis, King’s College,
+Cambridge, UK.
+Xiao, W., Zhang, H. H., and Lu, W. (2019), “Robust regression for optimal individualized treatment
+rules,” Statistics in Medicine, 38, 2059–2073.
+Xue, F., Zhang, Y., Zhou, W., Fu, H., and Qu, A. (2021), “Multicategory Angle-based Learning for
+Estimating Optimal Dynamic Treatment Regimes with Censored Data,” Journal of the American
+Statistical Association, to appear.
+Zhang, B., Tsiatis, A. A., Laber, E. B., and Davidian, M. (2012), “A robust method for estimating
+optimal treatment regimes,” Biometrics, 68, 1010–1018.
+Zhang, C., Chen, J., Fu, H., He, X., Zhao, Y., and Liu, Y. (2020), “Multicategory outcome
+weighted margin-based learning for estimating individualized treatment rules,” Statistica Sinica,
+30, 1857–1879.
+Zhang, C. and Liu, Y. (2014), “Multicategory angle-based large-margin classiﬁcation,” Biometrika,
+101, 625–640.
+Zhang, H. H., Cheng, G., and Liu, Y. (2011), “Linear or nonlinear? Automatic structure discovery
+for partially linear models,” Journal of the American Statistical Association, 106, 1099–1112.
+Zhao, Y.-Q., Laber, E. B., Ning, Y., Saha, S., and Sands, B. E. (2019), “Eﬃcient augmentation
+and relaxation learning for individualized treatment rules using observational data.” Journal of
+Machine Learning Research, 20, 1–23.
+Zhao, Y.-Q., Zeng, D., Rush, A. J., and Kosorok, M. R. (2012), “Estimating individualized treat-
+ment rules using outcome weighted learning,” Journal of the American Statistical Association,
+107, 1106–1118.
+Zhou, X., Mayer-Hamblett, N., Khan, U., and Kosorok, M. R. (2017), “Residual weighted learning
+for estimating individualized treatment rules,” Journal of the American Statistical Association,
+112, 169–187.
+Zhou, Z., Athey, S., and Wager, S. (2018), “Oﬄine multi-action policy learning: Generalization
+and optimization,” arXiv preprint arXiv:1810.04778.
+Zhu, L., Dong, Y., and Li, R. (2013), “Semiparametric estimation of conditional heteroscedasticity
+via single-index modeling,” Statistica Sinica, 23, 1235–1255.
+Zhu, L. and Zhu, L. (2009), “Dimension reduction for conditional variance in regressions,” Statistica
+Sinica, 19, 869–883.
+41
+
+````
+
+## PDF page 42
+
+Technical extraction; compare with original PDF page 42.
+
+````text
+Supplementary Materials to “Eﬃcient Learning of Optimal
+Individualized Treatment Rules for Heteroscedastic or Misspeciﬁed
+Treatment-Free Eﬀect Models”
+Weibin Mo and Yufeng Liu∗
+University of North Carolina at Chapel Hill
+Contents
+S
+Supplementary Materials
+3
+S.1
+Nonlinear Simulation Studies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+S.2
+Analysis of the ACTG 175 Trial Data
+. . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+S.3
+Optimal Estimating Function under Misspeciﬁed Propensity Score Model
+. . . . . .
+7
+S.4
+More Implementation Details . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+S.5
+COSSO Estimate of the Working Variance Function
+. . . . . . . . . . . . . . . . . .
+12
+S.6
+Technical Proofs
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+S.7
+Additional Tables and Figures . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+41
+List of Tables
+S.1
+ACTG 175, Modiﬁcations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+S.2
+ACTG 175, Coeﬃcients
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+41
+List of Figures
+S.1
+ACTG 175, Testing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+∗Address for correspondence: Yufeng Liu, Department of Statistics and Operations Research, Department of
+Genetics, Department of Biostatistics, Carolina Center for Genome Sciences, Lineberger Comprehensive Cancer
+Center, University of North Carolina at Chapel Hill.
+354 Hanes Hall, Chapel Hill, NC 27599, USA. E-mail:
+yﬂiu@email.unc.edu.
+1
+arXiv:2109.02570v1  [stat.ME]  6 Sep 2021
+
+````
+
+## PDF page 43
+
+FORMULA CHECK REQUIRED: original PDF page 43.
+
+````text
+S.2
+Simulation, Treatment-Free Eﬀect Plots . . . . . . . . . . . . . . . . . . . . . . . . .
+42
+S.3
+Simulation, Propensity Score Plots . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+43
+S.4
+Simulation, Residual Plots, Correct Treatment-Free Eﬀect, Homoscedasticity
+. . . .
+44
+S.5
+Simulation, Residual Plots, Incorrect Treatment-Free Eﬀect, Homoscedasticity
+. . .
+45
+S.6
+Simulation, Residual Plots, Correct Treatment-Free Eﬀect, Heteroscedasticity . . . .
+46
+S.7
+Simulation, Residual Plots, Incorrect Treatment-Free Eﬀect, Heteroscedasticity . . .
+47
+S.8
+Simulation, Misclassiﬁcation Rates, n “ 100 . . . . . . . . . . . . . . . . . . . . . . .
+48
+S.9
+Simulation, Misclassiﬁcation Rates, n “ 200 . . . . . . . . . . . . . . . . . . . . . . .
+49
+S.10 Simulation, Misclassiﬁcation Rates, n “ 800 . . . . . . . . . . . . . . . . . . . . . . .
+50
+S.11 Simulation, Misclassiﬁcation Rates, n “ 1600
+. . . . . . . . . . . . . . . . . . . . . .
+51
+S.12 Simulation, Regrets . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+52
+S.13 Simulation, Regrets, n “ 100
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+53
+S.14 Simulation, Regrets, n “ 200
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+54
+S.15 Simulation, Regrets, n “ 400
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+55
+S.16 Simulation, Regrets, n “ 800
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+56
+S.17 Simulation, Regrets, n “ 1600 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+57
+S.18 Simulation, Misclassiﬁcation Rates, p “ 50 . . . . . . . . . . . . . . . . . . . . . . . .
+58
+S.19 Simulation, Regrets, p “ 50 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+59
+S.20 Simulation, K “ 3
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+60
+S.21 Simulation, Misclassiﬁcation Rates, p “ 50, 100, K “ 3 . . . . . . . . . . . . . . . . .
+61
+S.22 Simulation, Regrets, p “ 50, 100, K “ 3
+. . . . . . . . . . . . . . . . . . . . . . . . .
+62
+S.23 Simulation, Misclassiﬁcation Rates, K “ 2, 3, 5, 7 . . . . . . . . . . . . . . . . . . . .
+63
+S.24 Simulation, Regrets, K “ 2, 3, 5, 7 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+64
+S.25 Simulation, Misclassiﬁcation Rates, Variance Function Estimates . . . . . . . . . . .
+65
+S.26 Simulation, Regrets, Variance Function Estimates . . . . . . . . . . . . . . . . . . . .
+66
+S.27 Nonlinear Simulation, Misclassiﬁcation Rates . . . . . . . . . . . . . . . . . . . . . .
+67
+S.28 Nonlinear Simulation, Regrets . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+68
+S.29 ACTG 175, Residual Plots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+69
+S.30 ACTG 175, Coeﬃcients
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+70
+2
+
+````
+
+## PDF page 44
+
+FORMULA CHECK REQUIRED: original PDF page 44.
+
+````text
+S
+Supplementary Materials
+S.1
+Nonlinear Simulation Studies
+This section focuses on nonlinear data generation and the learning methods based on polynomial
+basis. Speciﬁcally, We consider the same data generating process as in Section 5.1, but with the
+treatment-free eﬀect µ0pxq “
+1
+?
+K
+řK
+k1“1 hpxk1q and the interaction eﬀect β⊺
+A
+`
+1, hpX1q, ¨ ¨ ¨ , hpXpq
+˘⊺.
+Here, both hpxq “ x3 and hpxq “ e
+?
+2x are studied. The propensity score is pA pA|Xq “
+eXA{2
+řK
+k“1 eXk{2 ,
+while both the homoscedastic variance function σ2pX, Aq “ 1 and the heteroscedastic variance
+function σ2pX, Aq “ e2
+?
+2XA are considered.
+For implementation, we consider the same linear Q-Learning, D-Learning, RD-Learning, and
+E-Learning as in Section S.4, and the cubic versions with Xp3q “ pX1, X2
+1, X3
+1; ¨ ¨ ¨ ; Xp, X2
+p, X3
+pq⊺
+as the covariate vector. If hpxq “ x3, then the linear methods misspecify both the treatment-free
+eﬀect and interaction eﬀect models, while the cubic methods correctly specify these models. If
+hpxq “ e
+?
+2x, then all these methods misspecify the models.
+The testing misclassiﬁcation rates and regrets based on 100 replications are reported in Figures
+S.27 and S.28 respectively. Linear E-Learning can maintain the best performance among the linear
+methods, even though the advantage is less evident due to the misspeciﬁed interaction eﬀect. This
+suggests that the eﬃciency gain of E-Learning towards the misspeciﬁed treatment-free eﬀect and
+heteroscedasticity can be maintained even in presence of the misspeciﬁed interaction eﬀect.
+The cubic methods generally have better testing performance than the linear methods, since the
+cubic versions are more ﬂexible to approximate the true treatment-free and interaction eﬀects. In
+particular, for the data generation with hpxq “ x3, the treatment-free and interaction eﬀect models
+in the cubic methods are correctly speciﬁed. In that case, the superiority of cubic E-Learning among
+the cubic methods is the same as in Section 5. For the data generation with hpxq “ e
+?
+2x, cubic
+E-Learning can also be superior to the other cubic methods with a strong advantage, even when
+the interaction eﬀect is misspeciﬁed. In particular, the misclassiﬁcation rate of cubic E-Learning
+when n “ 1600 is 0.117, while that of cubic RD-Learning, D-Learning and Q-Learning are 0.216,
+0.28 and 0.266 respectively. This can conﬁrm the eﬀectiveness of cubic E-Learning for the nonlinear
+problems.
+3
+
+````
+
+## PDF page 45
+
+FORMULA CHECK REQUIRED: original PDF page 45.
+
+````text
+S.2
+Analysis of the ACTG 175 Trial Data
+We evaluate the eﬀectiveness of our proposed E-Learning on a clinical trial dataset from the “AIDS
+clinical trial group study 175” (Hammer et al., 1996). The goal of this study was to compare four
+treatment arms among 2,139 randomly assigned subjects with human immunodeﬁciency virus type
+1 (HIV-1), whose CD4 counts were 200-500 cells/mm3. The four treatment options of A are the
+zidovudine (ZDV) monotherapy, the didanosine (ddI) monotherapy, the ZDV combined with ddI,
+and the ZDV combined with zalcitabine (ZAL).
+The primary outcome Y of our interest is the diﬀerence between the CD4 cell counts at early
+stage (20˘5 weeks from baseline) and the CD4 counts at baseline, which is larger the better. We
+follow the analyses in Lu et al. (2013); Qi et al. (2020); Meng and Qiao (2020) and consider 12
+selected baseline covariates X. There are 5 continuous covariates: age (year), weight (kg, coded as
+wtkg), CD4 count (cells/mm3) at baseline, Karnofsky score (scale of 0-100, coded as karnof), CD8
+count (cells/mm3) at baseline. They are centered and scaled before further analysis. In addition,
+there are 7 binary variables: gender (1 = male, 0 = female), homosexual activity (homo, 1 = yes,
+0 = no), race (1 = nonwhite, 0 = white), history of intravenous drug use (drug, 1 = yes, 0 = no),
+symptomatic status (symptom, 1 = symptomatic, 0 = asymptomatic), antiretroviral history (str2,
+1 = experienced, 0 = naive) and hemophilia (hemo, 1 = yes, 0 = no).
+We consider the training sample size n P t100, 200, 400, 800, 1600u and the testing sample size
+ntest “ 400. The full dataset is randomly split into training and testing according to the given
+sample sizes. Since the dataset is obtained from a randomized controlled trial, the propensity score
+function is known to be pA pk|Xq “ 1{4 for k “ 1, 2, 3, 4. For the treatment-free eﬀect estimation,
+we consider a linear working model with the ℓ1-penalty throughout the analysis, which will be
+diﬀerent from the implementation in Meng and Qiao (2020). For this real-world data application,
+the underlying truth is unknown to us. We cannot verify whether any of misspeciﬁed treatment-
+free eﬀect and heteroscedasticity on the original dataset exist. Nevertheless, after modifying the
+dataset according to the following Table S.1, the treatment-free eﬀect misspeciﬁcation and het-
+eroscedasticity can be anticipated. Note that the unmodiﬁed cases can also have treatment-free
+eﬀect misspeciﬁcation and heteroscedasticity as well. Our modiﬁcation can enlarge such eﬀects.
+The goal of our analysis is to demonstrate the eﬃciency improvement of E-Learning in presence of
+heavy treatment-free eﬀect misspeciﬁcation and heteroscedasticity. We further provide the residual
+plots in Figure S.29 in Section S.7. Residuals are computed from the ﬁtted E-Learning on each
+4
+
+````
+
+## PDF page 46
+
+FORMULA CHECK REQUIRED: original PDF page 46.
+
+````text
+modiﬁed dataset according to Table S.1, and averaged over 10 replications. It conﬁrms that the
+modiﬁcations can result in the squared residuals heavily depending on the variables age and wtkg.
+Table S.1: Modiﬁcations on the ACTG 175 Dataset and the Implying Model Speciﬁcations
+Training Outcome Modiﬁcation
+Treatment-Free Eﬀect
+Variance Function
+Original Y
+unmodiﬁed
+unmodiﬁed
+Y Ð Y ` e2.5ˆage
+misspeciﬁed
+unmodiﬁed
+Y Ð Y ` 5e1.5ˆwtkg ˆ ξ
+unmodiﬁed
+heteroscedastic
+Y Ð Y ` e2.5ˆage ` 5e1.5ˆwtkg ˆ ξ
+misspeciﬁed
+heteroscedastic
+1 The variables age and wtkg are centered and scaled at the data preparation stage.
+2 The additional noise ξ is randomly generated from Ppξ “ 1q “ Ppξ “ ´1q “ 1{2 independent of X, A, Y .
+3 We further round the modiﬁed outcomes to their nearest integers to respect the integer nature of Y .
+4 The treatment-free eﬀect is estimated by a linear working model with the ℓ1-penalty.
+On the training sample, we implement the same procedures as in Section 5 to ﬁt Q-Learning,
+D-Learning, RD-Learning, and our proposed E-Learning. On the testing dataset, we evaluate the
+an estimated ITR pd by the IPWE p1{ntestq řntest
+i“1 YiIrAi “ pdpXiqs{p1{4q, which is larger the better.
+Here, the testing outcome Yi is unmodiﬁed in contrast to the training outcome to ensure comparable
+testing evaluation. Testing results based on 500 repeated training and testing for each of the four
+cases in Table S.1 are reported in Figure S.1.
+treatment_free_effect: original
+variance: original
+treatment_free_effect: original
+variance: heteroscedastic
+treatment_free_effect: incorrect
+variance: original
+treatment_free_effect: incorrect
+variance: heteroscedastic
+100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600
+30
+40
+50
+n
+Change in CD4 Count (cell mm3, larger the better)
+method
+E−Learning
+RD−Learning
+D−Learning
+Q−Learning
+Testing Performance across 500 Replications on the ACTG 175 Dataset
+Figure S.1: Testing changes in CD4 count (cell/mm3, larger the better) on the ACTG 175 dataset.
+When we use the original training outcome Y , the testing CD4 count improvements of all
+methods close to each other. In particular, Q-Learning demonstrates slightly better performance
+for n “ 100, 200, 400, but all methods have similar performance when n “ 800 and 1600. All these
+methods have improving testing performance as n increases. When we modify Y to incorporate
+heavy heteroscedasticity or/and treatment-free eﬀect misspeciﬁcation, E-Learning can maintain the
+5
+
+````
+
+## PDF page 47
+
+FORMULA CHECK REQUIRED: original PDF page 47.
+
+````text
+improvements as n increases, while other methods can have much poorer performance. In particular,
+other methods can even get worse as n increases in presence of heavy heteroscedasticity. We shall
+anticipate that the scientiﬁc ﬁndings for the analysis with original outcome Y will not be disturbed
+when we introduce additional treatment-free eﬀect misspeciﬁcation or/and heteroscedasticity. The
+results in Figure S.1 show that E-Learning maintains the testing performance well during these
+modiﬁcations, while RD-Learning, D-Learning and Q-Learning are heavily aﬀected. In this way,
+E-Learning demonstrates its superiority of eﬃciency gain in presence of misspeciﬁed treatment-free
+eﬀect or/and heteroscedasticity.
+We further report the estimated coeﬃcients for D-Learning, RD-Learning and E-Learning in
+Table S.2 and Figure S.30 in Section S.7. The ﬁtted coeﬃcients on the original data are consistent
+with existing literature. Speciﬁcally, Intercept, age and cd40 are common important covariates
+that were frequently reported in the literature (Lu et al., 2013; Qi et al., 2020; Meng and Qiao,
+2020). When we incorporate heavy treatment-free eﬀect misspeciﬁcation or/and heteroscedasticity
+in cases II, III and IV, the ﬁtted coeﬃcients of D-Learning and RD-Learning become highly unstable
+with many extreme coeﬃcients. In contrast, the ﬁtted E-Learning coeﬃcients are relatively stable
+across these cases. This suggests that the E-Learning estimate can be more resilient to the training
+outcome modiﬁcations in Table S.1 compared with the other methods.
+6
+
+````
+
+## PDF page 48
+
+FORMULA CHECK REQUIRED: original PDF page 48.
+
+````text
+S.3
+Optimal Estimating Function under Misspeciﬁed Propensity Score Model
+Let qpA pa|xq be an arbitrary propensity score function. For any H : X Ñ RpˆpK´1q, which can
+depend on β, consider the following estimating function:
+φpβ; qpA q “ rY ´ µ0pXq ´ γpX, A; βqs HpXqωA
+qpA pA|Xq.
+By Proposition 3, since the working treatment-free eﬀect function µ0 is true, for any working
+propensity score function qpA , we have Erφpβ; qpA qs “ 0 at the true β. Our goal is to ﬁnd the
+optimal HpXq for a given working propensity score function qpA .
+The following derivations are analogous to the proof of Theorem 5:
+Erφpβ; qpA qb2s “ E
+«
+HpXq
+˜
+ωb2
+A ϵ2
+qpA pA|Xq2
+¸
+HpXq⊺
+ﬀ
+“ E rHpXqVϵpX; qpA qHpXq⊺s ;
+E
+«
+´B qφpβq
+Bβ⊺
+ﬀ
+“ E
+#
+HpXq
+«ˆ
+1 ´ 1
+K
+˙
+ωb2
+A
+qpA pA|Xq
+ﬀ
+9FpX; βq
++
+´ E
+„
+9HpX; βq
+ωAϵ
+qpA pA|Xq
+
+loooooooooooooomoooooooooooooon
+“0
+“ E
+”
+HpXqVA pX; qpA q9FpX; βq
+ı
+.
+In the second equality, we deﬁne
+VϵpX; qpA q :“
+K
+ÿ
+k“1
+pA pk|Xqσ2pX, kqωb2
+k
+qpA pk|Xq2
+.
+In the forth equality, it follows from that Epϵ|X, Aq “ 0 and we deﬁne
+VA pX; qpA q :“
+ˆ
+1 ´ 1
+K
+˙ K
+ÿ
+k“1
+pA pk|Xqωb2
+k
+qpA pk|Xq
+.
+Let pβnpqpA q be the solution to Enrφpβ; qpA qs “ 0. Then under the same regularity conditions
+7
+
+````
+
+## PDF page 49
+
+FORMULA CHECK REQUIRED: original PDF page 49.
+
+````text
+as in Theorems 4 and 5, we have
+lim
+nÑ8 nVarr pβnpqpA qs
+“
+"
+E
+„
+´Bφpβ; qpA q
+Bβ⊺
+*´1
+Er qφpβqb2s
+"
+E
+„
+´Bφpβ; qpA q⊺
+Bβ
+*´1
+“rB´1rArB´⊺“ prB⊺rA´1rBq´1 ě rC´1,
+where, analogous to Lemma S.4, we deﬁne
+rA :“ ErHpXqVϵpX; qpA qHpXq⊺s;
+rB :“ ErHpXqVA pX; qpA q9FpX; βqs;
+rC :“ Er9FpX; βq⊺VA pX; qpA qVϵpX; qµ0q´1VA pX; qpA q9FpX; βqs,
+with equality if and only if exists some non-singular constant matrix H0 P Rpˆp such that
+HpXq “ H0 9FpX; βq⊺VA pX; qpA qVϵpX; qpA q´1.
+Therefore, the optimal estimating function under the working propensity score function qpA is
+φeﬀpβ; qpA q :“rY ´ µ0pXq ´ γpX, A; βqsˆ
+9FpX; βq⊺
+:“VA pX;qpA q
+hkkkkkkkkkkkkkkkkkkkikkkkkkkkkkkkkkkkkkkj
+«ˆ
+1 ´ 1
+K
+˙ K
+ÿ
+k“1
+pA pk|Xqωb2
+k
+qpA pk|Xq
+ﬀ«
+:“VϵpX;qpA q
+hkkkkkkkkkkkkkkkkikkkkkkkkkkkkkkkkj
+K
+ÿ
+k“1
+pA pk|Xqσ2pX, kqωb2
+k
+qpA pk|Xq2
+ﬀ´1
+ωA
+qpA pA|Xq
+looooooooooooooooooooooooooooooooooooooooooooooooooooooooomooooooooooooooooooooooooooooooooooooooooooooooooooooooooon
+optimal instrument
+.
+Here, diﬀerent from the case of misspeciﬁed treatment-free eﬀect model discussed in Section 4.1.2,
+the optimal estimating function cannot be deﬁned from an optimal working variance as in Theorem
+5.
+It require diﬀerent strategies to estimate the optimal variance components VA pX; qpA q and
+VϵpX; qpA q. One potential strategy is to identiﬁed them from
+VA pX; qpA q “ E
+«ˆ
+1 ´ 1
+K
+˙
+ωb2
+A
+qpA pA|Xq
+ˇˇˇˇˇX
+ﬀ
+;
+VϵpX; qpA q “ E
+˜
+ωb2
+A ϵ2
+qpA pA|Xq2
+ˇˇˇˇˇX
+¸
+,
+where ϵ is replaced by the working residual e “ Y ´µ0pXq´γpX, A; βq. Therefore, we can perform
+nonparametric regression on the RpK´1qˆpK´1q-valued matrices
+`
+1 ´ 1
+K
+˘
+ωb2
+A
+qpA pA|Xq and
+ωb2
+A e2
+qpA pA|Xq on
+8
+
+````
+
+## PDF page 50
+
+FORMULA CHECK REQUIRED: original PDF page 50.
+
+````text
+X. However, such a strategy will be much diﬀerent from the methodology proposed in this paper.
+In particular, in this paper, we only need to estimate an RK-valued function
+`
+qσ2
+optpX, kq : 1 ď k ď
+K
+˘
+, while the optimal estimating function under misspeciﬁed propensity score model require the
+estimation of two RpK´1qˆpK´1q-valued functions VA pX; qpA q and VϵpX; qpA q.
+9
+
+````
+
+## PDF page 51
+
+FORMULA CHECK REQUIRED: original PDF page 51.
+
+````text
+S.4
+More Implementation Details
+• E-Learning (general K): When ﬁtting the treatment-free eﬀect and the propensity score func-
+tions, we consider the 10-fold cross-ﬁtting strategy as in Chernozhukov et al. (2018); Zhao et al.
+(2019); Athey and Wager (2021). Speciﬁcally, the training sample is randomly divided into 10
+folds. For the k-th fold ﬁtting, we utilize the data other the k-th fold to ﬁt a treatment-free eﬀect
+or propensity score model, and then predict the treatment-free eﬀects or the propensity scores
+for the k-th fold data.
+We use regression forest to estimate variance function from the squared working residual. The
+regression forest function from the grf package in R is called. We also ﬁt the MARS and
+COSSO estimates of variance function.
+The earth function from the earth package and a
+modiﬁed program based on the cosso.Gaussian function from the cosso package are applied.
+More details on the COSSO model and program are discussed in Section S.5.
+Before ﬁtting E-Learning, we ﬁrst center and scale each variables to ensure p1{nq řn
+i“1 Xij “ 0
+and p1{nq řn
+i“1 X2
+ij “ 1. When solving the penalized minimization problem (8) by the acceler-
+ated proximal gradient descent, we call the apg function in R to perform optimization. When
+determining the tuning sequence of λ’s, we take the strategy analog to glmnet (Friedman et al.,
+2010).
+• Q-Learning (general K): We consider the linear model using Y as the response and
+`
+1, X⊺,⃗A⊺,⃗A⊺b
+X⊺˘⊺as the covariates with the ℓ1-penalty. Here,⃗A “
+`
+IpA “ 2q, IpA “ 3q, ¨ ¨ ¨ , IpA “ Kq
+˘⊺, and
+b denotes the Kronecker product. The method is also known as the ℓ1-Penalized Least Square
+(ℓ1-PLS) (Qian and Murphy, 2011), and implemented by the glmnet function in R.
+• G-Estimation, dWOLS (K “ 2, A P t0, 1u): The DTRreg function from the DTRreg pack-
+age (Wallace et al., 2017) in R is called to ﬁt G-Estimation (method = "gest") and dWOLS
+(method = "dwols"). The treatment-free eﬀect model (tf.mod) is speciﬁed as linear in p1, X⊺q⊺.
+The propensity score model (treat.mod) is speciﬁed as the logistic model of A with respect to
+p1, X⊺q⊺. The interaction eﬀect model (blip.mod) is speciﬁed as linear in p1, X⊺q⊺. For dWOLS,
+the weight function wpX, Aq “ |A ´ pπA ,npXq| in Section 3.1 is used.
+• A-Learning, Subgroup Identiﬁcation (K “ 2, A P t´1, 1u): The fit.subgroup function
+from the personalized package (Huling and Yu, 2018) in R is called to ﬁt A-Learning and Sub-
+group Identiﬁcation with the ℓ1-penalty (method = "a learning" and method = "weighting"
+10
+
+````
+
+## PDF page 52
+
+FORMULA CHECK REQUIRED: original PDF page 52.
+
+````text
+respectively, loss = "sq loss lasso"). The propensity score model (propensity.func) is spec-
+iﬁed as the logistic model of A with respect to p1, X⊺q⊺with the ℓ1-penalty, which is ﬁtted by
+glmnet. The treatment-free eﬀect, also known as the augmentation function (augment.func),
+is speciﬁed as: for A-Learning, the linear model of Y with respect to p1, X⊺q⊺with the ℓ1-
+penalty, ﬁtted by glmnet; and for Subgroup Identiﬁcation, the linear model of Y with respect to
+p1, X⊺, A, AX⊺q⊺with the ℓ1-penalty, ﬁtted by glmnet, and outputting the arithmetic average
+of predictions at A “ 1 and A “ ´1.
+• D-Learning, RD-Learning: (general K) We consider the class of linear functions with the
+row-wise grouped LASSO penalty. The training process is performed by the accelerated prox-
+imal gradient descent using the apg function. The estimation of the treatment-free eﬀect and
+propensity score functions, the ﬁtting details and the tuning strategy are the same as in E-
+Learning.
+• OWL, RWL, EARL (K “ 2, A P t0, 1u): The owl, rwl and earl functions are called from the
+R package DynTxRegime to ﬁt OWL, RWL and EARL respectively. The propensity score model
+(moPropen) is speciﬁed as the logistic model of A with respect to p1, X⊺q⊺with the ℓ1-penalty,
+which is ﬁtted by glmnet. The outcome models, including the main eﬀect model (moMain, used
+in rwl) and the contrast model (moCont, used in rwl and earl), are both speciﬁed as linear
+in p1, X⊺q⊺with the ℓ1-penalty, which are ﬁtted by glmnet. The corresponding outcome mean
+model is EpY |X, Aq “ moMainpXq ` A ˆ moContpXq.
+These methods are ﬁtted with linear
+decision functions (kernel = "linear"). For owl and earl, the hinge surrogate loss is used
+(surrogate = "hinge"). For rwl, the surrogate loss is the smoothed ramp loss (Zhou et al.,
+2017). The tuning parameter λ for all methods is determined by 5-fold cross validation (cvFolds
+= 5). The sequence of λ’s for tuning is determined analog to glmnet (Friedman et al., 2010).
+• Policy Learning: (general K) We use the policy tree function from the policytree package
+(Sverdrup et al., 2020) in R to ﬁt policy learning with decision trees. The outcome mean function
+and the propensity score function are both ﬁtted by regression forest from the grf package.
+11
+
+````
+
+## PDF page 53
+
+FORMULA CHECK REQUIRED: original PDF page 53.
+
+````text
+S.5
+COSSO Estimate of the Working Variance Function
+In this section, we consider the implementation details of estimating σ2
+optpx, A; pµ0,nq from COSSO
+(Lin and Zhang, 2006). Speciﬁcally, we perform nonparametric regression using the squared working
+residual pe2 as the response and pX, Aq as the covariates.
+First of all, we discuss an SS-ANOVA model in terms of the covariate vector X “ pX1, ¨ ¨ ¨ , Xpq⊺P
+Rp and the treatment variable A P t1, 2, ¨ ¨ ¨ , Ku. If the j-th variable Xj is continuously ranged,
+then the we ﬁrst scale the domain of Xj to r0, 1s, and consider the j-th covariate function space as
+Hj “ S2, where pS2, } ¨ }S2q is the second order Sobolev Hilbert space:
+S2 “
+"
+f : r0, 1s Ñ R
+ˇˇˇˇ f and f1 are absolutely continuous,
+ż
+f2pxq2dx ă `8
+*
+;
+}f}2
+S2 “
+ˆż 1
+0
+fpxqdx
+˙2
+`
+ˆż 1
+0
+f1pxqdx
+˙2
+`
+ż 1
+0
+f2pxq2dx.
+In particular, Hj “ S2 can be decomposed as t1u ‘ s
+Hj (Gu, 2013, Equation (2.26)), where s
+Hj is
+the reproducing kernel Hilbert space (RKHS) corresponding to the kernel function
+sκjpx, x1q “ k1pxqk1px1q ` k2pxqk2px1q ´ k4p|x ´ x1|q;
+x, x1 P r0, 1s.
+Here, k1pxq “ x ´ 0.5, k2pxq “ p1{2qrk1pxq2 ´ 1{12s, and k4pxq “ p1{24qrk1pxq4 ´ k1pxq2{2 ` 7{240s.
+If Xj takes ﬁnitely many values in t1, 2, ¨ ¨ ¨ , Lju, then we consider Hj “ RLj, which can be
+further decomposed as t1u ‘ s
+Hj. Here, s
+Hj “ tpα1, α2, ¨ ¨ ¨ , αLjq⊺P RLj : řLj
+l“1 αl “ 0u, and can
+be regarded as an Lj-dimensional RKHS corresponding to the kernel matrix rsκjpx, x1qsLj
+x,x1“1 “
+ILjˆLj ´ p1{Ljq⃗1Lj⃗1⊺
+Lj. Similarly, since the treatment variable A is valued in t1, 2, ¨ ¨ ¨ , Ku, we also
+consider the treatment function space HA “ RK with the decomposition HA “ t1u ‘ s
+HA , where
+s
+HA is the subspace of RK with the sum-to-zero constraint and corresponds to the kernel matrix
+rsκA pa, a1qsK
+a,a1“1 “ IKˆK ´ p1{Kq⃗1K⃗1⊺
+K.
+The SS-ANOVA model is based on the following tensor-product RKHS (Gu, 2013, Section
+12
+
+````
+
+## PDF page 54
+
+FORMULA CHECK REQUIRED: original PDF page 54.
+
+````text
+2.4.1):
+H :“
+«
+d
+â
+j“1
+Hj
+ﬀ
+b HA “
+«
+d
+â
+j“1
+`
+t1u ‘ s
+Hj
+˘
+ﬀ
+b
+`
+t1u ‘ s
+HA
+˘
+“
+t1u
+lomon
+global main eﬀect
+‘
+«
+d
+à
+j“1
+s
+Hj
+ﬀ
+loooomoooon
+covariate main eﬀects
+‘
+s
+HA
+lomon
+treatment main eﬀect
+‘
+«
+d
+à
+j“1
+` s
+Hj b s
+HA
+˘
+ﬀ
+loooooooooomoooooooooon
+covariate-treatment interaction eﬀect
+‘
+$
+’
+’
+&
+’
+’
+%
+à
+J Ďt1,2,¨¨¨ ,du
+|J |ě2
+«˜
+â
+jPJ
+s
+Hj
+¸
+‘
+˜
+â
+jPJ
+s
+Hj b s
+HA
+¸ﬀ
+,
+/
+/
+.
+/
+/
+-
+looooooooooooooooooooooooooooooooomooooooooooooooooooooooooooooooooon
+higher-order interaction eﬀects
+.
+Here, we only consider ﬁrst four eﬀects from the above tensor-sum decomposition and ignore the
+higher-order interaction eﬀects. Then the SS-ANOVA model is
+Eppe2|X, Aq “
+ν0
+lomon
+global main eﬀect
+`
+pÿ
+j“1
+fjpXjq
+loooomoooon
+covariate main eﬀect
+`
+K
+ÿ
+k“1
+αk
+lomon
+treatment main eﬀect
+`
+K
+ÿ
+j“1
+K
+ÿ
+k“1
+fjkpXjq
+loooooooomoooooooon
+covariate-treatment interaction eﬀect
+`
+u
+lomon
+remainder
+.
+In particular, the tensor-product RKHS s
+Hjb s
+HA , which models the covariate-treatment interaction
+eﬀect, corresponds to the kernel function
+psκj b sκA q
+´
+pxj, aq⊺, px1
+j, a1q⊺¯
+“ sκjpxj, x1
+jqsκA pa, a1q.
+Then the COSSO estimate pσ2
+npX, Aq of the working variance function is obtained by solving:
+min
+fPH
+#
+1
+n
+nÿ
+i“1
+re2
+i ´ fpXi, Aiqs2 ` λσ2
+˜ dÿ
+j“1
+}f} s
+Hj ` }f} s
+HA `
+dÿ
+j“1
+}f} s
+Hjb s
+HA
+¸+
+.
+Here, }¨} s
+Hj, }¨} s
+HA and }¨} s
+Hjb s
+HA are the RKHS-norms corresponding to the associated component
+spaces, and λσ2 is a tuning parameter.
+For implementation, we deﬁne the empirical kernel matrices sKj :“ rsκjpXij, Xi1jqsn
+i,i1“1 and
+sKA :“ rsκA pAi, Ai1qsn
+i,i1“1. Then sKj, sKA and sKj,A :“ sKj d sKA are the empirical kernel matrices on
+s
+Hj, s
+HA and s
+Hj b s
+HA respectively, where sKj d sKA is the elementwise product of sKj and sKA . For a
+vector θ :“ pθ1, ¨ ¨ ¨ , θd; θA ; θ1,A , ¨ ¨ ¨ , θd,A q⊺P R2d`1
+`
+of kernel weights, we write sKθ :“ řd
+j“1 θj sKj `
+θA sKA ` řd
+j“1 θj,A sKj,A P Rnˆn as the weighted sum of the empirical kernel matrices. For a vector
+13
+
+````
+
+## PDF page 55
+
+FORMULA CHECK REQUIRED: original PDF page 55.
+
+````text
+α P Rn of representer coeﬃcients, we write Gα :“ rsK1α, ¨ ¨ ¨ , sKdα; sKA α; sK1,A α, ¨ ¨ ¨ , sKd,A αs P
+Rnˆp2d`1q as the gram matrix of the componentwise prediction values.
+We also denote⃗e2 :“
+pe2
+1, ¨ ¨ ¨ , e2
+nq⊺as the empirical squared residual vector. Then we ﬁt a COSSO model by calling the R
+function cosso::cosso.Gaussian with the aforementioned kernel matrices and the squared residual
+vector as inputs. In particular, a random subset of sample points with size maxt40, r12n2{9su is
+used for representers. The following two steps are alternatively implemented:
+• For a given kernel weight vector θ, we solve
+min
+b,α
+" 1
+n
+›››⃗e2 ´ b⃗1n ´ sKθα
+›››
+2
+2 ` λ0α⊺sKθα
+*
+for the representer coeﬃcient vector pb, α⊺q⊺;
+• For a given representer coeﬃcient vector pb, α⊺q⊺, we solve
+min
+θ
+" 1
+n
+›››⃗e2 ´ b⃗1n ´ Gαθ
+›››
+2
+2 ` λ0α⊺Gαθ
+subject to
+θ P R2d`1
+`
+,⃗1⊺
+2d`1θ ď M
+*
+,
+for the kernel weight vector θ.
+Here, the tuning parameters pλ0, Mq are chosen according to Lin and Zhang (2006, Section 6).
+14
+
+````
+
+## PDF page 56
+
+FORMULA CHECK REQUIRED: original PDF page 56.
+
+````text
+S.6
+Technical Proofs
+S.6.1
+Proof of Theorem 1
+Proof of Theorem 1.
+Vpd‹q ´ Vppdnq “E
+# K
+ÿ
+k“1
+γpX, kqtIrd‹pXq “ ks ´ IrpdnpXq “ ksu
++
+ďE
+# ÿ
+k‰k1
+|γpX, kq ´ γpX, k1q|; d‹pXq “ k, pdnpXq “ k1
++
+“1
+2E
+# ÿ
+k‰k1
+|γpX, kq ´ γpX, k1q|;
+d‹pXq “ k and pdnpXq “ k1 or d‹pXq “ k1 and pdnpXq “ k
++
+ď1
+2E
+# ÿ
+k‰k1
+|γpX, kq ´ γpX, k1q| ` |pγnpX, kq ´ pγnpX, k1q|;
+d‹pXq “ k and pdnpXq “ k1 or d‹pXq “ k1 and pdnpXq “ k
++
+“1
+2E
+# ÿ
+k‰k1
+ˇˇrγpX, kq ´ γpX, k1qs ´ rpγnpX, kq ´ pγnpX, k1qs
+ˇˇ ;
+d‹pXq “ k and pdnpXq “ k1 or d‹pXq “ k1 and pdnpXq “ k
++
+(‹)
+ď1
+2E
+# ÿ
+k‰k1
+|γpX, kq ´ pγnpX, kq| ` |γpX, k1q ´ pγnpX, k1q|;
+d‹pXq “ k and pdnpXq “ k1 or d‹pXq “ k1 and pdnpXq “ k
++
+ďE |γpX, d‹q ´ pγnpX, d‹q| ` E
+ˇˇˇγpX, pdnq ´ pγnpX, pdnq
+ˇˇˇ
+ď2 max
+1ďkďK E |γpX, kq ´ pγnpX, kq| .
+The equality (‹) holds since the event d‹pXq “ k and pdnpXq “ k1 or d‹pXq “ k1 and pdnpXq “ k
+implies that
+rγpX, kq ´ γpX, k1qsrpγnpX, kq ´ pγnpX, k1qs ă 0.
+15
+
+````
+
+## PDF page 57
+
+FORMULA CHECK REQUIRED: original PDF page 57.
+
+````text
+S.6.2
+Proof of Lemma 1
+Proof of Lemma 1. Denote
+rΛ :“
+!
+H P H : EpHϵ|X, Aq “ EpHϵ|Xq
+)
+.
+Consider the following family of parametric submodels of (1):
+Pβ,α :“
+!
+pX, A, Y q „ pX pX; αX qˆpA pA|X; αA qˆpϵ
+`
+ϵ
+hkkkkkkkkkkkkkkkkkkkikkkkkkkkkkkkkkkkkkkj
+Y ´ µ0pX; αµ0q ´ γpX, A; βq
+ˇˇX, A; αϵ
+˘)
+,
+where α “ αX ‘ αA ‘ αϵ ‘ αµ0 are ﬁnite-dimensional parameters for the nuisance components
+η “ ppX , pA , pϵ, µ0q. Then the nuisance score vector is
+Sα “
+¨
+˚
+˚
+˚
+˚
+˚
+˚
+˝
+SX
+B log pX pX;αX q
+BαX
+SA
+B log pA pA|X;αA q
+BαA
+Sϵ
+B log pϵpϵ|X,A;αϵq
+Bαϵ
+Sµ0
+´B log pϵpϵ|X,A;αϵq
+Bϵ
+Bµ0pX;αµ0q
+Bαµ0
+˛
+‹‹‹‹‹‹‚
+.
+Then the nuisance tangent space of the family of submodels Pβ,α is deﬁned as (Tsiatis, 2007):
+Λα “
+!
+BSα : B P Rpˆdimpαq)
+“
+!
+BX SX ` BA SA ` BϵSϵ ` Bµ0Sµ0 :
+BX P RpˆdimpαX q, BA P RpˆdimpαA q, Bϵ P Rpˆdimpαϵq, Bµ0 P Rpˆdimpαµ0q)
+.
+We aim to show that Λα Ď rΛ. By rΛ is a linear space, it is equivalent to show that SX , SA , Sϵ, Sµ0 P
+rΛ. Denote Eβ,α as the expectation under the submodel parametrized by pβ, αq.
+• Since SX is a function of X, we have that
+Eβ,αpSX ϵ|X, Aq “ SX Eβ,αpϵ|X, Aq “ 0 “ SX Eβ,αpϵ|Xq “ Eβ,αpSX ϵ|Xq.
+That is, SX P rΛ.
+16
+
+````
+
+## PDF page 58
+
+FORMULA CHECK REQUIRED: original PDF page 58.
+
+````text
+• Since SA is a function of pX, Aq, we have that
+Eβ,αpSA ϵ|X, Aq “ SA Eβ,αpϵ|X, Aq “ 0.
+On the other hand, by Eβ,αpϵ|Xq “ 0 for any α, we have
+0 “
+B
+αA
+Eβ,αpϵ|Xq
+“
+B
+αA
+ż
+ϵpA pa|X; αA qpϵpϵ|X, a; αϵqdadϵ
+“
+ż
+ϵ ˆ pB{BαA qpA pa|X; αA q
+pA pa|X; αA q
+ˆ pA pa|X; αA qpϵpϵ|X, a; αϵqdadϵ
+“
+ż
+ϵ ˆ B log pA pa|X; αA q
+BαA
+ˆ pA pa|X; αA qpϵpϵ|X, a; αϵqdadϵ
+“ Eβ,αpSA ϵ|Xq.
+That is, Eβ,αpSA ϵ|X, Aq “ 0 “ Eβ,αpSA ϵ|Xq, and SA P rΛ.
+• By Eβ,αpϵ|X, Aq “ 0 for any α, we have
+0 “ B
+αϵ
+Eβ,αpϵ|X, Aq
+“ B
+αϵ
+ż
+ϵpϵpϵ|X, A; αϵqdϵ
+“
+ż
+ϵ ˆ pB{Bαϵqpϵpϵ|X, A; αϵq
+pϵpϵ|X, A; αϵq
+ˆ pϵpϵ|X, A; αϵqdϵ
+“
+ż
+ϵ ˆ B log pϵpϵ|X, A; αϵq
+Bαϵ
+ˆ pϵpϵ|X, A; αϵqdϵ
+“ Eβ,αpSϵϵ|X, Aq.
+That is, Eβ,αpSϵϵ|X, Aq “ 0 “ Eβ,αpSϵϵ|Xq, and Sϵ P rΛ.
+• Note that
+Sµ0ϵ “ ´ϵB log pϵpϵ|X, A; αϵq
+Bϵ
+ˆ Bµ0pX; αµ0q
+Bαµ0
+looooooomooooooon
+function of X
+.
+Lemma S.1. Suppose X „ ppxq where ppxq is a probability density function with respect to
+the Lebesgue measure on R, such that |x|ppxq Ñ 0 as |x| Ñ `8. Then
+E
+ˆXd log ppXq
+dx
+˙
+“ ´1.
+17
+
+````
+
+## PDF page 59
+
+FORMULA CHECK REQUIRED: original PDF page 59.
+
+````text
+By Lemma S.1, we have
+E
+ˆϵB log pϵpϵ|X, A; αϵq
+Bϵ
+ˇˇˇˇX, A
+˙
+“ ´1.
+(S.1)
+Then
+Eβ,αpSµ0ϵ|X, Aq “ ´E
+ˆϵ log pϵpϵ|X, A; αϵq
+Bϵ
+ˇˇˇˇX, A
+˙ Bµ0pX; αµ0q
+Bαµ0
+“ Bµ0pX; αµ0q
+Bαµ0
+,
+which is a function of X. Consequently, Eβ,αpSµ0ϵ|X, Aq “ Eβ,αpSµ0ϵ|Xq, and Sµ0 P rΛ.
+Therefore, we can conclude that Λα Ď rΛ.
+By the deﬁnition of nuisance tangent space of the
+semiparametric model, we have that Λ Ď rΛ.
+Next, we aim to justify Λ Ě rΛ. Fix an H “ hpX, A, ϵq P rΛ, i.e.,
+EpHq “ 0;
+EpHϵ|X, Aq “ EpHϵ|Xq.
+We need to construct a parametric submodel whose nuisance score vector is H.
+Consider the
+following orthogonal decompositions:
+H “ EpH|Xq
+looomooon
+:“HX
+` EpH|X, Aq ´ EpH|Xq
+loooooooooooooomoooooooooooooon
+:“HA
+` H ´ EpH|X, Aq
+looooooooomooooooooon
+:“Hϵ
+.
+Without loss of generality, we assume that }H}2 ď M ă `8. Deﬁne
+pX pX; αX q :“ pX pXqp1 ` α⊺
+X HX q;
+}αX }2 ď 1{M;
+pA pA|X; αA q :“ pA pA|Xqp1 ` α⊺
+A HA q;
+}αA }2 ď 1{M;
+prϵprϵ|X, A; αϵq :“ pϵprϵ|X, Aqp1 ` α⊺
+ϵHϵq;
+}αϵ}2 ď 1{M.
+Here, pX pXq, pA pA|Xq and pϵpϵ|X, Aq are the densities of Model (1).
+Then we consider the
+following data generating process (DGP) parametrized by pβ, αq where α “ αX ‘ αA ‘ αϵ:
+Y “ µ0pXq ` γpX, A; βq ` rϵ;
+subject to
+K
+ÿ
+k“1
+γpX, k; βq “ 0;
+Eβ,αprϵ|X, Aq “ Eβ,αprϵ|Xq;
+pX, A,rϵq „ pX px; αX qpA pa|x; αA qprϵprϵ|x, a; αϵq.
+18
+
+````
+
+## PDF page 60
+
+FORMULA CHECK REQUIRED: original PDF page 60.
+
+````text
+Notice that the above DGP can be transformed to the form of (1) by setting µ0pX; αϵq :“ µ0pXq`
+Eβ,αprϵ|Xq and ϵ :“ rϵ ´ µ0pX; αϵq.
+Next, we verify that the above DGP is well deﬁned and
+corresponds to the nuisance score vectors HX , HA and Hϵ.
+• By
+|α⊺
+X HX | ď }αX }2}H}2 ď 1;
+|α⊺
+A HA | ď }αA }2}H}2 ď 1;
+|α⊺
+ϵHϵ| ď }αϵ}2}H}2 ď 1,
+we have pX pX; αX q, pA pA|X; αA q, prϵprϵ|X, A; αϵq ě 0.
+• By EpHX q “ 0, EpHA |Xq “ 0 and EpHϵ|X, Aq “ 0, we have
+ż
+pX px; αX qdx “
+ż
+pX pxqdx ` α⊺
+X EpHX q “ 1;
+ż
+pA pa|X; αA qda “
+ż
+pA pa|Xqda ` α⊺
+A EpHA |Xq “ 1;
+ż
+prϵprϵ|X, A; αϵqdrϵ “
+ż
+pϵprϵ|X, Aqdrϵ ` α⊺
+ϵEpHϵ|X, Aq “ 1.
+Therefore, pX px; αX q, pX pa|X; αA q and prϵprϵ|X, A; αϵq are probability density functions.
+• The conditional mean restriction becomes
+Eβ,αprϵ|X, Aq “
+ż
+rϵp1 ` α⊺
+ϵHϵqpϵprϵ|X, Aqdrϵ
+“ Epϵ|X, Aq ` α⊺
+ϵEpHϵϵ|X, Aq
+“ α⊺
+ϵEpHϵϵ|X, Aq,
+which is a function of X, by the fact that
+EpHϵϵ|X, Aq “ EpHϵ|X, Aq´EpH|X, AqEpϵ|X, Aq
+looooooooooooomooooooooooooon
+“0
+“ EpHϵ|Xq´EpH|X, AqEpϵ|Xq
+looooooooooomooooooooooon
+“0
+“ EpHϵϵ|Xq.
+Then it can be clear that
+Eβ,αprϵ|X, Aq “ Eβ,αprϵ|Xq.
+19
+
+````
+
+## PDF page 61
+
+FORMULA CHECK REQUIRED: original PDF page 61.
+
+````text
+• The nuisance score vectors are
+SX
+“
+”
+B log pX pX;αX q
+BαX
+ı
+αX “0
+“
+”
+HX
+1`α⊺
+X HX
+ı
+αX “0
+“
+HX ;
+SA
+“
+”
+B log pA pA|X;αA q
+BαA
+ı
+αA “0
+“
+”
+HA
+1`α⊺
+X HA
+ı
+αA “0
+“
+HA ;
+Sϵ
+“
+”
+B log prϵprϵ|X,A;αϵq
+Bαϵ
+ı
+αϵ“0
+“
+”
+Hϵ
+1`α⊺
+ϵ Hϵ
+ı
+αϵ“0
+“
+Hϵ.
+Therefore, the DGP above corresponds to the nuisance score vectors H, so that Λ Ě rΛ. That is,
+Λ “
+!
+H P H : EpHϵ|X, Aq “ EpHϵ|Xq
+)
+.
+Proof of Lemma S.1.
+E
+ˆXB log ppXq
+Bx
+˙
+“
+ż xBdppxq
+dx
+ppxqdx
+“
+ż
+xdppxq
+dx
+ˆ
+1
+ppxq ˆ ppxqdx
+“
+ż
+xdppxq
+“
+”
+xppxq
+ıxÑ`8
+xÑ´8 ´
+ż
+ppxqdx
+“ ´1.
+S.6.3
+Proof of Lemmas 2 and 3
+Proof of Lemma 2. Since the column space of Ωis the orthogonal complement of the space spanned
+by 1K, we have
+ΩpΩ⊺Ωq´1Ω⊺“ IKˆK ´ 1
+K 1b2
+Kˆ1.
+In particular, for 1 ď k, k1 ď K, we have5
+xpΩ⊺Ωq´1{2ωk, pΩ⊺Ωq´1{2ωk1y “
+ˆ
+1 ´ 1
+K
+˙´1
+rΩpΩ⊺Ωq´1Ω⊺skk1 “ Ipk “ k1q ´
+1
+K ´ 1Ipk ‰ k1q.
+Therefore, tωkuK
+k“1 are unit vectors and equiangular.
+20
+
+````
+
+## PDF page 62
+
+FORMULA CHECK REQUIRED: original PDF page 62.
+
+````text
+Proof of Lemma 3. By Lemma 2, we have
+ΩpΩ⊺Ωq´1Ω⊺“ IKˆK ´ p1{Kq⃗1b2
+Kˆ1.
+Denote⃗γpx; βq :“
+`
+γpx, 1; βq, γpx, 2; βq, ¨ ¨ ¨ , γpx, K; βq
+˘⊺. Then
+a
+1 ´ 1{KΩ⃗fpx; βq “ ΩpΩ⊺Ωq´1Ω⊺⃗γpx; βq
+“⃗γpx; βq ´ 1
+K
+K
+ÿ
+k“1
+γpx, k; βq
+looooooooomooooooooon
+“0⃗
+1K
+“⃗γpx; βq.
+That is,
+γpx, k; βq “
+ˆ
+1 ´ 1
+K
+˙
+xωk,⃗fpx; βqy;
+1 ď k ď K.
+S.6.4
+Proof of Lemma 4
+Proof of Lemma 4. Suppose H P Λ and H : X Ñ RpˆpK´1q. Then
+E
+„
+H
+ˆHpXqωAϵ
+pA pA|Xq
+˙⊺
+“ E
+„
+E
+ˆ Hω⊺
+Aϵ
+pA pA|Xq
+ˇˇˇˇX
+˙
+HpXq⊺
+
+“ Opˆp.
+That is,
+Λ K
+"HpXqωAϵ
+pA pA|Xq
+ˇˇˇˇH : X Ñ RpˆpK´1q
+*
+.
+Now suppose H P H. Deﬁne
+H1 :“ E
+" Hω⊺
+Aϵ
+pA pA|Xq
+ˇˇˇˇX
+*
+VϵpXq´1
+looooooooooooooooomooooooooooooooooon
+RpˆpK´1q-valued function of X
+ωAϵ
+pA pA|Xq;
+H2 :“ H ´ H1.
+Then the following shows that H2 P Λ:
+E
+ˆ H2ω⊺
+Aϵ
+pA pA|Xq
+ˇˇˇˇX
+˙
+“ E
+ˆ Hω⊺
+Aϵ
+pA pA|Xq
+ˇˇˇˇX
+˙
+´E
+" Hω⊺
+Aϵ
+pA pA|Xq
+ˇˇˇˇX
+*
+VϵpXq´1E
+˜
+ωb2
+A ϵ2
+pA pA|Xq2
+ˇˇˇˇˇX
+¸
+“ OpˆpK´1q,
+21
+
+````
+
+## PDF page 63
+
+FORMULA CHECK REQUIRED: original PDF page 63.
+
+````text
+where
+E
+˜
+ωb2
+A ϵ2
+pA pA|Xq2
+ˇˇˇˇˇX
+¸
+“ E
+˜
+ωb2
+A σ2pX, Aq
+pA pA|Xq2
+ˇˇˇˇˇX
+¸
+“
+K
+ÿ
+k“1
+σ2pX, Aqωb2
+k
+pA pk|Xq
+“ VϵpXq.
+Therefore,
+ΛK “
+"HpXqωAϵ
+pA pA|Xq
+ˇˇˇˇH : X Ñ RpˆpK´1q
+*
+.
+S.6.5
+Proof of Proposition 2
+Proof of Proposition 2. The score vector of Model (1) is deﬁned as (Tsiatis, 2007)
+Sβ “
+B log pϵ
+´
+Y ´ µ0pXq ´ γpX, A; βq
+ˇˇˇX, A
+¯
+Bβ
+“ ´9γpX, A; βqB log pϵpϵ|X, Aq
+Bϵ
+.
+In particular,
+E
+" Sβω⊺
+Aϵ
+pA pA|Xq
+ˇˇˇˇX
+*
+“ E
+" 9γpX, A; βqω⊺
+A
+pA pA|Xq
+„
+´ϵB log pϵpϵ|X, Aq
+Bϵ
+ˇˇˇˇX
+*
+pS.1q
+“ E
+" 9γpX, A; βqω⊺
+A
+pA pA|Xq
+ˇˇˇˇX
+*
+.
+Then by Lemma 4, the eﬃcient score (Tsiatis, 2007) is
+Seﬀ“ EpSβ|ΛKq “ E
+" 9γpX, A; βqω⊺
+A
+pA pA|Xq
+ˇˇˇˇX
+*
+VϵpXq´1
+ωAϵ
+pA pA|Xq.
+Consider the angle-based decision function (4). We have
+9γpX, A; βq “
+ˆ
+1 ´ 1
+K
+˙
+9FpX; βq⊺ωA.
+Then
+E
+" 9γpX, A; βqω⊺
+A
+pA pA|Xq
+ˇˇˇˇX
+*
+“
+ˆ
+1 ´ 1
+K
+˙
+E
+# 9FpX; βq⊺ωb2
+A
+pA pA|Xq
+ˇˇˇˇˇX
++
+“ 9FpX; βq⊺
+ˆ
+1 ´ 1
+K
+˙ K
+ÿ
+k“1
+ωb2
+k
+“ 9FpX; βq⊺Ω⊺Ω.
+Therefore,
+Seﬀ“ 9FpX; βq⊺Ω⊺ΩVϵpXq´1
+ωAϵ
+pA pA|Xq.
+22
+
+````
+
+## PDF page 64
+
+FORMULA CHECK REQUIRED: original PDF page 64.
+
+````text
+S.6.6
+Proof of Proposition 3
+Proof of Proposition 3. It follows from direct calculation that
+Erφeﬀpβ; qµ0, qpA , qσ2q|X, As “ rµ0pXq ´ qµ0pXqsHpXqpA pA|Xq
+qpA pA|Xq
+ωA
+pA pA|Xq.
+If qµ0 “ µ0, then the above is 0. If qpA “ pA , the above becomes
+Erφeﬀpβ; qµ0, qpA , qσ2q|X, As “ rµ0pXq ´ qµ0pXqsHpXq
+ωA
+pA pA|Xq.
+Then we have
+Erφeﬀpβ; qµ0, qpA , qσ2q|Xs “ rµ0pXq ´ qµ0pXqsHpXqE
+ˆ
+ωA
+pA pA|Xq
+ˇˇˇˇX
+˙
+“ 0.
+S.6.7
+Proof of Lemma 5
+Proof of Lemma 5. Denote 9FpXq :“ sup qβPB }9FpX; qβq}2. Deﬁne
+pVϵ,npXq :“
+K
+ÿ
+k“1
+pσ2
+npX, Aqωb2
+k
+pA pA|Xq
+,
+and
+pheﬀ,npX, A; qβq :“ 9FpX; qβq⊺Ω⊺ΩpVϵ,npXq´1
+ωA
+pA pA|Xq;
+qheﬀpX, A; qβq :“ 9FpX; qβq⊺Ω⊺ΩqVϵpXq´1
+ωA
+pA pA|Xq.
+Then
+φeﬀp qβ; pµ0,n, pA , pσ2
+nq ´ φeﬀp qβ; qµ0, pA , qσ2q
+“
+rY ´ qµ0pXq ´ γpX, A; qβq
+looooooooooooooomooooooooooooooon
+:“qep qβq
+srpheﬀ,npX, A; qβq ´ qheﬀpX, A; qβqs
+(S.2)
+´ rpµ0,npXq ´ qµ0pXqsqheﬀ,npX, A; qβq
+(S.3)
+´ rpµ0,npXq ´ qµ0pXqsrpheﬀ,npX, A, qβq ´ qheﬀpX, A; qβqs.
+(S.4)
+23
+
+````
+
+## PDF page 65
+
+FORMULA CHECK REQUIRED: original PDF page 65.
+
+````text
+• We ﬁrst relate pheﬀ,n ´ qheﬀto pσ2
+n ´ qσ2. Note that
+›››pheﬀ,npX, A; qβq ´ qheﬀpX, A; qβq
+›››
+2 ď
+›››9FpX; qβq
+›››
+2 ˆ }Ω}2
+2 ˆ
+›››pVϵ,npXq´1 ´ qVϵpXq´1›››
+2 ˆ
+}ωA}2
+pA pA|Xq
+ď
+ˆ
+1 ´ 1
+K
+˙ }Ω}2
+2}Ω}F
+pA
+ˆ 9FpXq ˆ
+›››pVϵ,npXq´1 ´ qVϵpXq´1›››
+2 .
+Here, } ¨ }F is the Frobenius norm. By σ2 ď pσ2
+npX, kq, qσ2pX, kq ď sσ2 for 1 ď k ď K, we further
+have
+pVϵ,npXq, qVϵpXq ě σ2
+K
+ÿ
+k“1
+ωb2
+k
+“ σ2
+ˆ
+1 ´ 1
+K
+˙´1
+Ω⊺Ω
+looooooooooomooooooooooon
+:“Vϵ
+ą 0.
+Here, “A ě B” means that A´B is positive semi-deﬁnite, with strict inequality if A´B is positive
+deﬁnite. Then
+›››pVϵ,npXq´1 ´ qVϵpXq´1›››
+2 ď }V´2
+ϵ }2 ˆ
+›››pVϵ,npXq ´ qVϵpXq
+›››
+2
+“
+1
+λminpVϵq2 ˆ
+›››››
+K
+ÿ
+k“1
+rpσ2
+npX, kq ´ qσ2pX, kqsωb2
+k
+pA pk|Xq
+›››››
+2
+ď
+1
+pA λminpVϵq2
+›››››
+K
+ÿ
+k“1
+ωb2
+k
+looomooon
+“p1´1{Kq´1Ω⊺Ω
+›››››
+2
+ˆ }pσ2
+n ´ qσ2}8.
+(S.5)
+Therefore,
+›››pheﬀ,npX, A; qβq ´ qheﬀpX, A; qβq
+›››
+2 ď constant ˆ 9FpXq ˆ }pσ2
+n ´ qσ2}8.
+• (Bound for Residual) First note that
+Enrqep qβq2s “ Erqep qβq2s ` OPp1q
+pby SLLNq
+À 5E
+!
+qµ0pXq2 ` µ0pXq2 ` γpX, A; βq2 ` γpX, A; qβq2 ` ϵ2)
+` OPp1q,
+which is bounded by Assumption 2.
+24
+
+````
+
+## PDF page 66
+
+FORMULA CHECK REQUIRED: original PDF page 66.
+
+````text
+• (Convergence of (S.2))
+rEn}pS.2q}2s2 ď constant ˆ En
+!ˇˇˇqep qβq
+ˇˇˇ 9FpXq
+)2
+}pσ2
+n ´ qσ2}2
+8
+À constant ˆ
+!
+Erqep qβq2sEr 9FpXq2s ` OPp1q
+)
+ˆ }pσ2
+n ´ qσ2}2
+8
+“ OPpn´1q.
+• (Convergence of (S.3)) First note that
+›››pheﬀ,npX, A; qβq
+›››
+2 ď
+›››9FpX; qβq
+›››
+2 ˆ }Ω}2
+2 ˆ
+›››qVϵpXq´1›››
+2 ˆ
+}ωA}2
+pA pA|Xq
+ď
+ˆ
+1 ´ 1
+K
+˙´1{2 }Ω}2
+2}Ω}F
+pA λminpVϵq ˆ 9FpXq.
+(S.6)
+Here, λminp¨q is the smallest eigenvalue of a matrix. Then
+rEn}pS.3q}2s2 ď constant ˆ Enr 9FpXq2s ˆ Enrpµ0,npXq ´ qµ0pXqs2
+À constant ˆ
+!
+Er 9FpXq2s ` OPp1q
+)
+ˆ Enrpµ0,npXq ´ qµ0pXqs2
+“ OPpn´1q.
+• (Convergence of (S.4))
+rEn}pS.4q}2s2 ď constant ˆ En
+!
+|pµ0,npXq ´ qµ0pXq| ˆ 9FpXq
+)2
+ˆ }pσ2
+n ´ qσ2}2
+8
+ď constant ˆ
+!
+Er 9FpXq2s ` OPp1q
+)
+ˆ Enrpµ0,npXq ´ qµ0pXqs2 ˆ }pσ2
+n ´ qσ2}2
+8
+“ OPpn´2q.
+Therefore,
+sup
+qβPB
+En}φeﬀp qβ; pµ0,n, pA , pσ2
+nq ´ φeﬀp qβ; qµ0, pA , qσ2q}2
+ďEn}pS.2q}2 ` En}pS.3q}2 ` En}pS.4q}2
+ÀOPpn´1{2q ` OPpn´1{2q ` OPpn´1q
+“OPpn´1{2q.
+25
+
+````
+
+## PDF page 67
+
+FORMULA CHECK REQUIRED: original PDF page 67.
+
+````text
+S.6.8
+Proof of Theorem 4
+Proof of Theorem 4. We follow Newey (1994, Lemmas 5.1-5.3) to establish the asymptotic linear
+representation.
+Step I: (Asymptotic Linear Representation) Our Lemma 5 can imply the asymptotic linear representation
+of the plug-in estimating function as in Newey (1994, Lemma 5.1):
+?nEnrφeﬀpβ; pµ0,n, pA , pσ2
+nqs “ ?nEnrφeﬀpβ; qµ0, pA , qσ2qs ` OPpn´1{2q.
+Step II: (Uniform Convergence and Consistency) We aim to establish the convergence of Enrφeﬀp qβ; pµ0,n, pA , pσ2
+nqs
+and EnrpB{Bβ⊺qφeﬀp qβ; pµ0,n, pA , pσ2
+nqs uniform for qβ P B, and the consistency of pβeﬀ,n.
+Recall from Lemma 5 that:
+sup
+qβPB
+En
+›››φeﬀp qβ; pµ0,n, pA , pσ2
+nq ´ φeﬀp qβ; qµ0, pA , qσ2q
+›››
+2 “ OPpn´1{2q.
+The same conclusion can be drawn for pB{Bβ⊺qφeﬀfollowing the same argument.
+Lemma S.2. Consider Model (1) and the estimating function (5). Under Assumptions 1-3 and
+4.2, we have
+sup
+qβPB
+En
+›››››
+Bφeﬀp qβ; pµ0,n, pA , pσ2
+nq
+Bβ⊺
+´ Bφeﬀp qβ; qµ0, pA , qσ2q
+Bβ⊺
+›››››
+2
+“ OPpn´1{2q.
+Next, we apply Glivenko-Cantelli Theorem to replace En by E. We establish the conditions in
+Lemma S.3.
+Lemma S.3. Consider Model (1) and the estimating function (5). Under Assumptions 1-3 and
+4.2, we have:
+(I) There exists L : X ˆ A ˆ R Ñ R` such that ELpX, A, ϵq ă 8, and for any qβ1, qβ2 P B, we
+have
+›››φeﬀp qβ1; qµ0, pA , qσ2q ´ φeﬀp qβ2; qµ0, pA , qσ2q
+›››
+2 ď LpX, A, ϵq
+››› qβ1 ´ qβ2
+›››
+2 .
+26
+
+````
+
+## PDF page 68
+
+FORMULA CHECK REQUIRED: original PDF page 68.
+
+````text
+(II) There exists rL : X ˆ A ˆ R Ñ R` such that ErLpX, A, ϵq ă 8, and for any qβ1, qβ2 P B, we
+have
+›››››
+Bφeﬀp qβ1; qµ0, pA , qσ2q
+Bβ⊺
+´ Bφeﬀp qβ2; qµ0, pA , qσ2q
+Bβ⊺
+›››››
+2
+ď rLpX, A, ϵq
+››› qβ1 ´ qβ2
+›››
+2 .
+(III) E sup qβPB }φeﬀp qβ; qµ0, pA , qσ2q}2 ă `8, E sup qβPB }pB{Bβ⊺qφeﬀp qβ; qµ0, pA , qσ2q}2 ă `8.
+By B is compact and Lemma S.3, we can conclude that
+!
+φeﬀp qβ; qµ0, pA , qσ2q : qβ P B
+)
+and
+!
+pB{Bβ⊺qφeﬀp qβ; qµ0, pA , qσ2q : qβ P B
+)
+are both P-Glivenko-Cantelli. Then, by Glivenko-Cantelli Theorem, we have
+sup
+pβPB
+pPn ´ Pq
+›››φeﬀp qβ; qµ0, pA , qσ2q
+›››
+2 , sup
+pβPB
+pPn ´ Pq
+›››››
+Bφeﬀp qβ; qµ0, pA , qσ2q
+Bβ⊺
+›››››
+2
+P
+ÝÑ 0.
+(S.7)
+Remark. From the proof of Lemma S.3, we have
+E
+«
+´Bφeﬀp qβ; qµ0, pA , qσ2q
+Bβ⊺
+ﬀ
+“EpS.13q ` EpS.14q
+“E
+"
+9FpX; qβq⊺Ω⊺ΩqVϵpXq´1 E
+«ˆ
+1 ´ 1
+K
+˙
+ωb2
+A
+pA pA|Xq
+ˇˇˇˇˇX
+ﬀ
+looooooooooooooooomooooooooooooooooon
+“Ω⊺Ω
+9FpX; qβq
+*
+´ E
+"
+:FpX; qβq⊺Ω⊺ΩqVϵpXq´1 E
+ˆ
+ωA
+pA pA|Xq
+ˇˇˇˇX
+˙
+loooooooooomoooooooooon
+“0
+qep qβq
+*
+“qIp qβq.
+By Lemma S.3 (II) and (S.7), we further have that qβ Ñ qIp qβq is continuous.
+Combining Lemmas 5, S.2 and (S.7), we have
+sup
+pβPB
+›››Enrφeﬀp qβ; pµ0,n, pA , pσ2
+nqs ´ Erφeﬀp qβ; qµ0, pA , qσ2qs
+›››
+2
+P
+ÝÑ 0;
+(S.8)
+sup
+qβPB
+›››››En
+«
+Bφeﬀp qβ; pµ0,n, pA , pσ2
+nq
+Bβ⊺
+ﬀ
+´ E
+«
+Bφeﬀp qβ; qµ0, pA , qσ2q
+Bβ⊺
+ﬀ›››››
+2
+P
+ÝÑ 0.
+(S.9)
+27
+
+````
+
+## PDF page 69
+
+FORMULA CHECK REQUIRED: original PDF page 69.
+
+````text
+The consistency of pβeﬀ,n follows from that B is compact,
+pβeﬀ,n P argmax
+qβPB
+›››Enrφeﬀp qβ; pµ0,n, pA , pσ2
+nqs
+›››
+2
+2 ;
+β P argmax
+qβPB
+›››Erφeﬀp qβ; qµ0, pA , qσ2qs
+›››
+2
+2 ,
+and the uniform convergence in probability in (S.8).
+Step III: By Mean Value Theorem, there exists some αn P r0, 1s and rβn “ p1 ´ αnq pβeﬀ,n ` αnβ, such that
+0 “ Enrφeﬀp pβeﬀ,n; pµ0,n, pA , pσ2
+nqs
+“ Enrφeﬀpβ; pµ0,n, pA , pσ2
+nqs ` En
+«
+Bφeﬀp rβn; pµ0,n, pA , pσ2
+nq
+Bβ⊺
+ﬀ
+p pβeﬀ,n ´ βq.
+That is,
+pβeﬀ,n ´ β “
+#
+En
+«
+´Bφeﬀp rβn; pµ0,n, pA , pσ2
+nq
+Bβ⊺
+ﬀ+´1
+Enrφeﬀpβ; pµ0,n, pA , pσ2
+nqs
+“
+!
+qIpβq ` OPp1q
+)´1
+ˆ
+!
+Enrφeﬀpβ; qµ0, pA , qσ2qs ` OPpn´1{2q
+)
+“ qIpβq´1Enrφeﬀpβ; qµ0, pA , qσ2qs ` OPpn´1{2q.
+Here, the second equality follows from that
+En
+«
+´Bφeﬀp rβn; pµ0,n, pA , pσ2
+nq
+Bβ⊺
+ﬀ
+“ qIp rβnq ` OPp1q
+pby (S.9)q
+“ qIpβq ` OPp1q.
+pby pβeﬀ,n
+PÑ β and the continuity of qIq
+Step IV: (Semiparametric Eﬃciency) If pqµ0, qσ2q “ pµ0, σ2q, then φeﬀpβ; qµ0, pA , qσ2q “ Seﬀpβq. Moreover,
+ErSeﬀpβqb2s “ E
+«
+9FpX; βq⊺Ω⊺ΩVϵpXq´1
+ωb2
+A ϵ2
+pA pA|Xq2 VϵpXq´1Ω⊺Ω9FpX; βq
+ﬀ
+“ E
+«
+9FpX; βq⊺Ω⊺ΩVϵpXq´1 E
+˜
+ωb2
+A Epϵ2|X, Aq
+pA pA|Xq2
+ˇˇˇˇˇX
+¸
+looooooooooooooomooooooooooooooon
+“VϵpXq
+VϵpXq´1Ω⊺Ω9FpX; βq
+ﬀ
+“ Ipβq.
+That is, Ipβq deﬁned in Theorem 4 is the semiparametric Fisher information matrix. We further
+28
+
+````
+
+## PDF page 70
+
+FORMULA CHECK REQUIRED: original PDF page 70.
+
+````text
+have
+?np pβeﬀ,n ´ βq “ ?nIpβq´1EnrSeﬀpβqs ` OPp1q
+D
+ÝÑ Np
+`
+0, Ipβq´1˘
+.
+Therefore, pβeﬀ,n is semiparametric eﬃcient.
+Proof of Lemma S.3. We follow the notations in Section S.6.7. Denote :FpXq :“ sup qβPB }:FpX; qβq}2.
+(I) Fix qβ1, qβ2 P B. Then
+φeﬀp qβ1; qµ0, pA , qσ2q ´ φeﬀp qβ2; qµ0, pA , qσ2q
+“ ´
+ˆ
+1 ´ 1
+K
+˙
+ω⊺
+Ar⃗fpX; qβ1q ´⃗fpX; qβ2qsheﬀpX, A; qβ1q
+(S.10)
+` qep qβ2qrqheﬀpX, A; qβ1q ´ qheﬀpX, A; qβ2qs.
+(S.11)
+• (Lipschitz Bound on (S.10))
+– (Lipschitz Bound on⃗f)
+›››⃗fpX; qβ1q ´⃗fpX; qβ2q
+›››
+2 “
+›››9FpX; rβqr qβ1 ´ qβ2s
+›››
+2
+´
+for some rβ “ p1 ´ αq qβ1 ` α qβ2
+¯
+ď
+›››9FpX; rβq
+›››
+2 ˆ
+››› qβ1 ´ qβ2
+›››
+2
+ď 9FpXq ˆ
+››› qβ1 ´ qβ2
+›››
+2 .
+– Then we have
+}pS.10q}2 “
+ˆ
+1 ´ 1
+K
+˙
+}ωA}2
+looooooooomooooooooon
+ďp1´1{Kq1{2}Ω}F
+›››⃗fpX; qβ1q ´⃗fpX; qβ2q
+›››
+2
+›››qheﬀpX, A; qβ1q
+›››
+2
+looooooooomooooooooon
+ďpS.6q
+ď constant ˆ 9FpXq2 ˆ
+››› qβ1 ´ qβ2
+›››
+2 .
+• (Lipschitz Bound on (S.11))
+– Note that
+qheﬀpX, A; qβ1q ´ qheﬀpX, A; qβ2q “ r9FpX; qβ1q ´ 9FpX; qβ2qs⊺Ω⊺ΩqVϵpXq´1
+ωA
+pA pA|Xq.
+29
+
+````
+
+## PDF page 71
+
+FORMULA CHECK REQUIRED: original PDF page 71.
+
+````text
+– (Lipschitz Bound on 9F)
+›››9FpX; qβ1q ´ 9FpX; qβ2q
+›››
+2 ď :FpXq ˆ
+››› qβ1 ´ qβ2
+›››
+2 .
+– Then we have
+›››qheﬀpX, A; qβ1q ´ qheﬀpX, A; qβ2q
+›››
+2 “
+›››9FpX; qβ1q ´ 9FpX; qβ2q
+›››
+2
+}Ω}2
+2
+›››qVϵpXq´1›››
+2
+}ωA}2
+pA pA|Xq
+looooooooooooooooomooooooooooooooooon
+ďp1´1{Kq´1{2}Ω}2
+2}Ω}F{rpA λminpVϵqs
+ď constant ˆ :FpXq ˆ
+››› qβ1 ´ qβ2
+›››
+2 .
+– The residual qep qβ2q in (S.11) can be bounded by
+sup
+qβPB
+ˇˇˇqep qβq
+ˇˇˇ ď |qµ0pXq ´ µ0pXq| `
+ˆ
+1 ´ 1
+K
+˙
+sup
+qβPB
+ˇˇˇω⊺
+Ar⃗fpX; qβq ´⃗fpX; βqs
+ˇˇˇ ` |ϵ|
+ď |qµ0pXq| ` |µ0pXq| `
+ˆ
+1 ´ 1
+K
+˙1{2
+}Ω}F sup
+qβPB
+›››⃗fpX; qβq ´⃗fpX; βq
+›››
+2 ` |ϵ|
+ď |qµ0pXq| ` |µ0pXq| ` constant ˆ 9FpXq ˆ sup
+qβPB
+››› qβ ´ β
+›››
+2
+looooooomooooooon
+ďdiampBq
+`|ϵ|
+ď |qµ0pXq| ` |µ0pXq| ` constant ˆ 9FpXq ` |ϵ|.
+(S.12)
+– Then we have
+}pS.11q}2 ď constant ˆ
+”
+|qµ0pXq| ` |µ0pXq| ` 9FpXq ` |ϵ|
+ı
+ˆ :FpXq ˆ
+››› qβ1 ´ qβ2
+›››
+2
+Combining the Lipschitz bounds on (S.10) and (S.11), we have
+›››φeﬀp qβ1; qµ0, pA , qσ2q ´ φeﬀp qβ2; qµ0, pA , qσ2q
+›››
+2
+ď constant ˆ
+!
+9FpXq2 `
+”
+|qµ0pXq| ` |µ0pXq| ` 9FpXq ` |ϵ|
+ı
+ˆ :FpXq
+)
+loooooooooooooooooooooooooooooooooooooooooooooomoooooooooooooooooooooooooooooooooooooooooooooon
+:“LpX,A,ϵq
+ˆ
+››› qβ1 ´ qβ2
+›››
+2 .
+30
+
+````
+
+## PDF page 72
+
+FORMULA CHECK REQUIRED: original PDF page 72.
+
+````text
+In particular,
+ELpX, A, ϵq
+ďconstant ˆ
+„
+Er 9FpXq2s `
+ˆ␣
+Erqµ0pXq2s
+(1{2 `
+␣
+Erµ0pXq2s
+(1{2 `
+!
+Er 9FpXq2s
+)1{2
+`
+␣
+Eϵ2(1{2
+˙ !
+Er :FpXq2s
+)1{2
+,
+which is ﬁnite by Assumptions 2 and 4.2.
+(II) Note that
+´Bφeﬀp qβ; qµ0, pA , qσ2q
+Bβ⊺
+“ 9FpX; qβq⊺Ω⊺ΩqVϵpXq´1
+«ˆ
+1 ´ 1
+K
+˙
+ωb2
+A
+pA pA|Xq
+ﬀ
+9FpX; qβq
+(S.13)
+´ :FpX; qβq⊺Ω⊺ΩqVϵpXq´1 ωAqep qβq
+pA pA|Xq.
+(S.14)
+Fix qβ1, qβ2 P B. Denote pS.13qp qβ1q and pS.13qp qβ2q as (S.13) with qβ replaced by qβ1 and qβ2 respec-
+tively.
+pS.13qp qβ1q ´ pS.13qp qβ2q “9FpX; qβ1q⊺Ω⊺ΩqVϵpXq´1
+«ˆ
+1 ´ 1
+K
+˙
+ωb2
+A
+pA pA|Xq
+ﬀ
+r9FpX; qβ1q ´ 9FpX; qβ2qs`
+r9FpX; qβ1q ´ 9FpX; qβ2qs⊺Ω⊺ΩqVϵpXq´1
+«ˆ
+1 ´ 1
+K
+˙
+ωb2
+A
+pA pA|Xq
+ﬀ
+9FpX; qβ2q.
+Then
+›››pS.13qp qβ1q ´ pS.13qp qβ2q
+›››
+2 ď 2}Ω}2
+2}Ω}2
+F
+pA λminpVϵq ˆ 9FpXq ˆ
+›››9FpX; qβ1q ´ 9FpX; qβ2q
+›››
+2
+ď constant ˆ 9FpXq :FpXq ˆ
+››› qβ1 ´ qβ2
+›››
+2 .
+Denote pS.14qp qβ1q and pS.14qp qβ2q as (S.14) with qβ replaced by qβ1 and qβ2 respectively.
+pS.14qp qβ1q ´ pS.14qp qβ2q “ ´ r9FpX; qβ1q ´ 9FpX; qβ2qs⊺Ω⊺ΩqVϵpXq´1 ωAqep qβ1q
+pA pA|Xq
+(S.15)
+´ :FpX; qβ2q⊺Ω⊺ΩqVϵpXq´1
+ωA
+pA pA|Xqrqep qβ1q ´ qep qβ2qs.
+(S.16)
+31
+
+````
+
+## PDF page 73
+
+FORMULA CHECK REQUIRED: original PDF page 73.
+
+````text
+Here,
+ˇˇˇqep qβ1q ´ qep qβ2q
+ˇˇˇ “
+ˆ
+1 ´ 1
+K
+˙ ˇˇˇω⊺
+Ar⃗fpX; qβ1q ´⃗fpX; qβ2qs
+ˇˇˇ
+ď
+ˆ
+1 ´ 1
+K
+˙1{2
+}Ω}F ˆ 9FpXq ˆ
+››› qβ1 ´ qβ2
+›››
+2 .
+Then
+}pS.15q}2 ď
+ˆ
+1 ´ 1
+K
+˙´1{2 }Ω}2
+2}Ω}F
+pA λminpVϵq ˆ
+”
+|qµ0pXq| ` |µ0pXq| ` constant ˆ 9FpXq ` |ϵ|
+ı
+ˆ
+›››9FpX; qβ1q ´ 9FpX; qβ2q
+›››
+2
+ď constant ˆ
+”
+|qµ0pXq| ` |µ0pXq| ` 9FpXq ` |ϵ|
+ı
+ˆ :FpXq ˆ
+››› qβ1 ´ qβ2
+›››
+2 ;
+}pS.16q}2 ď
+ˆ
+1 ´ 1
+K
+˙´1{2 }Ω}2
+2}Ω}F
+pA λminpVϵq ˆ :FpXq ˆ
+ˇˇˇqep qβ1q ´ qep qβ2q
+ˇˇˇ
+ď constant ˆ 9FpXq :FpXq ˆ
+››› qβ1 ´ qβ2
+›››
+2 .
+And the Lipschitz bound for (S.14) is
+›››pS.14qp qβ1q ´ pS.14qp qβ2q
+›››
+2 ď }pS.15q}2 ` }pS.16q}2
+ď constant ˆ
+”
+|qµ0pXq| ` |µ0pXq| ` 9FpXq ` |ϵ|
+ı
+ˆ :FpXq ˆ
+››› qβ1 ´ qβ2
+›››
+2
+Combining the Lipschitz bounds for (S.13) and (S.14), we have
+›››››
+Bφeﬀp qβ1; qµ0, pA , qσ2q
+Bβ⊺
+´ Bφeﬀp qβ2; qµ0, pA , qσ2q
+Bβ⊺
+›››››
+2
+ď constant ˆ
+”
+|qµ0pXq| ` |µ0pXq| ` 9FpXq ` |ϵ|
+ı
+ˆ :FpXq
+looooooooooooooooooooooooooooooooooooomooooooooooooooooooooooooooooooooooooon
+:“rLpX,A,ϵq
+ˆ
+››› qβ1 ´ qβ2
+›››
+2
+In particular,
+ErLpX, A, ϵq ď constantˆ
+ˆ␣
+Erqµ0pXq2s
+(1{2 `
+␣
+Erµ0pXq2s
+(1{2 `
+!
+Er 9FpXq2s
+)1{2
+`
+␣
+Eϵ2(1{2
+˙ !
+Er :FpXq2s
+)1{2
+,
+which is ﬁnite by Assumptions 2 and 4.2.
+32
+
+````
+
+## PDF page 74
+
+FORMULA CHECK REQUIRED: original PDF page 74.
+
+````text
+(III) Note that
+›››φeﬀp qβ; qµ0, pA , qσ2q
+›››
+2 “
+ˇˇˇqep qβq
+ˇˇˇ
+lomon
+ďpS.12q
+ˆ
+›››qheﬀpX, A; qβq
+›››
+2
+looooooooomooooooooon
+ďpS.6q
+ď constant ˆ
+”
+|qµ0pXq| ` |µ0pXq| ` 9FpXq ` |ϵ|
+ı
+ˆ 9FpXq.
+Therefore,
+E sup
+qβPB
+›››φeﬀp qβ; qµ0, pA , qσ2q
+›››
+2
+ďconstant ˆ
+ˆ␣
+Erqµ0pXq2s
+(1{2 `
+␣
+Erµ0pXq2s
+(1{2 `
+!
+Er 9FpXq2s
+)1{2
+`
+␣
+Eϵ2(1{2
+˙ !
+Er 9FpXq2s
+)1{2
+,
+which is ﬁnite by Assumptions 2 and 4.2. Next, we consider bounds for (S.13) and (S.14).
+}pS.13q}2 ď
+}Ω}2
+2}Ω}2
+F
+pA λminpVϵq ˆ 9FpXq2;
+}pS.14q}2 ď
+ˆ
+1 ´ 1
+K
+˙´1{2 }Ω}2
+2}Ω}F
+pA λminpVϵq ˆ :FpXq ˆ
+ˇˇˇqep qβq
+ˇˇˇ
+lomon
+ďpS.12q
+ď constant ˆ
+”
+|qµ0pXq| ` |µ0pXq| ` 9FpXq ` |ϵ|
+ı
+ˆ :FpXq.
+Then we have
+E
+›››››
+Bφeﬀp qβ; qµ0, pA , qσ2q
+Bβ⊺
+›››››
+2
+ď E}pS.13q}2 ` E}pS.14q}2
+ďconstant ˆ
+„
+Er 9FpXq2s `
+ˆ␣
+Erqµ0pXq2s
+(1{2 `
+␣
+Erµ0pXq2s
+(1{2 `
+!
+Er 9FpXq2s
+)1{2
+`
+␣
+Eϵ2(1{2
+˙ !
+Er :FpXq2s
+)1{2
+,
+which is ﬁnite by Assumptions by 2 and 4.2.
+Proof of Lemma S.2. We follow the notations in Section S.6.7 and the proof of Lemma S.3. Note
+33
+
+````
+
+## PDF page 75
+
+FORMULA CHECK REQUIRED: original PDF page 75.
+
+````text
+that
+´ Bφeﬀp qβ; pµ0,n, pA , pσ2
+nq
+Bβ⊺
+` Bφeﬀp qβ; qµ0, pA , qσ2q
+Bβ⊺
+“
+9FpX; qβq⊺Ω⊺ΩrpVϵ,npXq´1 ´ qVϵpXq´1s
+«ˆ
+1 ´ 1
+K
+˙
+ωb2
+A
+pA pA|Xq
+ﬀ
+9FpX; qβq
+(S.17)
+` :FpX; qβq⊺Ω⊺ΩqVϵpXq´1
+ωA
+pA pA|Xqrpµ0,npXq ´ qµ0pXqs
+(S.18)
+´ :FpX; qβq⊺Ω⊺ΩrpVϵ,npXq´1 ´ qVϵpXq´1s ωAqep qβq
+pA pA|Xq
+(S.19)
+` :FpX; qβq⊺Ω⊺ΩrpVϵ,npXq´1 ´ qVϵpXq´1s
+ωA
+pA pA|Xqrpµ0,npXq ´ qµ0pXqs.
+(S.20)
+Then
+}pS.17q}2 ď }Ω}2
+2}Ω}2
+F
+pA
+ˆ 9FpXq2 ˆ
+›››pVϵ,npXq´1 ´ qVϵpXq´1›››
+2
+looooooooooooooomooooooooooooooon
+ďpS.5q
+ď constant ˆ 9FpXq2 ˆ }pσ2
+n ´ qσ2}8;
+}pS.18q}2 ď
+ˆ
+1 ´ 1
+K
+˙´1{2 }Ω}2
+2}Ω}F
+pA λminpVϵq ˆ :FpXq ˆ |pµ0,npXq ´ qµ0pXq| ;
+}pS.19q}2 ď
+ˆ
+1 ´ 1
+K
+˙´1{2 }Ω}2
+2}Ω}F
+pA
+ˆ :FpXq ˆ
+ˇˇˇqep qβq
+ˇˇˇ
+lomon
+ďpS.12q
+ˆ
+›››pVϵ,npXq´1 ´ qVϵpXq´1›››
+2
+looooooooooooooomooooooooooooooon
+ďpS.5q
+ď constant ˆ
+”
+|qµ0pXq| ` |µ0pXq| ` 9FpXq ` |ϵ|
+ı
+ˆ :FpXq ˆ }pσ2
+n ´ qσ2}8;
+}pS.20q}2 ď
+ˆ
+1 ´ 1
+K
+˙´1{2 }Ω}2
+2}Ω}F
+pA
+ˆ :FpXq ˆ
+›››pVϵ,npXq´1 ´ qVϵpXq´1›››
+2
+looooooooooooooomooooooooooooooon
+ďpS.5q
+ˆ |pµ0,npXq ´ qµ0pXq|
+ď constant ˆ :FpXq ˆ }pσ2
+n ´ qσ2}8 ˆ |pµ0,npXq ´ qµ0pXq| .
+Then we have
+En
+›››››
+Bφeﬀp qβ; pµ0,n, pA , pσ2
+nq
+Bβ⊺
+´ Bφeﬀp qβ; qµ0, pA , qσ2q
+Bβ⊺
+›››››
+2
+ďEn}pS.17q}2 ` En}pS.18q}2 ` En}pS.19q}2 ` En}pS.20q}2
+ÀOPpn´1{2q ` OPpn´1{2q ` OPpn´1{2qOPpn´1{2q ` OPpn´1q
+“OPpn´1{2q.
+34
+
+````
+
+## PDF page 76
+
+FORMULA CHECK REQUIRED: original PDF page 76.
+
+````text
+S.6.9
+Proof of Theorem 5
+Proof of Theorem 5. By Theorem 4, we have
+pβeﬀ,npqµ0q ´ β “ Ipβ; qµ0q´1Enrφeﬀpβ; qµ0, pA , σ2
+optqs ` OPpn´1{2q.
+Therefore, it suﬃces to study the asymptotic variance First of all, we derive the ?n-asymptotic
+variance of pβeﬀ,npqµ0q. Denote
+qφeﬀpβq :“ φeﬀpβ; qµ0, pA , σ2
+optq
+“
+„
+Y ´ qµ0pXq ´
+ˆ
+1 ´ 1
+K
+˙
+xωA,⃗fpX; βqy
+
+heﬀpX, A; β, qµ0q
+“ rµ0pXq ´ qµ0pXq ` ϵ
+looooooooooomooooooooooon
+“qepβq
+sheﬀpX, A; β, qµ0q;
+heﬀpX, A; β, qµ0q :“ 9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1
+ωA
+pA pA|Xq.
+First notice that
+Er qφeﬀpβqb2s “ E
+«
+9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1
+˜
+ωb2
+A qepβq2
+pA pA|Xq2
+¸
+VϵpX; qµ0q´1Ω⊺Ω9FpX; βq
+ﬀ
+“ E
+”
+9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1Ω⊺Ω9FpX; βq
+ı
+loooooooooooooooooooooooooooomoooooooooooooooooooooooooooon
+“Ipβ;qµ0q
+;
+E
+«
+´B qφeﬀpβq
+Bβ⊺
+ﬀ
+“ E
+#
+9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1
+«ˆ
+1 ´ 1
+K
+˙
+ωb2
+A
+pA pA|Xq
+ﬀ
+9FpX; βq
++
+´ E
+"
+:FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1 rµ0pXq ´ qµ0pXq ` ϵsωA
+pA pA|Xq
+*
+looooooooooooooooooooooooooooooooooooomooooooooooooooooooooooooooooooooooooon
+“0
+“ E
+”
+9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1Ω⊺Ω9FpX; βq
+ı
+loooooooooooooooooooooooooooomoooooooooooooooooooooooooooon
+“Ipβ;qµ0q
+.
+35
+
+````
+
+## PDF page 77
+
+FORMULA CHECK REQUIRED: original PDF page 77.
+
+````text
+Here, the second equality follows from that
+Erqepβq2|X, As “ rqµ0pXq ´ µ0pXqs2 ` σ2pX, Aq “ σ2
+optpX, A; qµ0q;
+E
+˜
+ωb2
+A qepβq2
+pA pA|Xq2
+ˇˇˇˇˇX
+¸
+“ E
+˜
+ωb2
+A σ2
+optpX, A; qµ0q
+pA pA|Xq2
+ˇˇˇˇˇX
+¸
+“
+K
+ÿ
+k“1
+σ2
+optpX, k; qµ0qωb2
+k
+pA pk|Xq
+“ VϵpX; qµ0q.
+The forth equality follows from that ErωA{pA pA|Xq|Xs “ 0, Epϵ|X, Aq “ 0 and
+ˆ
+1 ´ 1
+K
+˙
+E
+˜
+ωb2
+A
+pA pA|Xq
+ˇˇˇˇˇX
+¸
+“
+ˆ
+1 ´ 1
+K
+˙ K
+ÿ
+k“1
+ωb2
+k
+“ Ω⊺Ω.
+Then
+lim
+nÑ8 nVarr pβeﬀ,npqµ0qs “
+#
+E
+«
+´B qφeﬀpβq
+Bβ⊺
+ﬀ+´1
+Er qφeﬀpβqb2s
+#
+E
+«
+´B qφeﬀpβq⊺
+Bβ
+ﬀ+´1
+“ Ipβ; qµ0q´1.
+Next, we study the ?n-asymptotic variance of estimates from the regular class Bnpqµ0q. Fix
+pβnpqµ0q P Bnpqµ0q that corresponds to the estimating function φpβ; qµ0q, and denote qφpβq :“ φpβ; qµ0q.
+There exists h : X ˆ A Ñ Rp, which can depend on pβ, qµ0q, such that ErhpX, Aq|Xs “ 0 and
+qφpβq “
+„
+Y ´ qµ0pXq ´
+ˆ
+1 ´ 1
+K
+˙
+xωA,⃗fpX; βqy
+looooooooooooooooooooooooomooooooooooooooooooooooooon
+“qepβq
+
+hpX, Aq.
+Here, we suppress the potential dependency of h on pβ, qµ0q and only mention it if necessary. Note
+that ErhpX, Aq|Xs “ 0 informs the representation
+hpX, Aq “ HpXqωA
+pA pA|Xq;
+HpXq :“
+ˆ
+1 ´ 1
+K
+˙ K
+ÿ
+k“1
+pA pk|XqhpX, kqω⊺
+kpΩ⊺Ωq´1 P RpˆpK´1q,
+since by Ω⊺pΩ⊺Ωq´1Ω⊺“ IKˆK ´ p1{Kq⃗1b2
+K , we have
+HpXqωA “ pA pA|XqhpX, Aq ´ 1
+K
+K
+ÿ
+k“1
+pA pk|XqhpX, kq
+loooooooooooomoooooooooooon
+“ErhpX,Aq|Xs“0
+“ pA pA|XqhpX, Aq.
+36
+
+````
+
+## PDF page 78
+
+FORMULA CHECK REQUIRED: original PDF page 78.
+
+````text
+Then
+Er qφpβqb2s “ E
+«
+HpXq
+˜
+ωb2
+A qepβq2
+pA pA|Xq2
+¸
+HpXq⊺
+ﬀ
+“ E rHpXqVϵpX; qµ0qHpXq⊺s ;
+E
+«
+´B qφpβq
+Bβ⊺
+ﬀ
+“ E
+#
+HpXq
+«ˆ
+1 ´ 1
+K
+˙
+ωb2
+A
+pA pA|Xq
+ﬀ
+9FpX; βq
++
+´ E
+"
+9HpX; β, qµ0qrµ0pXq ´ qµ0pXq ` ϵsωA
+pA pA|Xq
+*
+looooooooooooooooooooooooooomooooooooooooooooooooooooooon
+“0
+“ E
+”
+HpXqΩ⊺Ω9FpX; βq
+ı
+.
+Here, the second equality follows from that Erqepβq2|X, As “ σ2
+optpX, Aq and
+E
+˜
+ωb2
+A qepβq2
+pA pA|Xq2
+ˇˇˇˇˇX
+¸
+“ E
+˜
+ωb2
+A σ2
+optpX, Aq
+pA pA|Xq2
+ˇˇˇˇˇX
+¸
+“
+K
+ÿ
+k“1
+σ2
+optpX, Aqωb2
+k
+pA pk|Xq
+“ VϵpX; qµ0q.
+The forth equality follows from that ErωA{pA pA|Xq|Xs “ 0, Epϵ|X, Aq “ 0 and
+ˆ
+1 ´ 1
+K
+˙
+E
+˜
+ωb2
+A
+pA pA|Xq
+ˇˇˇˇˇX
+¸
+“
+ˆ
+1 ´ 1
+K
+˙ K
+ÿ
+k“1
+ωb2
+k
+“ Ω⊺Ω.
+Lemma S.4 (Sandwich Variance Inequality). Deﬁne
+A :“ ErHpXqVϵpX; qµ0qHpXq⊺s;
+B :“ ErHpXqΩ⊺Ω9FpX; βqs;
+C :“ Er9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1Ω⊺Ω9FpX; βqs;
+X :“
+¨
+˝ A
+B
+B⊺
+C
+˛
+‚.
+Then
+X ě 0
+ô
+Schur complement
+hkkkkkkkkkkkikkkkkkkkkkkj
+X{A “ C ´ B⊺A´1B ě 0,
+with equality if and only if there exists some non-singular constant matrix H0 P Rpˆp such that
+HpXq “ H0 9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1.
+37
+
+````
+
+## PDF page 79
+
+FORMULA CHECK REQUIRED: original PDF page 79.
+
+````text
+Following the notations in Lemma S.4, we have
+lim
+nÑ8 nVarr pβnpqµ0qs
+“
+#
+E
+«
+´B qφpβq
+Bβ⊺
+ﬀ+´1
+Er qφpβqb2s
+#
+E
+«
+´B qφpβq⊺
+Bβ
+ﬀ+´1
+“B´1AB´⊺“ pB⊺A´1Bq´1 ě C´1
+pby Lemma S.4q
+“Ipβ; qµ0q´1,
+with equality attained at
+HpXq “ H0 9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1,
+for some non-singular constant matrix H0 P Rpˆp.
+Proof of Lemma S.4. For any u, v P Rp, deﬁne
+U :“ VϵpX; qµ0q1{2HpXq⊺u;
+V :“ VϵpX; qµ0q´1{2Ω⊺Ω9FpX; βqv.
+Then
+pu⊺, v⊺qX
+¨
+˝u
+v
+˛
+‚“ u⊺Au ` 2v⊺B⊺u ` v⊺Cv
+“ EpU ⊺U ` 2V ⊺U ` V ⊺V q
+“ E}U ` V }2
+2
+ě 0,
+with equality if and only if
+U “ ´V
+ô
+VϵpX; qµ0q1{2HpXq⊺u “ ´VϵpX; qµ0q´1{2Ω⊺Ω9FpX; βqv
+a.s.
+That is, for some constant matrix K P Rpˆp, we have u “ ´K⊺v, and
+VϵpX; qµ0q1{2HpXq⊺K⊺“ VϵpX; qµ0q´1{2Ω⊺Ω9FpX; βq
+ô
+KHpXq “ 9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1
+a.s.
+38
+
+````
+
+## PDF page 80
+
+FORMULA CHECK REQUIRED: original PDF page 80.
+
+````text
+This proves X ě 0 and the equality condition. Finally, by A ą 0, we have
+v⊺pX{Aqv “ v⊺Cv ´ v⊺B⊺A´1Bv “
+»
+–pu⊺, v⊺qX
+¨
+˝u
+v
+˛
+‚
+ﬁ
+ﬂ
+u“´A´1Bv
+ě 0.
+That is, X{A ě 0 with equality if and only if for K “ B⊺A and H0 :“ K´1 “ A´1B´⊺, we have
+HpXq “ H0 9FpX; βq⊺Ω⊺ΩVϵpX; qµ0q´1
+a.s.
+S.6.10
+Proof of Theorem 6
+Proof of Theorem 6. By Assumption 5, the distribution of X has compact support. Without loss
+of generality, assume that X is compact.
+Recall from the proof of Lemma S.2 that :F is the
+envelop function of :F. Then by Assumption 4.2 that E :FpXq ` 8, we further have that } :F}8 “
+supxPX :Fpxq ă `8.
+By pβn “ β ` OPpn´1{2q, we have
+sup
+xPX
+›››9Fpx, pβnq ´ 9Fpx, βq
+›››
+2 ď } :F}8 ˆ } pβn ´ β}2 “ OPpn´1{2q.
+Fix x P X. By Mean Value Theorem, there exists some αn P r0, 1s and rβn “ p1 ´ αnq pβn ` αnβ,
+such that⃗
+fpx; pβnq ´⃗fpx; βq “ 9Fpx, rβnqp pβn ´ βq
+“ r9Fpx, βq ` OPpn´1{2qsp pβn ´ βq
+“ 9Fpx, βqp pβn ´ βq ` OPpn´1q.
+By limnÑ8 nVarp pβnq “ Σ, we have
+lim
+nÑ8 nVarr⃗fpx; pβnqs “ 9Fpx; βqΣ9Fpx; βq⊺.
+39
+
+````
+
+## PDF page 81
+
+FORMULA CHECK REQUIRED: original PDF page 81.
+
+````text
+Suppose X „ pX pxq and X KK pβn. Then
+lim sup
+nÑ8 n
+K
+ÿ
+k“1
+ErγpX, k; pβnq ´ γpX, k; βqs2
+“ lim sup
+nÑ8
+ˆ
+1 ´ 1
+K
+˙2 K
+ÿ
+k“1
+ω⊺
+kEr⃗fpX; pβnq ´⃗fpX; βqsb2ωk
+pby Lemma 3q
+“
+ˆ
+1 ´ 1
+K
+˙2 K
+ÿ
+k“1
+ω⊺
+kE
+„
+lim
+nÑ8 n E
+!
+r⃗fpX; pβnq ´⃗fpX; βqsb2ˇˇˇX
+)
+loooooooooooooooooooomoooooooooooooooooooon
+“Varr⃗fpx; pβnqs|x“X
+
+ωk
+(by DCT)
+“
+ˆ
+1 ´ 1
+K
+˙2 K
+ÿ
+k“1
+ω⊺
+kEr9FpX; βqΣ9FpX; βq⊺sωk
+“
+ˆ
+1 ´ 1
+K
+˙2
+trace
+# K
+ÿ
+k“1
+ω⊺
+kEr9FpX; βqΣ9FpX; βq⊺sωk
++
+ptrace of a scalarq
+“
+ˆ
+1 ´ 1
+K
+˙
+trace
+!
+Er9FpX; βq⊺Ω⊺Ω9FpX; βqsΣ
+)
+.
+pcommutativity under traceq
+Finally, by Theorem 1, we have
+lim sup
+nÑ8
+?nrVpd‹q ´ EVppdnqs ď 2 lim sup
+nÑ8
+"?n max
+1ďkďK E
+ˇˇˇγpX, k; pβnq ´ γpX, k; βq
+ˇˇˇ
+*
+ď 2 lim sup
+nÑ8
+"
+n max
+1ďkďK ErγpX, k; pβnq ´ γpX, k; βqs2
+*1{2
+ď 2 lim
+nÑ8
+#
+n
+K
+ÿ
+k“1
+ErγpX, k; pβnq ´ γpX, k; βqs2
++1{2
+“ 2
+ˆ
+1 ´ 1
+K
+˙1{2
+trace
+!
+Er9FpX; βq⊺Ω⊺Ω9FpX; βqsΣ
+)1{2
+.
+Here, E is taken over pX, pβnq.
+40
+
+````
+
+## PDF page 82
+
+FORMULA CHECK REQUIRED: original PDF page 82.
+
+````text
+S.7
+Additional Tables and Figures
+Table S.2: Estimated Coeﬃcients on the ACTG175 Dataset (averaged over 10 replications)
+variable
+D-Learning
+RD-Learning
+E-Learning
+ddI
+ZDV
+ZDV+ddI
+ZDV+ZAL
+ddI
+ZDV
+ZDV+ddI
+ZDV+ZAL
+ddI
+ZDV
+ZDV+ddI
+ZDV+ZAL
+I: original data
+Intercept
+4.72
+-29.9
+26.45
+-1.27
+4.33
+-31.54
+27.87
+-0.66
+4.67
+-30.67
+26.52
+-0.52
+gender
+-0.25
+0.36
+0.05
+-0.16
+homo
+2.2
+-0.12
+-2.74
+0.65
+3.63
+-0.53
+-4.55
+1.45
+3.26
+-0.4
+-4.36
+1.49
+race
+-0.12
+0.4
+-0.41
+0.13
+-0.41
+1.04
+-1.08
+0.45
+-0.57
+2.56
+-2.67
+0.69
+drugs
+-3.29
+-0.96
+2.77
+1.49
+-3.3
+-1.12
+2.48
+1.94
+-4.26
+-2.68
+3.13
+3.81
+symptom
+-0.08
+0.08
+-0.06
+0.06
+str2
+0.11
+0.07
+-0.26
+0.09
+hemo
+0.25
+-0.5
+-0.01
+0.26
+age
+-0.54
+-0.48
+4.79
+-3.77
+-0.64
+-0.55
+7.67
+-6.48
+-0.2
+0.1
+6.65
+-6.55
+wtkg
+0.24
+-0.26
+-0.19
+0.21
+0.5
+-1.03
+-0.36
+0.9
+cd40
+9.02
+3.22
+-13.54
+1.29
+7.94
+1.02
+-7.94
+-1.03
+5.82
+1.15
+-5.56
+-1.41
+karnof
+-0.02
+-0.08
+0.1
+0
+0.15
+-0.25
+-0.01
+0.1
+cd80
+-0.22
+-0.1
+-0.03
+0.35
+II: modiﬁed treatment-free eﬀect in age
+Intercept
+1.69
+-3.98
+16.8
+-14.5
+3.44
+-15.74
+11.17
+1.12
+gender
+-0.5
+5.59
+-6.06
+0.97
+0.95
+-0.28
+-1
+0.34
+homo
+0.16
+-0.19
+0.81
+-0.78
+0.84
+-0.31
+-0.77
+0.24
+race
+-3.52
+2.19
+-4.69
+6.03
+-0.76
+0.46
+-1.87
+2.18
+drugs
+-12.55
+-16.86
+24.37
+5.04
+-0.64
+-0.4
+0.49
+0.55
+symptom
+13.4
+-8.08
+-9.37
+4.05
+str2
+-14.12
+-2.69
+9.25
+7.56
+-0.01
+-0.09
+-0.06
+0.16
+hemo
+-0.19
+1.34
+1.08
+-2.23
+0.05
+-0.56
+-0.91
+1.43
+age
+3.77
+50.53
+20.2
+-74.49
+-0.07
+0.02
+0.01
+0.04
+wtkg
+-20.77
+0.78
+11.18
+8.81
+1.08
+-0.71
+-1.79
+1.42
+cd40
+16.05
+6.65
+-22.85
+0.15
+1.58
+2.24
+-4.34
+0.53
+karnof
+-9.9
+-1.56
+9.31
+2.14
+-0.01
+0
+0.01
+-0.01
+cd80
+-18.92
+7.55
+17.75
+-6.37
+-0.18
+0.13
+-0.24
+0.28
+III: modiﬁed variance function in wtkg
+Intercept
+0.02
+-22.65
+27.54
+-4.91
+gender
+0.74
+3.24
+-8.76
+4.78
+homo
+4.36
+-1.31
+1.44
+-4.49
+race
+-2.17
+-0.28
+3.72
+-1.28
+drugs
+-1.77
+-0.9
+-0.51
+3.18
+symptom
+-1.06
+-0.78
+-1.01
+2.85
+str2
+0.72
+-1.68
+-1.18
+2.14
+hemo
+1.6
+-1.41
+2.57
+-2.76
+age
+2.2
+-0.41
+0.02
+-1.8
+wtkg
+-41.32
+-13.14
+87.41
+-32.96
+-15.54
+-5.29
+32.88
+-12.04
+-11.18
+-1.19
+16.93
+-4.56
+cd40
+1.94
+-0.72
+1.74
+-2.96
+karnof
+2.84
+-1.02
+-3.35
+1.53
+cd80
+-20.1
+-20.18
+61
+-20.73
+-7.14
+-8.31
+24.04
+-8.59
+-3.51
+-4.5
+11.98
+-3.97
+IV = II + III: modiﬁed treatment-free eﬀect in age and modiﬁed variance function in wtkg
+Intercept
+3.97
+-0.11
+-4.08
+0.22
+1.43
+-24.28
+25.71
+-2.87
+gender
+-7.29
+1.49
+11.15
+-5.35
+5.8
+2.22
+-5.33
+-2.68
+homo
+5.02
+1.7
+-10.68
+3.96
+9.9
+-5.34
+-10.71
+6.16
+race
+6.09
+10.4
+-27.53
+11.04
+4.47
+-0.29
+-13.69
+9.51
+drugs
+-3.77
+-3.03
+9.26
+-2.45
+-1.61
+-2.18
+-0.12
+3.9
+symptom
+1.18
+-0.57
+0.56
+-1.17
+1.79
+-0.47
+-1.29
+-0.03
+str2
+-5.19
+0.95
+5.4
+-1.17
+1.98
+-10.15
+-5.35
+13.52
+hemo
+2.88
+1.93
+-6.75
+1.94
+4.35
+-8.64
+-4.36
+8.64
+age
+-9.42
+11.74
+25.67
+-27.99
+-4.6
+5.59
+4.94
+-5.93
+wtkg
+65.69
+17.05
+-153.12
+70.38
+18.9
+5.13
+-43.57
+19.53
+6.31
+-9.97
+-1.03
+4.7
+cd40
+16.05
+14.91
+-44.87
+13.91
+-1.12
+0.11
+-0.22
+1.23
+karnof
+-9.03
+-1.3
+16.11
+-5.78
+-5.12
+0.38
+0.97
+3.77
+cd80
+26.31
+40.74
+-95.75
+28.7
+5.37
+6.4
+-16.73
+4.96
+0.98
+-1.14
+-7.01
+7.18
+Note:
+Larger coeﬃcients encourage better outcome.
+Coeﬃcients are ﬁtted at standardized scales of covariates.
+Coeﬃcients at blank are 0’s. Absolute values ą 5 are bolded.
+41
+
+````
+
+## PDF page 83
+
+FORMULA CHECK REQUIRED: original PDF page 83.
+
+````text
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−3
+−2
+−1
+0
+1
+2
+3
+X
+treatment−free effect
+type
+estimate
+truth
+propensity score: correct; treatment−free effect: correct; homoscedasticity
+Scatter Plots with LOESS Curves: treatment−free effect ~ X
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+X
+treatment−free effect
+type
+estimate
+truth
+propensity score: incorrect*; treatment−free effect: correct; homoscedasticity
+Scatter Plots with LOESS Curves: treatment−free effect ~ X
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+0
+10
+20
+30
+X
+treatment−free effect
+type
+estimate
+truth
+propensity score: correct; treatment−free effect: incorrect*; homoscedasticity
+Scatter Plots with LOESS Curves: treatment−free effect ~ X
+Figure S.2: Fitted treatment-free eﬀect plots with respect to Xk for 1 ď k ď 5 for the simulation studies (Section
+5) with n “ 400, p “ 10, K “ 3. Curves are ﬁtted by the LOcally wEighted Scatterplot Smoothing (LOESS) of cubic
+spline. When the treatment-free eﬀect model is correctly speciﬁed (Rows 1 and 2), it can be consistently estimated.
+Note that the treatment-free eﬀect estimation utilizes the estimated propensity scores according to Section 2.5.2. The
+correctness of the treatment-free eﬀect is not aﬀected by the correctness of the propensity score model. When the
+treatment-free eﬀect model is misspeciﬁed (Row 3), the estimated treatment-free eﬀect deviates from the truth.
+42
+
+````
+
+## PDF page 84
+
+FORMULA CHECK REQUIRED: original PDF page 84.
+
+````text
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+A: 1
+A: 2
+A: 3
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+0.00
+0.25
+0.50
+0.75
+0.00
+0.25
+0.50
+0.75
+0.00
+0.25
+0.50
+0.75
+X
+propensity score
+type
+estimate
+truth
+propensity score: correct; treatment−free effect: correct; homoscedasticity
+Scatter Plots with LOESS Curves: propensity score ~ (X, A)
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+A: 1
+A: 2
+A: 3
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+0.0
+0.2
+0.4
+0.6
+0.0
+0.2
+0.4
+0.6
+0.0
+0.2
+0.4
+0.6
+X
+propensity score
+type
+estimate
+truth
+propensity score: incorrect*; treatment−free effect: correct; homoscedasticity
+Scatter Plots with LOESS Curves: propensity score ~ (X, A)
+Figure S.3: Fitted propensity score plots with respect to pXk, Aq for 1 ď k ď 5 for the simulation
+studies (Section 5) with n “ 400, p “ 10, K “ 3. Curves are ﬁtted by the LOESS of cubic spline.
+When the propensity score model is correctly speciﬁed (Panel 1), it can be consistently estimated.
+When the propensity score model is misspeciﬁed (Panel 2), the estimated propensity score deviates
+from the truth.
+43
+
+````
+
+## PDF page 85
+
+FORMULA CHECK REQUIRED: original PDF page 85.
+
+````text
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+variable: XXX
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−10
+−5
+0
+5
+10
+X
+log(residual2)
+propensity score: correct; treatment−free effect: correct; homoscedasticity
+Scatter Plots with LOESS Curves: log(residual2) ~ X
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+variable: XXX
+A: 1
+A: 2
+A: 3
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−10
+−5
+0
+5
+10
+−10
+−5
+0
+5
+10
+−10
+−5
+0
+5
+10
+X
+log(residual2)
+propensity score: correct; treatment−free effect: correct; homoscedasticity
+Scatter Plots with LOESS Curves: log(residual2) ~ (X, A)
+Figure S.4:
+Residual plots with respect to Xk and pXk, Aq for 1 ď k ď 5 for the simulation studies (Section
+5) with n “ 400, p “ 10, K “ 3, correctly speciﬁed treatment-free eﬀect and homoscedasticity. Deﬁne XXX :“
+log
+”
+1
+3
+´
+e
+?
+2X1 ` e
+?
+2X2 ` e
+?
+2X3
+¯ı
+.
+Residuals are computed from the ﬁtted E-Learning.
+Curves are ﬁtted by the
+LOESS of cubic spline. It shows no patterns of logpresidual2q with respect to X or A.
+44
+
+````
+
+## PDF page 86
+
+FORMULA CHECK REQUIRED: original PDF page 86.
+
+````text
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+variable: XXX
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−10
+−5
+0
+5
+10
+X
+log(residual2)
+propensity score: correct; treatment−free effect: incorrect*; homoscedasticity
+Scatter Plots with LOESS Curves: log(residual2) ~ X
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+variable: XXX
+A: 1
+A: 2
+A: 3
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−10
+−5
+0
+5
+10
+−10
+−5
+0
+5
+10
+−10
+−5
+0
+5
+10
+X
+log(residual2)
+propensity score: correct; treatment−free effect: incorrect*; homoscedasticity
+Scatter Plots with LOESS Curves: log(residual2) ~ (X, A)
+Figure S.5:
+Residual plots with respect to Xk and pXk, Aq for 1 ď k ď 5 for the simulation studies
+(Section 5) with n “ 400, p “ 10, K “ 3, misspeciﬁed treatment-free eﬀect and homoscedasticity.
+Deﬁne
+XXX :“ log
+”
+1
+3
+´
+e
+?
+2X1 ` e
+?
+2X2 ` e
+?
+2X3
+¯ı
+. Residuals are computed from the ﬁtted E-Learning. Curves are ﬁtted
+by the LOESS of cubic spline. It shows patterns of logpresidual2q „ Xk for k “ 1, 2, 3 and logpresidual2q „ XXX.
+45
+
+````
+
+## PDF page 87
+
+FORMULA CHECK REQUIRED: original PDF page 87.
+
+````text
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+variable: XXX
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−10
+−5
+0
+5
+10
+X
+log(residual2)
+propensity score: correct; treatment−free effect: correct; heteroscedasticity*
+Scatter Plots with LOESS Curves: log(residual2) ~ X
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+variable: XXX
+A: 1
+A: 2
+A: 3
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−10
+−5
+0
+5
+10
+−10
+−5
+0
+5
+10
+−10
+−5
+0
+5
+10
+X
+log(residual2)
+propensity score: correct; treatment−free effect: correct; heteroscedasticity*
+Scatter Plots with LOESS Curves: log(residual2) ~ (X, A)
+Figure S.6:
+Residual plots with respect to Xk and pXk, Aq for 1 ď k ď 5 for the simulation studies (Section
+5) with n “ 400, p “ 10, K “ 3, correctly speciﬁed treatment-free eﬀect and heteroscedasticity. Deﬁne XXX :“
+log
+”
+1
+3
+´
+e
+?
+2X1 ` e
+?
+2X2 ` e
+?
+2X3
+¯ı
+.
+Residuals are computed from the ﬁtted E-Learning.
+Curves are ﬁtted by the
+LOESS of cubic spline. It shows patterns of logpresidual2q „ Xk on A “ k for k “ 1, 2, 3 and logpresidual2q „
+XXX.
+46
+
+````
+
+## PDF page 88
+
+FORMULA CHECK REQUIRED: original PDF page 88.
+
+````text
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+variable: XXX
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−10
+−5
+0
+5
+10
+X
+log(residual2)
+propensity score: correct; treatment−free effect: incorrect*; heteroscedasticity*
+Scatter Plots with LOESS Curves: log(residual2) ~ X
+variable: X1
+variable: X2
+variable: X3
+variable: X4
+variable: X5
+variable: XXX
+A: 1
+A: 2
+A: 3
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−2
+0
+2
+−10
+−5
+0
+5
+10
+−10
+−5
+0
+5
+10
+−10
+−5
+0
+5
+10
+X
+log(residual2)
+propensity score: correct; treatment−free effect: incorrect*; heteroscedasticity*
+Scatter Plots with LOESS Curves: log(residual2) ~ (X, A)
+Figure S.7:
+Residual plots with respect to Xk and pXk, Aq for 1 ď k ď 5 for the simulation studies (Section
+5) with n “ 400, p “ 10, K “ 3, misspeciﬁed treatment-free eﬀect and heteroscedasticity.
+Deﬁne XXX :“
+log
+”
+1
+3
+´
+e
+?
+2X1 ` e
+?
+2X2 ` e
+?
+2X3
+¯ı
+.
+Residuals are computed from the ﬁtted E-Learning.
+Curves are ﬁtted by the
+LOESS of cubic spline. It shows patterns of logpresidual2q „ Xk on A “ k for k “ 1, 2, 3 and logpresidual2q „
+XXX.
+47
+
+````
+
+## PDF page 89
+
+FORMULA CHECK REQUIRED: original PDF page 89.
+
+````text
+0.121
+0.118
+0.119
+0.12
+0.106
+0.125
+0.125
+0.115
+0.154
+0.143
+0.159
+0.172
+0.254
+0.111
+0.115
+0.116
+0.116
+0.112
+0.13
+0.116
+0.108
+0.151
+0.141
+0.168
+0.189
+0.254
+0.193
+0.258
+0.352
+0.357
+0.378
+0.39
+0.367
+0.47
+0.355
+0.343
+0.323
+0.347
+0.373
+0.241
+0.323
+0.358
+0.363
+0.374
+0.377
+0.378
+0.436
+0.371
+0.321
+0.31
+0.315
+0.35
+0.2
+0.248
+0.277
+0.279
+0.301
+0.317
+0.299
+0.312
+0.31
+0.283
+0.277
+0.302
+0.297
+0.184
+0.263
+0.282
+0.288
+0.302
+0.307
+0.316
+0.326
+0.331
+0.277
+0.288
+0.311
+0.31
+0.233
+0.299
+0.356
+0.366
+0.376
+0.389
+0.369
+0.405
+0.369
+0.337
+0.358
+0.348
+0.377
+0.261
+0.325
+0.385
+0.389
+0.367
+0.362
+0.389
+0.456
+0.375
+0.33
+0.335
+0.322
+0.372
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+Mean
+1
+0.25
+0.5
+0.75
+Mean
+1
+0.25
+0.5
+0.75
+Mean
+1
+0.25
+0.5
+0.75
+Mean
+1
+0.25
+0.5
+0.75
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Misclassification Rate (smaller the better)
+type
+first best
+second best
+n = 100, p = 10, K = 2
+Testing Misclassification Rates across 100 Replications
+Figure S.8: Testing misclassiﬁcation rates (smaller the better) for n “ 100, p “ 10, K “ 2 and
+each of the model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where E-
+Learning (Oracle) corresponds to E-Learning with the oracle working variance function, and Policy
+Tree corresponds to Policy Learning with decision trees. First and second best methods in terms of
+the averaged misclassiﬁcation rates are annotated in horizontal lines, while the minimal averaged
+misclassiﬁcation rate is annotated in the vertical line.
+48
+
+````
+
+## PDF page 90
+
+FORMULA CHECK REQUIRED: original PDF page 90.
+
+````text
+0.075
+0.074
+0.086
+0.087
+0.08
+0.1
+0.076
+0.067
+0.106
+0.108
+0.131
+0.141
+0.216
+0.079
+0.08
+0.079
+0.079
+0.079
+0.097
+0.081
+0.076
+0.125
+0.102
+0.129
+0.142
+0.216
+0.158
+0.182
+0.289
+0.292
+0.32
+0.328
+0.311
+0.427
+0.308
+0.303
+0.29
+0.293
+0.338
+0.179
+0.21
+0.333
+0.333
+0.347
+0.338
+0.324
+0.397
+0.343
+0.317
+0.305
+0.315
+0.333
+0.133
+0.185
+0.215
+0.218
+0.209
+0.239
+0.262
+0.307
+0.285
+0.233
+0.231
+0.241
+0.246
+0.137
+0.197
+0.24
+0.239
+0.261
+0.265
+0.26
+0.26
+0.291
+0.238
+0.253
+0.285
+0.25
+0.163
+0.217
+0.313
+0.316
+0.317
+0.323
+0.323
+0.402
+0.334
+0.297
+0.3
+0.3
+0.332
+0.19
+0.264
+0.335
+0.334
+0.353
+0.351
+0.384
+0.419
+0.377
+0.306
+0.303
+0.319
+0.328
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+Mean
+1
+0.25
+0.5
+0.75
+Mean
+1
+0.25
+0.5
+0.75
+Mean
+1
+0.25
+0.5
+0.75
+Mean
+1
+0.25
+0.5
+0.75
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Misclassification Rate (smaller the better)
+type
+first best
+second best
+n = 200, p = 10, K = 2
+Testing Misclassification Rates across 100 Replications
+Figure S.9: Testing misclassiﬁcation rates (smaller the better) for n “ 200, p “ 10, K “ 2 and
+each of the model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where E-
+Learning (Oracle) corresponds to E-Learning with the oracle working variance function, and Policy
+Tree corresponds to Policy Learning with decision trees. First and second best methods in terms of
+the averaged misclassiﬁcation rates are annotated in horizontal lines, while the minimal averaged
+misclassiﬁcation rate is annotated in the vertical line.
+49
+
+````
+
+## PDF page 91
+
+FORMULA CHECK REQUIRED: original PDF page 91.
+
+````text
+0.04
+0.039
+0.04
+0.04
+0.037
+0.05
+0.039
+0.033
+0.055
+0.056
+0.071
+0.074
+0.171
+0.038
+0.038
+0.037
+0.037
+0.035
+0.056
+0.038
+0.035
+0.081
+0.054
+0.066
+0.099
+0.18
+0.086
+0.095
+0.177
+0.178
+0.187
+0.219
+0.23
+0.345
+0.234
+0.22
+0.215
+0.225
+0.264
+0.102
+0.113
+0.251
+0.251
+0.259
+0.256
+0.263
+0.316
+0.275
+0.252
+0.233
+0.254
+0.269
+0.065
+0.077
+0.139
+0.14
+0.142
+0.178
+0.171
+0.254
+0.198
+0.173
+0.17
+0.193
+0.201
+0.078
+0.096
+0.16
+0.16
+0.169
+0.17
+0.163
+0.171
+0.24
+0.175
+0.175
+0.22
+0.201
+0.112
+0.124
+0.209
+0.212
+0.227
+0.256
+0.264
+0.342
+0.272
+0.251
+0.243
+0.254
+0.265
+0.107
+0.133
+0.248
+0.248
+0.247
+0.256
+0.26
+0.289
+0.278
+0.259
+0.253
+0.258
+0.277
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+Mean
+1
+0.25 0.5 0.75
+Mean
+1
+0.25 0.5 0.75
+Mean
+1
+0.25 0.5 0.75
+Mean
+1
+0.25 0.5 0.75
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Misclassification Rate (smaller the better)
+type
+first best
+second best
+n = 800, p = 10, K = 2
+Testing Misclassification Rates across 100 Replications
+Figure S.10: Testing misclassiﬁcation rates (smaller the better) for n “ 800, p “ 10, K “ 2 and
+each of the model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where E-
+Learning (Oracle) corresponds to E-Learning with the oracle working variance function, and Policy
+Tree corresponds to Policy Learning with decision trees. First and second best methods in terms of
+the averaged misclassiﬁcation rates are annotated in horizontal lines, while the minimal averaged
+misclassiﬁcation rate is annotated in the vertical line.
+50
+
+````
+
+## PDF page 92
+
+FORMULA CHECK REQUIRED: original PDF page 92.
+
+````text
+0.03
+0.031
+0.031
+0.031
+0.027
+0.036
+0.029
+0.024
+0.039
+0.042
+0.053
+0.055
+0.172
+0.027
+0.028
+0.026
+0.026
+0.025
+0.045
+0.027
+0.024
+0.076
+0.042
+0.053
+0.082
+0.17
+0.072
+0.066
+0.134
+0.135
+0.139
+0.162
+0.169
+0.259
+0.165
+0.18
+0.172
+0.185
+0.246
+0.077
+0.081
+0.199
+0.199
+0.201
+0.209
+0.203
+0.243
+0.222
+0.213
+0.196
+0.205
+0.247
+0.061
+0.065
+0.107
+0.107
+0.104
+0.137
+0.142
+0.238
+0.156
+0.156
+0.153
+0.164
+0.183
+0.06
+0.071
+0.136
+0.136
+0.14
+0.139
+0.135
+0.135
+0.231
+0.144
+0.154
+0.207
+0.189
+0.073
+0.083
+0.165
+0.167
+0.176
+0.214
+0.209
+0.307
+0.217
+0.217
+0.212
+0.216
+0.242
+0.088
+0.097
+0.239
+0.239
+0.245
+0.248
+0.229
+0.245
+0.264
+0.232
+0.242
+0.24
+0.242
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+Mean
+0.75
+0.25
+0.5
+Mean
+0.75
+0.25
+0.5
+Mean
+0.75
+0.25
+0.5
+Mean
+0.75
+0.25
+0.5
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Misclassification Rate (smaller the better)
+type
+first best
+second best
+n = 1600, p = 10, K = 2
+Testing Misclassification Rates across 100 Replications
+Figure S.11: Testing misclassiﬁcation rates (smaller the better) for n “ 1600, p “ 10, K “ 2
+and each of the model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where
+E-Learning (Oracle) corresponds to E-Learning with the oracle working variance function, and
+Policy Tree corresponds to Policy Learning with decision trees. First and second best methods in
+terms of the averaged misclassiﬁcation rates are annotated in horizontal lines, while the minimal
+averaged misclassiﬁcation rate is annotated in the vertical line.
+51
+
+````
+
+## PDF page 93
+
+FORMULA CHECK REQUIRED: original PDF page 93.
+
+````text
+92
+9
+9
+9
+9
+13
+13
+13
+13
+13
+Optimal Value = 0.788
+9
+1
+98
+9
+9
+9
+12
+13
+13
+13
+13
+13
+Optimal Value = 0.788
+9
+1
+2
+8
+9
+1
+8
+9
+1
+8
+9
+1
+8
+9
+1
+8
+3
+11
+3
+13
+3
+13
+5
+13
+3
+13
+Optimal Value = 0.788
+9
+1
+2
+8
+9
+1
+2
+8
+7
+9
+1
+8
+9
+1
+8
+9
+1
+8
+5
+10
+5
+11
+11
+3
+Optimal Value = 0.788
+9
+1
+2
+9
+1
+2
+8
+7
+9
+1
+8
+7
+9
+1
+8
+9
+1
+8
+3
+10
+5
+5
+Optimal Value = 0.788
+9
+1
+2
+9
+1
+2
+8
+9
+1
+8
+9
+1
+8
+9
+1
+8
+54
+3
+10
+13
+12
+Optimal Value = 0.788
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+8
+9
+1
+8
+3
+6
+10
+5
+5
+10
+5
+13
+Optimal Value = 0.788
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+2
+8
+9
+1
+9
+1
+7
+3
+10
+12
+3
+Optimal Value = 0.788
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+100
+200
+400
+800
+1600 100
+200
+400
+800
+1600 100
+200
+400
+800
+1600 100
+200
+400
+800
+1600
+0.0
+0.2
+0.4
+0.6
+0.8
+0.0
+0.2
+0.4
+0.6
+0.8
+n
+Regret (smaller the better)
+method
+1: E−Learning (Oracle)
+2: E−Learning
+3: dWOLS
+4: G−Estimation
+5: A−Learning
+6: Supgroup Identification
+7: RD−Learning
+8: Q−Learning
+9: D−Learning
+10: EARL
+11: RWL
+12: OWL
+13: Policy Tree
+p = 10, K = 2
+Testing Regrets Averaged over 100 Replications
+Figure S.12: Testing regrets (smaller the better) for n “ t100, 200, 400, 800, 1600u, p “ 10, K “ 2
+and each of the model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where
+E-Learning (Oracle) corresponds to E-Learning with the oracle working variance function, and
+Policy Tree corresponds to Policy Learning with decision trees.
+52
+
+````
+
+## PDF page 94
+
+FORMULA CHECK REQUIRED: original PDF page 94.
+
+````text
+0.059
+0.056
+0.059
+0.06
+0.048
+0.07
+0.061
+0.052
+0.094
+0.087
+0.109
+0.124
+0.268
+0.052
+0.055
+0.055
+0.055
+0.052
+0.071
+0.057
+0.048
+0.096
+0.079
+0.113
+0.143
+0.262
+0.166
+0.284
+0.422
+0.434
+0.483
+0.509
+0.503
+0.758
+0.484
+0.41
+0.369
+0.418
+0.477
+0.236
+0.366
+0.454
+0.464
+0.5
+0.506
+0.475
+0.615
+0.456
+0.38
+0.356
+0.364
+0.45
+0.173
+0.242
+0.286
+0.291
+0.356
+0.389
+0.345
+0.369
+0.359
+0.309
+0.291
+0.347
+0.339
+0.147
+0.27
+0.296
+0.309
+0.348
+0.36
+0.37
+0.385
+0.397
+0.293
+0.31
+0.361
+0.366
+0.232
+0.346
+0.446
+0.471
+0.509
+0.54
+0.495
+0.583
+0.495
+0.409
+0.449
+0.432
+0.501
+0.281
+0.395
+0.516
+0.523
+0.481
+0.473
+0.538
+0.688
+0.503
+0.403
+0.416
+0.385
+0.496
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+Mean
+2
+0.5
+1
+1.5
+Mean
+2
+0.5
+1
+1.5
+Mean
+2
+0.5
+1
+1.5
+Mean
+2
+0.5
+1
+1.5
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Regret (smaller the better)
+type
+first best
+second best
+optimal value = 0.788
+n = 100, p = 10, K = 2
+Testing Regrets across 100 Replications
+Figure S.13: Testing regrets (smaller the better) for n “ 100, p “ 10, K “ 2 and each of the
+model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where E-Learning
+(Oracle) corresponds to E-Learning with the oracle working variance function, and Policy Tree
+corresponds to Policy Learning with decision trees. First and second best methods in terms of the
+averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated
+in the vertical line. The optimal value is 0.788 and is annotated in the vertical long dashed line.
+53
+
+````
+
+## PDF page 95
+
+FORMULA CHECK REQUIRED: original PDF page 95.
+
+````text
+0.023
+0.024
+0.028
+0.028
+0.024
+0.038
+0.025
+0.019
+0.048
+0.046
+0.067
+0.076
+0.181
+0.023
+0.024
+0.025
+0.025
+0.024
+0.038
+0.024
+0.021
+0.06
+0.041
+0.068
+0.081
+0.189
+0.12
+0.15
+0.304
+0.308
+0.376
+0.386
+0.37
+0.629
+0.362
+0.338
+0.306
+0.321
+0.414
+0.158
+0.205
+0.391
+0.392
+0.426
+0.409
+0.407
+0.564
+0.451
+0.36
+0.341
+0.357
+0.415
+0.101
+0.157
+0.178
+0.183
+0.175
+0.229
+0.281
+0.365
+0.322
+0.212
+0.208
+0.219
+0.24
+0.08
+0.149
+0.211
+0.211
+0.258
+0.259
+0.248
+0.253
+0.303
+0.213
+0.238
+0.295
+0.239
+0.112
+0.191
+0.364
+0.37
+0.387
+0.396
+0.383
+0.552
+0.4
+0.34
+0.344
+0.35
+0.415
+0.148
+0.254
+0.401
+0.401
+0.441
+0.438
+0.494
+0.565
+0.478
+0.355
+0.346
+0.386
+0.414
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+Mean
+2
+0.5
+1
+1.5
+Mean
+2
+0.5
+1
+1.5
+Mean
+2
+0.5
+1
+1.5
+Mean
+2
+0.5
+1
+1.5
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Regret (smaller the better)
+type
+first best
+second best
+optimal value = 0.788
+n = 200, p = 10, K = 2
+Testing Regrets across 100 Replications
+Figure S.14: Testing regrets (smaller the better) for n “ 200, p “ 10, K “ 2 and each of the
+model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where E-Learning
+(Oracle) corresponds to E-Learning with the oracle working variance function, and Policy Tree
+corresponds to Policy Learning with decision trees. First and second best methods in terms of the
+averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated
+in the vertical line. The optimal value is 0.788 and is annotated in the vertical long dashed line.
+54
+
+````
+
+## PDF page 96
+
+FORMULA CHECK REQUIRED: original PDF page 96.
+
+````text
+0.013
+0.014
+0.012
+0.012
+0.011
+0.019
+0.014
+0.009
+0.026
+0.024
+0.036
+0.035
+0.137
+0.01
+0.01
+0.013
+0.013
+0.011
+0.022
+0.011
+0.009
+0.036
+0.021
+0.037
+0.051
+0.155
+0.069
+0.084
+0.207
+0.211
+0.243
+0.276
+0.251
+0.495
+0.26
+0.252
+0.265
+0.268
+0.341
+0.093
+0.098
+0.342
+0.342
+0.388
+0.387
+0.333
+0.474
+0.331
+0.303
+0.277
+0.314
+0.347
+0.051
+0.065
+0.108
+0.112
+0.133
+0.172
+0.188
+0.287
+0.245
+0.158
+0.174
+0.198
+0.2
+0.043
+0.068
+0.15
+0.149
+0.16
+0.172
+0.167
+0.187
+0.309
+0.146
+0.174
+0.216
+0.21
+0.075
+0.118
+0.272
+0.276
+0.261
+0.33
+0.308
+0.516
+0.334
+0.297
+0.28
+0.315
+0.348
+0.086
+0.146
+0.365
+0.366
+0.416
+0.408
+0.381
+0.487
+0.401
+0.367
+0.307
+0.321
+0.369
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+Mean
+1.5
+0.5
+0
+1
+Mean
+1.5
+0.5
+0
+1
+Mean
+1.5
+0.5
+0
+1
+Mean
+1.5
+0.5
+0
+1
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Regret (smaller the better)
+type
+first best
+second best
+optimal value = 0.788
+n = 400, p = 10, K = 2
+Testing Regrets across 100 Replications
+Figure S.15: Testing regrets (smaller the better) for n “ 400, p “ 10, K “ 2 and each of the
+model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where E-Learning
+(Oracle) corresponds to E-Learning with the oracle working variance function, and Policy Tree
+corresponds to Policy Learning with decision trees. First and second best methods in terms of the
+averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated
+in the vertical line. The optimal value is 0.788 and is annotated in the vertical long dashed line.
+55
+
+````
+
+## PDF page 97
+
+FORMULA CHECK REQUIRED: original PDF page 97.
+
+````text
+0.007
+0.007
+0.006
+0.006
+0.005
+0.01
+0.007
+0.004
+0.013
+0.012
+0.019
+0.022
+0.116
+0.006
+0.006
+0.005
+0.005
+0.005
+0.013
+0.006
+0.005
+0.025
+0.011
+0.017
+0.037
+0.128
+0.042
+0.053
+0.129
+0.13
+0.15
+0.203
+0.202
+0.431
+0.202
+0.198
+0.189
+0.202
+0.286
+0.054
+0.06
+0.253
+0.252
+0.272
+0.264
+0.255
+0.358
+0.276
+0.253
+0.216
+0.257
+0.292
+0.02
+0.027
+0.081
+0.083
+0.09
+0.134
+0.125
+0.247
+0.158
+0.122
+0.114
+0.147
+0.165
+0.029
+0.04
+0.106
+0.106
+0.125
+0.125
+0.108
+0.121
+0.226
+0.129
+0.127
+0.193
+0.167
+0.068
+0.081
+0.176
+0.18
+0.212
+0.269
+0.277
+0.444
+0.291
+0.252
+0.24
+0.26
+0.289
+0.056
+0.078
+0.241
+0.241
+0.249
+0.267
+0.244
+0.301
+0.281
+0.264
+0.249
+0.258
+0.305
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+Mean
+1.5
+0.5
+0
+1
+Mean
+1.5
+0.5
+0
+1
+Mean
+1.5
+0.5
+0
+1
+Mean
+1.5
+0.5
+0
+1
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Regret (smaller the better)
+type
+first best
+second best
+optimal value = 0.788
+n = 800, p = 10, K = 2
+Testing Regrets across 100 Replications
+Figure S.16: Testing regrets (smaller the better) for n “ 800, p “ 10, K “ 2 and each of the
+model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where E-Learning
+(Oracle) corresponds to E-Learning with the oracle working variance function, and Policy Tree
+corresponds to Policy Learning with decision trees. First and second best methods in terms of the
+averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated
+in the vertical line. The optimal value is 0.788 and is annotated in the vertical long dashed line.
+56
+
+````
+
+## PDF page 98
+
+FORMULA CHECK REQUIRED: original PDF page 98.
+
+````text
+0.004
+0.004
+0.003
+0.003
+0.003
+0.005
+0.003
+0.002
+0.007
+0.007
+0.01
+0.011
+0.117
+0.003
+0.003
+0.003
+0.003
+0.003
+0.008
+0.003
+0.002
+0.022
+0.007
+0.011
+0.026
+0.117
+0.031
+0.024
+0.074
+0.075
+0.078
+0.106
+0.118
+0.276
+0.114
+0.128
+0.117
+0.132
+0.233
+0.034
+0.035
+0.146
+0.146
+0.156
+0.168
+0.165
+0.247
+0.193
+0.175
+0.151
+0.163
+0.236
+0.021
+0.023
+0.052
+0.052
+0.046
+0.081
+0.089
+0.226
+0.104
+0.101
+0.097
+0.111
+0.141
+0.016
+0.021
+0.069
+0.069
+0.08
+0.076
+0.075
+0.075
+0.207
+0.081
+0.09
+0.161
+0.138
+0.03
+0.035
+0.109
+0.111
+0.127
+0.184
+0.186
+0.363
+0.195
+0.187
+0.174
+0.18
+0.237
+0.038
+0.045
+0.226
+0.226
+0.241
+0.245
+0.191
+0.226
+0.253
+0.217
+0.231
+0.23
+0.236
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+Mean
+1.5
+0.5
+0
+1
+Mean
+1.5
+0.5
+0
+1
+Mean
+1.5
+0.5
+0
+1
+Mean
+1.5
+0.5
+0
+1
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+D−Learning
+Q−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Regret (smaller the better)
+type
+first best
+second best
+optimal value = 0.788
+n = 1600, p = 10, K = 2
+Testing Regrets across 100 Replications
+Figure S.17: Testing regrets (smaller the better) for n “ 1600, p “ 10, K “ 2 and each of the
+model speciﬁcation scenarios in Table 2. Methods in Table 1 are compared, where E-Learning
+(Oracle) corresponds to E-Learning with the oracle working variance function, and Policy Tree
+corresponds to Policy Learning with decision trees. First and second best methods in terms of the
+averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated
+in the vertical line. The optimal value is 0.788 and is annotated in the vertical long dashed line.
+57
+
+````
+
+## PDF page 99
+
+FORMULA CHECK REQUIRED: original PDF page 99.
+
+````text
+0.176
+0.179
+0.161
+0.172
+0.183
+0.216
+0.171
+0.254
+0.266
+0.289
+0.312
+0.33
+0.413
+0.397
+0.403
+0.422
+0.41
+0.458
+0.379
+0.376
+0.367
+0.409
+0.257
+0.329
+0.312
+0.321
+0.358
+0.369
+0.392
+0.33
+0.346
+0.342
+0.357
+0.32
+0.403
+0.411
+0.421
+0.426
+0.416
+0.482
+0.4
+0.419
+0.4
+0.432
+0.11
+0.113
+0.235
+0.248
+0.101
+0.118
+0.115
+0.149
+0.111
+0.197
+0.218
+0.243
+0.246
+0.211
+0.295
+0.426
+0.445
+0.375
+0.375
+0.385
+0.387
+0.482
+0.349
+0.346
+0.346
+0.382
+0.181
+0.237
+0.374
+0.387
+0.255
+0.268
+0.286
+0.325
+0.329
+0.307
+0.325
+0.324
+0.269
+0.237
+0.321
+0.433
+0.442
+0.362
+0.371
+0.39
+0.395
+0.453
+0.364
+0.356
+0.361
+0.391
+0.073
+0.078
+0.134
+0.136
+0.064
+0.08
+0.076
+0.097
+0.07
+0.145
+0.161
+0.185
+0.19
+0.136
+0.182
+0.371
+0.386
+0.303
+0.324
+0.332
+0.338
+0.451
+0.324
+0.314
+0.318
+0.353
+0.128
+0.169
+0.308
+0.319
+0.225
+0.248
+0.257
+0.295
+0.327
+0.281
+0.287
+0.3
+0.242
+0.151
+0.229
+0.38
+0.388
+0.336
+0.345
+0.354
+0.381
+0.42
+0.333
+0.341
+0.34
+0.372
+0.054
+0.053
+0.092
+0.092
+0.045
+0.059
+0.052
+0.074
+0.05
+0.108
+0.126
+0.141
+0.183
+0.11
+0.126
+0.307
+0.314
+0.244
+0.26
+0.287
+0.289
+0.403
+0.294
+0.284
+0.291
+0.314
+0.094
+0.115
+0.245
+0.251
+0.182
+0.215
+0.213
+0.243
+0.285
+0.258
+0.265
+0.284
+0.214
+0.113
+0.161
+0.327
+0.333
+0.258
+0.266
+0.314
+0.322
+0.378
+0.304
+0.306
+0.302
+0.306
+n: 100
+n: 200
+n: 400
+n: 800
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: correct
+variance: homo
+treatment_free: incorrect
+variance: hetero
+treatment_free: incorrect
+Mean
+1
+0.25 0.5 0.75
+Mean
+1
+0.25 0.5 0.75
+Mean
+1
+0.25 0.5 0.75
+Mean
+1
+0.25 0.5 0.75
+Policy Tree
+OWL
+RWL
+EARL
+Q−Learning
+D−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+Q−Learning
+D−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+Q−Learning
+D−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+Q−Learning
+D−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Misclassification Rate (smaller the better)
+type
+first best
+second best
+p = 50, K = 2, correctly specified propensity
+Testing Misclassification Rates across 100 Replications
+Figure S.18: Testing misclassiﬁcation rates (smaller the better) for n P t100, 200, 400, 800u, p “
+50, K “ 2 and each of the model speciﬁcation scenarios (correct propensity score) in Table 2. The
+optimal value is 0.788. Methods in Table 1 are compared, where E-Learning (Oracle) corresponds
+to E-Learning with the oracle working variance function, and Policy Tree corresponds to Policy
+Learning with decision trees. dWOLS and G-Estimation for n “ 100 cannot be implemented due
+to more number of parameters 2pp ` 1q than the training sample size n. First and second best
+methods in terms of the averaged misclassiﬁcation rates are annotated in horizontal lines, while the
+minimal averaged misclassiﬁcation rates is annotated in the vertical line.
+58
+
+````
+
+## PDF page 100
+
+FORMULA CHECK REQUIRED: original PDF page 100.
+
+````text
+0.118
+0.122
+0.102
+0.116
+0.125
+0.171
+0.108
+0.239
+0.264
+0.309
+0.36
+0.393
+0.578
+0.571
+0.582
+0.61
+0.579
+0.686
+0.524
+0.512
+0.491
+0.595
+0.263
+0.408
+0.37
+0.384
+0.469
+0.492
+0.556
+0.391
+0.427
+0.419
+0.463
+0.367
+0.541
+0.592
+0.611
+0.594
+0.573
+0.724
+0.556
+0.602
+0.558
+0.636
+0.048
+0.051
+0.193
+0.214
+0.038
+0.053
+0.053
+0.087
+0.049
+0.141
+0.173
+0.208
+0.231
+0.186
+0.327
+0.608
+0.655
+0.505
+0.504
+0.525
+0.527
+0.751
+0.447
+0.437
+0.442
+0.519
+0.131
+0.217
+0.498
+0.529
+0.266
+0.294
+0.31
+0.393
+0.408
+0.356
+0.398
+0.397
+0.307
+0.223
+0.379
+0.643
+0.663
+0.494
+0.515
+0.537
+0.55
+0.695
+0.493
+0.473
+0.481
+0.557
+0.022
+0.025
+0.072
+0.074
+0.017
+0.027
+0.024
+0.039
+0.02
+0.084
+0.105
+0.138
+0.156
+0.082
+0.134
+0.456
+0.488
+0.331
+0.372
+0.41
+0.419
+0.694
+0.366
+0.352
+0.357
+0.447
+0.068
+0.112
+0.334
+0.353
+0.205
+0.239
+0.258
+0.326
+0.396
+0.286
+0.296
+0.321
+0.232
+0.095
+0.2
+0.492
+0.512
+0.418
+0.434
+0.437
+0.488
+0.586
+0.398
+0.412
+0.414
+0.5
+0.012
+0.011
+0.032
+0.032
+0.008
+0.014
+0.011
+0.022
+0.01
+0.044
+0.061
+0.075
+0.133
+0.057
+0.066
+0.33
+0.345
+0.225
+0.256
+0.296
+0.302
+0.553
+0.312
+0.296
+0.305
+0.362
+0.036
+0.057
+0.217
+0.227
+0.131
+0.181
+0.178
+0.229
+0.303
+0.241
+0.252
+0.287
+0.182
+0.054
+0.103
+0.376
+0.39
+0.256
+0.267
+0.345
+0.358
+0.479
+0.343
+0.346
+0.341
+0.363
+n: 100
+n: 200
+n: 400
+n: 800
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: correct
+variance: homo
+treatment_free: incorrect
+variance: hetero
+treatment_free: incorrect
+Mean
+2.5
+1
+0.5
+1.5 2
+Mean
+2.5
+1
+0.5
+1.5 2
+Mean
+2.5
+1
+0.5
+1.5 2
+Mean
+2.5
+1
+0.5
+1.5 2
+Policy Tree
+OWL
+RWL
+EARL
+Q−Learning
+D−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+Q−Learning
+D−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+Q−Learning
+D−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Policy Tree
+OWL
+RWL
+EARL
+Q−Learning
+D−Learning
+RD−Learning
+Supgroup Identification
+A−Learning
+G−Estimation
+dWOLS
+E−Learning
+E−Learning (Oracle)
+Regret (smaller the better)
+type
+first best
+second best
+optimal value = 0.788
+p = 50, K = 2, correctly specified propensity
+Testing Regrets across 100 Replications
+Figure S.19: Testing regrets (smaller the better) for n P t100, 200, 400, 800u, p “ 50, K “ 2 and
+each of the model speciﬁcation scenarios (correct propensity score) in Table 2. The optimal value
+is 0.788. Methods in Table 1 are compared, where E-Learning (Oracle) corresponds to E-Learning
+with the oracle working variance function, and Policy Tree corresponds to Policy Learning with
+decision trees. dWOLS and G-Estimation for n “ 100 cannot be implemented due to more number
+of parameters 2pp ` 1q than the training sample size n. First and second best methods in terms
+of the averaged regrets are annotated in horizontal lines, while the minimal averaged regret is
+annotated in the vertical line.
+59
+
+````
+
+## PDF page 101
+
+FORMULA CHECK REQUIRED: original PDF page 101.
+
+````text
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600
+0.2
+0.4
+0.6
+0.2
+0.4
+0.6
+n
+Misclassification Rate (smaller the better)
+method
+E−Learning (Oracle)
+E−Learning
+RD−Learning
+D−Learning
+Q−Learning
+p = 10, K = 3
+Testing Misclassification Rates Averaged over 100 Replications
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+treatment_free: correct
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: incorrect
+variance: homo
+treatment_free: incorrect
+variance: hetero
+propensity: correct
+propensity: incorrect
+100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600
+0.0
+0.3
+0.6
+0.9
+0.0
+0.3
+0.6
+0.9
+n
+Regret (smaller the better)
+method
+E−Learning (Oracle)
+E−Learning
+RD−Learning
+D−Learning
+Q−Learning
+p = 10, K = 3
+Testing Regrets Averaged over 100 Replications
+Figure S.20:
+Testing misclassiﬁcation rates and regrets (smaller the better) for n “ t100, 200, 400, 800, 1600u,
+p “ 10, K “ 3 and each of the model speciﬁcation scenarios in Table 2. E-Learning (Oracle) corresponds to E-
+Learning with the oracle working variance function, and E-Learning corresponds to E-Learning with the working
+variance function estimated by regression forest.
+60
+
+````
+
+## PDF page 102
+
+FORMULA CHECK REQUIRED: original PDF page 102.
+
+````text
+p: 10
+p: 50
+p: 100
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: correct
+variance: homo
+treatment_free: incorrect
+variance: hetero
+treatment_free: incorrect
+100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600
+0.2
+0.4
+0.6
+0.2
+0.4
+0.6
+0.2
+0.4
+0.6
+0.2
+0.4
+0.6
+n
+Misclassification Rate (smaller the better)
+method
+E−Learning (Oracle)
+E−Learning
+RD−Learning
+D−Learning
+Q−Learning
+K = 3, correctly specified propensity
+Testing Misclassification Rates Averaged over 100 Replications
+Figure S.21:
+Testing misclassiﬁcation rates (smaller the better) for n “ t100, 200, 400, 800, 1600u, p P
+t10, 50, 100u, K “ 3 and each of the model speciﬁcation scenarios with correctly speciﬁed propensity score in Ta-
+ble 2. E-Learning (Oracle) corresponds to E-Learning with the oracle working variance function, and E-Learning
+corresponds to E-Learning with the working variance function estimated by regression forest.
+61
+
+````
+
+## PDF page 103
+
+FORMULA CHECK REQUIRED: original PDF page 103.
+
+````text
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+p: 10
+p: 50
+p: 100
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: correct
+variance: homo
+treatment_free: incorrect
+variance: hetero
+treatment_free: incorrect
+100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600
+0.0
+0.3
+0.6
+0.9
+0.0
+0.3
+0.6
+0.9
+0.0
+0.3
+0.6
+0.9
+0.0
+0.3
+0.6
+0.9
+n
+Regret (smaller the better)
+method
+E−Learning (Oracle)
+E−Learning
+RD−Learning
+D−Learning
+Q−Learning
+K = 3, correctly specified propensity
+Testing Regrets Averaged over 100 Replications
+Figure S.22: Testing regrets (smaller the better) for n “ t100, 200, 400, 800, 1600u, p P t10, 50, 100u, K “ 3 and
+each of the model speciﬁcation scenarios with correctly speciﬁed propensity score in Table 2. E-Learning (Oracle)
+corresponds to E-Learning with the oracle working variance function, and E-Learning corresponds to E-Learning
+with the working variance function estimated by regression forest.
+62
+
+````
+
+## PDF page 104
+
+FORMULA CHECK REQUIRED: original PDF page 104.
+
+````text
+K: 2
+K: 3
+K: 5
+K: 7
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: correct
+variance: homo
+treatment_free: incorrect
+variance: hetero
+treatment_free: incorrect
+100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600
+0.00
+0.25
+0.50
+0.75
+0.00
+0.25
+0.50
+0.75
+0.00
+0.25
+0.50
+0.75
+0.00
+0.25
+0.50
+0.75
+n
+Misclassification Rate (smaller the better)
+method
+E−Learning (Oracle)
+E−Learning
+RD−Learning
+D−Learning
+Q−Learning
+p = 10, correctly specified propensity
+Testing Misclassification Rates Averaged over 100 Replications
+Figure S.23: Testing misclassiﬁcation rates (smaller the better) for n “ t100, 200, 400, 800, 1600u,
+p “ 10, K P t2, 3, 5, 7u and each of the model speciﬁcation scenarios with correctly speciﬁed
+propensity score in Table 2. E-Learning (Oracle) corresponds to E-Learning with the oracle working
+variance function, and E-Learning corresponds to E-Learning with the working variance function
+estimated by regression forest.
+63
+
+````
+
+## PDF page 105
+
+FORMULA CHECK REQUIRED: original PDF page 105.
+
+````text
+Optimal Value = 0.787
+Optimal Value = 0.787
+Optimal Value = 0.787
+Optimal Value = 0.787
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.264
+Optimal Value = 1.264
+Optimal Value = 1.264
+Optimal Value = 1.264
+Optimal Value = 1.414
+Optimal Value = 1.414
+Optimal Value = 1.414
+Optimal Value = 1.414
+K: 2
+K: 3
+K: 5
+K: 7
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: correct
+variance: homo
+treatment_free: incorrect
+variance: hetero
+treatment_free: incorrect
+100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600
+0.0
+0.5
+1.0
+1.5
+0.0
+0.5
+1.0
+1.5
+0.0
+0.5
+1.0
+1.5
+0.0
+0.5
+1.0
+1.5
+n
+Regret (smaller the better)
+method
+E−Learning (Oracle)
+E−Learning
+RD−Learning
+D−Learning
+Q−Learning
+p = 10, correctly specified propensity
+Testing Regrets Averaged over 100 Replications
+Figure S.24:
+Testing regrets (smaller the better) for n “ t100, 200, 400, 800, 1600u, p “ 10,
+K P t2, 3, 5, 7u and each of the model speciﬁcation scenarios with correctly speciﬁed propensity
+score in Table 2. E-Learning (Oracle) corresponds to E-Learning with the oracle working variance
+function, and E-Learning corresponds to E-Learning with the working variance function estimated
+by regression forest.
+64
+
+````
+
+## PDF page 106
+
+FORMULA CHECK REQUIRED: original PDF page 106.
+
+````text
+p: 10
+p: 50
+p: 100
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: correct
+variance: homo
+treatment_free: incorrect
+variance: hetero
+treatment_free: incorrect
+100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600
+0.2
+0.4
+0.6
+0.2
+0.4
+0.6
+0.2
+0.4
+0.6
+0.2
+0.4
+0.6
+n
+Misclassification Rate (smaller the better)
+method
+E−Learning (oracle variance)
+E−Learning (variance fitted by regression forest)
+E−Learning (variance fitted by MARS)
+E−Learning (variance fitted by COSSO)
+K = 3, correctly specified propensity
+Testing Misclassification Rates Averaged over 100 Replications
+Figure S.25:
+Testing misclassiﬁcation rates (smaller the better) for n “ t100, 200, 400, 800, 1600u, p P
+t10, 50, 100u, K “ 3 and each of the model speciﬁcation scenarios with correctly speciﬁed propensity score in Table
+2. The E-Learning procedures with diﬀerent nonparametric estimation methods for variance function are compared.
+65
+
+````
+
+## PDF page 107
+
+FORMULA CHECK REQUIRED: original PDF page 107.
+
+````text
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+Optimal Value = 1.018
+p: 10
+p: 50
+p: 100
+variance: homo
+treatment_free: correct
+variance: hetero
+treatment_free: correct
+variance: homo
+treatment_free: incorrect
+variance: hetero
+treatment_free: incorrect
+100
+200
+400
+800
+1600100
+200
+400
+800
+1600100
+200
+400
+800
+1600
+0.0
+0.3
+0.6
+0.9
+0.0
+0.3
+0.6
+0.9
+0.0
+0.3
+0.6
+0.9
+0.0
+0.3
+0.6
+0.9
+n
+Regret (smaller the better)
+method
+E−Learning (oracle variance)
+E−Learning (variance fitted by regression forest)
+E−Learning (variance fitted by MARS)
+E−Learning (variance fitted by COSSO)
+K = 3, correctly specified propensity
+Testing Regrets Averaged over 100 Replications
+Figure S.26:
+Testing regrets (smaller the better) for n “ t100, 200, 400, 800, 1600u, p P t10, 50, 100u, K “ 3
+and each of the model speciﬁcation scenarios with correctly speciﬁed propensity score in Table 2. The E-Learning
+procedures with diﬀerent nonparametric estimation methods for variance function are compared.
+66
+
+````
+
+## PDF page 108
+
+FORMULA CHECK REQUIRED: original PDF page 108.
+
+````text
+0.35
+0.367
+0.427
+0.383
+0.216
+0.224
+0.452
+0.215
+0.49
+0.523
+0.529
+0.561
+0.478
+0.508
+0.524
+0.566
+0.287
+0.303
+0.355
+0.307
+0.121
+0.117
+0.391
+0.125
+0.378
+0.444
+0.456
+0.515
+0.359
+0.425
+0.466
+0.5
+0.244
+0.263
+0.312
+0.255
+0.084
+0.084
+0.315
+0.086
+0.295
+0.349
+0.368
+0.426
+0.262
+0.353
+0.414
+0.435
+0.237
+0.254
+0.283
+0.248
+0.054
+0.052
+0.249
+0.056
+0.261
+0.3
+0.317
+0.388
+0.184
+0.284
+0.351
+0.386
+0.217
+0.237
+0.255
+0.231
+0.041
+0.041
+0.204
+0.041
+0.234
+0.269
+0.28
+0.312
+0.137
+0.227
+0.289
+0.346
+n: 100
+n: 200
+n: 400
+n: 800
+n: 1600
+variance: homo
+variance: hetero
+Mean
+1
+.25 .5 .75
+Mean
+1
+.25 .5 .75
+Mean
+1
+.25 .5 .75
+Mean
+1
+.25 .5 .75
+Mean
+1
+.25 .5 .75
+Cubic Q−Learning
+Cubic D−Learning
+Cubic RD−Learning
+Cubic E−Learning
+Linear Q−Learning
+Linear D−Learning
+Linear RD−Learning
+Linear E−Learning
+Cubic Q−Learning
+Cubic D−Learning
+Cubic RD−Learning
+Cubic E−Learning
+Linear Q−Learning
+Linear D−Learning
+Linear RD−Learning
+Linear E−Learning
+Misclassification Rate (smaller the better)
+type
+first best
+second best
+p = 10, K = 3, data generation with cub−basis
+Testing Misclassification Rates across 100 Replications
+0.331
+0.358
+0.406
+0.373
+0.272
+0.276
+0.467
+0.258
+0.407
+0.426
+0.45
+0.5
+0.428
+0.472
+0.498
+0.497
+0.274
+0.313
+0.352
+0.333
+0.201
+0.231
+0.414
+0.214
+0.312
+0.367
+0.377
+0.441
+0.317
+0.367
+0.436
+0.409
+0.225
+0.283
+0.332
+0.298
+0.149
+0.209
+0.349
+0.217
+0.237
+0.308
+0.331
+0.365
+0.226
+0.301
+0.384
+0.356
+0.2
+0.247
+0.267
+0.283
+0.122
+0.215
+0.322
+0.221
+0.207
+0.258
+0.281
+0.316
+0.154
+0.282
+0.36
+0.316
+0.179
+0.214
+0.229
+0.262
+0.095
+0.211
+0.284
+0.228
+0.195
+0.247
+0.257
+0.309
+0.117
+0.216
+0.28
+0.266
+n: 100
+n: 200
+n: 400
+n: 800
+n: 1600
+variance: homo
+variance: hetero
+Mean
+1
+.25 .5 .75
+Mean
+1
+.25 .5 .75
+Mean
+1
+.25 .5 .75
+Mean
+1
+.25 .5 .75
+Mean
+1
+.25 .5 .75
+Cubic Q−Learning
+Cubic D−Learning
+Cubic RD−Learning
+Cubic E−Learning
+Linear Q−Learning
+Linear D−Learning
+Linear RD−Learning
+Linear E−Learning
+Cubic Q−Learning
+Cubic D−Learning
+Cubic RD−Learning
+Cubic E−Learning
+Linear Q−Learning
+Linear D−Learning
+Linear RD−Learning
+Linear E−Learning
+Misclassification Rate (smaller the better)
+type
+first best
+second best
+p = 10, K = 3, data generation with exp−basis
+Testing Misclassification Rates across 100 Replications
+Figure S.27: Testing misclassiﬁcation rates (smaller the better) for n “ t100, 200, 400, 800, 1600u, p “ 10, K “ 3
+under homoscedasticity or heteroscedasticity. The upper panel corresponds to the data generation with hpxq “ x3,
+and the lower panel corresponds to the data generation with hpxq “ e
+?
+2x in Section S.1.
+67
+
+````
+
+## PDF page 109
+
+FORMULA CHECK REQUIRED: original PDF page 109.
+
+````text
+0.678
+0.758
+1.056
+0.812
+0.221
+0.251
+1.102
+0.24
+1.323
+1.526
+1.565
+1.774
+1.386
+1.552
+1.606
+1.938
+0.441
+0.499
+0.719
+0.506
+0.071
+0.063
+0.837
+0.066
+0.852
+1.191
+1.225
+1.655
+0.768
+1.059
+1.262
+1.55
+0.32
+0.367
+0.53
+0.348
+0.03
+0.029
+0.496
+0.028
+0.485
+0.681
+0.779
+1.08
+0.424
+0.677
+0.935
+1.157
+0.277
+0.308
+0.396
+0.293
+0.012
+0.01
+0.289
+0.011
+0.38
+0.491
+0.561
+0.905
+0.203
+0.423
+0.632
+0.848
+0.244
+0.271
+0.319
+0.259
+0.006
+0.006
+0.186
+0.006
+0.298
+0.375
+0.41
+0.527
+0.13
+0.275
+0.443
+0.736
+n: 100
+n: 200
+n: 400
+n: 800
+n: 1600
+variance: homo
+variance: hetero
+Mean
+1.5
+0.5 1
+Mean
+1.5
+0.5 1
+Mean
+1.5
+0.5 1
+Mean
+1.5
+0.5 1
+Mean
+1.5
+0.5 1
+Cubic Q−Learning
+Cubic D−Learning
+Cubic RD−Learning
+Cubic E−Learning
+Linear Q−Learning
+Linear D−Learning
+Linear RD−Learning
+Linear E−Learning
+Cubic Q−Learning
+Cubic D−Learning
+Cubic RD−Learning
+Cubic E−Learning
+Linear Q−Learning
+Linear D−Learning
+Linear RD−Learning
+Linear E−Learning
+Regret (smaller the better, optimal value = 2.63)
+type
+first best
+second best
+optimal value = 2.629
+p = 10, K = 3, data generation with cub−basis
+Testing Regrets across 100 Replications
+1.168
+1.306
+1.62
+1.366
+0.667
+0.702
+1.856
+0.594
+1.627
+1.755
+1.936
+2.398
+1.641
+1.936
+2.17
+2.251
+0.792
+0.978
+1.267
+1.074
+0.355
+0.473
+1.426
+0.344
+1.019
+1.328
+1.47
+1.947
+0.935
+1.182
+1.664
+1.586
+0.528
+0.745
+1.017
+0.795
+0.193
+0.349
+1.065
+0.322
+0.646
+0.975
+1.129
+1.361
+0.536
+0.824
+1.357
+1.182
+0.446
+0.599
+0.713
+0.711
+0.129
+0.286
+0.799
+0.288
+0.517
+0.685
+0.819
+0.969
+0.238
+0.594
+1.016
+0.815
+0.415
+0.513
+0.576
+0.647
+0.082
+0.264
+0.594
+0.296
+0.461
+0.609
+0.654
+0.863
+0.159
+0.344
+0.64
+0.598
+n: 100
+n: 200
+n: 400
+n: 800
+n: 1600
+variance: homo
+variance: hetero
+Mean
+2.5
+1
+0.5
+1.5 2
+Mean
+2.5
+1
+0.5
+1.5 2
+Mean
+2.5
+1
+0.5
+1.5 2
+Mean
+2.5
+1
+0.5
+1.5 2
+Mean
+2.5
+1
+0.5
+1.5 2
+Cubic Q−Learning
+Cubic D−Learning
+Cubic RD−Learning
+Cubic E−Learning
+Linear Q−Learning
+Linear D−Learning
+Linear RD−Learning
+Linear E−Learning
+Cubic Q−Learning
+Cubic D−Learning
+Cubic RD−Learning
+Cubic E−Learning
+Linear Q−Learning
+Linear D−Learning
+Linear RD−Learning
+Linear E−Learning
+Regret (smaller the better, optimal value = 8.8)
+type
+first best
+second best
+optimal value = 8.798
+p = 10, K = 3, data generation with exp−basis
+Testing Regrets across 100 Replications
+Figure S.28:
+Testing regrets (smaller the better) for n “ t100, 200, 400, 800, 1600u, p “ 10, K “ 3 under
+homoscedasticity or heteroscedasticity. The upper panel corresponds to the data generation with hpxq “ x3, and the
+lower panel corresponds to the data generation with hpxq “ e
+?
+2x in Section S.1.
+68
+
+````
+
+## PDF page 110
+
+FORMULA CHECK REQUIRED: original PDF page 110.
+
+````text
+variable: age
+variable: wtkg
+variance: original
+treatment_free_effect: original
+variance: heteroscedastic
+treatment_free_effect: original
+variance: original
+treatment_free_effect: incorrect
+variance: heteroscedastic
+treatment_free_effect: incorrect
+−2
+0
+2
+4
+6
+−2
+0
+2
+4
+6
+−10
+0
+10
+20
+−10
+0
+10
+20
+−10
+0
+10
+20
+−10
+0
+10
+20
+X
+log(residual2)
+Scatter Plots with GAM Curves: log(residual2) ~ X
+Figure S.29: Residual plots with respect to age and wtkg on the ACTG175 dataset (Section S.2). Curves are
+ﬁtted by the Generalized Additive Model (GAM) of cubic spline. Residuals are computed from the ﬁtted E-Learning
+on each modiﬁed dataset according to Table S.1, and averaged over 10 replications.
+69
+
+````
+
+## PDF page 111
+
+Technical extraction; compare with original PDF page 111.
+
+````text
+X: Intercept
+X: age
+X: wtkg
+X: cd40
+A: ddI
+A: ZDV
+A: ZDV + ddI
+A: ZDV + ZAL
+I: original data
+II: modified
+treatment−free
+effect in age
+III: modified
+variance func.
+in wtkg
+IV: II + III
+I: original data
+II: modified
+treatment−free
+effect in age
+III: modified
+variance func.
+in wtkg
+IV: II + III
+I: original data
+II: modified
+treatment−free
+effect in age
+III: modified
+variance func.
+in wtkg
+IV: II + III
+I: original data
+II: modified
+treatment−free
+effect in age
+III: modified
+variance func.
+in wtkg
+IV: II + III
+−50
+−25
+0
+25
+50
+−50
+−25
+0
+25
+50
+−50
+−25
+0
+25
+50
+−50
+−25
+0
+25
+50
+coefficient (trimmed within [−50, 50])
+trimmed
+within [−50, 50]
+beyond [−50, 50]
+method
+E−Learning
+RD−Learning
+D−Learning
+Estimated Coefficients on the ACTG175 Dataset
+Figure S.30: Fitted coeﬃcients on each modiﬁed ACTG 175 dataset according to Table S.1, and
+averaged over 10 replications.
+70
+
+````
+
+## PDF page 112
+
+FORMULA CHECK REQUIRED: original PDF page 112.
+
+````text
+References
+Athey, S. and Wager, S. (2021), “Policy learning with observational data,” Econometrica, 89, 133–
+161.
+Chernozhukov, V., Chetverikov, D., Demirer, M., Duﬂo, E., Hansen, C., Newey, W., and Robins,
+J. (2018), “Double/debiased machine learning for treatment and structural parameters,” The
+Econometrics Journal, 21, C1–C68.
+Friedman, J., Hastie, T., and Tibshirani, R. (2010), “Regularization paths for generalized linear
+models via coordinate descent,” Journal of Statistical Software, 33, 1–22.
+Gu, C. (2013), Smoothing Spline ANOVA Models, Verlag, NY, USA: Springer, 2nd ed.
+Hammer, S. M., Katzenstein, D. A., Hughes, M. D., Gundacker, H., Schooley, R. T., Haubrich,
+R. H., Henry, W. K., Lederman, M. M., Phair, J. P., Niu, M., Hirsch, M. S., and Merigan, T. C.
+(1996), “A trial comparing nucleoside monotherapy with combination therapy in HIV-infected
+adults with CD4 cell counts from 200 to 500 per cubic millimeter,” New England Journal of
+Medicine, 335, 1081–1090.
+Huling, J. D. and Yu, M. (2018), “Subgroup identiﬁcation using the personalized package,” arXiv
+preprint arXiv:1809.07905.
+Lin, Y. and Zhang, H. H. (2006), “Component selection and smoothing in multivariate nonpara-
+metric regression,” The Annals of Statistics, 34, 2272–2297.
+Lu, W., Zhang, H. H., and Zeng, D. (2013), “Variable selection for optimal treatment decision,”
+Statistical Methods in Medical Research, 22, 493–504.
+Meng, H. and Qiao, X. (2020), “A Robust Method for Estimating Individualized Treatment Eﬀect,”
+arXiv preprint arXiv:2004.10108.
+Newey, W. K. (1994), “The asymptotic variance of semiparametric estimators,” Econometrica, 62,
+1349–1382.
+Qi, Z., Liu, D., Fu, H., and Liu, Y. (2020), “Multi-armed angle-based direct learning for esti-
+mating optimal individualized treatment rules with various outcomes,” Journal of the American
+Statistical Association, 115, 678–691.
+71
+
+````
+
+## PDF page 113
+
+FORMULA CHECK REQUIRED: original PDF page 113.
+
+````text
+Qian, M. and Murphy, S. A. (2011), “Performance guarantees for individualized treatment rules,”
+The Annals of Statistics, 39, 1180–1210.
+Sverdrup, E., Kanodia, A., Zhou, Z., Athey, S., and Wager, S. (2020), “policytree: Policy learning
+via doubly robust empirical welfare maximization over trees,” Journal of Open Source Software,
+5, 2232.
+Tsiatis, A. (2007), Semiparametric Theory and Missing Data, Springer Series in Statistics, New
+York, NY, USA: Springer.
+Wallace, M. P., Moodie, E. E. M., and Stephens, D. A. (2017), “Dynamic treatment regimen esti-
+mation via regression-based techniques: Introducing R package DTRreg,” Journal of Statistical
+Software, 80, 1–20.
+Zhao, Y.-Q., Laber, E. B., Ning, Y., Saha, S., and Sands, B. E. (2019), “Eﬃcient augmentation
+and relaxation learning for individualized treatment rules using observational data.” Journal of
+Machine Learning Research, 20, 1–23.
+Zhou, X., Mayer-Hamblett, N., Khan, U., and Kosorok, M. R. (2017), “Residual weighted learning
+for estimating individualized treatment rules,” Journal of the American Statistical Association,
+112, 169–187.
+72
+
+````
+

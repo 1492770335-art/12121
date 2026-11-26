@@ -1,0 +1,79 @@
+When covariates are $0$, $\Pr(T_i \le t, \epsilon = 1|Z_i) = p\{1-\exp(-t)\}$, where $1-\exp(-t)$ is the cumulative distribution function (CDF) of $\exp(1)$. %so CIF is $p$ times the CDF of $\exp(1)$.
+Because of how we define the mixture above, $\Pr(T_i <\infty, \epsilon = 1) = p$. Thus, $\Pr(T_i = \infty, \epsilon = 1) = 1-p$. Then,
+%\begin{equation} 
+\label{eq_sim1}
+%\begin{split}
+$\Pr(\epsilon = 1|Z_i)  = \Pr(T < \infty, \epsilon = 1|Z_i) 
+  = \lim_{{t \to \infty}} 1- [1-p(1-\exp(-t))]^{\exp(Z^T_i \beta_1(A))}   
+  = 1-[1-p]^{\lambdaone}$.
+%\end{split}
+%\end{equation}
+
+To simulate cause 1 failure time, we use the property that the distribution of a CDF of a random variable is uniform. We generate an uniform random variate $u_1$ from Uniform(0,1) distribution and set this equal to the CDF of failure time given cause 1 and covariates. By definition of conditional probability, $\Pr(T_i \le t|\epsilon = 1, Z_i) = \frac{\Pr(T_i \le t, \epsilon = 1|Z_i)}{\Pr(\epsilon = 1|Z_i)}$, so 
+$$\Pr(T_i \le t| \epsilon = 1,Z_i) = \frac{1-[1-p\{1-\exp(-t)\}]^{\lambdaone}}{1-(1-p)^{\lambdaone}} \overset{\text{set}}{=} u_1.$$
+
+% derive failure time from cause1
+We derive failure time from cause 1, $t_1$, by solving for $t$.
+\begin{align*}
+\frac{1 - \left[1 - p(1 - \exp(-t))\right]^{\lambdaone}}{1 - (1 - p)^{\lambdaone}} &= u_1 \\
+1 - \left[1 - p(1 - \exp(-t))\right]^{\lambdaone} &= u_1 \times \left(1 - (1 - p)^{\lambdaone}\right) \\
+\left[1 - p(1 - \exp(-t))\right]^{\lambdaone} &= 1 - \left( u_1 \times \left(1 - (1 - p)^{\lambdaone}\right)\right) \\
+\lambdaone \times \log\left(1 - p(1 - \exp(-t))\right) &= \log\left(1 - u_1 \times \left(1 - (1 - p)^{\lambdaone}\right)\right) \\
+\log\left(1 - p(1 - \exp(-t))\right) &= \frac{\log\left(1 - u_1 \times \left(1 - (1 - p)^{\lambdaone}\right)\right)}{\lambdaone} \\
+1 - p(1 - \exp(-t)) &= \exp\left(\frac{\log\left(1 - u_1 \times \left(1 - (1 - p)^{\lambdaone}\right)\right)}{\lambdaone}\right).
+\end{align*}
+This implies
+\begin{align*}
+\exp(-t) &= 1 - p^{-1} \times \left(1 - \exp\left(\frac{\log\left(1 - u_1 \times \left(1 - (1 - p)^{\lambdaone}\right)\right)}{\lambdaone}\right)\right) \\
+t &= -\log\left(1 - p^{-1} \times \left(1 - \exp\left(\frac{\log\left(1 - u_1 \times \left(1 - (1 - p)^{\lambdaone}\right)\right)}{\lambdaone}\right)\right)\right) \\
+\implies t_1 &= t.
+\end{align*}
+\begin{comment}
+\begin{align*}
+\label{eq_simt1.0}
+\frac{1 - [1 - p(1 - \exp(-t))]^\lambdaone}{1 - (1 - p)^\lambdaone} &= u_1 \\
+1 - [1 - p(1 - \exp(-t))]^\lambdaone &= u_1 \times \{1 - {(1 - p)^\lambdaone} \}\\
+[1 - p(1 - \exp(-t))]^\lambdaone &= 1 - \left( u_1 \times \{1 - {(1 - p)^\lambdaone}\}\right)\\
+\lambdaone\times \log{[1 - p(1 - \exp(-t))]} &= \log{(1 - \left( u_1 \times \{1 - {(1 - p)^\lambdaone}\}\right))}\\
+ \log{[1 - p(1 - \exp(-t))]}&= \frac{\log{(1 - \left( u_1 \times \{1 - (1 - p)^{\lambdaone}\}\right))}}{\lambdaone}\\
+ 1 - p(1 - \exp(-t))&= \exp(\frac{\log{(1 - \left( u_1 \times \{1 - (1 - p)^{\lambdaone}\}\right))}}{\lambdaone}) \\ %here
+ \exp(-t)= 1-p^{-1}\times\{1&-\exp(\frac{\log{(1 - \left( u_1 \times \{1 - (1 - p)^{\lambdaone}\}\right))}}{\lambdaone})\}\\
+ t= -\log{(1-p^{-1}\times\{1&-\exp(\frac{\log{(1 - \left( u_1 \times \{1 - (1 - p)^{\lambdaone}\}\right))}}{\lambdaone})\})}\\
+\implies t_1&=t.
+\end{align*}
+\end{comment}
+
+The CIF for failures from cause 2 was obtained by taking $\Pr(\epsilon=2|Z_i)=1-\Pr(\epsilon=1|Z_i)=1-(1-[1-p]^{\lambdaone})=(1-p)^{\lambdaone}$. We use the exponential distribution with rate $\lambdatwo$ for $\Pr(T_i \le t| \epsilon = 2, Z_i)$.
+In other words, $t_2 \sim \exp(\lambdatwo)$. Without loss of generality, we could also derive $t_2$ similarly to $t_1$ (see Supplementary Material). Censoring time $C_i$ follows a Uniform($0,\tau = 4)$ distribution, independent of failure time. %Our observed failure time is $t_1 \wedge t_2$. Our observed time is $X_i = \min(t_{1i}, t_{2i}, C_i)$ and our cause indicator is 0 if $X_i$ is censoring time, 1 if $X_i$ is $t_{1i}$, and 2 if $X_i$ is $t_{2i}$.
+
+Using the assumptions or derivations established earlier, the overall survival function when the priority cause is cause 1 can be written as:
+\begin{equation*} 
+\begin{split}
+\label{eq_simval1}
+\survfunc(t) 
+&= \Pr(T > t) = 1 - \Pr(T \leq t) 
+= 1 - \big\{\Pr(T \leq t, \epsilon = 1) + \Pr(T \leq t, \epsilon = 2)\big\} \\ 
+&= 1- \big\{\Pr(T \leq t, \epsilon = 1) + \Pr(T\leq t| \epsilon = 2) \times \Pr(\epsilon = 2) \big\} \\
+&= 1 - \big\{1-[1-p\{1-\exp(-t)\}]^{\lambdaone} \\ 
+&\quad \quad + (1 - \exp(-{\lambdatwo}*t)) \times (1-p)^{\lambdaone} \big\} \\
+&= [1-p\{1-\exp(-t)\}]^{\lambdaone} - (1 - \exp(-t \times {\lambdatwo})) \times (1-p)^{\lambdaone}.\\
+\end{split}
+\end{equation*}
+
+% derive failure time from cause2
+We derive $t_{2}$ from the Fine-Gray simulation setting in a similar manner as $t_1$. Since $\Pr(\epsilon=2|Z_i)=1-\Pr(\epsilon=1|Z_i)$, $\, \Pr(\epsilon=2|Z_i)=1-(1-[1-p]^{\lambdaone}) = [1-p]^{\lambdaone}$. Then, we have
+\begin{align*}
+\label{eq_sim2}
+\Pr(T_i \le t, \epsilon = 2|Z_i)  &=
+\Pr(T_i \le t|\epsilon = 2, Z_i)\times \Pr(\epsilon = 2|Z_i)\\
+ &= (1-\exp(-\exp(Z^T_i\beta_2(A))t)) \times (1-p)^{\lambdaone}.
+\end{align*}
+
+Setting this to a random variate $u_2 \sim Uniform(0,1)$, solve for $t_2$ to obtain failure time for cause 2.
+\begin{align*}
+\text{Set } u_2 &= (1 - \exp(-\lambdatwo t_2)) \times (1 - p)^{\lambdaone} \\
+\frac{u_2}{(1 - p)^{\lambdaone}} &= 1 - \exp(-\lambdatwo t_2) \\
+1 - \frac{u_2}{(1 - p)^{\lambdaone}} &= \exp(-\lambdatwo t_2) \\
+\log\left(1 - \frac{u_2}{(1 - p)^{\lambdaone}}\right) &= -\lambdatwo t_2 \\
+t_2 &= -\frac{\log\left(1 - \frac{u_2}{(1 - p)^{\lambdaone}}\right)}{\lambdatwo}.
+\end{align*}

@@ -1,0 +1,37 @@
+{
+  "paper_id": "N7f33210eb1",
+  "category": "A",
+  "title": "Learning optimal dynamic treatment regimes from longitudinal data",
+  "authors": "Nicholas T Williams and Katherine L Hoffman and Iván Díaz and Kara E Rudolph",
+  "doi": "10.1093/aje/kwae122",
+  "year": "2024",
+  "original_url": "https://doi.org/10.1093/aje/kwae122",
+  "local_fulltext": true,
+  "public_pdf": [
+    "A/N7f33210eb1/artifacts/388ec4739981/original.pdf"
+  ],
+  "public_markdown": [
+    "A/N7f33210eb1/artifacts/388ec4739981/fulltext.md"
+  ],
+  "public_txt": [
+    "A/N7f33210eb1/artifacts/388ec4739981/fulltext.txt"
+  ],
+  "original_tex": [
+    "A/N7f33210eb1/artifacts/388ec4739981/latex/main.tex",
+    "A/N7f33210eb1/artifacts/388ec4739981/latex/supplement.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "388ec4739981ae319a19cd4d3eeaee3d747b04fc6b2a028751d9cb2c5f72d9e1",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2401.10867",
+      "provenance": "A/N7f33210eb1/artifacts/388ec4739981/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/N7f33210eb1/README.md",
+  "status": "public_fulltext"
+}

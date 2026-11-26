@@ -1,0 +1,28 @@
+{
+  "paper_id": "B05",
+  "category": "B",
+  "title": "Interactive Q -Learning for Quantiles",
+  "authors": "Kristin A. Linn and Eric B. Laber and Leonard A. Stefanski",
+  "doi": "10.1080/01621459.2016.1155993",
+  "year": "2017",
+  "original_url": "https://doi.org/10.1080/01621459.2016.1155993",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "9bf9a11bd6bd0cb94681a6f6ececaf1a207615a990d211fbcd9f2e8e3aaacd6d",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1407.3414"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/B05/README.md",
+  "status": "local_only"
+}

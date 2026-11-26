@@ -1,0 +1,28 @@
+{
+  "paper_id": "N5012c76a1e",
+  "category": "A",
+  "title": "Resampling‐based confidence intervals for model‐free robust inference on optimal treatment regimes",
+  "authors": "Yunan Wu and Lan Wang",
+  "doi": "10.1111/biom.13337",
+  "year": "2021",
+  "original_url": "https://doi.org/10.1111/biom.13337",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "67037f188db4cfebca03e11dcdfc690c3ed3906ab5541e31b590f2d09b5b62ae",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1911.11043"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/N5012c76a1e/README.md",
+  "status": "local_only"
+}

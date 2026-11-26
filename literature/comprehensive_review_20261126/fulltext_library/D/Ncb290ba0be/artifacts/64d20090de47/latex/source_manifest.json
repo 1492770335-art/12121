@@ -1,0 +1,29 @@
+{
+  "arxiv_id": "2610.40138v1",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2610.40138v1",
+  "archive_sha256": "b7088e151f8de524417652820129a900227a8c8b20213400e119e60921a76bc8",
+  "files": [
+    {
+      "path": "sigconf.tex",
+      "bytes": 66666,
+      "sha256": "6dc1c487e0ba000a5fb41d636078751e2ae758ced8bd6e480fdbc8f29625e8fc"
+    },
+    {
+      "path": "tables/table2_loss.tex",
+      "bytes": 992,
+      "sha256": "2ba1cdcddae0c431c70e6f8b24089f785bd425ca40a1099190d01ce32618e25d"
+    },
+    {
+      "path": "tables/table3_real_world.tex",
+      "bytes": 1685,
+      "sha256": "08ce2121d38b30b9fc2adca01390f16905655c34c417363ad8ad2ef94fe3938c"
+    },
+    {
+      "path": "tables/table1_metrics.tex",
+      "bytes": 543,
+      "sha256": "2c1cb817ff5f748f3425c7f4216b17905f3cdce3455959b7e26302255fb54a28"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

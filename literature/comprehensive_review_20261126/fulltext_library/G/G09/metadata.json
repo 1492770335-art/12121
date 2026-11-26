@@ -1,0 +1,28 @@
+{
+  "paper_id": "G09",
+  "category": "G",
+  "title": "Random survival forests",
+  "authors": "Hemant Ishwaran and Udaya B. Kogalur and Eugene H. Blackstone and Michael S. Lauer",
+  "doi": "10.1214/08-aoas169",
+  "year": "2008",
+  "original_url": "https://doi.org/10.1214/08-aoas169",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "2d8c7d6329f738c9a718e463e33339b094ab7e59e51c6eb8989979fee172017e",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/0811.1645"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/G09/README.md",
+  "status": "local_only"
+}

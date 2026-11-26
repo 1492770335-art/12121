@@ -1,0 +1,29 @@
+\begin{algorithm}[H]
+  \caption{The proposed ITR estimator accounting for competing risks.}
+  \label{alg:Overview}
+  \begin{flushleft}
+  \begin{algorithmic}
+  \State \textbf{Input:} $Z_i, A_i, \tol$
+  \State \textbf{Output:} $\doptHAT$
+%  \State
+  \State For each individual $i$, given covariates $Z_i$ and small $0<\tol<1$, consider feasible treatments $a_i \in \psi(z_i) 
+  \subset \mathcal{A}$ (we drop $i$ for simplicity):
+  \begin{enumerate}
+    \item Obtain $\survfunchat(\cdot|Z,A)$ via random survival forest \citep{cho_multi-stage_2023}
+    \item Obtain $\widehat{F}_j(\cdot|Z,A)$ via random cumulative incidence forest (Algorithm \ref{alg:RCIF})
+    \item Let the estimated optimal treatments for Phase 1 (overall survival) be $\hat{a}_1^* = \argmax_{a \in \psi(z)}\valueoneHAT$ and $\valueonemaxHAT = \widehat{V}_1(\hat{a}_1^*,Z)$
+    \item Obtain overall survival treatment set $A^s = \{a \in \psi(Z): \valueoneHAT \ge (1- \tol)\valueonemaxHAT \}$
+        \begin{itemize}
+            \item If $A^s$ is singleton, $A^s$ is the estimated optimal treatment: $\doptHAT(Z) = A^s$.
+            \item If $\#A^s > 1$, optimal treatment for Phase 2 is $\doptHAT(Z) = \argmin_{a \in \textit{A}^s} \valuetwoHAT$.
+        \end{itemize} 
+    \end{enumerate}
+  \State In other words, if $a_i \neq A^s_i$ for individual $i$, then individual $i$ stopped at either 
+    \begin{itemize}[label={}]
+      \item \hspace{1em} Phase 1: $\valueoneHAT < (1-\tol)\valueonemaxHAT$ or
+      \item \hspace{1em} Phase 2: $\valueoneHAT \ge (1-\tol) \valueonemaxHAT$ but $\valuetwoHATnoarg(a = \doptHAT, Z) < \valuetwoHATnoarg(a = a_i, Z)$
+  \end{itemize}
+and $A_i^s$ may have $\#A_i^s>1$.
+\end{algorithmic}
+\end{flushleft}
+\end{algorithm}

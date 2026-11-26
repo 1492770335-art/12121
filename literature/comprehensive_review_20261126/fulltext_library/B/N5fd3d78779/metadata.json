@@ -1,0 +1,34 @@
+{
+  "paper_id": "N5fd3d78779",
+  "category": "B",
+  "title": "Distributional impact of tax and welfare policies: Budget 2026",
+  "authors": " and Maxime Bercholz and Karina Doorley and Claire Keane and Cian Mowlds and Richard O'Shea and Agathe Simon",
+  "doi": "10.26504/qec2025win_sa_bercholz",
+  "year": "2025",
+  "original_url": "https://doi.org/10.26504/qec2025win_sa_bercholz",
+  "local_fulltext": true,
+  "public_pdf": [
+    "B/N5fd3d78779/artifacts/16bd2c435338/original.pdf"
+  ],
+  "public_markdown": [
+    "B/N5fd3d78779/artifacts/16bd2c435338/fulltext.md"
+  ],
+  "public_txt": [
+    "B/N5fd3d78779/artifacts/16bd2c435338/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "16bd2c435338f44b973ebf103ed3b650f57a1143e4cd7912ed082322c9534afa",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.esri.ie/pubs/QEC2025WIN_SA_Bercholz.pdf",
+      "provenance": "B/N5fd3d78779/artifacts/16bd2c435338/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/N5fd3d78779/README.md",
+  "status": "public_fulltext"
+}

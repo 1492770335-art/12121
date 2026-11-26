@@ -1,0 +1,47 @@
+{
+  "paper_id": "N32b0137644",
+  "category": "E",
+  "title": "Offline Minimax Soft-Q-learning Under Realizability and Partial Coverage",
+  "authors": "Masatoshi Uehara and Nathan Kallus and Jason Lee and Wen Sun",
+  "doi": "10.52202/075280-0563",
+  "year": "2023",
+  "original_url": "https://doi.org/10.52202/075280-0563",
+  "local_fulltext": true,
+  "public_pdf": [
+    "E/N32b0137644/artifacts/7bbf508083dd/original.pdf"
+  ],
+  "public_markdown": [
+    "E/N32b0137644/artifacts/7bbf508083dd/fulltext.md"
+  ],
+  "public_txt": [
+    "E/N32b0137644/artifacts/7bbf508083dd/fulltext.txt"
+  ],
+  "original_tex": [
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/further_related.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/main_arxiv.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/math_commands.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/notation.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/proof.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/main_folder/abstract.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/main_folder/algorithms.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/main_folder/convergence.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/main_folder/discussion.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/main_folder/finite_sample.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/main_folder/introduction.tex",
+    "E/N32b0137644/artifacts/7bbf508083dd/latex/main_folder/preliminary.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "7bbf508083dd373022ae6c8b2000006d40e8ad59a45586109561fb111cf1ed09",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2302.02392",
+      "provenance": "E/N32b0137644/artifacts/7bbf508083dd/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N32b0137644/README.md",
+  "status": "public_fulltext"
+}

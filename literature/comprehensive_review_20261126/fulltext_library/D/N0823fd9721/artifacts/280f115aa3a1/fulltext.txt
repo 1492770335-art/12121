@@ -1,0 +1,2063 @@
+Parameter Estimation of Birnbaum-Saunders Distribution under Competing Risks Using the Quantile Variant of the Expectation-Maximization Algorithm
+
+Original PDF: [original.pdf](original.pdf). SHA256: `280f115aa3a1d8cdbacc2a27e5539910809f58f6c15b482240f7a7aebfb55b1d`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+Technical extraction; compare with original PDF page 1.
+Citation: Park, C.; Wang, M.
+Parameter Estimation of Birnbaum-
+Saunders Distribution under
+Competing Risks Using the Quantile
+Variant of the Expectation-
+Maximization Algorithm. Mathematics
+2024, 12, 1757. https://doi.org/
+10.3390/math12111757
+Academic Editors: Tzong-Ru Tsai,
+Jianbao Chen, Yuhlong Lio
+and Anatoliy Swishchuk
+Received: 24 April 2024
+Revised: 28 May 2024
+Accepted: 4 June 2024
+Published: 5 June 2024
+Copyright: © 2024 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed
+under
+the
+terms
+and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+mathematics
+Article
+Parameter Estimation of Birnbaum-Saunders Distribution under
+Competing Risks Using the Quantile Variant of the
+Expectation-Maximization Algorithm
+Chanseok Park 1
+and Min Wang 2,*
+1
+Applied Statistics Laboratory, Department of Industrial Engineering, Pusan National University,
+Busan 46241, Republic of Korea; cp@pusan.ac.kr or cpark2@gmail.com
+2
+Department of Management Science and Statistics, The University of Texas at San Antonio,
+San Antonio, TX 78249, USA
+*
+Correspondence: min.wang3@utsa.edu
+Abstract: Competing risks models, also known as weakest-link models, are utilized to analyze diverse
+strength distributions exhibiting multi-modality, often attributed to various types of defects within
+the material. The weakest-link theory posits that a material’s fracture is dictated by its most severe
+defect. However, multimodal problems can become intricate due to potential censoring, a common
+constraint stemming from time and cost limitations during experiments. Additionally, determining
+the mode of failure can be challenging due to factors like the absence of suitable diagnostic tools,
+costly autopsy procedures, and other obstacles, collectively referred to as the masking problem. In
+this paper, we investigate the distribution of strength for multimodal failures with censored data.
+We consider both full and partial maskings and present an EM-type parameter estimate for the
+Birnbaum-Saunders distribution under competing risks. We compare the results with those obtained
+from other distributions, such as lognormal, Weibull, and Wald (inverse-Gaussian) distributions. The
+effectiveness of the proposed method is demonstrated through two illustrative examples, as well as
+an analysis of the sensitivity of parameter estimates to variations in starting values.
+Keywords: Birnbaum-Saunders distribution; competing risks; EM algorithm; missing data
+MSC: 62F10; 62N01; 62N02; 62D10; 62P30
+1. Introduction
+To design structures capable of withstanding predicted stresses, understanding the
+strength of the material they are constructed from is essential. Typically, materials undergo
+testing in a laboratory to ascertain their strength properties. Statistical models are then uti-
+lized to forecast the strength of structures or specimens of varying sizes. This is particularly
+critical for modern composite materials, where flaws may occur randomly during testing,
+consequently impacting the strength of individual specimens. Therefore, we may consider
+the individual strength of a specimen as a random variable, with its probability distribution
+function used to predict the strength of larger structures made from the same material. This
+underscores the importance of selecting suitable statistical models that effectively capture
+the observed data. The conventional approach in material property research has typically
+operated under the assumption that material strength adheres to the Weibull distribution,
+resulting in the creation of linear Weibull plots. However, several studies have noted the
+existence of various flaw types that can lead to material fractures (see, for example, [1–6],
+to name just a few).
+It is noteworthy that several researchers have proposed statistical strength distribu-
+tions based on concepts such as the “weakest-link theory” or “competing risk” to address
+the presence of multiple potential causes of failure. For example, Goda and Fukunaga [5]
+Mathematics 2024, 12, 1757. https://doi.org/10.3390/math12111757
+https://www.mdpi.com/journal/mathematics
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+Mathematics 2024, 12, 1757
+2 of 17
+utilized a multi-modal Weibull distribution to analyze the strength distributions of sili-
+con carbide and alumina fibers. Wagner [7] explored the competing risks model, while
+Taylor [8] proposed a Poisson-Weibull flaw model. Additionally, several authors have pro-
+posed end-effects models (or clamp-effects models) to study the strengths of exceptionally
+small fiber or composite specimens, as demonstrated by [9–11], among others.
+However, these models primarily concentrated on Weibull distributions while not
+accounting for masking or censoring issues. Moreover, it has been observed that Weibull
+distributions might not consistently provide precise fits to tensile strength data, especially
+concerning materials such as carbon fiber or composite tensile strengths. Thus, several
+authors advocated the Birnbaum-Saunders model [12,13] as an alternative to the Weibull
+model (see, for example, [14–24], among others).
+These observations highlighted the need for developing efficient parameter estima-
+tion methodologies that can handle the Birnbaum-Saunders model when concerning the
+competing risks problem (see, for example, [25–28]). This paper makes a contribution by
+introducing an expectation–maximization (EM) algorithm for parameter estimation within
+the Birnbaum-Saunders competing risks model, addressing both masking and censoring
+effects. Initially, we delve into the complexities of multimodal problems involving masking
+and censoring under the Birnbaum-Saunders competing risks model. Subsequently, we
+propose a reliable parameter estimation approach utilizing the quantile variant of the EM
+(QEM) algorithm by [29].
+Since implementing the EM algorithm can be challenging due to the requirement of
+explicit integration of the log-likelihood function in the E-step, the QEM variant provides a
+viable alternative.
+We present an EM-type parameter estimate based on QEM, known for its stability in
+estimation and its capability to handle a large number of failure modes.
+The structure of the remainder of this paper is as follows: A basic summary of the
+competing risks model is offered in Section 2. In Section 3, we present the distribution
+of material strength and its corresponding likelihood function. We discuss the EM and
+QEM algorithms in Section 4. We describe the QEM algorithm for parameter estimation
+in Section 5. We provide real-data examples for illustrative purposes in Section 6. We
+investigate the sensitivity of parameter estimates for the Newton-Raphson-type and QEM
+methods in Section 7. The paper ends with concluding remarks in Section 8.
+2. Basics on Competing Risks Model
+The examination of failure time or lifetime data has attracted much attention across
+various fields of study, including mechanical engineering, industrial engineering, electrical
+engineering, material science, and more. When examining industrial systems comprised of
+multiple interconnected components, system failure occurs when any of its components
+fail first, a phenomenon known as competing risks. Sometimes, identifying the exact cause
+of failure can be challenging or costly, resulting in cases where masking occurs when the
+failure time of an individual is observed without conducting a thorough investigation into
+the cause. This paper explores situations where the mode of the failure of the ith system
+may not always be definitively determined, and it is indicated by a subset of labels that
+define the component within the module.
+As an illustration, if the ith system, consisting of J components, experiences failure
+because of the jth component only, the label is represented as a singleton Mi = {j}
+(indicating no masking). If the cause of failure is completely unknown, the set of labels
+becomes Mi = {1, 2, . . . , J} (indicating complete masking). In cases where failure is
+recognized by modes that involve two or more failures but not necessarily all failures, the
+set of labels is denoted as Mi = {j1, j2, ..., ji} (indicating partial masking). Additionally,
+the problem can become more complex due to potential censoring, which commonly
+occurs in practical experiments due to time and cost constraints. Data are considered
+right- or left-censored when certain observations have either a lower or upper bound on
+their lifetime.
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+Mathematics 2024, 12, 1757
+3 of 17
+The conventional method for managing competing risks typically entails using hypo-
+thetical latent lifetimes corresponding to each possible cause of failure individually [30]. To
+illustrate this, consider the following notation. A subject is subjected to various potential
+causes of failure, where there are J distinct modes of failure, each denoted by j = 1, 2, . . . , J.
+We represent T(j)
+i
+(i = 1, 2, . . . , n) as the continuous lifetime of the ith individual attributed
+to the jth cause. We assume that T(j)
+i
+are independent for all i and j and are identically dis-
+tributed for all i given j. Its cumulative distribution function, probability density function,
+survival function, and the hazard rate function of T(j)
+i
+are denoted by F(·|θ(j)), f (·|θ(j)),
+S(·|θ(j)), and h(·|θ(j)), respectively, where θ(j) represents a vector of parameters for the jth
+cause. Then, we observe the lifetime of the ith subject, denoted by Ti, which is determined
+by the random variable
+Ti = min{T(1)
+i , T(2)
+i , . . . , T(J)
+i
+}.
+In real-world reliability analysis scenarios, obtaining complete observations of Ti
+along with the jth cause may not always be feasible due to various masking and censoring
+mechanisms inherent in data collection. Hence, we additionally assume that each Ti could
+potentially undergo masking or censoring. We assume that observations may undergo
+random right-censoring, where censoring times Ci are independent of lifetimes Ti for all i,
+and masking occurs with the set of labels defining the failed components. Consequently,
+we can observe triplets (Yi, Mi, ∆i), where Yi = min(Ti, Ci), and ∆i is a censoring indicator
+variable defined as
+∆i =
+
+
+
+−1
+if masked
+j
+if failed with jth cause
+0
+if censored
+.
+(1)
+Let yi and δi represent a realization of the random variables Yi and ∆i, respectively.
+Cox [31] initially explored the analysis of exponential data with dual causes; a study
+later expanded to encompass multiple causes by Herman and Patell [32]. Miyakawa [33]
+addressed the parametric estimation challenge in scenarios involving two causes and po-
+tential missing causes without censored data. The studies in [34–37] tackled the masking
+issue, albeit focusing solely on exponential models and offering explicit solutions under
+stringent assumptions. Kundu and Basu [38] built upon Miyakawa’s research by providing
+approximations and asymptotic properties for parameter estimators, confidence intervals,
+and bootstrap confidence bounds. They obtained the exact maximum likelihood estimator
+for the exponential model with two causes and formulated likelihood equations for the
+Weibull case. However, their exact maximum likelihood estimator is only applicable in sce-
+narios of complete masking without considering censored data. Park and Kulasekera [39]
+expanded upon earlier studies by proposing a closed-form maximum likelihood estimator
+for the exponential model. This estimator addresses scenarios involving multiple causes,
+censored data, and fully masked causes. They focused solely on cases where lifetime
+distributions adhered to exponential and Weibull distributions. Notably, the closed-form
+maximum likelihood estimator for the Weibull distribution necessitates prior estimation of
+the common shape parameter via the likelihood function.
+Ishioka and Nonaka [40] introduced a reliable method for estimating the shared
+Weibull shape parameter involving two causes. They utilized a quasi-Newton method
+in cases where only system lifetime data are available and the associated indicator is
+undisclosed, akin to the masking issue under discussion. However, their methodology is
+confined to scenarios with two causes and a shared shape parameter. Another method
+suggested by [41] employs the EM algorithm. The EM sequences for the exponential model
+address diverse scenarios involving multiple causes, censoring, and extensive masking,
+were also developed by [41]. However, their method is limited to exponential lifetime
+distributions because it requires closed forms for the hazard rate and survival functions.
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+Mathematics 2024, 12, 1757
+4 of 17
+3. Distribution of Material Strength and Construction of Likelihood Function
+3.1. Distribution of Material Strength
+The weakest link theory is widely utilized to analyze material strength across multiple
+failure modes. This theory operates under two key assumptions [3,5]: (i) the material
+possesses numerous defects that limit its strength, with the material’s strength being
+determined by the weakest defect present, and (ii) it assumes that defects do not interact
+with each other. These assumptions align with the competing risks model, which is based
+on hypothetical latent lifetimes. By employing the material’s observed strengths rather than
+lifetimes, we can employ the theory of competing risks models in this scenario. Suppose
+that there are J independent defects in the material specimen and each failure mode is
+denoted by j = 1, 2, . . . , J. Let T(j)
+i
+(i = 1, 2, . . . , n) represent the strength of the ith material
+specimen attributed to the jth defect type. As mentioned earlier, the recorded strength
+of the ith material specimen is determined by Ti = min{T(1)
+i
+, T(2)
+i
+, . . . , T(J)
+i
+}. Then, the
+strength distribution of Ti is expressed as
+F(t|Θ) = 1 −
+J
+∏
+j=1
+n
+1 −F(t|θ(j))
+o
+= 1 −
+J
+∏
+j=1
+S(t|θ(j)),
+where Θ =
+ θ(1), θ(2), · · · , θ(J)
+.
+3.2. Construction of Likelihood Function
+In this section, we present a concise overview of the general maximum likelihood
+method proposed by [42,43]. We represent the indicator function of an event A as I[A]. For
+ease of notation, we define Ii(j) = I[δi = j], and we denote δi = 0 in cases of censoring.
+The likelihood function of the censored sample is then given by
+L(Θ) ∝
+n
+∏
+i=1
+"n
+f (yi|θ(1))
+J
+∏
+j=1
+j̸=1
+S(yi|θ(j))
+oIi(1)n
+S(yi|θ(1))
+oIi(0)
+×
+· · · ×
+n
+f (yi|θ(J))
+J
+∏
+j=1
+j̸=J
+S(yi|θ(j))
+oIi(J)n
+S(yi|θ(J))
+oIi(0)
+#
+=
+n
+∏
+i=1
+J
+∏
+j=1
+Li(θ(j)),
+where
+Li(θ(j)) =
+n
+f (yi|θ(j))
+oIi(j)
+J
+∏
+ℓ=0
+ℓ̸=j
+n
+S(yi|θ(j))
+oIi(ℓ)
+.
+(2)
+The likelihood function L(Θ) is now decomposed into Li(θ(j)). Consequently, max-
+imizing L(Θ) with respect to Θ is equivalent to independently maximizing L(θ(j)) =
+∏n
+i=1 Li(θ(j)) for each cause j. This implies that we can streamline the joint maximum
+likelihood problem for a set of J parameters into J distinct estimation tasks for the single
+parameter θ(j), thereby significantly simplifying the numerical computations.
+Subsequently, we examine the lifetime of a subject Ti, which is subjected to masking,
+where the failure mode is only known to be one of the elements in a set Mi. We must
+incorporate this into the likelihood function. It is essential to note that the cumulative
+incidence function (CIF) for each jth cause is represented by
+G(t, j|Θ) = P
+
+Ti ≤t and ∆i = j
+	
+(3)
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+Mathematics 2024, 12, 1757
+5 of 17
+with its corresponding sub-density function
+g(t, j|Θ) = h(t|θ(j))
+J
+∏
+ℓ=1
+S(t|θ(ℓ)),
+(4)
+where j = 1, 2, . . . , J. The probability density function of Ti with Mi is then given by
+f (Mi)(t|Θ) = ∑
+j∈Mi
+g(t, j|Θ) = ∑
+j∈Mi
+h(t|θ(j))
+J
+∏
+ℓ=1
+S(t|θ(ℓ)).
+For notational convenience, we denote δi = −1 if the cause of failure is unknown.
+Hence, the overall likelihood incorporating masking and censoring is expressed as
+L∗(Θ) ∝
+n
+∏
+i=1
+J
+∏
+j=1
+Li(θ(j)) ×
+n
+∏
+i=1
+n
+f (Mi)(yi|Θ)
+oIi(−1)
+,
+where Li(θ(j)) is from (2). Then the overall likelihood above is expressed as
+L∗(Θ) ∝
+n
+∏
+i=1
+L∗
+i (Θ),
+(5)
+where
+L∗
+i (Θ) =
+J
+∏
+j=1
+Li(θ(j)) ×
+n
+f (Mi)(yi|Θ)
+oIi(−1)
+.
+(6)
+Generally, deriving the closed-form maximum likelihood estimate from the aforemen-
+tioned likelihood function is highly challenging, if not impossible, requiring the use of
+numerical techniques to maximize L(Θ). While the Newton-Raphson method is commonly
+employed, it might exhibit sensitivity to initial values and could potentially fail to converge
+towards a solution. Additionally, in cases where the likelihood function involves a large
+number of failure modes, it may become over-parameterized, making direct maximiza-
+tion using the Newton-Raphson method ineffective. To address these challenges, the EM
+algorithm is utilized, as elaborated in the subsequent section.
+4. The EM and QEM Algorithms
+Here, we present the EM algorithm and formulate likelihood functions that are appro-
+priate for utilization in the E-step of both the EM and QEM algorithms.
+4.1. The EM Algorithm for Competing Risks Model
+The EM algorithm is an iterative technique utilized to compute the ML estimates of
+parametric models. It proves particularly valuable when closed-form ML estimates are
+unavailable or when dealing with incomplete data. Originally proposed by Dempster
+et al. [44], the EM algorithm addresses these challenges. References such as [45–48] provide
+comprehensive information on the EM algorithm. For recent studies on the EM algorithm,
+readers are referred to [49,50].
+The issue to address is whether the EM algorithm is applicable to the competing
+risks issue. When faced with masked data, where the failure mode belongs to a set Mi,
+it suggests that the exact failure mode is unknown. Nonetheless, we can construct a
+complete-data likelihood, Lc
+i (Θ), by treating the failure mode as missing information. To
+accomplish this, we can introduce an indicator variable to facilitate the construction of the
+complete-data likelihood.
+
+
+===== ORIGINAL PDF PAGE 6 =====
+FORMULA CHECK REQUIRED: original PDF page 6.
+Mathematics 2024, 12, 1757
+6 of 17
+Let U(j)
+i
+= I[∆i = j|Xi = xi] for j = 1, 2, . . . , J. Then U(j)
+i
+follows a Bernoulli distri-
+bution with probability given by P
+
+U(j)
+i
+= 1
+	 = P
+
+∆i = j|Xi = xi
+	
+. Thus, if j ∈Mi,
+we have
+P
+
+∆i = j|Xi = xi
+	 =
+g(xi, j)
+∑j∈Mi g(xi, j).
+It is immediate upon using (4) that we have
+E
+
+U(j)
+i |Θ
+ = P
+
+∆i = j|Xi = xi
+	 =
+
+
+
+
+
+
+
+h(xi|θ(j))
+∑
+ℓ∈Mi
+h(xi|θ(ℓ))
+if j ∈Mi
+0
+if j̸ ∈Mi
+.
+(7)
+We follow Section 2.8.2 of [51] by replacing f (Mi)(xi|Θ) in (6) with
+J
+∏
+j=1
+
+f (xi|θ(j))
+	U(j)
+i 
+S(xi|θ(j))
+	1−U(j)
+i
+along with Li(θ(j)) from (2). Then the complete-data likelihood with masking and censoring
+is expressed as
+Lc
+i (Θ) =
+J
+∏
+j=1
+Lc
+i (θ(j)),
+(8)
+where
+Lc
+i (θ(j)) =
+n
+f (xi|θ(j))
+oIi(j)
+J
+∏
+ℓ=0
+ℓ̸=j
+n
+S(xi|θ(j))
+oIi(ℓ)
+×
+"n
+f (xi|θ(j))
+oU(j)
+i n
+S(xi|θ(j))
+o1−U(j)
+i
+#Ii(−1)
+=
+n
+h(xi|θ(j))
+oIi(j)+U(j)
+i Ii(−1)
+J
+∏
+ℓ=−1
+n
+S(xi|θ(j))
+oIi(ℓ)
+(9)
+=
+n
+h(xi|θ(j))
+oIi(j)+U(j)
+i Ii(−1)
+×
+n
+S(xi|θ(j))
+o∑J
+ℓ=−1 Ii(ℓ)
+.
+When δi = j, we have a singleton Mi = {j} so that U(j)
+i
+≡1. Then we have
+Ii(j) + U(j)
+i Ii(−1) = U(j)
+i .
+(10)
+It is immediate upon using (10) and ∑J
+ℓ=−1 Ii(ℓ) = 1 that we can simplify (9) as follows
+Lc
+i (θ(j)) =
+n
+h(xi|θ(j))
+oU(j)
+i
+× S(xi|θ(j)).
+(11)
+It is important to highlight that the likelihood Lc
+i (Θ) in (8) is fully decomposed by
+Lc
+i (θ(j)). As a result, the estimation challenge can be addressed independently for each
+individual parameter θ(j), utilizing Lc(θ(j)) = ∏n
+i=1 Lc
+i (θ(j)). Therefore, similar to our
+strategy in (2), employing this factorized complete-data likelihood Lc(θ(j)) instead of
+∏n
+i=1 L∗
+i (Θ) enables us to simplify the joint maximum likelihood problem involving a set of
+J parameters into J individual estimation problems, each focused on a single parameter θ(j).
+Consequently, the maximization of the overall likelihood L∗(Θ) is achieved by maxi-
+mizing the J complete-data likelihoods Lc(θ(j)) = ∏n
+i=1 Lc
+i (θ(j)) for j = 1, 2, . . . , J. While
+solving the likelihood presented in (5) poses challenges due to numerical complexities,
+adopting an EM framework and treating masked data as missing data enable the con-
+struction of a likelihood comprising individual likelihoods for each parameter θ(j). This
+transformation of the problem into a missing-data problem significantly simplifies the
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+Mathematics 2024, 12, 1757
+7 of 17
+numerical challenges. However, applying the EM algorithm in the case of missing data
+may not be immediately apparent, as will be discussed in the following section.
+When assuming an exponential distribution of lifetimes and encountering both masked
+and censored data, using the EM algorithm based on (11) is straightforward since the hazard
+rate and survival functions have closed forms. However, in scenarios where lifetimes follow
+other distributions such as a normal distribution and the data consist of both masked and
+censored observations, utilizing (11) is not straightforward due to the absence of closed-
+form hazard rate and survival functions. In such cases, although the overall likelihood
+cannot be represented as a product of individual likelihoods with single parameters, we can
+express the complete-data likelihood in (11) using closed-form probability density functions
+by treating censored observations as missing data. Consequently, implementing the EM
+algorithm is streamlined, and this method is applicable to various distributions, such as
+exponential, normal, lognormal, Weibull, and Wald (inverse Gaussian) distributions. For
+further details on its implementations, readers are directed to [42,52].
+Here, we illustrate the process of formulating the complete-data likelihood using
+closed-form probability density functions by treating censored observation data as missing
+data. Let Zi represent a truncated version of Xi at xi, where Zi > xi. Then, the complete-
+data likelihood, which corresponds to (9) can be expressed as follows:
+Lc
+i (θ(j)) =
+n
+f (xi|θ(j))
+oIi(j)
+J
+∏
+ℓ=0
+ℓ̸=j
+n
+f (Zi|θ(j))
+oIi(ℓ)
+×
+"n
+f (xi|θ(j))
+oU(j)
+i n
+f (Zi|θ(j))
+o1−U(j)
+i
+#Ii(−1)
+=
+n
+f (xi|θ(j))
+oU(j)
+i n
+f (Zi|θ(j))
+o1−U(j)
+i ,
+(12)
+where the probability density function of Zi is given by
+fxi(t|θ(j)) =
+f (t|θ(j))
+1 −F(xi|θ(j))
+for t > xi.
+4.2. Quantile Variant of the EM Algorithm
+An obstacle in implementing the EM algorithm lies in the necessity to integrate the
+log-likelihood function in closed form during each E-step. This explicit integration can be
+circumvented by employing the QEM algorithm. The QEM approximation of the expected
+log-likelihood in the E-step is expressed as
+bQ(Θ|Θs) = 1
+K
+K
+∑
+k=1
+log Lc(Θ|y, q(k)
+s ).
+Here, log Lc(·) denotes the complete-data log-likelihood in the EM algorithm, q(k)
+s
+=
+(qs,1,k, qs,2,k, . . . , qs,n−m,k) with qs,i,k = F−1
+zi (ξk|Θs), and ξk represents various deterministic
+sequences such as k/K, k/(K + 1), (k −1
+2)/K, etc.
+In this paper, we utilize ξk = (k −1
+2)/K for k = 1, 2, . . . , K. It is important to note
+that the QEM achieves accuracy at the deterministic rate of O(1/K2). Alternatively, one
+may consider employing the Monte Carlo EM as proposed by [53]. However, the MCEM
+achieves accuracy at the probabilistic rate of Op(1/
+√
+K). As a result, the QEM exhibits
+faster and more stable convergence properties in comparison to those of the MCEM. For
+further details, readers can refer to [29].
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+Mathematics 2024, 12, 1757
+8 of 17
+5. Parameter Estimation Using the QEM
+In this section, we develop the EM-type maximum likelihood estimate of the param-
+eters of the Birnbaum-Saunders distribution [12] under competing risks using the QEM
+algorithm in the presence of masking and censoring.
+Suppose that T(j)
+i
+is a Birnbaum and Saunders random variable with shape and scale
+parameters θ(j) = (α(j), β(j)) and its respective probability density function and cumulative
+distribution function of the Birnbaum-Saunders distribution are then provided as follows:
+f (t|θ(j)) =
+1
+2α(j)β(j)√
+2π
+"s
+β(j)
+t
++
+ 
+β(j)
+t
+!3/2#
+exp
+"
+−1
+2α(j)2
+ 
+t
+β(j) −2 + β(j)
+t
+!#
+and
+F(t|θ(j)) = Φ
+"
+1
+α(j)
+ s
+t
+β(j) −
+s
+β(j)
+t
+!#
+,
+t > 0,
+respectively. Here, Φ(·) is the standard normal cumulative distribution function. It should
+be noted that Engelhardt et al. [14] provided a convenient method for obtaining the maxi-
+mum likelihood estimate under no competing risks.
+It is immediate upon using (12) that we have
+log Lc
+i (θ(j)) = U(j)
+i
+f (xi|θ(j)) + (1 −U(j)
+i ) f (Zi|θ(j))
+= −log α(j) −1
+2 β(j) + U(j)
+i
+log(β(j) + xi) −U(j)
+i
+2α(j)2
+ 
+xi
+β(j) −2 + β(j)
+xi
+!
++ (1 −U(j)
+i ) log(β(j) + Zi) −1 −U(j)
+i
+2α(j)2
+ 
+Zi
+β(j) −2 + β(j)
+Zi
+!
+.
+Then the QEM approximation of E
+h
+log Lc
+i (θ(j))|Θs
+i
+is given by
+E
+h
+log Lc
+i (θ(j))|Θs
+i
+≈−log α(j) −1
+2 β(j) + Υ(j)
+s,i log(β(j) + xi) −
+Υ(j)
+s,i
+2α(j)2
+ 
+xi
+β(j) −2 + β(j)
+xi
+!
++ ¯Υ(j)
+s,i
+1
+K
+K
+∑
+k=1
+log(β(j) + q(j)
+s,i,k) −
+¯Υ(j)
+s,i
+2α(j)2
+
+¯q(j)
+s,i
+β(j) −2 + β(j)
+¯q(j)∗
+s,i
+
+,
+where Θs = (θ(1)
+s , θ(2)
+s , . . . , θ(J)
+s ), θ(j)
+s
+= (α(j)
+s , β(j)
+s ), Υ(j)
+s,i = E[U(j)
+i |Θs], ¯Υ(j)
+s,i = 1 −Υ(j)
+s,i ,
+q(j)
+s,i,k = F−1
+xi (ξk|θ(j)
+s ), ¯q(j)
+s,i = ∑K
+k=1 q(j)
+s,i,k/K, and ¯q(j)∗
+s,i
+= (∑K
+k=1 q(j)−1
+s,i,k/K)−1. We can calculate
+Υ(j)
+s,i using (7), given by
+Υ(j)
+s,i = E[U(j)
+i |Θs] =
+
+
+
+
+
+h(xi|θ(j)
+s )
+∑ℓ∈Mi h(xi|θ(ℓ)
+s )
+if j ∈Mi
+0
+if j̸ ∈Mi
+.
+
+
+===== ORIGINAL PDF PAGE 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+Mathematics 2024, 12, 1757
+9 of 17
+Then we have the following QEM approximation of Q(Θ|Θs)
+ˆQ(Θ|Θs) = −n
+J
+∑
+j=1
+log α(j) −n
+2
+J
+∑
+j
+β(j) +
+n
+∑
+i=1
+J
+∑
+j=1
+Υ(j)
+s,i log(β(j) + xi)
+−
+n
+∑
+i=1
+J
+∑
+j=1
+Υ(j)
+s,i
+2α(j)2
+ 
+xi
+β(j) −2 + β(j)
+xi
+!
++
+n
+∑
+i=1
+J
+∑
+j=1
+¯Υ(j)
+s,i
+1
+K
+K
+∑
+k=1
+log(β(j) + q(j)
+s,i,k)
+−
+n
+∑
+i=1
+J
+∑
+j=1
+¯Υ(j)
+s,i
+2α(j)2
+ 
+¯qs,i
+β(j) −2 + β(j)
+¯q∗
+s,i
+!
+.
+It should be noted that q(j)
+s,i,k = F−1
+xi (ξk|θ(j)
+s ) is obtained by converting the below for q(j)
+s,i,k
+ξk = Fxi(q(j)
+s,i,k|θ(j)
+s ) =
+Φ
+"
+1
+α(j)
+s
+ s
+q(j)
+s,i,k
+β(j)
+s
+−
+s
+β(j)
+s
+q(j)
+s,i,k
+!#
+−Φ
+"
+1
+α(j)
+s
+ r
+xi
+β(j)
+s
+−
+r
+β(j)
+s
+xi
+!#
+1 −Φ
+"
+1
+α(j)
+s
+ r
+xi
+β(j)
+s
+−
+r
+β(j)
+s
+xi
+!#
+,
+where q(j)
+s,i,k > xi. Then we have
+q(j)
+s,i,k = β(j)
+s
+
+1 + γ(ξk|θ(j)
+s )2 + γ(ξk|θ(j)
+s )
+q
+γ(ξk|θ(j)
+s )2 + 2
+
+,
+where
+γ(ξk|θ(j)
+s ) = α(j)
+s√
+2
+Φ−1
+
+ξk + (1 −ξk)Φ
+
+1
+α(j)
+s
+
+
+s xi
+β(j)
+s
+−
+s
+β(j)
+s
+xi
+
+
+
+
+
+.
+Differentiating ˆQ(Θ|Θs) with α(j) and equating it to zero, we obtain
+∂ˆQ(Θ|Θs)
+∂α(j)
+= −n
+α(j) +
+1
+α(j)3
+n
+∑
+i=1
+Υ(j)
+s,i
+ 
+xi
+β(j) −2 + β(j)
+xi
+!
++
+1
+α(j)3
+n
+∑
+i=1
+¯Υ(j)
+s,i
+ 
+¯qs,i
+β(j) −2 + β(j)
+¯q∗
+s,i
+!
+= 0.
+Upon solving the aforementioned equation for α(j), we find
+α(j) =
+
+1
+β(j) · 1
+n
+n
+∑
+i=1
+
+Υ(j)
+s,i xi + ¯Υ(j)
+s,i ¯qs,i
+
++ β(j) · 1
+n
+n
+∑
+i=1
+
+Υ(j)
+s,i
+xi
++
+¯Υ(j)
+s,i
+¯q∗
+s,i
+
+−2
+
+
+1/2
+.
+(13)
+Differentiating ˆQ(Θ|Θs) with β(j) and equating it to zero, we obtain
+∂ˆQ
+∂β(j) = −n
+2 ·
+1
+β(j) +
+n
+∑
+i=1
+Υ(j)
+s,i /(β(j) + xi) +
+n
+∑
+i=1
+¯Υs,i
+1
+K
+K
+∑
+k=1
+1/(β(j) + qs,i,k)
+−
+1
+2α(j)2
+n
+∑
+i=1
+Υ(j)
+s,i
+ 
+1
+xi
+−
+xi
+β(j)2
+!
+−
+1
+2α(j)2
+n
+∑
+i=1
+¯Υ(j)
+s,i
+ 
+1
+¯q∗
+s,i
+−
+¯qs,i
+β(j)2
+!
+= 0.
+(14)
+Substituting (13) into (14), we have only one-dimensional estimating equation about
+β(j). Let the solution of (14) denote β(j)
+s+1. Substituting β(j)
+s+1 into (13), we can get α(j)
+s+1 easily.
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+Mathematics 2024, 12, 1757
+10 of 17
+The QEM algorithm can stop if the changes are all relatively small, such as |α(j)
+s+1 −α(j)
+s | <
+ϵα(j)
+s+1 and |β(j)
+s+1 −β(j)
+s | < ϵβ(j)
+s+1 for j = 1, 2, . . . , J.
+6. Examples
+We consider two examples in this section. The analysis of these datasets was carried
+out using the R programming language [54]. The R codes employed for analyzing the
+datasets presented in the examples can be found at the following URL: https://github.
+com/AppliedStat/R-code/tree/master/2024b.
+To assess the goodness of fit of the models, we can utilize the mean square error (MSE)
+between the fitted model and the empirical distribution. For notational convenience, let
+ti be sorted such that t1 ≤t2 ≤· · · ≤tn. Let ˆFn(ti) represent the empirical cumulative
+distribution function, and F(ti; ˆθ) denote the fitted cumulative distribution function using
+the maximum likelihood estimate of θ. Subsequently, the MSE for the fitted model can be
+computed as
+MSE
+ F(·; ˆθ)
+ = 1
+n
+n
+∑
+i=1
+ ˆFn(ti) −F(ti; ˆθ)
+	2.
+Additionally, we consider the Kolmogorov–Smirnov statistic given by
+Dn = sup
+t
+ ˆFn(t) −F(t; ˆθ)
+,
+to assess the goodness of fit of the models.
+Particularly, when the data are uncensored, the empirical cumulative distribution
+function ˆFn(·) can be readily determined by
+ˆFn(t) = 1
+n
+n
+∑
+i=1
+I(ti ≤t).
+In cases where the dataset contains censoring, the straightforward calculation of the
+empirical cumulative distribution function ˆFn(t) becomes impractical. Instead, one can
+derive the empirical cumulative distribution function using the well-known product limit
+estimator of the survival function S(t) = 1 −F(t) originally proposed by [55], which is
+expressed as
+ˆSn(t) =
+
+
+
+
+
+
+
+
+
+1
+if
+0 ≤t ≤t1
+k−1
+∏
+i=1
+
+n −i
+n −i + 1
+I(δi>0)
+if
+tk−1 < t ≤tk,
+k = 2, 3, . . . , n.
+0
+if
+t > tn
+Consequently, we derive ˆFn(t) = 1 −ˆSn(t).
+Another approach to comparing the goodness of fit for each failure mode among
+the models is to contrast the empirical CIF with the parametric CIF defined by (3), as
+suggested by Aalen [56]. However, in this paper, our focus lies on analyzing the strength
+distribution of the entire system or material specimen rather than the distribution for
+individual failure modes; hence, we do not delve into the CIF. Should one be interested in
+exploring the lifetime distribution for each failure mode, they are advised to examine the
+CIF. For additional insights into utilizing the CIF with masked data, interested readers can
+refer to [39,42].
+In the following examples, the lognormal, Weibull, and Wald (inverse-Gaussian)
+distributions are employed to compare the results obtained from the proposed method in
+the subsequent examples. For a comprehensive discussion of the EM sequence related to
+these models, readers are referred to [42,43].
+
+
+===== ORIGINAL PDF PAGE 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+Mathematics 2024, 12, 1757
+11 of 17
+6.1. Pitch-Based Fiber Microbond Testing
+An experiment conducted by [57] at Clemson University aimed to explore the inter-
+facial bond strength between carbon fiber and matrix material. It is worth noting that the
+average diameter ranges approximately from 8 to 12 µm. In the microbond tests, ribbon
+fibers, which are flat-shaped rather than round-shaped, were utilized. These fibers were
+subjected to a droplet of epoxy resin, cured via heat treatment, and clamped in a micro-vise.
+Subsequently, the fiber underwent tensile loading to initiate debonding from the matrix
+droplet, and the resulting stress was monitored by a load cell. However, certain tested
+specimens exhibited inherent flaws, causing premature fiber breakage before debonding,
+which was treated as right-censored data. Kuhn and Padgett [58] analyzed this dataset
+employing kernel density estimation, focusing primarily on comparing the debonding
+strengths of ribbon fibers. In this scenario, all types of flaws were taken into account to
+estimate the strength distribution of the specimen.
+The data in Table 1 display the tensile strength (in Newton) of fibers. In this case, there
+are only two causes of failure—fiber breakdown (denoted by B) and debonding (denoted
+by D). Table 2 summarizes the parameter estimates of the models under consideration.
+Based on the MSE criterion as provided in Table 3, the Birnbaum-Saunders model performs
+the best, although the MSEs of the Wald and lognormal models are also close to that of the
+Birnbaum-Saunders model. As depicted in the CDF plot and Weibull plot [59] in Figure 1,
+the lognormal and Wald models very closely approximate the Birnbaum-Saunders model.
+It is important to note that the Weibull plot [59] is a visual tool used to determine if ex-
+perimental data fits a Weibull distribution.
+This plot is generated by plotting
+log
+−log(1 −ˆFn(ti))
+	
+against log ti. To draw the Weibull plot, one of the popular plotting
+position algorithms uses ˆFn(ti) = (i −3/8)/(n + 1/4) for n ≤10 and ˆFn(ti) = (i −1/2)/n
+for n ≥11, originating from [60,61]. For a comprehensive comparison of these plot-
+ting positions, we refer interested readers to [62]. Based on Figure 1 and the MSE and
+Kolmogorov–Smirnov statistic criteria, the Weibull model performs the worst.
+0.20
+0.25
+0.30
+0.35
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+(a)
+ti
+Fˆ n(ti)
+Debonding
+Break
+BS
+Weibull
+Log−normal
+Wald
+−1.7
+−1.6
+−1.5
+−1.4
+−1.3
+−1.2
+−1.1
+−1.0
+−4
+−3
+−2
+−1
+0
+1
+(b)
+log(ti)
+log(−log(1−Fˆ n(ti)))
+Figure 1. (a) CDF plot and (b) Weibull plot with the interfacial bond strength data in Table 1.
+It should also be noted that the Weibull plot is originally designed so that if the data
+follow a Weibull distribution, the data points will lie on a (nearly) straight line. However,
+
+
+===== ORIGINAL PDF PAGE 12 =====
+FORMULA CHECK REQUIRED: original PDF page 12.
+Mathematics 2024, 12, 1757
+12 of 17
+this straightness can be violated due to competing risks or model departure. In the figure,
+we can easily observe that the data points deviate significantly from a straight line.
+Table 1. Interfacial bond strength data for the pitch-based fiber microbond test with failure modes.
+Strength
+Mode
+Strength
+Mode
+Strength
+Mode
+Strength
+Mode
+0.198
+B
+0.268
+D
+0.320
+D
+0.282
+D
+0.212
+D
+0.219
+D
+0.275
+D
+0.246
+D
+0.330
+B
+0.211
+D
+0.298
+D
+0.181
+D
+0.321
+D
+0.206
+D
+0.334
+D
+0.183
+D
+0.371
+D
+0.253
+D
+0.295
+D
+0.283
+D
+0.216
+D
+0.264
+D
+0.281
+D
+0.244
+D
+0.285
+D
+0.266
+D
+0.222
+D
+0.224
+D
+0.259
+D
+0.247
+D
+0.199
+D
+0.286
+D
+0.356
+B
+0.234
+D
+0.283
+D
+0.338
+D
+0.285
+D
+0.217
+D
+Table 2. Parameter estimates using the interfacial bond strength data in Table 1.
+BS
+Weibull
+Lognormal
+Wald
+Mode
+α(j)
+β(j)
+λ(j)
+α(j)
+µ(j)
+σ(j)
+µ(j)
+λ(j)
+Debonding
+0.1906
+0.2618
+1230.2
+5.6968
+−1.3402
+0.1900
+0.2666
+7.2711
+Break
+0.2979
+0.4327
+2357.2
+8.3785
+−0.8421
+0.2901
+0.4500
+5.0159
+Table 3. MSE and Kolmogorov–Smirnov statistic values for the interfacial bond strength data in
+Table 1 under the considered models.
+Model
+BS
+Weibull
+Lognormal
+Wald
+MSE × 103
+1.613477
+2.258027
+1.619994
+1.617504
+Kolmogorov–Smirnov statistic
+0.099891
+0.113200
+0.100318
+0.099914
+6.2. Strength Data with Masking and Censoring
+In various tensile strength experiments, specimens often fail due to multiple factors,
+yet pinpointing the precise cause of failure proves challenging. Moreover, censoring occurs
+due to constraints in time and experiment costs.
+To illustrate the application of the proposed method, the strength data presented
+in Table 4 were generated from the Birnbaum-Saunders distribution with the following
+parameters: α(1) = 1 and β(1) = 1 for the first component, α(2) = 2 and β(2) = 1 for the
+second component, and α(3) = 3 and β(3) = 1 for the third component.
+Table 4. Simulated strength data under the Birnbaum-Saunders model. There are three causes, along
+with masking and censoring.
+Strength
+Modes
+Strength
+Modes
+Strength
+Modes
+Strength
+Modes
+Strength
+Modes
+0.4728
+{1}
+0.3510
+{2}
+0.2111
+{2}
+0.0737
+{3}
+0.6720
+{2}
+0.1386
+{3}
+1.2220
+{3}
+0.0369
+{3}
+0.1132
+{3}
+0.6970
+{1, 2}
+1.5903
+{3}
+0.1306
+{2}
+1.0736
+{1}
+0.7670
+{1}
+0.3262
+{2}
+0.0289
+{3}
+0.0671
+{3}
+0.1144
+{1}
+2.0000
+{0}
+0.4998
+{1, 2, 3}
+1.6393
+{2}
+0.0576
+{2}
+0.2278
+{2}
+0.3829
+{2}
+0.4344
+{3}
+0.1592
+{3}
+1.2487
+{1}
+0.5002
+{1}
+0.1835
+{2}
+0.9386
+{2}
+0.4129
+{1}
+0.0262
+{3}
+1.3644
+{2}
+1.1828
+{1}
+0.0309
+{3}
+0.0402
+{3}
+0.0913
+{3}
+0.2573
+{2}
+0.0807
+{2}
+1.0978
+{1}
+0.4548
+{1}
+0.1692
+{1}
+0.0167
+{3}
+0.1927
+{3}
+0.0423
+{3}
+0.6103
+{2}
+0.2839
+{2}
+0.2174
+{3}
+0.0928
+{2}
+0.0427
+{2, 3}
+
+
+===== ORIGINAL PDF PAGE 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+Mathematics 2024, 12, 1757
+13 of 17
+The dataset assumes fractures can be attributed to surface defects (mode 1), internal
+defects (mode 2), or end effects caused by specimen clamping (mode 3). Censored obser-
+vations are indicated by a value of 0. To showcase partial or complete masking alongside
+censoring, the data were censored at a value of 2.0.
+Tables 5 and 6 present a summary of model estimates and MSEs, respectively. Their
+corresponding fits are depicted in Figure 2 through Weibull plots. Due to masking, it is not
+feasible to individually classify the cause of fracture; hence, only “failure” or “censored”
+data is indicated on the figure.
+By comparing the MSEs and Kolmogorov–Smirnov statistics, it is inferred that the
+strength distribution can be accurately represented by the Birnbaum-Saunders distribution.
+Table 5. Parameter estimates using the masked and censored data in Table 4.
+BS
+Weibull
+Lognormal
+Wald
+Mode (Defect)
+α(j)
+β(j)
+λ(j)
+α(j)
+µ(j)
+σ(j)
+µ(j)
+λ(j)
+Surface
+1.0843
+1.1067
+0.5390
+1.5605
+0.1228
+0.9573
+2.2006
+1.0396
+Inner
+1.5428
+0.8074
+0.8011
+1.0391
+−0.2196
+1.3153
+5.5646
+0.4021
+End
+3.9873
+1.2255
+0.6893
+0.5936
+−0.0270
+2.3520
+65.679
+0.1345
+0.0
+0.5
+1.0
+1.5
+2.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+(a)
+ti
+Fˆ n(ti)
+Failure
+Censored
+BS
+Weibull
+Lognormal
+Wald
+−4
+−3
+−2
+−1
+0
+−4
+−3
+−2
+−1
+0
+1
+(b)
+log(ti)
+log(−log(1−Fˆ n(ti)))
+Figure 2. (a) CDF plot and (b) Weibull plot with the interfacial bond strength data in Table 4.
+Table 6. MSE and Kolmogorov–Smirnov statistic values for the masked and censored data in Table 4
+under the considered models.
+Model
+BS
+Weibull
+Lognormal
+Wald
+MSE × 103
+0.6909286
+2.5353196
+1.9007364
+6.6971632
+Kolmogorov–Smirnov statistic
+0.0681047
+0.0991305
+0.0791977
+0.1682045
+7. Sensitivity of Parameter Estimates to Variations in Starting Values
+In this section, we compare the sensitivity of estimates obtained from the Newton–
+Raphson-type and QEM methods to variations in starting values. Our investigation into
+
+
+===== ORIGINAL PDF PAGE 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+Mathematics 2024, 12, 1757
+14 of 17
+the sensitivity of estimates unfolds as follows: We consider a sample of lifetimes with a
+size of n = 100 from a three-component serial system. Assuming that the lifetimes of
+these components adhere to the Birnbaum-Saunders distribution, we set the following
+population parameter values: α(1) = 1 and β(1) = 1 for the first component, α(2) = 3 and
+β(2) = 5 for the second component, and α(3) = 5 and β(3) = 10 for the third component.
+We generate system lifetimes using the Birnbaum-Saunders distribution with the
+specified population parameter values. To obtain the six parameter estimates, we first
+select starting values for both methods. Here, we randomly choose six starting values
+from the range (1, 10) and estimate the parameters using the Newton–Raphson-type and
+QEM methods. Next, we generate system lifetimes again and estimate the six parameters
+with different starting values. By repeating this procedure 500 times, we obtain 500 sets of
+parameter estimates, denoted by ˆα(1)
+i
+, ˆβ(1)
+i
+, ˆα(2)
+i
+, ˆβ(2)
+i
+, ˆα(3)
+i
+, and ˆβ(3)
+i
+for i = 1, 2, . . . , 500.
+Using these 500 sets of parameter estimates, we create beanplots [63,64] of the estimates
+for each method in Figure 3 and calculate the empirical bias, variance, and MSE values for
+each method in Table 7.
+α^(1)
+0
+0.5
+1
+1.5
+2
+2.5
+3
+3.5
+NR
+QEM
+α^(2)
+0
+25
+50
+75
+100
+125
+150
+175
+200
+NR
+QEM
+α^(3)
+0
+25
+50
+75
+100
+125
+150
+175
+200
+NR
+QEM
+β^(1)
+0
+0.5
+1
+1.5
+2
+2.5
+3
+3.5
+NR
+QEM
+β^(2)
+0
+100
+200
+300
+400
+500
+600
+700
+800
+900
+1,000
+NR
+QEM
+β^(3)
+0
+500
+1,000
+1,500
+2,000
+2,500
+3,000
+3,500
+4,000
+4,500
+5,000
+NR
+QEM
+Figure 3. Beanplots of the parameter estimates based on the Newton–Raphson-type method and the
+QEM method.
+
+
+===== ORIGINAL PDF PAGE 15 =====
+FORMULA CHECK REQUIRED: original PDF page 15.
+Mathematics 2024, 12, 1757
+15 of 17
+The figure illustrates that the Newton–Raphson-type method yields estimates with a
+wide spread, indicating sensitivity to starting values. In contrast, the EM algorithm pro-
+duces estimates with a much narrower spread, indicating lower sensitivity to starting values.
+Table 7. Empirical bias, variance, and MSE values from the parameter estimates.
+Bias
+Variance
+MSE
+Estimates
+NR
+QEM
+NR
+QEM
+NR
+QEM
+ˆα(1)
+−0.001
+−0.006
+0.023
+0.009
+0.023
+0.009
+ˆα(2)
+7.969
+0.598
+484.651
+1.449
+547.188
+1.804
+ˆα(3)
+21.964
+−0.417
+1397.342
+1.708
+1876.975
+1.879
+ˆβ(1)
+0.007
+0.002
+0.022
+0.013
+0.022
+0.013
+ˆβ(2)
+308.076
+2.960
+1,205,503.439
+25.432
+1,298,003.027
+34.141
+ˆβ(3)
+869.762
+−0.646
+3,713,086.550
+25.388
+4,462,146.643
+25.755
+8. Concluding Remarks
+This research introduces a stable parameter estimation technique for the Birnbaum-
+Saunders distribution within the framework of competing risks, employing the quantile
+variant of the EM algorithm. One challenge in implementing the EM algorithm lies in the
+explicit integration of the log-likelihood function in each E-step, a hurdle circumvented
+by the quantile variant. With J failure modes, maximizing the original likelihood function
+translates to optimizing a function with 2 × J parameters. However, with our proposed
+method, estimation simplifies to determining only the shape parameter β(j) through a
+one-dimensional root search for each failure mode j for j = 1, 2, . . . , J.
+Exploring competing risks models under the Birnbaum-Saunders distribution along-
+side masking and right censoring, this study lays the groundwork for future research
+avenues, including the development of models accommodating broader forms of censoring.
+Investigating the Bayesian approach to competing risks modeling within the context of the
+Birnbaum-Saunders distribution also holds promise for further advancements.
+Additionally, developing robust parameter estimators under the Birnbaum-Saunders
+distribution alongside masking and right censoring can be a future issue. One possible
+way of handling this issue is to consider the generalized Birnbaum–Saunders mixture
+model [24].
+The rigorous proof of the existence and uniqueness of the QEM estimate in the M-step
+was not provided, although the numerical calculation of the QEM estimate is available.
+Similar works addressing this issue have been studied by several authors [13,65,66]. This
+could be a potential area for extended research in this paper.
+Author Contributions: C.P. developed methodology, mathematical formulas, and R functions; and
+M.W. investigated methodology and mathematical formulas. All authors have read and agreed to the
+published version of the manuscript.
+Funding: The work of Professor Park was supported by a National Research Foundation of Korea
+(NRF) grant funded by the Korean government (MSIT) (2022R1A2C1091319 and RS-2023-00242528).
+Data Availability Statement: The data are provided in this paper.
+Conflicts of Interest: The authors declare no conflicts of interest.
+References
+1.
+Jones, B.F.; Wilkins, J.S. A Technique for the Analysis of Fracture Strength Data for Carbon Fibres. Fibre Sci. Technol. 1972,
+5, 315–320. [CrossRef]
+2.
+Boggio, J.V.; Vingsbo, O. Tensile Strength and Crack Nucleation in Boron Fibres. J. Mater. Sci. 1976, 11, 273–282. [CrossRef]
+3.
+Beetz, C.P. The Analysis of Carbon Fibre Strength Distributions Exhibiting Multiple Modes of Failure. Fibre Sci. Technol. 1982,
+16, 45–59. [CrossRef]
+
+
+===== ORIGINAL PDF PAGE 16 =====
+Technical extraction; compare with original PDF page 16.
+Mathematics 2024, 12, 1757
+16 of 17
+4.
+Chi, Z.; Chou, T.W.; Shen, G. Determination of Single Fibre Strength Distribution from Fibre Bundle Testings. J. Mater. Sci. 1984,
+19, 3319–3324. [CrossRef]
+5.
+Goda, K.; Fukunaga, H. The Evaluation of the Strength Distribution of Silicon Carbide and Alumina Fibres by a Multi-Modal
+Weibull Distribution. J. Mater. Sci. 1986, 21, 4475–4480. [CrossRef]
+6.
+Meeker, W.Q.; Escobar, L.A. Statistical Methods for Reliability Data; John Wiley & Sons: New York, NY, USA, 1998.
+7.
+Wagner, D.H. Stochastic Concepts in the Study of Size Effects in the Mechanical Strength of Highly Oriented Polymeric Materials.
+J. Polym. Sci. Part B Polym. Phys. 1989, 27 , 115–148. [CrossRef]
+8.
+Taylor, H.M. The Poisson-Weibull Flaw Model for Brittle Fiber Strength. In Extreme Value Theory; Galambos, J., Lechner, J., Simiu,
+E., Eds.; Kluwer: Amsterdam, The Netherlands, 1994; pp. 43–59.
+9.
+Phoenix, S.L.; Sexsmith, R.G. Clamp Effects in Fiber Testing. J. Compos. Mater. 1972, 29, 1873–1884. [CrossRef]
+10.
+Stoner, E.G.; Edie, D.D.; Durham, S.D. An End-Effect Model for the Single-Filament Tensile Test. J. Mater. Sci. 1994, 29, 6561–6574.
+[CrossRef]
+11.
+Padgett, W.J.; Durham, S.D.; Mason, A.M. Weibull analysis of the strength of carbon fibers using linear and power law models
+for the length effect. J. Compos. Mater. 1995, 29, 1873–1884. [CrossRef]
+12.
+Birnbaum, Z.W.; Saunders, S.C. A new family of life distributions. J. Appl. Probab. 1969, 6, 319–327. [CrossRef]
+13.
+Birnbaum, Z.W.; Saunders, S.C. Estimation for a family of life distributions with applications to fatigue. J. Appl. Probab. 1969,
+6, 328–347. [CrossRef]
+14.
+Engelhardt, M.; Bain, L.J.; Wright, F.T. Inferences on the Parameters of the Birnbaum-Saunders Fatigue Life Distribution Based on
+the Maximum Likelihood Estimation. Technometrics 1981, 23, 251–256. [CrossRef]
+15.
+Chang, D.S.; Tang, L.C. Graphical Analysis for Birnbaum-Saunders distribution. Microelectron. Reliab. 1994, 34, 17–22. [CrossRef]
+16.
+Owen, W.J.; Padgett, W.J. Accelerated test models for system strength based on Birnbaum-Saunders distributions. Lifetime Data
+Anal. 1999, 5, 133–147. [CrossRef]
+17.
+Padgett, W.J.; Tomlinson, M.A. Lower Confidence Bounds for Percentiles of Weibull and Birnbaum-Saunders Distributions. J.
+Stat. Comput. Simul. 2003, 73, 429–443. [CrossRef]
+18.
+Lio, Y.L.; Park, C. A Bootstrap Control Chart for Birnbaum-Saunders Percentiles. Qual. Reliab. Eng. Int. 2008, 24, 585–600.
+[CrossRef]
+19.
+Leiva, V.; Marchant, C.; Saulo, H.; Aslam, M.; Rojas, F. Capability indices for Birnbaum-Saunders processes applied to electronic
+and food industries. J. Appl. Stat. 2014, 41, 1881–1902. [CrossRef]
+20.
+Leiva, V. The Birnbaum-Saunders Distribution, 1st ed.; Academic Press: London, UK, 2015.
+21.
+Wang, M.; Park, C.; Sun, X. Simple Robust Parameter Estimation for the Birnbaum-Saunders Distribution. J. Stat. Distrib. Appl.
+2015, 2, 1–11. [CrossRef]
+22.
+Wang, M.; Sun, X.; Park, C. Bayesian analysis of the Birnbaum-Saunders Distribution via the Generalized Ratio-of-Uniforms
+Method. Comput. Stat. 2016, 31, 207–225. [CrossRef]
+23.
+Balakrishnan, N.; Kundu, D. Birnbaum-Saunders distribution: A review of models, analysis, and applications. Appl. Stoch. Model.
+Bus. Ind. 2019, 35, 4–49. [CrossRef]
+24.
+Naderi, M.; Hashemi, F.; Bekker, A.; Jamalizadeh, A. Modeling right-skewed financial data streams: A likelihood inference based
+on the generalized Birnbaum–Saunders mixture model. Appl. Math. Comput. 2020, 376, 125109. [CrossRef]
+25.
+Kayid, M. EM Algorithm for Estimating the Parameters of Weibull Competing Risk Model.
+Appl. Bionics Biomech. 2021,
+2021, 1179856. [CrossRef]
+26.
+Talhi, H.; Aiachi, H.; Rahmania, N. Bayesian estimation of a competing risk model based on Weibull and exponential distributions
+under right censored data. Monte Carlo Methods Appl. 2022, 28, 163–174. [CrossRef]
+27.
+Almuqrin, M.A.; Salah, M.M.; A. Ahmed, E. Statistical Inference for Competing Risks Model with Adaptive Progressively Type-II
+Censored Gompertz Life Data Using Industrial and Medical Applications. Mathematics 2022, 10, 4274. [CrossRef]
+28.
+Tian, Y.; Liang, Y.; Gui, W. Inference and optimal censoring scheme for a competing-risks model with type-II progressive
+censoring. Math. Popul. Stud. 2024, 31, 1–39. [CrossRef]
+29.
+Park, C. A Quantile Variant of the Expectation-Maximization Algorithm and its Application to Parameter Estimation with
+Interval Data. J. Algorithms Comput. Technol. 2018, 12, 253–272. [CrossRef]
+30.
+Moeschberger, M.L.; David, H.A. Life tests under competing causes of failure and the theory of competing risks. Biometrics 1971,
+27, 909–933. [CrossRef]
+31.
+Cox, D.R. The analysis of exponentially distributed lifetimes with two types of failures. J. R. Stat. Soc. B 1959, 21, 411–421.
+[CrossRef]
+32.
+Herman, R.J.; Patell, R.K.N. Maximum Likelihood Estimation For Multi-Risk Model. Technometrics 1971, 13, 385–396. [CrossRef]
+33.
+Miyakawa, M. Analysis of Incomplete Data in Competing Risks Model. IEEE Trans. Reliab. 1984, 33, 293–296. [CrossRef]
+34.
+Usher, J.S.; Hodgson, T.J. Maximum Likelihood Analysis of Component Reliability Using Masked System Life-Test Data. IEEE
+Trans. Reliab. 1988, 37, 550–555. [CrossRef]
+35.
+Usher, J.S.; Guess, F.M. An iterative approach for estimating component reliability from masked system life data. Qual. Reliab.
+Eng. Int. 1989, 5, 257–261. [CrossRef]
+36.
+Guess, F.M.; Usher, J.S.; Hodgson, T.J. Estimating System and Component Reliabilities Under Partial Information of the Cause of
+Failure. J. Stat. Plan. Inference 1991, 29, 75–85. [CrossRef]
+
+
+===== ORIGINAL PDF PAGE 17 =====
+Technical extraction; compare with original PDF page 17.
+Mathematics 2024, 12, 1757
+17 of 17
+37.
+Reiser, B.; Guttman, I.; Lin, D.K.J.; Guess, F.M.; Usher, H.S. Bayesian Inference for Masked System Lifetime Data. Appl. Stat. 1995,
+44, 79–90. [CrossRef]
+38.
+Kundu, D.; Basu, S. Analysis of incomplete data in presence of competing risks.
+J. Stat. Plan. Inference 2000, 87, 221–239.
+[CrossRef]
+39.
+Park, C.; Kulasekera, K.B. Parametric inference of Incomplete Data with Competing Risks Among Several Groups. IEEE Trans.
+Reliab. 2004, 53, 11–21. [CrossRef]
+40.
+Ishioka, T.; Nonaka, Y. Maximum Likelihood Estimation of Weibull Parameters for Two Independent Competing Risks. IEEE
+Trans. Reliab. 1991, 40, 71–74. [CrossRef]
+41.
+Albert, J.R.G.; Baxter, L.A. Applications of the EM algorithm to the Analysis of life length data. Appl. Stat. 1995, 44, 323–341.
+42.
+Park, C. Parameter Estimation of Incomplete Data in Competing Risks Using the EM algorithm. IEEE Trans. Reliab. 2005,
+54, 282–290. [CrossRef]
+43.
+Park, C.; Padgett, W.J. Analysis of Strength Distributions of Multi-Modal Failures Using the EM Algorithm. J. Stat. Comput. Simul.
+2006, 76, 619–636. [CrossRef]
+44.
+Dempster, A.P.; Laird, N.M.; Rubin, D.B. Maximum likelihood from incomplete data via the EM algorithm. J. R. Stat. Soc. B 1977,
+39, 1–22. [CrossRef]
+45.
+Tanner, M.A. Tools for Statistical Inference: Methods for the Exploration of Posterior Distributions and Likelihood Functions; Springer:
+New York, NY, USA, 1996.
+46.
+Schafer, J.L. Analysis of Incomplete Multivariate Data; Chapman & Hall: Boca Raton, FL, USA, 1997.
+47.
+McLachlan, G.J.; Krishnan, T. The EM Algorithm and Extensions; John Wiley & Sons: New York, NY, USA, 1997.
+48.
+Little, R.J.A.; Rubin, D.B. Statistical Analysis with Missing Data, 2nd ed.; John Wiley & Sons: New York, NY, USA, 2002.
+49.
+Kundu, D.; Nekoukhou, V. Univariate and bivariate geometric discrete generalized exponential distributions. J. Stat. Theory Pract.
+2018, 12, 595–614. [CrossRef]
+50.
+Meraou, M.A.; Raqab, M.Z.; Kundu, D.; Alqallaf, F. Inference for compound truncated Poisson log-normal model with application
+to maximum precipitation data. Commun. Stat.-Simul. Comput. 2024, to appear.
+51.
+McLachlan, G.J.; Peel, D. Finite Mixture Models; John Wiley & Sons: New York, NY, USA, 2000.
+52.
+Park, C.; Padgett, W.J. Analysis of Strength Distributions of Multi-Modal Failures Using the EM Algorithm; Technical Report No. 220;
+Department of Statistics, University of South Carolina: Columbia, SC, USA, 2004.
+53.
+Wei, G.C.G.; Tanner, M.A. A Monte Carlo implementation of the EM algorithm and the poor man’s data augmentation algorithm.
+J. Am. Stat. Assoc. 1990, 85, 699–704. [CrossRef]
+54.
+R Core Team. R: A Language and Environment for Statistical Computing; R Foundation for Statistical Computing: Vienna, Austria,
+2023. Available online: http://www.r-project.org (accessed on 1 March 2023).
+55.
+Kaplan, E.L.; Meier, P. Nonparametric estimation from incomplete observations. J. Am. Stat. Assoc. 1958, 53, 457–481. [CrossRef]
+56.
+Aalen, O.O. Nonparametric estimation of partial transition probabilities in multiple decrement models.
+Ann. Stat. 1978,
+6, 534–545. [CrossRef]
+57.
+Harwell, M. Microbond Tests for Ribbon Fibers. Msater’s Thesis, Clemson University, Clemson, SC, USA, 1995.
+58.
+Kuhn, J.W.; Padgett, W.J. Local Bandwidth Selection from Kernel Density Estimation From Right-Censored Data Based on
+Asymptotic Mean Absolute Error. Nonlinear Anal. Theory Methods Appl. 1997, 30, 4375–4384. [CrossRef]
+59.
+Nelson, W. Applied Life Data Analysis; John Wiley & Sons: New York, NY, USA, 1982.
+60.
+Blom, G. Statistical Estimates and Transformed Beta Variates; Wiley: New York, NY, USA, 1958.
+61.
+Wilk, M.B.; Gnanadesikan, R. Probability plotting methods for the analysis of data. Biometrika 1968, 55, 1–17. [CrossRef]
+62.
+Looney, S.W.; Gulledge, T.R., Jr. Use of the Correlation Coefficient With Normal Probability Plots. Am. Stat. 1985, 39, 75–79.
+[CrossRef]
+63.
+Kampstra, P. Beanplot: A Boxplot Alternative for Visual Comparison of Distributions. J. Stat. Softw. Code Snippets 2008, 28, 1–9.
+[CrossRef]
+64.
+Phillips, N. yarrr: A Companion to the e-Book “YaRrr! The Pirate’s Guide to R”. R package Version 0.1.5. 2017. Available online:
+https://CRAN.R-project.org/package=yarrr (accessed on 20 March 2024).
+65.
+Balakrishnan, N.; Zhu, X. On the existence and uniqueness of the maximum likelihood estimates of the parameters of Birnbaum–
+Saunders distribution based on Type-I, Type-II and hybrid censored samples. Statistics 2014, 48, 1013–1032. [CrossRef]
+66.
+Zhu, X.; Balakrishnan, N.; Saulo, H. On the existence and uniqueness of the maximum likelihood estimates of parameters of
+Laplace Birnbaum–Saunders distribution based on Type-I, Type-II and hybrid censored samples. Metrika 2019, 82, 759–778.
+[CrossRef]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.
+

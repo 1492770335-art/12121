@@ -1,0 +1,30 @@
+{
+  "paper_id": "Nabaf548cd2",
+  "category": "I",
+  "artifact_type": "main",
+  "sha256": "c9340d51a31d7f39f1789e31d0d6795b21f04f7a1f21b2ae3005aed4d85fb594",
+  "source_url": "https://public-pages-files-2025.frontiersin.org/journals/pediatrics/articles/10.3389/fped.2026.1795475/pdf",
+  "original_version": "publishedVersion",
+  "bytes": "843159",
+  "pdf_pages": "13",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://public-pages-files-2025.frontiersin.org/journals/pediatrics/articles/10.3389/fped.2026.1795475/pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:45.977361+08:00",
+  "format": "pdf",
+  "title": "Predictive value of red blood cell parameters for sepsis during chemotherapy-induced neutropenia in children with acute lymphoblastic leukemia based on propensity score matching",
+  "authors": "Chuncan Wu and Chuan Tian and Liuhua Liao and Lili Liu and Zhonglv Ye and Min Chen and Weijun Huang and Qiping Yang and Xiang Lan",
+  "doi": "10.3389/fped.2026.1795475",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "terms of the Creative Commons \nAttribution License (CC BY). The use, "
+    }
+  ]
+}

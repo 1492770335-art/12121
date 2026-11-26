@@ -1,0 +1,147 @@
+{
+  "paper_id": "Nbdf1d0399c",
+  "category": "E",
+  "artifact_type": "main",
+  "sha256": "8023816148f22b27be77ccca031e90a2c73b008db1acee998b6bfbbbd631eac7",
+  "source_url": "https://arxiv.org/pdf/2407.00364",
+  "original_version": "submittedVersion",
+  "bytes": "975903",
+  "pdf_pages": "30",
+  "arxiv_id": "2407.00364v2",
+  "license_url": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "license_evidence_url": "https://arxiv.org/abs/2407.00364v2",
+  "license_evidence_quote": "view license http://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "decision": "public_allowed",
+  "reason": "arxiv_pinned_version_hash_and_license_matched",
+  "checked_at": "2026-11-27T00:59:02.737685+08:00",
+  "format": "pdf",
+  "title": "Medical Knowledge Integration Into Reinforcement Learning Algorithms for Dynamic Treatment Regimes",
+  "authors": "Sophia Yazzourh and Nicolas Savy and Philippe Saint‐Pierre and Michael R. Kosorok",
+  "doi": "10.1111/insr.12617",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "original_rights_html": "<div class=\"abs-license\"><a href=\"http://creativecommons.org/licenses/by-nc-nd/4.0/\" title=\"Rights to this article\" class=\"has_license\">\n          <img alt=\"license icon\" role=\"presentation\" src=\"https://arxiv.org/icons/licenses/by-nc-nd-4.0.png\"/>\n          <span>view license</span>\n        </a></div>",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "This is an open access article under the terms of the Creative Commons Attribution-NonCommercial-NoDerivs License, which permits use and distribu-"
+    },
+    {
+      "pdf_page": 2,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 3,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 4,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 5,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 6,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 7,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 8,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 9,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 10,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 11,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 12,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 13,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 14,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 15,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 16,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 17,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 18,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 19,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 20,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 21,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 22,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 23,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 24,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 25,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 26,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 27,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 28,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 29,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    },
+    {
+      "pdf_page": 30,
+      "lines": " 17515823, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/insr.12617 by Sophia Yazzourh - University Of Saskatchewan , Wiley Online Library on [06/06/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    }
+  ]
+}

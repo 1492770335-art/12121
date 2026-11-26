@@ -1,0 +1,70 @@
+% assumptions for RCIF Adaptive Bounds!
+\newcommand{\ASSUMPrcifconsisBoundedTau}{
+\begin{assumption}
+\label{assump:CuiAssump1}
+There exists a fixed maximum follow-up time $0 < \tau < \infty$ and a constant $\tauUB \in (0, 1)$, such that $Pr(X_\tau \geq \tau | Z = z) \geq \tauUB$, for all $z \in \mathcal{Z}$.
+\end{assumption}
+}
+
+\newcommand{\ASSUMPrcifconsisBoundedCovDistrO}{
+\begin{assumption}
+    \label{assump:CuiAssump2}
+    The covariates $Z \in [0; 1]^d$ are distributed according to a density function $p(\cdot)$ satisfying $1/\assumpcovbound \leq p(z) \leq \assumpcovbound$, for all $z$ and some $\assumpcovbound \geq 1$.
+\end{assumption}
+}
+
+\newcommand{\ASSUMPrcifconsisBoundedBelowKO}{
+\begin{assumption}
+\label{assump:CuiAssump3}
+Assume that the minimum terminal node size $k$ is bounded below such that
+\[
+\lim_{n \to \infty} \frac{\log(n) \max\{\log(d), \log \log(n)\}}{k} = 0.
+\]
+\end{assumption}
+}
+
+\newcommand{\ASSUMPrcifconsisLipschitzCtsO}{
+\begin{assumption}
+\label{assump:CuiAssump4}
+For any fixed time point $t$, the distribution function for failure from any cause $H(t | z)$ is $L_1$-Lipschitz continuous in terms of $z$, and the cause-$j$ specific hazard function $\lambda_j(t | z)$ is $L_2$-Lipschitz continuous in terms of $z$;
+that is, 
+\begin{equation*}
+|H(t | z_1) - H(t | z_2)| \leq L_1 \norm{z_1 - z_2}
+\text{ and }
+|\lambda_j(t | z_1) - \lambda_j(t | z_2)| \leq L_2 \norm{z_1 - z_2}, 
+\end{equation*}
+where $|| \cdot ||$ is the Euclidean norm.
+\end{assumption}
+}
+
+\newcommand{\ASSUMPrcifconsisHazardBoundO}{
+\begin{assumption}
+\label{assump:HazardBound}
+Assume $\lambda_j(s|z)$ is bounded from $0$ to $\tau$ by some constant  $\assumphazbound$. Then, $\max_{s} \lambda_j(s|z) \leq \assumphazbound.$
+\end{assumption}
+}
+
+\newcommand{\assumptionsRCIFadaptiveboundsO}{
+%\ASSUMPrcifconsisBoundedTau
+%\ASSUMPrcifconsisBoundedCovDistr
+\ASSUMPrcifconsisBoundedBelowK
+\ASSUMPrcifconsisLipschitzCts
+\ASSUMPrcifconsisHazardBound
+}
+
+\newcommand{\assumpsForestconsistencyO}{
+\input{Chapters/02_Proj1/02_theorems/02_assumptions/Cho_assumptions1_5}
+}
+
+% assumptions for ITR consistency
+\newcommand{\assumptionsITRconsistencyO}{
+\begin{assumption}
+\label{assump:boundeddensity}
+Define the random function $B(a,Z) = \valueoneTRUE - (1-\tol)\valueonemaxTRUE$, $a \in \mathcal{A}$. Assume $B(a,Z)$ has continuous, bounded densities at 0, for each $a \in \mathcal{A}$.
+\end{assumption}
+
+\begin{assumption}
+\label{assump:boundedV0}
+    $\sup_{a,Z} \left\| \valueTRUE \right\|$ is bounded by some $\sevenbound < \infty$.
+\end{assumption}
+}

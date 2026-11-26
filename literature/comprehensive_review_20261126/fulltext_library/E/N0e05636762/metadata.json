@@ -1,0 +1,28 @@
+{
+  "paper_id": "N0e05636762",
+  "category": "E",
+  "title": "Pareto-optimal estimation and policy learning for balancing short-term and long-term outcomes",
+  "authors": "Yingrong Wang and Anpeng Wu and Haoxuan Li and Weiming Liu and Baohong Li and Qiaowei Miao and Ruoxuan Xiong and Fei Wu and Kun Kuang",
+  "doi": "10.1016/j.neunet.2026.109144",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1016/j.neunet.2026.109144",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "d4e06905eb8a83406075195e97cf2190a6a807e2ba9386cc1283026e1d784d5c",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2403.02624"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N0e05636762/README.md",
+  "status": "local_only"
+}

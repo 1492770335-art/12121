@@ -1,0 +1,34 @@
+{
+  "paper_id": "N6820de5fe0",
+  "category": "K",
+  "title": "Fludarabine/TBI 8 Gy versus fludarabine/treosulfan conditioning in patients with AML in first complete remission: a study from the Acute Leukemia Working Party of the EBMT",
+  "authors": "Gesine Bug and Myriam Labopin and Riitta Niittyvuopio and Matthias Stelljes and Hans Christian Reinhardt and Inken Hilgendorf and Nicolaus Kröger and Ain Kaare and Wolfgang Bethge and Kerstin Schäfer-Eckart and Mareike Verbeek and Stephan Mielke and Kristina Carlson and Ali Bazarbachi and Alexandros Spyridonidis and Bipin N. Savani and Arnon Nagler and Mohamad Mohty",
+  "doi": "10.1038/s41409-023-01965-x",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1038/s41409-023-01965-x",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/N6820de5fe0/artifacts/c7b1d18b1af9/original.pdf"
+  ],
+  "public_markdown": [
+    "K/N6820de5fe0/artifacts/c7b1d18b1af9/fulltext.md"
+  ],
+  "public_txt": [
+    "K/N6820de5fe0/artifacts/c7b1d18b1af9/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c7b1d18b1af9636b43e3c269a30ccf1bef5c592b3ca0307f8cbfc0ebf1e9be97",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.researchsquare.com/article/rs-1946604/latest.pdf",
+      "provenance": "K/N6820de5fe0/artifacts/c7b1d18b1af9/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N6820de5fe0/README.md",
+  "status": "public_fulltext"
+}

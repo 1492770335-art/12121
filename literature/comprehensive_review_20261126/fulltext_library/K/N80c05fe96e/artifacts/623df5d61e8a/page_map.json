@@ -1,0 +1,170 @@
+[
+  {
+    "pdf_page": 1,
+    "pdf_page_label": "559",
+    "printed_number_candidates": [],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 7,
+    "markdown_end_line": 86,
+    "txt_start_line": 9,
+    "txt_end_line": 85
+  },
+  {
+    "pdf_page": 2,
+    "pdf_page_label": "560",
+    "printed_number_candidates": [
+      "560"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "condition",
+      "Supplementary A"
+    ],
+    "markdown_start_line": 87,
+    "markdown_end_line": 235,
+    "txt_start_line": 86,
+    "txt_end_line": 231
+  },
+  {
+    "pdf_page": 3,
+    "pdf_page_label": "561",
+    "printed_number_candidates": [
+      "9",
+      "561"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 236,
+    "markdown_end_line": 439,
+    "txt_start_line": 232,
+    "txt_end_line": 432
+  },
+  {
+    "pdf_page": 4,
+    "pdf_page_label": "562",
+    "printed_number_candidates": [
+      "562"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "condition"
+    ],
+    "markdown_start_line": 440,
+    "markdown_end_line": 610,
+    "txt_start_line": 433,
+    "txt_end_line": 600
+  },
+  {
+    "pdf_page": 5,
+    "pdf_page_label": "563",
+    "printed_number_candidates": [
+      "563"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 611,
+    "markdown_end_line": 780,
+    "txt_start_line": 601,
+    "txt_end_line": 767
+  },
+  {
+    "pdf_page": 6,
+    "pdf_page_label": "564",
+    "printed_number_candidates": [
+      "564"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 781,
+    "markdown_end_line": 933,
+    "txt_start_line": 768,
+    "txt_end_line": 917
+  },
+  {
+    "pdf_page": 7,
+    "pdf_page_label": "565",
+    "printed_number_candidates": [
+      "565"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 934,
+    "markdown_end_line": 1180,
+    "txt_start_line": 918,
+    "txt_end_line": 1161
+  },
+  {
+    "pdf_page": 8,
+    "pdf_page_label": "566",
+    "printed_number_candidates": [
+      "566"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [],
+    "markdown_start_line": 1181,
+    "markdown_end_line": 1345,
+    "txt_start_line": 1162,
+    "txt_end_line": 1323
+  },
+  {
+    "pdf_page": 9,
+    "pdf_page_label": "567",
+    "printed_number_candidates": [
+      "567"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "condition"
+    ],
+    "markdown_start_line": 1346,
+    "markdown_end_line": 1495,
+    "txt_start_line": 1324,
+    "txt_end_line": 1470
+  },
+  {
+    "pdf_page": 10,
+    "pdf_page_label": "568",
+    "printed_number_candidates": [
+      "568"
+    ],
+    "has_math_or_equation_number": true,
+    "requires_formula_check": true,
+    "text_layer_available": true,
+    "replacement_character_count": 0,
+    "anchors": [
+      "Supplementary i"
+    ],
+    "markdown_start_line": 1496,
+    "markdown_end_line": 1542,
+    "txt_start_line": 1471,
+    "txt_end_line": 1512
+  }
+]

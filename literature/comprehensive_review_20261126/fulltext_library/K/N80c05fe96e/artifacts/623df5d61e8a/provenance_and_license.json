@@ -1,0 +1,30 @@
+{
+  "paper_id": "N80c05fe96e",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "623df5d61e8af80a994b4011b341486fa6e3d7fa0b7386a9e6e0740559026d6e",
+  "source_url": "https://iris.unisr.it/bitstream/20.500.11768/203634/3/unpaywall-bitstream-733638945.pdf",
+  "original_version": "submittedVersion",
+  "bytes": "816522",
+  "pdf_pages": "10",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://iris.unisr.it/bitstream/20.500.11768/203634/3/unpaywall-bitstream-733638945.pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:47.761536+08:00",
+  "format": "pdf",
+  "title": "Peripheral blood stem cells versus bone marrow graft for non-T-depleted haploidentical transplantation with post-transplant cyclophosphamide in patients with secondary acute myeloid leukemia in first complete remission: A study from the ALWP/EBMT",
+  "authors": "Arnon Nagler and Ryszard Swoboda and Allain-Thibeault Ferhat and Didier Blaise and Mariya Koc and Anna Maria Raiola and Alessandro Busca and Jiri Pavlu and Stefania Bramanti and Maija Itälä-Remes and Mercedes Colorado and Jan Vydra and Alexander Kulagin and Ali Bazarbachi and Jaime Sanz and Mohamad Mohty and Fabio Ciceri",
+  "doi": "10.1038/s41409-026-02823-2",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 10,
+      "lines": "Open Access This article is licensed under a Creative Commons\nmaterial in this article are included in the article’s Creative Commons licence, unless\narticle’s Creative Commons licence and your intended use is not permitted by statutory\ncreativecommons.org/licenses/by/4.0/."
+    }
+  ]
+}

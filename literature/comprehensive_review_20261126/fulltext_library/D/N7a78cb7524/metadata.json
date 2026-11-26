@@ -1,0 +1,28 @@
+{
+  "paper_id": "N7a78cb7524",
+  "category": "D",
+  "title": "Instrumental variable quantile regression under random right censoring",
+  "authors": "Jad Beyhum and Lorenzo Tedesco and Ingrid Van Keilegom",
+  "doi": "10.1093/ectj/utad015",
+  "year": "2024",
+  "original_url": "https://doi.org/10.1093/ectj/utad015",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "1570ae38b403245c30efa667ed385e7ed9a60783d34538c057bb26f775ec9c3c",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2209.01429"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/N7a78cb7524/README.md",
+  "status": "local_only"
+}

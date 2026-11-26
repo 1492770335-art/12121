@@ -1,0 +1,1313 @@
+# Non-myeloablative versus reduced intensity conditioning for allogeneic hematopoietic stem cell transplantation in acute myeloid leukemia patients aged ≥65: a study from the ALWP of EBMT
+
+Original PDF: [original.pdf](original.pdf). SHA256: `9fba1aed6602356e1bc263da6e9cb205fbade8e07605529148c29e19e85c2317`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+FORMULA CHECK REQUIRED: original PDF page 1.
+
+````text
+eprints@whiterose.ac.uk
+https://eprints.whiterose.ac.uk
+Universities of Leeds, Sheffield and York
+Deposited via The University of Sheffield.
+White Rose Research Online URL for this paper:
+https://eprints.whiterose.ac.uk/id/eprint/242890/
+Version: Accepted Version
+Article:
+Kanellopoulos, A., Labopin, M., Spyridonidis, A. et al. (2026) Non-myeloablative versus 
+reduced intensity conditioning for allogeneic hematopoietic stem cell transplantation in 
+acute myeloid leukemia patients aged ≥65: a study from the ALWP of EBMT. Bone Marrow
+Transplantation, 61 (8). pp. 1091-1097. ISSN: 0268-3369 
+https://doi.org/10.1038/s41409-026-02935-9
+© The Author(s) 2026. Except as otherwise noted, this author-accepted version of a 
+journal article published in Bone Marrow Transplantation is made available via the 
+University of Sheffield Research Publications and Copyright Policy under the terms of the 
+Creative Commons Attribution 4.0 International License (CC-BY 4.0), which permits 
+unrestricted use, distribution and reproduction in any medium, provided the original work is
+properly cited. To view a copy of this licence, visit 
+http://creativecommons.org/licenses/by/4.0/
+Reuse 
+This article is distributed under the terms of the Creative Commons Attribution (CC BY) licence. This licence 
+allows you to distribute, remix, tweak, and build upon the work, even commercially, as long as you credit the 
+authors for the original work. More information and the full terms of the licence here: 
+https://creativecommons.org/licenses/ 
+Takedown 
+If you consider content in White Rose Research Online to be in breach of UK law, please notify us by 
+emailing eprints@whiterose.ac.uk including the URL of the record and the reason for the withdrawal request. 
+
+````
+
+## PDF page 2
+
+FORMULA CHECK REQUIRED: original PDF page 2.
+
+````text
+NON-MYELOABLATIVE VERSUS REDUCED INTENSITY CONDITIONING FOR ALLOGENEIC 
+HEMATOPOIETIC STEM CELL TRANSPLANTATION IN ACUTE MYELOID LEUKEMIA PATIENTS AGED 
+≥65: A STUDY FROM THE ALWP OF EBMT 
+ 
+A. Kanellopoulos1, M. Labopin2, A. Spyridonidis3, E. Nikolousis4, U. Platzbecker5, D. Blaise6, H. 
+Sengeloev7, F. Kinsella8, T. Schroeder9, G. Choi10, E. Tholouli11, P. Dreger12, V. Potter13, G. Socie14, 
+A.E.C. Broers15, J. Passweg16, M. Eder17, G. Olesen18, J.H. Bourhis19, G. Van Gorkom20, M. Stelljes21, 
+J.O. Bay22, J.L. Byrne23, P. Ceballos24, J.A. Snowden25, Bipin N. Savani26, E. Brissot2, F. Ciceri27, A. 
+Nagler28, M. Mohty2 
+ 
+1 Sheffield Teaching Hospitals NHS Foundation Trust, Royal Hallamshire Hospital, Sheffield, United 
+Kingdom 
+2 Department of Hematology, Hôpital Saint Antoine, Sorbonne University and INSERM UMRs 938, 
+Paris, France 
+3 Bone Marrow Transplantation Unit and Institute of Cellular Therapy, University of Patras, Patras, 
+Greece 
+4 Heartlands Hospital, Birmingham UK 
+5 Medical Clinic and Polyclinic 1, Hematology and Cellular Therapy, University Hospital Leipzig, 
+Germany 
+6 Programme de Transplantation & Therapie Cellulaire, Centre de Recherche en Cancérologie de 
+Marseille, Institut Paoli Calmettes-Marseille, France 
+7 Bone Marrow Transplant Unit L 4043, National University Hospital, Copenhagen, Denmark 
+8 Birmingham Centre for Cellular Therapy and Transplantation, Birmingham UK 
+9 University Hospital, Dept. of Bone Marrow Transplantation-Essen, Germany 
+10 University Medical Center Groningen (UMCG) Dept. of Hematology-Groningen, The Netherlands 
+11 Manchester Royal Infirmary, Clinical Haematology Department-Manchester, United Kingdom 
+12 University of Heidelberg, Medizinische Klinik u. Poliklinik V-Heidelberg, Germany 
+13 Kings College Hospital, Dept. of Haematological Medicine-London, United Kingdom 
+14 Hopital St. Louis, Dept. of Hematology – BMT-Paris, France 
+15 Erasmus MC Cancer Institute, University Medical Center Rotterdam, Department of Hematology-
+Rotterdam, The Netherlands 
+16 University Hospital, Hematology-Basel, Switzerland 
+17 Hannover Medical School, Department of Haematology, Hemostasis, Oncology and Stem Cell 
+Transplantation-Hannover, Germany 
+18 Aarhus University Hospital, Aarhus Amtssygehus-Aarhus, Denmark 
+19 Gustave Roussy Cancer Campus, BMT Service, Department of Hematology-Villejuif, France 
+20 University Hospital Maastricht, Dept. Internal Med. Hematology/Oncology-Maastricht, The 
+Netherlands 
+21 University of Muenster, Dept. of Hematology/Oncology, Muenster, Germany 
+22 CHU ESTAING, Service d' hématologie clinique adulte et pédiatrie, Clermont-Ferrand, France 
+
+````
+
+## PDF page 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+23 University of Nottingham-Nottingham, United Kingdom 
+24 CHU Lapeyronie, Département d`Hématologie Clinique-Montpellier, France 
+25 Division of Clinical Medicine, School of Medicine and Population Health, The University of 
+Sheffield, Sheffield, UK 
+26 Vanderbilt University Medical Center, Nashville, TN, USA 
+27 Ospedale San Raffaele s.r.l., Haematology and BMT, Milano, Italy 
+28 Hematology Division, Chaim Sheba Medical Center, Tel-Hashomer, Israel 
+ 
+Corresponding author 
+Dr Alexandros Kanellopoulos 
+Consultant Haematologist & Honorary Clinical Senior Lecturer 
+e-mail: alexandros.kanellopoulos@nhs.net 
+ 
+Conflict of interest: The authors declare no competing interests. 
+ 
+ABSTRACT 
+The optimal conditioning intensity for allogeneic hematopoietic stem cell transplantation (allo-HCT) 
+in elderly acute myeloid leukemia (AML) remains elusive. We retrospectively analyzed 2,900 AML 
+patients aged ≥65 in complete remission who underwent allo-HCT from 2004–2021. Conditioning 
+was classified as reduced-intensity conditioning (RIC: fludarabine with busulfan, melphalan, or 
+treosulfan) or non-myeloablative (NMA: fludarabine with total body irradiation). Primary endpoints 
+were overall survival (OS) and leukemia-free survival (LFS); secondary endpoints included non-
+relapse mortality (NRM), acute and chronic graft-versus-host disease (GVHD), and GVHD/relapse-
+free survival (GRFS). With follow-up censored to account for differences between arms, OS, LFS, and 
+NRM at 2 years were similar between RIC and NMA on multivariable analysis. Peripheral blood stem 
+cells (PBSC) were independently associated with superior OS (HR 0.67, p=0.002) and LFS (HR 0.71, 
+p=0.008) versus bone marrow grafts. GRFS was equivalent between conditioning intensities, 
+although RIC was associated with higher acute GVHD and NMA with higher extensive chronic GVHD. 
+In exploratory analysis, OS and LFS were similar across RIC regimens (Flu/Bu2 as reference: Flu/Mel 
+OS HR 0.91, p=0.53; Flu/Treo OS HR 0.89, p=0.42). In older AML patients in remission, RIC and NMA 
+
+````
+
+## PDF page 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+yield comparable survival and NRM; PBSC grafts may be associated with superior outcomes although 
+this warrants validation. 
+ 
+INTRODUCTION 
+Acute myeloid leukemia (AML) has a median age at diagnosis of ~70 years. For patients with an 
+estimated relapse risk of 35–40% [1], allogeneic stem cell transplantation (allo-HCT) is recommended 
+as standard of care by the European LeukemiaNet [2–4]. In older or comorbid patients, however, the 
+transplant-mediated graft-versus-leukemia (GvL) effect is offset by substantial non-relapse mortality 
+(NRM) [5–7]. Reduced intensity conditioning (RIC) and non-myeloablative (NMA) regimens are 
+therefore central to allo-HCT in this population because high-dose conditioning increases organ 
+toxicity, graft-versus-host disease (GVHD), and infection risk [8–14]. A recent EBMT study [15] and a 
+single-center series [16] did not demonstrate outcome differences between NMA (fludarabine/total 
+body irradiation, Flu/TBI2Gy) and RIC (fludarabine/busulfan) or other RIC regimens. However, no 
+large-scale study has directly compared NMA versus RIC conditioning specifically in patients aged 
+≥65. 
+Concurrent advances — broader feasibility of alternative-donor transplants in septuagenarian 
+patients [17, 18], development of reduced-toxicity conditioning (RTC) strategies [11], and the 
+adoption of post-transplant cyclophosphamide (PTCy) as a GVHD-prophylaxis standard in matched-
+donor transplants [19] — have reshaped contemporary practice. These advances motivated the 
+present large-scale retrospective analysis of 2,900 AML patients aged ≥65 years undergoing related 
+or unrelated donor allo-HCT. The primary aim was to compare the prototype Flu/TBI2Gy NMA 
+regimen versus commonly used RIC regimens. Conditioning intensity was stratified as per EBMT 
+consensus criteria [12, 20]. 
+ 
+METHODS 
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+Patients 
+This was a retrospective analysis conducted by the Acute Leukemia Working Party (ALWP) of the 
+European Society for Blood and Marrow Transplantation (EBMT). Data were entered into the EBMT 
+registry's database (ProMISe), following written patient informed consent, according to the 
+guidelines of the Declaration of Helsinki. The study population comprised AML patients aged ≥65 
+years in first or second complete remission (CR1/CR2), who had their first allo-HCT between 2004–
+2021 from an HLA-matched sibling donor (MSD), 10/10 HLA-matched unrelated donor (MUD), 9/10 
+HLA-mismatched unrelated donor (MMUD) or a haploidentical donor (Haplo). Patients were 
+conditioned with either intravenous fludarabine/busulfan (Flu/Bu2: total busulfan dose ≤6.4 mg/kg 
+IV), fludarabine/melphalan (Flu/Mel: total melphalan dose 110–140 mg/m2), or 
+fludarabine/treosulfan (Flu/Treo: total treosulfan dose 30 g/m2) in the RIC arm [12, 20] whereas 
+NMA conditioning consisted of fludarabine/total body irradiation 2-Gy (Flu/TBI2Gy). The stem cell 
+source was either granulocyte colony-stimulating factor mobilised peripheral blood stem cells (PBSC) 
+or bone marrow (BM). Patients who received cord blood or ex vivo T-cell depletion (TCD) were 
+excluded. 
+ 
+Endpoints and definitions 
+The primary endpoints of this study were overall survival (OS), measured as the duration from 
+transplantation until death from any cause, and leukemia-free survival (LFS), defined as the time 
+until either a relapse of leukemia or death from any cause. Secondary endpoints were non-relapse 
+mortality (NRM; time to death without evidence of persistent disease or leukemic relapse, with 
+leukaemia relapse as competing risk event), cumulative incidence of relapse (CIR), engraftment, 
+cumulative incidence (CI) of acute GVHD (aGVHD), CI of chronic GVHD (cGVHD), and GVHD-free, 
+relapse-free survival (GRFS; time to grade III-IV aGVHD, extensive cGVHD, AML relapse, or death 
+from any cause) [21]. Day of engraftment was considered the first of 3 consecutive days with an 
+
+````
+
+## PDF page 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+absolute neutrophil count >0.5 × 109/L post-transplant. Modified Glucksberg and NIH criteria were 
+applied to grade aGVHD and cGVHD, respectively [22, 23]. CR was defined as less than 5% blasts in 
+bone marrow without extramedullary disease at the time of allo-HCT. 
+ 
+Statistical analysis 
+Patient-, disease-, and transplant-related characteristics were compared between conditioning 
+regimens using the chi-square or Fisher's exact test for categorical variables, and the Mann–Whitney 
+U test for continuous variables. OS, LFS, and GRFS were calculated using the Kaplan-Meier method. 
+CIR and CI of NRM were analyzed using cumulative incidence competing risk models (Fine-Gray), 
+treating NRM and relapse as mutually competing risks [24]. Similarly, death and relapse were 
+treated as competing events in the CI functions for aGVHD and cGVHD. Median follow-up was 
+estimated using the reverse Kaplan-Meier method. To explicitly address the imbalance in follow-up 
+duration between the NMA and RIC arms, all univariate and multivariate analyses were executed 
+with follow-up administratively censored at 3 years. Univariate analyses were performed using the 
+log-rank test for OS, LFS, and GRFS, and Gray's test for RI and NRM. Multivariate regression was 
+conducted with the Cox proportional-hazards model, and the proportional hazards assumption was 
+visually tested and confirmed. The multivariable model included conditioning intensity, patient age 
+(continuous per 10 years), status at transplant (CR1 vs CR2), type of AML (de novo vs secondary), 
+cytogenetic risk (favorable, intermediate, adverse), donor type, sex matching (female donor to male 
+recipient vs other), Karnofsky performance scale (KPS) ≥90, patient and donor CMV serology, use of 
+in vivo TCD, use of PTCy, year of transplant (continuous), and stem cell source (PBSC vs BM). Most 
+EBMT centers used a combination of validated measurable residual disease (MRD) assays as directed 
+by the presence of specific mutations detectable by PCR and/or aberrant leukemia phenotype 
+assessed by flow cytometry [25]. A random effect (frailty model) for each center was implemented 
+to account for individual center effects [26]. 
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+To ensure robustness and account for baseline imbalances, sensitivity analyses were performed by 
+restricting the cohort to contemporary transplants (2016–2021) and by excluding haploidentical and 
+BM recipients. Results were expressed as the hazard ratio (HR) with the 95% confidence interval 
+(95% CI). Tests were two-sided, and p < 0.05 was deemed statistically significant. No multiplicity 
+adjustment was applied for secondary endpoints. Statistical processes were conducted with SPSS 
+25.0 (SPSS Inc., Chicago, IL, USA) and R 4.0.3. 
+ 
+RESULTS 
+Patient Characteristics 
+Of 2,900 patients, 31.4% (n=911) received NMA conditioning with Flu/TBI2Gy, while the remaining 
+68.6% (n=1,989) received RIC regimens — Flu/Bu2 (35.6%, n=1,033), Flu/Mel (22.2%, n=643), or 
+Flu/Treo (10.8%, n=313). Median follow-up was 50.4 months (IQR 46.2–56.4) in the NMA arm versus 
+35.6 months (IQR 31.8–36.8) in the RIC arm (p<0.0001), whereas median age in NMA and RIC was 
+68.6 and 68.0 years respectively (p<0.0001). RIC had more individuals with Karnofsky performance 
+scale ≥90 (70% vs 63.4%), female donor to male recipient combination (44.7% vs 16.6%), or in vivo 
+TCD (82.5% vs 10.2%), whereas NMA were more likely to receive haploidentical allo-HCT (19.9% vs 
+4.3%), bone marrow graft (6.4% vs 3.1%), and PTCy (23.8% vs 7.3%). Baseline patient, disease and 
+transplant characteristics as well as causes of death, are shown in supplementary Table S1. 
+ 
+Univariate Outcome Analysis 
+In univariate analysis with censoring at 3 years, RIC showed a 2-year overall survival of 56.5% 
+compared to 53.4% for NMA, which was not statistically significant (p=0.11). RIC maintained superior 
+2-year GRFS (41.2% vs 33.6%, p=0.001). Two-year cumulative incidence of relapse, leukemia-free 
+survival, and non-relapse mortality did not differ between conditioning intensities. Graft failure rates 
+
+````
+
+## PDF page 8
+
+Technical extraction; compare with original PDF page 8.
+
+````text
+were low and comparable (1.9% vs 1.5%, p=0.44), for NMA vs RIC. Comprehensive univariate results 
+are shown in supplementary Table S2. 
+ 
+Multivariate Outcome Analysis 
+Reduced Intensity vs Non-Myeloablative Conditioning 
+Results of the multivariate analysis are described in Table 1. RIC did not confer a superior OS, LFS, or 
+NRM compared with NMA conditioning (HR 0.88, p=0.28; HR 1.00, p=0.97; HR 1.06, p=0.69, 
+respectively). RIC was associated with a higher risk of grade II–IV acute GVHD (HR 1.45, p=0.01), 
+whereas the risk of extensive chronic GVHD was lower with RIC (HR 0.65, p=0.029). GVHD/relapse-
+free survival (GRFS) did not differ between RIC and NMA (HR 0.94, p=0.49) (Figure 1). Tests for 
+interaction indicated that the effect of conditioning intensity remained independent and consistent, 
+as no significant interactions with other clinical covariates were identified (p > 0.15). 
+ 
+Adverse Prognostic Factors 
+In the multivariable analysis, statistically significant adverse factors for OS included increasing age 
+per 10 years (HR 1.37, p=0.01), secondary AML (HR 1.19, p=0.014), adverse-risk cytogenetics (HR 
+1.52, p=0.044), recipient CMV positivity (HR 1.15, p=0.049), and transplantation from a MMUD (HR 
+1.53, p=0.0001). Secondary AML and adverse-risk cytogenetics also increased relapse risk (HR 1.24, 
+p=0.018; and HR 2.08, p=0.008, respectively). Furthermore, older age, recipient CMV positivity, and 
+MMUD significantly increased NRM (HR 1.62, p=0.003; HR 1.27, p=0.016; and HR 2.31, p<0.0001, 
+respectively) (Table 1). 
+ 
+Favorable Prognostic Factors 
+
+````
+
+## PDF page 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+Longer OS was significantly associated with KPS ≥90 (HR 0.82, p=0.003) and PBSC graft (HR 0.67, 
+p=0.002). PBSC grafts also demonstrated a trend toward reducing relapse risk (HR 0.71, p=0.055), 
+and significantly improved LFS (HR 0.71, p=0.008), while KPS ≥90 was correlated with improved NRM 
+(HR 0.75, p=0.002), as shown in Table 1. 
+ 
+Exploratory Analysis in Reduced Intensity Conditioning Cohort 
+In a multivariable subset analysis confined to the RIC arm, we assessed outcomes across the three 
+specific regimens: Flu/Bu2, Flu/Mel, and Flu/Treo. Compared with Flu/Bu2, patients receiving 
+Flu/Mel demonstrated a significantly lower risk of relapse (HR 0.54, p=0.0002) and a reduced risk of 
+overall chronic GVHD (HR 0.69, p=0.04). However, this was nuanced by a trend toward higher NRM 
+in the Flu/Mel group (HR 1.41, p=0.073), ultimately resulting in no significant differences in LFS, OS, 
+or GRFS between the two regimens. Outcomes for patients conditioned with Flu/Treo did not differ 
+significantly from the Flu/Bu2 reference group across any of the evaluated endpoints. When directly 
+comparing the remaining two regimens, Flu/Treo was associated with a significantly higher risk of 
+relapse compared to Flu/Mel (HR 1.66, p=0.017) but conferred a lower risk of grade II–IV acute 
+GVHD (HR 0.59, p=0.032) (supplementary Table S3). 
+ 
+Sensitivity Analyses 
+To ensure the robustness of these findings against baseline patient arm imbalances, sensitivity 
+analyses were performed. The multivariate analysis restricted to patients transplanted between 
+2016 and 2021, confirmed no statistically significant differences between the two regimens 
+regarding OS (HR 0.82, p=0.22), LFS (HR 0.92, p=0.55), NRM (HR 1.18, p=0.45), relapse (HR 0.78, 
+p=0.15), or GRFS (HR 0.92, p=0.49). RIC remained associated with a significantly higher risk of grade 
+II–IV acute GVHD (HR 1.57, p=0.024) albeit grade III–IV acute GVHD (HR 1.26, p=0.47) and extensive 
+chronic GVHD (HR 0.65, p=0.12) did not differ significantly between conditioning intensity arms 
+
+````
+
+## PDF page 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+(supplementary Table S4). A similar statistical approach excluding haploidentical donors and bone 
+marrow grafts, corroborated no statistically significant differences between NMA versus RIC 
+concerning OS (HR 0.86, p=0.26), LFS (HR 0.97, p=0.79), NRM (HR 0.94, p=0.75), or GRFS (HR 0.96, 
+p=0.71). (supplementary Table S5). 
+Finally, among 248 NMA and 753 RIC patients with known pre-transplant MRD, no statistically 
+significant interaction was observed between conditioning intensity and MRD status (supplementary 
+Table S6). 
+ 
+DISCUSSION 
+In this study, we analyzed 2,900 AML patients aged ≥65 years who underwent their first allo-HCT in 
+CR1 or CR2 between 2004 and 2021. Transplants were performed from MSD, MUD, MMUD, or Haplo 
+donors, using Flu/Bu2, Flu/Mel, or Flu/Treo (RIC) versus Flu/TBI2Gy (NMA). Our findings show that 
+neither conditioning intensity (NMA vs. RIC) nor individual RIC regimens significantly influenced 
+NRM, LFS, or OS. To date, this is the largest retrospective registry study [15, 16] showing that, among 
+RIC strategies, less intensive NMA conditioning does not compromise disease control in elderly AML 
+patients receiving related or unrelated donor allo-HCT. Further, we did not restrict this study to CR1, 
+as both arms had similar CR1/CR2 distributions and no differences by CR1 versus CR2 on multivariate 
+analysis. It is prudent to highlight that these results should be interpreted with caution, because a 
+null result in a retrospective study does not definitively prove equivalence. For example, the 95% CI 
+for OS (HR 0.71–1.10) between RIC and NMA arms (Table 1) means a clinically meaningful benefit of 
+up to 29% for RIC cannot be definitively excluded. Nevertheless, our findings are consistent with 
+Heinicke et al., who compared Flu/Bu2 and Flu/TBI2Gy in AML patients ≥65 years [15], and with 
+several retrospective and prospective trials comparing MAC and RIC in younger myeloid cohorts [9, 
+27–32]. Finally, a French randomized trial demonstrated that Flu/Bu2 was associated with higher 
+long-term NRM, and Flu/TBI2Gy with graft failure and inferior LFS [33]. Differences in patient age, 
+
+````
+
+## PDF page 11
+
+Technical extraction; compare with original PDF page 11.
+
+````text
+characteristics and disease distribution (<20% AML in the French study) likely explain the observed 
+discrepancies. 
+The role of pre-transplant MRD in allo-HCT for AML remains of primary interest. In our sensitivity 
+analysis, conditioning intensity did not interact with MRD status. Hourigan et al. showed that MAC 
+reduced relapse in MRD positive patients with AML/MDS using NGS [32], while the UK FIGARO trial 
+found no benefit of augmented conditioning in MRD+ AML by flow cytometry [9], aligning more 
+closely with our results and those of Walter et al. [16]. One must state that the quest for optimizing 
+conditioning regimens for MRD-positive elderly AML will require future prospective, randomized 
+studies stratified by genetic subsets, donor type, and methods of GVHD prophylaxis. 
+Unlike conditioning intensity, the use of PBSC was independently associated with improved OS, 
+primarily through a trend in reduced relapse and significantly improved LFS, without adversely 
+affecting GRFS. An EBMT activity survey reported that the shift from BM to PBSC for allo-HCT, which 
+began during the first year of the SARS-CoV-2 pandemic, was reversed in 2021; in that year BM was 
+used in 9.4%, 18.9%, and 5.2% of MSD, MUD, and Haplo allo-HCT procedures, respectively, among 
+patients with myeloid malignancies [34]. EBMT and Blood and Marrow Transplant Clinical Trials 
+Network studies have examined the impact of stem cell source on transplant outcomes. In RIC allo-
+HCT for AML between 2002 and 2012, PBSC was associated with increased cGVHD [35], while two 
+subsequent EBMT studies observed higher rates of aGVHD with PBSC in haploidentical transplants 
+for acute leukemia [36, 37]. Ultimately, Rocha et al. demonstrated that PBSC was associated with 
+increased NRM (HR 1.22) and decreased OS (HR 1.13) compared to BM in a substantial cohort of 
+8,854 adults undergoing Haplo-PTCy [37]. In contrast, a prospective randomized trial in MUD allo-
+HCT demonstrated that PBSC reduced graft failure whereas BM protected against cGVHD, with both 
+sources yielding comparable OS [38]. In their seminal paper, Luznik et al. reported low GVHD and 
+NRM for older patients receiving NMA PTCy Haplo transplants, although disease recurrence was high 
+in that setting [39]. Taken together, our data suggest that PBSC may enhance disease control in older 
+AML recipients receiving attenuated conditioning, likely because PBSC grafts contain a higher 
+
+````
+
+## PDF page 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+number of donor T cells compared with BM grafts [40]. Further research is needed to elucidate how 
+T-cell and other lymphocyte subsets within stem cell grafts modulate GvL while limiting GVHD. 
+In this analysis, the RIC arm demonstrated a higher incidence of aGVHD, whereas NMA recipients 
+experienced more cGVHD; despite these differences there were no significant differences in GRFS or 
+OS, consistent with prior reports [15, 32]. RIC Flu/Mel and Flu/Treo with a transplant conditioning 
+index (TCI) ≥2.0 are associated with a higher risk of acute GVHD than Flu/TBI2Gy (TCI 1.5) [41], which 
+may in turn contribute to a GVHD-related increase in non-relapse mortality [42]. The greater burden 
+of cGVHD in the NMA cohort reflects significantly lower utilization of TCD (10.2% vs 82.5% in RIC 
+arm, p<0.0001) and higher Haplo donor allo-HCT (19.9% vs 4.3% in RIC arm, p<0.0001) which would 
+be expected to affect chronic GVHD incidence [43-45]. Indeed, our sensitivity analysis of patients 
+transplanted between 2016 and 2021 showed that the initial difference in extensive chronic GVHD 
+between study arms disappeared (HR 0.65, p=0.12). This may reflect wider adoption of modern 
+GVHD prophylaxis platforms such as PTCy in NMA-conditioned allo-HCT [46]. Nonetheless, it should 
+be emphasized that this study was not designed to compare outcomes between specific RIC 
+regimens or GVHD prophylaxis strategies. Rather, the exploratory analyses were intended to assess 
+the validity of the overall NMA versus RIC comparison across a heterogeneous population. 
+Within the RIC cohort, exploratory analyses revealed that melphalan-based conditioning significantly 
+reduced relapse risk compared to fludarabine/busulfan (HR 0.54 [0.39–0.75], p=0.0002), consistent 
+with prior EBMT/ALWP [47] and CIBMTR reports [48] demonstrating the superior anti-leukemic 
+activity of Flu/Mel whereas this relapse benefit was abrogated by higher non-relapse mortality, such 
+that these competing risks resulted in equivalent long-term leukemia-free and overall survival across 
+these two widely utilised RIC regimens. Similarly, Flu/Treo demonstrated higher relapse rates 
+compared to Flu/Mel, but was associated with lower acute GVHD compared to Flu/Mel, consistent 
+with the retrospective, propensity-matched analysis by Beelen et al. who found no difference in 
+relapse incidence between Flu/Treo and Flu/Mel (p=0.28) but identified significantly lower NRM with 
+Flu/Treo (p=0.019), resulting in superior OS for Flu/Treo (p=0.04) [49]. Intriguingly, a recent meta-
+
+````
+
+## PDF page 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+analysis by Wannaphut et al. suggested that in elderly patients (≥60 years) with AML/MDS, Flu/Mel 
+may improve overall survival without significantly increasing transplant-related mortality [50]. These 
+divergent findings illustrate the multifaceted task of regimen selection, necessitating prospective, 
+randomized trials to guide individualized conditioning strategies. 
+This study is limited by its retrospective design, which prevents definitive attribution of causality and 
+makes it impossible to decipher the clinical reasoning that led centers to select NMA versus RIC for 
+individual patients. Firstly, median follow-up was substantially longer in the NMA arm. To explicitly 
+assess the potential impact of this imbalance on late endpoints (relapse, chronic GVHD, LFS, and OS), 
+follow-up was estimated using the reverse Kaplan-Meier method, and all analyses were 
+administratively censored at 3 years (or 2 years for subgroups). This rigorous adjustment confirmed 
+our initial findings. Secondly, selection bias and center-level practice heterogeneity produced 
+important baseline imbalances between arms. The markedly higher use of haploidentical donors 
+with PTCy and bone marrow grafts in the NMA arm may independently influence relapse risk and 
+GVHD incidence, representing a significant confounding factor when interpreting the comparable 
+outcomes. The NMA cohort also contained more patients with higher comorbidity (HCT-CI >2), while 
+the RIC cohort included greater use of T-cell depletion, more adverse-risk AML, and lower HCT-CI. To 
+directly address these confounders, robust sensitivity analyses restricting the cohort to recent 
+transplant years (2016–2021) and completely excluding haploidentical and bone marrow recipients 
+were conducted, which demonstrated consistent outcomes and strengthened the scientific rigor of 
+our conclusions regarding conditioning intensity. Thirdly, while the PBSC finding is compelling, BM 
+grafts comprised only ~4% of the cohort; this small absolute number of BM recipients raises 
+concerns regarding the stability of the PBSC benefit estimate. Furthermore, the dataset lacks 
+information on post-relapse therapies such as donor lymphocyte infusions, which could confound 
+overall survival estimates, and potential immortal time bias regarding the time from CR1/CR2 to 
+transplant cannot be entirely excluded. Comparisons within the RIC cohort must be interpreted with 
+circumspection, as individual center preferences, infrastructure, and local elderly AML population 
+
+````
+
+## PDF page 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+characteristics decidedly affect the selection of RIC regimens. Lastly, given the high rate of missing 
+pre-transplant MRD data (72.8% in NMA, 62.1% in RIC), our stratified analyses lack granularity, 
+rendering these specific findings purely exploratory. 
+In conclusion, among older patients with AML receiving related or unrelated-donor allo-HCT, 
+conditioning intensity (NMA versus RIC) produced comparable survival and relapse outcomes. In 
+contrast, peripheral-blood stem cell grafts were independently associated with improved leukemia-
+free and overall survival, supporting the prioritization of graft source and the incorporation of 
+contemporary GVHD-prophylaxis data [51–53] when planning allo-HCT for older or frail patients. 
+Furthermore, these findings may support the design of prospective, MRD-stratified trials—for 
+example, randomized non-inferiority studies of NMA versus RIC in MRD-negative AML patients aged 
+≥65 years. 
+ 
+Ethics Approval and Consent to Participate 
+All methods in this study were performed in accordance with the relevant guidelines and 
+regulations, including the principles of the Declaration of Helsinki. This retrospective registry analysis 
+was conducted under the auspices of the EBMT Acute Leukemia Working Party. The EBMT registry 
+(ProMISe) operates under ethics approval granted to the EBMT by the relevant national and 
+institutional ethics committees of participating centers. Written informed patient consent for data 
+use in registry-based research was obtained prior to data entry into the registry. No additional 
+institutional ethics committee approval was required for this retrospective analysis. 
+ 
+Author contributions 
+AK designed the study, interpreted the data, and wrote the draft manuscript. AS and MM designed 
+the study, supervised the project and contributed to the manuscript. ML performed the statistical 
+analyses, supervised the project, and contributed to the manuscript. EN, UP, DB, HS, FK, TS, GC, ET, 
+
+````
+
+## PDF page 15
+
+Technical extraction; compare with original PDF page 15.
+
+````text
+PD, VP, GS, AECB, JP, ME, GO, JHB, GVG, MS, JOB, JLB, PC, JAS, BNS, EB, FC, and AN contributed to 
+retrospective patient recruitment, writing, critical review, and approval of the manuscript. 
+ 
+Acknowledgements 
+We thank all European Group for Blood and Marrow Transplantation (EBMT) centers and national 
+registries for contributing patients to the study and data managers for their superb work. 
+ 
+Funding 
+This study was supported by the European Society for Blood and Marrow Transplantation (EBMT), 
+funded by annual subscription from the constituent transplant centers. The EBMT provided registry 
+infrastructure and statistical support. No external funding was received by the authors for this work. 
+ 
+Conflict of interest 
+The authors declare no competing interests. 
+ 
+Data Availability 
+The data were allocated by the EBMT registry in Paris. The datasets are available upon data-specific 
+request. 
+ 
+REFERENCES 
+1. Phekoo KJ, Richards MA, Møller H, Schey SA; South Thames Haematology Specialist Committee. 
+The incidence and outcome of myeloid malignancies in 2,112 adult patients in southeast England. 
+Haematologica 2006; 91: 1400–1404. 
+2. Socié G. Long-term outcomes after transplantation for acute myelogenous leukemia. J Clin Oncol 
+2022; 40: 3235–3238. 
+3. Sekeres MA, Guyatt G, Abel G, Alibhai S, Altman JK, Buckstein R, et al. American Society of 
+Hematology 2020 guidelines for treating newly diagnosed acute myeloid leukemia in older adults. 
+Blood Adv 2020; 4: 3528–3549. 
+
+````
+
+## PDF page 16
+
+FORMULA CHECK REQUIRED: original PDF page 16.
+
+````text
+4. Döhner H, Wei AH, Appelbaum FR, Craddock C, DiNardo CD, Dombret H, et al. Diagnosis and 
+management of AML in adults: 2022 recommendations from an international expert panel on behalf 
+of the ELN. Blood 2022; 140: 1345–1377. 
+5. Deeg HJ. Not all patients with AML over 60 years of age should be offered early allogeneic stem 
+cell transplantation. Blood Adv 2022; 6: 1623–1627. 
+6. Russell NH, Hills RK, Thomas A, Thomas I, Kjeldsen L, Dennis M, et al. Outcomes of older patients 
+aged 60 to 70 years undergoing reduced intensity transplant for acute myeloblastic leukemia: results 
+of the NCRI acute myeloid leukemia 16 trial. Haematologica 2022; 107: 1518–1527. 
+7. Bazarbachi A, Labopin M, Moukalled N, Kröger N, Rautenberg C, Schetelig J, et al. Improvements 
+in posttransplant outcomes over two decades in older patients with acute myeloid leukemia in the 
+EBMT ALWP study. Clin Cancer Res 2024; 30: 1572–1582. 
+8. Loke J, McCarthy N, Jackson A, Siddique S, Hodgkinson A, Mason J, et al. Post-transplant MRD and 
+T-cell chimerism status predict outcomes in patients who received allografts for AML/MDS. Blood 
+Adv 2023; 7: 3666–3676. 
+9. Craddock C, Jackson A, Loke J, Siddique S, Hodgkinson A, Mason J, et al. Augmented reduced-
+intensity regimen does not improve post allogeneic transplant outcomes in acute myeloid leukemia. 
+J Clin Oncol 2021; 39: 768–778. 
+10. Storb R, Sandmaier BM. Nonmyeloablative allogeneic hematopoietic cell transplantation. 
+Haematologica 2016; 101: 521–530. 
+11. Beelen DW, Stelljes M, Reményi P, Wagner-Drouet EM, Dreger P, Bethge W, et al. Treosulfan 
+compared with reduced intensity busulfan improves allogeneic hematopoietic cell transplantation 
+outcomes of older acute myeloid leukemia and myelodysplastic syndrome patients: final analysis of 
+a prospective randomized trial. Am J Hematol 2022; 97: 1023–1034. 
+12. Spyridonidis A, Labopin M, Gedde-Dahl T, Ganser A, Stelljes M, Craddock C, et al. Validation of 
+the transplant conditioning intensity (TCI) index for allogeneic hematopoietic cell transplantation. 
+Bone Marrow Transplant 2024; 59: 217–223. 
+13. Sawyer J, Elliott T, Orton L, Sowell H, Gatwood K, Shultes K. Prevention and management of 
+acute toxicities from conditioning regimens during hematopoietic stem cell transplantation. Clin 
+Hematol Int 2024; 6: 1–10. 
+14. Shah R, Murphy D, Logue M, Jerkins J, Jallouk A, Adetola K, et al. Multidisciplinary management 
+of morbidities associated with chronic graft-versus-host disease. Clin Hematol Int 2024; 6: 74–88. 
+15. Heinicke T, Labopin M, Polge E, Niederwieser D, Platzbecker U, Sengelov H, et al. 
+Fludarabine/busulfan versus fludarabine/total-body-irradiation (2 Gy) as conditioning prior to 
+allogeneic stem cell transplantation in patients (≥60 years) with acute myelogenous leukemia: a 
+study of the acute leukemia working party of the EBMT. Bone Marrow Transplant 2020; 55: 729–
+739. 
+16. Walter RB, Sandmaier BM, Othus M, Orvain C, Rodríguez-Arbolí E, Oshima MU, et al. Comparison 
+of reduced intensity and nonmyeloablative conditioning for adults with acute myeloid leukemia 
+undergoing allogeneic hematopoietic cell transplantation in first or second remission. Bone Marrow 
+Transplant 2023; 58: 377–385. 
+17. Kasamon YL, Bolaños-Meade J, Prince GT, Tsai HL, McCurdy SR, Kanakry JA, et al. Outcomes of 
+nonmyeloablative HLA-haploidentical blood or marrow transplantation with high-dose post-
+transplantation cyclophosphamide in older adults. J Clin Oncol 2015; 33: 3152–3161. 
+18. Maffini E, Ngoya M, Galimard JE, Harbi S, Kröger N, Platzbecker U, et al. Allogeneic 
+hematopoietic cell transplantation for patients with AML aged 70 years or older in first remission. A 
+
+````
+
+## PDF page 17
+
+Technical extraction; compare with original PDF page 17.
+
+````text
+study from the Acute Leukemia Working Party of the European Society for Blood and Marrow 
+Transplantation (EBMT). Bone Marrow Transplant 2023; 58: 1033–1041. 
+19. Bolaños-Meade J, Hamadani M, Wu J, Al Malki MM, Martens MJ, Runaas L, et al. Post-
+transplantation cyclophosphamide-based graft-versus-host disease prophylaxis. N Engl J Med 2023; 
+388: 2338–2348. 
+20. Giralt S, Ballen K, Rizzo D, Bacigalupo A, Horowitz M, Pasquini M, et al. Conditioning regimens for 
+hematopoietic cell transplantation: one size does not fit all. Blood 2009; 114: 953–962. 
+21. Ruggeri A, Labopin M, Ciceri F, Mohty M, Nagler A. Definition of GvHD-free, relapse-free survival 
+for registry-based studies: an ALWP-EBMT analysis on patients with AML in remission. Bone Marrow 
+Transplant 2016; 51: 610–611. 
+22. Glucksberg H, Storb R, Fefer A, Buckner CD, Neiman PE, Clift RA, et al. Clinical manifestations of 
+graft-versus-host disease in human recipients of marrow from HLA-matched sibling donors. 
+Transplantation 1974; 18: 295–304. 
+23. Filipovich AH, Weisdorf D, Pavletic S, Socie G, Wingard JR, Lee SJ, et al. National Institutes of 
+Health consensus development project on criteria for clinical trials in chronic graft-versus-host 
+disease: I. Diagnosis and Staging Working Group report. Biol Blood Marrow Transplant 2005; 11: 
+945–956. 
+24. Gooley TA, Leisenring W, Crowley J, Storer BE. Estimation of failure probabilities in the presence 
+of competing risks: new representations of old estimators. Stat Med 1999; 18: 695–706. 
+25. Nagler A, Dholaria B, Labopin M, Socie G, Huynh A, Itälä-Remes M, et al. The impact of 
+antithymocyte globulin on the outcomes of patients with AML with or without measurable residual 
+disease at the time of allogeneic hematopoietic cell transplantation. Leukemia 2020; 34: 1144–1153. 
+26. Andersen PK, Klein JP, Zhang MJ. Testing for centre effects in multicentre survival studies: a 
+Monte Carlo comparison of fixed and random effects tests. Stat Med 1999; 18: 1489–1500. 
+27. Kröger N, Iacobelli S, Franke GN, Platzbecker U, Uddin R, Hübel K, et al. Dose-reduced versus 
+standard conditioning followed by allogeneic stem-cell transplantation for patients with 
+myelodysplastic syndrome: a prospective randomized phase III study of the EBMT (RICMAC trial). J 
+Clin Oncol 2017; 35: 2157–2164. 
+28. Scott BL, Pasquini MC, Logan BR, Wu J, Devine SM, Porter DL, et al. Myeloablative versus 
+reduced-intensity hematopoietic cell transplantation for acute myeloid leukemia and 
+myelodysplastic syndromes. J Clin Oncol 2017; 35: 1154–1161. 
+29. Fasslrinner F, Schetelig J, Burchert A, Kramer M, Trenschel R, Hegenbart U, et al. Long-term 
+efficacy of reduced-intensity versus myeloablative conditioning before allogeneic haemopoietic cell 
+transplantation in patients with acute myeloid leukaemia in first complete remission: retrospective 
+follow-up of an open-label, randomised phase 3 trial. Lancet Haematol 2018; 5: e161–e169. 
+30. Shimoni A, Robin M, Iacobelli S, Passweg JR, Platzbecker U, Kröger N, et al. Allogeneic 
+hematopoietic cell transplantation in patients with myelodysplastic syndrome using treosulfan based 
+compared to other reduced-intensity or myeloablative conditioning regimens. A report of the 
+chronic malignancies working party of the EBMT. Br J Haematol 2021; 195: 417–428. 
+31. Ringdén O, Erkers T, Aschan J, Garming-Legert K, Le Blanc K, Hägglund H, et al. A prospective 
+randomized toxicity study to compare reduced-intensity and myeloablative conditioning in patients 
+with myeloid leukaemia undergoing allogeneic haematopoietic stem cell transplantation. J Intern 
+Med 2013; 274: 153–162. 
+
+````
+
+## PDF page 18
+
+Technical extraction; compare with original PDF page 18.
+
+````text
+32. Hourigan CS, Dillon LW, Gui G, Logan BR, Fei M, Ghannam J, et al. Impact of conditioning 
+intensity of allogeneic transplantation for acute myeloid leukemia with genomic evidence of residual 
+disease. J Clin Oncol 2020; 38: 1273–1283. 
+33. Blaise D, Tabrizi R, Boher JM, Le Corroller-Soriano AG, Bay JO, Fegueux N, et al. Randomized 
+study of 2 reduced-intensity conditioning strategies for human leukocyte antigen-matched, related 
+allogeneic peripheral blood stem cell transplantation: prospective clinical and socioeconomic 
+evaluation. Cancer 2013; 119: 602–611. 
+34. Passweg JR, Baldomero H, Chabannon C, Basak GW, de la Cámara R, Corbacioglu S, et al. 
+Hematopoietic cell transplantation and cellular therapies in Europe 2021. The second year of the 
+SARS-CoV-2 pandemic. A report from the EBMT activity survey. Bone Marrow Transplant 2023; 58: 
+647–658. 
+35. Savani BN, Labopin M, Blaise D, Niederwieser D, Ciceri F, Ganser A, et al. Peripheral blood stem 
+cell graft compared to bone marrow after reduced intensity conditioning regimens for acute 
+leukemia: a report from the ALWP of the EBMT. Haematologica 2016; 101: 256–262. 
+36. Ruggeri A, Labopin M, Bacigalupo A, Ciceri F, Baron F, Sanz G, et al. Bone marrow versus 
+mobilized peripheral blood stem cells in haploidentical transplants using post-transplantation 
+cyclophosphamide. Cancer 2018; 124: 1428–1437. 
+37. Rocha V, Labopin M, Raiola AM, Devillier R, Bramanti S, Ciceri F, et al. Use of bone marrow cells is 
+associated with improved outcomes when compared to peripheral blood stem cell after 
+haploidentical transplants with post-transplant cyclophosphamide: a study from the CTIWP-EBMT. 
+Bone Marrow Transplant 2025; 60: 456–468. 
+38. Anasetti C, Logan BR, Lee SJ, Waller EK, Weisdorf DJ, Wingard JR, et al. Peripheral-blood stem 
+cells versus bone marrow from unrelated donors. N Engl J Med 2012; 367: 1487–1496. 
+39. Luznik L, O'Donnell PV, Symons HJ, Chen AR, Leffell MS, Zahurak M, et al. HLA-haploidentical 
+bone marrow transplantation for hematologic malignancies using nonmyeloablative conditioning 
+and high-dose, post-transplantation cyclophosphamide. Biol Blood Marrow Transplant 2008; 14: 
+641–650. 
+40. Körbling M, Anderlini P. Peripheral blood stem cell versus bone marrow allotransplantation: does 
+the source of hematopoietic stem cells matter? Blood 2001; 98: 2900–2908. 
+41. Spyridonidis A, Labopin M, Savani BN, Niittyvuopio R, Blaise D, Craddock C, et al. Redefining and 
+measuring transplant conditioning intensity in current era: a study in acute myeloid leukemia 
+patients. Bone Marrow Transplant 2020; 55: 1114–1125. 
+42. McCarthy PL, Attwood KM, Liu X, Chen GL, Minderman H, Alousi A, et al. Galectin-3 predicts 
+acute GvHD and overall mortality post reduced intensity allo-HCT: a BMT-CTN biorepository study. 
+Bone Marrow Transplant 2024; 59: 334–343. 
+43. Kröger N, Solano C, Wolschke C, Bandini G, Patriarca F, Pini M, et al. Antilymphocyte globulin for 
+prevention of chronic graft-versus-host disease. N Engl J Med 2016; 374: 43–53. 
+44. Walker I, Panzarella T, Couban S, Couture F, Devins G, Elemary M, et al. Pretreatment with anti-
+thymocyte globulin versus no anti-thymocyte globulin in patients with haematological malignancies 
+undergoing haemopoietic cell transplantation from unrelated donors: a randomised, controlled, 
+open-label, phase 3, multicentre trial. Lancet Oncol 2016; 17: 164–173. 
+45. Mehta RS, Saliba RM, Chen J, Rondon G, Patel K, Brammer JE, et al. Post-transplantation 
+cyclophosphamide-based graft-versus-host-disease prophylaxis in HLA-matched and haploidentical 
+donor transplants: comparable composite end point outcomes. Biol Blood Marrow Transplant 2020; 
+26: 1083–1091. 
+
+````
+
+## PDF page 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+46. Nagler A, Labopin M, Salmenniemi U, Wu D, Blaise D, Rambaldi A, et al. Trends in allogeneic 
+transplantation for favorable risk acute myeloid leukemia in first remission: a longitudinal study of 
+>15 years from the ALWP of the EBMT. Bone Marrow Transplant 2024; 59: 1563–1576. 
+47. Baron F, Labopin M, Peniket A, Jindra P, Afanasyev B, Sanz MA, et al. Reduced-intensity 
+conditioning with fludarabine and busulfan versus fludarabine and melphalan for patients with acute 
+myeloid leukemia: a report from the Acute Leukemia Working Party of the European Group for 
+Blood and Marrow Transplantation. Cancer 2015; 121: 1048–1055. 
+48. Zhou Z, Nath R, Cerny J, Stock W, Riches M, Saber W, et al. Reduced intensity conditioning for 
+acute myeloid leukemia using melphalan- vs busulfan-based regimens: a CIBMTR report. Blood Adv 
+2020; 4: 3180–3190. 
+49. Beelen DW, Iacobelli S, Koster L, Eikema DJ, van Biezen A, Stölzel F, et al. Fludarabine-treosulfan 
+versus fludarabine-melphalan or busulfan-cyclophosphamide conditioning in older AML or MDS 
+patients — a clinical trial to registry data comparison. Bone Marrow Transplant 2024; 59: 670–679. 
+50. Wannaphut C, Chumnumsiriwath P, Ciurea SO, Kongtim P. Outcomes of fludarabine-melphalan 
+versus fludarabine-busulfan reduced-intensity conditioning regimens for allogeneic hematopoietic 
+stem cell transplantation in patients with hematologic malignancies: a systematic review and meta-
+analysis. Cancer 2025; e70199. 
+51. Broers AEC, de Jong CN, Bakunina K, Hazenberg MD, van Marwijk Kooy M, de Groot MR, et al. 
+Posttransplant cyclophosphamide for prevention of graft-versus-host disease: results of the 
+prospective randomized HOVON-96 trial. Blood Adv 2022; 6: 3378–3385. 
+52. Koura D, Dykes K, Goodman A, Costello C, Mulroney C, Mangan JK, et al. A prospective clinical 
+trial of GVHD prophylaxis with posttransplant cyclophosphamide and abatacept. Blood Adv 2025; 9: 
+4336–4344. 
+53. Kasamon YL, Ambinder RF, Fuchs EJ, Zahurak M, Rosner GL, Bolaños-Meade J, et al. Prospective 
+study of nonmyeloablative, HLA-mismatched unrelated BMT with high-dose post-transplantation 
+cyclophosphamide. Blood Adv 2017; 1: 288–292. 
+ 
+Figure Legends 
+Figure 1: Post-transplant outcomes for 2,900 adults ≥65 years with AML transplanted in first or 
+second complete morphologic remission according to conditioning intensity. 
+NRM non-relapse mortality, RI relapse incidence, LFS leukemia-free survival, OS overall survival, 
+NMA non-myeloablative, RIC reduced-intensity conditioning. 
+
+````
+
+## PDF page 20
+
+Technical extraction; compare with original PDF page 20.
+
+````text
+RELAPSE
+NRM
+LFS
+OS
+GRFS
+Acute GVHD II-IV
+Acute GVHD III-
+IV
+chronic GVHD
+extensive chronic 
+GVHD
+HR (95% CI)
+p value
+HR (95% CI)
+p value
+HR (95% CI)
+p value
+HR (95% CI)
+p value
+HR (95% CI)
+p value
+HR (95% CI)
+p 
+value HR (95% CI)
+p 
+valu
+e
+HR (95% CI)
+p 
+value HR (95% CI) p value
+RIC vs NMA
+0.94 (0.72-
+1.21)
+0.62
+1.06 (0.79-
+1.43)
+0.69
+1 (0.82-1.22)
+0.97
+0.88 (0.71-
+1.1)
+0.28
+0.94 (0.78-
+1.12)
+0.49
+1.45 (1.09-
+1.93)
+0.01
+1.34 (0.86-
+2.1)
+0.19
+0.79 (0.61-
+1.01)
+0.063
+0.65 (0.44-
+0.96)
+0.029
+Age (per 10y)
+1.13 (0.83-
+1.53)
+0.43
+1.62 (1.17-
+2.24)
+0.003
+1.34 (1.07-
+1.67)
+0.01
+1.37 (1.08-
+1.74)
+0.01
+1.29 (1.05-
+1.57)
+0.013
+1.14 (0.84-
+1.55)
+0.4
+1.4 (0.84-
+2.32)
+0.2
+1.31 (0.99-
+1.74)
+0.059
+1.51 (1-
+2.26)
+0.048
+CR2 vs CR1
+1.09 (0.88-
+1.34)
+0.45
+1.12 (0.91-
+1.39)
+0.28
+1.12 (0.96-
+1.3)
+0.15
+1.06 (0.9-
+1.25)
+0.46
+1.06 (0.92-
+1.22)
+0.4
+0.93 (0.75-
+1.15)
+0.49
+0.76 (0.51-
+1.12)
+0.17
+1.1 (0.91-
+1.32)
+0.33
+1.18 (0.9-
+1.54)
+0.24
+secondary AML
+1.24 (1.04-
+1.48)
+0.018
+1.18 (0.97-
+1.43)
+0.1
+1.21 (1.06-
+1.38)
+0.005
+1.19 (1.04-
+1.38)
+0.014
+1.24 (1.1-
+1.39)
+0.0005
+1.24 (1.03-
+1.48)
+0.021
+1.35 (1-
+1.81)
+0.05
+1
+1.2 (1.01-
+1.42)
+0.035
+1.37 (1.08-
+1.75)
+0.011
+Cytogenetic favorable (ref)
+1
+1
+1
+1
+1
+1
+1
+1
+1
+intermediate risk
+1.14 (0.68-
+1.93)
+0.61
+1.03 (0.61-
+1.76)
+0.9
+1.11 (0.76-
+1.61)
+0.58
+0.99 (0.67-
+1.46)
+0.94
+1.22 (0.87-
+1.71)
+0.26
+1.43 (0.84-
+2.43)
+0.19
+2.07 (0.65-
+6.6)
+0.22
+0.95 (0.63-
+1.42)
+0.79
+1.01 (0.55-
+1.85)
+0.97
+adverse risk
+2.08 (1.21-
+3.57)
+0.008
+1.28 (0.73-
+2.26)
+0.39
+1.73 (1.17-
+2.55)
+0.006
+1.52 (1.01-
+2.28)
+0.044
+1.66 (1.16-
+2.37)
+0.005
+1.53 (0.88-
+2.68)
+0.14
+2.23 (0.68-
+7.34)
+0.19
+0.9 (0.57-
+1.4)
+0.63
+0.99 (0.51-
+1.9)
+0.97
+NA/failed
+1.39 (0.81-
+2.39)
+0.23
+1.23 (0.71-
+2.13)
+0.45
+1.33 (0.9-
+1.95)
+0.15
+1.17 (0.78-
+1.75)
+0.45
+1.24 (0.87-
+1.77)
+0.23
+1.2 (0.69-
+2.09)
+0.51
+1.41 (0.43-
+4.62)
+0.57
+0.8 (0.52-
+1.23)
+0.31
+0.8 (0.42-
+1.52)
+0.49
+Year of HSCT
+1 (0.98-
+1.02)
+0.97
+0.98 (0.95-
+1.01)
+0.11
+0.99 (0.97-
+1.01)
+0.27
+0.99 (0.97-
+1.01)
+0.19
+0.99 (0.97-1)
+0.14
+0.96 (0.94-
+0.99)
+0.004
+0.93 (0.89-
+0.97)
+####
+#
+0.99 (0.96-
+1.01)
+0.25
+1.02 (0.98-
+1.05)
+0.33
+Donor MSD (reference)
+1
+1
+1
+1
+1
+1
+1
+1
+1
+UD 10/10
+0.73 (0.6-
+0.88)
+0.001
+1.39 (1.09-
+1.77)
+0.007
+0.96 (0.83-
+1.12)
+0.64
+1.06 (0.9-
+1.24)
+0.51
+0.95 (0.83-
+1.09)
+0.5
+1.77 (1.4-
+2.23)
+< 
+0.000
+1
+1.47 (1-
+2.16)
+0.04
+7
+1 (0.83-1.2) 0.97
+0.88 (0.68-
+1.16)
+0.37
+UD 9/10
+0.81 (0.61-
+1.08)
+0.16
+2.31 (1.71-
+3.12)
+< 0.0001
+1.33 (1.08-
+1.63)
+0.007
+1.53 (1.23-
+1.9)
+0.0001
+1.27 (1.06-
+1.54)
+0.011
+1.87 (1.38-
+2.53)
+< 
+0.000
+1
+2.17 (1.35-
+3.49)
+0.00
+1
+1.09 (0.83-
+1.44)
+0.53
+1.2 (0.82-
+1.76)
+0.35
+Haplo
+0.91 (0.59-
+1.4)
+0.66
+1.75 (1.1-
+2.77)
+0.018
+1.2 (0.87-
+1.65)
+0.26
+1.27 (0.9-
+1.78)
+0.17
+1.01 (0.76-
+1.33)
+0.95
+1.95 (1.29-
+2.94)
+0.001
+1.44 (0.72-
+2.89)
+0.3
+0.84 (0.57-
+1.22)
+0.35
+0.54 (0.31-
+0.94)
+0.03
+KPS>=90
+0.89 (0.75-
+1.05)
+0.17
+0.75 (0.62-
+0.9)
+0.002
+0.83 (0.73-
+0.94)
+0.003
+0.82 (0.71-
+0.93)
+0.003
+0.84 (0.75-
+0.94)
+0.002
+0.9 (0.75-
+1.07)
+0.22
+0.89 (0.67-
+1.19)
+0.44
+0.9 (0.77-
+1.06)
+0.2
+0.83 (0.66-
+1.05)
+0.12
+Female D to male R
+0.66 (0.55-
+0.79)
+< 0.0001
+1.5 (1.24-
+1.82)
+< 0.0001
+0.99 (0.87-
+1.13)
+0.89
+1.09 (0.95-
+1.26)
+0.23
+0.97 (0.86-
+1.1)
+0.65
+1.25 (1.04-
+1.51)
+0.017
+1.28 (0.95-
+1.71)
+0.11
+0.89 (0.75-
+1.05)
+0.17
+0.9 (0.69-
+1.18)
+0.44
+Pat. CMV pos
+0.94 (0.79-
+1.13)
+0.52
+1.27 (1.05-
+1.55)
+0.016
+1.08 (0.94-
+1.23)
+0.27
+1.15 (1-1.33)
+0.049
+1.04 (0.93-
+1.17)
+0.49
+0.99 (0.83-
+1.19)
+0.95
+0.77 (0.57-
+1.03)
+0.08
+1
+1.13 (0.96-
+1.33)
+0.16
+1.13 (0.89-
+1.43)
+0.33
+Don. CMV pos
+1.18 (1-
+1.39)
+0.057
+0.91 (0.76-
+1.09)
+0.29
+1.06 (0.93-
+1.19)
+0.38
+1 (0.88-1.14)
+0.94
+1.03 (0.92-
+1.15)
+0.65
+1.06 (0.9-
+1.25)
+0.49
+1.22 (0.92-
+1.63)
+0.17
+0.99 (0.85-
+1.16)
+0.92
+0.96 (0.77-
+1.2)
+0.72
+in vivo TCD
+1.1 (0.85-
+1.43)
+0.45
+0.99 (0.74-
+1.32)
+0.93
+1.04 (0.86-
+1.26)
+0.69
+1.07 (0.86-
+1.33)
+0.53
+0.88 (0.74-
+1.05)
+0.14
+0.66 (0.5-
+0.87)
+0.003
+0.8 (0.51-
+1.24)
+0.31
+0.65 (0.51-
+0.83)
+0.000
+6
+0.51 (0.35-
+0.74)
+0.0004
+PTCy
+0.72 (0.49-
+1.05)
+0.088
+0.97 (0.66-
+1.42)
+0.87
+0.82 (0.63-
+1.08)
+0.15
+0.9 (0.67-
+1.19)
+0.45
+0.82 (0.65-
+1.04)
+0.1
+1.4 (1-1.97) 0.051
+1.52 (0.87-
+2.64)
+0.14
+0.65 (0.48-
+0.88)
+0.006
+0.46 (0.3-
+0.72)
+0.0007
+PBSC vs BM
+0.71 (0.51-
+1.01)
+0.055
+0.72 (0.5-
+1.03)
+0.069
+0.71 (0.56-
+0.91)
+0.008
+0.67 (0.51-
+0.86)
+0.002
+0.8 (0.63-
+1.02)
+0.067
+1.37 (0.9-
+2.08)
+0.15
+1.53 (0.7-
+3.32)
+0.28
+1.29 (0.86-
+1.92)
+0.22
+0.99 (0.57-
+1.71)
+0.96
+Table 1: Multivariate Analysis of Clinical Outcomes  Between Conditioning Intensity Arms
+NMA non myeloablative, RIC reduced intensity conditioning, NRM non relapse mortality, LFS leukemia free survival, OS overall survival, GRFS graft-versus-host disease-free and relapse-free survival, GVHD graft-versus-host disease, y
+years, AML acute myeloid leukemia, NA not applicable, HSCT hematopoietic stem cell transplantation, CR1 first complete remission, CR2 second complete remission, MSD matched sibling donor, UD unrelated donor, Haplo
+haploidentical donor, KPS Karnofsky performance scale, D donor, R recipient, CMV cytomegalovirus, Pat. patient, Don. donor, pos positive, TCD T-cell depletion, PTCy post-transplant cyclophosphamide, PBSC peripheral blood stem
+cells, BM bone marrow.
+
+````
+
+## PDF page 21
+
+Technical extraction; compare with original PDF page 21. NO TEXT LAYER: no OCR or invented transcription supplied.
+
+````text
+ 
+ 
+ 
+
+````
+
+## PDF page 22
+
+Technical extraction; compare with original PDF page 22. NO TEXT LAYER: no OCR or invented transcription supplied.
+
+````text
+ 
+
+````
+

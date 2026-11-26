@@ -1,0 +1,34 @@
+{
+  "paper_id": "Nfcadcb0fdc",
+  "category": "H",
+  "title": "A Path‐Specific Effect Approach to Mediation Analysis With Time‐Varying Mediators and Time‐to‐Event Outcomes Accounting for Competing Risks",
+  "authors": "Arce Domingo‐Relloso and Yuchen Zhang and Ziqing Wang and Astrid M. Suchy‐Dicey and Dedra S. Buchwald and Ana Navas‐Acien and Joel Schwartz and Kiros Berhane and Brent A. Coull and Linda Valeri",
+  "doi": "10.1002/sim.70425",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1002/sim.70425",
+  "local_fulltext": true,
+  "public_pdf": [
+    "H/Nfcadcb0fdc/artifacts/bac9d9d684f2/original.pdf"
+  ],
+  "public_markdown": [
+    "H/Nfcadcb0fdc/artifacts/bac9d9d684f2/fulltext.md"
+  ],
+  "public_txt": [
+    "H/Nfcadcb0fdc/artifacts/bac9d9d684f2/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "bac9d9d684f2bc1b8ee39a6cbb6c900eb869a4cb8ac193785c72d7c44574d16c",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "source_url": "https://arxiv.org/pdf/2412.13959",
+      "provenance": "H/Nfcadcb0fdc/artifacts/bac9d9d684f2/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/Nfcadcb0fdc/README.md",
+  "status": "public_fulltext"
+}

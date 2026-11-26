@@ -1,0 +1,34 @@
+{
+  "paper_id": "N028b5c1a3a",
+  "category": "G",
+  "title": "Modelling in-hospital length of stay: A comparison of linear and ensemble models for competing risk analysis",
+  "authors": "Juan Carlos Espinosa-Moreno and Fernando García-García and Naia Mas-Bilbao and Susana García-Gutiérrez and María José Legarreta-Olabarrieta and Dae-Jin Lee",
+  "doi": "10.1371/journal.pone.0322101",
+  "year": "2025",
+  "original_url": "https://doi.org/10.1371/journal.pone.0322101",
+  "local_fulltext": true,
+  "public_pdf": [
+    "G/N028b5c1a3a/artifacts/a620961d5f06/original.pdf"
+  ],
+  "public_markdown": [
+    "G/N028b5c1a3a/artifacts/a620961d5f06/fulltext.md"
+  ],
+  "public_txt": [
+    "G/N028b5c1a3a/artifacts/a620961d5f06/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "a620961d5f06ebf41aaedff38e4898d5271013159528e6028f3880885be4d589",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0322101&type=printable",
+      "provenance": "G/N028b5c1a3a/artifacts/a620961d5f06/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/N028b5c1a3a/README.md",
+  "status": "public_fulltext"
+}

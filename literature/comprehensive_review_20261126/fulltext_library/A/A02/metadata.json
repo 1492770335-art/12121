@@ -1,0 +1,80 @@
+{
+  "paper_id": "A02",
+  "category": "A",
+  "title": "Optimal individualized treatment regimes for survival data with competing risks",
+  "authors": "Zhou, Christina W. and Freeman, Nikki L. B. and McGinigle, Katharine L. and Kosorok, Michael R.",
+  "doi": "",
+  "year": "2024",
+  "original_url": "https://arxiv.org/abs/2411.08315",
+  "local_fulltext": true,
+  "public_pdf": [
+    "A/A02/artifacts/f47b41f8034a/original.pdf"
+  ],
+  "public_markdown": [
+    "A/A02/artifacts/f47b41f8034a/fulltext.md"
+  ],
+  "public_txt": [
+    "A/A02/artifacts/f47b41f8034a/fulltext.txt"
+  ],
+  "original_tex": [
+    "A/A02/artifacts/f47b41f8034a/latex/layout.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/macros.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/main.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/0.abstract.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/2.0frameworknotation.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/2.1methods.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/6.discussion.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_algorithms/alg1_overview.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_algorithms/alg1_rcif.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_algorithms/alg1_rsf.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_algorithms/CR_algorithms.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/03_tables/CR_tables.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/03_tables/Paper1_notation_table.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/04_supplMat/CR_appendix1.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/04_supplMat/ForestDetails_RSF.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/02_assumptions/Assumptions.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/02_assumptions/Causal_assumptions.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/02_assumptions/Cho_assumptions1_5.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/02_assumptions/CR_assumptions.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Forest_Details.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/ITR_Estimator/Consistency/Consistency_ITR.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/21May2024MeetingNotes.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Paper1_Consistency_Theorems.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/RCIFproof_paper1.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/RSFproof_paper1.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/Zest.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop1Proof.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop2Proof.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop3Proof.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop4Proof.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop5Proof.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/1.introduction/1.background.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/1.introduction/1.introduction.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/1.introduction/paper_structure.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/3.Theory/chapter_theory.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/3.Theory/lambda_star.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/3.Theory/prelim_proofs.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/chapter_sims.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/5.RDA/chapter_rda.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/5.RDA/supplementary_rda.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/Fine_Gray_Sims/fine_gray_sims.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/Fine_Gray_Sims/supplementary_fg.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/simple_exp_results.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/simple_exp_sims.tex",
+    "A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/supplementary_se.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "f47b41f8034adf63c6185537a20d224214d2d973deb806a0d5e9d529b4cf73f6",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2411.08315",
+      "provenance": "A/A02/artifacts/f47b41f8034a/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/A02/README.md",
+  "status": "public_fulltext"
+}

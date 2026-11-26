@@ -1,0 +1,99 @@
+{
+  "arxiv_id": "2404.00221v7",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2404.00221v7",
+  "archive_sha256": "367114f241ccd40f91ac045b42fb8dcb77913aea902decf3633d44b70528a74e",
+  "files": [
+    {
+      "path": "appendix.tex",
+      "bytes": 103406,
+      "sha256": "38f4a09f3e0946663a6e16335c1b3cc1c77894320648fbf49e5e4e10d603d7e8"
+    },
+    {
+      "path": "document_May2025.tex",
+      "bytes": 3588,
+      "sha256": "2e20c4440d7b75132d65b2416ea706c3f0ef49e063baf0afd521fd1d0ddd4b29"
+    },
+    {
+      "path": "mai_text.tex",
+      "bytes": 73656,
+      "sha256": "438dac5a493d7e1cf7861302554d7400c2914839ee3673721d8550ac17ae28e3"
+    },
+    {
+      "path": "subtext.tex",
+      "bytes": 206722,
+      "sha256": "e1b0580f3a3f37431cff86c846b8fdd8f2e4be4f06365764923bd08560eb7ab6"
+    },
+    {
+      "path": "tables/algorithm.tex",
+      "bytes": 1499,
+      "sha256": "82644c29a6dc4d5e7d149af42e4eecdf5fdf247c0518e8656d48d82bac5cabd3"
+    },
+    {
+      "path": "tables/ate_one_period.tex",
+      "bytes": 975,
+      "sha256": "f08dbb4a4f283b6debfa2549add4974d8f5648135cf48cf0059bf3315e9677cf"
+    },
+    {
+      "path": "tables/ate_two_period.tex",
+      "bytes": 4412,
+      "sha256": "e344096de1d09684c11a15bdf27844102826a9d237b59b390dd982a70c76bab8"
+    },
+    {
+      "path": "tables/balance_check.tex",
+      "bytes": 2641,
+      "sha256": "93545c33b5ad5827dfee39124dfa2a8e28d0e56d3ffa342e4d025523a192cb98"
+    },
+    {
+      "path": "tables/decomposition_table.tex",
+      "bytes": 1207,
+      "sha256": "77d428671b447ee2573e5042be9af4269694448be0551d88b3caa94b68d18195"
+    },
+    {
+      "path": "tables/decomposition_table_2.tex",
+      "bytes": 2619,
+      "sha256": "dd40dbb1b5e77514f929b550c9c83fe2ecc2bc5c7d3d769565c3fed9fb8a0f7b"
+    },
+    {
+      "path": "tables/decomposition_table_3.tex",
+      "bytes": 1171,
+      "sha256": "c39d6244a8677a2187573013e337f4f9c26bb3890723a69b1dc29a0f64592448"
+    },
+    {
+      "path": "tables/decomposition_table_4.tex",
+      "bytes": 1194,
+      "sha256": "abaa871be86d20df9b2bb1e92e827b494d1998a4779321e21201c440eb509ff9"
+    },
+    {
+      "path": "tables/table_empirical.tex",
+      "bytes": 3169,
+      "sha256": "af98a0f49f97887e8d162bf4a6f2c4061a284f1c57216e124c41c7b8afe89e6a"
+    },
+    {
+      "path": "tables/table_simulation.tex",
+      "bytes": 4408,
+      "sha256": "f5d87f2fb61396fe5ab2efc006de7294581c6be4ab3849f8b810c8298c333edb"
+    },
+    {
+      "path": "tables/table_simulation_supplement.tex",
+      "bytes": 4035,
+      "sha256": "2a41f457fa375324aaa8367b2fa14c27f6b594a0c496fb2b5c69a9961c2b4e83"
+    },
+    {
+      "path": "tables/welfare_table_comparison.tex",
+      "bytes": 1618,
+      "sha256": "d7b7421a578bd06d178f0057e1e4b5f56b63e4d776d2fc71880a4c9e6b973764"
+    },
+    {
+      "path": "tables/welfare_table_comparison_w1.tex",
+      "bytes": 1807,
+      "sha256": "4b6f80955e08c4f0407bfa1539260f1c5155fe8311c78223738f8b1891b10ac1"
+    },
+    {
+      "path": "tables/welfare_table_gain.tex",
+      "bytes": 2196,
+      "sha256": "5e641839268089fab049a1d075c3536b7a53293e52ad43c6f1db88a2fe24763d"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

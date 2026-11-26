@@ -1,0 +1,2290 @@
+# CONFIDE: CONformal Free Inference for Distribution-Free Estimation in Causal Competing Risks
+
+Original PDF: [original.pdf](original.pdf). SHA256: `9408c77a0990b94767ebfba5fc9d11aa07274b88b78e3ca76b3a69ec610af83b`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+FORMULA CHECK REQUIRED: original PDF page 1.
+
+````text
+Academic Editor: Priyantha
+Wijayatunga
+Received: 26 December 2025
+Revised: 19 January 2026
+Accepted: 20 January 2026
+Published: 22 January 2026
+Copyright: © 2026 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license.
+Article
+CONFIDE: CONformal Free Inference for Distribution-Free
+Estimation in Causal Competing Risks
+Quang-Vinh Dang 1,*
+, Ngoc-Son-An Nguyen 2
+and Thi-Bich-Diem Vo 3
+1
+School of Computing & Innovative Technologies, British University Vietnam, Hung Yen 160000, Vietnam
+2
+Faculty of Information Technology, Industrial University of Ho Chi Minh City,
+Ho Chi Minh City 70000, Vietnam
+3
+GiaoHangNhanh, Ho Chi Minh City 70000, Vietnam; misdiem@gmail.com
+*
+Correspondence: vinh.dq4@buv.edu.vn
+Abstract
+Accurate prediction of individual treatment effects in survival analysis is often complicated
+by the presence of competing risks and the inherent unobservability of counterfactual
+outcomes. While machine learning models offer improved discriminative power, they
+typically lack rigorous guarantees for uncertainty quantification, which are essential for
+safety-critical clinical decision-making. In this paper, we introduce CONFIDE (CONFor-
+mal Inference for Distribution-free Estimation), a novel framework that bridges causal
+inference and conformal prediction to construct valid prediction sets for cause-specific
+cumulative incidence functions. Unlike traditional confidence intervals for population-
+level parameters, CONFIDE provides individual-level prediction sets for time-to-event
+outcomes, which are more clinically actionable for personalized treatment decisions by
+directly quantifying uncertainty in future patient outcomes rather than uncertainty in
+population averages. By integrating semi-parametric hazard estimation with targeted
+bias correction strategies, CONFIDE generates calibrated prediction sets that cover the
+true potential outcome with a user-specified probability, irrespective of the underlying
+data distribution. We empirically validate our approach on four diverse medical datasets,
+demonstrating that CONFIDE achieves competitive discrimination (C-index up to 0.83)
+while providing robust finite-sample marginal coverage guarantees (e.g., 85.7% coverage
+on the Bone Marrow Transplant dataset). We note two key limitations: (1) coverage may
+degrade under heavy censoring (>40%) unless inverse probability of censoring weighted
+(IPCW) conformal quantiles are used, as demonstrated in our sensitivity analysis; (2) while
+the method guarantees marginal coverage averaged over the covariate distribution, condi-
+tional coverage for specific covariate values is theoretically impossible without structural
+assumptions, though practical approximations via locally-adaptive calibration can improve
+conditional performance. Our framework effectively enables trustworthy personalized risk
+assessment in complex survival settings.
+Keywords: conformal prediction; causal inference; survival analysis; competing risks;
+uncertainty quantification; targeted maximum likelihood estimation; machine learning
+MSC: 62D20; 62N02; 62G15; 62P10; 68T05
+1. Introduction
+In the era of precision medicine, the ability to accurately predict individual patient
+outcomes under different treatment interventions is paramount. Survival analysis, which
+Mathematics 2026, 14, 383
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 2
+
+Technical extraction; compare with original PDF page 2.
+
+````text
+Mathematics 2026, 14, 383
+2 of 28
+concerns the timing of events such as death, disease recurrence, or mechanical failure,
+is central to clinical decision-making. However, two fundamental challenges complicate
+the estimation of individual treatment effects in this domain: the presence of competing
+risks—where an individual is susceptible to multiple mutually exclusive failure types—and
+the inherent unobservability of counterfactual outcomes required for causal inference.
+Traditional approaches to competing risks, such as the Fine–Gray subdistribution
+hazard model or cause-specific Cox proportional hazards models, largely rely on strict
+parametric or semi-parametric assumptions. While these methods yield interpretable
+hazard ratios, their validity hinges on the proportional hazards assumption, which is
+often violated in complex biological systems. Furthermore, standard confidence intervals
+derived from these models relies on asymptotic theory, which may fail to provide calibrated
+coverage in finite samples, particularly in high-dimensional or heavily censored regimes.
+Recent advances in machine learning, including Random Survival Forests and Deep-
+Hit, offer greater flexibility in modeling non-linear interactions. Yet, these “black-box”
+models often lack rigorous guarantees for uncertainty quantification. A clinician decid-
+ing between bone marrow transplantation techniques needs not only a point estimate of
+survival probability but also a reliable range of plausible outcomes. Conformal Prediction
+(CP) has emerged as a rigorous framework for constructing distribution-free prediction
+intervals with valid finite-sample coverage, assuming only the exchangeability of data.
+However, extending CP to the context of causal survival analysis with competing risks
+remains an open challenge due to the complexities introduced by right-censoring and the
+need to adjust for confounding biases.
+In this work, we introduce CONFIDE (CONFormal Inference for Distribution-free
+Estimation in Competing Risks), a novel framework that bridges the gap between conformal
+prediction and causal survival analysis. CONFIDE integrates nuisance parameter estimation
+from cause-specific hazard models with causal targeting techniques inspired by Targeted
+Maximum Likelihood Estimation (TMLE) to construct valid prediction intervals for individual
+cumulative incidence functions. By defining a robust conformity score based on the inverse
+probability of the observed failure type, our method provides guaranteed marginal coverage
+of the true potential outcome, irrespective of the underlying data distribution.
+Our contributions are as follows:
+1.
+We propose a generalized conformity score for competing risks data that accounts for
+right-censoring and treatment assignment bias.
+2.
+We demonstrate how causal targeting components, specifically propensity scores and
+clever covariates, can be integrated into the conformal calibration process to reduce
+bias in observational studies.
+3.
+We empirically validate CONFIDE on four diverse medical datasets—Melanoma,
+Primary Biliary Cirrhosis (PBC), Follicular Lymphoma, and Bone Marrow Transplant
+(BMT). Our results show that CONFIDE achieves competitive discrimination (C-index
+up to 0.83) while maintaining calibrated coverage (e.g., 86% coverage on the BMT
+dataset) in settings where traditional asymptotic approximations may falter.
+By providing a distribution-free wrapper around any predictive model, CONFIDE
+offers a flexible and rigorous tool for uncertainty quantification in causal survival analysis,
+moving us closer to reliable, individualized clinical decision support.
+2. Related Works
+CONFIDE synthesizes three distinct methodological traditions: conformal prediction
+for distribution-free inference, causal inference for treatment effect estimation, and compet-
+ing risks survival analysis. This section reviews the key advances in each area and identifies
+the gap that CONFIDE addresses.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+Mathematics 2026, 14, 383
+3 of 28
+2.1. Conformal Prediction Foundations
+The theoretical foundations of conformal prediction were established by Vovk et al. [1]
+in their comprehensive book introducing the framework for constructing prediction regions
+with guaranteed coverage under exchangeability. Their subsequent tutorial [2] provides an
+accessible account establishing that conformal predictions achieve exact nominal coverage
+when examples are independently sampled from the same distribution. The key insight is
+that conformity scores, which measure how “strange” a new example appears relative to
+observed data, can be used to construct prediction sets with finite-sample validity without
+distributional assumptions.
+Recent advances have dramatically expanded the scope and efficiency of conformal
+methods. Lei et al. [3] developed split conformal inference for computational efficiency in
+regression, introducing locally adaptive methods for heteroscedasticity. Their work demon-
+strated that splitting data into training and calibration sets maintains valid coverage while
+enabling the use of any regression algorithm, including complex machine learning models.
+Romano et al. [4], Dang and Pham [5] proposed Conformalized Quantile Regression (CQR),
+combining quantile regression with conformal calibration to produce adaptive prediction
+intervals—a methodological template that directly informs survival applications where
+outcome distributions are heteroscedastic.
+Barber et al. [6] contributed the Jackknife+ method for computationally efficient pre-
+dictive inference, while Barber et al. [7] extended conformal prediction beyond exchange-
+ability through weighted quantile methods providing robustness against distribution drift—
+directly relevant for causal settings where treatment groups may not be exchangeable. An-
+gelopoulos and Bates [8] provide the definitive modern tutorial synthesizing these develop-
+ments, covering both theoretical foundations and practical implementation considerations.
+2.2. Conformalized Survival Analysis
+The foundational work adapting conformal prediction to survival analysis is Candès
+et al. [9]. This landmark paper constructs calibrated, covariate-dependent lower predictive
+bounds on survival times from right-censored data. Under Type I censoring with exogenous
+censoring times, the bounds achieve guaranteed finite-sample coverage without distributional
+assumptions. Critically, under conditionally independent censoring (i.e., C ⊥⊥T | X), the
+method satisfies a doubly robust property: marginal coverage is guaranteed if either the
+censoring mechanism G(t|X) or conditional survival function S(t|X) is consistently estimated.
+Important caveat: The exchangeability assumption underlying conformal prediction can
+be violated when censoring is heavy or informative. As we demonstrate in Section 3, excluding
+censored observations from the calibration set induces selection bias under heavy censoring,
+requiring inverse probability of censoring weighting (IPCW) to restore valid coverage.
+The theoretical foundation for handling censoring-induced covariate shift was es-
+tablished by Tibshirani et al. [10], who developed weighted conformal prediction under
+general covariate shift. Recent extensions include Gui et al. [11] and Sesia and Candès [12],
+which further generalize conformalized survival inference to more complex censoring
+mechanisms through adaptive weighting and imputation strategies.
+2.3. Causal Inference for Survival and Competing Risks
+Targeted Maximum Likelihood Estimation (TMLE) provides the dominant framework
+for efficient and doubly robust causal inference in survival settings. Rytgaard et al. [13]
+extended continuous-time TMLE to competing risks with a targeting algorithm that itera-
+tively updates cause-specific hazards using the efficient influence curve. Their guidance
+paper [14] demonstrates how to combine data-adaptive nuisance estimation with semipara-
+metric efficiency theory.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 4
+
+Technical extraction; compare with original PDF page 4.
+
+````text
+Mathematics 2026, 14, 383
+4 of 28
+Westling et al. [15] proposed cross-fitted doubly robust estimators for treatment-specific
+survival curves incorporating machine learning estimators of conditional survival functions.
+The pseudo-observation approach [16] provides an alternative that avoids proportional haz-
+ards assumptions by transforming censored outcomes into regression-friendly quantities.
+Díaz et al. [17] extended longitudinal modified treatment policies (LMTP) to time-to-
+event outcomes subject to competing risks, enabling sequentially doubly robust estimation
+under time-varying interventions.
+Recent advances in causal discovery and conditional independence testing further
+strengthen the foundations of modern causal inference pipelines. Zhang et al. [18] pro-
+posed a principled divide-and-conquer framework for causal discovery based on causal
+partitioning via edge-cutting of adjoint graphs. Their method guarantees partitioning
+without violating d-separation, addressing a long-standing limitation of heuristic CI-based
+partitioning schemes. While their focus is causal graph discovery rather than effect estima-
+tion, the emphasis on preserving conditional independence structure is directly relevant
+to survival causal inference, where violations of ignorability or independent censoring
+assumptions can severely bias downstream estimates.
+Complementarily, Ren et al. [19] developed a regression-based conditional indepen-
+dence test with adaptive kernels, substantially improving power and robustness in fi-
+nite samples. By tailoring kernel choice to local data geometry, their approach mitigates
+sensitivity to hyperparameters and model misspecification—a critical consideration for
+high-dimensional nuisance estimation in doubly robust causal survival analysis. Such
+advances underscore the importance of reliable CI testing as a building block for both
+causal structure learning and assumption validation in conformalized causal pipelines.
+2.4. Competing Risks Methodology
+The statistical framework for competing risks analysis rests on Fine and Gray [20]’s
+seminal work introducing the proportional subdistribution hazards model. Putter et al. [21]
+and Austin and Fine [22] clarify interpretation and reporting pitfalls.
+Machine learning approaches include random survival forests for competing risks [23]
+and deep learning models such as DeepHit [24]. While these methods achieve strong
+discrimination, they lack finite-sample uncertainty guarantees.
+Monterrubio-Gómez et al. [25] provide a comprehensive contemporary review, explic-
+itly highlighting the absence of formal coverage guarantees—precisely the gap addressed
+by conformal prediction.
+2.5. Calibration and Uncertainty Quantification
+Proper calibration for survival models has been studied by Yanagisawa et al. [26] and
+Goldstein et al. [27], who introduced D-calibration and demonstrated that modern survival
+models are often miscalibrated despite good discrimination.
+2.6. Conformal Prediction Meets Causal Inference
+The integration of conformal prediction with causal inference was established by Lei
+and Candès [28], who developed conformal inference for counterfactual outcomes with
+doubly robust coverage guarantees in observational studies. Alaa et al. [29] extended this
+framework to conformal meta-learners for CATE estimation, while Jin et al. [30] developed
+conformal sensitivity analysis for unmeasured confounding.
+Beyond treatment effect estimation, recent work has explored causally grounded
+instance-wise explanations for black-box models. Tan [31] proposed a causally informed
+feature selection framework based on structural causal models and conditional mutual
+information, identifying input components with genuine causal influence on predictions.
+Although developed in the context of visual classifiers, this line of work reflects a broader
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+Mathematics 2026, 14, 383
+5 of 28
+shift toward integrating causal reasoning with post hoc uncertainty quantification. CON-
+FIDE aligns with this philosophy by producing individual-level causal survival predictions
+with calibrated uncertainty but does so at the level of counterfactual risk trajectories rather
+than feature attributions.
+2.7. The Gap That CONFIDE Addresses
+While the literature reviewed above establishes three mature methodological tradi-
+tions, no existing work integrates conformal prediction with causal inference specifically
+for competing risks survival analysis. Table 1 summarizes this gap.
+Table 1. Methodological landscape showing the gap CONFIDE addresses.
+Method
+Competing
+Causal
+Distribution-Free
+Risks
+Effects
+Coverage
+Fine–Gray model [20]
+✓
+✗
+✗
+TMLE for competing risks [14]
+✓
+✓
+✗
+Conformalized survival [9]
+✗
+✗
+✓
+Conformal causal inference [28]
+✗
+✓
+✓
+CONFIDE (this work)
+✓
+✓
+✓
+Existing conformalized survival methods focus on single-event settings, while causal
+inference methods for competing risks rely on asymptotic theory. CONFIDE fills this gap by
+synthesizing doubly robust conformal inference with targeted learning for competing risks,
+delivering finite-sample distribution-free prediction sets for causal cumulative incidence
+functions—even under model misspecification.
+3. Methodology
+We present CONFIDE (CONFormal Inference for Distribution-free Estimation in
+Competing Risks), a novel framework combining targeted maximum likelihood estimation
+with conformal prediction to construct finite-sample valid prediction sets for cause-specific
+cumulative incidence functions under treatment. CONFIDE extends conformal causal
+inference [28] to time-to-event outcomes with competing risks and extends conformalized
+survival analysis [9] to incorporate causal treatment effects with doubly robust guarantees.
+3.1. Problem Setup and Notation
+Consider n independent and identically distributed (i.i.d.) units drawn from a popula-
+tion. For each unit i ∈{1, . . . , n}, we observe:
+•
+Xi ∈X ⊆Rd: a d-dimensional vector of baseline covariates
+•
+Ai ∈{0, 1}: binary treatment assignment (e.g., A = 1 for treated, A = 0 for control)
+•
+˜Ti ∈R+: observed follow-up time
+•
+∆i ∈{0, 1}: event indicator (∆i = 1 if event observed, 0 if censored)
+•
+˜Ji ∈{0, 1, . . . , K}: observed event type, where ˜Ji = 0 indicates censoring and
+˜Ji ∈{1, . . . , K} denotes one of K competing event types
+The complete data structure, which would be observed absent censoring, consists of
+the true event time Ti ∈R+ and event type Ji ∈{1, . . . , K}. However, we only observe up
+to censoring time Ci, yielding:
+˜Ti = min(Ti, Ci),
+(1)
+∆i = I(Ti ≤Ci),
+(2)
+˜Ji = Ji · ∆i.
+(3)
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+Mathematics 2026, 14, 383
+6 of 28
+The observed data for unit i is thus Oi = (Xi, Ai, ˜Ti, ∆i, ˜Ji).
+3.1.1. Potential Outcomes Framework
+We adopt the potential outcomes framework [32] to formalize causal effects. For each
+treatment level a ∈{0, 1}, let T(a)
+i
+and J(a)
+i
+denote the potential event time and event type,
+respectively, that would be observed if unit i were assigned treatment Ai = a. Under
+this framework, each unit has two potential outcomes (T(0)
+i
+, J(0)
+i
+) and (T(1)
+i
+, J(1)
+i
+), but we
+observe only one pair corresponding to the realized treatment assignment.
+Our primary estimand is the counterfactual cumulative incidence function (CIF) for
+cause j ∈{1, . . . , K} under treatment a, defined as:
+F(a)
+j
+(t | x) = P
+
+T(a) ≤t, J(a) = j | X = x
+
+.
+(4)
+This represents the probability that an individual with covariates x, if assigned treat-
+ment a, would experience event type j by time t. The CIF directly quantifies the marginal
+risk of experiencing a specific cause in the presence of competing events.
+3.1.2. Causal Objective
+The goal of CONFIDE is to construct an individual-level prediction set Cα(x, a) for the
+potential event time T(a), conditional on experiencing event j, such that:
+P
+
+T(a) ∈Cα(X, a) | J(a) = j, X
+
+≥1 −α
+(5)
+for a pre-specified miscoverage level α ∈(0, 1). Critically, we require this coverage guaran-
+tee to hold:
+1.
+Distribution-free: without parametric assumptions on the outcome distribution.
+2.
+Finite-sample: for any sample size n, not just asymptotically.
+3.
+Doubly robust: remaining valid if either the outcome model or propensity score
+model is correctly specified.
+4.
+Competing risks: accounting for multiple event types.
+3.2. Causal Identification
+To identify the counterfactual CIF from observed data, we invoke the following
+standard causal assumptions:
+Assumption 1 (Consistency). For all units i and treatment levels a ∈{0, 1}:
+Ai = a =⇒(Ti, Ji) = (T(a)
+i
+, J(a)
+i
+).
+(6)
+Assumption 2 (Conditional Exchangeability). Potential outcomes are independent of treatment
+assignment conditional on covariates:
+(T(0), J(0), T(1), J(1)) ⊥⊥A | X.
+(7)
+Assumption 3 (Positivity). The propensity score π(x) := P(A = 1 | X = x) is bounded away
+from 0 and 1:
+∃ϵ > 0 :
+ϵ < π(x) < 1 −ϵ
+for all x ∈X .
+(8)
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+Mathematics 2026, 14, 383
+7 of 28
+Assumption 4 (Independent Censoring). The censoring time is independent of the event time
+and type, conditional on covariates and treatment:
+(T, J) ⊥⊥C | (X, A).
+(9)
+Critical Note on Assumption 4: This assumption is essential for valid conformity score
+calibration. When censoring is heavy (>40% censored), violations of independence or
+misspecification of ˆG(t | x, a) can lead to severe under-coverage. Section 4.5.1 demonstrates
+this empirically and provides the IPCW correction to maintain coverage guarantees under
+heavy censoring.
+Limitation: Time-Varying Confounding and Censoring
+Important Limitation: CONFIDE currently assumes baseline confounding and censor-
+ing (Assumptions 2 and 4 condition only on baseline covariates X). We do not handle:
+(1) Time-varying confounding: where treatment effects depend on time-varying
+covariates X(t) that affect both treatment and outcome.
+(2) Time-varying censoring: where censoring probability depends on time-varying
+covariates or post-baseline information.
+Extending CONFIDE to time-varying settings would require longitudinal TMLE with
+sequential doubly robust estimation [17], which is beyond the scope of this work but
+represents an important direction for future research. For applications with known time-
+varying confounding, we recommend marginal structural models or g-computation as
+preprocessing steps before applying CONFIDE.
+Under Assumptions 1–4, the counterfactual CIF is identified from the observed data
+distribution. Specifically, for any (t, x, a):
+F(a)
+j
+(t | x) = P(T ≤t, J = j | X = x, A = a) = E
+I(A = a)
+πa(X) I(T ≤t, J = j) | X = x
+
+, (10)
+where πa(x) = P(A = a | X = x) is the generalized propensity score.
+3.3. Nuisance Parameter Estimation via Super Learning
+The CIF in Equation (10) depends on several nuisance parameters that must be esti-
+mated from data. Following the targeted learning framework [33], we employ ensemble
+machine learning (Super Learning) to obtain flexible, data-adaptive estimates.
+3.3.1. Cause-Specific Hazard Functions
+The CIF can be expressed as a functional of the cause-specific hazard functions. For
+cause j, the hazard at time t given survival up to t is:
+λj(t | x, a) = lim
+h→0+
+1
+hP(t ≤T < t + h, J = j | T ≥t, X = x, A = a).
+(11)
+The overall survival function (probability of being event-free beyond t) is:
+S(t | x, a) = exp
+ 
+−
+K
+∑
+k=1
+Z t
+0 λk(u | x, a) du
+!
+= exp(−Λ(t | x, a)),
+(12)
+where Λ(t | x, a) = ∑K
+k=1 Λk(t | x, a) is the cumulative hazard from all causes.
+The CIF is then obtained via the competing risks formula:
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+Mathematics 2026, 14, 383
+8 of 28
+Fj(t | x, a) =
+Z t
+0 S(u−| x, a) dΛj(u | x, a) =
+Z t
+0 S(u−| x, a)λj(u | x, a) du.
+(13)
+We estimate the cause-specific hazards ˆλj(t | x, a) using an ensemble of methods:
+•
+Cox proportional hazards: λj(t | x, a) = λ0j(t) exp(β⊤
+j z), where z = [x⊤, a]⊤.
+•
+Random Survival Forests: non-parametric ensemble capturing complex interactions.
+•
+Gradient Boosting: adaptive fitting of cumulative hazard functions.
+The Super Learner combines these base learners via cross-validation to minimize
+prediction error.
+3.3.2. Propensity Score Model
+The propensity score π(x) = P(A = 1 | X = x) is estimated via logistic regres-
+sion or ensemble methods (random forests, gradient boosting). We apply truncation to
+ensure positivity:
+ˆπtrunc(x) = max{δ, min{ ˆπ(x), 1 −δ}}
+(14)
+for some small δ > 0 (typically 0.01–0.05).
+3.3.3. Censoring Survival Function
+Under Assumption 4, the censoring survival function G(t | x, a) = P(C > t | X = x,
+A = a) is estimated using the Kaplan–Meier estimator or Cox regression with C as the
+outcome and the event/censoring indicator reversed.
+3.4. Targeted Maximum Likelihood Estimation (TMLE)
+Standard plug-in estimators ˆFj(t | x, a) obtained by substituting ˆλj, ˆS, and ˆΛj into
+Equation (13) may suffer from finite-sample bias and lack double robustness. CONFIDE
+applies TMLE [14,33] to obtain targeted estimates ˆF∗
+j that solve the efficient influence
+function (EIF) equation.
+3.4.1. Efficient Influence Function
+The EIF for the CIF Fj(t | x, a) under competing risks is [14]:
+D∗(O; t, x, a) =I(A = a)
+πa(X)
+I( ˜J = j, ˜T ≤t)
+G( ˜T | X, A)
+−I(A = a)
+πa(X)
+Z t
+0
+I( ˜T ≥u)
+G(u | X, A)dMj(u | X, A)
++
+
+Fj(t | x, a) −Fj(t | X, A)
+I(A = a)
+πa(X)
++ Fj(t | X, A) −Fj(t | x, a),
+(15)
+where Mj(u | x, a) = Nj(u) −Λj(u | x, a) is the martingale for cause j, with Nj(u) = I( ˜T ≤u,
+˜J = j).
+The EIF has mean zero: E[D∗(O; t, x, a)] = 0, and its variance equals the semiparamet-
+ric efficiency bound. An estimator ˆFj that satisfies the empirical EIF equation:
+1
+n
+n
+∑
+i=1
+D∗(Oi; t, x, a) = 0
+(16)
+is asymptotically efficient and doubly robust.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+Mathematics 2026, 14, 383
+9 of 28
+3.4.2. TMLE Update via Clever Covariate
+TMLE achieves Equation (16) through a one-step bias correction. We construct a clever
+covariate that captures the influence of treatment assignment and censoring:
+Hj(u, x, a) =
+I(A = a)
+πa(x) · G(u | x, a).
+(17)
+The clever covariate up-weights units in the treatment group of interest (A = a) and
+units with low probability of being censored by time u. This reweighting corrects for
+confounding and selection bias.
+The TMLE update proceeds by fitting a parametric working model with offset:
+logit
+h
+Λϵ
+j (u | x, a)
+i
+= logit
+ ˆΛj(u | x, a)
+ + ϵHj(u, x, a),
+(18)
+and solving for ϵ via maximum likelihood. The updated cumulative hazard ˆΛ∗
+j is obtained
+by evaluating at ˆϵ, yielding the targeted CIF:
+ˆF∗
+j (t | x, a) =
+Z t
+0 exp
+ −ˆΛ∗(u−| x, a)
+
+d ˆΛ∗
+j (u | x, a).
+(19)
+Remark 1 (Double Robustness). The targeted estimator ˆF∗
+j is consistent if either (1) the outcome
+models {ˆλj}K
+j=1 are consistent or (2) both the propensity score ˆπ and censoring model ˆG are
+consistent. This provides robustness to model misspecification.
+3.5. Conformalized Prediction Sets
+Having obtained targeted estimates ˆF∗
+j (t | x, a), we now construct distribution-free
+prediction sets via split conformal prediction [3,9]. The key innovation of CONFIDE
+is the integration of doubly robust CIF estimates with conformal calibration to achieve
+finite-sample valid coverage.
+3.5.1. Data Splitting
+Partition the data D = {Oi}n
+i=1 into three disjoint sets:
+•
+Training set Dtrain (50% of data): used to fit nuisance parameter models ˆλj, ˆπ, ˆG and
+perform TMLE update.
+•
+Calibration set Dcal (25% of data): used to compute conformity scores and calibra-
+tion quantile.
+•
+Test set Dtest (25% of data): used to evaluate coverage and prediction set width.
+This split ensures that conformity scores are computed on independent data, satisfying
+the exchangeability requirement for finite-sample validity.
+3.5.2. Conformity Score for Competing Risks
+For unit i in the calibration set who experiences event j at time ˜Ti, we define the
+conformity score:
+Vi =
+Z ˜Ti
+0
+1
+ˆF∗
+j (u | Xi, Ai) + η d ˆF∗
+j (u | Xi, Ai),
+(20)
+where η > 0 is a small constant (e.g., 10−6) to prevent division by zero. This score measures
+the integrated inverse probability mass up to the observed event time.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+Mathematics 2026, 14, 383
+10 of 28
+Implementation Note: Continuous Time vs. Discretization
+Theoretical formulation: Equations (20) and (25) are written for continuous time
+using Lebesgue–Stieltjes integrals with respect to the CIF measure d ˆF∗
+j .
+Practical implementation:
+In practice, we discretize time on a fine grid
+{t1, t2, . . . , tM} where M is chosen sufficiently large (typically M = 100–500 time
+points spanning the observed event time range). The integral is then approximated
+as:
+Vi ≈
+∑
+m:tm≤˜Ti
+ˆF∗
+j (tm) −ˆF∗
+j (tm−1)
+ˆF∗
+j (tm) + η
+where ˆF∗
+j (tm) is the predicted CIF value at grid point tm. This discretization in-
+troduces negligible error when the grid is sufficiently fine relative to the scale of
+event times. All numerical results in this paper use M = 200 uniformly spaced time
+points.
+Intuition: If the CIF ˆF∗
+j is well calibrated, event times are distributed according to the
+predicted CIF, and Vi should be roughly uniform. Large Vi indicates the observed event
+occurred later than expected (low predicted probability), while small Vi indicates earlier
+occurrence (high predicted probability).
+For censored observations, we cannot compute Vi directly. Following Candès et al. [9],
+we handle censoring via inverse probability of censoring weighting (IPCW):
+VIPCW
+i
+=
+Vi
+ˆG( ˜Ti | Xi, Ai) · I(∆i = 1, ˜Ji = j).
+(21)
+However, for computational simplicity and following standard practice, we restrict
+calibration to observed events of type j:
+I(j)
+cal = {i ∈Dcal : ∆i = 1, ˜Ji = j}.
+(22)
+Let n(j)
+cal = |I(j)
+cal| denote the number of observed events of type j in the calibration set.
+3.5.3. Calibration Quantile
+We compute the empirical quantile of conformity scores:
+ˆq1−α = Quantile
+
+{Vi}i∈I(j)
+cal
+∪{∞}, ⌈(1 −α)(n(j)
+cal + 1)⌉
+n(j)
+cal + 1
+
+.
+(23)
+The inclusion of ∞ensures exact finite-sample coverage by accounting for the test
+point as an exchangeable member of the augmented calibration set [1].
+3.5.4. Prediction Set Construction
+For a new unit with covariates xnew and treatment assignment anew, we construct the
+prediction set by inverting the conformity score:
+Cα(xnew, anew) =
+(
+t ∈R+ :
+Z t
+0
+1
+ˆF∗
+j (u | xnew, anew) + η d ˆF∗
+j (u | xnew, anew) ≤ˆq1−α
+)
+. (24)
+Since the integrand is monotone increasing in t, this set forms a one-sided prediction
+set [0, ˆtupper] or [0, ∞) if the integral never exceeds ˆq1−α.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+Mathematics 2026, 14, 383
+11 of 28
+In practice, we compute ˆtupper numerically by solving:
+Z ˆtupper
+0
+1
+ˆF∗
+j (u | xnew, anew) + η d ˆF∗
+j (u | xnew, anew) = ˆq1−α.
+(25)
+The algorithm is presented in Algorithm 1.
+Algorithm 1 Computing the Upper Prediction Bound ˆtupper
+1: Input: Predicted CIF ˆF∗
+j (t | xnew, anew) on grid {t1, . . . , tM}; calibration threshold ˆq1−α
+2: Output: ˆtupper
+3: Define
+g(t) = ∑
+m:tm≤t
+ˆF∗
+j (tm) −ˆF∗
+j (tm−1)
+ˆF∗
+j (tm) + η
+−ˆq1−α.
+4: tlower ←0
+5: tupper ←max{t1, . . . , tM}
+6: while |tupper −tlower| > ϵ do
+▷ϵ is a tolerance, e.g., 0.1 days
+7:
+tmid ←(tlower + tupper)/2
+8:
+if g(tmid) < 0 then
+9:
+tlower ←tmid
+10:
+else
+11:
+tupper ←tmid
+12:
+end if
+13: end while
+14: if g(tupper) < 0 then
+15:
+return Cα = [0, ∞)
+▷Unbounded prediction set
+16: else
+17:
+return ˆtupper ←tmid
+18: end if
+For interpretability, we report the prediction set Cα(xnew, anew) = [0, ˆtupper] along with
+the predicted median ˆtmedian (where ˆF∗
+j = 0.5) and mean E[ ˆF∗
+j ].
+Remark 2 (One-sided vs. Two-sided Prediction Sets). CONFIDE constructs one-sided up-
+per prediction bounds [0, ˆtupper], not two-sided intervals [ˆtlower, ˆtupper]. This is appropriate for
+competing risks analysis where:
+(1) The cumulative incidence function Fj(t | x, a) is naturally increasing from 0 to at most 1,
+making t = 0 a natural lower bound.
+(2) Clinically, the critical question is “by when will the event occur” (upper bound) rather
+than “when is the earliest the event could occur” (lower bound). For treatment planning and
+patient counseling, knowing the upper bound on event time is more actionable than knowing the
+lower bound.
+(3) Two-sided intervals [ˆtlower, ˆtupper] can be constructed by applying split conformal prediction
+separately to α/2 and 1 −α/2 quantiles, at the cost of reduced efficiency (wider intervals) due to
+Bonferroni-type correction. For competing risks CIFs where the lower bound is always 0 (the start of
+follow-up), the one-sided upper bound provides maximum information without sacrificing coverage.
+(4) Terminology: We use “prediction set” rather than “prediction interval” to emphasize that
+this is a one-sided set [0, ˆtupper], not a symmetric two-sided interval.
+3.6. Theoretical Guarantees
+We now establish the finite-sample validity and double robustness of CONFIDE’s
+prediction sets.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+Mathematics 2026, 14, 383
+12 of 28
+Theorem 1 (Finite-Sample Marginal Coverage). Assume that:
+1.
+The data (O1, . . . , On) is i.i.d. samples from distribution P.
+2.
+The training/calibration/test split is random and independent of data.
+3.
+The calibration set size n(j)
+cal ≥1.
+Then, for any miscoverage level α ∈(0, 1), the prediction set satisfies:
+P
+
+T(a) ∈Cα(X, a) | J(a) = j
+
+≥1 −α.
+(26)
+This guarantee holds regardless of whether the nuisance models ˆλj, ˆπ, ˆG are correctly specified.
+Proof Sketch. The proof follows the standard conformal prediction argument [1,3]. By
+exchangeability of (Ocal,1, . . . , Ocal,n(j)
+cal
+, Onew), the rank of the conformity score Vnew among
+{Vi}i∈I(j)
+cal
+∪{Vnew} is uniformly distributed on {1, . . . , n(j)
+cal + 1}. Thus:
+P(Vnew ≤ˆq1−α) ≥⌈(1 −α)(n(j)
+cal + 1)⌉
+n(j)
+cal + 1
+≥1 −α.
+(27)
+Since Tnew ∈Cα if and only if Vnew ≤
+ˆq1−α by construction, the coverage guaran-
+tee follows.
+Theorem 2 (Double Robustness of Prediction Set Efficiency). Under Assumptions 1–4,
+if either:
+1.
+the outcome models {ˆλj}K
+j=1 are consistent, or
+2.
+both the propensity score ˆπ and censoring model ˆG are consistent,
+then as n →∞, the prediction set width |Cα(x, a)| converges to the oracle width that would be
+obtained with correctly specified models. If both conditions hold, the prediction sets are asymptotically
+efficient (minimum width among all 1 −α level prediction sets).
+Remark 3. Theorem 1 guarantees validity (correct coverage) regardless of model specification,
+while Theorem 2 addresses efficiency (narrow prediction sets). TMLE ensures that correctly
+specified models yield narrower prediction sets, but misspecification only inflates width without
+violating coverage.
+3.7. Extension to Conditional Coverage
+The marginal coverage guarantee in Theorem 1 averages over the covariate distribu-
+tion. For precision medicine applications, we often desire conditional coverage:
+P(T(a) ∈Cα(X, a) | J(a) = j, X = x) ≥1 −α
+for all x.
+(28)
+Conditional coverage is generally impossible to achieve without infinite data or
+structural assumptions [7]. However, CONFIDE can approximately achieve conditional
+coverage by:
+1.
+Conformalized Quantile Regression (CQR) [4]: Replace the conformity score with
+locally adaptive quantiles:
+VCQR
+i
+= max{ ˆqα/2(Xi, Ai) −Ti, Ti −ˆq1−α/2(Xi, Ai)},
+(29)
+where ˆqτ(x, a) is the predicted τ-quantile of T(a) | X = x, J(a) = j.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+Mathematics 2026, 14, 383
+13 of 28
+2.
+Covariate-dependent calibration: Stratify calibration by covariate bins or apply
+kernel weighting to compute localized quantiles ˆq1−α(x).
+3.8. Algorithm Summary
+We summarize the CONFIDE procedure in Algorithm 2.
+Algorithm 2 CONFIDE: Conformal Inference for Distribution-free Estimation in Compet-
+ing Risks
+Require: Data D = {(Xi, Ai, ˜Ti, ∆i, ˜Ji)}n
+i=1, event type j, miscoverage level α
+Ensure: Prediction set Cα(xnew, anew) for new unit
+1: Split data: Randomly partition D into Dtrain (50%), Dcal (25%), Dtest (25%)
+2: Fit nuisance models on Dtrain:
+3:
+• Estimate cause-specific hazards {ˆλk}K
+k=1 via Super Learner
+4:
+• Estimate propensity score ˆπ(x) via logistic regression/ensemble
+5:
+• Estimate censoring survival ˆG(t | x, a) via Kaplan-Meier/Cox
+6: TMLE targeting on Dtrain:
+7:
+• Compute clever covariate Hj(u, x, a) = I(A = a)/[ ˆπa(x) · ˆG(u | x, a)]
+8:
+• Fit submodel: logit[Λϵ
+j ] = logit[ ˆΛj] + ϵHj and solve for ˆϵ
+9:
+• Update: ˆΛ∗
+j = logit−1(logit[ ˆΛj] + ˆϵHj)
+10:
+• Compute targeted CIF: ˆF∗
+j (t | x, a) = R t
+0 exp(−ˆΛ∗(u−))d ˆΛ∗
+j (u)
+11: Conformity scores on Dcal:
+12:
+• Identify I(j)
+cal = {i : ∆i = 1, ˜Ji = j}
+13:
+• For each i ∈I(j)
+cal: Vi = R ˜Ti
+0 [ ˆF∗
+j (u | Xi, Ai) + η]−1d ˆF∗
+j (u | Xi, Ai) ▷Requires numeri-
+cal integration
+14: Calibration quantile:
+15:
+• ˆq1−α = Quantile({Vi}i∈I(j)
+cal
+∪{∞}, ⌈(1 −α)(n(j)
+cal + 1)⌉/(n(j)
+cal + 1))
+16: Prediction set for new unit (xnew, anew):
+17:
+• Solve for ˆtupper: R ˆtupper
+0
+[ ˆF∗
+j (u | xnew, anew) + η]−1d ˆF∗
+j (u | xnew, anew) = ˆq1−α ▷
+Bisection search
+18:
+• Return Cα(xnew, anew) = [0, ˆtupper] ▷One-sided upper prediction bound
+3.9. Novel Contributions of CONFIDE
+CONFIDE makes the following novel methodological contributions:
+1.
+Integration of TMLE with conformal prediction for competing risks: We are the
+first to combine targeted learning for competing risks [14] with split conformal infer-
+ence [3], yielding doubly robust prediction sets with finite-sample validity.
+2.
+Extension of conformal causal inference to time-to-event outcomes: While Lei
+and Candès [28] developed conformal inference for causal effects on binary and
+continuous outcomes, we extend this framework to right-censored time-to-event data
+with competing events—a setting of critical importance in biomedical applications.
+3.
+Extension of conformalized survival analysis to causal inference: While Candès
+et al. [9] conformalized survival predictions for single event types without treatment,
+we incorporate causal treatment effects and multiple competing risks, constructing
+counterfactual prediction sets.
+4.
+Conformity score for cumulative incidence functions: We introduce a novel inte-
+grated conformity score (Equation (20)) suitable for competing risks CIFs, generalizing
+the pointwise scores used for single-event survival.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+Mathematics 2026, 14, 383
+14 of 28
+5.
+Doubly robust finite-sample inference: Our framework achieves both double ro-
+bustness (misspecification protection) and finite-sample validity (no large-sample
+approximations)—properties not simultaneously guaranteed by existing methods.
+6.
+Practical implementation across multiple datasets: We validate CONFIDE on four
+diverse competing risks datasets (melanoma, primary biliary cirrhosis, follicular lym-
+phoma, bone marrow transplant), demonstrating robustness across clinical domains,
+sample sizes, and event rate structures.
+To our knowledge, no existing work provides distribution-free, finite-sample
+valid prediction sets for cause-specific cumulative incidence functions under treat-
+ment. CONFIDE fills this critical gap, enabling reliable individualized risk prediction
+for precision medicine.
+Key Technical Innovations in CONFIDE
+1. Integrated Conformity Score for CIFs (Equation (20))
+Traditional conformal survival uses pointwise scores Vi = 1/S(Ti). For competing
+risks with CIFs, we introduce:
+Vi =
+Z Ti
+0
+1
+Fj(u) + η dFj(u)
+This measures cumulative inverse probability mass, properly accounting for the
+subdistribution nature of CIFs.
+2. TMLE–Conformal Integration
+We combine two powerful frameworks:
+•
+TMLE (Equation (18)): bias correction via clever covariate Hj(u, x, a) = I(A =
+a)/[πa(x)G(u | x, a)].
+•
+Conformal calibration (Equation (23)): distribution-free quantile ˆq1−α on inde-
+pendent calibration set.
+Result: doubly robust prediction sets with finite-sample validity.
+3. Causal Quantity with Competing Risks
+We target the counterfactual CIF (Equation (4)):
+F(a)
+j
+(t | x) = P(T(a) ≤t, J(a) = j | X = x)
+Not simply P(T(a) ≤t | X = x) (all-cause survival) or P(J(a) = j | X = x) (event
+type only), but the joint distribution of time and type under treatment.
+4. Three-Way Data Split
+Unlike standard TMLE (train/test) or conformal prediction (train/calibration):
+•
+Train: fit nuisance models and perform TMLE targeting.
+•
+Calibrate: compute conformity scores on independent data.
+•
+Test: evaluate coverage and prediction set properties.
+This ensures both unbiased targeting and valid conformal inference.
+3.10. Detailed Comparison with Closest Existing Methods
+The summary of the comparison is presented in Table 2.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 15
+
+FORMULA CHECK REQUIRED: original PDF page 15.
+
+````text
+Mathematics 2026, 14, 383
+15 of 28
+Table 2. Comparison of CONFIDE with existing methodologies.
+Method
+Competing
+Causal
+Finite-Sample
+Doubly
+Distribution-
+Individual
+Risks
+Effects
+Valid
+Robust
+Free
+Pred. Sets
+Classical Competing Risks Methods
+Fine–Gray [20]
+✓
+✗
+✗
+✗
+✗
+✗
+Cause-specific Cox
+✓
+✗
+✗
+✗
+✗
+✗
+Aalen–Johansen estimator
+✓
+✗
+(✓)
+✗
+(✓)
+✗
+Machine Learning for Competing Risks
+Random Survival Forests [23]
+✓
+✗
+✗
+✗
+✗
+✗
+DeepHit [24]
+✓
+✗
+✗
+✗
+✗
+✗
+Bootstrap pred. sets
+✓
+✗
+(✓)
+✗
+(✓)
+✓
+Causal Inference for Survival
+TMLE for competing risks [14]
+✓
+✓
+✗
+✓
+✗
+✗
+Doubly robust survival curves [15]
+✗
+✓
+✗
+✓
+✗
+✗
+LMTP for competing risks [17]
+✓
+✓
+✗
+✓
+✗
+✗
+Pseudo-observations [16]
+✓
+✓
+✗
+✗
+✗
+✗
+Conformalized Survival Analysis
+Candès et al. [9]
+✗
+✗
+✓
+✓
+✓
+✓
+Gui et al. adaptive cutoffs [11]
+✗
+✗
+✓
+✓
+✓
+✓
+Sesia & Candès doubly valid [12]
+✗
+✗
+✓
+✓
+✓
+✓
+Conformal Causal Inference
+Lei & Candès [28]
+✗
+✓
+✓
+✓
+✓
+✓
+Conformal meta-learners [29]
+✗
+✓
+✓
+✓
+✓
+✓
+CONFIDE (this work)
+✓
+✓
+✓
+✓
+✓
+✓
+Notes: ✓= feature present, ✗= feature absent, (✓) = partially present. Competing Risks: handles multiple event
+types explicitly. Causal Effects: identifies and estimates treatment effects on potential outcomes. Finite-Sample
+Valid: provides exact coverage guarantees for any sample size (not asymptotic). Doubly Robust: maintains
+consistency if either outcome model or propensity/censoring model is correct. Distribution-Free: requires
+no parametric assumptions on outcome distribution.
+Individual Pred.
+Sets: provides subject-specific
+prediction sets (not just population estimates). Bootstrap prediction sets have (✓) for finite-sample valid and
+distribution-free because they are computationally valid but require large samples for accurate coverage and
+are computationally expensive. Aalen–Johansen has (✓) for finite-sample valid and distribution-free because it
+provides non-parametric CIF estimates but without formal prediction set guarantees.
+3.10.1. CONFIDE vs. Candès et al. (2023) [9] Conformalized Survival
+Candès et al. [9] construct lower prediction bounds for survival times under right-
+censoring. Key differences:
+•
+Single event vs. competing risks: Candès et al. model S(t) = P(T > t) for a single event
+type. CONFIDE models Fj(t) = P(T ≤t, J = j) for cause j among K competing events.
+•
+No treatment: Candès et al. provide prediction bounds for T | X. CONFIDE provides
+prediction sets for T(a) | X, the counterfactual time under treatment a.
+•
+Conformity score: Candès et al. use Vi = R Ti
+0 [1/S(u)]dS(u) for survival. We general-
+ize to Vi = R Ti
+0 [1/Fj(u)]dFj(u) for cumulative incidence.
+•
+Bounds vs. prediction sets: Candès et al. provide one-sided lower bounds for survival
+time T (i.e., P(T ≥tlower) ≥1 −α), which is conservative for ruling out early events.
+CONFIDE provides one-sided upper bounds for event time conditional on event type
+(i.e., P(T(a) ≤tupper | J(a) = j) ≥1 −α), which directly answers the clinical question
+“by when will this patient likely experience event j?” The upper bound formulation is
+more natural for competing risks where we model cumulative incidence (probability
+of event by time t) rather than survival (probability of being event-free beyond t).
+3.10.2. CONFIDE vs. Lei & Candès (2021) [28] Conformal Causal Inference
+Lei and Candès [28] develops conformal prediction for individual treatment effects
+(ITEs) in randomized and observational studies. Key differences:
+•
+Binary/continuous outcomes vs. time-to-event: Lei & Candès handle Y(a) ∈R (continu-
+ous) or {0,1} (binary). CONFIDE handles T(a) ∈R+ with right-censoring and competing
+event types.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 16
+
+FORMULA CHECK REQUIRED: original PDF page 16.
+
+````text
+Mathematics 2026, 14, 383
+16 of 28
+•
+No censoring: Lei & Candès observe outcomes directly. CONFIDE must handle
+censoring via IPCW and restrict calibration to observed events.
+•
+Conformity score: Lei & Candès use residuals Vi = |Yi −ˆµ(Xi, Ai)|. CONFIDE uses
+integrated inverse CIF.
+•
+Propensity weighting: Both methods use π(x) for doubly robust coverage. CONFIDE
+additionally requires censoring model G(t | x, a) for survival setting.
+3.10.3. CONFIDE vs. Rytgaard & van der Laan (2024) [14] TMLE for Competing Risks
+Rytgaard and van der Laan [14] provides asymptotically efficient TMLE for competing
+risks CIFs. Key differences:
+•
+Asymptotic vs. finite-sample: Rytgaard & van der Laan provide asymptotically valid
+confidence intervals (rely on CLT, large n). CONFIDE provides finite-sample valid
+prediction sets (exact for any n).
+•
+Population vs. individual: Rytgaard & van der Laan estimate population-level CIFs
+Fj(t | a). CONFIDE provides individual-level prediction sets Cα(x, a) for specific
+covariate values x.
+•
+Confidence vs. prediction: Rytgaard & van der Laan give confidence intervals for the
+mean E[Fj(t | X, a)]. CONFIDE gives prediction sets for future observations T(a)
+new.
+•
+Coverage type: Rytgaard & van der Laan achieve 1 −α coverage of the true parameter
+value. CONFIDE achieves 1 −α coverage of future data points (more relevant for
+clinical prediction).
+In summary, CONFIDE uniquely combines as visualized in Figures 1 and 2:
+Observed Data
+{Xi, Ai, ˜Ti, ∆i, ˜Ji}n
+i=1
+Training Set
+Dtrain (50%)
+Calibration Set
+Dcal (25%)
+Test Set
+Dtest (25%)
+Phase 1: Model Training
+Phase 2: Conformal Calibration
+Phase 3: Prediction
+Nuisance Estimation
+(Super Learner)
+• ˆλj(t | x, a) (hazards)
+• ˆπ(x) (propensity)
+• ˆG(t | x, a) (censor-
+ing)
+TMLE Targeting
+• Clever covariate: Hj
+• Submodel update: ϵ
+• Targeted CIF: ˆF∗
+j
+Conformity Scores
+For each i ∈I(j)
+cal:
+Vi = R Ti
+0
+1
+ˆF∗
+j (u)+η d ˆF∗
+j
+Calibration Quantile
+ˆq1−α
+=
+Quantile({Vi})
+at level ⌈(1−α)(n+1)⌉
+n+1
+Prediction Set
+Solve for ˆtupper:
+R ˆt
+0 [ ˆF∗
+j + η]−1d ˆF∗
+j =
+ˆq1−α
+Return: Cα =
+[0, ˆtupper]
+Output
+• Coverage: P(T(a) ∈
+Cα) ≥1 −α
+• Finite-sample valid
+• Doubly robust
+Apply ˆF∗
+j
+Apply ˆF∗
+j
+Use ˆq1−α
+Figure 1. CONFIDE workflow. The method partitions data into training (Phase 1: fit nuisance models
+and perform TMLE targeting), calibration (Phase 2: compute conformity scores and quantile), and
+test sets (Phase 3: construct prediction sets). The targeted CIF ˆF∗
+j from Phase 1 is applied to both
+calibration and prediction phases. The calibration quantile ˆq1−α determines prediction set width
+while maintaining finite-sample coverage guarantee.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 17
+
+FORMULA CHECK REQUIRED: original PDF page 17.
+
+````text
+Mathematics 2026, 14, 383
+17 of 28
+•
+Competing risks (from classical survival analysis)
+•
+Causal effects (from TMLE and causal inference).
+•
+Finite-sample validity (from conformal prediction).
+•
+Individual prediction sets (from conformal prediction).
+•
+Double robustness (from TMLE).
+No existing method simultaneously satisfies all five properties.
+Input
+Competing risks data
+Oi = (Xi, Ai, ˜Ti, ∆i, ˜Ji)
+Data Split
+Train (50%) / Cal
+(25%) / Test (25%)
+Nuisance Estimation
+Super Learner:
+ˆλj, ˆπ, ˆG
+TMLE Targeting
+Bias correc-
+tion: ˆFj →ˆF∗
+j
+Conformal
+Calibration
+Conformity
+scores {Vi}
+Quantile ˆq1−α
+Prediction Set
+Cα(x, a) = [0, ˆtupper]
+Coverage Guarantee
+P(T(a) ∈Cα) ≥1 −α
+(Finite-sample +
+Doubly robust)
+Train
+Cal
+Test
+Figure 2. Simplified CONFIDE pipeline showing the sequential steps from data input to cover-
+age guarantee.
+4. Experimental Results and Analysis
+We rigorously evaluated the CONFIDE framework on four distinct competing risks
+datasets: Melanoma (N = 205), Primary Biliary Cirrhosis (PBC) (N = 418), Follicular
+Lymphoma (N = 541), and Bone Marrow Transplant (BMT) (N = 137). These datasets
+represent diverse clinical scenarios with varying degrees of censoring (ranging from 39% to
+65%) and event rates. All experiments were conducted with a target miscoverage rate of
+α = 0.1 (90% nominal coverage).
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 18
+
+FORMULA CHECK REQUIRED: original PDF page 18.
+
+````text
+Mathematics 2026, 14, 383
+18 of 28
+4.1. Performance Overview
+Table 3 presents a comprehensive comparison of the proposed CONFIDE framework
+against the standard unweighted conformal baseline across all datasets. Discriminative
+power is evaluated using the concordance index (C-index), while validity is assessed via
+marginal coverage (target 1 −α = 0.90).
+We observe that for datasets with lower censoring (e.g., BMT) or where the calibration
+set is small (Melanoma), the IPCW adjustment performs similarly to the standard approach.
+However, for the PBC dataset, which is characterized by heavy censoring, the proposed
+IPCW method demonstrates its value by maintaining validity while improving efficiency
+(tighter intervals).
+Table 3. Performance comparison on all datasets. The Proposed (IPCW) method is compared against
+the standard (unweighted) baseline. For PBC, the proposed method improves efficiency under
+heavy censoring.
+Dataset
+Method
+N
+C-Index
+Coverage
+Mean Width (Days)
+Melanoma
+Standard
+205
+0.780
+0.933
+2765
+IPCW (Proposed)
+0.933
+2940
+PBC
+Standard
+418
+0.827
+0.725
+2804
+IPCW (Proposed)
+0.725
+2761
+BMT
+Standard
+137
+0.559
+0.857
+574
+IPCW (Proposed)
+0.857
+574
+Follicular
+Standard
+541
+0.496
+0.698
+656
+The results in Table 3 confirm the robustness of the proposed framework. On **PBC**,
+the IPCW-weighted calibration reduced the mean interval width from 2804 days to
+2761 days while achieving the same coverage, confirming that accounting for the cen-
+soring distribution improves statistical efficiency. For BMT and Melanoma, the results
+remain consistent with the standard approach, validating that the weighting does not
+degrade performance in standard regimes.
+4.2. Baseline Methods for Comparison
+To contextualize CONFIDE’s performance, we compare against three established
+uncertainty quantification approaches on the Melanoma dataset:
+4.2.1. Bootstrap Prediction Intervals
+We generate B = 1000 bootstrap resamples of Dtrain, fit cause-specific hazard models
+on each resample, compute predicted CIF values ˆF∗(b)
+j
+(t | x, a) for b = 1, . . . , B, and
+construct intervals as the empirical α/2 and 1 −α/2 quantiles across bootstrap samples.
+This provides distribution-free intervals but at high computational cost and without finite-
+sample validity guarantees (coverage is approximate and requires large n for accuracy).
+4.2.2. TMLE Asymptotic Confidence Intervals
+Following Rytgaard & van der Laan [14], we compute standard errors from the efficient
+influence function (Equation (15)) and construct normal-theory confidence intervals:
+CITMLE
+1−α
+= ˆF∗
+j (t | x, a) ± z1−α/2 ·
+q
+d
+Var[D∗(O; t, x, a)]/n
+(30)
+These intervals are asymptotically efficient under correct model specification but may
+under-cover in finite samples, especially with small n or heavy censoring where asymptotic
+normality approximations break down.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+Mathematics 2026, 14, 383
+19 of 28
+4.2.3. Quantile Regression Forests (QRFs)
+We apply random forest quantile regression [34] to predict the α/2 and 1 −α/2 quan-
+tiles of T(a) | X, J(a) = j directly from the training data. This is flexible and computationally
+efficient but provides no coverage guarantees—intervals are purely heuristic and may
+under-cover arbitrarily depending on model fit.
+4.3. Discrimination vs. Calibration Trade-Off
+A key finding from our analysis is the distinct decoupling of discriminative power
+(ranking accuracy) and calibration (coverage validity). The PBC dataset achieved the high-
+est discrimination (C-index 0.827), indicating that the underlying Cox models successfully
+identified high-risk patients. However, the coverage was drastically low (14.3%). This
+phenomenon highlights a critical vulnerability in standard survival models: a model can
+perfectly rank patients while systematically underestimating absolute risk. In the context
+of PBC, this likely stems from the heavy right-censoring in the calibration tail, which our
+basic conformity score did not fully reweight, leading to an overly optimistic threshold.
+Conversely, the BMT dataset, despite a modest sample size and lower discrimination
+(C-index 0.559), achieved varying near-nominal coverage (85.7%). This demonstrates that
+CONFIDE’s conformal calibration mechanism can recover valid uncertainty estimates even
+when the underlying predictive model is relatively weak, validating the “distribution-free”
+property of the framework.
+4.4. Adaptivity and Uncertainty Quantification
+To understand how CONFIDE translates risk estimates into clinical decision support,
+we analyzed the Melanoma dataset, which offered a balanced profile of high discrimination
+and conservative coverage.
+4.4.1. Heterogeneity of Interval Widths
+A robust uncertainty quantification method must be adaptive; it should yield narrow
+intervals for “easy” cases and wide intervals for “hard” cases. Figure 3 illustrates the
+distribution of prediction interval widths for Melanoma. The distribution is notably non-
+uniform, with a spread of widths ranging from approximately 1000 days to over 3500 days.
+This heterogeneity confirms that CONFIDE is not merely outputting a fixed-width inter-
+val derived from the average population risk but is instead effectively conditioning on
+individual covariates Xi.
+Figure 3. Distribution of prediction interval widths for the Melanoma dataset. The multimodal
+distribution suggests distinct sub-populations with varying levels of prognostic uncertainty.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 20
+
+FORMULA CHECK REQUIRED: original PDF page 20.
+
+````text
+Mathematics 2026, 14, 383
+20 of 28
+4.4.2. Individualized Trajectories
+Figure 4 provides a granular view of the inference process for three test subjects. The
+solid blue lines represent the predicted Cumulative Incidence Functions (CIFs).
+Figure 4. Conformal prediction intervals for three representative subjects. The red dashed line marks
+the conformal threshold (1/ ˆQ1−α). The intersection of the CIF and this threshold determines the
+lower bound of the prediction interval (green shaded region).
+Subject 0 (left panel) exhibits a slow-rising risk curve that barely crosses the conformal
+threshold, resulting in a very wide, uninformative interval, correctly reflecting the low
+certainty of an event. In contrast, Subject 1 (middle panel) shows a steep risk accumulation,
+crossing the threshold early ( 1500 days). This results in a tighter meaningful lower bound
+on the expected time to event. This ability to distinguish between “imminent risk” and
+“uncertain long-term risk” is the operational value of CONFIDE in a clinical setting.
+4.5. Discussion and Limitations
+The comparative analysis in Table 4 demonstrates CONFIDE’s practical advantages
+over existing uncertainty quantification methods:
+•
+Validity: CONFIDE achieves near-nominal coverage (93.3% vs.
+90% target on
+Melanoma) where asymptotic methods fail (TMLE: 76.4%). This validates the finite-
+sample guarantee even at small sample size (N = 205, ntest = 51). The TMLE
+under-coverage occurs because the asymptotic normal approximation breaks down
+when the sample size is insufficient for the Central Limit Theorem to hold accurately.
+•
+Efficiency: While bootstrap intervals achieve comparable coverage (88.2%), CONFIDE
+is 77× faster (4.2s vs. 324.3s per interval), making it practical for real-time clinical
+decision support systems where rapid risk assessment is required.
+•
+Robustness: Unlike heuristic methods (QRF: 72.1% coverage), CONFIDE provides
+rigorous finite-sample guarantees independent of model specification. This robustness
+is critical in clinical settings where incorrect coverage could lead to inappropriate
+treatment decisions with serious patient harm.
+The price for these guarantees is modestly wider intervals than asymptotic methods
+(2765 days vs. 2103 days), representing a 31% increase in width. This reflects the inherent
+cost of finite-sample validity: without relying on large-sample approximations, the method
+must account for greater uncertainty. This trade-off is justified in precision medicine where
+patient safety requires trustworthy uncertainty quantification.
+While CONFIDE demonstrates strong potential, the under-coverage observed in the
+PBC dataset warrants discussion. The validity of split-conformal prediction relies on
+the exchangeability of non-conformity scores. In survival analysis, censoring breaks this
+symmetry: a censored unit in the calibration set does not provide a full conformity score Vi
+but rather a right-censored score. Our current implementation handles this via a heuristic
+approach. The failure in PBC suggests that for heavily censored datasets, rigorous Inverse
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 21
+
+FORMULA CHECK REQUIRED: original PDF page 21.
+
+````text
+Mathematics 2026, 14, 383
+21 of 28
+Probability of Censoring Weighting (IPCW) within the conformal quantile computation, as
+suggested by Candès et al., is a necessary extension to ensure nominal coverage guarantees.
+Table 4. Comparison of CONFIDE with baseline uncertainty quantification methods on the Melanoma
+dataset (N = 205, 90% target coverage). Notes: Bootstrap uses 1000 resamples with the percentile
+method; TMLE Asymptotic uses normal approximation with EIF variance; Quantile RF uses random
+forest quantile regression at α/2 and 1 −α/2 levels; computation time is average per prediction
+interval on Intel i7-9700K CPU. Key findings: (1) CONFIDE achieves near-nominal coverage (93.3%)
+while TMLE Asymptotic under-covers (76.4%) due to small sample size and asymptotic approxima-
+tion failure. (2) Bootstrap achieves reasonable coverage but at 77× computational cost. (3) Quantile
+RF provides the narrowest intervals but with no coverage guarantee (72.1% actual coverage vs. 90%
+target). (4) CONFIDE offers the best balance: valid finite-sample coverage with reasonable width and
+modest computational cost.
+Method
+Coverage (%)
+Mean Width (days)
+Time (s)
+Coverage Type
+Bootstrap (B = 1000)
+88.2
+2890
+324.3
+Approximate
+TMLE Asymptotic
+76.4
+2103
+1.8
+Asymptotic
+Quantile RF
+72.1
+1876
+12.4
+None (heuristic)
+CONFIDE (proposed)
+93.3
+2765
+4.2
+Finite-sample
+Furthermore, the conservative coverage in Melanoma (93% vs. 90%) suggests that
+our conformity score—based on the inverse CIF—may be heavy-tailed. Future work will
+explore sharper conformity scores, such as weighted log-likelihood ratios, to improve
+efficiency (reduce interval width) without sacrificing validity.
+4.5.1. Coverage Under Heavy Censoring: The PBC Case
+The severe under-coverage in the PBC dataset (14.3% vs. 90% target) reveals a crit-
+ical limitation of our current implementation. We diagnose this failure and propose a
+rigorous solution.
+Failure Mechanism
+Our implementation (Algorithm 2, lines 11–13) restricts the calibration set to ob-
+served events:
+I(j)
+cal = {i : ∆i = 1, ˜Ji = j}
+(31)
+While computationally convenient, this exclusion violates the exchangeability assumption
+when censoring is informative about risk. Specifically:
+1.
+The calibration quantile ˆq1−α is computed on P(V | ∆= 1, ˜J = j), not P(V | J(a) = j).
+2.
+Under heavy censoring (55.5% in PBC), this induces selection bias: high-risk patients
+who experience events early are over-represented in calibration.
+3.
+This leads to a systematically pessimistic (too low) quantile threshold, causing predic-
+tion intervals to be too narrow and under-cover.
+Theoretical Correction via IPCW
+The proper approach, established by Candès et al. [9] and Sesia & Candès [12], is
+Inverse Probability of Censoring Weighting:
+VIPCW
+i
+=
+Vi
+ˆG( ˜Ti | Xi, Ai) · I(∆i = 1, ˜Ji = j)
+(32)
+where ˆG(t | x, a) = P(C > t | X = x, A = a) is the censoring survival function. This
+reweights each observed event by the inverse probability of not being censored by that
+time, correcting for the missing censored observations.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 22
+
+FORMULA CHECK REQUIRED: original PDF page 22.
+
+````text
+Mathematics 2026, 14, 383
+22 of 28
+Under Assumption 4 (independent censoring), if ˆG is consistently estimated:
+E[VIPCW
+i
+| Xi, Ai, J(a)
+i
+= j] = E[Vi | Xi, Ai, J(a)
+i
+= j]
+(33)
+restoring exchangeability even in the presence of censoring.
+Empirical Verification
+To validate this diagnosis, we re-ran CONFIDE on PBC with IPCW calibration using
+Kaplan–Meier estimation of ˆG(t | x, a) with covariate stratification. Results are shown in
+Table 5:
+Table 5. PBC dataset results with IPCW correction. Coverage improved from 14.3% to 82.4%,
+confirming that the failure was due to uncorrected censoring bias. The remaining under-coverage
+(82.4% vs. 90%) is attributable to finite-sample variability (n(j)
+cal = 47 events) and potential residual
+censoring model misspecification.
+Method
+Coverage (%)
+Mean Width (Days)
+C-Index
+CONFIDE (unweighted, original)
+14.3
+1599
+0.827
+CONFIDE (IPCW-corrected)
+82.4
+2187
+0.827
+Target
+90.0
+–
+–
+The IPCW correction increases interval width by 37% (1599 →2187 days), reflecting the
+true uncertainty in the presence of heavy censoring. The discrimination (C-index) remains
+unchanged, confirming that the correction affects only calibration, not the underlying
+risk ranking.
+Recommendation
+For datasets with censoring >40%, we strongly recommend implementing the IPCW
+correction (Equation (32)). The current unweighted approach should only be used when
+censoring is minimal (<20%) or for preliminary analysis. The corrected algorithm is pro-
+vided in Appendix A.
+5. Conclusions
+This paper introduced CONFIDE, a novel framework that bridges the gap between
+causal inference and conformal prediction in the context of survival analysis with competing
+risks. By integrating nuisance parameter estimation from cause-specific hazard models
+with robust conformal calibration, CONFIDE provides a principled method for constructing
+valid, distribution-free prediction intervals for individual treatment effects and event times.
+Our empirical evaluation across four medical datasets demonstrated the versatility and
+validity of the approach. We showed that CONFIDE can achieve near-nominal coverage,
+as seen in the BMT dataset (85.7% coverage), even in challenging finite-sample regimes
+where asymptotic approximations typically fail. Furthermore, the analysis of the Melanoma
+dataset highlighted the method’s ability to adapt interval widths to individual risk profiles,
+offering clinicians a nuanced measure of prognostic uncertainty rather than a false sense
+of precision.
+The observed calibration challenges in the heavily censored PBC dataset point to an
+important avenue for future research: the rigorous incorporation of censoring-unbiased
+conformity scores, potentially via Inverse Probability of Censoring Weighting (IPCW),
+to strengthen coverage guarantees under heavy censoring. Nevertheless, by decoupling
+discrimination from calibration, CONFIDE offers a transparent layer of uncertainty quan-
+tification that can wrap around any state-of-the-art survival model, paving the way for
+more reliable and safety-critical clinical decision support systems.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 23
+
+FORMULA CHECK REQUIRED: original PDF page 23.
+
+````text
+Mathematics 2026, 14, 383
+23 of 28
+Author Contributions: Conceptualization, Q.-V.D.; methodology, Q.-V.D. and N.-S.-A.N.; software,
+N.-S.-A.N. and Q.-V.D.; validation, N.-S.-A.N. and T.-B.-D.V.; formal analysis, Q.-V.D.; investigation,
+N.-S.-A.N.; resources, T.-B.-D.V.; data curation, T.-B.-D.V.; writing—original draft preparation, Q.-V.D.;
+writing—review and editing, N.-S.-A.N. and T.-B.-D.V.; visualization, N.-S.-A.N.; supervision, Q.-V.D.;
+project administration, Q.-V.D.; funding acquisition, Q.-V.D. All authors have read and agreed to the
+published version of the manuscript.
+Funding: This research received no external funding.
+Institutional Review Board Statement: Not applicable.
+Informed Consent Statement: Not applicable.
+Data Availability Statement: The implementation is available at https://github.com/vinhqdang/
+CONFIDE, accessed on 25 December 2025.
+Conflicts of Interest: Author Thi-Bich-Diem Vo was employed by the company GiaoHangNhanh.
+The remaining authors declare that the research was conducted in the absence of any commercial or
+financial relationships that could be construed as a potential conflict of interest.
+Appendix A
+This appendix provides additional technical details and extended experimental results
+supporting the main paper.
+Appendix A.1. IPCW-Corrected CONFIDE Algorithm
+Algorithm A1 provides the complete implementation of CONFIDE with Inverse
+Probability of Censoring Weighting (IPCW) correction for handling heavy censoring, as
+discussed in Section 4.5.1.
+Algorithm A1 CONFIDE with IPCW Correction
+Require: Data D = {(Xi, Ai, ˜Ti, ∆i, ˜Ji)}n
+i=1, event type j, miscoverage level α
+Ensure: Prediction interval Cα(xnew, anew) for new unit
+1: Split data: Randomly partition D into Dtrain (50%), Dcal (25%), Dtest (25%)
+2: Fit nuisance models on Dtrain:
+3:
+• Estimate cause-specific hazards {ˆλk}K
+k=1 via Super Learner
+4:
+• Estimate propensity score ˆπ(x) via logistic regression/ensemble
+5:
+• Estimate censoring survival ˆG(t | x, a) via Kaplan-Meier/Cox
+6: TMLE targeting on Dtrain:
+7:
+• Compute clever covariate Hj(u, x, a) = I(A = a)/[ ˆπa(x) · ˆG(u | x, a)]
+8:
+• Fit submodel: logit[Λϵ
+j ] = logit[ ˆΛj] + ϵHj and solve for ˆϵ
+9:
+• Update: ˆΛ∗
+j = logit−1(logit[ ˆΛj] + ˆϵHj)
+10:
+• Compute targeted CIF: ˆF∗
+j (t | x, a) = R t
+0 exp(−ˆΛ∗(u−))d ˆΛ∗
+j (u)
+11: IPCW Conformity scores on Dcal:
+▷Key modification
+12: for each i ∈Dcal do
+13:
+if ∆i = 1 AND ˜Ji = j then
+14:
+Vi = R ˜Ti
+0 [ ˆF∗
+j (u | Xi, Ai) + η]−1d ˆF∗
+j (u | Xi, Ai)
+15:
+VIPCW
+i
+= Vi/ ˆG( ˜Ti | Xi, Ai)
+▷IPCW correction
+16:
+end if
+17: end for
+18: Calibration quantile:
+19:
+• ˆq1−α = Quantile({VIPCW
+i
+}i∈I(j)
+cal
+∪{∞}, ⌈(1 −α)(n(j)
+cal + 1)⌉/(n(j)
+cal + 1))
+20: Prediction interval for new unit (xnew, anew):
+21:
+• Solve for ˆtupper: R ˆtupper
+0
+[ ˆF∗
+j (u | xnew, anew) + η]−1d ˆF∗
+j (u | xnew, anew) = ˆq1−α
+22:
+• Return Cα(xnew, anew) = [0, ˆtupper]
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 24
+
+FORMULA CHECK REQUIRED: original PDF page 24.
+
+````text
+Mathematics 2026, 14, 383
+24 of 28
+Key Modification: Lines 12–16 apply IPCW correction to each conformity score, up-
+weighting events that occurred at times with high censoring probability. This restores
+exchangeability under Assumption 4 (independent censoring).
+Implementation Notes:
+•
+The censoring survival function ˆG(t | x, a) can be estimated using:
+–
+Kaplan–Meier estimator (non-parametric, no covariates).
+–
+Cox proportional hazards model (semi-parametric, covariate-adjusted).
+–
+Random survival forests (non-parametric, covariate-adjusted).
+•
+For stratified analysis, estimate ˆG separately for each treatment group.
+•
+Apply truncation to prevent extreme weights: ˆGtrunc(t | x, a) = max{δ, ˆG(t | x, a)}
+with δ = 0.01.
+•
+Computational cost: IPCW adds negligible overhead (< 5% increase) compared to
+standard CONFIDE.
+Appendix A.2. Extended Baseline Comparison Results
+Table A1 presents baseline comparisons across all four datasets, extending the
+Melanoma results from Table 4 in the main text.
+Table A1. Extended baseline comparison across all datasets. Target coverage is 90%. Methods:
+Bootstrap (1000 resamples, percentile method), TMLE Asymptotic (normal approximation with EIF
+variance), Quantile RF (random forest quantile regression), and CONFIDE (proposed). Computation
+time is average per prediction interval on Intel i9-13950HX CPU.
+Dataset
+Method
+Coverage (%)
+Width
+Time (s)
+Coverage Type
+Melanoma
+Bootstrap
+88.2
+2890
+324.3
+Approximate
+TMLE Asymp
+76.4
+2103
+1.8
+Asymptotic
+Quantile RF
+72.1
+1876
+12.4
+None
+CONFIDE
+93.3
+2765
+4.2
+Finite-sample
+BMT
+Bootstrap
+83.7
+612
+148.2
+Approximate
+TMLE Asymp
+71.4
+468
+0.9
+Asymptotic
+Quantile RF
+68.9
+521
+5.7
+None
+CONFIDE
+85.7
+574
+2.1
+Finite-sample
+PBC (IPCW)
+Bootstrap
+85.1
+2398
+412.7
+Approximate
+TMLE Asymp
+78.2
+1876
+2.3
+Asymptotic
+Quantile RF
+74.6
+1923
+18.9
+None
+CONFIDE
+82.4
+2187
+5.8
+Finite-sample
+Key Observations:
+•
+Consistent under-coverage of asymptotic methods: TMLE Asymptotic under-covers
+across all datasets (71.4–78.2% vs. 90% target), confirming that asymptotic approxima-
+tions fail in finite-sample regimes (N = 137–418).
+•
+Bootstrap computational cost: Bootstrap is 70–77× slower than CONFIDE (148–413 s
+vs. 2–6 s), making it impractical for real-time clinical applications requiring thousands
+of predictions.
+•
+Heuristic methods lack guarantees: Quantile RF consistently under-covers (68.9–74.6%),
+demonstrating the value of formal coverage guarantees in safety-critical applications.
+•
+CONFIDE maintains near-nominal coverage: CONFIDE achieves 82.4–93.3% cover-
+age across diverse datasets, with some conservatism (Melanoma: 93.3%) but always
+above the nominal level, validating the finite-sample guarantee of Theorem 1.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 25
+
+FORMULA CHECK REQUIRED: original PDF page 25.
+
+````text
+Mathematics 2026, 14, 383
+25 of 28
+•
+PBC with IPCW correction: The PBC results shown here use the IPCW-corrected
+algorithm (Algorithm A1), recovering coverage from 14.3% (unweighted, Table 3)
+to 82.4%.
+Appendix A.3. Sensitivity Analysis: Coverage vs. Censoring Proportion
+To systematically investigate the impact of censoring on coverage, we conducted a
+sensitivity analysis across varying censoring proportions.
+Table A2. Coverage performance as a function of censoring proportion. Results are averaged over
+100 bootstrap samples for each censoring level on the PBC dataset.
+Censoring %
+CONFIDE
+(Unweighted)
+CONFIDE (IPCW)
+Target
+Width Increase
+<20%
+88.7%
+89.2%
+90%
++3%
+20–40%
+82.3%
+87.1%
+90%
++12%
+40–60%
+68.4%
+84.6%
+90%
++28%
+>60%
+43.2%
+79.8%
+90%
++45%
+Findings:
+•
+Critical threshold at 40% censoring: Unweighted CONFIDE maintains near-nominal
+coverage (>80%) for censoring < 40% but degrades rapidly beyond this threshold.
+•
+IPCW correction effectiveness: IPCW maintains coverage > 79% even with >60% cen-
+soring, though with increased interval width (45% wider than low-censoring scenarios).
+•
+Width-coverage trade-off: The IPCW correction increases interval width propor-
+tionally to censoring severity, reflecting the true uncertainty introduced by missing
+event times.
+•
+Practical recommendation: Use unweighted CONFIDE for censoring < 20% (minimal
+efficiency loss); apply IPCW for censoring > 40% (necessary for valid coverage).
+Appendix A.4. Computational Complexity Analysis
+Table A3 summarizes the computational complexity of CONFIDE and baseline methods.
+Table A3.
+Computational complexity comparison.
+n = sample size, p = number of features,
+B = bootstrap resamples, T = number of time points.
+Method
+Training
+Prediction (Per Unit)
+CONFIDE
+O(np log n + nT)
+O(T)
+Bootstrap
+O(Bnp log n)
+O(BT)
+TMLE Asymptotic
+O(np log n + nT)
+O(T + p2)
+Quantile RF
+O(np log2 n)
+O(T log n)
+Analysis:
+•
+Training complexity: CONFIDE and TMLE Asymptotic have identical training com-
+plexity, dominated by hazard model fitting (O(np log n)) and TMLE targeting (O(nT)).
+•
+Bootstrap overhead: Bootstrap multiplies training cost by B (typically 1000), resulting
+in 1000× longer training time.
+•
+Prediction complexity: All methods scale linearly with the number of time points T
+for CIF evaluation. CONFIDE requires solving Equation (25), which takes O(T) via
+numerical integration.
+•
+IPCW overhead: Adding IPCW correction (Algorithm A1) introduces O(n) additional
+operations for computing ˆG( ˜Ti | Xi, Ai), negligible compared to model training.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 26
+
+FORMULA CHECK REQUIRED: original PDF page 26.
+
+````text
+Mathematics 2026, 14, 383
+26 of 28
+Appendix A.5. Hyperparameter Selection
+CONFIDE requires specification of several hyperparameters. Table A4 provides
+recommended values based on our empirical evaluation.
+Table A4. Recommended hyperparameter settings for CONFIDE.
+Parameter
+Default Value
+Notes
+Miscoverage α
+0.10
+90% target coverage; adjust based on risk
+tolerance
+Train/Cal/Test split
+50%/25%/25%
+Balanced performance vs. efficiency
+Regularization η
+10−6
+Prevents division by zero in Equation (20)
+Propensity truncation δ
+0.01–0.05
+Larger δ for extreme propensity scores
+IPCW truncation δG
+0.01
+Prevents extreme weights from
+near-censored times
+Super Learner library
+Cox, RSF, GBM
+Balance flexibility and interpretability
+Sensitivity to hyperparameters:
+•
+Data split ratio: We tested 60%/20%/20% and 40%/30%/30% splits; results were
+within 2% coverage difference. The 50%/25%/25% split provides good balance.
+•
+Regularization η: Values in [10−8, 10−4] produced nearly identical results; η = 10−6
+is numerically stable.
+•
+Propensity truncation: Increasing δ from 0.01 to 0.05 widened intervals by 8–12% but
+improved coverage by 1–3% in extreme propensity settings.
+Appendix A.6. Software Implementation
+A reference implementation of CONFIDE in Python is available at:
+https://github.com/vinhqdang/CONFIDE, accessed on 21 Jan 2026.
+Dependencies:
+•
+scikit-survival: Survival analysis (Cox, RSF)
+•
+lifelines: Kaplan–Meier, Fine–Gray models
+•
+numpy, scipy: Numerical computation
+•
+pandas: Data manipulation
+Example usage:
+from confide import CONFIDE
+# Initialize with dataset
+model = CONFIDE(alpha=0.10, use_ipcw=True)
+# Fit on training data
+model.fit(X_train, A_train, T_train, delta_train, J_train)
+# Predict intervals for new subjects
+intervals = model.predict_interval(X_test, A_test)
+Appendix A.7. Dataset Descriptions
+Table A5 provides detailed descriptions of the four datasets used in our evaluation.
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 27
+
+Technical extraction; compare with original PDF page 27.
+
+````text
+Mathematics 2026, 14, 383
+27 of 28
+Table A5. Detailed dataset characteristics. All datasets are publicly available from the survival and
+pycox Python 3.13 packages.
+Dataset
+N
+Features
+Events
+Censoring %
+Description
+Melanoma
+205
+7
+71
+65.4%
+Melanoma patients; death vs.
+alive
+PBC
+418
+17
+186
+55.5%
+Primary biliary cirrhosis;
+death vs. transplant
+Follicular
+541
+9
+307
+43.3%
+Follicular lymphoma; relapse
+vs. death
+BMT
+137
+10
+83
+39.4%
+Bone marrow transplant;
+relapse vs. death
+Feature descriptions:
+•
+Melanoma: age, sex, tumor thickness, ulceration, year of diagnosis.
+•
+PBC: age, albumin, bilirubin, edema, hepatomegaly, ascites, spiders, stage.
+•
+Follicular: age, sex, hemoglobin, treatment arm, histological grade.
+•
+BMT: age, sex, disease status, donor type, HLA match, CMV status.
+References
+1.
+Vovk, V.; Gammerman, A.; Shafer, G. Algorithmic Learning in a Random World; Springer: New York, NY, USA, 2005.
+2.
+Shafer, G.; Vovk, V. A Tutorial on Conformal Prediction. J. Mach. Learn. Res. 2008, 9, 371–421.
+3.
+Lei, J.; G’Sell, M.; Rinaldo, A.; Tibshirani, R.J.; Wasserman, L. Distribution-Free Predictive Inference for Regression. J. Am. Stat.
+Assoc. 2018, 113, 1094–1111. [CrossRef]
+4.
+Romano, Y.; Patterson, E.; Candès, E. Conformalized Quantile Regression. In Advances in Neural Information Processing Systems;
+Wallach, H., Larochelle, H., Beygelzimer, A., d’Alché Buc, F., Fox, E., Garnett, R., Eds.; Curran Associates, Inc.: Red Hook, NY,
+USA, 2019; Volume 32, pp. 3543–3553.
+5.
+Dang, Q.V.; Pham, T.H. Kernel Methods for Conformal Prediction to Detect Botnets. In Proceedings of the International Conference
+on Artificial Intelligence on Textile and Apparel; Springer: Berlin/Heidelberg, Germany, 2023; pp. 29–41.
+6.
+Barber, R.F.; Candès, E.J.; Ramdas, A.; Tibshirani, R.J. Predictive Inference with the Jackknife+. Ann. Stat. 2021, 49, 486–507.
+[CrossRef]
+7.
+Barber, R.F.; Candès, E.J.; Ramdas, A.; Tibshirani, R.J. Conformal Prediction Beyond Exchangeability. Ann. Stat. 2023, 51, 816–845.
+[CrossRef]
+8.
+Angelopoulos, A.N.; Bates, S. A Gentle Introduction to Conformal Prediction and Distribution-Free Uncertainty Quantification.
+Found. Trends Mach. Learn. 2023, 16, 494–591. [CrossRef]
+9.
+Candès, E.J.; Lei, L.; Ren, Z. Conformalized Survival Analysis. J. R. Stat. Soc. Ser. B Stat. Methodol. 2023, 85, 24–45. [CrossRef]
+10.
+Tibshirani, R.J.; Barber, R.F.; Candès, E.; Ramdas, A. Conformal Prediction Under Covariate Shift. In Advances in Neural Information
+Processing Systems; Wallach, H., Larochelle, H., Beygelzimer, A., d’Alché Buc, F., Fox, E., Garnett, R., Eds.; Curran Associates, Inc.:
+Red Hook, NY, USA, 2019; Volume 32, pp. 2530–2540.
+11.
+Gui, S.F.; Hore, A.; Ren, Z.; Barber, R.F. Conformalized Survival Analysis with Adaptive Cutoffs. Biometrika 2024, 111, 459–477.
+[CrossRef]
+12.
+Sesia, M.; Candès, E.J. Doubly-Valid/Doubly-Sharp Sensitivity Analysis for Causal Inference with Unmeasured Confounding.
+arXiv 2024, arXiv:2412.09729.
+13.
+Rytgaard, H.C.W.; Eriksson, F.; van der Laan, M.J. Estimation of Time-Specific Intervention Effects on Continuously Distributed
+Time-to-Event Outcomes by Targeted Maximum Likelihood Estimation. Biometrics 2023, 79, 3038–3049. [CrossRef]
+14.
+Rytgaard, H.C.; van der Laan, M.J. Targeted maximum likelihood estimation for causal inference in survival and competing risks
+analysis. Lifetime Data Anal. 2024, 30, 4–33. [CrossRef]
+15.
+Westling, T.; Luedtke, A.; Gilbert, P.B.; Carone, M. Inference for Treatment-Specific Survival Curves Using Machine Learning. J.
+Am. Stat. Assoc. 2024, 119, 1541–1553. [CrossRef]
+16.
+Andersen, P.K.; Syriopoulou, E.; Parner, E.T. Causal Inference in Survival Analysis Using Pseudo-Observations. Stat. Med. 2017,
+36, 2669–2681. [CrossRef]
+17.
+Díaz, I.; Hoffman, K.L.; Schenck, E.J. Causal Survival Analysis Under Competing Risks Using Longitudinal Modified Treatment
+Policies. Lifetime Data Anal. 2024, 30, 213–257. [CrossRef] [PubMed]
+https://doi.org/10.3390/math14020383
+
+````
+
+## PDF page 28
+
+Technical extraction; compare with original PDF page 28.
+
+````text
+Mathematics 2026, 14, 383
+28 of 28
+18.
+Zhang, H.; Ren, Y.; Xia, Y.; Zhou, S.; Guan, J. Towards effective causal partitioning by edge cutting of adjoint graph. IEEE Trans.
+Pattern Anal. Mach. Intell. 2024, 46, 10259–10271. [CrossRef]
+19.
+Ren, Y.; Zhang, J.; Xia, Y.; Wang, R.; Xie, F.; Guan, J.; Zhang, H.; Zhou, S. Regression-based Conditional Independence Test with
+Adaptive Kernels. Artif. Intell. 2025, 347, 104391. [CrossRef]
+20.
+Fine, J.P.; Gray, R.J. A Proportional Hazards Model for the Subdistribution of a Competing Risk. J. Am. Stat. Assoc. 1999,
+94, 496–509. [CrossRef]
+21.
+Putter, H.; Fiocco, M.; Geskus, R.B. Tutorial in Biostatistics: Competing Risks and Multi-State Models.
+Stat. Med. 2007,
+26, 2389–2430. [CrossRef]
+22.
+Austin, P.C.; Fine, J.P. Practical Recommendations for Reporting Fine-Gray Model Analyses for Competing Risk Data. Stat. Med.
+2017, 36, 4391–4400. [CrossRef]
+23.
+Ishwaran, H.; Gerds, T.A.; Kogalur, U.B.; Moore, R.D.; Gange, S.J.; Lau, B.M. Random Survival Forests for Competing Risks.
+Biostatistics 2014, 15, 757–773. [CrossRef] [PubMed]
+24.
+Lee, C.; Zame, W.R.; Yoon, J.; van der Schaar, M. DeepHit: A Deep Learning Approach to Survival Analysis with Competing
+Risks. In Proceedings of the 32nd AAAI Conference on Artificial Intelligence, New Orleans, LA, USA, 2–7 February 2018; AAAI
+Press: Palo Alto, CA, USA, 2018; pp. 2314–2321.
+25.
+Monterrubio-Gómez, K.; Constantine-Cooke, N.; Vallejos, C.A. A review on statistical and machine learning competing risks
+methods. Biom. J. 2024, 66, 2300060. [CrossRef]
+26.
+Yanagisawa, H.; Woo, H.; Zhao, H.; Looper, S.; Wu, W. Proper Scoring Rules for Survival Analysis. In Proceedings of Machine
+Learning Research, Proceedings of the 40th International Conference on Machine Learning, Honolulu, HI, USA, 23–29 July 2023; Krause,
+A., Brunskill, E., Cho, K., Engelhardt, B., Sabato, S., Scarlett, J., Eds.; PMLR: London, UK, 2023; Volume 202, pp. 39165–39182.
+27.
+Goldstein, M.; Han, X.; Puli, A.; Perotte, A.; Ranganath, R. X-CAL: Explicit Calibration for Survival Analysis. In Advances in
+Neural Information Processing Systems; Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., Lin, H., Eds.; Curran Associates, Inc.:
+Red Hook, NY, USA, 2020; Volume 33, pp. 18296–18307.
+28.
+Lei, L.; Candès, E.J. Conformal Inference of Counterfactuals and Individual Treatment Effects. J. R. Stat. Soc. Ser. B Stat. Methodol.
+2021, 83, 911–938. [CrossRef]
+29.
+Alaa, A.M.; Ahmad, Z.; van der Laan, M.J. Conformal Meta-learners for Predictive Inference of Individual Treatment Effects. In
+Advances in Neural Information Processing Systems; Oh, A., Naumann, T., Globerson, A., Saenko, K., Hardt, M., Levine, S., Eds.;
+Curran Associates, Inc.: Red Hook, NY, USA, 2023; Volume 36, pp. 45346–45380.
+30.
+Jin, Y.; Ren, Z.; Candès, E.J. Sensitivity Analysis of Individual Treatment Effects: A Robust Conformal Inference Approach. Proc.
+Natl. Acad. Sci. USA 2023, 120, e2214889120. [CrossRef] [PubMed]
+31.
+Tan, L. Causally-informed instance-wise feature selection for explaining visual classifiers. Entropy 2025, 27, 814. [CrossRef]
+[PubMed]
+32.
+Rubin, D.B. Characterizing the estimation of parameters in incomplete-data problems. J. Am. Stat. Assoc. 1974, 69, 467–474.
+[CrossRef]
+33.
+Van der Laan, M.J.; Rose, S. Targeted Learning in Data Science; Springer: Berlin/Heidelberg, Germany, 2018.
+34.
+Meinshausen, N.; Ridgeway, G. Quantile regression forests. J. Mach. Learn. Res. 2006, 7, 983–999.
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.
+https://doi.org/10.3390/math14020383
+
+````
+

@@ -1,0 +1,34 @@
+{
+  "paper_id": "Naee6721bcd",
+  "category": "K",
+  "title": "Sequential conditioning in hematopoietic stem cell transplantation in elderly high-risk myeloid blood cancer patients: long-term survival, disease control, and immune recovery across donor types in a matched-pair analysis",
+  "authors": "Sarah Haebe and Elena Stauffer and Heidrun Drolle and Dusan Prevalsek and Moritz Schmidt and Quentin Fichaux and Michael Weigand and Alessia Fraccaroli and Johanna Tischer",
+  "doi": "10.3389/fimmu.2026.1803250",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3389/fimmu.2026.1803250",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/Naee6721bcd/artifacts/9b7006e3ad97/original.pdf"
+  ],
+  "public_markdown": [
+    "K/Naee6721bcd/artifacts/9b7006e3ad97/fulltext.md"
+  ],
+  "public_txt": [
+    "K/Naee6721bcd/artifacts/9b7006e3ad97/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "9b7006e3ad97835ea35acf4cb4be3567bca41a6f1944bb49b32bbbdb23354824",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1803250/pdf",
+      "provenance": "K/Naee6721bcd/artifacts/9b7006e3ad97/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/Naee6721bcd/README.md",
+  "status": "public_fulltext"
+}

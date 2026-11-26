@@ -1,0 +1,1591 @@
+\documentclass[11pt]{article}
+\usepackage{amsgen,amsmath,amstext,amsbsy,amsopn,amssymb,mathabx,mathrsfs,amsthm,bm,bbm,romannum,enumitem,natbib,xr,multirow,setspace}
+\externaldocument{eLearn}
+\usepackage[labelfont=bf]{caption}
+\captionsetup[table]{font={stretch=1}}
+\captionsetup[figure]{font={stretch=1}}
+\usepackage[dvips]{graphicx}
+\graphicspath{{figures/}}
+\usepackage{subcaption}
+\usepackage[ruled,vlined,linesnumbered,resetcount]{algorithm2e}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+	citecolor=blue
+}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+\usepackage[depth=3]{bookmark}
+
+\usepackage[margin=1in]{geometry}
+\renewcommand{\baselinestretch}{1.5}	% Line Stretch
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\numberwithin{equation}{section}
+
+%----- Kable Packages --------%
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+
+
+%----- theorems -----%
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{coro}[thm]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}[section]
+\newtheorem{asm}{Assumption}[section]
+\newtheorem{eg}{Example}[section]
+\newtheorem*{rmk}{Remark}
+
+\theoremstyle{remark}
+
+
+%----- bold fonts -----%
+
+\newcommand{\ab}{\mathbf{a}}
+\newcommand{\bbb}{\mathbf{b}}
+\newcommand{\cbb}{\mathbf{c}}
+\newcommand{\db}{\mathbf{d}}
+\newcommand{\eb}{\mathbf{e}}
+\newcommand{\fb}{\mathbf{f}}
+\newcommand{\gb}{\mathbf{g}}
+\newcommand{\hb}{\mathbf{h}}
+\newcommand{\ib}{\mathbf{i}}
+\newcommand{\jb}{\mathbf{j}}
+\newcommand{\kb}{\mathbf{k}}
+\newcommand{\lb}{\mathbf{l}}
+\newcommand{\mb}{\mathbf{m}}
+\newcommand{\nbb}{\mathbf{n}}
+\newcommand{\ob}{\mathbf{o}}
+\newcommand{\pb}{\mathbf{p}}
+\newcommand{\qb}{\mathbf{q}}
+\newcommand{\rb}{\mathbf{r}}
+\newcommand{\sbb}{\mathbf{s}}
+\newcommand{\tb}{\mathbf{t}}
+\newcommand{\ub}{\mathbf{u}}
+\newcommand{\vb}{\mathbf{v}}
+\newcommand{\wb}{\mathbf{w}}
+\newcommand{\xb}{\mathbf{x}}
+\newcommand{\yb}{\mathbf{y}}
+\newcommand{\zb}{\mathbf{z}}
+
+% denote vectors
+\newcommand{\ba}{\bm{a}}
+\newcommand{\bb}{\bm{b}}
+\newcommand{\bc}{\bm{c}}
+\newcommand{\bd}{\bm{d}}
+\newcommand{\be}{\bm{e}}
+\newcommand{\bbf}{\bm{f}}
+\newcommand{\bg}{\bm{g}}
+\newcommand{\bh}{\bm{h}}
+\newcommand{\bi}{\bm{i}}
+\newcommand{\bj}{\bm{j}}
+\newcommand{\bk}{\bm{k}}
+\newcommand{\bl}{\bm{l}}
+\newcommand{\bbm}{\bm{m}}
+\newcommand{\bn}{\bm{n}}
+\newcommand{\bo}{\bm{o}}
+\newcommand{\bp}{\bm{p}}
+\newcommand{\bq}{\bm{q}}
+\newcommand{\br}{\bm{r}}
+\newcommand{\bs}{\bm{s}}
+\newcommand{\bt}{\bm{t}}
+\newcommand{\bu}{\bm{u}}
+\newcommand{\bv}{\bm{v}}
+\newcommand{\bw}{\bm{w}}
+\newcommand{\bx}{\bm{x}}
+\newcommand{\by}{\bm{y}}
+\newcommand{\bz}{\bm{z}}
+
+% denote random matrices
+\newcommand{\Ab}{\mathbf{A}}
+\newcommand{\Bb}{\mathbf{B}}
+\newcommand{\Cb}{\mathbf{C}}
+\newcommand{\Db}{\mathbf{D}}
+\newcommand{\Eb}{\mathbf{E}}
+\newcommand{\Fb}{\mathbf{F}}
+\newcommand{\Gb}{\mathbf{G}}
+\newcommand{\Hb}{\mathbf{H}}
+\newcommand{\Ib}{\mathbf{I}}
+\newcommand{\Jb}{\mathbf{J}}
+\newcommand{\Kb}{\mathbf{K}}
+\newcommand{\Lb}{\mathbf{L}}
+\newcommand{\Mb}{\mathbf{M}}
+\newcommand{\Nb}{\mathbf{N}}
+\newcommand{\Ob}{\mathbf{O}}
+\newcommand{\Pb}{\mathbf{P}}
+\newcommand{\Qb}{\mathbf{Q}}
+\newcommand{\Rb}{\mathbf{R}}
+\newcommand{\Sbb}{\mathbf{S}}
+\newcommand{\Tb}{\mathbf{T}}
+\newcommand{\Ub}{\mathbf{U}}
+\newcommand{\Vb}{\mathbf{V}}
+\newcommand{\Wb}{\mathbf{W}}
+\newcommand{\Xb}{\mathbf{X}}
+\newcommand{\Yb}{\mathbf{Y}}
+\newcommand{\Zb}{\mathbf{Z}}
+
+% denote random vectors
+\newcommand{\bA}{\bm{A}}
+\newcommand{\bB}{\bm{B}}
+\newcommand{\bC}{\bm{C}}
+\newcommand{\bD}{\bm{D}}
+\newcommand{\bE}{\bm{E}}
+\newcommand{\bF}{\bm{F}}
+\newcommand{\bG}{\bm{G}}
+\newcommand{\bH}{\bm{H}}
+\newcommand{\bI}{\bm{I}}
+\newcommand{\bJ}{\bm{J}}
+\newcommand{\bK}{\bm{K}}
+\newcommand{\bL}{\bm{L}}
+\newcommand{\bM}{\bm{M}}
+\newcommand{\bN}{\bm{N}}
+\newcommand{\bO}{\bm{O}}
+\newcommand{\bP}{\bm{P}}
+\newcommand{\bQ}{\bm{Q}}
+\newcommand{\bR}{\bm{R}}
+\newcommand{\bS}{\bm{S}}
+\newcommand{\bT}{\bm{T}}
+\newcommand{\bU}{\bm{U}}
+\newcommand{\bV}{\bm{V}}
+\newcommand{\bW}{\bm{W}}
+\newcommand{\bX}{\bm{X}}
+\newcommand{\bY}{\bm{Y}}
+\newcommand{\bZ}{\bm{Z}}
+
+% denote vectors
+\newcommand{\bbeta}{\bm{\beta}}
+\newcommand{\bmeta}{\bm{\eta}}
+\newcommand{\balpha}{\bm{\alpha}}
+\newcommand{\bsigma}{\bm{\sigma}}
+\newcommand{\bgamma}{\bm{\gamma}}
+\newcommand{\blambda}{\bm{\lambda}}
+\newcommand{\bomega}{\bm{\omega}}
+\newcommand{\bmu}{\bm{\mu}}
+\newcommand{\btau}{\bm{\tau}}
+\newcommand{\bepsilon}{\bm{\epsilon}}
+\newcommand{\btheta}{\bm{\theta}}
+\newcommand{\bxi}{\bm{\xi}}
+\newcommand{\bpi}{\bm{\pi}}
+\newcommand{\bphi}{\bm{\phi}}
+\newcommand{\bvarphi}{\bm{\varphi}}
+\newcommand{\bpsi}{\bm{\psi}}
+
+% denote matrices
+\newcommand{\bGamma}{\bm{\Gamma}}
+\newcommand{\bLambda}{\bm{\Lambda}}
+\newcommand{\bSigma}{\bm{\Sigma}}
+\newcommand{\bTheta}{\bm{\Theta}}
+
+
+%----- double fonts -----%
+
+\newcommand{\bbA}{\mathbb{A}}
+\newcommand{\bbB}{\mathbb{B}}
+\newcommand{\bbC}{\mathbb{C}}
+\newcommand{\bbD}{\mathbb{D}}
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbG}{\mathbb{G}}
+\newcommand{\bbH}{\mathbb{H}}
+\newcommand{\bbI}{\mathbb{I}}
+\newcommand{\bbJ}{\mathbb{J}}
+\newcommand{\bbK}{\mathbb{K}}
+\newcommand{\bbL}{\mathbb{L}}
+\newcommand{\bbM}{\mathbb{M}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbO}{\mathbb{O}}
+\newcommand{\bbP}{\mathbb{P}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbS}{\mathbb{S}}
+\newcommand{\bbT}{\mathbb{T}}
+\newcommand{\bbU}{\mathbb{U}}
+\newcommand{\bbV}{\mathbb{V}}
+\newcommand{\bbW}{\mathbb{W}}
+\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bbY}{\mathbb{Y}}
+\newcommand{\bbZ}{\mathbb{Z}}
+
+
+%----- calligraphic fonts -----%
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+
+%----- script fonts -----%
+
+\newcommand{\sA}{\mathscr{A}}
+\newcommand{\sB}{\mathscr{B}}
+\newcommand{\sC}{\mathscr{C}}
+\newcommand{\sD}{\mathscr{D}}
+\newcommand{\sE}{\mathscr{E}}
+\newcommand{\sF}{\mathscr{F}}
+\newcommand{\sG}{\mathscr{G}}
+\newcommand{\sH}{\mathscr{H}}
+\newcommand{\sI}{\mathscr{I}}
+\newcommand{\sJ}{\mathscr{J}}
+\newcommand{\sK}{\mathscr{K}}
+\newcommand{\sL}{\mathscr{L}}
+\newcommand{\sM}{\mathscr{M}}
+\newcommand{\sN}{\mathscr{N}}
+\newcommand{\sO}{\mathscr{O}}
+\newcommand{\sP}{\mathscr{P}}
+\newcommand{\sQ}{\mathscr{Q}}
+\newcommand{\sR}{\mathscr{R}}
+\newcommand{\sS}{\mathscr{S}}
+\newcommand{\sT}{\mathscr{T}}
+\newcommand{\sU}{\mathscr{U}}
+\newcommand{\sV}{\mathscr{V}}
+\newcommand{\sW}{\mathscr{W}}
+\newcommand{\sX}{\mathscr{X}}
+\newcommand{\sY}{\mathscr{Y}}
+\newcommand{\sZ}{\mathscr{Z}}
+
+
+%----- Fraktur fonts -----%
+
+\newcommand{\fA}{\mathfrak{A}}
+\newcommand{\fB}{\mathfrak{B}}
+\newcommand{\fC}{\mathfrak{C}}
+\newcommand{\fD}{\mathfrak{D}}
+\newcommand{\fE}{\mathfrak{E}}
+\newcommand{\fF}{\mathfrak{F}}
+\newcommand{\fG}{\mathfrak{G}}
+\newcommand{\fH}{\mathfrak{H}}
+\newcommand{\fI}{\mathfrak{I}}
+\newcommand{\fJ}{\mathfrak{J}}
+\newcommand{\fK}{\mathfrak{K}}
+\newcommand{\fL}{\mathfrak{L}}
+\newcommand{\fM}{\mathfrak{M}}
+\newcommand{\fN}{\mathfrak{N}}
+\newcommand{\fO}{\mathfrak{O}}
+\newcommand{\fP}{\mathfrak{P}}
+\newcommand{\fQ}{\mathfrak{Q}}
+\newcommand{\fR}{\mathfrak{R}}
+\newcommand{\fS}{\mathfrak{S}}
+\newcommand{\fT}{\mathfrak{T}}
+\newcommand{\fU}{\mathfrak{U}}
+\newcommand{\fV}{\mathfrak{V}}
+\newcommand{\fW}{\mathfrak{W}}
+\newcommand{\fX}{\mathfrak{X}}
+\newcommand{\fY}{\mathfrak{Y}}
+\newcommand{\fZ}{\mathfrak{Z}}
+
+\newcommand{\fa}{\mathfrak{a}}
+\newcommand{\ffb}{\mathfrak{b}}
+\newcommand{\fc}{\mathfrak{c}}
+\newcommand{\fd}{\mathfrak{d}}
+\newcommand{\fe}{\mathfrak{e}}
+\newcommand{\ff}{\mathfrak{f}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\fh}{\mathfrak{h}}
+\newcommand{\ffi}{\mathfrak{i}}
+\newcommand{\fj}{\mathfrak{j}}
+\newcommand{\fk}{\mathfrak{k}}
+\newcommand{\fl}{\mathfrak{l}}
+\newcommand{\fm}{\mathfrak{m}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fo}{\mathfrak{o}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\fq}{\mathfrak{q}}
+\newcommand{\fr}{\mathfrak{r}}
+\newcommand{\fs}{\mathfrak{s}}
+\newcommand{\ft}{\mathfrak{t}}
+\newcommand{\fu}{\mathfrak{u}}
+\newcommand{\fv}{\mathfrak{v}}
+\newcommand{\fw}{\mathfrak{w}}
+\newcommand{\fx}{\mathfrak{x}}
+\newcommand{\fy}{\mathfrak{y}}
+\newcommand{\fz}{\mathfrak{z}}
+
+
+%----- serif fonts -----%
+
+\newcommand{\sfA}{\mathsf{A}}
+\newcommand{\sfB}{\mathsf{B}}
+\newcommand{\sfC}{\mathsf{C}}
+\newcommand{\sfD}{\mathsf{D}}
+\newcommand{\sfE}{\mathsf{E}}
+\newcommand{\sfF}{\mathsf{F}}
+\newcommand{\sfG}{\mathsf{G}}
+\newcommand{\sfH}{\mathsf{H}}
+\newcommand{\sfI}{\mathsf{I}}
+\newcommand{\sfJ}{\mathsf{J}}
+\newcommand{\sfK}{\mathsf{K}}
+\newcommand{\sfL}{\mathsf{L}}
+\newcommand{\sfM}{\mathsf{M}}
+\newcommand{\sfN}{\mathsf{N}}
+\newcommand{\sfO}{\mathsf{O}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\sfQ}{\mathsf{Q}}
+\newcommand{\sfR}{\mathsf{R}}
+\newcommand{\sfS}{\mathsf{S}}
+\newcommand{\sfT}{\mathsf{T}}
+\newcommand{\sfU}{\mathsf{U}}
+\newcommand{\sfV}{\mathsf{V}}
+\newcommand{\sfW}{\mathsf{W}}
+\newcommand{\sfX}{\mathsf{X}}
+\newcommand{\sfY}{\mathsf{Y}}
+\newcommand{\sfZ}{\mathsf{Z}}
+
+
+%----- special operators -----%
+
+\newcommand\smallcO{
+	\mathchoice
+	{{\scriptstyle\mathcal{O}}}% \displaystyle
+	{{\scriptstyle\mathcal{O}}}% \textstyle
+	{{\scriptscriptstyle\mathcal{O}}}% \scriptstyle
+	{\scalebox{.5}{$\scriptscriptstyle\mathcal{O}$}}%\scriptscriptstyle
+}
+
+\newcommand{\argmin}{\mathop{\mathrm{argmin}}}
+\newcommand{\argmax}{\mathop{\mathrm{argmax}}}
+
+\newcommand{\sfvar}{\mathsf{Var}}
+\newcommand{\mse}{\mathsf{MSE}}
+\newcommand{\cmse}{\mathsf{CMSE}}
+\newcommand{\bias}{\mathsf{Bias}}
+\newcommand{\bcov}{\mathbf{Cov}}
+\newcommand{\cov}{\mathsf{Cov}}
+\newcommand{\cor}{\mathsf{Corr}}
+\newcommand{\se}{\mathsf{SE}}
+\newcommand{\VaR}{\mathsf{VaR}}
+\newcommand{\CVaR}{\mathsf{CVaR}}
+\newcommand{\rank}{\mathsf{rank}}
+\newcommand{\sfsign}{\mathsf{sign}}
+\newcommand{\tr}{\mathsf{trace}}	    % trace
+\newcommand{\sfvec}{\mathsf{Vec}}
+\newcommand{\sfdiag}{\mathsf{Diag}}
+\newcommand{\sfspan}{\mathsf{span}}	% linear span
+\newcommand{\bzero}{\mathbf{0}}	% zero vector
+\newcommand{\bone}{\mathbf{1}}	% all-one vector
+%\newcommand{\bbone}{\mathbbm{1}}	% indicator
+\newcommand{\bbone}{\bbI}	% indicator
+
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}	% independence
+
+%\newcommand{\ubar}{\underaccent{\bar}}	% underbar
+\def\ubar#1{\underbar{$ #1 $}}
+
+
+%----- distribution name -----%
+
+\newcommand{\Exp}{\mathsf{Exponential}}
+\newcommand{\Beta}{\mathsf{Beta}}
+\newcommand{\pois}{\mathsf{Poisson}}
+\newcommand{\bern}{\mathsf{Bernoulli}}
+\newcommand{\bin}{\mathsf{Binomial}}
+\newcommand{\multi}{\mathsf{Multinomial}}
+\newcommand{\geo}{\mathsf{Geometric}}
+\newcommand{\unif}{\mathsf{Uniform}}
+
+
+%----- others -----%
+\newcommand{\rd}{\mathrm{d}}
+\newcommand{\eff}{\mathrm{eff}}
+\newcommand{\opt}{\mathrm{opt}}
+\newcommand{\AIPWE}{\mathrm{AIPWE}}
+\newcommand{\rV}{\mathrm{V}}
+
+%\usepackage{authblk}
+\title{Supplementary Materials to ``Efficient Learning of Optimal Individualized Treatment Rules for Heteroscedastic or Misspecified Treatment-Free Effect Models''}
+\author{
+	Weibin Mo and Yufeng Liu%
+	\thanks{
+		\textit{Address for correspondence}: Yufeng Liu, Department of Statistics and Operations Research, Department of Genetics, Department of Biostatistics, Carolina Center for Genome Sciences, Lineberger Comprehensive Cancer Center,  University of North Carolina at Chapel Hill. 354 Hanes Hall, Chapel Hill, NC 27599, USA. E-mail: \href{mailto:yfliu@email.unc.edu}{yfliu@email.unc.edu}.
+	} 
+	\\ 
+	University of North Carolina at Chapel Hill
+}
+\date{}
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+\tableofcontents
+%\addcontentsline{toc}{section}{Supplement}
+\listoftables
+\listoffigures
+
+
+\newpage 
+
+\renewcommand{\thesection}{S}
+\section{Supplementary Materials}
+
+\subsection{Nonlinear Simulation Studies}\label{sec:simulation_nonlinear}
+This section focuses on nonlinear data generation and the learning methods based on polynomial basis. Specifically,
+We consider the same data generating process as in Section \ref{sec:DGP}, but with the treatment-free effect $ \mu_{0}(\bx) = {1 \over \sqrt{K}}\sum_{k'=1}^{K}h(x_{k'}) $ and the interaction effect $ \bbeta_{A}^{\intercal}\big(1,h(X_{1}),\cdots,h(X_{p})\big)^{\intercal} $. Here, both $ h(x) = x^{3} $ and $ h(x) = e^{\sqrt{2}x} $ are studied. The propensity score is $ p_{\sA}(A|\bX) = {e^{X_{A}/2} \over \sum_{k=1}^{K}e^{X_{k}/2}} $, while both the homoscedastic variance function $ \sigma^{2}(\bX,A) = 1 $ and the heteroscedastic variance function $ \sigma^{2}(\bX,A) = e^{2\sqrt{2} X_{A}} $ are considered.
+
+For implementation, we consider the same linear Q-Learning, D-Learning, RD-Learning, and E-Learning as in Section \ref{sec:implement_detail}, and the cubic versions with $ \bX^{(3)} = (X_{1},X_{1}^{2},X_{1}^{3};\cdots;X_{p},X_{p}^{2},X_{p}^{3})^{\intercal} $ as the covariate vector. If $ h(x) = x^{3} $, then the linear methods misspecify both the treatment-free effect and interaction effect models, while the cubic methods correctly specify these models. If $ h(x) = e^{\sqrt{2}x} $, then all these methods misspecify the models.
+
+The testing misclassification rates and regrets based on 100 replications are reported in Figures \ref{fig:nonlinear_misclass} and \ref{fig:nonlinear_regret} respectively. 
+Linear 	E-Learning can maintain the best performance among the linear methods, even though the advantage is less evident due to the misspecified interaction effect. This suggests that the efficiency gain of E-Learning towards the misspecified treatment-free effect and heteroscedasticity can be maintained even in presence of the misspecified interaction effect.
+
+The cubic methods generally have better testing performance than the linear methods, since the cubic versions are more flexible to approximate the true treatment-free and interaction effects. In particular, for the data generation with $ h(x) = x^{3} $, the treatment-free and interaction effect models in the cubic methods are correctly specified. In that case, the superiority of cubic E-Learning among the cubic methods is the same as in Section \ref{sec:simulation}. For the data generation with $ h(x) = e^{\sqrt{2}x} $, cubic E-Learning can also be superior to the other cubic methods with a strong advantage, even when the interaction effect is misspecified. In particular, the misclassification rate of cubic E-Learning when $ n = 1600 $ is 0.117, while that of cubic RD-Learning, D-Learning and Q-Learning are 0.216, 0.28 and 0.266 respectively. This can confirm the effectiveness of cubic E-Learning for the nonlinear problems.
+\newpage
+
+\subsection{Analysis of the ACTG 175 Trial Data}\label{sec:ACTG175}
+We evaluate the effectiveness of our proposed E-Learning on a clinical trial dataset from the ``AIDS clinical trial group study 175" \citep{hammer1996trial}. The goal of this study was to compare four treatment arms among 2,139 randomly assigned subjects with human immunodeficiency virus type 1 (HIV-1), whose CD4 counts were 200-500 cells/mm$ ^{3} $. The four treatment options of $ A $ are the zidovudine (ZDV) monotherapy, the didanosine (ddI) monotherapy, the ZDV combined with ddI, and the ZDV combined with zalcitabine (ZAL). 
+
+The primary outcome $ Y $ of our interest is the difference between the CD4 cell counts at early stage (20$ \pm $5 weeks from baseline) and the CD4 counts at baseline, which is larger the better. We follow the analyses in \citet{lu2013variable,qi2020multi,meng2020robust} and consider 12 selected baseline covariates $ \bX $. There are 5 continuous covariates: age (year), weight (kg, coded as \texttt{wtkg}), CD4 count (cells/mm$ ^{3} $) at baseline, Karnofsky score (scale of 0-100, coded as \texttt{karnof}), CD8 count (cells/mm$ ^{3} $) at baseline. They are centered and scaled before further analysis. In addition, there are 7 binary variables: gender (1 = male, 0 = female), homosexual activity (\texttt{homo}, 1 = yes, 0 = no), race (1 = nonwhite, 0 = white), history of intravenous drug use (\texttt{drug}, 1 = yes, 0 = no), symptomatic status (\texttt{symptom}, 1 = symptomatic, 0 = asymptomatic), antiretroviral history (\texttt{str2}, 1 = experienced, 0 = naive) and hemophilia (\texttt{hemo}, 1 = yes, 0 = no). 
+
+We consider the training sample size $ n \in \{100,200,400,800,1600\} $ and the testing sample size $ n_{\rm test} = 400 $. The full  dataset is randomly split into training and testing according to the given sample sizes. Since the dataset is obtained from a randomized controlled trial, the propensity score function is known to be $ p_{\sA}(k|\bX) = 1/4 $ for $ k = 1,2,3,4 $. For the treatment-free effect estimation, we consider a linear working model with the $ \ell_{1} $-penalty throughout the analysis, which will be different from the implementation in \citet{meng2020robust}. For this real-world data application, the underlying truth is unknown to us. We cannot verify whether any of misspecified treatment-free effect and heteroscedasticity on the original dataset exist. Nevertheless, after modifying the dataset according to the following Table \ref{tab:ACTG175}, the treatment-free effect misspecification and heteroscedasticity can be anticipated. Note that the unmodified cases can also have treatment-free effect misspecification and heteroscedasticity as well. Our modification can enlarge such effects. The goal of our analysis is to demonstrate the efficiency improvement of E-Learning in presence of heavy treatment-free effect misspecification and heteroscedasticity. We further provide the residual plots in Figure \ref{fig:ACTG175_resid2} in Section \ref{sec:tab_fig}. Residuals are computed from the fitted E-Learning on each modified dataset according to Table \ref{tab:ACTG175}, and averaged over 10 replications. It confirms that the modifications can result in the squared residuals heavily depending on the variables \texttt{age} and \texttt{wtkg}.
+
+\renewcommand{\arraystretch}{1}
+\begin{table}[!ht]
+	\centering
+	\caption[ACTG 175, Modifications]{Modifications on the ACTG 175 Dataset and the Implying Model Specifications}
+	\label{tab:ACTG175}
+	\begin{threeparttable}
+		\begin{tabular}{l|cc}
+			\hline\hline
+			\textbf{Training Outcome Modification} & \textbf{Treatment-Free Effect} & \textbf{Variance Function} \\
+			\hline
+			Original $ Y $ & \textit{unmodified} & \textit{unmodified} \\
+			$ Y \gets Y + e^{2.5\times \texttt{age}} $ & \textbf{\textit{misspecified}} & \textit{unmodified} \\
+			$ Y \gets Y + 5e^{1.5\times\texttt{wtkg}} \times \xi $ & \textit{unmodified} & \textbf{\textit{heteroscedastic}} \\
+			$ Y \gets Y + e^{2.5\times \texttt{age}} + 5e^{1.5\times\texttt{wtkg}} \times \xi $ & \textbf{\textit{misspecified}} & \textbf{\textit{heteroscedastic}} \\
+			\hline\hline
+		\end{tabular}
+		\begin{tablenotes}
+			\fontsize{8}{5}\selectfont
+			\item[1] The variables \texttt{age} and \texttt{wtkg} are centered and scaled at the data preparation stage. 
+			\item[2] The additional noise $ \xi $ is randomly generated from $ \bbP(\xi = 1) = \bbP(\xi = -1) = 1/2 $ independent of $ \bX,A,Y $. 
+			\item[3] We further round the modified outcomes to their nearest integers to respect the integer nature of $ Y $. 
+			\item[4] The treatment-free effect is estimated by a linear working model with the $ \ell_{1} $-penalty.
+		\end{tablenotes}
+	\end{threeparttable}
+\end{table}
+
+On the training sample, we implement the same procedures as in Section \ref{sec:simulation} to fit Q-Learning, D-Learning, RD-Learning, and our proposed E-Learning. On the testing dataset, we evaluate the an estimated ITR $ \widehat{d} $ by the IPWE $ (1/n_{\rm test})\sum_{i=1}^{n_{\rm test}}Y_{i}\bbone[A_{i} = \widehat{d}(\bX_{i})]/(1/4) $, which is larger the better. Here, the testing outcome $ Y_{i} $ is unmodified in contrast to the training outcome to ensure comparable testing evaluation. Testing results based on 500 repeated training and testing for each of the four cases in Table \ref{tab:ACTG175} are reported in Figure \ref{fig:ACTG175}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=\linewidth]{ACTG175.pdf}
+	\caption[ACTG 175, Testing]{Testing changes in CD4 count (cell/mm$ {}^{3} $, larger the better) on the ACTG 175 dataset.}
+	\label{fig:ACTG175}
+\end{figure}
+
+When we use the original training outcome $ Y $, the testing CD4 count improvements of all methods close to each other. In particular, Q-Learning demonstrates slightly better performance for $ n = 100,200,400 $, but all methods have similar performance when $ n =800 $ and 1600. All these methods have improving testing performance  as $ n $ increases. When we modify $ Y $ to incorporate heavy heteroscedasticity or/and treatment-free effect misspecification, E-Learning can maintain the improvements as $ n $ increases, while other methods can have much poorer performance. In particular, other methods can even get worse as $ n $ increases in presence of heavy heteroscedasticity. We shall anticipate that the scientific findings for the analysis with original outcome $ Y $ will not be disturbed when we introduce additional treatment-free effect misspecification or/and heteroscedasticity. The results in Figure \ref{fig:ACTG175} show that E-Learning maintains the testing performance well during these modifications, while RD-Learning, D-Learning and Q-Learning are heavily affected. In this way, E-Learning demonstrates its superiority of efficiency gain in presence of misspecified treatment-free effect or/and heteroscedasticity.
+
+We further report the estimated coefficients for D-Learning, RD-Learning and E-Learning in Table \ref{tab:eLearn_ACTG175_coef} and Figure \ref{fig:ACTG175_coef} in Section \ref{sec:tab_fig}. The fitted coefficients on the original data are consistent with existing literature. Specifically, \texttt{Intercept}, \texttt{age} and \texttt{cd40} are common important covariates that were frequently reported in the literature \citep{lu2013variable,qi2020multi,meng2020robust}. When we incorporate heavy treatment-free effect misspecification or/and heteroscedasticity in cases \Romannum{2}, \Romannum{3} and \Romannum{4}, the fitted coefficients of D-Learning and RD-Learning become highly unstable with many extreme coefficients. In contrast, the fitted E-Learning coefficients are relatively stable across these cases. This suggests that the E-Learning estimate can be more resilient to the training outcome modifications in Table \ref{tab:ACTG175} compared with the other methods.
+
+\newpage
+
+\subsection{Optimal Estimating Function under Misspecified Propensity Score Model}\label{sec:prop_mis}
+
+Let $ \widecheck{p}_{\sA}(a|\bx) $ be an arbitrary propensity score function. For any $ \sfH: \cX \to \bbR^{p\times (K-1)} $, which can depend on $ \bbeta $, consider the following estimating function:
+\[ \bphi(\bbeta;\widecheck{p}_{\sA}) = [Y - \mu_{0}(\bX) - \gamma(\bX,A;\bbeta)]{\sfH(\bX)\bomega_{A} \over \widecheck{p}_{\sA}(A|\bX)}. \]
+By Proposition \ref{prop:dr}, since the working treatment-free effect function $ \mu_{0} $ is true, for any working propensity score function $ \widecheck{p}_{\sA} $, we have $ \bbE[\bphi(\bbeta;\widecheck{p}_{\sA})] = \bzero $ at the true $ \bbeta $. Our goal is to find the optimal $ \sfH(\bX) $ for a given working propensity score function $ \widecheck{p}_{\sA} $. 
+
+The following derivations are analogous to the proof of Theorem \ref{thm:eff_opt}:
+\begin{align*}
+	\bbE[\bphi(\bbeta;\widecheck{p}_{\sA})^{\otimes 2}] &= \bbE\left[ \sfH(\bX)\left( {\bomega_{A}^{\otimes 2}\epsilon^{2} \over \widecheck{p}_{\sA}(A|\bX)^{2}} \right)\sfH(\bX)^{\intercal} \right]\\
+	&= \bbE\left[ \sfH(\bX) \sfV_{\epsilon}(\bX;\widecheck{p}_{\sA}) \sfH(\bX)^{\intercal} \right];\\
+	\bbE \left[-{\partial\widecheck{\bphi}(\bbeta) \over \partial \bbeta^{\intercal}}\right] &= \bbE\left\{ \sfH(\bX)\left[ \left( 1 - {1 \over K} \right){\bomega_{A}^{\otimes 2} \over \widecheck{p}_{\sA}(A|\bX)} \right]\dot{\sfF}(\bX;\bbeta) \right\} - \underbrace{\bbE\left[ \dot{\sfH}(\bX;\bbeta){\bomega_{A}\epsilon \over \widecheck{p}_{\sA}(A|\bX)} \right]}_{= 0}\\
+	&= \bbE\left[ \sfH(\bX)\sfV_{\sA}(\bX;\widecheck{p}_{\sA})\dot{\sfF}(\bX;\bbeta) \right].
+\end{align*}
+In the second equality, we define
+\[ \sfV_{\epsilon}(\bX;\widecheck{p}_{\sA}) := \sum_{k=1}^{K}{p_{\sA}(k|\bX)\sigma^{2}(\bX,k)\bomega_{k}^{\otimes 2} \over \widecheck{p}_{\sA}(k|\bX)^{2}}. \]
+In the forth equality, it follows from that $ \bbE(\epsilon|\bX,A) = 0 $ and we define
+\[ \sfV_{\sA}(\bX;\widecheck{p}_{\sA}) := \left( 1 - {1 \over K} \right)\sum_{k=1}^{K}{p_{\sA}(k|\bX)\bomega_{k}^{\otimes 2} \over \widecheck{p}_{\sA}(k|\bX)}. \]
+
+Let $ \widehat{\bbeta}_{n}(\widecheck{p}_{\sA}) $ be the solution to $ \bbE_{n}[\bphi(\bbeta;\widecheck{p}_{\sA})] = \bzero $. Then under the same regularity conditions as in Theorems \ref{thm:eff} and \ref{thm:eff_opt}, we have
+\begin{align*}
+	&\lim_{n\to\infty}n\sfvar[\widehat{\bbeta}_{n}(\widecheck{p}_{\sA})] \\
+	=& \left\{ \bbE \left[-{\partial \bphi(\bbeta;\widecheck{p}_{\sA})\over \partial \bbeta^{\intercal}}\right]\right\}^{-1}\bbE [\widecheck{\bphi}(\bbeta)^{\otimes 2}]\left\{ \bbE \left[-{\partial \bphi(\bbeta;\widecheck{p}_{\sA})^{\intercal}\over \partial \bbeta}\right]\right\}^{-1} \\
+	=& \widetilde{\sfB}^{-1}\widetilde{\sfA}\widetilde{\sfB}^{-\intercal} = (\widetilde{\sfB}^{\intercal}\widetilde{\sfA}^{-1}\widetilde{\sfB})^{-1} \ge \widetilde{\sfC}^{-1},
+\end{align*}
+where, analogous to Lemma \ref{lem:sandwich}, we define
+\begin{align*}
+	\widetilde{\sfA} &:= \bbE[\sfH(\bX)\sfV_{\epsilon}(\bX;\widecheck{p}_{\sA})\sfH(\bX)^{\intercal}];\\
+	\widetilde{\sfB} &:= \bbE[\sfH(\bX)\sfV_{\sA}(\bX;\widecheck{p}_{\sA})\dot{\sfF}(\bX;\bbeta)];\\
+	\widetilde{\sfC} &:= \bbE[\dot{\sfF}(\bX;\bbeta)^{\intercal}\sfV_{\sA}(\bX;\widecheck{p}_{\sA})\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1}\sfV_{\sA}(\bX;\widecheck{p}_{\sA})\dot{\sfF}(\bX;\bbeta)],
+\end{align*}
+with equality if and only if exists some non-singular constant matrix $ \sfH_{0} \in \bbR^{p \times p} $ such that
+\[ \sfH(\bX) = \sfH_{0}\dot{\sfF}(\bX;\bbeta)^{\intercal}\sfV_{\sA}(\bX;\widecheck{p}_{\sA})\sfV_{\epsilon}(\bX;\widecheck{p}_{\sA})^{-1}. \]
+Therefore, the optimal estimating function under the working propensity score function $ \widecheck{p}_{\sA} $ is
+\begin{align*}
+	\bphi_{\eff}(\bbeta;\widecheck{p}_{\sA}) :=& [Y - \mu_{0}(\bX) - \gamma(\bX,A;\bbeta)] \times\\
+	& \underbrace{\dot{\sfF}(\bX;\bbeta)^{\intercal}\overbrace{\left[ \left( 1- {1 \over K} \right)\sum_{k=1}^{K}{p_{\sA}(k|\bX)\bomega_{k}^{\otimes 2} \over \widecheck{p}_{\sA}(k|\bX)} \right]}^{:=\sfV_{\sA}(\bX;\widecheck{p}_{\sA})}\Bigg[\overbrace{\sum_{k=1}^{K}{p_{\sA}(k|\bX)\sigma^{2}(\bX,k)\bomega_{k}^{\otimes 2} \over \widecheck{p}_{\sA}(k|\bX)^{2}}}^{:=\sfV_{\epsilon}(\bX;\widecheck{p}_{\sA})}\Bigg]^{-1}{\bomega_{A} \over \widecheck{p}_{\sA}(A|\bX)}}_{\text{optimal instrument}}.
+\end{align*}
+Here, different from the case of misspecified treatment-free effect model discussed in Section \ref{sec:asymptotic_misspecified}, the optimal estimating function cannot be defined from an optimal working variance as in Theorem \ref{thm:eff_opt}. It require different strategies to estimate the optimal variance components $ \sfV_{\sA}(\bX;\widecheck{p}_{\sA}) $ and $ \sfV_{\epsilon}(\bX;\widecheck{p}_{\sA}) $. One potential strategy is to identified them from
+\[ \sfV_{\sA}(\bX;\widecheck{p}_{\sA}) = \bbE\left[ \left( 1-{1 \over K} \right){\bomega_{A}^{\otimes 2} \over \widecheck{p}_{\sA}(A|\bX)}\middle|\bX \right]; \quad \sfV_{\epsilon}(\bX;\widecheck{p}_{\sA}) = \bbE\left( {\bomega_{A}^{\otimes 2} \epsilon^{2} \over \widecheck{p}_{\sA}(A|\bX)^{2}}\middle|\bX \right), \]
+where $ \epsilon $ is replaced by the working residual $ e = Y - \mu_{0}(\bX) - \gamma(\bX,A;\bbeta) $. Therefore, we can perform nonparametric regression on the $ \bbR^{(K-1)\times(K-1)} $-valued matrices $ \left( 1 - {1 \over K} \right){\bomega_{A}^{\otimes 2} \over \widecheck{p}_{\sA}(A|\bX)} $ and $ {\bomega_{A}^{\otimes 2}e^{2} \over \widecheck{p}_{\sA}(A|\bX)} $ on $ \bX $. However, such a strategy will be much different from the methodology proposed in this paper. In particular, in this paper, we only need to estimate an $ \bbR^{K} $-valued function $ \big( \widecheck{\sigma}_{\opt}^{2}(\bX,k): 1 \le k \le K \big) $, while the optimal estimating function under misspecified propensity score model require the estimation of two $ \bbR^{(K-1)\times(K-1)} $-valued functions $ \sfV_{\sA}(\bX;\widecheck{p}_{\sA}) $ and $ \sfV_{\epsilon}(\bX;\widecheck{p}_{\sA}) $.
+
+\newpage
+
+
+\subsection{More Implementation Details}\label{sec:implement_detail}
+\begin{itemize}[leftmargin=*]
+	\item \textbf{E-Learning} (general $ K $): When fitting the treatment-free effect and the propensity score functions, we consider the 10-fold cross-fitting strategy as in \citet{chernozhukov2018double,zhao2019efficient,athey2021policy}. Specifically, the training sample is randomly divided into 10 folds. For the $ k $-th fold fitting, we utilize the data other the $ k $-th fold to fit a treatment-free effect or propensity score model, and then predict the treatment-free effects or the propensity scores for the $ k $-th fold data. 
+	
+	We use regression forest to estimate variance function from the squared working residual. The \texttt{regression\_forest} function from the \texttt{grf} package in \texttt{R} is called. We also fit the MARS and COSSO estimates of variance function. The \texttt{earth} function from the \texttt{earth} package and a modified program based on the \texttt{cosso.Gaussian} function from the \texttt{cosso} package are applied. More details on the COSSO model and program are discussed in Section \ref{sec:var_cosso}.
+	
+	Before fitting E-Learning, we first center and scale each variables to ensure $ (1/n)\sum_{i=1}^{n}X_{ij} = 0 $ and $ (1/n)\sum_{i=1}^{n}X_{ij}^{2} = 1 $. When solving the penalized minimization problem \eqref{eq:eLearn_pen} by the accelerated proximal gradient descent, we call the \texttt{apg} function in \texttt{R} to perform optimization. When determining the tuning sequence of $ \lambda $'s, we take the strategy analog to \texttt{glmnet} \citep{friedman2010regularization}.
+	
+	\item \textbf{Q-Learning} (general $ K $): We consider the linear model using $ Y $ as the response and $ \big( 1,\bX^{\intercal},\vec{\bA}^{\intercal}, \vec{\bA}^{\intercal} \otimes \bX^{\intercal} \big)^{\intercal} $ as the covariates with the $ \ell_{1} $-penalty. Here, $ \vec{\bA} = \big( \bbone(A=2),\bbone(A=3),\cdots,\bbone(A=K) \big)^{\intercal} $, and $ \otimes $ denotes the Kronecker product. The method is also known as the \textit{$ \ell_{1} $-Penalized Least Square ($ \ell_{1} $-PLS)} \citep{qian2011performance}, and implemented by the \texttt{glmnet} function in \texttt{R}.
+	
+	\item \textbf{G-Estimation, dWOLS} ($ K=2 $, $ A \in \{0,1\} $): The \texttt{DTRreg} function from the \texttt{DTRreg} package \citep{wallace2017dynamic} in \texttt{R} is called to fit G-Estimation (\texttt{method = "gest"}) and dWOLS (\texttt{method = "dwols"}). The treatment-free effect model (\texttt{tf.mod}) is specified as linear in $ (1,\bX^{\intercal})^{\intercal} $. The propensity score model (\texttt{treat.mod}) is specified as the logistic model of $ A $ with respect to $ (1,\bX^{\intercal}) ^{\intercal} $. The interaction effect model (\texttt{blip.mod}) is specified as linear in $ (1,\bX^{\intercal})^{\intercal} $. For dWOLS, the weight function $ w(\bX,A) = |A - \widehat{\pi}_{\sA,n}(\bX)| $ in Section \ref{sec:binary} is used.
+	
+	\item \textbf{A-Learning, Subgroup Identification} ($ K = 2 $, $ A \in \{-1,1\} $): The \texttt{fit.subgroup} function from the \texttt{personalized} package \citep{huling2018subgroup} in \texttt{R} is called to fit A-Learning and Subgroup Identification with the $ \ell_{1} $-penalty (\texttt{method = "a\_learning"} and \texttt{method = "weighting"} respectively, \texttt{loss = "sq\_loss\_lasso"}). The propensity score model (\texttt{propensity.func}) is specified as the logistic model of $ A $ with respect to $ (1,\bX^{\intercal})^{\intercal} $ with the $ \ell_{1} $-penalty, which is fitted by \texttt{glmnet}. The treatment-free effect, also known as the augmentation function (\texttt{augment.func}), is specified as: for A-Learning, the linear model of $ Y $ with respect to $ (1,\bX^{\intercal})^{\intercal} $ with the $ \ell_{1} $-penalty, fitted by \texttt{glmnet}; and for Subgroup Identification, the linear model of $ Y $ with respect to $ (1,\bX^{\intercal},A,A\bX^{\intercal})^{\intercal} $ with the $ \ell_{1} $-penalty, fitted by \texttt{glmnet}, and outputting the arithmetic average of  predictions at $ A = 1 $ and $ A = -1 $.
+	
+	\item \textbf{D-Learning, RD-Learning:} (general $ K $) We consider the class of linear functions with the row-wise grouped LASSO penalty. The training process is performed  by the accelerated proximal gradient descent using the \texttt{apg} function. The estimation of the treatment-free effect and propensity score functions, the fitting details and the tuning strategy are the same as in E-Learning.
+	
+	\item \textbf{OWL, RWL, EARL} ($ K = 2 $, $ A \in \{0,1\} $): The \texttt{owl}, \texttt{rwl} and \texttt{earl} functions are called from the \texttt{R} package \texttt{DynTxRegime} to fit OWL, RWL and EARL respectively. The propensity score model (\texttt{moPropen}) is specified as the logistic model of $ A $ with respect to $ (1,\bX^{\intercal})^{\intercal} $ with the $ \ell_{1} $-penalty, which is fitted by \texttt{glmnet}. The outcome models, including the main effect model (\texttt{moMain}, used in \texttt{rwl}) and the contrast model (\texttt{moCont}, used in \texttt{rwl} and \texttt{earl}), are both specified as linear in $ (1,\bX^{\intercal})^{\intercal} $ with the $ \ell_{1} $-penalty, which are fitted by \texttt{glmnet}. The corresponding outcome mean model is $ \bbE(Y|\bX, A) = \texttt{moMain}(\bX) + A \times  \texttt{moCont}(\bX) $. These methods are fitted with linear decision functions (\texttt{kernel = "linear"}). For \texttt{owl} and \texttt{earl}, the hinge surrogate loss is used (\texttt{surrogate = "hinge"}). For \texttt{rwl}, the surrogate loss is the smoothed ramp loss \citep{zhou2017residual}. The tuning parameter $ \lambda $ for all methods is determined by 5-fold cross validation (\texttt{cvFolds = 5}). The sequence of $ \lambda $'s for tuning is determined analog to \texttt{glmnet} \citep{friedman2010regularization}.
+	
+	\item \textbf{Policy Learning:} (general $ K $) We use the \texttt{policy\_tree} function from the \texttt{policytree} package \citep{sverdrup2020policytree} in \texttt{R} to fit policy learning with decision trees. The outcome mean function and the propensity score function are both fitted by \texttt{regression\_forest} from the \texttt{grf} package.
+\end{itemize}
+
+\newpage
+
+\subsection{COSSO Estimate of the Working Variance Function}\label{sec:var_cosso}
+
+In this section, we consider the implementation details of estimating $ \sigma_{\opt}^{2}(\bx,A;\widehat{\mu}_{0,n}) $ from COSSO \citep{lin2006component}. Specifically, we perform nonparametric regression using the squared working residual $ \widehat{e}^{2} $ as the response and $ (\bX,A) $ as the covariates. 
+
+First of all, we discuss an SS-ANOVA model in terms of the covariate vector $ \bX=(X_{1},\cdots,X_{p})^{\intercal} \in \bbR^{p} $ and the treatment variable $ A \in \{1,2,\cdots,K\} $. If the $ j $-th variable $ X_{j} $ is continuously ranged, then the we first scale the domain of $ X_{j} $ to $ [0,1] $, and consider the $ j $-th covariate function space as $ \cH_{j} = \cS_{2} $, where $ (\cS_{2},\| \cdot \|_{\cS_{2}}) $ is the second order Sobolev Hilbert space:
+\begin{align*}
+	\cS_{2} &= \left\{ f:[0,1] \to \bbR~\middle|~\text{$ f $ and $ f' $ are absolutely continuous}, ~ \int f''(x)^{2} \rd x < +\infty \right\};\\
+	\| f \|_{\cS_{2}}^{2} &= \left( \int_{0}^{1}f(x)\rd x \right)^{2} + \left( \int_{0}^{1}f'(x)\rd x \right)^{2} + \int_{0}^{1}f''(x)^{2}\rd x.
+\end{align*}
+In particular, $ \cH_{j} = \cS_{2} $ can be decomposed as $ \{1\} \oplus \widebar{\cH}_{j} $ \citep[Equation (2.26)]{gu2013smoothing}, where $ \widebar{\cH}_{j} $ is the \textit{reproducing kernel Hilbert space (RKHS)} corresponding to the kernel function
+\[ \widebar{\kappa}_{j}(x,x') = k_{1}(x)k_{1}(x') + k_{2}(x)k_{2}(x') - k_{4}(|x-x'|); \quad x,x' \in [0,1]. \]
+Here, $ k_{1}(x) = x - 0.5 $, $ k_{2}(x) = (1/2)[k_{1}(x)^{2} - 1/12] $, and $ k_{4}(x) = (1/24)[k_{1}(x)^{4} - k_{1}(x)^{2}/2 + 7/240] $. If $ X_{j} $ takes finitely many values in $ \{ 1,2,\cdots,L_{j} \} $, then we consider $ \cH_{j} = \bbR^{L_{j}} $, which can be further decomposed as $ \{1\} \oplus \widebar{\cH}_{j} $. Here, $ \widebar{\cH}_{j} = \{ (\alpha_{1},\alpha_{2},\cdots,\alpha_{L_{j}})^{\intercal} \in \bbR^{L_{j}}: \sum_{l=1}^{L_{j}}\alpha_{l} = 0 \} $, and can be regarded as an $ L_{j} $-dimensional RKHS corresponding to the kernel matrix $ [\widebar{\kappa}_{j}(x,x')]_{x,x'=1}^{L_{j}} = \sfI_{L_{j}\times L_{j}} - (1/L_{j})\vec{\bone}_{L_{j}}\vec{\bone}_{L_{j}}^{\intercal} $. Similarly, since the treatment variable $ A $ is valued in $ \{1,2,\cdots,K\} $, we also consider the treatment function space $ \cH_{\sA} = \bbR^{K} $ with the decomposition $ \cH_{\sA} = \{1\} \oplus \widebar{\cH}_{\sA} $, where $ \widebar{\cH}_{\sA} $ is the subspace of $ \bbR^{K} $ with the sum-to-zero constraint and corresponds to the kernel matrix $ [\widebar{\kappa}_{\sA}(a,a')]_{a,a'=1}^{K} = \sfI_{K\times K} - (1/K)\vec{\bone}_{K}\vec{\bone}_{K}^{\intercal} $.
+
+The SS-ANOVA model is based on the following tensor-product RKHS \citep[Section 2.4.1]{gu2013smoothing}:
+\begin{align*}
+	\cH := \left[ \bigotimes_{j=1}^{d}\cH_{j} \right] \otimes \cH_{\sA} &= \left[ \bigotimes_{j=1}^{d}\left( \{1\} \oplus \widebar{\cH}_{j}\right) \right] \otimes \left(\{1\} \oplus \widebar{\cH}_{\sA} \right) \\
+	&= \underbrace{\{1\}}_{\text{global main effect}} \oplus \underbrace{\left[ \bigoplus_{j=1}^{d}\widebar{\cH}_{j} \right]}_{\text{covariate main effects}} \oplus \underbrace{\widebar{\cH}_{\sA}}_{\text{treatment main effect}} \oplus \underbrace{\left[ \bigoplus_{j=1}^{d}\left(\widebar{\cH}_{j}\otimes \widebar{\cH}_{\sA}\right) \right]}_{\text{covariate-treatment interaction effect}}\\
+	&\quad \oplus \underbrace{\left\{ \bigoplus_{\substack{\sJ \subseteq \{1,2,\cdots,d\} \\ |\sJ| \ge 2}} \left[ \left( \bigotimes_{j \in \sJ}\widebar{\cH}_{j} \right) \oplus \left( \bigotimes_{j\in \sJ}\widebar{\cH}_{j}\otimes\widebar{\cH}_{\sA} \right) \right] \right\}}_{\text{higher-order interaction effects}}.
+\end{align*}
+Here, we only consider first four effects from the above tensor-sum decomposition and ignore the higher-order interaction effects. Then the SS-ANOVA model is
+\[ \bbE(\widehat{e}^{2}|\bX,A) = \underbrace{\nu_{0}}_{\text{global main effect}} + \underbrace{\sum_{j=1}^{p}f_{j}(X_{j})}_{\text{covariate main effect}} + \underbrace{\sum_{k=1}^{K}\alpha_{k}}_{\text{treatment main effect}} + \underbrace{\sum_{j=1}^{K}\sum_{k=1}^{K}f_{jk}(X_{j})}_{\text{covariate-treatment interaction effect}} + \underbrace{u}_{\text{remainder}}. \]
+In particular, the tensor-product RKHS $ \widebar{\cH}_{j} \otimes \widebar{\cH}_{\sA} $, which models the covariate-treatment interaction effect, corresponds to the kernel function 
+\[ (\widebar{\kappa}_{j} \otimes \widebar{\kappa}_{\sA})\Big( (x_{j},a)^{\intercal},(x_{j}',a')^{\intercal} \Big) = \widebar{\kappa}_{j}(x_{j},x_{j}')\widebar{\kappa}_{\sA}(a,a'). \]
+Then the COSSO estimate $ \widehat{\sigma}_{n}^{2}(\bX,A) $ of the working variance function is obtained by solving:
+\[ \min_{f \in \cH}\left\{ {1 \over n}\sum_{i=1}^{n}[e_{i}^{2} - f(\bX_{i},A_{i})]^{2} + \lambda_{\sigma^{2}}\left( \sum_{j=1}^{d}\| f \|_{\widebar{\cH}_{j}} + \| f \|_{\widebar{\cH}_{\sA}} + \sum_{j=1}^{d}\| f \|_{\widebar{\cH}_{j}\otimes \widebar{\cH}_{\sA}} \right) \right\}. \]
+Here, $ \| \cdot \|_{\widebar{\cH}_{j}} $, $ \| \cdot \|_{\widebar{\cH}_{\sA}} $ and $ \| \cdot \|_{\widebar{\cH}_{j}\otimes\widebar{\cH}_{\sA}} $ are the RKHS-norms corresponding to the associated component spaces, and $ \lambda_{\sigma^{2}} $ is a tuning parameter.
+
+For implementation, we define the empirical kernel matrices $ \widebar{\sfK}_{j} := [\widebar{\kappa}_{j}(X_{ij},X_{i'j})]_{i,i'=1}^{n} $ and $ \widebar{\sfK}_{\sA} := [\widebar{\kappa}_{\sA}(A_{i},A_{i'})]_{i,i'=1}^{n} $. Then $ \widebar{\sfK}_{j} $, $ \widebar{\sfK}_{\sA} $ and $ \widebar{\sfK}_{j,\sA} := \widebar{\sfK}_{j} \odot \widebar{\sfK}_{\sA} $ are the empirical kernel matrices on $ \widebar{\cH}_{j} $, $ \widebar{\cH}_{\sA} $ and $ \widebar{\cH}_{j} \otimes \widebar{\cH}_{\sA} $ respectively, where $ \widebar{\sfK}_{j} \odot \widebar{\sfK}_{\sA} $ is the elementwise product of $ \widebar{\sfK}_{j} $ and $ \widebar{\sfK}_{\sA} $. For a vector $ \btheta := (\theta_{1},\cdots,\theta_{d};\theta_{\sA};\theta_{1,\sA},\cdots,\theta_{d,\sA})^{\intercal} \in \bbR_{+}^{2d+1} $ of kernel weights, we write $ \widebar{\sfK}_{\btheta} := \sum_{j=1}^{d}\theta_{j}\widebar{\sfK}_{j} + \theta_{\sA}\widebar{\sfK}_{\sA} + \sum_{j=1}^{d}\theta_{j,\sA}\widebar{\sfK}_{j,\sA} \in \bbR^{n\times n} $ as the weighted sum of the empirical kernel matrices. For a vector $ \balpha \in \bbR^{n} $ of representer coefficients, we write $ \sfG_{\balpha} := [\widebar{\sfK}_{1}\balpha,\cdots,\widebar{\sfK}_{d}\balpha;\widebar{\sfK}_{\sA}\balpha;\widebar{\sfK}_{1,\sA}\balpha,\cdots,\widebar{\sfK}_{d,\sA}\balpha] \in \bbR^{n\times (2d+1)} $ as the gram matrix of the componentwise prediction values. We also denote $ \vec{\be}^{2} := (e_{1}^{2},\cdots,e_{n}^{2})^{\intercal} $ as the empirical squared residual vector. Then we fit a COSSO model by calling the \texttt{R} function \texttt{cosso::cosso.Gaussian} with the aforementioned kernel matrices and the squared residual vector as inputs. In particular, a random subset of sample points with size $ \max\{40,\lceil 12n^{2/9} \rceil\} $ is used for representers. The following two steps are alternatively implemented:
+\begin{itemize}
+	\item For a given kernel weight vector $ \btheta $, we solve
+	\[ \min_{b,\balpha}\left\{ {1 \over n}\left\| \vec{\be}^{2} - b\vec{\bone}_{n} - \widebar{\sfK}_{\btheta}\balpha \right\|_{2}^{2} + \lambda_{0}\balpha^{\intercal}\widebar{\sfK}_{\btheta}\balpha\right\} \]
+	for the representer coefficient vector $ (b,\balpha^{\intercal})^{\intercal} $;
+	
+	\item For a given representer coefficient vector $ (b,\balpha^{\intercal})^{\intercal} $, we solve
+	\[ \min_{\btheta}\left\{ {1 \over n}\left\| \vec{\be}^{2} - b\vec{\bone}_{n} - \sfG_{\balpha}\btheta \right\|_{2}^{2} + \lambda_{0}\balpha^{\intercal}\sfG_{\balpha}\btheta \quad \text{subject to} \quad \btheta \in \bbR_{+}^{2d+1}, ~ \vec{\bone}_{2d+1}^{\intercal}\btheta \le M \right\}, \]
+	for the kernel weight vector $ \btheta $.
+\end{itemize}
+Here, the tuning parameters $ (\lambda_{0},M) $ are chosen according to \citet[Section 6]{lin2006component}. 
+
+\newpage
+
+\subsection{Technical Proofs}\label{sec:proof}
+
+\subsubsection{Proof of Theorem \ref{thm:regret_est}}
+
+\begin{proof}[Proof of Theorem \ref{thm:regret_est}]
+	\begin{align*}
+	\cV(d^{\star}) - \cV(\widehat{d}_{n}) =& \bbE\left\{ \sum_{k=1}^{K}\gamma(\bX,k)\{ \bbone[d^{\star}(\bX) = k] - \bbone[\widehat{d}_{n}(\bX) = k]\}  \right\}\\
+	\le&\bbE\left\{ \sum_{k \ne k'}|\gamma(\bX,k) - \gamma(\bX,k')|;d^{\star}(\bX) = k, ~ \widehat{d}_{n}(\bX) = k' \right\}\\
+	=&{1 \over 2}\bbE\Bigg\{ \sum_{k \ne k'}|\gamma(\bX,k) - \gamma(\bX,k')|; \\
+	&\qquad d^{\star}(\bX) = k ~ \text{and} ~ \widehat{d}_{n}(\bX) = k' ~ \text{or} ~ d^{\star}(\bX) = k' ~ \text{and} ~ \widehat{d}_{n}(\bX) = k \Bigg\}\\
+	\le &{1 \over 2}\bbE\Bigg\{ \sum_{k \ne k'}|\gamma(\bX,k) - \gamma(\bX,k')| + |\widehat{\gamma}_{n}(\bX,k) - \widehat{\gamma}_{n}(\bX,k')|; \\
+	&\qquad d^{\star}(\bX) = k ~ \text{and} ~ \widehat{d}_{n}(\bX) = k' ~ \text{or} ~ d^{\star}(\bX) = k' ~ \text{and} ~ \widehat{d}_{n}(\bX) = k \Bigg\}\\
+	=&{1 \over 2}\bbE\Bigg\{ \sum_{k \ne k'}\left |[\gamma(\bX,k) - \gamma(\bX,k')]-[\widehat{\gamma}_{n}(\bX,k) - \widehat{\gamma}_{n}(\bX,k')]\right |; \\
+	&\qquad d^{\star}(\bX) = k ~ \text{and} ~ \widehat{d}_{n}(\bX) = k' ~ \text{or} ~ d^{\star}(\bX) = k' ~ \text{and} ~ \widehat{d}_{n}(\bX) = k \Bigg\} \tag{$ \star $}\label{eq:regret_est} \\
+	\le &{1 \over 2}\bbE\Bigg\{ \sum_{k \ne k'}|\gamma(\bX,k) - \widehat{\gamma}_{n}(\bX,k)| + |\gamma(\bX,k') - \widehat{\gamma}_{n}(\bX,k')|; \\
+	&\qquad d^{\star}(\bX) = k ~ \text{and} ~ \widehat{d}_{n}(\bX) = k' ~ \text{or} ~ d^{\star}(\bX) = k' ~ \text{and} ~ \widehat{d}_{n}(\bX) = k \Bigg\}\\
+	\le&\bbE\left |\gamma(\bX,d^{\star}) - \widehat{\gamma}_{n}(\bX,d^{\star})\right | + \bbE\left |\gamma(\bX,\widehat{d}_{n}) - \widehat{\gamma}_{n}(\bX,\widehat{d}_{n})\right | \\
+	\le & 2\max_{1 \le k \le K}\bbE\left |\gamma(\bX,k) - \widehat{\gamma}_{n}(\bX,k)\right |.
+	\end{align*}
+	The equality (\ref{eq:regret_est}) holds since the event $ d^{\star}(\bX) = k ~ \text{and} ~ \widehat{d}_{n}(\bX) = k' ~ \text{or} ~ d^{\star}(\bX) = k' ~ \text{and} ~ \widehat{d}_{n}(\bX) = k  $ implies that
+	\[ [\gamma(\bX,k) - \gamma(\bX,k')][\widehat{\gamma}_{n}(\bX,k) - \widehat{\gamma}_{n}(\bX,k')] < 0. \]
+\end{proof}
+
+\subsubsection{Proof of Lemma \ref{lem:tangent}}
+
+\begin{proof}[Proof of Lemma \ref{lem:tangent}] Denote 
+	\[ \widetilde{\Lambda} := \Big\{ \bH \in \cH: \bbE(\bH\epsilon|\bX,A) = \bbE(\bH\epsilon|\bX)\Big\}. \]
+	Consider the following family of parametric submodels of (\ref{eq:model}):
+	\[ \sP_{\bbeta,\alpha} := \Big\{ (\bX,A,Y) \sim p_{\sX}(\bX;\balpha_{\sX}) \times p_{\sA}(A|\bX;\balpha_{\sA}) \times p_{\epsilon}\big( \overbrace{Y - \mu_{0}(\bX;\balpha_{\mu_{0}}) - \gamma(\bX,A;\bbeta)}^{\epsilon}\big| \bX, A; \balpha_{\epsilon} \big) \Big\}, \]
+	where $ \balpha = \balpha_{\sX} \oplus \balpha_{\sA} \oplus \balpha_{\epsilon} \oplus \balpha_{\mu_{0}} $ are finite-dimensional parameters for the nuisance components $ \eta = (p_{\sX},p_{\sA},p_{\epsilon},\mu_{0}) $. Then the nuisance score vector is
+	\[ \bS_{\balpha} = \bordermatrix{
+		~ & \cr
+		\bS_{\sX} & {\partial \log p_{\sX}(\bX;\balpha_{\sX}) \over \partial\balpha_{\sX}} \cr 
+		\bS_{\sA} & {\partial \log p_{\sA}(A|\bX;\balpha_{\sA}) \over \partial\balpha_{\sA}} \cr
+		\bS_{\epsilon} & {\partial \log p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon}) \over \partial\balpha_{\epsilon}} \cr 
+		\bS_{\mu_{0}} & -{\partial \log p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon}) \over \partial\epsilon}{\partial \mu_{0}(\bX;\balpha_{\mu_{0}}) \over \partial \balpha_{\mu_{0}}}
+	}.
+	\]
+	Then the nuisance tangent space of the family of submodels $ \sP_{\bbeta,\balpha} $ is defined as \citep{tsiatis2007semiparametric}:
+	\begin{align*}
+		\Lambda_{\balpha} =& \left\{ \sfB \bS_{\balpha}: \sfB \in \bbR^{p \times \dim(\balpha)} \right\} \\
+		=& \Big\{ \sfB_{\sX}\bS_{\sX} + \sfB_{\sA}\bS_{\sA} + \sfB_{\epsilon}\bS_{\epsilon} + \sfB_{\mu_{0}}\bS_{\mu_{0}}: \\
+		&\quad \sfB_{\sX} \in \bbR^{p \times \dim(\balpha_{\sX})}, ~ \sfB_{\sA} \in \bbR^{p \times \dim(\balpha_{\sA})}, \sfB_{\epsilon} \in \bbR^{p \times \dim(\balpha_{\epsilon})}, \sfB_{\mu_{0}} \in \bbR^{p \times \dim(\balpha_{\mu_{0}})} \Big\}.
+	\end{align*}
+	We aim to show that $ \Lambda_{\balpha} \subseteq \widetilde{\Lambda} $. By $ \widetilde{\Lambda} $ is a linear space, it is equivalent to show that $ \bS_{\sX},\bS_{\sA},\bS_{\epsilon},\bS_{\mu_{0}} \in \widetilde{\Lambda} $. Denote $ \bbE_{\bbeta,\balpha} $ as the expectation under the submodel parametrized by $ (\bbeta,\balpha) $. 
+	\begin{itemize}
+		\item Since $ \bS_{\sX} $ is a function of $ \bX $, we have that 
+		\[ \bbE_{\bbeta,\balpha}(\bS_{\sX}\epsilon|\bX,A) = \bS_{\sX}\bbE_{\bbeta,\balpha}(\epsilon|\bX,A) = \bzero = \bS_{\sX}\bbE_{\bbeta,\balpha}(\epsilon|\bX) = \bbE_{\bbeta,\balpha}(\bS_{\sX}\epsilon|\bX). \]
+		That is, $ \bS_{\sX} \in \widetilde{\Lambda} $.
+		
+		\item Since $ \bS_{\sA} $ is a function of $ (\bX,A) $, we have that
+		\[ \bbE_{\bbeta,\balpha}(\bS_{\sA}\epsilon|\bX,A) = \bS_{\sA}\bbE_{\bbeta,\balpha}(\epsilon|\bX,A) = \bzero. \]
+		On the other hand, by $ \bbE_{\bbeta,\balpha}(\epsilon|\bX) = 0 $ for any $ \balpha $, we have
+		\begin{align*}
+			\bzero &= {\partial \over \balpha_{\sA}}\bbE_{\bbeta,\balpha}(\epsilon|\bX) \\
+			&= {\partial \over \balpha_{\sA}}\int \epsilon p_{\sA}(a|\bX;\balpha_{\sA})p_{\epsilon}(\epsilon|\bX,a;\balpha_{\epsilon})\rd a\rd \epsilon\\
+			&= \int \epsilon \times {{(\partial/\partial\balpha_{\sA})}p_{\sA}(a|\bX;\balpha_{\sA}) \over p_{\sA}(a|\bX;\balpha_{\sA})} \times p_{\sA}(a|\bX;\balpha_{\sA})p_{\epsilon}(\epsilon|\bX,a;\balpha_{\epsilon})\rd a\rd \epsilon \\
+			&= \int \epsilon \times {\partial \log p_{\sA}(a|\bX;\balpha_{\sA}) \over \partial \balpha_{\sA}} \times p_{\sA}(a|\bX;\balpha_{\sA})p_{\epsilon}(\epsilon|\bX,a;\balpha_{\epsilon})\rd a\rd \epsilon \\
+			&= \bbE_{\bbeta,\balpha}(\bS_{\sA}\epsilon|\bX).
+		\end{align*}
+		That is, $ \bbE_{\bbeta,\balpha}(\bS_{\sA}\epsilon|\bX,A) = \bzero = \bbE_{\bbeta,\balpha}(\bS_{\sA}\epsilon|\bX) $, and $ \bS_{\sA} \in \widetilde{\Lambda} $.
+		
+		\item By $ \bbE_{\bbeta,\balpha}(\epsilon|\bX,A) = 0 $ for any $ \balpha $, we have
+		\begin{align*}
+			\bzero &= {\partial \over \balpha_{\epsilon}}\bbE_{\bbeta,\balpha}(\epsilon|\bX,A) \\
+			&= {\partial \over \balpha_{\epsilon}}\int \epsilon p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon})\rd \epsilon\\
+			&= \int \epsilon \times {{(\partial/\partial\balpha_{\epsilon})}p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon}) \over p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon})} \times p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon})\rd \epsilon\\
+			&= \int \epsilon \times {\partial \log p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon}) \over \partial \balpha_{\epsilon}} \times p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon})\rd \epsilon \\
+			&= \bbE_{\bbeta,\balpha}(\bS_{\epsilon}\epsilon|\bX,A).
+		\end{align*}
+		That is, $ \bbE_{\bbeta,\balpha}(\bS_{\epsilon}\epsilon|\bX,A) = \bzero = \bbE_{\bbeta,\balpha}(\bS_{\epsilon}\epsilon|\bX) $, and $ \bS_{\epsilon} \in \widetilde{\Lambda} $.
+		
+		\item Note that
+		\[ \bS_{\mu_{0}}\epsilon = - {\epsilon\partial \log p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon}) \over \partial\epsilon}\times\underbrace{\partial \mu_{0}(\bX;\balpha_{\mu_{0}}) \over \partial \balpha_{\mu_{0}}}_{\text{function of $ \bX $}}. \]
+		
+		\begin{lem}\label{lem:score}
+			Suppose $ X \sim p(x) $ where $ p(x) $ is a probability density function with respect to the Lebesgue measure on $ \bbR $, such that $ |x|p(x) \to 0 $ as $ |x| \to +\infty $. Then
+			\[  \bbE\left( {X \rd \log p(X) \over \rd x} \right) = -1. \]
+		\end{lem}
+	
+		By Lemma \ref{lem:score}, we have
+		\begin{align}
+			\bbE\left( {\epsilon\partial\log p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon}) \over \partial \epsilon}\middle|\bX,A \right) = -1.\label{eq:tangent}
+		\end{align}
+		Then
+		\[ \bbE_{\bbeta,\balpha}(\bS_{\mu_{0}}\epsilon|\bX,A) = - \bbE\left( {\epsilon\log p_{\epsilon}(\epsilon|\bX,A;\balpha_{\epsilon}) \over \partial \epsilon}\middle|\bX,A \right){\partial \mu_{0}(\bX;\balpha_{\mu_{0}}) \over \partial\balpha_{\mu_{0}}} = {\partial \mu_{0}(\bX;\balpha_{\mu_{0}}) \over \partial\balpha_{\mu_{0}}}, \]
+		which is a function of $ \bX $. Consequently, $ \bbE_{\bbeta,\balpha}(\bS_{\mu_{0}}\epsilon|\bX,A) = \bbE_{\bbeta,\balpha}(\bS_{\mu_{0}}\epsilon|\bX) $, and $ \bS_{\mu_{0}} \in \widetilde{\Lambda} $.
+	\end{itemize}
+	Therefore, we can conclude that $ \Lambda_{\balpha} \subseteq \widetilde{\Lambda} $. By the definition of nuisance tangent space of the semiparametric model, we have that $ \Lambda \subseteq \widetilde{\Lambda} $.
+	
+	Next, we aim to justify $ \Lambda \supseteq \widetilde{\Lambda} $. Fix an $ \bH = \bh(\bX,A,\epsilon) \in \widetilde{\Lambda} $, \textit{i.e.},
+	\[ \bbE(\bH) = \bzero; \quad \bbE(\bH\epsilon|\bX,A) = \bbE(\bH\epsilon|\bX). \]
+	We need to construct a parametric submodel whose nuisance score vector is $ \bH $. Consider the following orthogonal decompositions:
+	\[ \bH = \underbrace{\bbE(\bH|\bX)}_{:= \bH_{\sX}} + \underbrace{\bbE(\bH|\bX,A) - \bbE(\bH|\bX)}_{:= \bH_{\sA}} + \underbrace{\bH - \bbE(\bH|\bX,A)}_{:=\bH_{\epsilon}}. \]
+	Without loss of generality, we assume that $ \| \bH \|_{2} \le M < +\infty $. Define
+	\begin{align*}
+		p_{\sX}(\bX;\balpha_{\sX}) &:= p_{\sX}(\bX)(1 + \balpha_{\sX}^{\intercal}\bH_{\sX}); && \| \balpha_{\sX} \|_{2} \le 1/M;\\
+		p_{\sA}(A|\bX;\balpha_{\sA}) &:= p_{\sA}(A|\bX)(1 + \balpha_{\sA}^{\intercal}\bH_{\sA}); && \| \balpha_{\sA} \|_{2} \le 1/M;\\
+		p_{\widetilde{\epsilon}}(\widetilde{\epsilon}|\bX,A;\balpha_{\epsilon}) &:= p_{\epsilon}(\widetilde{\epsilon}|\bX,A)(1 + \balpha_{\epsilon}^{\intercal}\bH_{\epsilon}); && \| \balpha_{\epsilon} \|_{2} \le 1/M.
+	\end{align*}
+	Here, $ p_{\sX}(\bX) $, $ p_{\sA}(A|\bX) $ and $ p_{\epsilon}(\epsilon|\bX,A) $ are the densities of Model (\ref{eq:model}). Then we consider the following data generating process (DGP) parametrized by $ (\bbeta,\balpha) $ where $ \balpha = \balpha_{\sX} \oplus \balpha_{\sA} \oplus \balpha_{\epsilon} $:
+	\begin{align*}
+		&Y = \mu_{0}(\bX) + \gamma(\bX,A;\bbeta) + \widetilde{\epsilon};\\
+		\text{subject to} \quad &\sum_{k=1}^{K}\gamma(\bX,k;\bbeta) = 0; \quad \bbE_{\bbeta,\balpha}(\widetilde{\epsilon}|\bX,A) = \bbE_{\bbeta,\balpha}(\widetilde{\epsilon}|\bX);\\
+		&(\bX,A,\widetilde{\epsilon}) \sim p_{\sX}(\bx;\balpha_{\sX})p_{\sA}(a|\bx;\balpha_{\sA})p_{\widetilde{\epsilon}}(\widetilde{\epsilon}|\bx,a;\balpha_{\epsilon}).
+	\end{align*}
+	Notice that the above DGP can be transformed to the form of (\ref{eq:model}) by setting $ \mu_{0}(\bX;\balpha_{\epsilon}) := \mu_{0}(\bX) + \bbE_{\bbeta,\balpha}(\widetilde{\epsilon}|\bX) $ and $ \epsilon := \widetilde{\epsilon} - \mu_{0}(\bX;\balpha_{\epsilon}) $. Next, we verify that the above DGP is well defined and corresponds to the nuisance score vectors $ \bH_{\sX} $, $ \bH_{\sA} $ and $ \bH_{\epsilon} $.
+	\begin{itemize}
+		\item By 
+		\[ |\balpha^{\intercal}_{\sX}\bH_{\sX}| \le \|\balpha_{\sX}\|_{2}\|\bH\|_{2} \le 1;\quad |\balpha^{\intercal}_{\sA}\bH_{\sA}| \le \|\balpha_{\sA}\|_{2}\|\bH\|_{2} \le 1;\quad|\balpha^{\intercal}_{\epsilon}\bH_{\epsilon}| \le \|\balpha_{\epsilon}\|_{2}\|\bH\|_{2} \le 1, \]
+		we have $ p_{\sX}(\bX;\balpha_{\sX}),p_{\sA}(A|\bX;\balpha_{\sA}),p_{\widetilde{\epsilon}}(\widetilde{\epsilon}|\bX,A;\balpha_{\epsilon}) \ge 0 $.
+		
+		\item By $ \bbE(\bH_{\sX}) = \bzero $, $ \bbE(\bH_{\sA}|\bX) = \bzero $ and $ \bbE(\bH_{\epsilon}|\bX,A) = \bzero $, we have
+		\begin{align*}
+			\int p_{\sX}(\bx;\balpha_{\sX})\rd \bx &= \int p_{\sX}(\bx)\rd \bx + \balpha^{\intercal}_{\sX}\bbE(\bH_{\sX}) = 1;\\
+			\int p_{\sA}(a|\bX;\balpha_{\sA})\rd a &= \int p_{\sA}(a|\bX)\rd a + \balpha_{\sA}^{\intercal}\bbE(\bH_{\sA}|\bX) = 1; \\
+			\int p_{\widetilde{\epsilon}}(\widetilde{\epsilon}|\bX,A;\balpha_{\epsilon}) \rd \widetilde{\epsilon} &= \int p_{\epsilon}(\widetilde{\epsilon}|\bX,A) \rd \widetilde{\epsilon} + \balpha_{\epsilon}^{\intercal}\bbE(\bH_{\epsilon}|\bX,A) = 1.
+		\end{align*}
+		Therefore, $ p_{\sX}(\bx;\balpha_{\sX}) $, $ p_{\sX}(a|\bX;\balpha_{\sA}) $ and $ p_{\widetilde{\epsilon}}(\widetilde{\epsilon}|\bX,A;\balpha_{\epsilon}) $ are probability density functions.
+		
+		\item The conditional mean restriction becomes
+		\begin{align*}
+			\bbE_{\bbeta,\balpha}(\widetilde{\epsilon}|\bX,A) &= \int \widetilde{\epsilon}(1 + \balpha_{\epsilon}^{\intercal}\bH_{\epsilon})p_{\epsilon}(\widetilde{\epsilon}|\bX,A)\rd \widetilde{\epsilon} \\
+			&= \bbE(\epsilon|\bX,A) + \balpha_{\epsilon}^{\intercal}\bbE(\bH_{\epsilon }\epsilon|\bX,A)\\
+			&= \balpha_{\epsilon}^{\intercal}\bbE(\bH_{\epsilon }\epsilon|\bX,A),
+		\end{align*}
+		which is a function of $ \bX $, by the fact that
+		\[ \bbE(\bH_{\epsilon}\epsilon|\bX,A) = \bbE(\bH\epsilon|\bX,A) - \underbrace{\bbE(\bH|\bX,A)\bbE(\epsilon|\bX,A)}_{= \bzero} = \bbE(\bH\epsilon|\bX) - \underbrace{\bbE(\bH|\bX,A)\bbE(\epsilon|\bX)}_{= \bzero} = \bbE(\bH_{\epsilon}\epsilon|\bX). \]
+		Then it can be clear that
+		\[ \bbE_{\bbeta,\balpha}(\widetilde{\epsilon}|\bX,A) = \bbE_{\bbeta,\balpha}(\widetilde{\epsilon}|\bX). \]
+		
+		\item The nuisance score vectors are
+		\[ \begin{array}{rclclcl}
+			\bS_{\sX} &=& \left[ {\partial \log p_{\sX}(\bX;\balpha_{\sX}) \over \partial \balpha_{\sX}} \right]_{\balpha_{\sX} = \bzero} &=& \left[ {\bH_{\sX} \over 1 + \balpha_{\sX}^{\intercal}\bH_{\sX}} \right]_{\balpha_{\sX} = \bzero} &=& \bH_{\sX};\\
+			\bS_{\sA} &=& \left[ {\partial \log p_{\sA}(A|\bX;\balpha_{\sA}) \over \partial \balpha_{\sA}} \right]_{\balpha_{\sA} = \bzero} &=& \left[ {\bH_{\sA} \over 1 + \balpha_{\sX}^{\intercal}\bH_{\sA}} \right]_{\balpha_{\sA} = \bzero} &=& \bH_{\sA};\\
+			\bS_{\epsilon} &=& \left[ {\partial \log p_{\widetilde{\epsilon}}(\widetilde{\epsilon}|\bX,A;\balpha_{\epsilon}) \over \partial \balpha_{\epsilon}} \right]_{\balpha_{\epsilon} = \bzero} &=& \left[ {\bH_{\epsilon} \over 1 + \balpha_{\epsilon}^{\intercal}\bH_{\epsilon}} \right]_{\balpha_{\epsilon} = \bzero} &=& \bH_{\epsilon}.
+		\end{array} \]
+	\end{itemize}
+	Therefore, the DGP above corresponds to the nuisance score vectors $ \bH $, so that $ \Lambda \supseteq \widetilde{\Lambda} $. That is,
+	\[ \Lambda = \Big\{ \bH \in \cH: \bbE(\bH\epsilon|\bX,A) = \bbE(\bH\epsilon|\bX)\Big\}. \]
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:score}]
+	\begin{align*}
+		\bbE\left( {X \partial \log p(X) \over \partial x} \right) &= \int {x \partial \rd p(x) \over 
+			\rd x}p(x)\rd x \\
+		&= \int x {\rd p(x) \over \rd x} \times {1 \over p(x)} \times p(x) \rd x\\
+		&= \int x \rd p(x)\\
+		&= \Big[ xp(x) \Big]_{x \to -\infty}^{x \to +\infty} - \int p(x)\rd x\\
+		&= -1.
+	\end{align*}
+\end{proof}
+
+\subsubsection{Proof of Lemmas \ref{lem:equiang} and \ref{lem:ang}}
+
+\begin{proof}[Proof of Lemma \ref{lem:equiang}]
+	Since the column space of $ \Omega $ is the orthogonal complement of the space spanned by $ \bone_{K} $, we have
+	\[ \Omega(\Omega^{\intercal}\Omega)^{-1}\Omega^{\intercal} = \Ib_{K\times K} - {1 \over K}\bone_{K\times 1}^{\otimes 2}. \]
+	In particular, for $ 1 \le k,k'\le K $, we have5
+	\[ \langle  (\Omega^{\intercal}\Omega)^{-1/2}\bomega_{k},(\Omega^{\intercal}\Omega)^{-1/2}\bomega_{k'}  \rangle = \left(1-{1 \over K}\right)^{-1} [\Omega(\Omega^{\intercal}\Omega)^{-1}\Omega^{\intercal}]_{kk'} =  \bbone(k = k') - {1 \over K-1}\bbone(k \ne k'). \]
+	Therefore, $ \{ \bomega_{k} \}_{k=1}^{K} $ are unit vectors and equiangular.
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:ang}]
+	By Lemma \ref{lem:equiang}, we have
+	\[ \Omega(\Omega^{\intercal}\Omega)^{-1}\Omega^{\intercal} = \Ib_{K\times K} - (1/K)\vec{\bone}_{K\times 1}^{\otimes 2}. \]
+	Denote $ \vec{\bgamma}(\bx;\bbeta) := \big( \gamma(\bx,1;\bbeta),\gamma(\bx,2;\bbeta),\cdots,\gamma(\bx,K;\bbeta) \big)^{\intercal} $. Then
+	\begin{align*}
+		\sqrt{1 - 1/K}\Omega \vec{\bbf}(\bx;\bbeta) &= \Omega(\Omega^{\intercal}\Omega)^{-1}\Omega^{\intercal}\vec{\bgamma}(\bx;\bbeta)\\
+		&= \vec{\bgamma}(\bx;\bbeta) - \underbrace{{1 \over K}\sum_{k=1}^{K}\gamma(\bx,k;\bbeta)}_{= 0}\vec{\bone}_{K}\\
+		&= \vec{\bgamma}(\bx;\bbeta).
+	\end{align*}
+	That is,
+	\[ \gamma(\bx,k;\bbeta) = \left( 1 - {1 \over K} \right)\langle \bomega_{k},\vec{\bbf}(\bx;\bbeta) \rangle; \quad 1 \le k \le K. \]
+\end{proof}
+
+\subsubsection{Proof of Lemma \ref{lem:tangent_proj}}
+
+\begin{proof}[Proof of Lemma \ref{lem:tangent_proj}]
+	Suppose $ \bH \in \Lambda $ and $ \sfH: \cX \to \bbR^{p \times (K-1)} $. Then
+	\[ \bbE\left[ \bH\left({\sfH(\bX)\bomega_{A}\epsilon \over p_{\sA}(A|\bX)}\right)^{\intercal} \right] = \bbE\left[ \bbE\left( {\bH\bomega_{A}^{\intercal}\epsilon \over p_{\sA}(A|\bX)} \middle|\bX \right)\sfH(\bX)^{\intercal} \right] = \sfO_{p\times p}. \]
+	That is,
+	\[ \Lambda \perp \left \{{\sfH(\bX)\bomega_{A}\epsilon \over p_{\sA}(A|\bX)}\middle|\sfH:\cX\to \bbR^{p\times(K-1)} \right \}. \]
+	Now suppose $ \bH \in \cH $. Define
+	\[ \bH_{1} := \underbrace{\bbE\left\{ {\bH\bomega_{A}^{\intercal}\epsilon \over p_{\sA}(A|\bX)}\middle|\bX \right\}\sfV_{\epsilon}(\bX)^{-1}}_{\text{$ \bbR^{p\times(K-1)} $-valued function of $ \bX $}}{\bomega_{A}\epsilon \over p_{\sA}(A|\bX)}; \quad \bH_{2} := \bH - \bH_{1}. \]
+	Then the following shows that $ \bH_{2} \in \Lambda $:
+	\[ \bbE\left( {\bH_{2}\bomega_{A}^{\intercal}\epsilon \over p_{\sA}(A|\bX)}\middle|\bX \right) = \bbE\left( {\bH\bomega_{A}^{\intercal}\epsilon \over p_{\sA}(A|\bX)}\middle|\bX \right) - \bbE\left\{ {\bH\bomega_{A}^{\intercal}\epsilon \over p_{\sA}(A|\bX)}\middle|\bX \right\}\sfV_{\epsilon}(\bX)^{-1}\bbE\left( {\bomega_{A}^{\otimes 2}\epsilon^{2} \over p_{\sA}(A|\bX)^{2}}\middle|\bX \right) = \sfO_{p\times(K-1)}, \]
+	where
+	\[ \bbE\left( {\bomega_{A}^{\otimes 2}\epsilon^{2} \over p_{\sA}(A|\bX)^{2}}\middle|\bX \right) = \bbE\left( {\bomega_{A}^{\otimes 2}\sigma^{2}(\bX,A) \over p_{\sA}(A|\bX)^{2}}\middle|\bX \right) = \sum_{k=1}^{K}{\sigma^{2}(\bX,A)\bomega_{k}^{\otimes 2} \over p_{\sA}(k|\bX)} = \sfV_{\epsilon}(\bX). \]
+	Therefore, 
+	\[ \Lambda^{\perp} = \left \{{\sfH(\bX)\bomega_{A}\epsilon \over p_{\sA}(A|\bX)}\middle|\sfH:\cX\to \bbR^{p\times(K-1)} \right \}. \]
+\end{proof}
+
+\subsubsection{Proof of Proposition \ref{prop:eff_ang}}
+
+\begin{proof}[Proof of Proposition \ref{prop:eff_ang}]
+	The score vector of Model (\ref{eq:model}) is defined as \citep{tsiatis2007semiparametric}
+	\[ \bS_{\bbeta} = {\partial\log p_{\epsilon}\Big( Y - \mu_{0}(\bX) - \gamma(\bX,A;\bbeta)\Big|\bX,A\Big) \over \partial\bbeta} = -\dot{\gamma}(\bX,A;\bbeta){\partial \log p_{\epsilon}(\epsilon|\bX,A) \over \partial\epsilon}. \]
+	In particular,
+	\[ \bbE\left\{ {\bS_{\bbeta}\bomega_{A}^{\intercal}\epsilon\over p_{\sA}(A|\bX)}\middle|\bX \right\} = \bbE\left\{ {\dot{\gamma}(\bX,A;\bbeta)\bomega_{A}^{\intercal}\over p_{\sA}(A|\bX)} \left[ - {\epsilon\partial\log p_{\epsilon}(\epsilon|\bX,A) \over \partial\epsilon} \right] \middle|\bX \right\} \stackrel{(\ref{eq:tangent})}{=} \bbE\left\{ {\dot{\gamma}(\bX,A;\bbeta)\bomega_{A}^{\intercal}\over p_{\sA}(A|\bX)} \middle|\bX \right\}. \]
+	Then by Lemma \ref{lem:tangent_proj}, the efficient score \citep{tsiatis2007semiparametric} is 
+	\[ \bS_{\eff} = \bbE(\bS_{\bbeta}|\Lambda^{\perp}) = \bbE\left\{ {\dot{\gamma}(\bX,A;\bbeta)\bomega_{A}^{\intercal}\over p_{\sA}(A|\bX)} \middle|\bX \right\}\sfV_{\epsilon}(\bX)^{-1}{\bomega_{A}\epsilon \over p_{\sA}(A|\bX)}. \]
+	Consider the angle-based decision function (\ref{eq:ang_opt}). We have
+	\[ \dot{\gamma}(\bX,A;\bbeta) = \left( 1 - {1 \over K} \right)\dot{\sfF}(\bX;\bbeta)^{\intercal}\bomega_{A}. \]
+	Then
+	\[ \bbE\left\{ {\dot{\gamma}(\bX,A;\bbeta)\bomega_{A}^{\intercal}\over p_{\sA}(A|\bX)} \middle|\bX \right\} = \left( 1 - {1 \over K} \right)\bbE\left\{ {\dot{\sfF}(\bX;\bbeta)^{\intercal}\bomega_{A}^{\otimes 2} \over p_{\sA}(A|\bX)}\middle|\bX \right\} = \dot{\sfF}(\bX;\bbeta)^{\intercal}\left( 1 - {1 \over K} \right)\sum_{k=1}^{K}\bomega_{k}^{\otimes 2} = \dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega. \]
+	Therefore,
+	\[ \bS_{\eff} = \dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega\sfV_{\epsilon}(\bX)^{-1}{\bomega_{A}\epsilon \over p_{\sA}(A|\bX)}. \]
+\end{proof}
+
+\subsubsection{Proof of Proposition \ref{prop:dr}}
+
+\begin{proof}[Proof of Proposition \ref{prop:dr}]
+	It follows from direct calculation that
+	\[ \bbE[\bphi_{\eff}(\bbeta;\widecheck{\mu}_{0},\widecheck{p}_{\sA},\widecheck{\sigma}^{2})|\bX,A] = [\mu_{0}(\bX) - \widecheck{\mu}_{0}(\bX)]\sfH(\bX){p_{\sA}(A|\bX) \over \widecheck{p}_{\sA}(A|\bX)}{\bomega_{A} \over p_{\sA}(A|\bX)}. \]
+	If $ \widecheck{\mu}_{0} = \mu_{0} $, then the above is $ \bzero $. If $ \widecheck{p}_{\sA} = p_{\sA} $, the above becomes 
+	\[ \bbE[\bphi_{\eff}(\bbeta;\widecheck{\mu}_{0},\widecheck{p}_{\sA},\widecheck{\sigma}^{2})|\bX,A] = [\mu_{0}(\bX) - \widecheck{\mu}_{0}(\bX)]\sfH(\bX){\bomega_{A} \over p_{\sA}(A|\bX)}. \]
+	Then we have
+	\[ \bbE[\bphi_{\eff}(\bbeta;\widecheck{\mu}_{0},\widecheck{p}_{\sA},\widecheck{\sigma}^{2})|\bX] = [\mu_{0}(\bX) - \widecheck{\mu}_{0}(\bX)]\sfH(\bX)\bbE\left(  {\bomega_{A} \over p_{\sA}(A|\bX)} \middle|\bX \right) = \bzero. \]
+\end{proof}
+
+\subsubsection{Proof of Lemma \ref{lem:plug-in}}\label{sec:lem_plug-in}
+
+\begin{proof}[Proof of Lemma \ref{lem:plug-in}]
+	Denote $ \dot{F}(\bX) := \sup_{\widecheck{\bbeta} \in \sB}\|\dot{\sfF}(\bX;\widecheck{\bbeta})\|_{2} $. Define
+	\[ \widehat{\sfV}_{\epsilon,n}(\bX) := \sum_{k=1}^{K}{\widehat{\sigma}_{n}^{2}(\bX,A)\bomega_{k}^{\otimes 2} \over p_{\sA}(A|\bX)}, \]
+	and
+	\begin{align*}
+		\widehat{\bh}_{\eff,n}(\bX,A;\widecheck{\bbeta}) &:= \dot{\sfF}(\bX;\widecheck{\bbeta})^{\intercal}\Omega^{\intercal}\Omega\widehat{\sfV}_{\epsilon,n}(\bX)^{-1}{\bomega_{A} \over p_{\sA}(A|\bX)};\\
+		\widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}) &:= \dot{\sfF}(\bX;\widecheck{\bbeta})^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}{\bomega_{A} \over p_{\sA}(A|\bX)}.
+	\end{align*}
+	Then
+	\begin{align}
+		&\bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2}) - \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \nonumber \\
+		=& \quad [\underbrace{Y - \widecheck{\mu}_{0}(\bX) - \gamma(\bX,A;\widecheck{\bbeta})}_{:= \widecheck{e}(\widecheck{\bbeta})}][\widehat{\bh}_{\eff,n}(\bX,A;\widecheck{\bbeta}) - \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta})] \label{eq:plug-in-1} \\
+		& - [\widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX)]\widecheck{\bh}_{\eff,n}(\bX,A;\widecheck{\bbeta}) \label{eq:plug-in-2}\\
+		& - [\widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX)][\widehat{\bh}_{\eff,n}(\bX,A,\widecheck{\bbeta}) - \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta})]. \label{eq:plug-in-3}
+	\end{align}
+	
+	\begin{itemize}[leftmargin=*]
+		\item We first relate $ \widehat{\bh}_{\eff,n} - \widecheck{\bh}_{\eff} $ to $ \widehat{\sigma}_{n}^{2} - \widecheck{\sigma}^{2} $. Note that 
+		\begin{align*}
+			\left\| \widehat{\bh}_{\eff,n}(\bX,A;\widecheck{\bbeta}) - \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}) \right\|_{2} &\le \left \| \dot{\sfF}(\bX;\widecheck{\bbeta}) \right \|_{2} \times \| \Omega \|_{2}^{2} \times \left \| \widehat{\sfV}_{\epsilon,n}(\bX)^{-1} - \widecheck{\sfV}_{\epsilon}(\bX)^{-1} \right \|_{2} \times {\|\bomega_{A}\|_{2} \over p_{\sA}(A|\bX)}\\
+			&\le \left( 1 - {1 \over K} \right){\| \Omega \|_{2}^{2} \|\Omega\|_{\rm F} \over \ubar{p}_{\sA}} \times \dot{F}(\bX) \times \left \| \widehat{\sfV}_{\epsilon,n}(\bX)^{-1} - \widecheck{\sfV}_{\epsilon}(\bX)^{-1} \right \|_{2}.
+		\end{align*}
+		Here, $ \| \cdot \|_{\rm F} $ is the Frobenius norm. By $ \ubar{\sigma}^{2}\le \widehat{\sigma}_{n}^{2}(\bX,k),\widecheck{\sigma}^{2}(\bX,k) \le \widebar{\sigma}^{2} $ for $ 1 \le k \le K $, we further have
+		\[ \widehat{\sfV}_{\epsilon,n}(\bX), ~ \widecheck{\sfV}_{\epsilon}(\bX) \ge \ubar{\sigma}^{2}\sum_{k=1}^{K}\bomega_{k}^{\otimes 2} = \underbrace{\ubar{\sigma}^{2}\left( 1 - {1 \over K} \right)^{-1}\Omega^{\intercal}\Omega}_{:= \ubar{\sfV}_{\epsilon}} > 0. \]
+		Here, ``$ \sfA \ge \sfB $'' means that $ \sfA - \sfB $ is positive semi-definite, with strict inequality if $ \sfA - \sfB $ is positive definite. Then
+		\begin{align}
+			\left\|  \widehat{\sfV}_{\epsilon,n}(\bX)^{-1}-\widecheck{\sfV}_{\epsilon}(\bX)^{-1} \right\|_{2} &\le \| \ubar{\sfV}_{\epsilon}^{-2} \|_{2} \times \left\|  \widehat{\sfV}_{\epsilon,n}(\bX)-\widecheck{\sfV}_{\epsilon}(\bX) \right\|_{2} \nonumber \\
+			&= {1 \over \lambda_{\min}(\ubar{\sfV}_{\epsilon})^{2}} \times \left\| \sum_{k=1}^{K}{[\widehat{\sigma}_{n}^{2}(\bX,k) - \widecheck{\sigma}^{2}(\bX,k)]\bomega_{k}^{\otimes 2} \over p_{\sA}(k|\bX)} \right\|_{2} \nonumber \\
+			&\le {1 \over \ubar{p}_{\sA}\lambda_{\min}(\ubar{\sfV}_{\epsilon})^{2}} \Bigg\|\underbrace{\sum_{k=1}^{K}\bomega_{k}^{\otimes 2}}_{= (1-1/K)^{-1}\Omega^{\intercal}\Omega}\Bigg\|_{2} \times \| \widehat{\sigma}_{n}^{2} - \widecheck{\sigma}^{2} \|_{\infty}. \label{eq:var_bdd}
+		\end{align}
+		Therefore,
+		\[ \left\| \widehat{\bh}_{\eff,n}(\bX,A;\widecheck{\bbeta}) - \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}) \right\|_{2} \le \text{constant} \times \dot{F}(\bX) \times \| \widehat{\sigma}_{n}^{2} - \widecheck{\sigma}^{2} \|_{\infty}. \]
+		
+		\item (Bound for Residual) First note that
+		\begin{align*}
+			\bbE_{n}[\widecheck{e}(\widecheck{\bbeta})^{2}] &= \bbE[\widecheck{e}(\widecheck{\bbeta})^{2}] + \smallcO_{\bbP}(1) &&(\text{by SLLN})\\
+			&\lesssim 5\bbE\Big\{ \widecheck{\mu}_{0}(\bX)^{2} + \mu_{0}(\bX)^{2} + \gamma(\bX,A;\bbeta)^{2} + \gamma(\bX,A;\widecheck{\bbeta})^{2} + \epsilon^{2} \Big\} + \smallcO_{\bbP}(1),
+		\end{align*}
+		which is bounded by Assumption \ref{asm:int}.
+		
+		\item (Convergence of (\ref{eq:plug-in-1}))
+		\begin{align*}
+			[\bbE_{n}\|(\ref{eq:plug-in-1})\|_{2}]^{2} &\le \text{constant} \times \bbE_{n}\left\{ \left| \widecheck{e}(\widecheck{\bbeta}) \right| \dot{F}(\bX) \right\}^{2} \| \widehat{\sigma}_{n}^{2} - \widecheck{\sigma}^{2} \|_{\infty}^{2}\\
+			&\lesssim \text{constant} \times \left\{ \bbE[\widecheck{e}(\widecheck{\bbeta})^{2}]\bbE[\dot{F}(\bX)^{2}] + \smallcO_{\bbP}(1) \right\} \times \| \widehat{\sigma}_{n}^{2} - \widecheck{\sigma}^{2} \|_{\infty}^{2} \\
+			&= \smallcO_{\bbP}(n^{-1}).
+		\end{align*}
+		
+		\item (Convergence of (\ref{eq:plug-in-2})) First note that
+		\begin{align}
+			\left \| \widehat{\bh}_{\eff,n}(\bX,A;\widecheck{\bbeta}) \right \|_{2} &\le \left \| \dot{\sfF}(\bX;\widecheck{\bbeta}) \right \|_{2} \times \| \Omega \|_{2}^{2} \times \left \| \widecheck{\sfV}_{\epsilon}(\bX)^{-1} \right \|_{2} \times {\| \bomega_{A} \|_{2} \over p_{\sA}(A|\bX)} \nonumber \\
+			&\le \left( 1 - {1 \over K} \right)^{-1/2}{\| \Omega \|_{2}^{2}\| \Omega \|_{\rm F} \over \ubar{p}_{\sA} \lambda_{\min}(\ubar{\sfV}_{\epsilon})} \times \dot{F}(\bX).\label{eq:instrument_bdd}
+		\end{align}
+		Here, $ \lambda_{\min}(\cdot) $ is the smallest eigenvalue of a matrix. Then
+		\begin{align*}
+			[\bbE_{n}\| (\ref{eq:plug-in-2}) \|_{2}]^{2} &\le \text{constant} \times \bbE_{n}[\dot{F}(\bX)^{2}] \times \bbE_{n}[\widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX)]^{2} \\
+			&\lesssim \text{constant} \times \left\{  \bbE[\dot{F}(\bX)^{2}] + \smallcO_{\bbP}(1) \right\} \times \bbE_{n}[\widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX)]^{2} \\
+			&= \smallcO_{\bbP}(n^{-1}).
+		\end{align*}
+		
+		\item (Convergence of (\ref{eq:plug-in-3}))
+		\begin{align*}
+			[\bbE_{n}\| (\ref{eq:plug-in-3}) \|_{2}]^{2} &\le \text{constant} \times \bbE_{n}\left\{ \left| \widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX) \right| \times \dot{F}(\bX) \right\}^{2} \times \| \widehat{\sigma}_{n}^{2} - \widecheck{\sigma}^{2} \|_{\infty}^{2} \\
+			&\le \text{constant} \times \left\{ \bbE[\dot{F}(\bX)^{2}] + \smallcO_{\bbP}(1) \right\} \times \bbE_{n}[\widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX)]^{2} \times \| \widehat{\sigma}_{n}^{2} - \widecheck{\sigma}^{2} \|_{\infty}^{2} \\
+			&= \smallcO_{\bbP}(n^{-2}).
+		\end{align*}
+	\end{itemize}
+	Therefore,
+	\begin{align*}
+		& \sup_{\widecheck{\bbeta} \in \sB}\bbE_{n}\| \bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2}) - \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \|_{2}\\
+		\le & \bbE_{n}\| (\ref{eq:plug-in-1}) \|_{2} + \bbE_{n}\| (\ref{eq:plug-in-2}) \|_{2} + \bbE_{n}\| (\ref{eq:plug-in-3}) \|_{2}\\
+		\lesssim & \smallcO_{\bbP}(n^{-1/2}) + \smallcO_{\bbP}(n^{-1/2}) + \smallcO_{\bbP}(n^{-1})\\
+		=& \smallcO_{\bbP}(n^{-1/2}).
+	\end{align*}
+\end{proof}
+
+\subsubsection{Proof of Theorem \ref{thm:eff}}
+
+\begin{proof}[Proof of Theorem \ref{thm:eff}]
+	We follow \citet[Lemmas 5.1-5.3]{newey1994asymptotic} to establish the asymptotic linear representation. 
+	
+	\begin{enumerate}[label=\textbf{Step \Roman*:},leftmargin=0cm]
+		\item (Asymptotic Linear Representation) Our Lemma \ref{lem:plug-in} can imply the asymptotic linear representation of the plug-in estimating function as in \citet[Lemma 5.1]{newey1994asymptotic}:
+		\[ \sqrt{n}\bbE_{n}[\bphi_{\eff}(\bbeta;\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})] = \sqrt{n}\bbE_{n}[\bphi_{\eff}(\bbeta;\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})] + \smallcO_{\bbP}(n^{-1/2}). \]
+		
+		\item (Uniform Convergence and Consistency) We aim to establish the convergence of $ \bbE_{n}[\bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})] $ and $ \bbE_{n}[(\partial/\partial\bbeta^{\intercal})\bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})] $ uniform for $ \widecheck{\bbeta} \in \sB $, and the consistency of $ \widehat{\bbeta}_{\eff,n} $.
+		
+		Recall from Lemma \ref{lem:plug-in} that:
+		\[ \sup_{\widecheck{\bbeta} \in \sB} \bbE_{n}\left\| \bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2}) - \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \right\|_{2} = \smallcO_{\bbP}(n^{-1/2}). \]
+		The same conclusion can be drawn for $ (\partial/\partial\bbeta^{\intercal})\bphi_{\eff} $ following the same argument.
+		
+		\begin{lem}\label{lem:plug-in_grad}
+			Consider Model (\ref{eq:model}) and the estimating function (\ref{eq:estim_fun}). Under Assumptions \ref{asm:prop}-\ref{asm:plug-in} and \ref{enum:int}, we have
+			\[ \sup_{\widecheck{\bbeta} \in \sB} \bbE_{n}\left\| {\partial \bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})\over \partial \bbeta^{\intercal}} - {\partial \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})\over \partial \bbeta^{\intercal}} \right\|_{2} = \smallcO_{\bbP}(n^{-1/2}). \]
+		\end{lem}
+		
+		Next, we apply Glivenko-Cantelli Theorem to replace $ \bbE_{n} $ by $ \bbE $. We establish the conditions in Lemma \ref{lem:estim_fun}.
+		
+		\begin{lem}\label{lem:estim_fun}
+			Consider Model (\ref{eq:model}) and the estimating function (\ref{eq:estim_fun}). Under Assumptions \ref{asm:prop}-\ref{asm:plug-in} and \ref{enum:int}, we have:
+			\begin{enumerate}[label=(\Roman*)]
+				\item There exists $ L: \cX \times\cA\times\bbR \to \bbR_{+} $ such that $ \bbE L(\bX,A,\epsilon) < \infty $, and for any $ \widecheck{\bbeta}_{1}, \widecheck{\bbeta}_{2} \in \sB $, we have
+				\[ \left\|  \bphi_{\eff}(\widecheck{\bbeta}_{1};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) - \bphi_{\eff}(\widecheck{\bbeta}_{2};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \right \|_{2} \le L(\bX,A,\epsilon) \left\|\widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2}\right \|_{2}. \]
+				
+				\item \label{enum:estim_fun_grad} There exists $ \widetilde{L}: \cX \times\cA\times\bbR \to \bbR_{+} $ such that $ \bbE \widetilde{L}(\bX,A,\epsilon) < \infty $, and for any $ \widecheck{\bbeta}_{1}, \widecheck{\bbeta}_{2} \in \sB $, we have
+				\[ \left\|  {\partial\bphi_{\eff}(\widecheck{\bbeta}_{1};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \over \partial \bbeta^{\intercal}} - {\partial \bphi_{\eff}(\widecheck{\bbeta}_{2};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})\over \partial \bbeta^{\intercal}} \right \|_{2} \le \widetilde{L}(\bX,A,\epsilon) \left\|\widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2}\right \|_{2}. \]
+				
+				\item $ \bbE\sup_{\widecheck{\bbeta} \in \sB}\|\bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})\|_{2} < +\infty $, $ \bbE\sup_{\widecheck{\bbeta} \in \sB}\|(\partial/\partial\bbeta^{\intercal})\bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})\|_{2} < +\infty $.
+			\end{enumerate}
+		\end{lem}
+		
+		By $ \sB $ is compact and Lemma \ref{lem:estim_fun}, we can conclude that 
+		\[ \left \{ \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}): \widecheck{\bbeta} \in \sB  \right \} \quad \text{and} \quad \left \{ (\partial/\partial\bbeta^{\intercal})\bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}): \widecheck{\bbeta} \in \sB  \right \} \]
+		are both $ \bbP $-Glivenko-Cantelli. Then, by Glivenko-Cantelli Theorem, we have
+		\begin{align}
+			\sup_{\widehat{\bbeta} \in \sB}(\bbP_{n} - \bbP)\left\| \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})\right\|_{2}, ~ \sup_{\widehat{\bbeta} \in \sB}(\bbP_{n} - \bbP)\left\| {\partial \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \over \partial \bbeta^{\intercal}} \right\|_{2} \stackrel{\bbP}{\longrightarrow} 0.\label{eq:gc}
+		\end{align}
+		\begin{rmk}
+			From the proof of Lemma \ref{lem:estim_fun}, we have 
+			\begin{align*}
+				&\bbE\left[ -{\partial \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \over \partial \bbeta^{\intercal}} \right] \\
+				=& \bbE(\ref{eq:eff_grad-1}) + \bbE(\ref{eq:eff_grad-2})\\
+				=& \bbE\bigg\{ \dot{\sfF}(\bX;\widecheck{\bbeta})^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}\underbrace{\bbE\left[ \left( 1 - {1 \over K} \right){\bomega_{A}^{\otimes 2} \over p_{\sA}(A|\bX)}\middle|\bX \right]}_{= \Omega^{\intercal}\Omega }\dot{\sfF}(\bX;\widecheck{\bbeta}) \bigg\} \\
+				& -\bbE\bigg\{  \ddot{\sfF}(\bX;\widecheck{\bbeta})^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}\underbrace{\bbE\left(  {\bomega_{A} \over p_{\sA}(A|\bX)}\middle|\bX \right)}_{= \bzero}\widecheck{e}(\widecheck{\bbeta}) \bigg\}\\
+				=& \widecheck{\cI}(\widecheck{\bbeta}).
+			\end{align*}
+			By Lemma \ref{lem:estim_fun} \ref{enum:estim_fun_grad} and (\ref{eq:gc}), we further have that $ \widecheck{\bbeta} \to \widecheck{\cI}(\widecheck{\bbeta}) $ is continuous.
+		\end{rmk}
+	
+		Combining Lemmas \ref{lem:plug-in}, \ref{lem:plug-in_grad} and (\ref{eq:gc}), we have
+		\begin{align}
+			&\sup_{\widehat{\bbeta} \in \sB}\left\| \bbE_{n}[\bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})] - \bbE[\bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})] \right\|_{2}\stackrel{\bbP}{\longrightarrow} 0; \label{eq:cvg}	\\
+			&\sup_{\widecheck{\bbeta} \in \sB} \left\| \bbE_{n}\left[ {\partial \bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})\over \partial \bbeta^{\intercal}} \right] - \bbE\left[ {\partial \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})\over \partial \bbeta^{\intercal}} \right] \right\|_{2} \stackrel{\bbP}{\longrightarrow} 0. \label{eq:cvg_grad}
+		\end{align}
+		The consistency of $ \widehat{\bbeta}_{\eff,n} $ follows from that $ \sB $ is compact,
+		\[ \widehat{\bbeta}_{\eff,n} \in \argmax_{\widecheck{\bbeta} \in \sB}\left\| \bbE_{n}[\bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})] \right\|_{2}^{2}; \quad \bbeta \in \argmax_{\widecheck{\bbeta} \in \sB}\left\| \bbE[\bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})] \right\|_{2}^{2}, \]
+		and the uniform convergence in probability in (\ref{eq:cvg}).
+		
+		\item By Mean Value Theorem, there exists some $ \alpha_{n} \in [0,1] $ and $ \widetilde{\bbeta}_{n} = (1-\alpha_{n})\widehat{\bbeta}_{\eff,n} + \alpha_{n}\bbeta $, such that
+		\begin{align*}
+			\bzero &= \bbE_{n}[\bphi_{\eff}(\widehat{\bbeta}_{\eff,n};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})]\\
+			&= \bbE_{n}[\bphi_{\eff}(\bbeta;\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})] + \bbE_{n}\left[ {\partial \bphi_{\eff}(\widetilde{\bbeta}_{n};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2}) \over \partial \bbeta^{\intercal}} \right](\widehat{\bbeta}_{\eff,n} - \bbeta).
+		\end{align*}
+		That is,
+		\begin{align*}
+			\widehat{\bbeta}_{\eff,n} - \bbeta &= \left\{ \bbE_{n}\left[ -{\partial \bphi_{\eff}(\widetilde{\bbeta}_{n};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2}) \over \partial \bbeta^{\intercal}} \right] \right\}^{-1}\bbE_{n}[\bphi_{\eff}(\bbeta;\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})]\\
+			&= \left\{ \widecheck{\cI}(\bbeta) + \smallcO_{\bbP}(1) \right\}^{-1}\times\left\{ \bbE_{n}[\bphi_{\eff}(\bbeta;\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})] + \smallcO_{\bbP}(n^{-1/2}) \right\}\\
+			&= \widecheck{\cI}(\bbeta)^{-1}\bbE_{n}[\bphi_{\eff}(\bbeta;\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})] + \smallcO_{\bbP}(n^{-1/2}).
+		\end{align*}
+		Here, the second equality follows from that
+		\begin{align*}
+			\bbE_{n}\left[ -{\partial \bphi_{\eff}(\widetilde{\bbeta}_{n};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2}) \over \partial \bbeta^{\intercal}}\right] &= \widecheck{\cI}(\widetilde{\bbeta}_{n}) + \smallcO_{\bbP}(1) &&(\text{by (\ref{eq:cvg_grad})})\\
+			&= \widecheck{\cI}(\bbeta) + \smallcO_{\bbP}(1). &&(\text{by $ \widehat{\bbeta}_{\eff,n} \stackrel{\bbP}{\to} \bbeta $ and the continuity of  $ \widecheck{\cI} $})
+		\end{align*}
+		\item (Semiparametric Efficiency) If $ (\widecheck{\mu}_{0},\widecheck{\sigma}^{2}) = (\mu_{0},\sigma^{2}) $, then $ \bphi_{\eff}(\bbeta;\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) = \bS_{\eff}(\bbeta) $. Moreover,
+		\begin{align*}
+			\bbE[\bS_{\eff}(\bbeta)^{\otimes 2}] &= \bbE\left[ \dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega\sfV_{\epsilon}(\bX)^{-1}{\bomega_{A}^{\otimes 2}\epsilon^{2} \over p_{\sA}(A|\bX)^{2}} \sfV_{\epsilon}(\bX)^{-1}\Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta) \right]\\
+			&=\bbE\Bigg[ \dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega\sfV_{\epsilon}(\bX)^{-1}\underbrace{\bbE\left(  {\bomega_{A}^{\otimes 2}\bbE(\epsilon^{2}|\bX,A) \over p_{\sA}(A|\bX)^{2}}\middle|\bX \right)}_{= \sfV_{\epsilon}(\bX)} \sfV_{\epsilon}(\bX)^{-1}\Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta) \Bigg]\\
+			&= \cI(\bbeta).
+		\end{align*}
+		That is, $ \cI(\bbeta) $ defined in Theorem \ref{thm:eff} is the semiparametric Fisher information matrix. We further have
+		\[ \sqrt{n}(\widehat{\bbeta}_{\eff,n}-\bbeta) = \sqrt{n}\cI(\bbeta)^{-1}\bbE_{n}[\bS_{\eff}(\bbeta)] + \smallcO_{\bbP}(1) \stackrel{\cD}{\longrightarrow} \cN_{p}\big(\bzero, \cI(\bbeta)^{-1} \big). \]
+		Therefore, $ \widehat{\bbeta}_{\eff,n} $ is semiparametric efficient.
+	\end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:estim_fun}]\label{sec:lem_estim_fun}
+	We follow the notations in Section \ref{sec:lem_plug-in}. Denote $ \ddot{F}(\bX) := \sup_{\widecheck{\bbeta} \in \sB}\|\ddot{\sfF}(\bX;\widecheck{\bbeta})\|_{2} $.
+	\begin{enumerate}[label=(\Roman*),leftmargin=0cm]
+		\item Fix $ \widecheck{\bbeta}_{1},\widecheck{\bbeta}_{2} \in \sB $. Then
+		\begin{align}
+			&\bphi_{\eff}(\widecheck{\bbeta}_{1};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) - \bphi_{\eff}(\widecheck{\bbeta}_{2};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \nonumber \\
+			=& -\left( 1 - {1 \over K} \right)\bomega_{A}^{\intercal}[\vec{\bbf}(\bX;\widecheck{\bbeta}_{1}) - \vec{\bbf}(\bX;\widecheck{\bbeta}_{2})]\bh_{\eff}(\bX,A;\widecheck{\bbeta}_{1}) \label{eq:eff-1} \\
+			& + \widecheck{e}(\widecheck{\bbeta}_{2})[\widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}_{1}) - \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}_{2})]. \label{eq:eff-2}
+		\end{align}
+		\begin{itemize}
+			\item (Lipschitz Bound on (\ref{eq:eff-1}))
+			\begin{itemize}
+				\item (Lipschitz Bound on $ \vec{\bbf} $)
+				\begin{align*}
+					\left \| \vec{\bbf}(\bX;\widecheck{\bbeta}_{1}) - \vec{\bbf}(\bX;\widecheck{\bbeta}_{2}) \right \|_{2} &= \left\| \dot{\sfF}(\bX;\widetilde{\bbeta})[\widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2}]\right\|_{2} &&\left (\text{for some $ \widetilde{\bbeta} = (1-\alpha)\widecheck{\bbeta}_{1} + \alpha\widecheck{\bbeta}_{2} $}\right ) \\
+					&\le \left \| \dot{\sfF}(\bX;\widetilde{\bbeta}) \right \|_{2} \times \left \|\widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2}\right \|_{2}\\
+					&\le \dot{F}(\bX) \times\left \|\widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2}\right \|_{2}.
+				\end{align*}
+				
+				\item Then we have
+				\begin{align*}
+					\| (\ref{eq:eff-1}) \|_{2} &= \underbrace{\left( 1 - {1 \over K} \right)\| \bomega_{A} \|_{2}}_{\le (1-1/K)^{1/2}\| \Omega \|_{\rm F}}\left \| \vec{\bbf}(\bX;\widecheck{\bbeta}_{1}) - \vec{\bbf}(\bX;\widecheck{\bbeta}_{2}) \right \|_{2}\underbrace{\left \| \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}_{1}) \right \|_{2}}_{\le (\ref{eq:instrument_bdd})}\\
+					&\le \text{constant} \times \dot{F}(\bX)^{2} \times \left \| \widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2} \right \|_{2}.
+				\end{align*}
+			\end{itemize}
+			
+			\item (Lipschitz Bound on (\ref{eq:eff-2}))
+			\begin{itemize}
+				\item  Note that
+				\[ \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}_{1}) - \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}_{2}) = [\dot{\sfF}(\bX;\widecheck{\bbeta}_{1}) - \dot{\sfF}(\bX;\widecheck{\bbeta}_{2})]^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}{\bomega_{A} \over p_{\sA}(A|\bX)}. \]
+				
+				\item (Lipschitz Bound on $ \dot{\sfF} $)
+				\[ \left \|\dot{\sfF}(\bX;\widecheck{\bbeta}_{1}) - \dot{\sfF}(\bX;\widecheck{\bbeta}_{2})\right \|_{2} \le \ddot{F}(\bX) \times \left \| \widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2} \right \|_{2}. \]
+				
+				\item Then we have
+				\begin{align*}
+					\left \| \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}_{1}) - \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}_{2}) \right \|_{2} &= \left \|\dot{\sfF}(\bX;\widecheck{\bbeta}_{1}) - \dot{\sfF}(\bX;\widecheck{\bbeta}_{2})\right \|_{2}\underbrace{\| \Omega \|_{2}^{2}\left \| \widecheck{\sfV}_{\epsilon}(\bX)^{-1} \right \|_{2}{\| \bomega_{A} \|_{2} \over p_{\sA}(A|\bX)}}_{\le (1-1/K)^{-1/2}\| \Omega \|_{2}^{2}\| \Omega \|_{\rm F}/[\ubar{p}_{\sA}\lambda_{\min}(\ubar{\sfV}_{\epsilon})]} \\
+					&\le \text{constant} \times \ddot{F}(\bX) \times \left \| \widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2} \right \|_{2}.
+				\end{align*}
+			
+				\item The residual $ \widecheck{e}(\widecheck{\bbeta}_{2}) $ in (\ref{eq:eff-2}) can be bounded by
+				\begin{align}
+					\sup_{\widecheck{\bbeta} \in \sB}\left| \widecheck{e}(\widecheck{\bbeta})  \right| &\le | \widecheck{\mu}_{0}(\bX) - \mu_{0}(\bX)| + \left( 1 - {1 \over K} \right)\sup_{\widecheck{\bbeta} \in \sB}\left|  \bomega_{A}^{\intercal}[\vec{\bbf}(\bX;\widecheck{\bbeta}) - \vec{\bbf}(\bX;\bbeta)] \right| + | \epsilon | \nonumber \\
+					&\le |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \left( 1 - {1 \over K} \right)^{1/2}\| \Omega \|_{\rm F} \sup_{\widecheck{\bbeta} \in \sB}\left\| \vec{\bbf}(\bX;\widecheck{\bbeta}) - \vec{\bbf}(\bX;\bbeta) \right\|_{2} + | \epsilon| \nonumber\\
+					&\le |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \text{constant} \times \dot{F}(\bX) \times \underbrace{\sup_{\widecheck{\bbeta} \in \sB}\left \| \widecheck{\bbeta} - \bbeta \right \|_{2}}_{\le \mathsf{diam}(\sB)} + |\epsilon| \nonumber\\
+					&\le |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \text{constant} \times \dot{F}(\bX) + |\epsilon|. \label{eq:resid_bdd}
+				\end{align}
+			
+				\item Then we have
+				\[ \| (\ref{eq:eff-2}) \|_{2} \le \text{constant} \times \left[ |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \dot{F}(\bX) + |\epsilon| \right] \times \ddot{F}(\bX) \times \left \| \widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2} \right \|_{2} \]
+			\end{itemize}
+		\end{itemize}
+		Combining the Lipschitz bounds on (\ref{eq:eff-1}) and (\ref{eq:eff-2}), we have
+		\begin{align*}
+			&\left \| \bphi_{\eff}(\widecheck{\bbeta}_{1};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) - \bphi_{\eff}(\widecheck{\bbeta}_{2};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \right \|_{2} \\
+			\le& \underbrace{\text{constant} \times \left\{  \dot{F}(\bX)^{2} + \left[ |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \dot{F}(\bX) + |\epsilon| \right] \times \ddot{F}(\bX) \right\}}_{:= L(\bX,A,\epsilon)} \times \left \| \widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2} \right \|_{2}.
+		\end{align*}
+		In particular,
+		\begin{align*}
+			&\bbE L(\bX,A,\epsilon) \\
+			\le & \text{constant} \times \left [\bbE[\dot{F}(\bX)^{2}] +\left(  \left\{ \bbE[\widecheck{\mu}_{0}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE[\mu_{0}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE[\dot{F}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE \epsilon^{2} \right\}^{1/2} \right) \left\{ \bbE[\ddot{F}(\bX)^{2}] \right\}^{1/2}\right ],
+		\end{align*}
+		which is finite by Assumptions \ref{asm:int} and \ref{enum:int}.
+		
+		\item Note that
+		\begin{align}
+			-{\partial \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \over \partial \bbeta^{\intercal}} &= \dot{\sfF}(\bX;\widecheck{\bbeta})^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}\left[ \left( 1 - {1 \over K} \right){\bomega_{A}^{\otimes 2} \over p_{\sA}(A|\bX)} \right]\dot{\sfF}(\bX;\widecheck{\bbeta}) \label{eq:eff_grad-1}\\
+			&\quad -\ddot{\sfF}(\bX;\widecheck{\bbeta})^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}{\bomega_{A}\widecheck{e}(\widecheck{\bbeta}) \over p_{\sA}(A|\bX)}.\label{eq:eff_grad-2}
+		\end{align}
+		Fix $ \widecheck{\bbeta}_{1},\widecheck{\bbeta}_{2} \in \sB $. Denote $ (\ref{eq:eff_grad-1})(\widecheck{\bbeta}_{1}) $ and $ (\ref{eq:eff_grad-1})(\widecheck{\bbeta}_{2}) $ as (\ref{eq:eff_grad-1}) with $ \widecheck{\bbeta} $ replaced by $ \widecheck{\bbeta}_{1} $ and $ \widecheck{\bbeta}_{2} $ respectively.
+		\begin{align*}
+			(\ref{eq:eff_grad-1})(\widecheck{\bbeta}_{1}) - (\ref{eq:eff_grad-1})(\widecheck{\bbeta}_{2}) =& \dot{\sfF}(\bX;\widecheck{\bbeta}_{1})^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}\left[ \left( 1 - {1 \over K} \right){\bomega_{A}^{\otimes 2} \over p_{\sA}(A|\bX)} \right][\dot{\sfF}(\bX;\widecheck{\bbeta}_{1}) - \dot{\sfF}(\bX;\widecheck{\bbeta}_{2})] + \\
+			& [\dot{\sfF}(\bX;\widecheck{\bbeta}_{1}) - \dot{\sfF}(\bX;\widecheck{\bbeta}_{2})]^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}\left[ \left( 1 - {1 \over K} \right){\bomega_{A}^{\otimes 2} \over p_{\sA}(A|\bX)} \right]\dot{\sfF}(\bX;\widecheck{\bbeta}_{2}).
+		\end{align*}
+		Then
+		\begin{align*}
+			\left \| (\ref{eq:eff_grad-1})(\widecheck{\bbeta}_{1}) - (\ref{eq:eff_grad-1})(\widecheck{\bbeta}_{2}) \right \|_{2} &\le {2\|\Omega \|_{2}^{2}\| \Omega \|_{\rm F}^{2} \over \ubar{p}_{\sA}\lambda_{\min}(\ubar{\sfV}_{\epsilon})}\times \dot{F}(\bX) \times \left\| \dot{\sfF}(\bX;\widecheck{\bbeta}_{1}) - \dot{\sfF}(\bX;\widecheck{\bbeta}_{2}) \right\|_{2}\\
+			&\le \text{constant} \times \dot{F}(\bX)\ddot{F}(\bX) \times \left\|\widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2}\right\|_{2}.
+		\end{align*}
+		Denote $ (\ref{eq:eff_grad-2})(\widecheck{\bbeta}_{1}) $ and $ (\ref{eq:eff_grad-2})(\widecheck{\bbeta}_{2}) $ as (\ref{eq:eff_grad-2}) with $ \widecheck{\bbeta} $ replaced by $ \widecheck{\bbeta}_{1} $ and $ \widecheck{\bbeta}_{2} $ respectively.
+		\begin{align}
+			(\ref{eq:eff_grad-2})(\widecheck{\bbeta}_{1}) - (\ref{eq:eff_grad-2})(\widecheck{\bbeta}_{2}) =&
+			-[\dot{\sfF}(\bX;\widecheck{\bbeta}_{1})-\dot{\sfF}(\bX;\widecheck{\bbeta}_{2})]^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}{\bomega_{A}\widecheck{e}(\widecheck{\bbeta}_{1}) \over p_{\sA}(A|\bX)} \label{eq:eff_grad-2-1} \\
+			& - \ddot{\sfF}(\bX;\widecheck{\bbeta}_{2})^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}{\bomega_{A} \over p_{\sA}(A|\bX)}[\widecheck{e}(\widecheck{\bbeta}_{1}) - \widecheck{e}(\widecheck{\bbeta}_{2})]. \label{eq:eff_grad-2-2}
+		\end{align}
+		Here,
+		\begin{align*}
+			\left| \widecheck{e}(\widecheck{\bbeta}_{1}) - \widecheck{e}(\widecheck{\bbeta}_{2}) \right| &= \left( 1 - {1 \over K} \right)\left| \bomega_{A}^{\intercal}[\vec{\bbf}(\bX;\widecheck{\bbeta}_{1}) - \vec{\bbf}(\bX;\widecheck{\bbeta}_{2})] \right|\\
+			&\le \left( 1 - {1 \over K} \right)^{1/2}\| \Omega \|_{\rm F} \times \dot{F}(\bX) \times \left\| \widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2} \right\|_{2}.
+		\end{align*}
+		Then
+		\begin{align*}
+			\left \| (\ref{eq:eff_grad-2-1}) \right \|_{2} &\le \left( 1 - {1 \over K} \right)^{-1/2}{\| \Omega \|_{2}^{2}\| \Omega \|_{\rm F} \over \ubar{p}_{\sA}\lambda_{\min}(\ubar{\sfV}_{\epsilon})} \times \left[ |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \text{constant} \times \dot{F}(\bX) + |\epsilon| \right] \times \left\| \dot{\sfF}(\bX;\widecheck{\bbeta}_{1}) - \dot{\sfF}(\bX;\widecheck{\bbeta}_{2}) \right\|_{2}\\
+			&\le \text{constant} \times \left[ |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \dot{F}(\bX) + |\epsilon| \right] \times \ddot{F}(\bX) \times \left \| \widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2} \right \|_{2};\\
+			\left \| (\ref{eq:eff_grad-2-2}) \right \|_{2} &\le \left( 1 - {1 \over K} \right)^{-1/2}{\| \Omega \|_{2}^{2}\| \Omega \|_{\rm F} \over \ubar{p}_{\sA}\lambda_{\min}(\ubar{\sfV}_{\epsilon})}\times \ddot{F}(\bX) \times \left| \widecheck{e}(\widecheck{\bbeta}_{1}) - \widecheck{e}(\widecheck{\bbeta}_{2}) \right|\\
+			&\le \text{constant} \times \dot{F}(\bX)\ddot{F}(\bX) \times \left\| \widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2} \right\|_{2}.
+		\end{align*}
+		And the Lipschitz bound for (\ref{eq:eff_grad-2}) is
+		\begin{align*}
+			\left \| (\ref{eq:eff_grad-2})(\widecheck{\bbeta}_{1}) - (\ref{eq:eff_grad-2})(\widecheck{\bbeta}_{2}) \right \|_{2} &\le \| (\ref{eq:eff_grad-2-1}) \|_{2} + \| (\ref{eq:eff_grad-2-2}) \|_{2} \\
+			&\le \text{constant} \times \left[ |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \dot{F}(\bX) + |\epsilon| \right] \times \ddot{F}(\bX) \times \left \| \widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2} \right \|_{2}
+		\end{align*}
+		Combining the Lipschitz bounds for (\ref{eq:eff_grad-1}) and (\ref{eq:eff_grad-2}), we have
+		\begin{align*}
+			&\left\|  {\partial\bphi_{\eff}(\widecheck{\bbeta}_{1};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \over \partial \bbeta^{\intercal}} - {\partial \bphi_{\eff}(\widecheck{\bbeta}_{2};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})\over \partial \bbeta^{\intercal}} \right \|_{2}\\
+			\le & \underbrace{\text{constant} \times \left[ |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \dot{F}(\bX) + |\epsilon| \right] \times \ddot{F}(\bX)}_{:= \widetilde{L}(\bX,A,\epsilon)} \times \left \| \widecheck{\bbeta}_{1} - \widecheck{\bbeta}_{2} \right \|_{2}
+		\end{align*}
+		In particular,
+		\[ \bbE\widetilde{L}(\bX,A,\epsilon) \le \text{constant} \times \left(  \left\{ \bbE[\widecheck{\mu}_{0}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE[\mu_{0}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE[\dot{F}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE \epsilon^{2} \right\}^{1/2} \right) \left\{ \bbE[\ddot{F}(\bX)^{2}] \right\}^{1/2}, \]
+		which is finite by Assumptions \ref{asm:int} and \ref{enum:int}.
+		
+		\item Note that
+		\begin{align*}
+			\left\| \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \right\|_{2} &= \underbrace{\left| \widecheck{e}(\widecheck{\bbeta}) \right|}_{\le (\ref{eq:resid_bdd})}\times
+			\underbrace{\left\| \widecheck{\bh}_{\eff}(\bX,A;\widecheck{\bbeta}) \right\|_{2}}_{\le (\ref{eq:instrument_bdd})}\\
+			&\le \text{constant} \times \left[  |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \dot{F}(\bX) + |\epsilon| \right] \times \dot{F}(\bX).
+		\end{align*}
+		Therefore,
+		\begin{align*}
+			&\bbE\sup_{\widecheck{\bbeta} \in \sB}\left\| \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \right\|_{2} \\
+			\le& \text{constant} \times \left(  \left\{ \bbE[\widecheck{\mu}_{0}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE[\mu_{0}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE[\dot{F}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE \epsilon^{2} \right\}^{1/2} \right) \left\{ \bbE[\dot{F}(\bX)^{2}] \right\}^{1/2},
+		\end{align*}
+		which is finite by Assumptions \ref{asm:int} and \ref{enum:int}. Next, we consider bounds for (\ref{eq:eff_grad-1}) and (\ref{eq:eff_grad-2}).
+		\begin{align*}
+			\| (\ref{eq:eff_grad-1}) \|_{2} &\le {\| \Omega \|_{2}^{2}\| \Omega \|_{\rm F}^{2} \over \ubar{p}_{\sA}\lambda_{\min}(\ubar{\sfV}_{\epsilon})}\times \dot{F}(\bX)^{2};\\
+			\| (\ref{eq:eff_grad-2}) \|_{2}
+			&\le \left( 1 - {1 \over K} \right)^{-1/2}{\| \Omega \|_{2}^{2}\| \Omega \|_{\rm F} \over \ubar{p}_{\sA}\lambda_{\min}(\ubar{\sfV}_{\epsilon})}\times \ddot{F}(\bX) \times \underbrace{\left| \widecheck{e}(\widecheck{\bbeta}) \right|}_{\le (\ref{eq:resid_bdd})}\\
+			&\le \text{constant} \times \left[ |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \dot{F}(\bX) + |\epsilon| \right] \times \ddot{F}(\bX).
+		\end{align*}
+		Then we have
+		\begin{align*}
+			&\bbE\left\| {\partial \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2}) \over \partial \bbeta^{\intercal}} \right\|_{2} \le \bbE\| (\ref{eq:eff_grad-1}) \|_{2} + \bbE\| (\ref{eq:eff_grad-2}) \|_{2}\\
+			\le& \text{constant} \times \left [\bbE[\dot{F}(\bX)^{2}] + \left(  \left\{ \bbE[\widecheck{\mu}_{0}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE[\mu_{0}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE[\dot{F}(\bX)^{2}] \right\}^{1/2} + \left\{ \bbE \epsilon^{2} \right\}^{1/2} \right) \left\{ \bbE[\ddot{F}(\bX)^{2}] \right\}^{1/2}\right ],
+		\end{align*}
+		which is finite by Assumptions by \ref{asm:int} and \ref{enum:int}.
+	\end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:plug-in_grad}]
+	We follow the notations in Section \ref{sec:lem_plug-in} and the proof of Lemma \ref{lem:estim_fun}. Note that
+	\begin{align}
+		&- {\partial \bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})\over \partial \bbeta^{\intercal}} + {\partial \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})\over \partial \bbeta^{\intercal}} \nonumber \\
+		=&\quad~ \dot{\sfF}(\bX;\widecheck{\bbeta})^{\intercal}\Omega^{\intercal}\Omega[\widehat{\sfV}_{\epsilon,n}(\bX)^{-1} - \widecheck{\sfV}_{\epsilon}(\bX)^{-1}]\left[ \left( 1 - {1 \over K} \right) {\bomega_{A}^{\otimes 2}\over p_{\sA}(A|\bX)} \right]\dot{\sfF}(\bX;\widecheck{\bbeta})\label{eq:plug-in_grad-1}\\
+		& +\ddot{\sfF}(\bX;\widecheck{\bbeta})^{\intercal}\Omega^{\intercal}\Omega\widecheck{\sfV}_{\epsilon}(\bX)^{-1}{\bomega_{A} \over p_{\sA}(A|\bX)}[\widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX)] \label{eq:plug-in_grad-2}\\
+		& - \ddot{\sfF}(\bX;\widecheck{\bbeta})^{\intercal}\Omega^{\intercal}\Omega[\widehat{\sfV}_{\epsilon,n}(\bX)^{-1} - \widecheck{\sfV}_{\epsilon}(\bX)^{-1}]{\bomega_{A}\widecheck{e}(\widecheck{\bbeta}) \over p_{\sA}(A|\bX)} \label{eq:plug-in_grad-3}\\
+		& + \ddot{\sfF}(\bX;\widecheck{\bbeta})^{\intercal}\Omega^{\intercal}\Omega[\widehat{\sfV}_{\epsilon,n}(\bX)^{-1} - \widecheck{\sfV}_{\epsilon}(\bX)^{-1}]{\bomega_{A} \over p_{\sA}(A|\bX)}[\widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX)]. \label{eq:plug-in_grad-4}
+	\end{align}
+	Then
+	\begin{align*}
+		\| (\ref{eq:plug-in_grad-1}) \|_{2} &\le {\| \Omega \|_{2}^{2}\| \Omega \|_{\rm F}^{2} \over \ubar{p}_{\sA}} \times \dot{F}(\bX)^{2} \times \underbrace{\left \| \widehat{\sfV}_{\epsilon,n}(\bX)^{-1} - \widecheck{\sfV}_{\epsilon}(\bX)^{-1} \right \|_{2}}_{\le (\ref{eq:var_bdd})}\\
+		&\le \text{constant} \times \dot{F}(\bX)^{2} \times \| \widehat{\sigma}_{n}^{2} - \widecheck{\sigma}^{2} \|_{\infty};\\
+		\| (\ref{eq:plug-in_grad-2}) \|_{2} &\le \left( 1 - {1 \over K} \right)^{-1/2}{\|\Omega\|_{2}^{2}\| \Omega \|_{\rm F} \over \ubar{p}_{\sA}\lambda_{\min}(\ubar{\sfV}_{\epsilon})} \times \ddot{F}(\bX) \times \left| \widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX) \right|;\\
+		\| (\ref{eq:plug-in_grad-3}) \|_{2} &\le \left( 1 - {1 \over K} \right)^{-1/2}{\| \Omega \|_{2}^{2}\| \Omega \|_{\rm F} \over \ubar{p}_{\sA}} \times \ddot{F}(\bX) \times \underbrace{\left| \widecheck{e}(\widecheck{\bbeta}) \right|}_{\le (\ref{eq:resid_bdd})} \times \underbrace{\left \| \widehat{\sfV}_{\epsilon,n}(\bX)^{-1} - \widecheck{\sfV}_{\epsilon}(\bX)^{-1} \right \|_{2}}_{\le (\ref{eq:var_bdd})}\\
+		&\le \text{constant} \times \left[ |\widecheck{\mu}_{0}(\bX)| + |\mu_{0}(\bX)| + \dot{F}(\bX) + |\epsilon| \right] \times \ddot{F}(\bX) \times \| \widehat{\sigma}_{n}^{2} - \widecheck{\sigma}^{2} \|_{\infty};\\
+		\| (\ref{eq:plug-in_grad-4}) \|_{2} &\le \left( 1 - {1 \over K} \right)^{-1/2}{\| \Omega \|_{2}^{2}\| \Omega \|_{\rm F} \over \ubar{p}_{\sA}} \times \ddot{F}(\bX) \times \underbrace{\left \| \widehat{\sfV}_{\epsilon,n}(\bX)^{-1} - \widecheck{\sfV}_{\epsilon}(\bX)^{-1} \right \|_{2}}_{\le (\ref{eq:var_bdd})} \times \left| \widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX) \right|\\
+		&\le \text{constant} \times \ddot{F}(\bX) \times \| \widehat{\sigma}_{n}^{2} - \widecheck{\sigma}^{2} \|_{\infty} \times \left| \widehat{\mu}_{0,n}(\bX) - \widecheck{\mu}_{0}(\bX) \right|.
+	\end{align*}
+	Then we have
+	\begin{align*}
+		&\bbE_{n}\left\| {\partial \bphi_{\eff}(\widecheck{\bbeta};\widehat{\mu}_{0,n},p_{\sA},\widehat{\sigma}_{n}^{2})\over \partial \bbeta^{\intercal}} - {\partial \bphi_{\eff}(\widecheck{\bbeta};\widecheck{\mu}_{0},p_{\sA},\widecheck{\sigma}^{2})\over \partial \bbeta^{\intercal}} \right\|_{2} \\
+		\le& \bbE_{n}\| (\ref{eq:plug-in_grad-1}) \|_{2} + \bbE_{n}\| (\ref{eq:plug-in_grad-2}) \|_{2} + \bbE_{n}\| (\ref{eq:plug-in_grad-3}) \|_{2} + \bbE_{n}\| (\ref{eq:plug-in_grad-4}) \|_{2}\\
+		\lesssim& \smallcO_{\bbP}(n^{-1/2}) + \smallcO_{\bbP}(n^{-1/2}) + \smallcO_{\bbP}(n^{-1/2}) \smallcO_{\bbP}(n^{-1/2}) + \smallcO_{\bbP}(n^{-1})\\
+		=& \smallcO_{\bbP}(n^{-1/2}).
+	\end{align*}
+\end{proof}
+
+\subsubsection{Proof of Theorem \ref{thm:eff_opt}}
+
+\begin{proof}[Proof of Theorem \ref{thm:eff_opt}]
+	By Theorem \ref{thm:eff}, we have
+	\[ \widehat{\bbeta}_{\eff,n}(\widecheck{\mu}_{0}) - \bbeta = \cI(\bbeta;\widecheck{\mu}_{0})^{-1}\bbE_{n}[\bphi_{\eff}(\bbeta;\widecheck{\mu}_{0},p_{\sA},\sigma_{\opt}^{2})] + \smallcO_{\bbP}(n^{-1/2}). \]
+	Therefore, it suffices to study the asymptotic variance
+	First of all, we derive the $ \sqrt{n} $-asymptotic variance of $ \widehat{\bbeta}_{\eff,n}(\widecheck{\mu}_{0}) $. Denote
+	\begin{align*}
+		\widecheck{\bphi}_{\eff}(\bbeta) &:= \bphi_{\eff}(\bbeta;\widecheck{\mu}_{0},p_{\sA},\sigma_{\opt}^{2})\\
+		&= \left [Y - \widecheck{\mu}_{0}(\bX) - \left( 1 - {1 \over K} \right) \langle \bomega_{A},\vec{\bbf}(\bX;\bbeta) \rangle \right]\bh_{\eff}(\bX,A;\bbeta,\widecheck{\mu}_{0})\\
+		&= [\underbrace{\mu_{0}(\bX) - \widecheck{\mu}_{0}(\bX) + \epsilon}_{=\widecheck{e}(\bbeta)}]\bh_{\eff}(\bX,A;\bbeta,\widecheck{\mu}_{0});\\
+		\bh_{\eff}(\bX,A;\bbeta,\widecheck{\mu}_{0}) &:= \dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1}{\bomega_{A} \over p_{\sA}(A|\bX)}.
+	\end{align*}
+	First notice that
+	\begin{align*}
+	\bbE[\widecheck{\bphi}_{\eff}(\bbeta)^{\otimes 2}] &= \bbE\left[ \dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1}\left( {\bomega_{A}^{\otimes 2}\widecheck{e}(\bbeta)^{2} \over p_{\sA}(A|\bX)^{2}} \right)\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1} \Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta) \right]\\
+	&=\underbrace{\bbE\left[ \dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1} \Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta) \right]}_{= \cI(\bbeta;\widecheck{\mu}_{0})};\\
+	\bbE\left[ -{\partial \widecheck{\bphi}_{\eff}(\bbeta) \over \partial \bbeta^{\intercal}} \right] &=\bbE\left\{ \dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1} \left[ \left( 1 - {1 \over K} \right) {\bomega_{A}^{\otimes 2} \over p_{\sA}(A|\bX)} \right]\dot{\sfF}(\bX;\bbeta) \right\}\\
+	& \quad - \underbrace{\bbE\left\{ \ddot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1}{[\mu_{0}(\bX) - \widecheck{\mu}_{0}(\bX) + \epsilon]\bomega_{A} \over p_{\sA}(A|\bX)} \right\}}_{= 0}\\
+	&= \underbrace{\bbE\left[ \dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1} \Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta) \right]}_{= \cI(\bbeta;\widecheck{\mu}_{0})}.
+	\end{align*}
+	Here, the second equality follows from that
+	\begin{align*}
+		&\bbE[\widecheck{e}(\bbeta)^{2}|\bX,A] = [\widecheck{\mu}_{0}(\bX) - \mu_{0}(\bX)]^{2} + \sigma^{2}(\bX,A) = \sigma_{\opt}^{2}(\bX,A;\widecheck{\mu}_{0});\\
+		&\bbE\left( {\bomega_{A}^{\otimes 2}\widecheck{e}(\bbeta)^{2} \over p_{\sA}(A|\bX)^{2}}\middle|\bX \right) = \bbE\left( {\bomega_{A}^{\otimes 2}\sigma_{\opt}^{2}(\bX,A;\widecheck{\mu}_{0}) \over p_{\sA}(A|\bX)^{2}}\middle|\bX \right) = \sum_{k=1}^{K}{\sigma_{\opt}^{2}(\bX,k;\widecheck{\mu}_{0})\bomega_{k}^{\otimes 2} \over p_{\sA}(k|\bX)} = \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0}).
+	\end{align*}
+	The forth equality follows from that $ \bbE[\bomega_{A}/p_{\sA}(A|\bX)|\bX] = \bzero $, $ \bbE(\epsilon|\bX,A) = 0 $ and
+	\[ \left( 1 - {1 \over K} \right)\bbE\left( {\bomega_{A}^{\otimes 2} \over p_{\sA}(A|\bX)}\middle|\bX \right) = \left( 1 - {1 \over K} \right)\sum_{k=1}^{K}\bomega_{k}^{\otimes 2} = \Omega^{\intercal}\Omega. \]
+	Then
+	\[ \lim_{n\to\infty}n\sfvar[\widehat{\bbeta}_{\eff,n}(\widecheck{\mu}_{0})] = \left\{ \bbE \left[-{\partial \widecheck{\bphi}_{\eff}(\bbeta) \over \partial \bbeta^{\intercal}}\right]\right\}^{-1}\bbE[\widecheck{\bphi}_{\eff}(\bbeta)^{\otimes 2}]\left\{ \bbE \left[-{\partial \widecheck{\bphi}_{\eff}(\bbeta)^{\intercal} \over \partial \bbeta}\right]\right\}^{-1} = \cI(\bbeta;\widecheck{\mu}_{0})^{-1}. \]
+	
+	Next, we study the $ \sqrt{n} $-asymptotic variance of estimates from the regular class $ \cB_{n}(\widecheck{\mu}_{0}) $. Fix $ \widehat{\bbeta}_{n}(\widecheck{\mu}_{0}) \in \cB_{n}(\widecheck{\mu}_{0}) $ that corresponds to the estimating function $ \bphi(\bbeta;\widecheck{\mu}_{0}) $, and denote $ \widecheck{\bphi}(\bbeta) := \bphi(\bbeta;\widecheck{\mu}_{0}) $. There exists $ \bh:\cX\times A\to \bbR^{p} $, which can depend on $ (\bbeta,\widecheck{\mu}_{0}) $, such that $ \bbE[\bh(\bX,A)|\bX] = \bzero $ and
+	\[ \widecheck{\bphi}(\bbeta) = \bigg[\underbrace{Y - \widecheck{\mu}_{0}(\bX) - \left( 1 - {1 \over K} \right) \langle \bomega_{A},\vec{\bbf}(\bX;\bbeta) \rangle}_{= \widecheck{e}(\bbeta)} \bigg]\bh(\bX,A). \]
+	Here, we suppress the potential dependency of $ \bh $ on $ (\bbeta,\widecheck{\mu}_{0}) $ and only mention it if necessary. Note that $ \bbE[\bh(\bX,A)|\bX] = \bzero $ informs the representation
+	\[ \bh(\bX,A) = {\sfH(\bX)\bomega_{A} \over p_{\sA}(A|\bX)}; \quad \sfH(\bX) := \left( 1 - {1 \over K} \right)\sum_{k=1}^{K}p_{\sA}(k|\bX)\bh(\bX,k)\bomega_{k}^{\intercal}(\Omega^{\intercal}\Omega)^{-1} \in \bbR^{p\times (K-1)}, \]
+	since by $ \Omega^{\intercal}(\Omega^{\intercal}\Omega)^{-1}\Omega^{\intercal} = \Ib_{K\times K} - (1/K)\vec{\bone}_{K}^{\otimes 2} $, we have
+	\[ \sfH(\bX)\bomega_{A} = p_{\sA}(A|\bX)\bh(\bX,A) - {1 \over K}\underbrace{\sum_{k = 1}^{K}p_{\sA}(k|\bX)\bh(\bX,k)}_{= \bbE[\bh(\bX,A)|\bX] = \bzero} = p_{\sA}(A|\bX)\bh(\bX,A). \]
+	Then
+	\begin{align*}
+		\bbE[\widecheck{\bphi}(\bbeta)^{\otimes 2}] &= \bbE\left[ \sfH(\bX)\left( {\bomega_{A}^{\otimes 2}\widecheck{e}(\bbeta)^{2} \over p_{\sA}(A|\bX)^{2}} \right)\sfH(\bX)^{\intercal} \right]\\
+		&= \bbE\left[ \sfH(\bX) \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0}) \sfH(\bX)^{\intercal} \right];\\
+		\bbE \left[-{\partial\widecheck{\bphi}(\bbeta) \over \partial \bbeta^{\intercal}}\right] &= \bbE\left\{ \sfH(\bX)\left[ \left( 1 - {1 \over K} \right){\bomega_{A}^{\otimes 2} \over p_{\sA}(A|\bX)} \right]\dot{\sfF}(\bX;\bbeta) \right\} - \underbrace{\bbE\left\{ \dot{\sfH}(\bX;\bbeta,\widecheck{\mu}_{0}){[\mu_{0}(\bX) - \widecheck{\mu}_{0}(\bX) + \epsilon]\bomega_{A} \over p_{\sA}(A|\bX)} \right\}}_{= 0}\\
+		&= \bbE\left[ \sfH(\bX)\Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta) \right].
+	\end{align*}
+	Here, the second equality follows from that $ \bbE[\widecheck{e}(\bbeta)^{2}|\bX,A] = \sigma_{\opt}^{2}(\bX,A) $ and
+	\[ \bbE\left( {\bomega_{A}^{\otimes 2}\widecheck{e}(\bbeta)^{2} \over p_{\sA}(A|\bX)^{2}}\middle|\bX \right) = \bbE\left( {\bomega_{A}^{\otimes 2}\sigma_{\opt}^{2}(\bX,A) \over p_{\sA}(A|\bX)^{2}}\middle|\bX \right) = \sum_{k=1}^{K}{\sigma^{2}_{\opt}(\bX,A)\bomega_{k}^{\otimes 2} \over p_{\sA}(k|\bX)} = \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0}). \]
+	The forth equality follows from that $ \bbE[\bomega_{A}/p_{\sA}(A|\bX)|\bX] = \bzero $, $ \bbE(\epsilon|\bX,A) = 0 $ and
+	\[ \left( 1 - {1 \over K} \right)\bbE\left( {\bomega_{A}^{\otimes 2} \over p_{\sA}(A|\bX)}\middle|\bX \right) = \left( 1 - {1 \over K} \right)\sum_{k=1}^{K}\bomega_{k}^{\otimes 2} = \Omega^{\intercal}\Omega. \]
+	\begin{lem}[Sandwich Variance Inequality]\label{lem:sandwich}
+		Define
+		\begin{align*}
+			\sfA &:= \bbE[\sfH(\bX)\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})\sfH(\bX)^{\intercal}];\\
+			\sfB &:= \bbE[\sfH(\bX)\Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta)];\\
+			\sfC &:= \bbE[\dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1}\Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta)];\\
+			\sfX &:= \begin{pmatrix}
+				\sfA & \sfB\\
+				\sfB^{\intercal} & \sfC
+			\end{pmatrix}.
+		\end{align*}
+		Then
+		\[ \sfX \ge 0 \quad \Leftrightarrow \quad \overbrace{\sfX/\sfA = \sfC - \sfB^{\intercal}\sfA^{-1}\sfB}^{\text{Schur complement}} \ge 0, \]
+		with equality if and only if there exists some non-singular constant matrix $ \sfH_{0} \in \bbR^{p \times p} $ such that
+		\[ \sfH(\bX) = \sfH_{0}\dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1}. \]
+	\end{lem}
+
+	\noindent Following the notations in Lemma \ref{lem:sandwich}, we have
+	\begin{align*}
+		&\lim_{n\to\infty}n\sfvar[\widehat{\bbeta}_{n}(\widecheck{\mu}_{0})] \\
+		=& \left\{ \bbE \left[-{\partial \widecheck{\bphi}(\bbeta)\over \partial \bbeta^{\intercal}}\right]\right\}^{-1}\bbE [\widecheck{\bphi}(\bbeta)^{\otimes 2}]\left\{ \bbE \left[-{\partial \widecheck{\bphi}(\bbeta)^{\intercal}\over \partial \bbeta}\right]\right\}^{-1} \\
+		=& \sfB^{-1}\sfA\sfB^{-\intercal} = (\sfB^{\intercal}\sfA^{-1}\sfB)^{-1} \ge \sfC^{-1} &&(\text{by Lemma \ref{lem:sandwich}}) \\
+		=& \cI(\bbeta;\widecheck{\mu}_{0})^{-1},
+	\end{align*}
+	with equality attained at
+	\[ \sfH(\bX) = \sfH_{0}\dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1}, \]
+	for some non-singular constant matrix $ \sfH_{0} \in \bbR^{p \times p} $.
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:sandwich}]
+	For any $ \bu,\bv \in \bbR^{p} $, define
+	\begin{align*}
+		\bU &:= \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{1/2}\sfH(\bX)^{\intercal}\bu;\\
+		\bV &:= \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1/2}\Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta)\bv.
+	\end{align*}
+	Then
+	\begin{align*}
+		(\bu^{\intercal},\bv^{\intercal})\sfX\begin{pmatrix}
+			\bu \\ \bv
+		\end{pmatrix} &= \bu^{\intercal}\sfA\bu + 2\bv^{\intercal}\sfB^{\intercal}\bu + \bv^{\intercal}\sfC\bv\\
+		&= \bbE(\bU^{\intercal}\bU + 2\bV^{\intercal}\bU + \bV^{\intercal}\bV)\\
+		&= \bbE\|\bU + \bV\|_{2}^{2}\\
+		&\ge 0,
+	\end{align*}
+	with equality if and only if 
+	\[ \bU = -\bV \quad \Leftrightarrow \quad \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{1/2}\sfH(\bX)^{\intercal}\bu = - \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1/2}\Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta)\bv \quad a.s. \]
+	That is, for some constant matrix $ \sfK \in \bbR^{p \times p} $, we have $ \bu = -\sfK^{\intercal}\bv $, and
+	\begin{align*}
+		\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{1/2}\sfH(\bX)^{\intercal}\sfK^{\intercal} = \sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1/2}\Omega^{\intercal}\Omega\dot{\sfF}(\bX;\bbeta) \quad \Leftrightarrow \quad \sfK\sfH(\bX) = \dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1} \quad a.s.
+	\end{align*}
+	This proves $ \sfX \ge 0 $ and the equality condition. Finally, by $ \sfA > 0 $, we have
+	\[ \bv^{\intercal}(\sfX/\sfA)\bv = \bv^{\intercal}\sfC\bv - \bv^{\intercal}\sfB^{\intercal}\sfA^{-1}\sfB\bv = \left[ (\bu^{\intercal},\bv^{\intercal})\sfX\begin{pmatrix}
+		\bu \\ \bv
+	\end{pmatrix} \right]_{\bu = -\sfA^{-1}\sfB\bv} \ge 0. \]
+	That is, $ \sfX/\sfA \ge 0 $ with equality if and only if for $ \sfK = \sfB^{\intercal}\sfA $ and $ \sfH_{0} := \sfK^{-1} = \sfA^{-1}\sfB^{-\intercal} $, we have
+	\[ \sfH(\bX) = \sfH_{0}\dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega\sfV_{\epsilon}(\bX;\widecheck{\mu}_{0})^{-1} \quad a.s. \]
+\end{proof}
+
+\subsubsection{Proof of Theorem \ref{thm:regret_par}}
+
+\begin{proof}[Proof of Theorem \ref{thm:regret_par}] By Assumption \ref{asm:cmpt}, the distribution of $ \bX $ has compact support. Without loss of generality, assume that $ \cX $ is compact. Recall from the proof of Lemma \ref{lem:plug-in_grad} that $ \ddot{F} $ is the envelop function of $ \ddot{\sfF} $. Then by Assumption \ref{enum:int} that $ \bbE \ddot{F}(\bX) +\infty $, we further have that $ \| \ddot{F} \|_{\infty} = \sup_{\bx \in \cX}\ddot{F}(\bx) < +\infty $.
+	
+	By $ \widehat{\bbeta}_{n} = \bbeta + \cO_{\bbP}(n^{-1/2}) $, we have
+	\[ \sup_{\bx \in \cX}\left \| \dot{\sfF}(\bx,\widehat{\bbeta}_{n}) - \dot{\sfF}(\bx,\bbeta) \right \|_{2} \le \|\ddot{F}\|_{\infty} \times \| \widehat{\bbeta}_{n} - \bbeta \|_{2} = \cO_{\bbP}(n^{-1/2}). \]
+	Fix $ \bx \in \cX $. By Mean Value Theorem, there exists some $ \alpha_{n} \in [0,1] $ and $ \widetilde{\bbeta}_{n} = (1 - \alpha_{n})\widehat{\bbeta}_{n} + \alpha_{n}\bbeta $, such that
+	\begin{align*}
+		\vec{\bbf}(\bx;\widehat{\bbeta}_{n}) - \vec{\bbf}(\bx;\bbeta)
+		&= \dot{\sfF}(\bx,\widetilde{\bbeta}_{n})(\widehat{\bbeta}_{n} - \bbeta)\\
+		&= [\dot{\sfF}(\bx,\bbeta) + \cO_{\bbP}(n^{-1/2})](\widehat{\bbeta}_{n} - \bbeta) \\
+		&= \dot{\sfF}(\bx,\bbeta)(\widehat{\bbeta}_{n} - \bbeta) + \cO_{\bbP}(n^{-1}).
+	\end{align*}
+	By $ \lim_{n\to\infty}n\sfvar(\widehat{\bbeta}_{n}) = \Sigma $, we have
+	\[ \lim_{n\to\infty}n\sfvar[\vec{\bbf}(\bx;\widehat{\bbeta}_{n})] = \dot{\sfF}(\bx;\bbeta)\Sigma\dot{\sfF}(\bx;\bbeta)^{\intercal}. \]
+	Suppose $ \bX \sim p_{\sX}(\bx) $ and $ \bX \indep \widehat{\bbeta}_{n} $. Then
+	\begin{align*}
+		&\limsup_{n\to\infty}n\sum_{k=1}^{K}\bbE[\gamma(\bX,k;\widehat{\bbeta}_{n}) - \gamma(\bX,k;\bbeta)]^{2} \\
+		=& \limsup_{n\to\infty}\left( 1 - {1 \over K} \right)^{2}\sum_{k=1}^{K}\bomega_{k}^{\intercal}\bbE  [\vec{\bbf}(\bX;\widehat{\bbeta}_{n}) - \vec{\bbf}(\bX;\bbeta)]^{\otimes 2}\bomega_{k} &&(\text{by Lemma \ref{lem:ang}}) \\
+		=& \left( 1 - {1 \over K} \right)^{2}\sum_{k=1}^{K}\bomega_{k}^{\intercal}\bbE\bigg[\lim_{n\to\infty}n\underbrace{\bbE\left\{  [\vec{\bbf}(\bX;\widehat{\bbeta}_{n}) - \vec{\bbf}(\bX;\bbeta)]^{\otimes 2}\middle|\bX \right\}}_{= \sfvar[\vec{\bbf}(\bx;\widehat{\bbeta}_{n})]|_{\bx = \bX}}\bigg]\bomega_{k}  &&\text{(by DCT)}\\
+		=& \left( 1 - {1 \over K} \right)^{2}\sum_{k=1}^{K}\bomega_{k}^{\intercal} \bbE[\dot{\sfF}(\bX;\bbeta)\Sigma\dot{\sfF}(\bX;\bbeta)^{\intercal}] \bomega_{k}\\
+		=&\left( 1 - {1 \over K} \right)^{2}\tr\left\{  \sum_{k=1}^{K}\bomega_{k}^{\intercal} \bbE[\dot{\sfF}(\bX;\bbeta)\Sigma\dot{\sfF}(\bX;\bbeta)^{\intercal}]\bomega_{k} \right\} &&(\text{trace of a scalar}) \\
+		=&\left( 1 - {1 \over K} \right)\tr\left\{ \bbE[\dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega \dot{\sfF}(\bX;\bbeta)]\Sigma \right\}. &&(\text{commutativity under trace})
+	\end{align*}
+	Finally, by Theorem \ref{thm:regret_est}, we have
+	\begin{align*}
+		\limsup_{n\to\infty}\sqrt{n}[\cV(d^{\star}) - \bbE\cV(\widehat{d}_{n})] &\le 2\limsup_{n\to\infty} \left\{\sqrt{n} \max_{1 \le k \le K}\bbE\left| \gamma(\bX,k;\widehat{\bbeta}_{n}) - \gamma(\bX,k;\bbeta) \right| \right\}\\
+		&\le 2\limsup_{n\to\infty}\left\{ n\max_{1 \le k \le K} \bbE[\gamma(\bX,k;\widehat{\bbeta}_{n}) - \gamma(\bX,k;\bbeta)]^{2} \right\}^{1/2} \\
+		&\le 2\lim_{n\to\infty}\left\{ n\sum_{k=1}^{K} \bbE[\gamma(\bX,k;\widehat{\bbeta}_{n}) - \gamma(\bX,k;\bbeta)]^{2} \right\}^{1/2}\\
+		&= 2\left( 1 - {1 \over K} \right)^{1/2}\tr\left\{ \bbE[\dot{\sfF}(\bX;\bbeta)^{\intercal}\Omega^{\intercal}\Omega \dot{\sfF}(\bX;\bbeta)]\Sigma \right\}^{1/2}.
+	\end{align*}
+	Here, $ \bbE $ is taken over $ (\bX,\widehat{\bbeta}_{n}) $.
+\end{proof}
+
+%\begin{proof}[Proof of Proposition \ref{prop:regret_margin}] Fix $ \epsilon > 0 $. Then
+%	\begin{align*}
+%	\cV(d^{\star}) - \cV(\widehat{d}_{n}) \le&\bbE\left\{ \sum_{k \ne k'}|\gamma(\bX,k) - \gamma(\bX,k')|;d^{\star}(\bX) = k, ~ \widehat{d}_{n}(\bX) = k' \right\}\\
+%	\le& \epsilon \bbP[|\gamma(\bX,k) - \gamma(\bX,k')| \le \epsilon] + {1 \over \epsilon}\bbE\left\{ \sum_{k \ne k'}[\gamma(\bX,k) - \gamma(\bX,k')]^{2};d^{\star}(\bX) = k, ~ \widehat{d}_{n}(\bX) = k' \right\}\\
+%	\le & C_{\sM}\epsilon^{\alpha + 1} + 4\epsilon^{-1}\max_{1 \le k \le K}\bbE[\gamma(\bX,k) - \widehat{\gamma}_{n}(\bX,k)]^{2}.
+%	\end{align*}
+%	Infimizing the final expression over $ \epsilon > 0 $ yields
+%	\[ \cV(d^{\star}) - \cV(\widehat{d}_{n}) \le C_{\sM}^{1 \over \alpha+2} \left ( {4 \over \alpha+1}\right )^{{\alpha+1 \over \alpha+2}}\max_{1 \le k \le K}\left\{\bbE[\gamma(\bX,k) - \widehat{\gamma}_{n}(\bX,k)]^{2}  \right\}^{\alpha+1 \over \alpha+2}. \]
+%\end{proof}
+
+\newpage
+
+\subsection{Additional Tables and Figures}\label{sec:tab_fig}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\arraystretch}{0.99}
+\input{tables/ACTG175_coef}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% data_exploration
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.95\linewidth]{tf_1.pdf}
+	\includegraphics[width=0.95\linewidth]{tf_2.pdf}
+	\includegraphics[width=0.95\linewidth]{tf_3.pdf}
+	\caption[Simulation, Treatment-Free Effect Plots]{\footnotesize Fitted treatment-free effect plots with respect to $ X_{k} $ for $ 1 \le k \le 5 $ for the simulation studies (Section \ref{sec:simulation}) with $ n = 400 $, $ p = 10 $, $ K = 3 $. Curves are fitted by the \textit{LOcally wEighted Scatterplot Smoothing (LOESS)} of cubic spline. When the treatment-free effect model is correctly specified (Rows 1 and 2), it can be consistently estimated. Note that the treatment-free effect estimation utilizes the estimated propensity scores according to Section \ref{sec:tf}. The correctness of the treatment-free effect is not affected by the correctness of the propensity score model. When the treatment-free effect model is misspecified (Row 3), the estimated treatment-free effect deviates from the truth.}
+	\label{fig:tf}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.95\linewidth]{prop_1.pdf}
+	\includegraphics[width=0.95\linewidth]{prop_2.pdf}
+	\caption[Simulation, Propensity Score Plots]{Fitted propensity score plots with respect to $ (X_{k},A) $ for $ 1 \le k \le 5 $ for the simulation studies (Section \ref{sec:simulation}) with $ n = 400 $, $ p = 10 $, $ K = 3 $. Curves are fitted by the LOESS of cubic spline. When the propensity score model is correctly specified (Panel 1), it can be consistently estimated. When the propensity score model is misspecified (Panel 2), the estimated propensity score deviates from the truth.}
+	\label{fig:prop}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{resid2_X_1.pdf}
+	\includegraphics[width=\linewidth]{resid2_XA_1.pdf}
+	\caption[Simulation, Residual Plots, Correct Treatment-Free Effect, Homoscedasticity]{\footnotesize Residual plots with respect to $ X_{k} $ and $ (X_{k},A) $ for $ 1 \le k \le 5 $ for the simulation studies (Section \ref{sec:simulation}) with $ n = 400 $, $ p = 10 $, $ K = 3 $, correctly specified treatment-free effect and homoscedasticity. Define $ XXX := \log\left[ {1 \over 3}\left( e^{\sqrt{2}X_{1}} + e^{\sqrt{2}X_{2}} + e^{\sqrt{2}X_{3}} \right) \right] $. Residuals are computed from the fitted E-Learning. Curves are fitted by the LOESS of cubic spline. It shows no patterns of $ \log(\texttt{residual}^{2}) $ with respect to $ \bX $ or $ A $.}
+	\label{fig:resid2_1}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{resid2_X_2.pdf}
+	\includegraphics[width=\linewidth]{resid2_XA_2.pdf}
+	\caption[Simulation, Residual Plots, Incorrect Treatment-Free Effect, Homoscedasticity]{\footnotesize Residual plots with respect to $ X_{k} $ and $ (X_{k},A) $ for $ 1 \le k \le 5 $ for the simulation studies (Section \ref{sec:simulation}) with $ n = 400 $, $ p = 10 $, $ K = 3 $, misspecified treatment-free effect and homoscedasticity. Define $ XXX := \log\left[ {1 \over 3}\left( e^{\sqrt{2}X_{1}} + e^{\sqrt{2}X_{2}} + e^{\sqrt{2}X_{3}} \right) \right] $. Residuals are computed from the fitted E-Learning. Curves are fitted by the LOESS of cubic spline. It shows patterns of $ \log(\texttt{residual}^{2}) \sim X_{k} $ for $ k = 1,2,3 $ and $ \log(\texttt{residual}^{2}) \sim XXX $.}
+	\label{fig:resid2_2}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{resid2_X_3.pdf}
+	\includegraphics[width=\linewidth]{resid2_XA_3.pdf}
+	\caption[Simulation, Residual Plots, Correct Treatment-Free Effect, Heteroscedasticity]{\footnotesize Residual plots with respect to $ X_{k} $ and $ (X_{k},A) $ for $ 1 \le k \le 5 $ for the simulation studies (Section \ref{sec:simulation}) with $ n = 400 $, $ p = 10 $, $ K = 3 $, correctly specified treatment-free effect and heteroscedasticity. Define $ XXX := \log\left[ {1 \over 3}\left( e^{\sqrt{2}X_{1}} + e^{\sqrt{2}X_{2}} + e^{\sqrt{2}X_{3}} \right) \right] $. Residuals are computed from the fitted E-Learning. Curves are fitted by the LOESS of cubic spline. It shows patterns of $ \log(\texttt{residual}^{2}) \sim X_{k} $ on $ A = k $ for $ k = 1,2,3 $ and $ \log(\texttt{residual}^{2}) \sim XXX $.}
+	\label{fig:resid2_3}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{resid2_X_4.pdf}
+	\includegraphics[width=\linewidth]{resid2_XA_4.pdf}
+	\caption[Simulation, Residual Plots, Incorrect Treatment-Free Effect, Heteroscedasticity]{\footnotesize Residual plots with respect to $ X_{k} $ and $ (X_{k},A) $ for $ 1 \le k \le 5 $ for the simulation studies (Section \ref{sec:simulation}) with $ n = 400 $, $ p = 10 $, $ K = 3 $, misspecified treatment-free effect and heteroscedasticity. Define $ XXX := \log\left[ {1 \over 3}\left( e^{\sqrt{2}X_{1}} + e^{\sqrt{2}X_{2}} + e^{\sqrt{2}X_{3}} \right) \right] $. Residuals are computed from the fitted E-Learning. Curves are fitted by the LOESS of cubic spline. It shows patterns of $ \log(\texttt{residual}^{2}) \sim X_{k} $ on $ A = k $ for $ k = 1,2,3 $ and $ \log(\texttt{residual}^{2}) \sim XXX $.}
+	\label{fig:resid2_4}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% all_misclass
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_n=100_misclass.pdf}
+	\caption[Simulation, Misclassification Rates, $ n = 100 $]{Testing misclassification rates (smaller the better) for $ n = 100 $, $ p = 10 $, $ K = 2 $ and each of the model specification scenarios in Table \ref{tab:model}. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. First and second best methods in terms of the averaged misclassification rates are annotated in horizontal lines, while the minimal averaged misclassification rate is annotated in the vertical line.}
+	\label{fig:all_n=100_misclass}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_n=200_misclass.pdf}
+	\caption[Simulation, Misclassification Rates, $ n = 200 $]{Testing misclassification rates (smaller the better) for $ n = 200 $, $ p = 10 $, $ K = 2 $ and each of the model specification scenarios in Table \ref{tab:model}. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. First and second best methods in terms of the averaged misclassification rates are annotated in horizontal lines, while the minimal averaged misclassification rate is annotated in the vertical line.}
+	\label{fig:all_n=200_misclass}
+\end{figure}
+
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_n=800_misclass.pdf}
+	\caption[Simulation, Misclassification Rates, $ n = 800 $]{Testing misclassification rates (smaller the better) for $ n = 800 $, $ p = 10 $, $ K = 2 $ and each of the model specification scenarios in Table \ref{tab:model}. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. First and second best methods in terms of the averaged misclassification rates are annotated in horizontal lines, while the minimal averaged misclassification rate is annotated in the vertical line.}
+	\label{fig:all_n=800_misclass}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_n=1600_misclass.pdf}
+	\caption[Simulation, Misclassification Rates, $ n = 1600 $]{Testing misclassification rates (smaller the better) for $ n = 1600 $, $ p = 10 $, $ K = 2 $ and each of the model specification scenarios in Table \ref{tab:model}. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. First and second best methods in terms of the averaged misclassification rates are annotated in horizontal lines, while the minimal averaged misclassification rate is annotated in the vertical line.}
+	\label{fig:all_n=1600_misclass}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% all_regret
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_regret.pdf}
+	\caption[Simulation, Regrets]{Testing regrets (smaller the better) for $ n = \{100,200,400,800,1600\}  $, $ p = 10 $, $ K = 2 $ and each of the model specification scenarios in Table \ref{tab:model}. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees.}
+	\label{fig:all_regret}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_n=100_regret.pdf}
+	\caption[Simulation, Regrets, $ n = 100 $]{Testing regrets (smaller the better) for $ n = 100 $, $ p = 10 $, $ K = 2 $ and each of the model specification scenarios in Table \ref{tab:model}. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. First and second best methods in terms of the averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated in the vertical line. The optimal value is 0.788 and is annotated in the vertical long dashed line.}
+	\label{fig:all_n=100_regret}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_n=200_regret.pdf}
+	\caption[Simulation, Regrets, $ n = 200 $]{Testing regrets (smaller the better) for $ n = 200 $, $ p = 10 $, $ K = 2 $ and each of the model specification scenarios in Table \ref{tab:model}. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. First and second best methods in terms of the averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated in the vertical line.  The optimal value is 0.788 and is annotated in the vertical long dashed line.}
+	\label{fig:all_n=200_regret}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_n=400_regret.pdf}
+	\caption[Simulation, Regrets, $ n = 400 $]{Testing regrets (smaller the better) for $ n = 400 $, $ p = 10 $, $ K = 2 $ and each of the model specification scenarios in Table \ref{tab:model}. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. First and second best methods in terms of the averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated in the vertical line. The optimal value is 0.788 and is annotated in the vertical long dashed line.}
+	\label{fig:all_n=400_regret}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_n=800_regret.pdf}
+	\caption[Simulation, Regrets, $ n = 800 $]{Testing regrets (smaller the better) for $ n = 800 $, $ p = 10 $, $ K = 2 $ and each of the model specification scenarios in Table \ref{tab:model}. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. First and second best methods in terms of the averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated in the vertical line. The optimal value is 0.788 and is annotated in the vertical long dashed line.}
+	\label{fig:all_n=800_regret}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_n=1600_regret.pdf}
+	\caption[Simulation, Regrets, $ n = 1600 $]{Testing regrets (smaller the better) for $ n = 1600 $, $ p = 10 $, $ K = 2 $ and each of the model specification scenarios in Table \ref{tab:model}. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. First and second best methods in terms of the averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated in the vertical line. The optimal value is 0.788 and is annotated in the vertical long dashed line.}
+	\label{fig:all_n=1600_regret}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% all_p
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_p_misclass.pdf}
+	\caption[Simulation, Misclassification Rates, $ p = 50 $]{Testing misclassification rates (smaller the better) for $ n \in \{100,200,400,800\} $, $ p = 50 $, $ K = 2 $ and each of the model specification scenarios (correct propensity score) in Table \ref{tab:model}. The optimal value is 0.788. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. \textit{dWOLS} and \textit{G-Estimation} for $ n = 100 $ cannot be implemented due to more number of parameters $ 2(p+1) $ than the training sample size $ n $. First and second best methods in terms of the averaged misclassification rates are annotated in horizontal lines, while the minimal averaged misclassification rates is annotated in the vertical line. }
+	\label{fig:all_p_misclass}
+\end{figure}
+
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{all_p_regret.pdf}
+	\caption[Simulation, Regrets, $ p = 50 $]{Testing regrets (smaller the better) for $ n \in \{100,200,400,800\} $, $ p = 50 $, $ K = 2 $ and each of the model specification scenarios (correct propensity score) in Table \ref{tab:model}. The optimal value is 0.788. Methods in Table \ref{tab:compare} are compared, where \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{Policy Tree} corresponds to \textit{Policy Learning} with decision trees. \textit{dWOLS} and \textit{G-Estimation} for $ n = 100 $ cannot be implemented due to more number of parameters $ 2(p+1) $ than the training sample size $ n $. First and second best methods in terms of the averaged regrets are annotated in horizontal lines, while the minimal averaged regret is annotated in the vertical line.}
+	\label{fig:all_p_regret}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% n
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.95\linewidth]{n_misclass.pdf}
+	\includegraphics[width=0.95\linewidth]{n_regret.pdf}
+	\caption[Simulation, $ K = 3 $]{\footnotesize Testing misclassification rates and regrets (smaller the better) for $ n = \{100,200,400,800,1600\}  $, $ p = 10 $, $ K = 3 $ and each of the model specification scenarios in Table \ref{tab:model}. \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{E-Learning} corresponds to E-Learning with the working variance function estimated by regression forest.}
+	\label{fig:n}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% p
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.95\linewidth]{p_misclass.pdf}
+	\caption[Simulation, Misclassification Rates, $ p = 50, 100 $, $ K = 3 $]{\footnotesize Testing misclassification rates (smaller the better) for $ n = \{100,200,400,800,1600\}  $, $ p \in \{ 10,50,100 \} $, $ K = 3 $ and each of the model specification scenarios with correctly specified propensity score in Table \ref{tab:model}. \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{E-Learning} corresponds to E-Learning with the working variance function estimated by regression forest.}
+	\label{fig:p_misclass}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.95\linewidth]{p_regret.pdf}
+	\caption[Simulation, Regrets, $ p = 50, 100 $, $ K = 3 $]{\footnotesize Testing regrets (smaller the better) for $ n = \{100,200,400,800,1600\}  $, $ p \in \{ 10,50,100 \} $, $ K = 3 $ and each of the model specification scenarios with correctly specified propensity score in Table \ref{tab:model}. \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{E-Learning} corresponds to E-Learning with the working variance function estimated by regression forest.}
+	\label{fig:p_regret}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% K
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{K_misclass.pdf}
+	\caption[Simulation, Misclassification Rates, $ K = 2,3,5,7 $]{Testing misclassification rates (smaller the better) for $ n = \{100,200,400,800,1600\}  $, $ p = 10 $, $ K \in \{ 2,3,5,7 \} $ and each of the model specification scenarios with correctly specified propensity score in Table \ref{tab:model}. \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{E-Learning} corresponds to E-Learning with the working variance function estimated by regression forest.}
+	\label{fig:K_misclass}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{K_regret.pdf}
+	\caption[Simulation, Regrets, $ K = 2,3,5,7 $]{Testing regrets (smaller the better) for $ n = \{100,200,400,800,1600\}  $, $ p = 10 $, $ K \in \{ 2,3,5,7 \} $ and each of the model specification scenarios with correctly specified propensity score in Table \ref{tab:model}. \textit{E-Learning (Oracle)} corresponds to E-Learning with the oracle working variance function, and \textit{E-Learning} corresponds to E-Learning with the working variance function estimated by regression forest.}
+	\label{fig:K_regret}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% var
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.95\linewidth]{var_misclass.pdf}
+	\caption[Simulation, Misclassification Rates, Variance Function Estimates]{\footnotesize Testing misclassification rates (smaller the better) for $ n = \{100,200,400,800,1600\}  $, $ p \in \{ 10,50,100 \} $, $ K = 3 $ and each of the model specification scenarios with correctly specified propensity score in Table \ref{tab:model}. The E-Learning procedures with different nonparametric estimation methods for variance function are compared.}
+	\label{fig:var_misclass}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.95\linewidth]{var_regret.pdf}
+	\caption[Simulation, Regrets, Variance Function Estimates]{\footnotesize Testing regrets (smaller the better) for $ n = \{100,200,400,800,1600\}  $, $ p \in \{ 10,50,100 \} $, $ K = 3 $ and each of the model specification scenarios with correctly specified propensity score in Table \ref{tab:model}. The E-Learning procedures with different nonparametric estimation methods for variance function are compared.}
+	\label{fig:var_regret}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% kernel
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{cub_misclass.pdf}
+	\includegraphics[width=\linewidth]{exp_misclass.pdf}
+	\caption[Nonlinear Simulation, Misclassification Rates]{\footnotesize Testing misclassification rates (smaller the better) for $ n = \{100,200,400,800,1600\}  $, $ p = 10 $, $ K = 3 $ under homoscedasticity or heteroscedasticity. The upper panel corresponds to the data generation with $ h(x) = x^{3} $, and the lower panel corresponds to the data generation with $ h(x) = e^{\sqrt{2}x} $ in Section \ref{sec:simulation_nonlinear}.}
+	\label{fig:nonlinear_misclass}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{cub_regret.pdf}
+	\includegraphics[width=\linewidth]{exp_regret.pdf}
+	\caption[Nonlinear Simulation, Regrets]{\footnotesize Testing regrets (smaller the better) for $ n = \{100,200,400,800,1600\}  $, $ p = 10 $, $ K = 3 $ under homoscedasticity or heteroscedasticity. The upper panel corresponds to the data generation with $ h(x) = x^{3} $, and the lower panel corresponds to the data generation with $ h(x) = e^{\sqrt{2}x} $ in Section \ref{sec:simulation_nonlinear}.}
+	\label{fig:nonlinear_regret}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ACTG175
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.95\linewidth]{ACTG175_resid2.pdf}
+	\caption[ACTG 175, Residual Plots]{\footnotesize Residual plots with respect to \texttt{age} and \texttt{wtkg} on the ACTG175 dataset (Section \ref{sec:ACTG175}). Curves are fitted by the \textit{Generalized Additive Model (GAM)} of cubic spline. Residuals are computed from the fitted E-Learning on each modified dataset according to Table \ref{tab:ACTG175}, and averaged over 10 replications.}
+	\label{fig:ACTG175_resid2}
+\end{figure}
+
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\linewidth]{ACTG175_coef.pdf}
+	\caption[ACTG 175, Coefficients]{Fitted coefficients on each modified ACTG 175 dataset according to Table \ref{tab:ACTG175}, and averaged over 10 replications.}
+	\label{fig:ACTG175_coef}
+\end{figure}
+
+\clearpage
+
+\bibliography{bibfile.bib}
+\bibliographystyle{asa}
+\end{document}

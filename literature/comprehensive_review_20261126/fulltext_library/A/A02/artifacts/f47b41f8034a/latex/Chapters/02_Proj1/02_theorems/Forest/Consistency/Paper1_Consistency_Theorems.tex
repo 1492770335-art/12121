@@ -1,0 +1,31 @@
+\newcommand{\genrsfconsistency}{
+\begin{theorem}[Uniform consistency of a random survival forest]
+\label{genRSF_consistency}
+ Suppose that Assumptions \ref{assump:CuiAssump1}-\ref{assump:CuiAssump2} hold. Let $\survfunchat\argtgh$ be an estimator of the survival probability $\survfunc\argtgh$ that is uniformly consistent in both $\histlower \in \history$ and $t \in [0, \tau]$. Then, the single-stage version of the random survival forest $\survfunchat\argtgh$ in \cite{cho_multi-stage_2023} built based on $\{\hist_{i}, \delta_{i}\}_{i=1}^n$ is uniformly consistent. Specifically,
+\[
+\suptzerototauh \abs{\survfunchat \argtgh - \survfunc \argtgh} \to 0
+\]
+in probability as $n \to \infty$.
+\end{theorem}
+}
+
+\newcommand{\rcifconsistency}{
+\begin{theorem}[Uniform consistency of a random cumulative incidence forest]
+\label{rcif_consistency}
+Suppose that bounded kernels for the random cumulative incidence forest (RCIF) hold and have total bounded variation (Assumption \ref{khbddtv}). Let $\AJhat\argtgh$ be an estimator of the cause-$j$ cumulative incidence function $\cuminc_j\argtgh$ that is uniformly consistent in both $\histlower \in \history$ and $t \in [0, \tau]$. Then, the RCIF $\AJhat(t \mid \histlower)$ built based on $\{\hist_{i}, \delta_{i}, \delta_{ji}\}_{i=1}^n$ is uniformly consistent. Specifically,
+\[
+\suptzerototauh \abs{\AJhat \argtgh - \cuminc_j \argtgh} \to 0
+\]
+in probability as $n \to \infty$.
+\end{theorem}
+}
+
+\begin{comment}
+\documentclass[12pt]{article}
+\input{header} % Include the header file
+\input{header2}
+\begin{document}
+\rcifconsistency
+\genrsfconsistency
+\end{document}
+\end{comment}

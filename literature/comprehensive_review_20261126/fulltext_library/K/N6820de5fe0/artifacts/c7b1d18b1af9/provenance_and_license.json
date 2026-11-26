@@ -1,0 +1,30 @@
+{
+  "paper_id": "N6820de5fe0",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "c7b1d18b1af9636b43e3c269a30ccf1bef5c592b3ca0307f8cbfc0ebf1e9be97",
+  "source_url": "https://www.researchsquare.com/article/rs-1946604/latest.pdf",
+  "original_version": "submittedVersion",
+  "bytes": "529284",
+  "pdf_pages": "22",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.researchsquare.com/article/rs-1946604/latest.pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:59:02.341542+08:00",
+  "format": "pdf",
+  "title": "Fludarabine/TBI 8 Gy versus fludarabine/treosulfan conditioning in patients with AML in first complete remission: a study from the Acute Leukemia Working Party of the EBMT",
+  "authors": "Gesine Bug and Myriam Labopin and Riitta Niittyvuopio and Matthias Stelljes and Hans Christian Reinhardt and Inken Hilgendorf and Nicolaus Kröger and Ain Kaare and Wolfgang Bethge and Kerstin Schäfer-Eckart and Mareike Verbeek and Stephan Mielke and Kristina Carlson and Ali Bazarbachi and Alexandros Spyridonidis and Bipin N. Savani and Arnon Nagler and Mohamad Mohty",
+  "doi": "10.1038/s41409-023-01965-x",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 2,
+      "lines": "License:\nThis work is licensed under a Creative Commons Attribution 4.0 International"
+    }
+  ]
+}

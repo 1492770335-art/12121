@@ -1,0 +1,50 @@
+\subsection{Framework and Notation}
+\label{sec:frameworknotation}
+
+Let $\epsilon_i$ be the cause indicator such that $\epsilon_i = j$ means individual $i$ experienced failure from cause $j$, where $j = 1,\dots,J$. Our focus is on a priority cause of interest. In cases with more than two causes, we collapse the causes into two such that $Pr(\epsilon = 1) + Pr(\epsilon = 2) = 1$: the PC (cause 1) and all others (cause 2).
+%Because our proposed method assumes a priority cause of interest, it is compatible with multiple risks. If there are more than two events are possible, then we collapse the causes into the priority cause and all other causes. Since there are always only two mutually exclusive events, henceforth referred to as cause 1 (priority cause) and cause 2 (all other causes), $Pr(\epsilon = 1) + Pr(\epsilon = 2) = 1$. 
+Let $T_{1i}$ and $T_{2i}$ denote the failure times for causes 1 and 2, respectively, for patient $i$, and $T_i = \min(T_{1i}, T_{2i})$ be the overall survival time, representing time to the first failure. Right-censoring due to study end ($\tau$) or loss to follow-up is denoted $C_i$, with censoring time distribution $G_i(t) = \Pr(C_i \geq t | Z_i)$. The observed time is $X_i = \min(T_i, C_i)$. The OS event indicator is $\delta_{i} = I(T_i \le C_i)$. We define $\delta_{1i} = I(T_{1i} \le C_i\wedge T_{2i})$ and $\delta_{2i} = I(T_{2i} \le C_i\wedge T_{1i})$. 
+
+We assume a finite treatment space $\mathcal{A}$. Let $Z_i = (Z_{i1},\dots,Z_{iP})^T$ represent the $P$ covariates. For each $z \in Z$, let $\psi(z) \subseteq A$ to be the set of allowable treatments for a patient with $Z = z$. We observe data composed of $n$ i.i.d replicates $\mathcal{D}_n = \{ Z_i, X_i, \delta_{i}, \delta_{1i} \}_{i=1}^n$. When unambiguous, we drop the index $i$ for simplicity. 
+
+Let $d$ represent an ITR, which maps patient covariate information ($z_i \in Z$) to the treatment assignment ($a_i \in \mathcal{A}$), $d(z_i): z_i \rightarrow a_i$ for each patient $i$, which satisfies $d(z) \in \psi(z)$ for all $z \in Z$.
+Let $\phi(\cdot)$ be an optimization criteria for OS and CI. In this manuscript, we focus on the truncated (at $\tau$) area under the curves, $\phi(S) =\int_0^\tau S(t) \, dt$ and $\phi(F_j) = \int_0^\tau F_j(t) \, dt$, the restricted mean survival time at time $\tau$ and integrated CIF truncated at $\tau$ respectively. The latter quantity measures the accumulation of the probability of having the primary event of interest during the follow-up period.
+
+For any treatment $a \in \mathcal{A}$ and covariates vector $Z$, let $S^{(a)}(\cdot \mid Z)$ and $F_j^{(a)}(\cdot \mid Z)$ be the potential survival and cumulative incidence curves for patients with covariates $Z$ and treatment $a$, respectively. Let $\valueonePOT = \phi(S^{(a)}(\cdot \mid Z))$ and $\valuetwoPOT = \phi(F_j^{(a)}(\cdot \mid Z))$ denote the potential outcomes of interest. 
+% VALIUE FUNCTION %
+%$\mathbb{V}(d(Z))$%
+Under regime $d$, define the potential outcomes as $\phi_1^{(d)}(Z) = \sum_{a \in \mathcal{A}} \phi_1^{(a)}(Z) \mathbf{1}\{d(Z) = a\}$ and $\phi_2^{(d)}(Z) = \sum_{a \in \mathcal{A}} \phi_2^{(a)}(Z) \mathbf{1}\{d(Z) = a\}$, where $\mathbf{1}\{B\}$ is the indicator of $B$.
+We assume that a prolonged time to failure is optimal, so we optimize a criterion ($\phi_1$) to maximize OS. Additionally, we want to minimize the CIF of the PC via $\phi_2$ due to its inherent importance over all other causes. 
+{We aim to estimate the optimal ITR $d_{\text{opt}}$ that optimizes a joint criterion $\boldsymbol{\phi}^{(d)}(Z) = \begin{pmatrix}
+\phi_1^{(d)}(Z) \\ 
+\phi_2^{(d)}(Z)
+\end{pmatrix} = 
+\sum_{a \in \mathcal{A}} \begin{pmatrix}
+\phi_1^{(a)}(Z) \\ 
+\phi_2^{(a)}(Z)
+\end{pmatrix}
+\cdot \mathbf{1}\{d(Z) = a\}$.
+} 
+For any treatment regime $d(Z)$, we define the joint value function of the ITR estimator as
+\begin{equation*}
+    \mathbb{V}(d) = 
+    \sum_{a \in \mathcal{A}} \mathbb{E}\left[ 
+    \boldsymbol{\phi}^{(a)}(Z)
+    %\begin{pmatrix}\valueone \\ \valuetwo\end{pmatrix}
+\cdot \mathbf{1}\{d(Z) = a\}
+\right].
+\end{equation*}
+Define $\actiononemax = \argmax_{a \in \mathcal{A}} \valueonePOT$ with $\valueonemax = \phi^{(\actiononemax)}_1(Z)%V_1(a_1^*,Z)
+$. If OS across treatments are sufficiently close (i.e., within a tolerance level $\tol$), then for a treatment $a$, 
+\begin{equation}
+    \label{eqn:TolCondition}
+   1 - \frac{\valueonePOT}{\valueonemax} \le \tol.
+\end{equation}
+This condition assesses if the treatment $a$ performs nearly as well as the best available treatment within the acceptable margin. Equation \cref{eqn:TolCondition} implies $\valueonePOT \ge (1-\tol)\valueonemax$. Thus, the optimal ITR is defined as
+$
+     \dopt(Z) = 
+     \begin{cases}
+     \argmin_{a \in \mathcal{A}} \valuetwoPOT & \text{if } \valueonePOT \ge (1-\tol)\valueonemax,\\
+     \argmax_{a \in \mathcal{A}} \valueonePOT & \text{otherwise.}
+     \end{cases}
+$

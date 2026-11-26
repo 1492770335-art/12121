@@ -1,0 +1,28 @@
+{
+  "paper_id": "N2765752d40",
+  "category": "E",
+  "title": "Using Decision Lists to Construct Interpretable and Parsimonious Treatment Regimes",
+  "authors": "Yichi Zhang and Eric B. Laber and Anastasios Tsiatis and Marie Davidian",
+  "doi": "10.1111/biom.12354",
+  "year": "2015",
+  "original_url": "https://doi.org/10.1111/biom.12354",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "e6763fd916bf7ccfa6506cde51a384c4ffdd5f817a109936dd6092b7102fcb9b",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1504.07715"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N2765752d40/README.md",
+  "status": "local_only"
+}

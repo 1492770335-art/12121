@@ -1,0 +1,28 @@
+{
+  "paper_id": "N744317b6fa",
+  "category": "D",
+  "title": "Interval-Censored Linear Quantile Regression",
+  "authors": "Taehwa Choi and Seohyeon Park and Hunyong Cho and Sangbum Choi",
+  "doi": "10.1080/10618600.2024.2365740",
+  "year": "2025",
+  "original_url": "https://doi.org/10.1080/10618600.2024.2365740",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "cc139bf467208b95c2a6f811d7e82133c3535abc7afea7b32204601b4ac9b90e",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2404.11125"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/N744317b6fa/README.md",
+  "status": "local_only"
+}

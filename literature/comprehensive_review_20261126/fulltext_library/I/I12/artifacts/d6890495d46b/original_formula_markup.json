@@ -1,0 +1,582 @@
+[
+  {
+    "kind": "original_mathml",
+    "source_id": "M1",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M1\" overflow=\"scroll\"><ns0:mo>μ</ns0:mo><ns0:mo>=</ns0:mo><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:mi>E</ns0:mi><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mtext>min</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>T</ns0:mi><ns0:mo>,</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mi>S</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M2",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M2\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mo>Δ</ns0:mo></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:msub><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mo>-</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:msub><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd><ns0:mspace width=\"2em\" /></ns0:mtd></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M3",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M3\" overflow=\"scroll\"><ns0:mrow><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>T</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>|</ns0:mo><ns0:mi>T</ns0:mi><ns0:mo>≤</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mo>Pr</ns0:mo><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>T</ns0:mi><ns0:mo>≤</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mo>+</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>Pr</ns0:mo><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>T</ns0:mi><ns0:mo>&gt;</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M4",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M4\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>T</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>|</ns0:mo><ns0:mi>T</ns0:mi><ns0:mo>≤</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mo>Pr</ns0:mo><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>T</ns0:mi><ns0:mo>≤</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mi>f</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:mi>S</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mspace width=\"1em\" /><ns0:mo>-</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mn>2</ns0:mn><ns0:mi>t</ns0:mi><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:mi>S</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M5",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M5\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mspace width=\"-15.0pt\" /><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:mi>S</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced><ns0:mo>-</ns0:mo><ns0:mn>2</ns0:mn><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mspace width=\"0.6em\" /><ns0:mi>t</ns0:mi><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:mi>S</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mo>+</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mi>S</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>-</ns0:mo><ns0:mn>2</ns0:mn><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mtext mathvariant=\"italic\">tdt</ns0:mtext><ns0:mo>+</ns0:mo><ns0:mn>2</ns0:mn><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mtext mathvariant=\"italic\">tS</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mn>2</ns0:mn><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mtext mathvariant=\"italic\">tS</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M6",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M6\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow></ns0:mfenced></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mtext>RSDST</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>=</ns0:mo><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mo>-</ns0:mo><ns0:msup><ns0:mrow><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mn>2</ns0:mn><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mtext mathvariant=\"italic\">tS</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mo>-</ns0:mo><ns0:msup><ns0:mrow><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mi>S</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mspace width=\"2em\" /></ns0:mtd></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M7",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M7\" overflow=\"scroll\"><ns0:msqrt><ns0:mrow><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:msqrt></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M8",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M8\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M9",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M9\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M10",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M10\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M11",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M11\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M12",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M12\" overflow=\"scroll\"><ns0:msub><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:mo>α</ns0:mo><ns0:mo>/</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>ω</ns0:mo></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>/</ns0:mo><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup><ns0:mo>+</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msup><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfrac></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M13",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M13\" overflow=\"scroll\"><ns0:mrow><ns0:mi>n</ns0:mi><ns0:mo>=</ns0:mo><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>+</ns0:mo><ns0:mi>r</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:mo>α</ns0:mo><ns0:mo>/</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>ω</ns0:mo></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>/</ns0:mo><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup><ns0:mo>+</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msup><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M14",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M14\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup><ns0:mo>≃</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M15",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M15\" overflow=\"scroll\"><ns0:mrow><ns0:mi>n</ns0:mi><ns0:mo>≃</ns0:mo><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>+</ns0:mo><ns0:mi>r</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>+</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:mo>α</ns0:mo><ns0:mo>/</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>ω</ns0:mo></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>/</ns0:mo><ns0:msup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M16",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M16\" overflow=\"scroll\"><ns0:mrow><ns0:mo>ω</ns0:mo><ns0:mo>=</ns0:mo><ns0:mo>Φ</ns0:mo><ns0:mfenced open=\"{\" close=\"}\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>+</ns0:mo><ns0:mi>r</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup><ns0:mo>+</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msup><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>/</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:mo>α</ns0:mo><ns0:mo>/</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M17",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M17\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mspace width=\"2.5em\" /><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mspace width=\"0.5em\" /><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mtext>SE</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfrac><ns0:mo>+</ns0:mo><ns0:mfrac><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfrac><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M18",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M18\" overflow=\"scroll\"><ns0:mrow><ns0:mi>z</ns0:mi><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mtext>SE</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M19",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M19\" overflow=\"scroll\"><ns0:mi>T</ns0:mi><ns0:mo>∼</ns0:mo><ns0:mi>N</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:mo>,</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M20",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M20\" overflow=\"scroll\"><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M21",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M21\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M22",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M22\" overflow=\"scroll\"><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>m</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msup><ns0:munderover><ns0:mrow><ns0:mo mathsize=\"big\">∑</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>i</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>m</ns0:mi></ns0:mrow></ns0:munderover><ns0:msub><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>i</ns0:mi></ns0:mrow></ns0:msub></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M23",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M23\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M24",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M24\" overflow=\"scroll\"><ns0:msqrt><ns0:mrow><ns0:mi>m</ns0:mi></ns0:mrow></ns0:msqrt></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M25",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M25\" overflow=\"scroll\"><ns0:msqrt><ns0:mrow><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:msqrt></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M26",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M26\" overflow=\"scroll\"><ns0:msqrt><ns0:mrow><ns0:mi>m</ns0:mi></ns0:mrow></ns0:msqrt></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M27",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M27\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M28",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M28\" overflow=\"scroll\"><ns0:mtext>SE</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:mo>ϕ</ns0:mo><ns0:mfrac><ns0:mrow><ns0:mtext>RSDST</ns0:mtext></ns0:mrow><ns0:mrow><ns0:msqrt><ns0:mrow><ns0:mi>m</ns0:mi></ns0:mrow></ns0:msqrt></ns0:mrow></ns0:mfrac></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M29",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M29\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mo>ϕ</ns0:mo><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:msqrt><ns0:mrow><ns0:mi>m</ns0:mi></ns0:mrow></ns0:msqrt><ns0:mtext>SE</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mtext>RSDST</ns0:mtext></ns0:mrow></ns0:mfrac></ns0:mtd></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M30",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M30\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M31",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M31\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M32",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M32\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>ϕ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:msub><ns0:mrow><ns0:mtext>RSDST</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M33",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M33\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M34",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M34\" overflow=\"scroll\"><ns0:msqrt><ns0:mrow><ns0:mo>(</ns0:mo><ns0:mtext>sample variance of the</ns0:mtext><ns0:mi>n</ns0:mi><ns0:mtext>’s</ns0:mtext><ns0:mo>)</ns0:mo><ns0:mo>/</ns0:mo><ns0:mi>M</ns0:mi></ns0:mrow></ns0:msqrt></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M35",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M35\" overflow=\"scroll\"><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M36",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M36\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M37",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M37\" overflow=\"scroll\"><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M38",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M38\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M39",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M39\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M40",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M40\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub><ns0:mspace width=\"2em\" /></ns0:mtd></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M41",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M41\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mtext>SE</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msqrt><ns0:mrow><ns0:mtext>SE</ns0:mtext><ns0:msup><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>+</ns0:mo><ns0:mtext>SE</ns0:mtext><ns0:msup><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow></ns0:msqrt><ns0:mspace width=\"2em\" /></ns0:mtd></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M42",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M42\" overflow=\"scroll\"><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover><ns0:mo>/</ns0:mo><ns0:mtext mathvariant=\"italic\">SE</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M43",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M43\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M44",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M44\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M45",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M45\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M46",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M46\" overflow=\"scroll\"><ns0:mi>z</ns0:mi><ns0:msup><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfrac></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M47",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M47\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M48",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M48\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced><ns0:mo>≤</ns0:mo><ns0:msup><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mo>/</ns0:mo><ns0:mi>z</ns0:mi><ns0:msup><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M49",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M49\" overflow=\"scroll\"><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M50",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M50\" overflow=\"scroll\"><ns0:mtext mathvariant=\"italic\">pmat</ns0:mtext><ns0:mo>=</ns0:mo><ns0:mn>100</ns0:mn><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:mi>z</ns0:mi><ns0:msup><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfrac></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M51",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M51\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M52",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M52\" overflow=\"scroll\"><ns0:msub><ns0:mrow><ns0:mo>ω</ns0:mo></ns0:mrow><ns0:mrow><ns0:mtext>curr</ns0:mtext></ns0:mrow></ns0:msub><ns0:mo>=</ns0:mo><ns0:mo>Φ</ns0:mo><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:msqrt><ns0:mrow><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:msqrt><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>z</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:mo>α</ns0:mo><ns0:mo>/</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M53",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M53\" overflow=\"scroll\"><ns0:mrow><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfrac><ns0:mo>+</ns0:mo><ns0:mfrac><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M54",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M54\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M55",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M55\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup><ns0:mo>=</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M56",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M56\" overflow=\"scroll\"><ns0:mrow><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfrac><ns0:mo>+</ns0:mo><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M57",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M57\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfrac><ns0:mo>+</ns0:mo><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfrac></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow></ns0:mfrac><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>+</ns0:mo><ns0:mi>r</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mo>+</ns0:mo><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>+</ns0:mo><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow></ns0:mfrac><ns0:msup><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msqrt><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow></ns0:msqrt><ns0:mo>+</ns0:mo><ns0:msqrt><ns0:mrow><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:msqrt></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M58",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M58\" overflow=\"scroll\"><ns0:mrow><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:mi>n</ns0:mi></ns0:mrow></ns0:mfrac><ns0:msup><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msqrt><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow></ns0:msqrt><ns0:mo>+</ns0:mo><ns0:msqrt><ns0:mrow><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:msqrt></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M59",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M59\" overflow=\"scroll\"><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced><ns0:mo>,</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M60",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M60\" overflow=\"scroll\"><ns0:mrow><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced><ns0:mo>≃</ns0:mo><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow></ns0:mfenced><ns0:msup><ns0:mrow><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msqrt><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow></ns0:msqrt><ns0:mo>+</ns0:mo><ns0:msqrt><ns0:mrow><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>r</ns0:mi></ns0:mrow></ns0:mfrac></ns0:mrow></ns0:msqrt></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M61",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M61\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M62",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M62\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M63",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M63\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M64",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M64\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M65",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M65\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M66",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M66\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M67",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M67\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M68",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M68\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M69",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M69\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M70",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M70\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M71",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M71\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M72",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M72\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M73",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M73\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M74",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M74\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup><ns0:mo>=</ns0:mo><ns0:mn>8</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M75",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M75\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M76",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M76\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M77",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M77\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M78",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M78\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi mathvariant=\"bold\">t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext mathvariant=\"bold\">des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo mathvariant=\"bold\">∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M79",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M79\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi mathvariant=\"bold\">t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext mathvariant=\"bold\">des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo mathvariant=\"bold\">∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M80",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M80\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi mathvariant=\"bold\">t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext mathvariant=\"bold\">des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo mathvariant=\"bold\">∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M81",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M81\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M82",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M82\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M83",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M83\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi mathvariant=\"bold\">t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext mathvariant=\"bold\">des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo mathvariant=\"bold\">∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M84",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M84\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi mathvariant=\"bold\">t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext mathvariant=\"bold\">des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo mathvariant=\"bold\">∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M85",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M85\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M86",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M86\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M87",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M87\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M88",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M88\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M89",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M89\" overflow=\"scroll\"><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M90",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M90\" overflow=\"scroll\"><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>.</ns0:mi></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M91",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M91\" overflow=\"scroll\"><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>.</ns0:mi></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M92",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M92\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M93",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M93\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M94",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M94\" overflow=\"scroll\"><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M95",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M95\" overflow=\"scroll\"><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M96",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M96\" overflow=\"scroll\"><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover><ns0:mo>=</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M97",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M97\" overflow=\"scroll\"><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>μ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msub></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M98",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M98\" overflow=\"scroll\"><ns0:mover accent=\"false\"><ns0:mrow><ns0:mo>Δ</ns0:mo></ns0:mrow><ns0:mo>^</ns0:mo></ns0:mover></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M99",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M99\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M100",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M100\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>des</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M101",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M101\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M102",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M102\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M103",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M103\" overflow=\"scroll\"><ns0:msubsup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mtext>final</ns0:mtext></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msubsup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M104",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M104\" overflow=\"scroll\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>=</ns0:mo><ns0:mfenced open=\"{\"><ns0:mrow><ns0:mtable class=\"array\" columnalign=\"left\"><ns0:mtr><ns0:mtd><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:mo>,</ns0:mo></ns0:mtd><ns0:mtd><ns0:mi>j</ns0:mi><ns0:mo>&lt;</ns0:mo><ns0:mi>k</ns0:mi></ns0:mtd></ns0:mtr><ns0:mtr><ns0:mtd><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>k</ns0:mi></ns0:mrow></ns0:msub><ns0:mo>,</ns0:mo></ns0:mtd><ns0:mtd><ns0:mi>j</ns0:mi><ns0:mo>=</ns0:mo><ns0:mi>k</ns0:mi></ns0:mtd></ns0:mtr></ns0:mtable></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M105",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M105\" overflow=\"scroll\"><ns0:munderover><ns0:mrow><ns0:mo mathsize=\"big\">∑</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>i</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:munderover><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>i</ns0:mi></ns0:mrow></ns0:msub><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>i</ns0:mi></ns0:mrow></ns0:msub></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M106",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M106\" overflow=\"scroll\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:msup></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M107",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M107\" overflow=\"scroll\"><ns0:msub><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow></ns0:msup><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi><ns0:mo>-</ns0:mo><ns0:mn>0</ns0:mn></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:msup><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mi>t</ns0:mi></ns0:mrow></ns0:msup></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M108",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M108\" overflow=\"scroll\"><ns0:mrow><ns0:mo>μ</ns0:mo><ns0:mo>=</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mi>S</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mo>=</ns0:mo><ns0:munderover accentunder=\"false\" accent=\"false\"><ns0:mrow><ns0:mo mathsize=\"big\">∑</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>k</ns0:mi></ns0:mrow></ns0:munderover><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msubsup><ns0:msub><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M109",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M109\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msubsup><ns0:msub><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msubsup><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:msup><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msubsup><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mi>u</ns0:mi></ns0:mrow></ns0:msup><ns0:mtext mathvariant=\"italic\">du</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfrac><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:msub><ns0:mrow><ns0:mi>B</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M110",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M110\" overflow=\"scroll\"><ns0:msub><ns0:mrow><ns0:mi>B</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfrac></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M111",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M111\" overflow=\"scroll\"><ns0:mrow><ns0:mo>μ</ns0:mo><ns0:mo>=</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msubsup><ns0:mi>S</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mo>=</ns0:mo><ns0:munderover accentunder=\"false\" accent=\"false\"><ns0:mrow><ns0:mo mathsize=\"big\">∑</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>k</ns0:mi></ns0:mrow></ns0:munderover><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:msub><ns0:mrow><ns0:mi>B</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M112",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M112\" overflow=\"scroll\"><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow></ns0:mfenced></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M113",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M113\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow></ns0:mfenced></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mn>2</ns0:mn><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msubsup><ns0:msub><ns0:mrow><ns0:mi>S</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mtext mathvariant=\"italic\">tdt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mn>2</ns0:mn><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msubsup><ns0:mi>t</ns0:mi><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:msup><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mn>2</ns0:mn><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msubsup><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>t</ns0:mi><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mi>t</ns0:mi></ns0:mrow></ns0:msup><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mn>2</ns0:mn><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msubsup><ns0:mi>t</ns0:mi><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mi>t</ns0:mi></ns0:mrow></ns0:msup><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msubsup><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mi>t</ns0:mi></ns0:mrow></ns0:msup><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext></ns0:mrow></ns0:mfenced><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mn>2</ns0:mn><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>A</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:msub><ns0:mrow><ns0:mi>B</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M114",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M114\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:msub><ns0:mrow><ns0:mi>A</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mo mathsize=\"big\">∫</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msubsup><ns0:mi>t</ns0:mi><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mi>t</ns0:mi></ns0:mrow></ns0:msup><ns0:mtext mathvariant=\"italic\">dt</ns0:mtext><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\" /><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mfrac><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:msubsup><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup></ns0:mrow></ns0:mfrac><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:msub><ns0:mrow><ns0:mo>δ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M115",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M115\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow></ns0:mfenced></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:munderover accentunder=\"false\" accent=\"false\"><ns0:mrow><ns0:mo mathsize=\"big\">∑</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>k</ns0:mi></ns0:mrow></ns0:munderover><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:msub><ns0:mrow><ns0:mi>B</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mn>2</ns0:mn><ns0:munderover accentunder=\"false\" accent=\"false\"><ns0:mrow><ns0:mo mathsize=\"big\">∑</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>0</ns0:mn></ns0:mrow><ns0:mrow><ns0:mi>k</ns0:mi></ns0:mrow></ns0:munderover><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>H</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub></ns0:mrow></ns0:msup><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msub><ns0:mrow><ns0:mi>A</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>+</ns0:mo><ns0:msub><ns0:mrow><ns0:mo>τ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi></ns0:mrow></ns0:msub><ns0:msub><ns0:mrow><ns0:mi>B</ns0:mi></ns0:mrow><ns0:mrow><ns0:mi>j</ns0:mi><ns0:mo>+</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mrow></ns0:mfenced><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow></ns0:mfenced></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:msup><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mo>-</ns0:mo><ns0:msup><ns0:mrow><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mspace width=\"2em\" /></ns0:mtd></ns0:mtr></ns0:mtable></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "M116",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"M116\" overflow=\"scroll\"><ns0:mtable columnalign=\"left\"><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:msub><ns0:mrow><ns0:mi>A</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup><ns0:mfenced open=\"[\" close=\"]\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:mi>h</ns0:mi><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msup><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>+</ns0:mo><ns0:mi>h</ns0:mi><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced></ns0:mrow></ns0:mfenced><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:msub><ns0:mrow><ns0:mi>B</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>h</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msup><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>-</ns0:mo><ns0:msup><ns0:mrow><ns0:mi>e</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>-</ns0:mo><ns0:mi>h</ns0:mi><ns0:msup><ns0:mrow><ns0:mi>t</ns0:mi></ns0:mrow><ns0:mrow><ns0:mo>∗</ns0:mo></ns0:mrow></ns0:msup></ns0:mrow></ns0:msup></ns0:mrow></ns0:mfenced><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:mo>μ</ns0:mo></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mi>E</ns0:mi><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:msub><ns0:mrow><ns0:mi>B</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>,</ns0:mo><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr><ns0:mtr><ns0:mtd class=\"align-1\"><ns0:msup><ns0:mrow><ns0:mo>σ</ns0:mo></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msup></ns0:mtd><ns0:mtd class=\"align-2\"><ns0:mo>=</ns0:mo><ns0:mtext>var</ns0:mtext><ns0:mfenced open=\"(\" close=\")\"><ns0:mrow><ns0:mi>X</ns0:mi></ns0:mrow></ns0:mfenced><ns0:mo>=</ns0:mo><ns0:mn>2</ns0:mn><ns0:msub><ns0:mrow><ns0:mi>A</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow></ns0:msub><ns0:mo>-</ns0:mo><ns0:msubsup><ns0:mrow><ns0:mi>B</ns0:mi></ns0:mrow><ns0:mrow><ns0:mn>1</ns0:mn></ns0:mrow><ns0:mrow><ns0:mn>2</ns0:mn></ns0:mrow></ns0:msubsup><ns0:mspace width=\"2em\" /></ns0:mtd><ns0:mtd /></ns0:mtr></ns0:mtable></ns0:math>"
+  }
+]

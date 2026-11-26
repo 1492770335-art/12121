@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2105.00581v2",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2105.00581v2",
+  "archive_sha256": "9cd29a1fc6566a09f82eeb0516056873cde5268a316153f616e916a23b3db1bb",
+  "files": [
+    {
+      "path": "kernel_balancing_for_ITR_arxiv.tex",
+      "bytes": 148493,
+      "sha256": "76211952b394211011222dddc7495ce87f56aa0332278c3fa946a069cc30fa0f"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2112.09535v2",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2112.09535v2",
+  "archive_sha256": "9fc2fccd44cda894f91cef2b29de5af5c5b09d15c1003a209cb8853202c60a58",
+  "files": [
+    {
+      "path": "hazard_diff.tex",
+      "bytes": 245206,
+      "sha256": "288c98f0a36c2c2c9072c5059fbd2e7ba2ac5f572ecae004bb0844a285dfabba"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

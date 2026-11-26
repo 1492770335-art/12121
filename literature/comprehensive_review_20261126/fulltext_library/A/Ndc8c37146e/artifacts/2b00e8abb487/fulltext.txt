@@ -1,0 +1,2968 @@
+Finding the optimal dynamic treatment regimes using smooth Fisher consistent surrogate loss
+
+Original PDF: [original.pdf](original.pdf). SHA256: `2b00e8abb4878ad695f61c97a5316989a63b5853482e811c95e473a899c186d7`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+FORMULA CHECK REQUIRED: original PDF page 1.
+Finding the Optimal Dynamic
+Treatment Regimes Using Smooth
+Fisher Consistent Surrogate Loss
+Nilanjana Laha1, Aaron Sonabend-W2, Rajarshi
+Mukherjee†2 and Tianxi Cai†2
+1Department of Statistics, Texas A&M, College Station, TX 77843
+2Department of Biostatistics, Harvard University, 677 Huntington Ave, Boston, MA 02115
+Abstract: Large health care data repositories such as electronic health
+records (EHR) open new opportunities to derive individualized treatment
+strategies for complicated diseases such as sepsis. In this paper, we consider
+the problem of estimating sequential treatment rules tailored to a patient’s
+individual characteristics, often referred to as dynamic treatment regimes
+(DTRs). Our main objective is to find the optimal DTR that maximizes a
+discontinuous value function through direct maximization of Fisher consis-
+tent surrogate loss functions. In this regard, we demonstrate that a large
+class of concave surrogates fails to be Fisher consistent – a behavior that
+differs from the classical binary classification problems. We further char-
+acterize a non-concave family of Fisher consistent smooth surrogate func-
+tions, which is amenable to gradient-descent type optimization algorithms.
+Compared to the existing direct search approach under the support vec-
+tor machine framework (Zhao et al., 2015), our proposed DTR estimation
+via surrogate loss optimization (DTRESLO) method is more computation-
+ally scalable to large sample sizes and allows for broader functional classes
+for treatment policies. We establish theoretical properties for our proposed
+DTR estimator and obtain a sharp upper bound on the regret corresponding
+to our DTRESLO method. The finite sample performance of our proposed
+estimator is evaluated through extensive simulations. Finally, we illustrate
+the working principles and benefits of our method for estimating an optimal
+DTR for treating sepsis using EHR data from sepsis patients admitted to
+intensive care units.
+Keywords and phrases: Dynamic treatment regimes, Classification, Em-
+pirical risk minimization, Non-convex optimization.
+1. Introduction
+Due to the increasing adoption of electronic health records (EHR) and the
+linkage of EHR with bio-repositories and other research registries, integrated
+large datasets have become available for real world evidence based precision
+medicine studies. These rich EHR data capture heterogeneity in response to
+treatment over time and across patients, thereby offering unique opportunities
+†: Equal Contributors
+1
+arXiv:2111.02826v4  [math.ST]  1 Oct 2023
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+Laha et al./Smooth Surrogates
+2
+to optimize treatment strategies for individual patients over time. Sequential
+treatment decisions tailored to patients’ individual characteristics at given deci-
+sion time points are often referred to as dynamic treatment regimes (DTRs) in
+the statistical literature and reinforcement learning (RL) in the machine learning
+literature. An optimal DTR can be defined as the sequential treatment assign-
+ment rule that maximizes the expected counterfactual outcome, often referred
+to as the value function in the DTR literature.
+To estimate the optimal DTR, the most traditional approaches rely on mod-
+elling the data-distribution or part of the data-distribution (Xu et al., 2016;
+Zajonc, 2012). The most popular among the latter class are the regression-
+based methods, including Q-learning, A-learning and marginal structural mean
+models (Watkins, 1989; Murphy, 2003; Schulte et al., 2014; Orellana et al., 2010;
+Robins, 2004). The regression-based methods, especially Q-learning, offers the
+flexibility necessary for extension to a variety of settings including, but not
+limited to, semi-supervised setting (Sonabend et al., 2021), interactive model-
+building (Laber et al., 2014), discrete outcomes or utilities (Moodie et al., 2014)
+etc. However, the underlying models in the regression-based approaches are of-
+ten high-dimensional, and susceptible to mis-specification due to the sequential
+nature of the problem (Murphy et al., 2001). Although A-learning and marginal
+structural mean models are more robust to model mis-specification, they still
+require the contrast of Q-functions to be correctly specified (cf. Schulte et al.,
+2014). These limitations of the regression-based methods led the conception
+of the classification-based direct search methods, which, in contrast, directly
+targets the counterfactual value function.
+The classification-based approaches essentially rely on the representation of
+the counterfactual value function through importance sampling (Murphy et al.,
+2001), whose maximization can be framed as a classification problem with re-
+spect to the zero-one loss function (cf. Zhao et al., 2012, 2015; Chen et al.,
+2016; Zhou and Kosorok, 2017; Song et al., 2015; Chen et al., 2017; Cui and
+Tchetgen Tchetgen, 2020, and the references therein). The resulting objective
+function is not amenable to efficient optimization owing to the discontinuity of
+the zero-one loss. Therefore, following contemporary classification literature (cf.
+Bartlett et al., 2006; Lin, 2004) the direct search methods aim to replace the
+zero-one loss with alternative smoother fisher consistent surrogate loss functions
+to facilitate efficient classification methods. The paradigm shift of estimating
+DTRs by finding classification rules is a powerful idea. Some authors indicate
+that existing direct search methods outperform regression-based counterparts
+when the number of stages is small (Kosorok and Laber, 2019; Luedtke and
+Van Der Laan, 2016).
+Although initially developed for the one stage case, direct search method was
+introduced to the multi-stage DTR by the novel work of Zhao et al. (2015).
+Currently, it has two mainstream approaches. The first approach performs bi-
+nary classification stagewise in a backward fashion (cf. BOWL method of Zhao
+et al., 2015; Jiang et al., 2019). However, at stage t, this approach can only
+use those observations whose treatment assignment matches the optimal treat-
+ment stage t + 1 onward. As a result, the effective sample size of the initial
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+Laha et al./Smooth Surrogates
+3
+stages dwindles rapidly, which can be problematic during practical implemen-
+tation (Kosorok and Laber, 2019; Kallus, 2020). The other approach builds
+on a simultaneous optimization method, which utilizes the whole data-set for
+estimating each treatment assignment (simultaneous outcome weighted learn-
+ing (SOWL), Zhao et al., 2015). While it does not share the limitation of the
+BOWL-type approaches, this approach hinges on a sequential weighted clas-
+sification problem which is complicated by the dependent nature of the DTR
+setting. Zhao et al. (2015) solves this classification using a bivariate hinge-loss
+type surrogate. Although the idea behind simultaneous optimization is powerful,
+the implementation via non-smooth hinge-loss surrogate leads to a number of
+issues, scalability being one of them. See Section 8 for more details. It is natural
+to ask whether the hinge loss can be replaced by other surrogates. However, the
+answer is not immediate because unlike BOWL, the simultaneous classification
+does not yield to the binary classification theory on surrogate losses (Bartlett
+et al., 2006). Although multicategory and multi-label classifications have ap-
+parent resemblance with this classification problem, as we will see, they have
+fundamental differences. This gives rise to the need for a unified study of fisher
+consistent surrogate losses under the DTR setting. Our paper is the first step
+towards that end.
+For the ease of presentation, we focus on k = 2 stage DTRs associated with
+two time points in this paper. However, the main methodology easily extends
+to general k-stage settings when k > 2. Similar to most current works in direct
+search methods, we consider only a binary treatment indicator, which is an
+important practical case (Laber and Davidian, 2017). Direct search with multi-
+level treatments would require substantially different techniques, and is out of
+the scope of the present paper.
+1.1. Main contributions:
+In the sequel, we will refer to the classification problem resulting from the simul-
+taneous optimization approach as “the DTR classification problem” for brevity.
+We will refer to our approach of achieving optimal DTR estimation via surrogate
+loss optimization as DTRESLO.
+Concave losses:
+In Theorem 1, we establish that the above-bounded smooth
+concave surrogates fail to be Fisher consistent in the DTR context. The failure
+is not restricted to only smooth concave surrogates since our Theorem 2 also
+shows that non-smooth hinge loss also fails to be Fisher consistent. Furthermore,
+we have not encountered any concave loss function that is Fisher-consistent in
+the DTR context. Consequently, our findings naturally prompt the question of
+whether any concave loss function can indeed achieve Fisher consistency for this
+problem.
+A class of Fisher consistent surrogates for DTR Estimation:
+Given
+the limited promise of concave surrogate losses for this problem, we directed
+our attention toward the realm of non-concave surrogates. We introduce a class
+of non-concave Fisher consistent surrogate losses (see Theorem 3), which are
+amenable to efficient gradient-based algorithms, such as stochastic gradient de-
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+Laha et al./Smooth Surrogates
+4
+scent. This facilitates the utilization of fast and scalable optimization methods.
+Since the resulting optimizing problem is non-concave, convergence to the global
+maximum is not automatically guaranteed. However, the class of surrogate losses
+we consider do exhibit reliable empirical performance across all our simulation
+settings. Our approach offers flexibility for learning the DTRs so that practi-
+tioners can tailor the method to the data and problem at hand. In particular, the
+smoothness of our surrogate losses makes the optimization problem suitable to a
+broad range of standard machine learning algorithms including, but not limited
+to, neural networks, wavelet series, and basis expansion. Interpretable treatment
+rules are also achievable by coupling our DTRESLO method with interpretable
+classifiers, such as linear or tree-based classifiers. Finally, since we optimize the
+primal objective function, variable selection in our case is straight-forward via
+addition of an l1 penalty.
+Theoretical guarantee for a class of DTR estimators
+We provide sharp
+upper bound on the regret – the difference between the optimal value function
+and the value attained by the estimated treatment regime, with detailed analyses
+focused on searching for DTR within the neural network classifiers. We perform
+a sharp analysis of our approximation error (see Theorem 4) and estimation error
+under Tsybakov’s small noise condition (Tsybakov et al., 2004). In Corollaries 1
+and 3, we prove that provided the optimization error is small, the regret of our
+DTRESLO method with neural network and wavelet series classifiers decays at
+a fast rate. Here by fast, we mean decay rate faster than n−1/2 is achievable.
+It turns out that this rate also matches the minimax rate of risk decay (up
+to a poly-logarithmic factor) of binary classification under assumptions similar
+to ours (Audibert et al., 2007). Since two stage DTR is unlikely to be simpler
+than one stage DTR, we conjecture that that our rate is minimax-optimal (up
+to a poly-logarithmic factor) in two stage DTR under our assumptions. In the
+special case when treatment effects are bounded away from zero, we show that
+our regret decays at the rate of O(1/n) up to a poly-logarithmic order.
+The rest of the article is organized as follows. In Section 2 we outline the prob-
+lem and discuss the mathematical formulation. In Section 3 we discuss Fisher
+consistency in the DTR setting, show that a large class of concave surrogates
+fail to be Fisher consistent, and establish the Fisher consistency of a family
+of non-concave surrogates. In Section 4 we construct a method for estimating
+the optimal DTRs using the Fisher consistent surrogates, and discuss the po-
+tential sources of error that contribute to the regret. Section 5 and Section 6
+are devoted towards obtaining theoretical upper bounds of the regret of our
+DTRESLO method. Section 5 focuses on approximation error, which is com-
+bined with the estimation error in Section 6 to yield the final regret bound.
+Section 7 provides a summary of the primary results concerning optimization
+error, with a comprehensive analysis available in Supplement A. Then in section
+9 we illustrate our DTRESLO method’s empirical performance with extensive
+simulations and an application to a sepsis cohort. We continue with a discus-
+sion in Section 10. Additional details and proofs of our theoretical results are
+deferred to the Supplement.
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+Laha et al./Smooth Surrogates
+5
+1.2. Notation
+We let R denote the extended real line R ∪{±∞} and write R+ for the positive
+half line {x ∈R : x > 0}. Denote by N = {1, 2, . . .} the set of all natural
+numbers and for any integer t, we let [t] = {1, 2, ..., t}. We also let Z denote the
+set of all integers. For m ∈N, we let ∥·∥m denote the lm norm , i.e. for v ∈Rm,
+∥v∥m = (Pm
+i=1 |vi|m)1/m. If v ∈Nm, we denote by |v|1 the quantity Pm
+i=1 vi. We
+let Bm(0, K) denote the l2-ball in Rm centered at the origin with radius K > 0.
+For two vectors x, y ∈Rk, we let ∠(x, y) denote the angle between x and y.
+For any probability measure P and measurable function f, we denote by
+∥f∥P,k the norm
+ R
+|f(x)|kdP(x)
+1/k. We will also denote this norm by Lk(P).
+Also, Pf will denote the integral
+R
+fdP. For a concave function f : Rk 7→R,
+the domain dom(f) will be defined as in (Hiriart-Urruty and Lemar´echal, 2004,
+p. 74), that is, dom(f) = {x ∈Rk : f(x) > −∞}. For f : R2 7→R, we denote
+by f12 the partial derivative
+f12(x, y) = ∂2f(x, y)
+∂x∂y
+.
+For any differentiable function f : Rk 7→R, ∇f will denote the gradient of f,
+and the superlevel set of f at level c will be defined by {x ∈Rk : f(x) ≥c}. For
+any x ∈R, we denote by σ(x) the ReLU activation function x+ = max(x, 0).
+For any set A, use the notation 1[x ∈A] to denote the event {x ∈A}. Also, we
+denote by int(A) the interior of the set A. The cardinality of A will be denoted
+by |A|. Throughout this paper, we use the convention ±∞×0 = 0. In this paper,
+we will use C and c to denote generic constants which may vary from line to
+line.
+Many results in this paper are asymptotic (in n) in nature and thus require
+some standard asymptotic notations. If an and bn are two sequences of real
+numbers then an ≫bn (and an ≪bn) implies that an/bn →∞(and an/bn →
+0) as n →∞, respectively. Similarly an ≳bn (and an ≲bn) implies that
+lim infn→∞an/bn = C for some C ∈(0, ∞] (and lim supn→∞an/bn = C for
+some C ∈[0, ∞)). Alternatively, an = o(bn) will also imply an ≪bn and
+an = O(bn) will imply that lim supn→∞an/bn = C for some C ∈[0, ∞)).
+2. Mathematical formalism
+We focus on the DTR estimation under a longitudinal setting where data are
+collected over time periods indexed by t ∈{1, 2}. Let Ot ∈Ot ⊂Rpt denote
+the pt dimensional vector of patient clinical variables collected at time t and
+p = max(p1, p2). At a given time t, a binary treatment decision At ∈{±1}
+is made for the patient and a response to such treatment Yt ∈R is observed.
+Without loss of generality, we assume higher values of response Yt are desirable.
+Let us denote the distribution underlying the observed random vector D =
+(O1, A1, Y1, O2, A2, Y2) by P. Suppose we sample n i.i.d. observations from P.
+The corresponding empirical distribution function will be denoted by Pn. Since
+treatment decisions are often made based on all previous states including prior
+
+
+===== ORIGINAL PDF PAGE 6 =====
+FORMULA CHECK REQUIRED: original PDF page 6.
+Laha et al./Smooth Surrogates
+6
+treatments and responses, we define the patient history by
+H1 = O1, and H2 = (O1, Y1, O2, A1),
+where H1 and H2 take values in sets H1 and H2, respectively. We denote by
+π1(a1 | H1) and π2(a2 | H2) the propensity scores P(A1 = a1|H1) and P(A2 =
+a2|H2), respectively.
+Our goal is to find the treatment regime d = (d1, d2) : H1×H2 7→{±1}×{±1}
+that maximizes the expected sum of rewards Y1(d) + Y2(d),
+V (d1, d2) = Ed[Y1(d) + Y2(d)],
+where Yt(d) is the potential outcome associated with time t ∈{1, 2} , and Ed
+is the expectation with respect to the data distribution under regime d. To this
+end, first we make some assumptions on the observed data distribution P so
+that V (d1, d2) becomes identifiable under P.
+Assumptions for identifiability:
+I. Positivity: There exists a constant Cπ ∈(0, 1) so that πt(At | Ht) > Cπ
+for all Ht, t = 1, 2.
+II. Consistency: The observed outcomes Yt and covariates Ot agree with the
+potential outcomes and covariates under the treatments actually received.
+See Schulte et al. (2014); Robins (1994) for more details.
+III Sequential ignorability: For each t = 1, 2, the treatment assignment
+At is conditionally independent of the future potential outcomes Yt and
+future potential clinical profile Ot+1 given Ht. Here we take O3 to be the
+empty set.
+Our version of sequential ignorability follows from Robins (1997); Murphy et al.
+(2001). Assumptions I-III are standard in DTR literature (Schulte et al., 2014;
+Sonabend et al., 2021; Murphy et al., 2001; Zhao et al., 2015, e.g.).
+Under Assumptions I-III, Ed(Y1 + Y2) can be identified under P as (Zhao
+et al., 2015)
+Ed[Y1(d) + Y2(d)] = P
+(Y1 + Y2)1[A1 = d1(H1)]1[A2 = d2(H2)]
+π1(A1 | H1)π2(A2 | H2)
+
+.
+The treatment effect contrasts are defined as follows:
+T1(H1) = E[Y1 + U ∗
+2 (H2)|A1 = 1, H1] −E[Y1 + U ∗
+2 (H2)|A1 = −1, H1],
+(1)
+and
+T2(H2) = E[Y1 + Y2|A2 = 1, H2] −E[Y1 + Y2|A2 = −1, H2],
+(2)
+where
+U ∗
+2 (H2) =
+max
+a2∈{±1} E[Y2|H2, A2 = a2].
+(3)
+The above quantities are also called the optimal-blip to-zero function, or some-
+times simply the blip function, in the literature (Robins, 2004; Schulte et al.,
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+Laha et al./Smooth Surrogates
+7
+2014; Luedtke and Van Der Laan, 2016). We will also refer to them as the first
+stage and the second stage conditional treatment effects. For the blip functions
+or the conditional treatment effects to be well defined, we need the conditional
+expectations in (1) and (2) to be finite, which is not automatically guaranteed
+by Assumptions I-III. Therefore we introduce another assumption to ensure that
+the treatment effects are well-defined.
+• Assumption IV. For any h2 ∈H2, and a2 ∈{−1, 1}, the conditional
+expectation E[|Y1| + |Y2| | H2 = h2, A2 = a2] < ∞. For any h1 ∈H1, and
+a1 ∈{−1, 1}, the conditional expectation E[Y1 + U ∗
+2 (H2) | H1 = h1, A1 =
+a1] < ∞. Furthermore, E[|Y1 + Y2|] < ∞.
+In addition to ensuring the well-definedness of treatment effects, Assumption
+IV also serves as a technical requirement in our proofs and enhances the in-
+terpretability of our theoretical findings. While we expect that many of our
+theoretical results would hold even without this assumption, the proofs would
+become more intricate and cumbersome. It is important to note that Assump-
+tion IV is not overly stringent since, in most of our applications, Y1 and Y2
+represent measurements and are automatically bounded.
+We define the optimal DTR d∗to be the maximizer of Ed[Y1(d)+Y2(d)] over
+all possible regimes d = (d1, d2) such that d1 : H1 7→{±1} and d2 : H2 7→{±1}.
+Under Assumptions I-III, the optimal policy d∗can be identified as follows (Zhao
+et al., 2015; Chakraborty and Moodie, 2013)
+d∗
+2(H2) = arg max
+a2∈{±1}
+E[Y2 | H2, A2 = a2]
+d∗
+1(H1) = arg max
+a1∈{±1}
+E [Y1 + U ∗
+2 (H2) | H1, A1 = a1] ,
+(4)
+where U ∗
+2 is as defined in (3). Since the optimal decision rules remain unchanged
+if a constant C is added to both Y1 and Y2, in what follows, unless otherwise
+mentioned, we assume that Y1, Y2 > C for some C > 0. This trick was also used
+in Zhao et al. (2015).
+Remark 1 (Uniqueness of d∗
+1 and d∗
+2). It is worth noting that d∗
+1 and d∗
+2 defined
+in (4) may not be unique because they are allowed to take any value in {±1}
+at the boundary. To elaborate on this further, suppose some H2 satisfies
+E[Y2|H2, A2 = 1] = E[Y2|H2, A2 = −1].
+Such values of H2 constitute the decision boundary for the second stage. Then
+both versions d2(H2) = 1 and d′
+2(H2) = −1 qualify as optimal rule for at H2.
+Similarly, for d∗
+1, we can show that if H1 belongs to the first stage decision
+boundary
+
+h1 ∈H1 : E
+h
+Y1 + U ∗
+2 (H2)
+A1 = 1, h1
+i
+= E
+h
+Y1 + U ∗
+2 (H2)
+A1 = −1, h1
+i
+,
+then d∗
+1(H1) can take either value +1 or −1. Thus, d∗
+1 is not unique either.
+Consequently, to avoid confusion, we let d∗
+1 = 1 and d∗
+2 = 1 at both first and
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+Laha et al./Smooth Surrogates
+8
+second stage decision boundaries. Note that under this convention, d∗
+1(H1) =
+1[T1(H1) ≥0] and d∗
+2(H2) = 1[T2(H2) ≥0]. In what follows, we shall also refer
+to this optimal rule as “the optimal rule”.
+There is an alternative way of formulating d∗. If (f ∗
+1 , f ∗
+2 ) is a maximizer of
+V (f1, f2) = P
+(Y1 + Y2)1[A1f1(H1) > 0]1[A2f2(H2) > 0]
+π1(A1 | H1)π2(A2 | H2)
+
+(5)
+over the class
+F =
+
+(f1, f2)
+ f1 : H1 7→R,
+f2 : H2 7→R are measurable
+
+,
+(6)
+then sign(f ∗
+1 ) and sign(f ∗
+2 ) yield the optimal rules d∗
+1 and d∗
+2, respectively (Zhao
+et al., 2015). If f ∗
+1 and f ∗
+2 take the value zero, then d∗
+1 and d∗
+2 can be either +1
+or −1. Finally, even if d∗
+1 and d∗
+2 are unique, f ∗
+1 and f ∗
+2 need not be unique.
+At this stage, although it is intuitive to consider maximization of the sample
+analogue of V (f1, f2) to estimate the optimal decision rule, the non-concavity
+and discontinuity of the zero-one loss function render the maximization of
+V (f1, f2) computationally hard. To deal with issues of similar flavor, the classi-
+fication literature (cf. Bartlett et al., 2006) suggests using a suitable surrogate
+to the zero-one loss function. We appeal to this very intuition and consider
+Vψ(f1, f2) = P
+(Y1 + Y2)ψ
+
+A1f1(H1), A2f2(H2)
+
+π1(A1 | H1)π2(A2 | H2)
+
+,
+(7)
+where ψ is some bivariate function. For example, Zhao et al. (2015) takes
+ψ(x, y) = min(x −1, y −1, 0), the bivariate concave version of the popular
+hinge loss ϕ(x) = max(1 −x, 0).
+Suppose there exist functions f1 : H1 7→[−∞, ∞] and f2 : H2 7→[−∞, ∞] so
+that
+Vψ( ˜f1, ˜f2) =
+sup
+(f1,f2)∈F
+Vψ(f1, f2)
+(8)
+where F is as defined in (6). Note that ˜f1 and ˜f2 may not be unique. Each ( ˜f1, ˜f2)
+lead to the decision rules ˜d1(H1) = sign( ˜f1(H1)) and ˜d2(H2) = sign( ˜f2(H2)). If
+˜f(Ht) = 0, then ˜dt(Ht) can be either +1 or −1. We let ˜f1 and ˜f2 to be extended-
+valued functions because the supremum on the right hand side of (8) may not
+be attained in F for some surrogates. It may happen that the supremum of
+Vψ over F is attained at some f1 and f2 which satisfies f1(H1) = ∞or −∞
+(alternatively, f2(H2) = ∞or −∞). Although ˜ft can be extended valued, it does
+not create much technical issues because (a) ˜dt is always 1 or −1 for t = 1, 2,
+and ˜dt is the object of interest here.
+Finally, we define excess risk in line with the excess risk in context of classi-
+fication. Letting V ∗= V (f ∗
+1 , f ∗
+2 ) and V ∗
+ψ = Vψ( ˜f1, ˜f2), we define the respective
+regret and ψ-regret of using (f1, f2) by
+V ∗−V (f1, f2)
+and
+V ∗
+ψ −Vψ(f1, f2),
+
+
+===== ORIGINAL PDF PAGE 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+Laha et al./Smooth Surrogates
+9
+respectively. Note that regret and the ψ-regret are always non-negative.
+Throughout our paper, we will compare our DTR classification with binary
+classification. Therefore, we will fix the notation for binary classification. In
+the setting of binary classification, we have observations X taking value in an
+Euclidean space X. Each X is associated with a label A, which plays the same
+role as our treatment assignments. The optimal rule or the Bayes rule assigns
+label +1 if η(X) = P(A = 1 | X) > 1/2 and label −1 otherwise (cf. Bartlett
+et al., 2006). If η(X) = 1/2, both labels are optimal. The Bayes rule minimizes
+the classification risk R(f) = P(Af(X) < 0) over all measurable functions
+f : X →R. Also, we denote R∗= inff R(f), where the infimum is taken over
+all measurable functions. Replacing the zero-one loss with the surrogate ϕ results
+in the ϕ-risk Rϕ(f) = E[ψ(Af(X))]. We let R∗
+ϕ denote the optimized ϕ-risk.
+Some parallels with the DTR classification setting are immediate. For exam-
+ple, V (f1, f2), V ∗, Vψ(f1, f2), and V ∗
+ψ correspond to R(f), R∗, Rϕ(f), and R∗
+ϕ,
+respectively. next, defining the maps η1 : H1 7→R and η2 : H2 7→R by
+η1(H1) =
+E[Y1 + U ∗
+2 (H2)|A1 = 1, H1]
+E[Y1 + U ∗
+2 (H2)|A1 = 1, H1] + E[Y1 + U ∗
+2 (H2)|A1 = −1, H1],
+(9)
+η2(H2) =
+E[Y1 + Y2|A2 = 1, H2]
+E[Y1 + Y2|A2 = 1, H2] + E[Y1 + Y2|A2 = −1, H2],
+(10)
+we observe that η1 and η2 play the same role in DTR setting as the conditional
+probability η in context of binary classification. To elaborate, from the defini-
+tions of d∗
+1 and d∗
+2 in (4), it follows that d∗
+t (Ht) = +1 if ηt(Ht) > 1/2, and −1
+otherwise. Note also that the first stage and second stage decision boundaries
+can be represented by the sets {h1 : η1(h1) = 1/2} and {h2 : η2(h2) = 1/2}.
+Throughout this paper, we occasionally make statements such as η1(H1) ≥
+1/2, T(H2, A2) ≥0, d∗
+1(H1)̸ = ˜d1(H1), etc. Since H1, H2, A1, A2, etc. are
+random variables, quantities like η1(H1), η2(H2), T(H2, A2), d∗
+2(H1), d∗
+1(H1)
+are also random. To avoid any confusion, we wish to clarify that when such
+statements are made, it implies that the stated conditions hold for all realizations
+of H1, H2, A1, A2, etc.
+3. Fisher consistency
+A desirable ψ should ensure that ˜d is consistent with d∗. To concertize the idea,
+we need the concept of Fisher consistency.
+Definition 1. The surrogate ψ is called Fisher consistent if for all P satisfying
+Assumption I-IV, any {f1n, f2n}n≥1 ⊂F that satisfies
+Vψ(f1n, f2n) →V ∗
+ψ ,
+also satisfies
+V (f1n, f2n) →V ∗.
+Our definition of Fisher consistency is in line with classification literature
+(Bartlett et al., 2006). Note that Definition 1 does not require ˜f1 and ˜f2 to
+exist or be measurable. However, if ˜f1 and ˜f2 do exist, and they are in F, then
+Fisher consistency implies V ( ˜d) = V ∗, indicating ˜d is a candidate for d∗. In
+context of binary classification, the surrogate ϕ is Fisher consistent if and only
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+Laha et al./Smooth Surrogates
+10
+if Rϕ(fn) →R∗
+ϕ implies R(fn) →R∗, where fn’s are measurable functions
+mapping X to R.
+Remark 2 (Characterization of Fisher consistency). In many classification prob-
+lems, e.g. binary, multicategory, or multi-label classification, Fisher consistency
+can be directly characterized by convex hulls of points in the image space of
+ψ, and the related notion is known as calibration (Bartlett et al., 2006; Zhang,
+2010; Tewari and Bartlett, 2007; Gao and Zhou, 2011). For example, Theorem 1
+of Bartlett et al. (2006) shows that a surrogate ϕ is Fisher-consistent for binary
+classification if and only if the following condition holds.
+Condition 1. ϕ : R 7→R satisfies
+sup
+x:x(2η−1)≤0
+
+ηϕ(x) + (1 −η)ϕ(−x)
+
+< sup
+x∈R
+
+ηϕ(x) + (1 −η)ϕ(−x)
+
+for all η ∈[0, 1] such that η̸ = 1/2.
+However, due to the sequential nature of the DTR set-up, it is not easy to
+represent Fisher consistency in terms of analytical properties of ψ. This compli-
+cates the analysis of Fisher consistency in the DTR set-up.
+Traditionally, the first preference of surrogate losses have been the concave
+(convex in context of minimization) surrogates because they ensure unique opti-
+mum (Chen et al., 2017). In the binary setting, a univariate concave surrogate ϕ
+is Fisher consistent if and only if it is differentiable at 0 with positive derivative
+(see Bartlett et al., 2006, Theorem 6). Many commonly used univariate con-
+cave losses satisfy these conditions. We display some of these in Figure 1. An
+important geometric property of these functions is that they mimic the graph
+of the zero-one loss function. After proper shifting and scaling, their image lies
+below that of the zero-one loss function (see Figure 1). Of course, concavity is
+not necessary for classification-calibration, and this geometric property is shared
+by non-concave classification calibrated losses as well (see Lemma 9 of Bartlett
+et al., 2006).
+There are also classes of concave surrogates which are Fisher consistent for
+multicategory classification with respect to the zero-one loss (Duchi et al., 2018;
+Tewari and Bartlett, 2007; Neykov et al., 2016) or for multilabel classification
+with respect to Hamming loss (Gao and Zhou, 2011). In that light, it is not
+unnatural to expect concave surrogates will succeed in the DTR classification
+setting as well. Unfortunately, as we will see in the next section, this simple-
+minded extension of binary classification may not hold.
+DTR classification bears resemblance with multilabel classification (Dem-
+bczy´nski et al., 2012) but additional complication arises since H2 contains H1.
+Also, the Fisher consistency literature on multilabel classification (Gao and
+Zhou, 2011) is based on Hamming loss and partial ranking loss, which are sub-
+stantially different from the zero-one loss. Our problem also exhibits similarity
+with multiclass classification (Duchi et al., 2018). However, a big difference arises
+because of the sequential structure. Had d1 been a map from H2 to {±1} similar
+to d2, existing theory on multiclass classification (Duchi et al., 2018) could be
+
+
+===== ORIGINAL PDF PAGE 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+Laha et al./Smooth Surrogates
+11
+Fig 1: Plots of ϕ(x) vs x for concave calibrated value function ϕ for binary
+decision rules. Here are the functions, Zero-one: ϕ(x) = 1[x > 0], Exponential:
+ϕ(x) = 1 −e−x, Hinge: ϕ(x) = min(x, 1), Squared error: ϕ(x) = 1 −(1 −x)2.
+readily used to provide conditions for a general function ψ to be Fisher consis-
+tent. However, during the treatment assignment d1, one has no knowledge of
+A1, Y1, and O2. Tewari and Bartlett (2007) and Zhang (2010) develop tools for
+general classification set-ups, but these tools are too generalized for explosion of
+the specific sequential structure of DTR classification. In fact, it is the binary
+classification, which seems to have the most parallels with DTR classification.
+3.1. Concave surrogates
+In this section, we will establish that a large class of concave surrogates fail to
+be Fisher consistent for DTR estimation. We first consider the case of smooth
+concave losses because they amend to gradient based optimization methods
+with good scalability properties. We will start our discussion with an example.
+The smooth concave function ϕ(x) = −exp(−x) is Fisher consistent in the
+binary classification setting. Let us consider its bivariate extension ψ(x, y) =
+−exp(−x −y). It tuns out that ˜d1(H1) takes the form
+arg max
+a1∈{±1}
+E
+h
+h
+
+Y1 + E[Y2 | H2, A2 = 1], Y1 + E[Y2 | H2, A2 = −1
+  H1, A1 = a1
+i
+,
+(11)
+where h(x, y) = √xy. However, d∗
+1(H1) takes the same form but with h(x, y) =
+max(x, y). In general, therefore, ˜d1(H1) and d∗
+1(H1) do not agree. To see this,
+consider the toy example when Y1 = 1 and
+Y2 = 4 × 1[A1, A2 = 1] + 3 × 1[A1 = 1, A2 = −1]
++ 5 × 1[A1 = −1, A2 = 1] + 1[A1, A2 = −1].
+(12)
+In this case, d∗
+1(H1) = −1 but ˜d1(H1) = 1 for all H1, and clearly, ψ is not Fisher
+consistent. If we consider other examples of smooth concave ψ, e.g. logistic or
+
+
+===== ORIGINAL PDF PAGE 12 =====
+FORMULA CHECK REQUIRED: original PDF page 12.
+Laha et al./Smooth Surrogates
+12
+x
+y
+psi(x, y)
+(a)
+Bivariate
+zero-one
+loss: 1[x > 0, y > 0].
+x
+y
+psi(x, y)
+(b) Bivariate hinge loss:
+max(x −1, y −1, 0).
+x
+y
+psi(x, y)
+(c) Bivariate squared er-
+ror loss: −(x2 + y2).
+x
+y
+psi(x, y)
+(d) Bivariate exponential
+loss: −exp(−(x + y)).
+(e) Bivariate logistic loss:
+−log(1 + exp(−x) + exp(−y)).
+Fig 2: Bivariate zero-one loss function and some concave surrogate losses
+quadratic loss, we obtain different h, but for these examples as well, h is quite
+different from the non-smooth h(x, y) = max(x, y).
+The above heuristics indicate that the criteria of DTR Fisher consistency
+may be incompatible with smooth concave losses. Theorem 1 below concretize
+the above heuristics for an important class of concave smooth losses. Theorem 1
+assumes that ψ is closed and strictly concave. We say a function is closed if it
+is upper semicontinuous everywhere, or equivalently, if its superlevel sets are
+closed (pp. 78, Hiriart-Urruty and Lemar´echal, 2004). The function h is strictly
+concave if for any λ ∈(0, 1), and x, y ∈dom(h),
+h(λx + (1 −λ)y) > λh(x) + (1 −λ)h(y).
+Theorem 1. Suppose ψ is closed, strictly concave, and bounded above. In addi-
+tion, ψ has continuous second order partial derivatives and ψ12 has continuous
+partial derivatives on int(dom(ψ)). Then ψ can not be Fisher consistent for two
+stage DTR.
+We list below some examples of ψ, also shown in Figure 2, which satisfy the
+
+
+===== ORIGINAL PDF PAGE 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+Laha et al./Smooth Surrogates
+13
+assumptions of Theorem 1.
+Exponential:
+ψ(x, y) = −exp(−x −y);
+Logistic:
+ψ(x, y) = −log
+ 1 + e−x + e−y
+;
+Quadratic:
+ψ(x, y) = zT Qz + bT z + c, where z = (x, y)T ,
+Q is negative definite, b ∈R2, and c ∈R.
+The proof of Theorem 1 is given in Supplement G. Our counterexample for
+Theorem 1 is based on a pathological case where O2 and Y1 are deterministic
+functions of H1. We chose this case because it grants technical simplification.
+The realistic cases are no more likely to yield under concave surrogates than this
+simple pathological case. The calculations underlying the proof of Theorem 1
+become severely technically challenging when the second stage covariates are
+potentially random given H1.
+Remark 3 (Main challenges in the proof of Theorem 1). A main difficulty in
+proving Theorem 1 is that even under our pathological case, ˜f1(H1) and ˜f2(H2)
+do not have closed form expressions. They are implicitly defined as maximizers
+of complex functionals of ψ. Therefore, if we consider a very large class of ψ’s,
+characterization of ˜f1(H1) and ˜f2(H2) becomes difficult. The assumptions on ψ
+ensure that the class of ψ’s under consideration is manageable, mitigating some
+technical difficulties in the characterization of ˜f1(H1) and ˜f2(H2). The latter
+is essential for learning the behaviour of the signs of ˜f1(H1) and ˜f2(H2). Thus
+the assumptions on ψ are required for technical reasons in the proof. That is to
+say that our conditions on ψ are probably not necessary, and the assertions of
+Theorem 1 may hold even without these assumptions. In fact, we are not aware
+of any concave surrogates that are Fisher consistent in this context. We defer
+further discussion on the assumptions in Theorem 1 to Supplement C.1.
+The smoothness assumption in Theorem 1 is a technical assumption. Specif-
+ically, the existence of a gradient of ψ makes the proof simpler. However, we
+believe that the result may continue to hold without this condition, albeit with
+a more technically involved proof. In particular, the negative result in Theo-
+rem 1 is unlikely to be an artifact of the smoothness of ψ in Theorem 1, and
+may hold for broader classes of concave functions. In support of this claim, in
+Section 3.2, we demonstrate that a concave variant of the bivariate hinge loss
+min(x−1, y−1, 0), a commonly used non-smooth concave loss, is not Fisher con-
+sistent. In fact, to our knowledge, there exists no concave surrogate, whether
+smooth or not, that is Fisher consistent for the DTR classification problem.
+These observations lead us to suspect that no concave loss is Fisher consistent
+for the DTR problem.
+While we do not have an intuitive explanation for the apparent failure of
+concave functions, we attempt at making one heuristic reasoning. Even in the
+one stage case of binary classification, it was observed that Fisher consistency
+requires the surrogates to mimic the shape of the zero-one loss to some extent. It
+appears to us that for Fisher consistency in two stage DTR, the function ψ has
+to mimic the shape of the bivariate zero-one loss function (see Figure 2a) more
+
+
+===== ORIGINAL PDF PAGE 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+Laha et al./Smooth Surrogates
+14
+closely than that was necessary in binary classification (see Figure 1). In other
+words, the non-concavity of the zero-one loss function at the origin pushes the
+concave losses to failure, thereby necessitating search for ψ among non-concave
+losses, which we will study in Section 3.3.
+Smooth concave or convex surrogates fail to be Fisher consistent in many
+other complex machine-learning problems. For example, Gao and Zhou (2011)
+shows known convex surrogates are not Fisher consistent for multilabel classi-
+fication with ranking loss. Ranking is another notable example, where convex
+losses fail for a number of losses including the pairwise disjoint loss (Calauzenes
+et al., 2012). In fact, in the latter case, the existence of a Fisher consistent
+concave surrogate would imply that the feedback arc-set problem ispolynomial-
+time solvable (Duchi et al., 2010), which is conjectured to be NP complete
+(Karp, 1972). The DTR classification problem shares one common feature with
+the above-stated machine-learning problems where these surrogate losses fail.
+It does not organically reduce to a sequence of weighted binary classification
+problems, which appears to be a common element of all classification problems
+that are solvable via convex surrogates, e.g. multicategory loss with zero-one
+loss function (Tewari and Bartlett, 2007), multilabel classification with partial
+ranking and hamming loss (Gao and Zhou, 2011), ranking with Hamming loss
+(Calauzenes et al., 2012), ordinal regression with absolute error loss (Pedregosa
+et al., 2017) etc. Here we emphasize the word “organic” because DTR classi-
+fication does reduce to sequences of binary classification if it is framed as a
+sequential classification via exclusion of data points at each stage; cf. BOWL
+(Zhao et al., 2015).
+3.2. Hinge loss
+In this section, we demonstrate the Fisher inconsistency of the non-smooth loss
+function ψ(x, y) = min(x, y, 1), which is a bivariate version of the univariate
+hinge loss min(x, 1). The Fisher inconsistency of the hinge loss provides support
+to the conjecture that the Fisher inconsistency of concave surrogates extends
+beyond the class of smooth losses. The specific form of the hinge loss we ex-
+amine has also been explored by Zhao et al. (2015) as well. See Figure 2b for
+a pictorial representation of this loss. If desired, readers may choose to bypass
+this section and proceed directly to Section 3.3, which focuses on the study of
+Fisher-consistent losses.
+Zhao et al. (2015) suggested a location transformation of the outcomes Y1
+and Y2 so that they become positive, which is in alignment with our discussion
+in Section 2. Since we mainly focus on their implementation of the hinge loss,
+we will take Y1 and Y2 to be positive for the time being. For our hinge loss,
+it turns out that we can especially characterize the solution ˜d. The following
+inequality will be crucial for understanding the form of ˜d in this case:
+|E[T(H2, d∗
+2(H2)) | H1 = h1, A1 = 1] −E[T(H2, d∗
+2(H2)) | H1 = h1, A1 = −1]|
+> E[T(H2, −d∗
+2(H2)) | H1 = h1, A1 = 1] + E[T(H2, −d∗
+2(H2)) | H1 = h1, A1 = −1],
+(13)
+
+
+===== ORIGINAL PDF PAGE 15 =====
+FORMULA CHECK REQUIRED: original PDF page 15.
+Laha et al./Smooth Surrogates
+15
+where we remind the readers that T(H2, a2) = Y1 + E[Y2 | H2, A2 = a2]. Note
+that the left-hand side of (13) is the absolute value of the first stage blip function
+or conditional treatment effect defined in (1). Thus (13) can be interpreted as a
+lower bound condition, indicating the minimum strength required for the first
+stage conditional treatment effect. Further implications of (13) will be discussed
+after introducing Theorem 2, which demonstrates the necessity of (13) for the
+uniqueness of ˜d1(H1).
+Theorem 2 ( ˜d1 and ˜d2 for hinge loss). Suppose ψ(x, y) = min(x, y, 1). Fur-
+ther, suppose Assumptions I-IV hold and Y1 and Y2 are bounded below by some
+positive constant.
+• First stage: If (13) holds for some h1 ∈H1, then ˜d1(h1) = d∗
+1(h1). If
+(13) does not hold, then ˜d1(H1) = {1, −1}.
+• Second stage: If h2 ≡(h1, a1, y1, o2) ∈H2 is such that a1 and h1 satisfy
+a1 = ˜d1(h1), then ˜d2(h2) = d∗
+2(h2). For all other h2, ˜d2(h2) = {−1, 1}.
+Theorem 2 is proved in Supplement B.1. Its proof is based on straightforward
+algebra and elementary convex analysis results. The first observation from The-
+orem 2 is that the condition for d∗
+2(h2) = ˜d2(h2) is actually not restrictive. If the
+first stage treatment allocation follows ˜d1, then A1 = ˜d1(H1), and hence ˜d2(H2)
+matches with d∗
+2(H2). However, the first stage appears to be more challenging
+for the hinge loss because when (13) fails to hold, this loss is unable to discrimi-
+nate between the two treatment strategies in the first stage. If d∗
+1(H1) is unique,
+then d∗
+1 and ˜d1 will disagree in such situations. As a trivial example of such
+a scenario, consider the illustration in (12). In this case, the absolute value of
+the first stage conditional treatment effect is five but the threshold in the right
+hand side of (13) is eight for all H1. Thus d∗
+1(H1) is unique, and it is always
+−1 but (13) does not hold in this example, thereby confirming Fisher inconsis-
+tency. We provide more examples of the failure of (13) in Supplement B.2. Given
+that (13) represents a minimal strength condition for the first-stage conditional
+treatment effect, the above discussion indicates that the hinge loss requires a
+sufficiently strong first-stage conditional treatment effect to accurately identify
+the first-stage optimal treatment.
+Similar to many other concave losses, the univariate version of hinge loss
+is Fisher consistent for the single-stage problem (Zhao et al., 2012, see also
+Figure 1). However, Fisher inconsistency of Hinge loss has been observed in
+some classification problems involving more than two classes (see Liu (2007) for
+a detailed account). Hinge loss is also not Fisher consistent for maximum score
+estimation problem in linear binary response model (Feng et al., 2022). In our
+case, the inconsistency stems from the first-stage treatment assignment, which
+aligns with the previous examples of concave losses in Section 3.1. This happens
+because the final-stage (in our case the second-stage) treatment assignment in
+DTR resembles a single-stage weighted classification problem, where concave
+surrogates work. The inherent difficulty of DTR manifests in the treatment
+assignments of the early stages. This is unsurprising because the early-stage
+treatment assignments need to take into account the potential outcomes of all
+
+
+===== ORIGINAL PDF PAGE 16 =====
+FORMULA CHECK REQUIRED: original PDF page 16.
+Laha et al./Smooth Surrogates
+16
+future stages.
+Some additional remarks are pertinent concerning the location transforma-
+tion employed to ensure the positivity of outcomes because the location trans-
+formation makes it more challenging to satisfy (13). To see this, consider a
+hypothetical situation where (13) holds at H1 = h1 for some data distribution.
+If we perform a location shift by transforming Y1 to Y1 + C and Y2 to Y2 + C,
+the left-hand side of (13) increases by C, while the right-hand side grows by
+3C. Therefore, if C is large enough, (13) will no longer hold for the location-
+transformed data. Given the positivity of Y1 and Y2 does not ensure Fisher
+consistency anyway, one may question the form of ˜d when Y1 and Y2 are allowed
+to take non-positive values. We delve deeper into this topic in Supplement B.1.
+Remark 4. As previously mentioned, the SOWL method proposed by Zhao et al.
+(2015) is based on the bivariate hinge loss described in Theorem 2. In their
+paper, it was claimed that the hinge loss always leads to ˜d = d∗. Our analysis
+demonstrates that the agreement between ˜d and d∗relies on the fulfilment of
+(13) when d∗
+1(H1) is unique. There exist distributions where (13) holds for all
+h1 ∈H1, resulting in ˜d = d∗, while other distributions violate (13) for some
+h1 ∈H1. From a high level, this condition requires the first stage conditional
+treatment effect to be larger than some threshold. For specific examples and
+further elaboration, refer to Supplement B.2.
+3.3. Construction of Fisher consistent surrogates
+In this section, we construct Fisher consistent loss functions for two stage DTR
+classification. Noting the connection between binary classification and DTR clas-
+sification, we consider bivariate loss functions of form ψ(x, y) = ϕ1(x)ϕ2(y)
+where ϕ1 and ϕ2 themselves are univariate loss functions. The most intuitive
+choice of ϕi’s would be the Fisher consistent losses for one stage DTR. How-
+ever, ϕi(x) = −exp(−x) is Fisher consistent in one stage (Bartlett et al., 2006;
+Chen et al., 2017) although the product ϕ1(x)ϕ2(y) is inconsistent for the two
+stage setting (see Section 3). The above indicates that ϕi’s Fisher consistency
+is insufficient for ψ to mimic the bivariate zero-one loss function effectively.
+In fact, our calculations hint that ϕ2 needs to share a particular property of
+the zero-one loss function, that is for some constant C > 0,
+sup
+x∈R
+
+ηϕ2(x) + (1 −η)ϕ2(−x)
+
+= C max(η, 1 −η).
+(14)
+The above property is satisfied by the sigmoid function, which is non-concave,
+and Fisher consistent for binary classification (Bartlett et al., 2006). Interest-
+ingly, (14) alone does not guarantee the fisher consistency of ψ = ϕ1ϕ2. For
+instance, the loss ϕ(x) = min(x + 1, 1) satisfies (14) with C = 2 (cf. Bartlett
+et al., 2006) but ψ(x, y) = ϕ(x)ϕ(y) is not Fisher consistent for DTR when the
+number of stages is more than two. Therefore (14) is not a sufficient for Fisher
+consistency. Now we introduce a sufficient condition for Fisher consistency.
+Condition 2. ϕ is a strictly increasing function such that
+1. ϕ(x) > 0 for all x ∈R.
+
+
+===== ORIGINAL PDF PAGE 17 =====
+FORMULA CHECK REQUIRED: original PDF page 17.
+Laha et al./Smooth Surrogates
+17
+2. For all x ∈R, ϕ(x) satisfies ϕ(x)+ϕ(−x) = Cϕ where Cϕ > 0 is a constant.
+3. limx→∞ϕ(x) = Cϕ and limx→−∞ϕ(x) = 0.
+We will show in the upcoming Theorem 3 that Condition 2 is sufficient for
+Fisher consistency in the sense that if ϕ satisfies Condition 2, then ψ(x, y) =
+ϕ(x)ϕ(y) is Fisher consistent. A ϕ satisfying Condition 2 is Fisher consistent
+for binary classification, and it also satisfies (14) (see Lemma H.2 in Sup-
+plement H.3.1). Notably, this ϕ possesses another important property. When
+Cϕ = 1 and ϕ is continuous, ϕ becomes the distribution function of an un-
+bounded symmetric random variable. In contrast, the previously mentioned uni-
+variate hinge loss ϕ(x) = min(x + 1, 1) lacks this property. Specifically, when
+smooth, ϕ can be perceived as a smooth version of the 0-1 loss, smoothed via
+a symmetric distributional kernel. Consequently, it can be inferred that surro-
+gates satisfying Condition 2 closely approximate the 0-1 loss. That being said,
+we do not yet know if Condition 2 is necessary for Fisher consistency in the
+DTR problem.
+We provide some examples of functions satisfying Condition 2 below.
+Example 1. The following odd functions are non-decreasing with range [−1, 1]:
+1. fa(x) =
+x
+1+|x|.
+2. fb(x) = 2
+π arctan
+
+πx
+2
+
+.
+3. fc(x) =
+x
+√
+1+x2 .
+4. fd(x) = tanh(x), where tanh(x) = ex−e−x
+ex+e−x .
+Then ϕȷ(x) = 1 + fȷ(x) satisfies Condition 2 with Cϕ = 2, for ȷ = a, b, c, d. See
+Figure 3a for the pictorial representation of these functions.
+Our approach involving non-concave surrogates leads to non-convex optimiza-
+tion problems, prompting the question of how it differs from directly optimizing
+the original value function. While both approaches lead to non-convex optimiza-
+tion, our method results in a smooth optimization problem. In contrast, direct
+maximization of the value function would lead to a discontinuous optimization
+problem with jump discontinuities. Moreover, the objective function resulting
+from the latter optimization problem is flat at the regions of continuity.
+Section 7 and Supplement A entails that the surface of our surrogate op-
+timization problem exhibits favorable properties, and the optimization error
+with gradient descent-type algorithms may be small under certain conditions.
+In contrast, gradient descent-type methods would likely fail for the discontinu-
+ous problem resulting from direct value function maximization, and no known
+condition or method guarantees small optimization error for these methods in
+such problems (Xu et al., 2014). This makes direct optimization of the value
+function considerably more challenging than our method. Objectives with 0-1
+loss appear naturally in various machine-learning problems. As far as we know,
+In current statistical machine-learning literature, direct optimization of such
+objectives is avoided, and instead, the original 0-1 loss is replaced with a more
+well-behaved surrogate loss, whether convex or not, whenever such a surrogate
+
+
+===== ORIGINAL PDF PAGE 18 =====
+FORMULA CHECK REQUIRED: original PDF page 18.
+Laha et al./Smooth Surrogates
+18
+is available (Mukherjee et al., 2021; Xu et al., 2014; Horowitz, 1992; Feng et al.,
+2022; Pedregosa et al., 2017; Gao and Zhou, 2011; Calauzenes et al., 2012).
+The class specified by Condition 2 has been mentioned in various machine-
+learning problems, often presented in forms appropriate for a minimization prob-
+lem. In certain instances, it is referred to as the smoothed 0–1 loss. In some of
+these machine learning problems, this class has been proposed in situations
+where convex surrogates have demonstrated inconsistency. For example, Gao
+and Zhou (2011) has shown that this class of surrogates is Fisher consistent
+for multilabel classification with ranking loss, where convex surrogates are in-
+consistent. Feng et al. (2022) established Fisher-consistency-related guarantees
+for such surrogates in a diverse range of problems including Covariate-adjusted
+Youden index estimation, one-bit compress sensing, and maximum score es-
+timation in binary response model; see also Xu et al. (2014); Mukherjee et al.
+(2021). Especially for maximum score estimation, Feng et al. (2022) showed that
+common convex surrogates such as exponential and hinge loss are inconsistent
+(Feng et al., 2022). Finally, the surrogate loss used for multivariate ψ-learning in
+the context of multicategory classification is a non-smooth member of our class
+(Liu and Shen, 2006). The authors of that work claim that this non-concave
+surrogate outperforms SVM, which relies on hinge loss.
+3.3.1. Fisher consistency of ψ
+Instead of directly proving Fisher consistency, we will bound the true regret
+V ∗−V (f1, f2) in terms of the ψ-regret V ∗
+ψ −Vψ(f1, f2). The benefit of such a
+bound is that the rate of convergence of the true regret will be readily given by
+that of the ψ-regret, which we actually minimize.
+As mentioned earlier, the true regret and the ψ-regret parallel the excess
+risk R(f) −R∗and the ϕ-excess risk Rϕ(f) −R∗
+ϕ in binary classification. The
+relationship between the latter have been well-studied. For Fisher consistent ϕ,
+Bartlett et al. (2006) show that
+hϕ
+
+R(f) −R∗
+≤Rϕ(f) −R∗
+ϕ,
+where hϕ is a convex function satisfying hϕ(0) = 0. In view of the fact that the
+univariate sigmoid loss leads to a linear hϕ (Bartlett et al., 2006, Example 4), it
+is reasonable to expect that a similar inequality holds when ψ(x, y) = ϕ(x)ϕ(y)
+with ϕ as in Condition 2, as confirmed in following theorem.
+Theorem 3. Suppose Y1, Y2 > 0 and Assumptions I-IV hold. Let ψ(x, y) =
+ϕ(x)ϕ(y) with ϕ satisfying Condition 2 with some Cϕ > 0. Then
+V ∗−V (f1, f2) ≤
+
+V ∗
+ψ −Vψ(f1, f2)
+
+(Cϕ/2)2
+.
+(15)
+Theorem 3 immediately implies Fisher consistency because if Vψ(f1n, f2n)
+converges to V ∗
+ψ for some (f1n, f2n) ∈F, then V (f1n, f2n) →V ∗as well.
+Theorem 3 is proved in Supplement H.2.
+
+
+===== ORIGINAL PDF PAGE 19 =====
+FORMULA CHECK REQUIRED: original PDF page 19.
+Laha et al./Smooth Surrogates
+19
+As mentioned earlier, a necessary requirement for Fisher consistency is an
+agreement between ˜d and d∗. Proving the latter is also a key step in the proof
+of Theorem 3. Let us provide some intuition as to why the ˜d corresponding to
+our ψ may agree with d∗.
+We mentioned earlier that any ϕ satisfying Condition 2 is Fisher consistent
+for binary classification. It can be shown that Fisher consistency for binary
+classification translates to Fisher consistency for the single-stage case under
+Assumptions I-IV (Chen et al., 2017). Using this insight, we can show that
+the second stage treatment allocation ˜d2(H2) matches with d∗
+2(H2) for our ψ.
+Regarding the first stage, after some algebraic manipulation, we can demonstrate
+that ˜d1(H1) takes the form in (11) analogous to the exponential loss, but with
+h(x, y) = max(x, y). This particular form of h is primarily driven by (14) and
+the positivity of ϕ. Since d∗
+1 satisfies (11) with h(x, y) = max(x, y), the above
+leads to ˜d1 = d∗
+1.
+We want to remind the readers that the assumption Y1, Y2 > 0 is not re-
+strictive. As mentioned earlier, in cases where the observed outcomes are not
+positive, a location transformation can be applied to ensure positivity without
+altering the optimal treatment policy d∗and, consequently, ˜d. We also want
+to emphasize that Theorem 3, as well as all our upcoming theorems, do not
+distinguish between continuous and discrete outcomes. Therefore, our method
+and theory apply to discrete and binary outcomes, which are of interest in many
+applications.
+Remark 5 (Scaling of the ϕ’s). The scaling factor Cϕ/2 appears in the regret
+of (15) because ϕ differ from the zero-one function in scale by a factor of Cϕ/2.
+To understand the impact of the scaling factor in the regret bound, suppose
+ϕ2 = aϕ1 for some a > 0, and ψt(x, y) = ϕt(x)ϕt(y) for t = 1, 2. Then
+
+V ∗
+ψ1 −Vψ1(f1, f2)
+
+C2
+ϕ1/4
+=
+
+V ∗
+ψ2 −Vψ2(f1, f2)
+
+C2
+ϕ2/4
+.
+Thus, the regret bound in (15) does not depend on the scale of ϕ. Nevertheless,
+during our implementation, we take the scaling factor Cϕ/2 to be one so that
+the surrogate loss is at the same scale as the original zero-one loss.
+We would like to emphasize a crucial point. While our algorithm is capable
+of handling large sample sizes, it is important to note, as we will discuss in
+Supplement A, that guarantees regarding its convergence to the global maximum
+are scarce. This limitation is a common challenge encountered in non-concave
+optimization problems. However, it is important to recognize that we employ
+non-concave losses due to the apparent absence of Fisher-consistent concave
+losses. In other words, non-concave optimisation may be the only viable choice
+if one aims to solve the DTR problem through simultaneous optimization. This
+highlights the inherent difficulty of the DTR problem.
+To circumvent non-concave optimization while retaining theoretical guaran-
+tees, one has two options: employing a stage-wise Fisher-consistent optimization
+method like BOWL or opting for a regression-based approach such as Q-learning.
+
+
+===== ORIGINAL PDF PAGE 20 =====
+FORMULA CHECK REQUIRED: original PDF page 20.
+Laha et al./Smooth Surrogates
+20
+However, it is important to note that BOWL achieves Fisher consistency at the
+expense of reduced sample size in the first stage Zhao et al. (2015). Our simu-
+lations in Section 9.1 indicate that BOWL does not outperform our proposed
+method. Additionally, our simulations demonstrate that BOWL exhibits signif-
+icantly longer runtimes compared to our method for large sample sizes.
+4. Main methodology
+In this section, we describe how we use the Fisher-consistent surrogate derived
+in Section 3.3 to estimate the optimal treatment regimes. For the remainder
+of this paper except Supplement B, unless otherwise mentioned, ϕ will denote
+a univariate surrogate satisfying Condition 2, and ψ will denote the bivariate
+surrogate ψ(x, y) = ϕ(x)ϕ(y) where ϕ satisfies Condition 2. Define the empirical
+ψ-value function
+bVψ(f1, f2) = Pn
+(Y1 + Y2)ψ
+
+A1f1(H1), A2f2(H2)
+
+π1(A1 | H1)π2(A2 | H2)
+
+(16)
+Because P is unknown, we maximize bVψ(f1, f2) instead of Vψ(f1, f2). Ideally,
+one should maximize bVψ(f1, f2) over F but brute force search over F is impos-
+sible unless H1 and H2 are discrete spaces with finite cardinality. Therefore, in
+practice, one may optimize bVψ(f1, f2) over a nested class
+U1 ⊂. . . ⊂Un ⊂F,
+where Un is some rich class of classifiers, preferably a universal class (see Zhang
+et al., 2018a). We will discuss them in more detail later in Section 5. Whatever
+is the choice of Un, maximization of bVψ(f1, f2) over (f1, f2) ∈Un generally leads
+to a non-convex optimization problem.
+The surrogate loss based DTR optimization allows flexibility in the choice
+of Un and the modification of the empirical loss bVψ(f1, f2) to accommodate
+high dimensional covariates, non-linear effects, and variable selection. One can
+maximize bVψ(f1, f2)+P(f1, f2) instead of bVψ(f1, f2) to enable variable selection
+and attain stable estimation, where P(f1, f2) is a penalty term. One can include
+complex basis functions in Un to incorporate non-linear effects. For example, tree
+and list based methods (Zhang et al., 2018b; Sun and Wang, 2021; Laber and
+Zhao, 2015) as well as neural networks (see Section 6.1.2 for details) can be
+potentially adapted to construct Un. Moreover, our method can be extended to
+K stages by taking ψ(x1, . . . , xk) = Qk
+i=1 ϕ(xi).
+4.1. Decomposition of errors
+In this section, we will discuss the decomposition of ψ-regret of DTRESLO into
+three sources of errors. To that end, let us denote our classifiers by ( bfn,1, bfn,2).
+We will provide upper bounds for the ψ-regret Vψ( bfn,1, bfn,2), which readily
+produces an upper bound for the true regret V ( bfn,1, bfn,2) by Theorem 3. Before
+going into further detail, we point out that
+V ( bfn,1, bfn,2) = P
+
+(Y1 + Y2)1[A1ϕ( bfn,1(H1)) > 0]1[A2ϕ( bfn,2(H2)) > 0]
+π1(A1 | H1)π2(A2 | H2)
+
+
+
+===== ORIGINAL PDF PAGE 21 =====
+FORMULA CHECK REQUIRED: original PDF page 21.
+Laha et al./Smooth Surrogates
+21
+is a random quantity because here we assume that Ht, At, Yt (t = 1, 2) are
+drawn from P independent of ( bfn,1, bfn,2). The same holds regarding the ψ-regret
+Vψ( bfn,1, bfn,2). We decompose the ψ-regret according to three sources of errors:
+(i) approximation error due to the approximation of F by Un; (ii) estimation
+error due to the use of finite sample; and (iii) optimization error due to the
+possibility of not achieving global maximization for bVψ(f1, f2) since ψ is non-
+concave. We define the optimization error as
+Optn =
+sup
+(f1,f2)∈Un
+bVψ(f1, f2) −bVψ( bfn,1, bfn,2).
+We first provide some heuristics and intuitions for the error decomposition.
+For the time being, let us assume that arg max(f1,f2)∈Un V ∗
+ψ (f1, f2) is attained at
+some ( ˜fn,1, ˜fn,2) ∈Un. The existence of ( ˜fn,1, ˜fn,2) is not guaranteed in general,
+and even if they exist, ( ˜fn,1, ˜fn,2) will be hard to characterize for an arbitrary
+Un. We thus do not assume the existence of ( ˜fn,1, ˜fn,2) in our proof. We define
+the map ξf1,f2,g1,g2 : H1 × O2 × R2 × {±1}2 7→R by
+ξf1,f2,g1,g2(D)
+:= (Y1 + Y2) {ψ(A1g1(H1), A2g2(H2)) −ψ(A1f1(H1), A2f2(H2))}
+π1(A1 | H1)π2(A2 | H2)
+.
+(17)
+Elementary algebra shows that the ψ regret can be decomposed as follows:
+V ∗
+ψ −Vψ( bfn,1, bfn,2)
+= V ∗
+ψ −Vψ( ˜fn,1, ˜fn,2)
+|
+{z
+}
+Approximation error
++(Vψ −bVψ)( ˜fn,1, ˜fn,2) −(Vψ −bVψ)( bfn,1, bfn,2)
++ bVψ( ˜fn,1, ˜fn,2) −
+sup
+(f1,f2)∈Un
+bVψ(f1, f2) +
+sup
+(f1,f2)∈Un
+bVψ(f1, f2) −bVψ( bfn,1, bfn,2)
+|
+{z
+}
+Optimization error: Optn
+≤Approximation error + |(Pn −P)[ξf1,f2, ˜
+fn,1, ˜
+fn,2]|
+|
+{z
+}
+Estimation error
++Optn
+(18)
+Clearly, Optn depends on the optimization method used to maximize bVψ(f1, f2)
+over Un. We study the optimization error in Supplement A for specific scenarios.
+The primary emphasis of this paper revolves around the estimation error and
+the approximation error. In our sharp analysis of the ψ-regret, the estimation
+error bound depends on the approximation error in an intricate manner; see
+Supplement C.2 for more details. To keep our presentation short and focused,
+therefore, we discuss the approximation error in Section 5, and present the final
+regret bound in Section 6. Details on the explicit analysis of the estimation error
+can be found in Supplement L. Finally, owing to the potential non-concavity,
+the sharp analysis of the ψ-regret is significantly more subtle than existing
+results and approaches in the literature. We elaborate on this more in a detailed
+discussion presented in Supplement C.2.
+
+
+===== ORIGINAL PDF PAGE 22 =====
+FORMULA CHECK REQUIRED: original PDF page 22.
+Laha et al./Smooth Surrogates
+22
+In what follows, similar to Zhao et al. (2015), we assume that the propensity
+scores, i.e. π1 and π2 are known. This will hold in particular under a clinical
+trial like SMART (Kosorok and Laber, 2019), but not for observational data.
+When π1 and π2 are unknown, they can be estimated using a logistic regression
+model. This additional estimation step will not change the approximation error
+but the estimation error will likely change.
+5. Approximation error
+5.1. Assumptions
+To establish the convergence rate of the approximation error, we require two
+assumptions. First, we require the standard assumption that the outcomes are
+bounded.
+Assumption A. Outcomes Y1, Y2 satisfy max(Y1, Y2) ≤Cy.
+The second assumption is the DTR version of Tsybakov’s small noise assump-
+tion (Tsybakov et al., 2004; Audibert et al., 2007). Recall the blip functions/
+conditional treatment effects T1 and T2 defined in (1) and (2), respectively. Be-
+cause we assume Y1 and Y2 are bounded away from zero, ηt(Ht) = 1/2 if and only
+if Tt(Ht) = 0 for t = 1, 2. Therefore, the treatment boundary {ht : ηt(ht) = 1/2}
+can also be formulated as {ht : Tt(ht) = 0}.
+In classification literature, it is well-noted that obtaining a fast rate of con-
+vergence (faster than n−1/2) requires control on the distribution of the random
+variable η(X) −1/2 near the decision boundary {x : η(x) = 1/2} to some de-
+gree, which gives rise to the so-called margin conditions (Tsybakov et al., 2004;
+Audibert et al., 2007). Similarly, in the DTR context, even with regression-
+based methods, regulation near the conditional treatment effect boundary {Ht :
+Tt(Ht) = 0} are generally required; see Appendix C.3 for a detailed discussion.
+Thus it is expected that we too would require control on the rate of decay
+of η1 −1/2 and η2 −1/2 near the treatment boundary {h1 : η1(h1) = 1/2}
+and {h2 : η2(h2) = 1/2}, respectively, to obtain sharp bound on the ψ-regret.
+Among many variants of margin condition, we consider the Tsybakov small
+noise condition (Assumption MA of Audibert et al. (2007); see also Proposition
+1 of Tsybakov et al. (2004)), which has seen wide use in the literature (Au-
+dibert et al., 2007; Steinwart et al., 2007; Blanchard et al., 2008). The DTR
+formulation of Tsybakov small noise condition takes the following form:
+Assumption B (Tsybakov small noise assumption). There exist a constant C >
+0, a small number t0 ∈(0, 1), and positive reals α1, α2 such that
+P(0 < |η1(H1) −1/2| ≤t) ≤Ctα1,
+P(0 < |η2(H2) −1/2| ≤t) ≤Ctα2
+for all t < t0.
+The parameters α1 and α2 are the Tsybakov noise exponents. We already
+noted that the Yi’s are bounded below. Since the outcomes are also bounded
+above by Assumption A, Assumption B is equivalent to saying
+P(0 < T1(H1) < t) + P(0 < T2(H2) < t) ≤Ctα,
+for all t ≤t0.
+(19)
+
+
+===== ORIGINAL PDF PAGE 23 =====
+FORMULA CHECK REQUIRED: original PDF page 23.
+Laha et al./Smooth Surrogates
+23
+ϕ(x)
+Type
+Bϕ
+κ
+(a) x/(1 + |x|) + 1
+A
+1
+2
+(b) 2
+π arctan(πx/2) + 1
+A
+2
+2
+(c) x/
+√
+1 + x2 + 1
+A
+23/2
+3
+(d) 1 + tanh(x)
+B
+4
+2
+Table 1
+Caption
+This alternative version is more common in precision medicine literature (Qian
+and Murphy, 2011; Luedtke and Van Der Laan, 2016). See Supplement C.3 for
+more details on the small noise assumption or similar assumptions in precision
+medicine literature. Finally, observe that if a stage has Tsybakov noise exponent
+α, then it also has noise exponent α′ for all α′ < α. Thus, to keep our calculations
+short, we assume that both stages have noise exponent α where α = min(α1, α2).
+We postpone further discussion on Assumption B till Supplement C.3.
+Under Assumption B, it turns out that, our surrogates satisfying Condition 2
+do not exhibit identical approximation error. The difference in the rate stems
+from the difference in their respective derivatives. Thus, it will be convenient to
+split the above-mentioned surrogates into two types.
+Definition 2. We say a surrogate ϕ satisfying Condition 2 is of type A if there
+exists a constant Bϕ > 0 and κ ≥2 such that |ϕ′(x)| < Bϕ(1 + |x|)−κ for all
+x̸ = 0. We say a surrogate ϕ satisfying Condition 2 is of type B if there exists a
+constant Bϕ > 0 and κ > 0 such that |ϕ′(x)| < Bϕ exp(−κ|x|) for all x̸ = 0.
+First, Definition 2 assumes ϕ to be smooth everywhere except perhaps at
+the origin. This restriction rules out non-smooth ϕ’s, but they are uninteresting
+from our implementation perspective anyways. All the ϕ’s we have considered
+in Example 1 are differentiable at R/{0} (see Table 1; more details can be found
+in Supplement O.1). Second, type A merely means ϕ′ decays polynomially in
+|x|−κ, where type B ϕ’s enjoy exponential decay of the derivative.
+5.2. Approximation Error Rate
+Theorem 4 summarizes the approximation error rate.
+Theorem 4. Suppose P satisfies Assumptions I-IV, Assumption A and As-
+sumption B with small noise coefficient α. Let 0 < an →∞be any sequence of
+positive reals. Further suppose there exist a small number δn ∈(0, 1) and maps
+˜hn,1 : H1 7→R and ˜hn,2 : H2 × {0, 1} 7→R so that
+∥˜hn,1 −(η1 −1/2)∥∞+ ∥˜hn,2 −(η2 −1/2)∥∞≤δn
+where η1 and η2 are defined in (9) and (10). Then for any ϕ of type A, the
+following holds for any α′ ∈(0, α) satisfying α −α′ < 1:
+V ∗
+ψ −Vψ(an˜hn,1, an˜hn,2)
+≲
+
+
+
+a1−κ
+n
++ min(δ2+α
+n
+an, δ1+α
+n
+)
+if κ < 2 + α
+a
+−
+1+α
+1+(α−α′)/(κ−1)
+n
+α−α′
++ min(δ2+α
+n
+an, δ1+α
+n
+) +
+δα′+2−κ
+n
+(α−α′)aκ−1
+n
+if κ ≥2 + α.
+
+
+===== ORIGINAL PDF PAGE 24 =====
+FORMULA CHECK REQUIRED: original PDF page 24.
+Laha et al./Smooth Surrogates
+24
+Suppose ϕ is of type B. Then
+V ∗
+ψ −Vψ(an˜hn,1, an˜hn,2) ≲(log an)1+α
+a1+α
+n
++min(anδ2+α
+n
+, δ1+α
+n
+)+anδn exp(−κanδn/2).
+Theorem 4 entails that if {˜hn,1, ˜hn,2} approximates {η1 −1/2, η2 −1/2} well
+in the sup-norm, then their scaled versions ˜fn,1 = an˜hn,1 and ˜fn,2 = an˜hn,2
+incur small regret. It may appear a bit unusual in that we require ˜fn,i’s to be
+close to the functions ηi −1/2’s, where Vψ is actually maximized at ( ˜f1, ˜f2) (see
+Lemma H.1). To that end, note that the extended real valued functions ˜fi’s can
+not be approximated by any real valued fi’s because ∥fi −˜fi∥∞is infinity for
+all such fi’s. However, the proof of Theorem 4 ensures that an(ηi −1/2)’s are
+good proxy for the ˜fi’s because
+Vψ( ˜f1, ˜f2) −Vψ
+
+an(η1 −1/2), an(η2 −1/2)
+
+is small. The bounds in Theorem 4 holds for any small δn, whose optimal rate
+will be found during from the estimation error calculation.
+5.3. Special case: strong separation with α = ∞
+We next describe the convergence rates under a special case of α = ∞, which
+will be referred as the strong separation:
+Assumption C (Strong separation). η1 and η2 are bounded away from zero on
+their respective domains.
+Under this setting, the conditional treatment effects are uniformly bounded
+away from zero. See Section C.3 for related discussion. This special case is of
+great interest in the current literature, cf. Zhao et al. (2012, 2015); Qian and
+Murphy (2011). When the strong separation holds, the approximation error can
+be made much smaller than that of Theorem 4 as detailed in Proposition 1.
+Proposition 1. Suppose the conditions of Theorem 4 hold except P satisfies
+Assumption C instead of Assumption B. Suppose ˜hn,1 : H1 7→R and ˜hn,2 :
+H2 × {0, 1} 7→R satisfy
+∥˜hn,1 −(η1 −1/2)∥∞+ ∥˜hn,2 −(η2 −1/2)∥∞≤c
+for some c > 0. Then there exists C > 0 so that the following assertion holds
+for any large positive number an:
+V ∗
+ψ −Vψ(an˜hn,1, an˜hn,2) ≲
+(
+a−(κ−1)
+n
+if ϕ is of type A,
+exp(−κCan)
+if ϕ is of type B.
+Remark 6. Proposition 1 implies that under the strong separation assumption,
+˜hn,1 and ˜hn,2 do not even need to approximate η1 −1/2 and η2 −1/2 very
+precisely and the approximation error decays substantially faster. To get a sense
+of how fast the regret diminishes, we consider the case when an = n. In this
+
+
+===== ORIGINAL PDF PAGE 25 =====
+FORMULA CHECK REQUIRED: original PDF page 25.
+Laha et al./Smooth Surrogates
+25
+case, the regret is O(1/n) for a ϕ of type A because κ ≥2 for a type A ϕ. The
+regret decays exponentially fast for a type B ϕ, which can be attributed to the
+exponential decay of its derivatives. Recall that the derivative of the zero-one
+loss function is exactly zero at any x̸ = 0. Thus the type B surrogates bear
+closer resemblance to the original zero-one loss function.
+Theorem 4 or Proposition 1 bound the approximation error because if Un =
+U1n × U2n is such that
+inf
+ft∈Utn ∥ft −(ηt −1/2)∥∞< δn,
+t = 1, 2,
+(20)
+then Theorem 4 or Proposition 1 upper bound V ∗
+ψ −sup(f1,f2)∈Un Vψ(f1, f2).
+6. Estimation error
+In this section, we focus on the estimation error in (18), and provide sharp
+regret-bound for a selected set of classifiers by combining all sources of error.
+We assume that ( bfn,1, bfn,2) ∈Un = U1n × U2n, where U1n, U2n are classes of
+functions. Our analysis in this section is fully nonparametric because our Un is
+agnostic of the underlying data-generating mechanism. We first present some
+theorems (Theorems 5, 6 and 7) for general Un’s. Then we will move to study
+the particular examples of neural networks and wavelets.
+6.0.1. Estimation error when Un is a general function-class
+For general function-classes, we need some assumptions to control the com-
+plexity of Un. Such assumptions are widely used for bounding the expectation
+of the estimation error (Koltchinskii, 2011; Bartlett et al., 2006; Bartlett and
+Mendelson, 2002). To define complexity in the context of function-classes, we
+need to introduce the concept of the bracketing entropy. Given two functions fl
+and fu, the bracket [fl, fu] is the set of all function f satisfying fl ≤f ≤fu.
+Suppose ∥· ∥is a norm on the function-space and ϵ > 0. Then [fl, fu] is called
+an ϵ-bracket if ∥fu −fl∥< ϵ. For a function-class G, we define the bracketing
+entropy N[ ](ϵ, G, ∥·∥) to be the minimum number of ϵ-brackets needed to cover
+G. This is a measure of the complexity of G. We will see that the estimation
+error directly depends on the bracketing entropy of Un. We will first consider
+the case when just the small noise assumption (Assumption B) holds, and then
+we will move to the special case when the strong separation (Assumption C)
+holds.
+We derive the estimation error of DTRESLO under the small noise assump-
+tion (Assumption B) when
+N[ ](ϵ, Utn, ∥· ∥∞) ≲
+An
+ϵ
+ρn
+,
+t = 1, 2
+(21)
+where An, ρn > 0. This leads to the regret bound of Theorem 5 that depends
+on An and ρn. The Un’s that satisfy (21) are called VC-type classes (p. 41
+Koltchinskii, 2011). In all our examples, Un will satisfy (21) for appropriate An
+and ρn.
+
+
+===== ORIGINAL PDF PAGE 26 =====
+FORMULA CHECK REQUIRED: original PDF page 26.
+Laha et al./Smooth Surrogates
+26
+Theorem 5. Suppose Un is such that there exists An > 0 and ρn ∈R so that
+(21) holds with lim infn ρn > 0, ρn log An = o(n), and lim infn ρn log An > 0.
+Further suppose there exist ( ˜fn,1, ˜fn,2) ∈Un so that
+∥˜fn,1/an −(η1 −1/2)∥∞+∥˜fn,2/an −(η2 −1/2)∥∞≤
+ρn log An
+n
+1/(2+α)
+(22)
+for some an = na where a > 1. We also assume that P satisfies Assumptions
+I-IV, Assumption A, and Assumption B with coefficient α > 0. Then there exist
+C > 0 and N0 ≥1 such that for all n ≥N0 and all x > 0,
+V ∗
+ψ −Vψ( bfn,1, bfn,2) ≤C max
+
+(1 + x)2(log n)2
+ρn log An
+n
+ 1+α
+2+α
+, Optn
+
+with probability at least 1 −exp(−x).
+Theorem 5 is proved in Section J. In our examples with neural networks and
+wavelets, we will see that the regret bound in Theorem 5 leads to sharp rates
+provided η1 and η2 satisfy some smoothness conditions.
+Next we will derive regret bounds under the special case of strong separation
+(Assumption C). We begin with a theorem that consider Un’s satisfying the
+following entropy bound:
+log N[ ](ϵ, Utn, L2(Pn)) ≲
+An
+ϵ
+2ρn
+,
+t = 1, 2.
+(23)
+General H¨older classes satisfy (23) (cf. p.154, Van Der Vaart et al., 1996).
+Theorem 6. Suppose the function-class Un is such that (23) holds with ρn ∈
+(0, 1), An > 1, where it also holds that A2ρn
+n
+/n →0. Further suppose the ap-
+proximation error
+V ∗
+ψ −
+sup
+(f1,f2)∈Un
+Vψ(f1, f2) = O((log n)k/n)
+for some k ∈N, the optimization error Optn < 1/2, and Assumptions I-IV, A,
+and C hold. Then there exist C > 0 and N0 > 0 such that for all n ≥N0 and
+for any x > 0,
+V ∗
+ψ −Vψ( bfn,1, bfn,2) ≤C max
+
+(1 + x)2/(1+ρn)A2ρn/(1+ρn)
+n
+n−1/(1+ρn), Optn
+
+with probability at least 1 −exp(−x).
+Theorem 6 is proved in Supplement L.1. The proof of Theorem 6 shows that
+under (23), the estimation error is larger than the approximation error. Thus, in
+this case, the biggest contribution in the regret comes from the estimation error
+term, which is of the order Op
+
+A2ρn/(1+ρn)
+n
+n−1/(1+ρn)
+
+. This type of rate is also
+
+
+===== ORIGINAL PDF PAGE 27 =====
+FORMULA CHECK REQUIRED: original PDF page 27.
+Laha et al./Smooth Surrogates
+27
+observed for the L2 risk in regression problems where the regression function is a
+member of a class with similar entropy bounds (p. 75, Example 4, Koltchinskii,
+2011). When ρn →0, the complexity of the class decreases, and as a result, the
+estimation error decreases as well.
+Our next theorem, which is proved in Section L.2, considers VC-type Un’s
+similar to Theorem 5. The corresponding entropy bound is smaller than that in
+(23), which results in smaller regret bound compared to Theorem 6.
+Theorem 7. Suppose Un is a function-class such that there exist An > 0 and
+ρn > 0 so that
+N[ ](ϵ, Un, L2(Pn)) ≲
+An
+ϵ
+ρn
+,
+(24)
+and lim infn(ρn log An) > 0. Further, suppose the approximation error
+V ∗
+ψ −
+sup
+(f1,f2)∈Un
+Vψ(f1, f2) = O((log n)k/n)
+(25)
+for some k ∈N. Then under Assumptions I-IV, A, and C, there exist C > 0
+and N0 > 0 such that for all n > N0 and any x > 0,
+V ∗
+ψ −Vψ( bfn,1, bfn,2) ≤C max
+(1 + x)2(log n)2(ρn log An)2 + (log n)k
+n
+, Optn
+
+with P-probability at least 1 −exp(−x).
+We will see that in our neural network example, An is a polynomial in n, and
+ρn is a poly-log term, which leads to a regret of order Op(1/n) up to a polylog
+term. In binary classification context, many methods are known to attain this
+sharp rate (Massart et al., 2006; Blanchard et al., 2008). However, to the best of
+our knowledge, our DTRESLO method is the first DTR method for which such
+a sharp regret bound is established under our nonparametric setup. Theorem
+S.1 of Zhao et al. (2015) implies that if η1 and η2 are uniformly bounded away
+from both zero and one, then the regret of BOWL and SOWL estimators can
+be pushed to the order of Op(n−ω/(1+ω)) under Assumption C, where ω > 0
+is a fixed quantity, called geometric noise exponent, that depends only on P.
+This rate is slower than ours when the optimization error Optn is of the order
+Op(1/n). Theorem 3.1 of Qian and Murphy (2011) can be used to obtain regret
+bounds for Q-learning type methods under Assumption C and D. However, the
+resulting regret bound has the same order as the L2(P) estimation error of the
+Q-functions (cf. equation 3.6 of Qian and Murphy, 2011), which can not be
+faster than n−2θ/(2θ+p) under nonparametric set-up (Yang, 1999).
+6.1. Examples of regret bounds with specific Un’s
+We will first state some assumptions on η1 and η2 that ensure the approxima-
+bility of G1 and G2 by Un when Un corresponds to basis-expansion type classes.
+Next we will elaborate on the special cases when Un corresponds to neural net-
+works and wavelets classes.
+
+
+===== ORIGINAL PDF PAGE 28 =====
+FORMULA CHECK REQUIRED: original PDF page 28.
+Laha et al./Smooth Surrogates
+28
+6.1.1. Smoothness assumption
+First, we explain why smoothness conditions on η1 and η2 are required. To
+control the estimation error, some structures on Un are desirable because smaller
+search spaces for the ft’s result in smaller estimation error. Restricting the search
+space is equivalent to restricting the complexity of the class Un (Audibert et al.,
+2007). We require structural assumptions on η1 and η2 to ensure that η1 and
+η2 are well approximable by such Un’s – giving rise to the so-called complexity
+assumptions. Thus, the complexity assumption enables the attainment of a small
+estimation error without necessarily blowing up the approximation error. See
+Audibert et al. (2007), Koltchinskii (2011) and Tsybakov et al. (2004), among
+others, for a more detailed account of the necessity of complexity assumptions.
+In the classification context, Un is taken to be some smoothness class or VC
+class because most popular classifiers, e.g. neural network, basis-expansion type
+classifiers, wavelets etc. belong to such classes. Such classes can approximate η1
+and η2 well if the latter are smooth. Therefore, we will assume our η1 and η2
+belong to smoothness classes. To that end, we define the H¨older classes with
+smoothness index θ > 0 below.
+Let p ∈N. A function f : X ⊂Rp 7→R is said to have H¨older smooth-
+ness index θ > 0 if for all u = (u1, . . . , up) ∈Np satisfying |u|1 < θ, ∂uf =
+∂u1∂u2 . . . ∂upf exists and there exists a constant C > 0 so that
+|∂uf(x) −∂uf(y)|
+|x −y|θ−⌊θ⌋
+< C
+for all x, y ∈X.
+For some Y > 0, we denote by Cθ
+d(X, Y) the H¨older class of functions given by
+
+f : X ⊂Rd 7→R
+
+X
+u:|u|1<θ
+∥∂uf∥∞+
+X
+u:|u|1=⌊θ⌋
+sup
+x,y∈X
+x̸=y
+|∂uf(x) −∂uf(y)|
+|x −y|θ−⌊θ⌋
+≤Y
+
+.
+(26)
+Since Ht may include categorical variables such as smoking status, we separate
+the continuous and categorical parts of Ht as Ht = (Hts, Htc) ∈Ht = Hts⊗Htc,
+where Hts ∈Hts ⊂Rpts and Htc ∈Htc ⊂Rptc correspond to the continuous
+and categorical part of Ht, for t = 1, 2.
+Assumption D (Smoothness assumption). H1 and H2 are compact and H1c and
+H2c are finite sets. Also, there exist θ > 0 and Y > 0 so that the followings hold:
+1. Let X = H1s. For each h ∈H1c, the map η1(·, h) : X 7→R is in Cθ
+p1s(X, Y).
+2. Let X = H2s. For each (h, a) ∈H2c × {±1}, the function η2(·, h, a) : X 7→
+R is in Cθ
+p2s(X, Y).
+We formulated the smoothness assumption in terms of η1 and η2 so that our
+results are consistent with contemporary classification literature. However, our
+proofs show that one could formulate the assumptions in terms of the smooth-
+ness of the blip functions in (1) and (2) as well. The compact support assumption
+for Ht, which is typically satisfied in real applications, is also commonly required
+in the DTR literature (Zhao et al., 2012, 2015; Sonabend et al., 2021; Zhang
+
+
+===== ORIGINAL PDF PAGE 29 =====
+FORMULA CHECK REQUIRED: original PDF page 29.
+Laha et al./Smooth Surrogates
+29
+et al., 2018b). Under the compactness assumption, H1c and H2c are finite sets.
+Smoothness conditions as Assumption D have appeared in DTR literature in
+the context of nonparametric estimation (Sun and Wang, 2021). Compared to
+the parametric assumptions often imposed on the blip functions in Q-learning or
+A-learning (Schulte et al., 2014), our smoothness assumptions are much weaker.
+Our smoothness assumption includes non-differentiable functions as well. Next,
+we will establish regret bounds for neural network and wavelets classes.
+6.1.2. Neural networks as an example of Un
+We consider the neural network space in line with Schmidt-Hieber (2020)’s con-
+struction. Let F(L, W, s, Y) be the class of ReLU networks uniformly bounded
+by Y > 0, with depth L ∈N, width vector W, sparsity s ∈N, and weights
+bounded by one. The output layer of the networks in F(L, W, s, Y) uses a linear
+gate. In this example, we consider that for t = 1, 2, the class Utn corresponds
+to F(Ln, Wn, sn, Yn) where Ln, Wn, sn, and Yn may depend on n. To avoid
+cumbersome notation, we drop n from Ln, Wn, sn, and Yn, and simply denote
+them by L, p, s, and Y, respectively. One can control the complexity of this
+class via pre-specifying upper bounds on the depth, width, and sparsity of the
+network. We will first consider regret bound under Assumption B, and then we
+move to the special case of strong separation (Assumption C).
+Corollary 1 establishes the regret bound of DTRESLO with neural network
+classifier under Assumption B.
+Corollary 1. Suppose P satisfies Assumptions I-IV, Assumption A, Assump-
+tion B with parameter α > 0, and Assumption D with parameter θ > 0. Let Un,1
+and Un,2 be of the form F(L, W, s, ∞) with appropriate W1, where F(L, W, s, ∞)
+is as defined in Section 6.1.2. Suppose L = c1 log n, s = c2np/((2+α)θ+p), and the
+maximal width max W ≤c3s/L where c1, c2, c3 > 0. Then there exist N0 > 0
+and C > 0 depending on P and ψ such that if c1, c2, c3 > C, then for n ≥N0
+and any x > 0, the following holds with probability at least 1 −exp(−x):
+V ∗
+ψ −Vψ( bfn,1, bfn,2) ≤C max
+
+(1 + x)2(log n)
+6+4α
+2+α n−
+1+α
+2+α+p/θ , Optn
+
+.
+The proof of Corollary 1 can be found in Section K.1. The proof of Corollary
+1 assumes that p is fixed, i.e. it does not grow with n. The generic constant C in
+Corollary 1 may depend on p as well. Under Assumptions similar to A, B, and
+D, the rate n−
+1+α
+2+α+p/θ is minimax in context of binary classification (Audibert
+et al., 2007). Since two-stage weighted classification problem is not easier than
+binary classification, this rate is expected to be the minimax rate under our set-
+up as well. To the best of our knowledge, no other nonparametric DTR method
+has better guarantees for the regret under set-up similar to ours. See Section 8
+for a comparison of the regret bound of our DTRESLO method with some other
+existing methods.
+Corollary 2. Suppose P satisfies Assumptions I-IV, Assumption A with B > 0,
+Assumption C, and Assumption D with parameter θ > 0. Let Un,1 and Un,2 be of
+
+
+===== ORIGINAL PDF PAGE 30 =====
+FORMULA CHECK REQUIRED: original PDF page 30.
+Laha et al./Smooth Surrogates
+30
+the form F(L, W, s, ∞) with appropriate W1, where F(L, W, s, ∞) is as defined
+in Section 6.1.2. Suppose L = c1 log n, s = c2(log n)p/θ, and the maximal width
+max W ≤c3 log n where c1, c2, c3 > 0. Then there exist C, C′ > 0 depending on
+p, θ, and ψ such that if c1, c2, c3 > C, then for all n ≥N0 and any x > 0,
+V ∗
+ψ −Vψ( bfn,1, bfn,2) ≤C′ max
+(1 + x)2(log n)3+p/θ
+n
+, Optn
+
+with probability at least 1 −exp(−x).
+The proof of Corollary 2 can be found in Section K.2. Corollary 2 implies that
+DTRESLO method with neural network classifier can attain regret Op(1/n) up
+to a poly-log term, as announced earlier.
+6.1.3. Wavelets as an example of Un
+In this section, we will define the wavelet estimators we will use. Let us consider
+father and mother wavelets ν and ζ. We will assume that these wavelets are S-
+regular wavelets (cf. Definition 4.2.14, p.326, Gin´e and Nickl, 2015) with S > θ
+and they have compact support, e.g., Daubechies wavelets (p. 318, Gin´e and
+Nickl, 2015). The corresponding p-dimensional wavelets are constructed using
+tensor products
+Γ(x) = ν(x1) · · · ν(xp),
+x = (x1, . . . , xp) ∈K,
+where K ⊂Rp is a compact set. Define Γk(x) = Γ(x −k) for k ∈Z, where
+Z was denoted to be the set of all integers. Observe that since ν has compact
+support, ν(·−k) restricted to any compact set is non-zero only for finitely many
+k’s. Therefore, Γk restricted to compact set K is non-zero only for finitely many
+k’s. We denote the set of such k’s by K0. For each i ∈{0, 1}p \ (0, . . . 0), we also
+consider the p-dimensional tensor product
+Zi(x) = ζi1(x1) · · · ζip(xp),
+where ζ is the mother wavelet function. For x ∈K, we define the wavelet
+function Zi
+lk(x) = 2lr/2Zi(2lx −k), where l ∈N ∪{0}, and k ∈Z. Notice that
+since ζ has compact support and K is also compact, the function x 7→Z(2lx−k)
+is non-zero only for some specific k’s belonging to a finite set. We will call this
+set K(l). It is easy to show that there exist C1 and C2 > 0 so that the cardinality
+of K(l) satisfies C12lp ≤|K(l)| < C22lp for all l ≥1. We let l ∈{0, 1, . . . , bn},
+where bn is a sequence of integers diverging to ∞. This number bn will be called
+the level of the wavelet class. Finally, we define the wavelet function-class by
+HM
+n (K) =
+
+fn : K 7→R
+ fn =
+X
+k∈K0
+ckΓk +
+bn
+X
+l=0
+X
+k∈K(l),i∈I
+clkZi
+lk where ck ∈R
+for all k ∈K0 and clk ∈R for all l ∈Z and k ∈K(l),
+sup
+k∈K0
+ck + sup
+l≥0
+n
+2l(θ+p/2) sup
+k∈K(l)
+|clk|
+o
+< M, I = {0, 1}p \ (0, . . . , 0)
+
+.
+(27)
+
+
+===== ORIGINAL PDF PAGE 31 =====
+FORMULA CHECK REQUIRED: original PDF page 31.
+Laha et al./Smooth Surrogates
+31
+The following two corollaries give the regret bound for the wavelet-based
+classifiers. As usual, we assume that p ≪n. The following corollary, which is
+proved in Section K.3, indicates that under the small noise condition, the regret
+decay rate is similar to that of the neural network example up to a poly-log
+term. Therefore, similar to the neural network example, the regret decay rate
+matches the minimax rate of risk decay in binary classification under conditions
+similar to Assumptions A, B, and D (Audibert et al., 2007).
+Corollary 3. Suppose {Γk}k∈K0 and {Zlk : k ∈K(l), l ∈N ∪{0}} form an
+compactly supported S-regular wavelet basis where S > θ > 0. For t = 1, 2,
+let Utn denote the wavelet class HM
+n (Kt) defined in (27) with M = 2n and
+level bn = (log2 n)/(2θ + αθ + p), where Kt’s are compact sets such that K1 ⊃
+dom(η1) and K2 ⊃dom(η2). If in addition Assumptions I-IV, Assumption A
+hold, Assumption B holds with α > 0, and Assumption D holds with θ > 0, then
+there exist C, N0 > 0 such that for all n ≥N0 and any x > 0,
+V ∗
+ψ −Vψ( bfn,1, bfn,2) ≤C max
+
+(1 + x)2(p2p)
+1+α
+2+α (log n)
+5+3α
+2+α n−
+1+α
+2+α+p/θ , Optn
+
+with probability at least 1 −exp(−x).
+The following corollary gives the regret decay rate under Assumption C, the
+strong separation assumption. This rate is similar to the analogous rate for the
+neural network example up to a poly-log term when p ≪n. Corollary 4 is proved
+in Section K.4.
+Corollary 4. Suppose P and Un are as in Corollary 3. Further, suppose As-
+sumptions I-IV, A, C, and D hold with smoothness parameter θ > 0. Then
+there exist constants C, C′, N0 > 0 such that if n ≥N0 and bn > C, then for
+any x > 0,
+V ∗
+ψ −Vψ( bfn,1, bfn,2) ≤C′ max
+(1 + x)222Cp(log n)4
+n
+, Optn
+
+with probability at least 1 −exp(−x).
+7. Optimization error
+For the sake of brevity, we have moved the detailed discussion on optimiza-
+tion to Supplement A, and only summarize the key results in this section. In
+our analysis of optimization error, we exclusively focus on policies that are
+linear combinations of features. Specifically, we consider policies of the form
+˜fn,1(H1) = JT
+1 θ and ˜fn,1(H2) = JT
+2 β, where θ ∈Rk1 and β ∈Rk2 are the
+parameters, and J1 ∈Rk1 and J2 ∈Rk2 are functions of H1 and H2 respec-
+tively, possibly involving basis functions or polynomials. Even though J1 and J2
+could depend on n, we omitted n from their notation for the sake of simplicity.
+Furthermore, V (θ, β), Vψ(θ, β), bVψ(θ, β) will denote the value function, surro-
+gate value function, and the empirical value function, respectively, of the linear
+policies specified by θ and β.
+
+
+===== ORIGINAL PDF PAGE 32 =====
+FORMULA CHECK REQUIRED: original PDF page 32.
+Laha et al./Smooth Surrogates
+32
+In addition to Assumptions I-IV, we assume that the conditional treatment
+effects or the blip functions defined in (1) and (2) are linear in J1 and J2,
+respectively. Specifically, we posit T1(H1) = θT
+0 J1 and T2(H2) = βT
+0 J2, where
+θ0 ∈Rk1 and β0 ∈Rk2 are unique constants. Additionally, we assume that
+these treatment effects are non-zero with a probability of one. Furthermore, we
+assume that the features and the outcomes are bounded by a constant Cmax > 0.
+Moreover, we consider ϕ functions that possess concave characteristics in the
+positive half of the X-axis and convex traits in the negative half. For example,
+the smooth ϕ’s in Example 1 will satisfy this property. While some results in
+Supplement A hold in more general setups than the one outlined above, we
+adopt these assumptions for the sake of ensuring a streamlined presentation
+within this section. Under the current setup, the optimal first stage treatment
+assignment is 1[θT
+0 J1 > 0] and the optimal second stage treatment assignment
+is 1[βT
+0 J2 > 0], implying V ∗= V (θ0, β0).
+Landscape analysis:
+In the context of optimization problems, landscape
+analysis refers to the examination of the surface of the objective function. This
+analysis is particularly crucial in non-convex optimization problems, as it pro-
+vides insights into the location of critical points and the global optimum. Lemma
+A.1 in Supplement A.1.2 sheds light on the critical points of our objective, i.e.,
+the empirical surrogate value function, in compact sets. From a high level, this
+lemma says that this function has no critical point in compacta with proba-
+bility tending to one. Therefore, the supremum of our objective function is not
+attained in any compact set with high probability. A pivotal step in establishing
+this lemma is demonstrating that Vψ, the surrogate value function, has no crit-
+ical point in Rk1+k2. This characteristic of the surrogate value is inherited from
+the underlying surrogate ψ, which attains maxima at (∞, ∞) and possesses no
+critical point in R2. Lemma A.2 in Supplement A.1.3 complements Lemma A.1
+by entailing that the supremum of Vψ is C2
+ϕV (θ0, β0), and it is obtained as a limit
+in the sense that Vψ(aθ0, bβ0) approaches C2
+ϕV (θ0, β0) as a →∞and b →∞.
+Furthermore, for all other θ ∈Rk1 and β ∈Rk2, it turns out that Vψ(aθ, bβ)
+approaches sub-optimal values as a →∞and b →∞. In the special case where
+θ ∈R and β ∈R, the above implies that Vψ is maximized at one of the following
+extended-valued-tuples: (∞, ∞), (−∞, ∞), (∞, −∞), and (−∞, −∞).
+Lemma A.3 in Supplement A.1.3 shows that for any (θ, β), the ψ-regret
+Vψ(θ, β) is closely approximated by a scaled version of its actual regret when
+the l2 norms of θ and β are sufficiently large. Using this result, we demonstrate
+that if Vψ(θ, β) is close to the supremum of Vψ, V (θ, β) is also close to V ∗, sug-
+gesting an analog of Fisher consistency for our surrogates within the restricted
+class of linear policies. This result ensures that any policy with a small ψ-regret
+will indeed be a high-quality policy under our setup. Moreover, when the value
+function is continuous in θ and β, our heuristic analysis indicates that Vψ(θ, β)
+becomes arbitrarily close to the supremum when the angle between (θ, β) and
+(θ0, β0) is small and the l2 norms of θ and β are sufficiently large. In addi-
+tion, since Vψ is bounded, we conjecture that Vψ has superlevel sets where it is
+concave. We anticipate that in large samples, the empirical value function bVψ
+
+
+===== ORIGINAL PDF PAGE 33 =====
+FORMULA CHECK REQUIRED: original PDF page 33.
+Laha et al./Smooth Surrogates
+33
+display similar properties, and exhibits concavity in some superlevel sets. We
+provide a toy example in Supplement A.1.1 (see Figure A.1 in the Supplement),
+where the above holds true.
+Convergence analysis:
+Result A.2 in Supplement A.2 shows that our objec-
+tive function has globally Lipschitz gradients. Using this result alongside clas-
+sical results on gradient descent and stochastic gradient descent (Bottou et al.,
+2018), we argue that the gradient descent and stochastic gradient descent iter-
+ates will diverge under the above-mentioned setup. This is unsurprising given
+the absence of critical points in Rk1+k2. Also, for properly chosen stepsizes, our
+objective will strictly decrease at each iteration in this case (gradient descent is
+applied to the minimization problem). If the gradient descent or stochastic gra-
+dient descent iterates enter the superlevel sets mentioned in the previous para-
+graph, the empirical value function bVψ will converge to the supremum, provided
+the conjectured concavity holds on these sets. In that case, the optimization
+error Optn will approach zero. However, the gradient descent iterates can also
+diverge in other directions, leading to sub-optimal values and non-negligible op-
+timization error. It appears to us that the initiation probably influences where
+the iterates will diverge. Lastly, while the iterates may theoretically diverge when
+gradient-descent type algorithms are applied to the objective −bVψ, in practice,
+the algorithms will stop after finitely many iterations, provided the stopping
+criteria is based on the change in the objective function. This is because this
+objective is bounded below, and it strictly decreases at each iteration.
+Finally, we show that Polyak- Lojasiewicz (PL) Inequality and other well-
+known conditions that ensure convergence to the global maximum in general
+non-convex problems do not apply to our optimization scenario. Furthermore,
+while we expect our objective function to exhibit concavity in some superlevel
+sets, it will probably not exhibit the strong concavity required for our desired
+rate guarantees. As a result, using existing results on gradient and stochastic
+gradient descent, we can only show that the squared l2-norm of the gradients
+decays at a linear rate. Unfortunately, this limited information doesn’t provide
+substantial insight into the optimization error. Obtaining specific rate-related
+results in the absence of PL inequality and strong concavity is generally chal-
+lenging in non-convex problems (Patel and Berahas, 2022; Bottou et al., 2018;
+Patel et al., 2021; Karimi et al., 2016). Such an analysis would likely necessitate
+a comprehensive examination of gradient descent or stochastic gradient descent
+tailored to the specific structures inherent to our problem. However, conduct-
+ing a comprehensive analysis of this nature is beyond the current scope of our
+paper, and we view it as a potential avenue for future research.
+8. Connection to related literature
+Comparison with SOWL (Zhao et al., 2015)
+As mentioned earlier, our work is inspired by the SOWL method of Zhao et al.
+(2015), who uses the hinge loss ψ(x, y) = min(x, y, 1) as the surrogate. Since
+hinge loss is non-smooth, the resulting surrogate value function is not amenable
+to gradient-based optimization methods. The surrogate value function is there-
+
+
+===== ORIGINAL PDF PAGE 34 =====
+FORMULA CHECK REQUIRED: original PDF page 34.
+Laha et al./Smooth Surrogates
+34
+fore optimized via the dual formulation, which leads to SVM-type methods.
+However, SVM-type approaches have several limitations. First, the number of
+linear constraints of the SVM formulation scales linearly with the sample size,
+which leads to the computational complexity of O(n3) (Williams and Seeger,
+2001). This makes SVM-based methods not scalable for large-scale EHR studies
+where n is large. Second, the dual objective does not facilitate straightforward
+variable selection via the addition of an l1 penalty. Finally, SVM-type methods
+are not flexible enough to accommodate tree-based or neural-network-type clas-
+sifiers with rigorous statistical guarantees. Our surrogate loss-based approach
+is flexible, and it has the advantage of both computational efficiency and the
+ability to incorporate variable selection.
+Comparison of regret upper bound
+Table 2 compares our regret bound with neural network and wavelets classifiers
+with the available regret bound for the following nonparametric DTR methods:
+BOWL/SOWL (Zhao et al., 2015), nonparametric Q-learning, the list-based
+method of Zhang et al. (2018b), and the stochastic tree-based reinforcement
+learning (ST-RL) method of Sun and Wang (2021). The last method uses a
+Bayesian additive regression tree (BART). An important fact about the last
+two methods is that they especially target enhanced interpretability. We also
+remark that the upper bound on Q-learning regret under small noise assumption
+is derived using Qian and Murphy (2011)’s results, which were for stage one. We
+refer to Supplement D for more details on these methods and the construction
+of Table 2 using the results in the associated papers. In Table 2, by “noise
+assumption”, we indicate assumptions on the data distribution at the treatment
+boundary; Assumption B is an example, but see Section 5.1 for more details.
+By “smoothness assumption”, we refer to assumptions on the smoothness of
+functions such as η1, η2, the blip functions in (1) and (2), or their derivatives.
+It is important to note that the regret bounds of Zhao et al. (2015) are orig-
+inally produced under the geometric noise condition of Steinwart et al. (2007).
+We use the correspondence between the latter condition and our Assumptions
+B and D, which follows from Steinwart et al. (2007) itself. See Supplement D
+for more details on this. Also, the interpretable methods and Q-learning do not
+consider the approximation error, and thus their regrets are with respect to the
+best treatment regime within the classes under consideration.
+
+
+===== ORIGINAL PDF PAGE 35 =====
+FORMULA CHECK REQUIRED: original PDF page 35.
+Laha et al./Smooth Surrogates
+35
+Method
+Regret bound
+exponent
+Noise
+assumption
+type
+Smoothness
+assumption
+type
+DTRESLO with NN
+and wavelets
+min(
+1+α
+2+α+p/θ , −logn Optn)
+Small noise
+H¨older (θ)
+BOWL/ SOWL
+1
+2
+1+α
+1+α+p/θ −ϵ∗
+if α ≥p/θ −1
+1+α
+3+3α+p/θ −ϵ∗
+o.w.
+Small noise
+H¨older (θ)
+Nonparametric
+Q-learning†
+(1+α)
+2+α
+2
+2+p/θ
+Small noise
+H¨older (θ)
+ST-RL
+1
+3
+2
+2+p/θ
+Different∗∗
+H¨older (θ)
+List- based
+
+2
+3
+l††
+1
+2+p/θ
+Different∗∗
+Modulus of
+smoothness (θ)∗∗
+Table 2
+Best possible regret-decay rate given by available upper bounds on different DTRs: here, the
+decay rate is O(n−exponent) up to a polylog term. Also, Optn is the optimization error
+mentioned in Section 4.1. Here NN: neural network.
+∗Here ϵ is any positive number.
+∗∗See Supplement D for more details.
+† This regret bound holds for one stage case.
+†† l is the length of the longest classification list.
+First note that, since α > 0, we always have 1/3 < (1 + α)/(2 + α). Thus
+Table 2 implies ST-RL has a larger regret bound than nonparametric Q-learning.
+However, ST-RL is not far from a Bayesian version of nonparametric Q-learning.
+The list-based method of Zhang et al. (2018b) also faces an apparent loss in
+efficiency. The less efficiency for these two methods is best perceived as the
+cost of enhanced interpretability (Sun and Wang, 2021). Anyway, since no lower
+bound on these regrets is available, nothing can be said for certain.
+By elementary algebra, it can be shown that when Optn is negligible, our
+rate is sharper than the rate guarantees of all other methods in Table 2. For
+the sake of simplicity, in the rest of the discussion, we assume that Optn is neg-
+ligible. We have already mentioned that Zhao et al. (2015)’s original analysis
+uses the geometric noise assumption. In Supplement D, we show that the geo-
+metric noise assumption is satisfied when MA-type small noise assumption and
+Assumption D both hold. From Steinwart et al. (2007), it follows that under
+our assumptions, binary classification with hinge loss almost attains the regret
+decay rate n−(1+α)/(2+α+p/θ). (We use the word “almost” here because the term
+ϵ in Table 2 still can not be removed.) Had the small noise condition been used,
+exploiting the direct correspondence between BOWL and binary classification, it
+may be possible to obtain a similar upper bound for BOWL’s regret. Therefore it
+is possible that BOWL also attains the regret decay rate of n−(1+α)/(2+α+p/θ)−ϵ
+under our assumptions.
+We speculate that improving the Q-learning regret bound may not be easy
+under our current set of assumptions. The reason is that we anticipate the
+term 2/(2 + p/θ) in the upper bound probably can not be improved. This term
+stems from the lower bound on L2(P) error rates of nonparametric methods;
+
+
+===== ORIGINAL PDF PAGE 36 =====
+FORMULA CHECK REQUIRED: original PDF page 36.
+Laha et al./Smooth Surrogates
+36
+see Supplement D for more details. Therefore, we speculate that under our Tsy-
+bakov small noise assumption and our smoothness assumption, there may be
+a gap between the regret of NP Q-learning type methods and direct search
+methods such as ours or BOWL. To rigorously prove this claim, one needs to
+calculate the lower bound on the regret of two stage NP Q-learning, which is
+beyond the limits of the current paper. It must be kept in mind that, even if
+DTRESLO exhibits a sharper rate of regret decay than Q-learning under Tsy-
+bakov’s small noise assumption, it does not inherently imply that DTRESLO
+is always theoretically superior to Q-learning. In the context of binary classi-
+fication, Audibert et al. (2007) noted that the theoretical comparison between
+model-based and model-free methods heavily relies on the assumptions imposed
+on the data distribution. We anticipate that a similar notion applies when com-
+paring regression-based methods and direct search methods in DTR. Stronger
+assumptions on the data distribution, such as the strong density assumption
+in Audibert (2004), can facilitate easier nonparametric estimation, leading to a
+faster rate of regret decay for nonparametric model-based methods under the
+small noise assumption (Luedtke and Van Der Laan, 2016; Qian and Murphy,
+2011). Furthermore, it is important to note that all our comparisons are based
+on the assumption that the propensity scores are known. When they are un-
+known, the regret decay rate of DTRESLO and BOWL will be slower, even
+under Tsybakov’s small noise assumption. Therefore the comparison between
+direct search methods and Q-learning will differ under these circumstances.
+There is also a possibility that if we opt for more interpretable classifiers, the
+theoretical efficiency will decline as in the case of ST-RL and the classification
+list-based method of Zhang et al. (2018b). Hence, there is a possibility of a trade-
+off among theoretical efficiency, computational hardness, and interpretability, at
+least in principle. Future research in this direction may be able to shed more
+light on this trade-off.
+9. Empirical Analysis
+We have performed extensive simulations to evaluate the finite sample properties
+of our DTRESLO methods and to compare them with existing methods under
+different generating data mechanisms. We additionally evaluate the performance
+of the proposed method using EHR data to identify optimal treatment rules for
+patients in intensive care units (ICU) with sepsis.
+9.1. Simulations
+We compare the performance of our DTRESLO method with the regression-
+based method Q-learning and the direct search methods BOWL and SOWL
+(Zhao et al., 2015). For our DTRESLO method, we take ϕ(x) = 1 + 2/π ·
+arctan(πx/2) because simulation shows that it has slightly better performance
+than the other smooth surrogates considered in Example 1. We consider several
+choices for the class of classifiers U1n and U2n. When we consider the linear treat-
+ment policies, U1n and U2n are the class of all linear functions on H1 and H2,
+respectively. We consider cubic spline, wavelets, and neural network (NN) as the
+non-linear treatment policies, with U1n and U2n being the respective function-
+
+
+===== ORIGINAL PDF PAGE 37 =====
+FORMULA CHECK REQUIRED: original PDF page 37.
+Laha et al./Smooth Surrogates
+37
+classes in these cases. For the comparators, i.e. Q-learning, BOWL, and SOWL,
+we consider both linear and non-linear policies as well. Following Zhao et al.
+(2015), we incorporate non-linear policies for BOWL and SOWL using a repro-
+ducing kernel Hilbert space (RKHS) with RBF kernel; see Zhao et al. (2015)
+for more details. The non-linear treatment policy for Q-learning is achieved by
+letting the Q-functions be in neural network classes. See Supplement E for more
+details on the implementation of these methods.
+We considered five broad simulation settings as detailed in Section E of the
+Supplement:
+1. All covariates are discrete. Hence, an exhaustive search over F is possible
+using saturated models.
+2. This is a setting with non-linear decision boundaries in both stages. How-
+ever, Y2 does not depend on A1.
+3. This setting is inspired by Setting 2 of Zhao et al. (2015), where the
+outcome models i.e. E[Yt | Ht]’s are linear function of Ht for t = 1, 2. We
+will call this setting the linear setting.
+4. This has highly non-linear and even non-smooth decision boundaries.
+5. This setting has a higher number of covariates. In this case, the first stage
+outcome model is linear, but the second stage outcome model is non-linear.
+Setting 1 is a simple toy setting. The motivation behind including this setting is
+to verify the consistency of DTRESLO. We will use the linear setting 3 to check
+if linear treatment policies perform well when the outcome models are linear. On
+the other hand, we include settings 2 and 4 to examine if the methods with non-
+linear treatment policies have an edge over those with linear treatment policies
+when the decision boundaries are non-linear. Finally, setting 5 is included to
+compare the performance of different methods when the dimension of O1 ∪O2
+is comparatively larger.
+Under each listed setting, we estimate the DTRs based on samples of size
+n = 250, 2500, 5000. For each estimated DTR bd, we estimate the value function
+V (bd1, bd2) by the empirical value function based on an independent sample of
+size 10,000. We estimate the expectation and the standard deviation of these
+value function estimates using 500 Monte Carlo replications. We also estimate
+the optimal value function V ∗= V (d∗
+1(H1), d∗
+2(H2)) for each setting using these
+500 Monte Carlo replications. Figures 4 and 5 compare the estimated expected
+value functions of the different methods under consideration. In these figures,
+we use the neural network DTRESLO as the non-linear DTRESLO because
+this method is comparable to neural network Q-learning. The average value
+functions corresponding to the other non-linear DTRESLO methods can be
+found in Table E.1 in Supplement E. The overall performance of all the non-
+linear DTRESLO methods is quite similar, although NN DTRESLO is slightly
+better than the rest.
+First of all, Figures 4 and 5 entail that DTRESLO consistently performs
+better or at least as good as the other methods under all our settings and all
+sample sizes. No other method has reliable performance across all settings. First,
+we will investigate the five settings in more detail. Then we will look more closely
+
+
+===== ORIGINAL PDF PAGE 38 =====
+FORMULA CHECK REQUIRED: original PDF page 38.
+Laha et al./Smooth Surrogates
+38
+into the comparison between DTRESLO and the other methods. Finally, we will
+compare the run-time of different methods.
+Figure 4a underscores that in the simple setting 1, DTRESLO outperforms
+all other methods under both linear and non-linear treatment policies. Figures
+4b and 4c show that in the non-linear settings 2 and 4, as expected, the non-
+linear versions of DTRESLO, BOWL, and Q-learning perform better than the
+linear counterparts. The only exception is the case of SOWL, which we will
+discuss later in more detail. We also observe that setting 4 is quite hard in that
+the expected value function of all methods is noticeably lower than the optimal
+value function. In settings 2 and 4, non-linear DTRESLO performs noticeably
+better than non-linear Q-learning in a small sample (n = 250). As the sample
+size increases, the difference decreases. SOWL has poor performance under both
+settings. Although BOWL has better performance than SOWL, its performance
+improves rather slowly with n when compared to DTRESLO. This difference is
+most noticeable for the non-linear treatment policies under large samples.
+Figure 5a implies that under the linear setting 3, value function estimates of
+the linear treatment policies are as large as the non-linear policies for all methods
+except SOWL. Setting 5, which has a larger number of variables, is a relatively
+more complicated setting. Although the second stage outcome models are non-
+linear in this setting, Figure 5b underscores that linear DTRESLO performs
+quite comparably to non-linear DTRESLO in large samples under this setting.
+Table E.1 in Supplement E implies that the situation with the other non-linear
+DTRESLO methods is similar. Similar to settings 2, in this case, non-linear
+DTRESLO has a noticeable edge over all other methods when the sample size
+is 250.
+Under all settings, non-linear DTRESLO and Q-learning exhibit one par-
+ticular pattern, which merits some discussion. Non-linear DTRESLO performs
+better than non-linear Q learning in small samples, but their performance be-
+comes almost similar when the sample size increases to 5000. The relative un-
+derperformance of nonparametric Q-learning in small samples may be due to its
+heavy reliance on the correct estimation of Q-functions. Nonparametric estima-
+tion of functions is harder unless the sample size is sufficiently large. In contrast,
+DTRESLO only needs to estimate the sign of the blip functions, which is easier
+than the estimation of the whole function. Finally, this difference may be the
+manifestation of the speculated faster regret decay of neural network DTRESLO
+(see Section 8). Thus our simulation study complements the theoretical com-
+parison of the regrets between nonparametric Q-learning and DTRESLO.
+DTRESLO outperforms the other direct search methods, BOWL and SOWL,
+under all settings except the linear setting, i.e. setting 3, where BOWL and
+DTRESLO have comparable performance. The difference is most pronounced
+for non-linear treatment policies in large samples. DTRESLO’s advantage over
+BOWL may be attributed to DTRESLO’s simultaneous optimization approach
+as opposed to BOWL’s stagewise approach. The latter reduces the effective
+sample size in the first stage. In general, SOWL’s average value function stays
+quite below the optimal value function. Its performance is comparable to other
+methods only in setting 3, where classification is comparatively easy.
+
+
+===== ORIGINAL PDF PAGE 39 =====
+FORMULA CHECK REQUIRED: original PDF page 39.
+Laha et al./Smooth Surrogates
+39
+Figures 4 and 5 entail that the estimated value function of non-linear SOWL,
+a nonparametric method by design, either does not improve with the sample size
+or exhibits a much slower increase compared to the other competing methods we
+consider. The last observation raises the question of whether the approximation
+error of SOWL at all decays to zero as the sample size increases. Indeed, this
+observation does not refute our Theorem 2, which establishes that the hinge loss,
+the surrogate employed in SOWL, requires the fulfilment of (13) for ˜d1(H1) to
+align with d∗
+1(H1). Moreover, in Supplement B.1, we demonstrate that (13) is
+not a pathological condition, as it fails in numerous non-trivial scenarios. To
+elaborate further, we focus on Setting 3 as an illustrative case. In this case,
+the non-parametric version of SOWL exhibits a decaying value with respect
+to n. For this setting, the outcome models are linear, and H1 ∈R3 follows a
+centered multivariate Gaussian distribution with an identity covariance matrix.
+Consequently, H1 lies inside a ball of radius 5 centered at the origin with a high
+probability (specifically, greater than 0.999). However, we empirically evaluated
+that (13) holds nowhere inside this ball. Moreover, if a location transformation
+is required to ensure the positivity of outcomes for certain samples, as discussed
+in Section 3.2, (13) becomes more difficult to satisfy. Therefore, the suboptimal
+performance of non-linear SOWL may be attributable to the potential failure
+of (13) in this case.
+Setting
+n
+DTRESLO
+BOWL
+SOWL
+Q-Learning
+Linear Wavelet Spline NeuNet Linear
+RBF
+Linear
+RBF
+Linear NeuNet
+1
+250
+0.04
+0.05
+0.04
+0.1
+1.24
+21.01
+0.1
+0.16
+0.07
+0.18
+2500
+0.42
+0.49
+0.43
+0.94
+13.11
+655.43
+54.19
+80.82
+0.69
+2.12
+5000
+0.89
+1.02
+0.8
+2.15
+77.45
+3913.85
+400.32
+534.36
+1.4
+3.94
+2
+250
+0.04
+0.06
+0.04
+0.16
+1.36
+3.48
+1.3
+1.33
+0.09
+0.19
+2500
+0.54
+0.6
+0.42
+1.01
+27.75
+271.08
+773.79
+822.42
+0.73
+1.83
+5000
+0.88
+1.25
+0.91
+3.7
+136.88 5139.53 5901.54 5755.75
+1.49
+4.15
+3
+250
+0.05
+0.05
+0.04
+0.15
+12.59
+24.39
+0.08
+0.13
+0.08
+0.2
+2500
+0.41
+0.71
+0.42
+1.03
+25.75
+704.16
+46.55
+106.67
+0.73
+2.04
+5000
+1.22
+1.04
+0.84
+2.19
+107.99 4063.34
+345.83
+859.37
+1.46
+5.36
+4
+250
+0.04
+0.06
+0.04
+0.1
+1.66
+3.21
+1.28
+1.33
+0.09
+0.19
+2500
+0.59
+0.49
+0.42
+1.04
+20.12
+424.81
+806.54
+833.64
+0.73
+1.88
+5000
+0.86
+1.32
+0.91
+1.5
+70.86
+3317.64 5674.96 5778.79
+1.47
+3.61
+5
+250
+0.04
+0.05
+0.04
+0.09
+10.97
+18.05
+1.26
+1.32
+0.07
+0.18
+2500
+0.6
+0.48
+0.42
+1.53
+33.46
+222.42
+810.59
+833.1
+0.72
+1.92
+5000
+1.19
+1.26
+1.21
+2.1
+169.31 1012.86 5645.25 6010.88
+1.38
+3.79
+Table 3
+Run-time for estimating DTR for our smooth surrogates (DTRESLO), Zhao et al. (2015)’s
+BOWL & SOWL, and Q-learning under settings 1–5.
+Table 3 tabulates the run-time of the DTR estimation methods. Run times
+for DTRESLO with linear, wavelets, and spline-based treatment policies are
+relatively similar. The run-time doubles for neural network treatment policies.
+Nonetheless, they are all less than three seconds. Both linear and neural network
+Q-learning methods are slightly slower than their DTRESLO counterparts, but
+the difference in run-time is negligible. This is not surprising because DTRESLO
+and Q-learning methods are trained in a similar way. They all use stochastic
+gradient descent with RMSprop for optimization of the respective loss functions.
+All these methods are trained for 20 epochs and use a batch size of 128. As
+
+
+===== ORIGINAL PDF PAGE 40 =====
+FORMULA CHECK REQUIRED: original PDF page 40.
+Laha et al./Smooth Surrogates
+40
+expected, BOWL and SOWL have a much larger run-time, which also increases
+sharply with n. This larger run-time is expected because SVMs utilize the dual
+space for optimization. The time cost is especially high in settings 2 and 4,
+which have highly non-linear decision boundaries, and setting 5, which has over
+32 features.
+To summarize, DTRESLO improves the scalability of existing direct search
+methods, achieving run-time as small as Q-learning. We also observe that within
+the same class of treatment regimes, i.e. linear or neural network, DTRESLO
+outperforms regression-based Q-learning in small samples. This observation
+aligns with the existing claim in the literature that classification is easier than
+regression in the context of DTR especially in small samples (Zhao et al., 2015;
+Kosorok and Laber, 2019). This may happen because regression-based meth-
+ods focus on minimizing the L2(P) loss, where the estimation of optimal rules
+only requires minimization of the zero-one loss. This mismatch of loss has pre-
+viously been discussed in literature (Murphy, 2005; Qian and Murphy, 2011).
+Our observation thus hints that bypassing regression may result in better-quality
+treatment regimes, at least in small samples.
+9.2. EHR Data Application: DTR for ICU Patients with sepsis
+We evaluate our DTRESLO methods and benchmarks on a cohort of n = 9, 872
+ICU patients with sepsis from the Medical Information Mart for Intensive Care
+version IV (MIMIC-IV) data (Johnson et al., 2020). Sepsis is a situation when
+body’s response to an infection overwhelms the body’s immune system, poten-
+tially causing damage to tissue, multi-organ failure, and in some cases, death.
+Individualization of treatment strategies is highly important for managing sepsis
+due to the high dissimilarity among sepsis patients (Lat et al., 2021; Komorowski
+et al., 2018; Sonabend et al., 2020). Physicians usually treat it with a high, con-
+stant dose of antibiotics. They also use vasopressors to control blood pressure.
+Not all patients benefit from vasopressors, however, and it is also unclear when
+to administer it (Lat et al., 2021). Here dt corresponds to the decision regard-
+ing whether vasopressors should be administered at a given time t, where we
+consider t = 1 at baseline and t = 2 at 4 hour after diagnosis of sepsis. We code
+our actions as At = −1 if no dose is necessary and At = 1 otherwise. The state
+space is comprised of 46 covariates Ot at each time step. Measured variables
+include age, body mass index, diastolic and systolic blood pressure, etc. We use
+an inverse transformation of lactate acid level as the outcome Yt. In particular
+Yt = (LAt + 5)−1 + 2 where LAt stands for lactic acid level at time t. Adding
+the offset 2 ensures that Yt > 0, which is required by Assumption A.
+We evaluate DTRESLO using linear, wavelets, splines and neural network
+functions. The comparators are as in Section 9.1. For DTRESLO, we choose
+from four choices of ϕ presented in Example 1. To this end, we use a five-fold
+cross-validation. To elaborate, for each split, we estimate the DTRs using 4
+folds of the sample. Then we estimate the value function of each treatment
+regime using the remaining fold. Thus DTRESLO with above-mentioned four
+choices of ϕ yield four potentially different treatment regimes in the first step.
+However, we pick only one regime among these four regimes. We consider that
+
+
+===== ORIGINAL PDF PAGE 41 =====
+FORMULA CHECK REQUIRED: original PDF page 41.
+Laha et al./Smooth Surrogates
+41
+treatment regime, which has the highest value function estimate. We also report
+the mean and SE of the value function estimates for both DTRESLO and the
+comparators.
+We estimate the value functions of the derived DTRs using a doubly robust
+approach (Jiang and Li, 2016; Thomas and Brunskill, 2016; Sonabend et al.,
+2021). The corresponding value function estimator is given by
+bVDR(bd1, bd2) =Pn
+
+bQ1(H1, ˆd1(H1))
++1[A1 = ˆd1(H1)]
+bπ1(A1|H1)
+h
+Y1 −
+n
+bQ1(H1, ˆd1(H1)) −bQ2(H2, ˆd2(H2))
+oi
++1[A1 = ˆd1(H1), A2 = ˆd2(H2)]
+bπ1(A1|H1)bπ2(A2|H2)
+n
+Y2 −bQ2(H2, ˆd2(H2))
+o 
+,
+where bπ1 and bπ2 are the propensity score estimators, and bQ1 and bQ2 are estima-
+tors of the Q-functions corresponding to the first and second stage, respectively.
+Here the Q functions are estimated using a neural network with the same spec-
+ifications as our nonparametric Q-learning DTR estimator.
+DTRESLO
+(linear)
+DTRESLO
+(splines)
+DTRESLO
+(wavelets)
+DTRESLO
+(NN)
+BOWL
+(linear)
+BOWL
+(RBF)
+SOWL
+(linear)
+SOWL
+(RBF)
+Q-learning
+(linear)
+Q-learning
+(NN)
+ˆVDR( ˆd1, ˆd2)
+1.352
+1.415
+1.467
+1.458
+1.248
+1.450
+0.845
+1.137
+1.062
+1.144
+SD
+0.043
+0.084
+0.024
+0.023
+0.039
+0.071
+0.148
+0.082
+0.095
+0.102
+Table 4
+Estimated Value function and Standard deviation for the DTRs derived with different
+methods. Here NN stands for neural network.
+Table 4 reports the estimated values using the doubly robust estimator for
+each method and their corresponding standard errors. We observe that DTRESLO
+with wavelet treatment policies has the highest value function estimate. Also,
+the estimated standard deviations of non-linear (nonparametric) DTRESLO es-
+timators are smaller compared to the nonparametric counterparts of BOWL,
+SOWL, and Q-learning. It must be noted that the linear DTRESLO outper-
+forms linear Q-learning, which was observed in all our simulation settings as
+well. Also, as in our simulations, SOWL has lower value function estimate com-
+pared to all other methods. This aligns with our observations with SOWL in
+Section 9.1.
+10. Discussion
+Our work is the first step towards a unified understanding of general surrogate
+losses in the simultaneous optimization context. Our work leaves ample room for
+modification and generalization to complex real-world scenarios. We list below
+some important open questions:
+Regarding the optimization error, we have analyzed linear-type treatment
+policies under conditions with a primary focus on landscape analysis. However,
+our simulations in Section 9.1 indicates that DTRESLO performs competitively
+
+
+===== ORIGINAL PDF PAGE 42 =====
+FORMULA CHECK REQUIRED: original PDF page 42.
+Laha et al./Smooth Surrogates
+42
+to popular DTR methods, regardless of whether the policies are linear or non-
+linear. Therefore, a more comprehensive analysis of the optimization error is
+required to gain deeper insight into the performance of DTRESLO.
+The theoretical results in this paper consider the propensity scores to be
+known. They may be available in SMART studies, but they need to be es-
+timated for observational studies. At best, we may be able to estimate the
+propensity scores at n−1/2-rate. Therefore it is possible that in this situation,
+our regret-decay rate will slow down. We also do not know if it is at all possible
+to push the regret decay to O(1/n) in this situation because we do not know the
+minimax rate of regret-decay in this context. However, there is a more pressing
+issue with the use of inverse propensity score weighting. The weight will grow
+smaller as the number of stages increases, leading to a highly volatile method
+(Kosorok and Laber, 2019). However, there are strategies (Kallus, 2018) that
+can be incorporated to ensure robustness. Research in this direction is needed
+to increase the stability of our DTRESLO method.
+Also, there are many choices of ϕ’s that satisfy Condition 2, and hence can
+be used for DTRESLO. In this paper, we have not considered the problem of
+selecting a ϕ. We fixed a particular ϕ in our empirical study but the performance
+may be improved by a more careful tuning of ϕ.
+The DTRESLO method easily extends to K > 2 by using a surrogate
+ψ(x1, . . . , xK) = ϕ(x1) . . . ϕ(xK). Although we do not yet know whether Fisher
+consistency still holds, our proof techniques are readily extendable to the higher
+stages via mathematical induction. If our DTRESLO method is Fisher consis-
+tent for general K stages, the pattern of error accumulation over stages will be
+an immediate interest. For Q-learning, the regret grows exponentially with the
+number of stages (Murphy, 2005). In view of Wang et al. (2020), exponential
+error accumulation may sometimes be inevitable under very general conditions.
+However, we wonder whether our simultaneous maximization procedure escapes
+the exponential error accumulation in the presence of noise conditions.
+Despite being of immense practical interest, this area greatly lacks direct
+search method with rigorous guarantees in multi-stage settings. Direct search
+method with more than two levels of treatment requires integration of multicate-
+gory classification with the sequential setting of DTR, and hence is conceptually
+more challenging than the regression-based counterparts. However, we expect
+that DTRESLO can be extended to identify optimal DTRs under this more
+complex setting. Detailed strategies for identifying the surrogate loss and im-
+plementing algorithms to estimate DTRs in practice warrant future research.
+11. Acknowledgments
+Rajarshi Mukherjee and Nilanjana Laha’s research was supported by National
+Institutes of Health grant P42ES030990. Tianxi Cai’s research was supported by
+National Institutes of Health grant R01LM013614. Aaron Sonabend’s research
+was supported by the Boehringer-Ingelheim Fellowship at Harvard.
+
+
+===== ORIGINAL PDF PAGE 43 =====
+FORMULA CHECK REQUIRED: original PDF page 43.
+Laha et al./Smooth Surrogates
+43
+12. Supplement
+Due to the size of the Supplement, it has been uploaded on the first author’s
+website, and can be accessed using this link. The supplement includes discussions
+on optimization error, additional details about the hinge loss, further exploration
+of various assumptions made in this paper, additional details regarding the
+simulation settings in Section 9.1, and the proofs.
+References
+Audibert, J.-Y. (2004). Classification under polynomial entropy and margin
+assumptions and randomized estimators. Technical report.
+Audibert, J.-Y., Tsybakov, A. B., et al. (2007). Fast learning rates for plug-in
+classifiers. The Annals of statistics, 35(2), 608–633.
+Bartlett, P. L. and Mendelson, S. (2002). Rademacher and gaussian complex-
+ities: Risk bounds and structural results. Journal of Machine Learning Re-
+search, 3(Nov), 463–482.
+Bartlett, P. L., Jordan, M. I., and McAuliffe, J. D. (2006). Convexity, classi-
+fication, and risk bounds. Journal of the American Statistical Association,
+101(473), 138–156.
+Blanchard, G., Bousquet, O., Massart, P., et al. (2008). Statistical performance
+of support vector machines. The Annals of Statistics, 36(2), 489–531.
+Bottou, L., Curtis, F. E., and Nocedal, J. (2018). Optimization methods for
+large-scale machine learning. SIAM review, 60(2), 223–311.
+Calauzenes, C., Usunier, N., and Gallinari, P. (2012). On the (non-) existence
+of convex, calibrated surrogate losses for ranking. Advances in Neural Infor-
+mation Processing Systems 25 (NIPS 2012), pages 197–205.
+Chakraborty, B. and Moodie, E. (2013). Statistical methods for dynamic treat-
+ment regimes, volume 2. Springer.
+Chen, G., Zeng, D., and Kosorok, M. R. (2016). Personalized dose finding using
+outcome weighted learning. Journal of the American Statistical Association,
+111(516), 1509–1521.
+Chen, S., Tian, L., Cai, T., and Yu, M. (2017). A general statistical framework
+for subgroup identification and comparative treatment scoring. Biometrics,
+73(4), 1199–1209.
+Cui, Y. and Tchetgen Tchetgen, E. (2020).
+A semiparametric instrumental
+variable approach to optimal treatment regimes under endogeneity. Journal
+of the American Statistical Association, 116(533), 162–173.
+Dembczy´nski, K., Waegeman, W., Cheng, W., and H¨ullermeier, E. (2012). On
+label dependence and loss minimization in multi-label classification. Machine
+Learning, 88(1-2), 5–45.
+Duchi, J., Khosravi, K., Ruan, F., et al. (2018). Multiclass classification, in-
+formation, divergence and surrogate risk. The Annals of Statistics, 46(6B),
+3246–3275.
+Duchi, J. C., Mackey, L. W., and Jordan, M. I. (2010). On the consistency of
+ranking algorithms. In ICML.
+Feng, H., Ning, Y., and Zhao, J. (2022). Nonregular and minimax estimation
+
+
+===== ORIGINAL PDF PAGE 44 =====
+FORMULA CHECK REQUIRED: original PDF page 44.
+Laha et al./Smooth Surrogates
+44
+of individualized thresholds in high dimension with binary responses. The
+Annals of Statistics, 50(4), 2284–2305.
+Gao, W. and Zhou, Z.-H. (2011). On the consistency of multi-label learning. In
+Proceedings of the 24th annual conference on learning theory, pages 341–358.
+Gin´e, E. and Nickl, R. (2015).
+Mathematical Foundations of Infinite-
+Dimensional Statistical Models, volume 40 of Cambridge series in statistical
+and probabilistic mathematics. Cambridge University Press, Cambridge.
+Hiriart-Urruty, J.-B. and Lemar´echal, C. (2004). Fundamentals of convex anal-
+ysis. Springer Science & Business Media.
+Horowitz, J. L. (1992). A smoothed maximum score estimator for the binary
+response model.
+Econometrica: journal of the Econometric Society, pages
+505–531.
+Jiang, B., Song, R., Li, J., and Zeng, D. (2019). Entropy learning for dynamic
+treatment regimes. Statistica Sinica, 29(4), 1633–1655.
+Jiang, N. and Li, L. (2016). Doubly robust off-policy value evaluation for rein-
+forcement learning. arXiv.org.
+Johnson,
+A.,
+Bulgarelli,
+L.,
+Pollard,
+T.,
+Horng,
+S.,
+Celi,
+L.
+A.,
+and
+Mark.,
+R.
+(2020).
+MIMIC-IV
+(version
+0.4).
+PhysioNet.
+.
+https://doi.org/10.13026/a3wn-hq05.
+Kallus, N. (2018). Balanced policy evaluation and learning. Advances in neural
+information processing systems, 31.
+Kallus, N. (2020). Comment: Entropy learning for dynamic treatment regimes.
+arXiv preprint arXiv:2004.02778.
+Karimi, H., Nutini, J., and Schmidt, M. (2016). Linear convergence of gradi-
+ent and proximal-gradient methods under the polyak-λojasiewicz condition.
+In Machine Learning and Knowledge Discovery in Databases: European Con-
+ference, ECML PKDD 2016, Riva del Garda, Italy, September 19-23, 2016,
+Proceedings, Part I 16, pages 795–811. Springer.
+Karp, R. M. (1972). Reducibility among combinatorial problems. In Complexity
+of computer computations, pages 85–103. Springer.
+Koltchinskii, V. (2011).
+Oracle inequalities in empirical risk minimization
+and sparse recovery problems: ´Ecole d’´Et´e de Probabilit´es de Saint-Flour
+XXXVIII-2008, volume 2033. Springer Science & Business Media.
+Komorowski, M., Celi, L. A., Badawi, O., Gordon, A. C., and Faisal, A. A.
+(2018). The artificial intelligence clinician learns optimal treatment strategies
+for sepsis in intensive care. Nature medicine, 24(11).
+Kosorok, M. R. and Laber, E. B. (2019). Precision medicine. Annual review of
+statistics and its application, 6, 263–286.
+Laber, E. B. and Davidian, M. (2017).
+Dynamic treatment regimes, past,
+present, and future: A conversation with experts. Statistical methods in med-
+ical research, 26(4), 1605–1610.
+Laber, E. B. and Zhao, Y.-Q. (2015). Tree-based methods for individualized
+treatment regimes. Biometrika, 102(3), 501–514.
+Laber, E. B., Lizotte, D. J., Qian, M., Pelham, W. E., and Murphy, S. A. (2014).
+Dynamic treatment regimes: Technical challenges and applications. Electronic
+journal of statistics, 8(1), 1225.
+
+
+===== ORIGINAL PDF PAGE 45 =====
+FORMULA CHECK REQUIRED: original PDF page 45.
+Laha et al./Smooth Surrogates
+45
+Lat, I., Coopersmith, C. M., and De Backer, D. (2021). The surviving sepsis
+campaign: fluid resuscitation and vasopressor therapy research priorities in
+adult patients. Intensive Care Medicine Experimental, 9(1), 1–16.
+Lin, Y. (2004). A note on margin-based loss functions in classification. Statistics
+& probability letters, 68(1), 73–82.
+Liu, Y. (2007). Fisher consistency of multicategory support vector machines. In
+Artificial intelligence and statistics, pages 291–298.
+Liu, Y. and Shen, X. (2006). Multicategory ψ-learning. Journal of the American
+Statistical Association, 101(474), 500–509.
+Luedtke, A. R. and Van Der Laan, M. J. (2016). Statistical inference for the
+mean outcome under a possibly non-unique optimal treatment strategy. An-
+nals of statistics, 44(2), 713.
+Massart, P., N´ed´elec, ´E., et al. (2006). Risk bounds for statistical learning. The
+Annals of Statistics, 34(5), 2326–2366.
+Moodie, E. E., Dean, N., and Sun, Y. R. (2014). Q-learning: Flexible learning
+about useful utilities. Statistics in Biosciences, 6(2), 223–243.
+Mukherjee, D., Banerjee, M., and Ritov, Y. (2021). Optimal linear discrimi-
+nators for the discrete choice model in growing dimensions. The Annals of
+Statistics, 49(6), 3324–3357.
+Murphy, S. (2005). A generalization error for q-learning. Journal Of Machine
+Learning Research, 6, 1073–1097.
+Murphy, S. A. (2003). Optimal dynamic treatment regimes. J. R. Stat. Soc.
+Series. B Stat. Methodol., 65, 331–355.
+Murphy, S. A., van der Laan, M. J., and Robins, J. M. (2001). Marginal mean
+models for dynamic regimes. Journal of the American Statistical Association,
+96(456), 1410–1423.
+Neykov, M., Liu, J. S., and Cai, T. (2016). On the characterization of a class of
+fisher-consistent loss functions and its application to boosting. The Journal
+of Machine Learning Research, 17(1), 2498–2529.
+Orellana, L., Rotnitzky, A., and Robins, J. M. (2010). Dynamic regime marginal
+structural mean models for estimation of optimal dynamic treatment regimes,
+part i: main content. The international journal of biostatistics, 6(2).
+Patel, V. and Berahas, A. S. (2022). Gradient descent in the absence of global
+lipschitz continuity of the gradients: Convergence, divergence and limitations
+of its continuous approximation. arXiv preprint arXiv:2210.02418.
+Patel, V., Tian, B., and Zhang, S. (2021). Global convergence and stability of
+stochastic gradient descent. ArXiv, abs/2110.01663.
+Pedregosa, F., Bach, F., and Gramfort, A. (2017). On the consistency of ordinal
+regression methods. Journal of Machine Learning Research, 18, 1–35.
+Qian, M. and Murphy, S. A. (2011). Performance guarantees for individualized
+treatment rules. Annals of statistics, 39(2), 1180.
+Robins, J. M. . (2004). Optimal structural nested models for optimal sequential
+decisions. Proceedings of the second Seattle symposium on biostatistics In D.
+Y. Lin and P. Heagerty (Eds.) (pp. 189–326). New York: Springer.
+Robins, J. M. (1994). Correcting for non-compliance in randomized trials using
+structural nested mean models.
+Communications in Statistics-Theory and
+
+
+===== ORIGINAL PDF PAGE 46 =====
+FORMULA CHECK REQUIRED: original PDF page 46.
+Laha et al./Smooth Surrogates
+46
+methods, 23(8), 2379–2412.
+Robins, J. M. (1997). Causal inference from complex longitudinal data. In Latent
+variable modeling and applications to causality, pages 69–117. Springer.
+Schmidt-Hieber (2020). Nonparametric regression using deep neural networks
+with relu activation function. Annals of Statistics, 48(4), 1875–1897.
+Schulte, P. J., Tsiatis, A. A., Laber, E. B., and Davidian, M. (2014). Q- and A-
+learning methods for estimating optimal dynamic treatment regimes. Statist.
+Sci., 29(4), 640–661.
+Sonabend, A., Lu, J., Celi, L. A., Cai, T., and Szolovits, P. (2020). Expert-
+supervised reinforcement learning for offline policy learning and evaluation.
+In Advances in Neural Information Processing Systems, volume 33, pages
+18967–18977.
+Sonabend, A., Laha, N., Ananthakrishnan, A. N., Cai, T., and Mukherjee, R.
+(2021). Semi-supervised off policy reinforcement learning.
+Song, R., Kosorok, M., Zeng, D., Zhao, Y., Laber, E., and Yuan, M. (2015).
+On sparse representation for optimal individualized treatment selection with
+penalized outcome weighted learning. Stat, 4(1), 59–68.
+Steinwart, I., Scovel, C., et al. (2007). Fast rates for support vector machines
+using gaussian kernels. The Annals of Statistics, 35(2), 575–607.
+Sun, Y. and Wang, L. (2021). Stochastic tree search for estimating optimal
+dynamic treatment regimes. Journal of the American Statistical Association,
+116(533), 421–432.
+Tewari, A. and Bartlett, P. L. (2007). On the consistency of multiclass classifi-
+cation methods. Journal of Machine Learning Research, 8(May), 1007–1025.
+Thomas, P. and Brunskill, E. (2016). Data-efficient off-policy policy evaluation
+for reinforcement learning. In International Conference on Machine Learning,
+pages 2139–2148. PMLR.
+Tsybakov, A. B. et al. (2004). Optimal aggregation of classifiers in statistical
+learning. The Annals of Statistics, 32(1), 135–166.
+Van Der Vaart, A. W., van der Vaart, A. W., van der Vaart, A., and Wellner,
+J. (1996).
+Weak convergence and empirical processes: with applications to
+statistics. Springer Science & Business Media.
+Wang, R., Foster, D. P., and Kakade, S. M. (2020).
+What are the statisti-
+cal limits of offline RL with linear function approximation? arXiv preprint
+arXiv:2010.11895.
+Watkins, C. J. C. H. (1989). Learning from delayed rewards.
+Williams, C. and Seeger, M. (2001). Using the nystr¨om method to speed up
+kernel machines. In T. Leen, T. Dietterich, and V. Tresp, editors, Advances
+in Neural Information Processing Systems, volume 13. MIT Press.
+Xu, T., Wang, J., and Fang, Y. (2014). A model-free estimation for the covariate-
+adjusted youden index and its associated cut-point. Statistics in medicine,
+33(28), 4963–4974.
+Xu, Y., M¨uller, P., Wahed, A. S., and Thall, P. F. (2016). Bayesian nonpara-
+metric estimation for dynamic treatment regimes with sequential transition
+times. Journal of the American Statistical Association, 111(515), 921–950.
+Yang, Y. (1999). Minimax nonparametric classification. i. rates of convergence.
+
+
+===== ORIGINAL PDF PAGE 47 =====
+FORMULA CHECK REQUIRED: original PDF page 47.
+Laha et al./Smooth Surrogates
+47
+IEEE Transactions on Information Theory, 45(7), 2271–2284.
+Zajonc, T. (2012). Bayesian inference for dynamic treatment regimes: Mobility,
+equity, and efficiency in student tracking. Journal of the American Statistical
+Association, 107(497), 80–92.
+Zhang, J., Liu, T., and Tao, D. (2018a).
+On the rates of convergence from
+surrogate risk minimizers to the bayes optimal classifier.
+arXiv preprint
+arXiv:1802.03688.
+Zhang, T. (2010). Analysis of multi-stage convex relaxation for sparse regular-
+ization. Journal of Machine Learning Research, 11(3).
+Zhang, Y., Laber, E. B., Davidian, M., and Tsiatis, A. A. (2018b). Interpretable
+dynamic treatment regimes. Journal of the American Statistical Association,
+113(524), 1541–1549.
+Zhao, Y., Zeng, D., Rush, A. J., and Kosorok, M. R. (2012). Estimating indi-
+vidualized treatment rules using outcome weighted learning. Journal of the
+American Statistical Association, 107(499), 1106–1118.
+Zhao, Y.-Q., Zeng, D., Laber, E. B., and Kosorok, M. R. (2015). New statistical
+learning methods for estimating optimal dynamic treatment regimes. Journal
+of the American Statistical Association, 110, 583–598.
+Zhou, X. and Kosorok, M. R. (2017). Augmented outcome-weighted learning
+for optimal treatment regimes. arXiv preprint arXiv:1711.10654.
+
+
+===== ORIGINAL PDF PAGE 48 =====
+FORMULA CHECK REQUIRED: original PDF page 48.
+Laha et al./Smooth Surrogates
+48
+(a) Plot of ϕ’s.
+(b) Plot of the surrogate ψ’s obtained from the above ϕ’s.
+Fig 3: Plot of the ϕ’s in Example 1 and the corresponding ψ’s. Here ψ(x, y) =
+ϕ(x)ϕ(y).
+
+
+===== ORIGINAL PDF PAGE 49 =====
+FORMULA CHECK REQUIRED: original PDF page 49.
+Laha et al./Smooth Surrogates
+49
+(a) Setting 1.
+(b) Setting 2.
+(c) Setting 4.
+Fig 4: Plot of the estimated average value functions for the settings 1, 2 and
+4. Here the black horizontal line corresponds to the true value function. The
+left and right panels correspond to the linear and non-linear treatment policies,
+respectively. Here the non-linear DTRESLO corresponds to the neural network
+classifier. The error bars are given by ±2 SD.
+
+
+===== ORIGINAL PDF PAGE 50 =====
+FORMULA CHECK REQUIRED: original PDF page 50.
+Laha et al./Smooth Surrogates
+50
+(a) Setting 3.
+(b) Setting 5.
+Fig 5: Plot of the estimated average value functions for the settings 3 and 5.
+Here the black horizontal line corresponds to the true value function. The left
+and right panels correspond to the linear and non-linear treatment policies,
+respectively. Here the non-linear DTRESLO corresponds to the neural network
+classifier. The error bars are given by ±2 SD.
+

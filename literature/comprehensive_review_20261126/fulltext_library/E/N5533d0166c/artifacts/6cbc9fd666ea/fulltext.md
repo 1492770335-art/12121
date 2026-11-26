@@ -1,0 +1,11113 @@
+# Online Policy Learning and Inference by Matrix Completion
+
+Original PDF: [original.pdf](original.pdf). SHA256: `6cbc9fd666ea1cead0ebb5cd5e0340286c278e6e2d320217ab9d6a923f05a4c5`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+FORMULA CHECK REQUIRED: original PDF page 1.
+
+````text
+Online Policy Learning and Inference by Matrix Completion
+Congyuan Duan1, Jingyang Li2 and Dong Xia1
+1Department of Mathematics, Hong Kong University of Science and Technology, Hong Kong SAR
+2Department of Statistics, University of Michigan, Ann Arbor, USA
+(December 20, 2024)
+Abstract
+Is it possible to make online decisions when personalized covariates are unavailable? We
+take a collaborative-filtering approach for decision-making based on collective preferences. By
+assuming low-dimensional latent features, we formulate the covariate-free decision-making prob-
+lem as a matrix completion bandit. We propose a policy learning procedure that combines an
+ε-greedy policy for decision-making with an online gradient descent algorithm for bandit pa-
+rameter estimation. Our novel two-phase design balances policy learning accuracy and regret
+performance. For policy inference, we develop an online debiasing method based on inverse
+propensity weighting and establish its asymptotic normality. Our methods are applied to data
+from the San Francisco parking pricing project, revealing intriguing discoveries and outperform-
+ing the benchmark policy.
+1
+Introduction
+Over recent decades, the demand for personalized policy design has surged across various fields,
+including clinical trials and healthcare [Murphy, 2003, Kim et al., 2011, Bertsimas et al., 2017],
+online advertising and marketing [Bottou et al., 2013, He et al., 2012, Bertsimas and Kallus, 2020],
+revenue management [Chen et al., 2022b], and online news recommendation [Li et al., 2010, Ban
+and Rudin, 2019]. Personalized policies leverage individual characteristics to incorporate covariate
+heterogeneity into decision-making, such as tailoring medicine dosages based on patients’ lab results
+[Murphy, 2003] or recommending news according to users’ profiles [Li et al., 2010]. However, policy
+1
+arXiv:2404.17398v2  [stat.ML]  19 Dec 2024
+
+````
+
+## PDF page 2
+
+FORMULA CHECK REQUIRED: original PDF page 2.
+
+````text
+learning is challenging due to its online nature, where data arrives sequentially and are collected
+adaptively. Online learning algorithms aim to make informed decisions that maximize rewards while
+continuously refining decision rules.
+The contextual bandit (CB) model [Langford and Zhang, 2007] offers a convenient framework for
+online personalized decision-making. A decision maker selects from a finite set of actions (arms) A.
+At each time step t within a horizon T, a request with context xt arrives, prompting the choice of
+action at ∈A, which yields a reward rt with expectation E[rt] = fat(xt). If the reward functions
+fa(x) are known for all a ∈A, the optimal policy is to select a∗
+t := arg maxa∈A fa(xt). However,
+when these functions are unknown, they must be learned from data. The decision maker aims to
+maximize cumulative rewards [Bastani and Bayati, 2020, Li et al., 2010, Zhang et al., 2021], learn
+the optimal policy [Agarwal et al., 2014, Perchet and Rigollet, 2013, Bastani et al., 2021, Gur et al.,
+2022, May et al., 2012], and make inferences about the optimal policy [Hadad et al., 2021, Chen et al.,
+2022a, 2021, Zhang et al., 2021]. Once an action at is chosen, the rewards for other actions remain
+unobserved. To achieve these goals, the decision maker must balance exploration - gathering data
+for each arm to learn the reward functions - and exploitation - using current knowledge to maximize
+rewards. This balance is known as the exploration-exploitation dilemma [Lattimore and Szepesv´ari,
+2020].
+However, in some scenarios, personalized covariates are unavailable, rendering individual-specific
+information inaccessible. Consequently, traditional contextual bandit methods that depend on these
+covariates become inapplicable. To address these covariate-free challenges, we explore personalized
+decision-making by identifying latent similarities among users or entities involved in the decision-
+making process. This approach is analogous to collaborative filtering [Su and Khoshgoftaar, 2009],
+which generates personalized recommendations by leveraging the preferences and behaviors of a large
+population. It does not require detailed information about the items or users; instead, it relies on
+collective preferences to suggest items that individuals may find appealing. To illustrate this concept,
+we provide two motivating examples from transportation science and revenue management, offering
+practical insights into our study.
+Parking pricing ( SFpark, SFMTA [2013]). The San Francisco government plans to implement
+dynamic pricing for parking lots across various blocks and time periods (e.g., hourly, weekly). For
+simplicity, assume two pricing options: high and low. High prices aim to deter parking in overcrowded
+blocks, while low prices seek to attract drivers to underutilized areas. The objective is to maintain
+moderate occupancy rates across more blocks during most times.
+In this context, personalized
+2
+
+````
+
+## PDF page 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+covariates for blocks or hours are unavailable, but latent similarities exist, such as blocks in the
+same busy area or morning hours exhibiting similar patterns. If setting a high price in one block
+during morning hours effectively achieves the target occupancy, it is reasonable to apply high prices
+to adjacent blocks in the same area and time period to obtain comparable results.
+Supermarket discount (Kaggle [2020]).A supermarket manager must decide whether to offer dis-
+counts on various products across different time periods (weekly, annually). While discounts may
+reduce per-unit profits, they can increase overall revenue by attracting more customers. The objective
+is to develop a policy that identifies the optimal timing and products for discounts to maximize total
+annual profits. In this context, personalized covariates for products or time periods are unavailable.
+However, latent similarities exist - products within the same category or time periods within the
+same season or holiday exhibit correlated sale trends. For example, if discounting a product during
+a specific holiday boosts profits, it is reasonable to extend discounts to other products in the same
+category during that holiday.
+To address these covariate-free challenges, we propose the matrix completion bandit (MCB)
+model, which captures similarities between current and historical requests or rewards through low-
+rank matrices. Consider the parking pricing problem, where the objective is to set high or low prices
+for d1 blocks across d2 hours to achieve target occupancy rates. We represent the occupancy rates of
+high and low pricing with two unknown d1 × d2 matrices, M1 and M0, respectively. For each block-
+hour pair (i, j), if M1(i, j) > M0(i, j), a high price should be set to better reach the occupancy rate
+target; otherwise, a low price is preferred. We assume that both M0 and M1 are low-rank, indicating
+that blocks and hours can be described by low-dimensional latent features, such as geographical
+proximity or close daytime periods.
+In the MCB framework, learning the optimal policy involves estimating these underlying matri-
+ces. Moreover, to evaluate whether a high price significantly outperforms a low price in improving
+occupancy rates (i.e., policy inference), we perform statistical inference on M1(i, j) −M0(i, j). This
+formulation links policy learning with online matrix completion and policy inference with entrywise
+inference. However, policy learning and inference via online matrix completion are far from straight-
+forward.
+Most existing matrix completion literature focuses on independent and offline observa-
+tions, whereas in online decision-making, observations arrive sequentially, and actions are typically
+dependent on historical data. This adaptively collected data necessitates novel estimation and in-
+ference methodologies. Furthermore, high-dimensional scenarios, where the matrix dimensions d1d2
+are comparable to or even significantly exceed the decision horizon T, introduce additional technical
+3
+
+````
+
+## PDF page 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+challenges.
+Balancing regret performance with inference efficiency is another major challenge in policy learn-
+ing and inference. Accurate estimation and efficient inference typically require sufficient sample sizes
+for each arm. For example, random exploration allocates a constant fraction of samples to each arm,
+resulting in an effective sample size of O(T) per arm and achieving optimal convergence rates. How-
+ever, this approach leads to a linear regret of O(T), which is highly undesirable in bandit problems.
+In contrast, most bandit algorithms aim to minimize regret by selecting suboptimal arms with de-
+creasing probability. This strategy can substantially reduce the effective sample size for suboptimal
+arms, resulting in convergence rates slower than O(T −1/2). A recent work Simchi-Levi and Wang
+[2023] demonstrates that the product of estimation error and the square root of regret remains of
+constant order in the worst case.
+1.1
+Main contributions
+We address covariate-free online personalized decision-making using a collaborative filtering approach
+by formulating it as a matrix completion bandit (MCB) problem. We analyze policy learning accu-
+racy, regret performance, and inference efficiency, highlighting the trade-offs among these aspects.
+Our contributions are summarized as follows.
+General convergence of ε-greedy and online gradient descent algorithms. We propose an online
+gradient descent algorithm combined with an ε-greedy strategy to learn the MCB parameters, es-
+tablishing its convergence under general step size and exploration probability schedules.
+A key
+contribution is the derivation of sharp entry-wise error rates for the estimated MCB parameters,
+demonstrating that errors are uniformly distributed across all matrix entries. By using constant ex-
+ploration probability and step size (assuming a known horizon T) and under classical offline matrix
+completion conditions, our algorithm achieves statistically optimal estimators (up to logarithmic fac-
+tors) in both Frobenius and sup-norms. These sup-norm error rates are essential for regret analysis
+and policy inference. We obtain these error rates through advanced spectral analysis and martingale
+techniques.
+Tradeoff between policy learning and regret performance. Using a constant exploration probability
+leads to trivial regret performance. We propose an exploration-then-commit (ETC) schedule, where
+exploration probabilities decay geometrically in the algorithm’s later stages. This approach balances
+policy learning and regret performance: when achieving a regret upper bound of eO(T 1−γ) with some
+γ ∈[0, 1/2], the estimator’s error rate is eOp(1/
+√
+T 1−γ). This finding aligns with the minimax lower
+4
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+bound established by Simchi-Levi and Wang [2023]. The optimal regret achievable by our algorithm
+is eO(T 2/3), consistent with existing results in online high-dimensional bandit algorithms [Hao et al.,
+2020, Ma et al., 2023b].
+Online inference framework by IPW-based debiasing. We introduce a general framework for online
+statistical inference of the optimal policy. Gradient descent estimators are typically biased due to
+implicit regularization [Arora et al., 2019, Chen et al., 2020]. Building on the IPW-based online
+debiasing method in Han et al. [2022], which addresses policy inference with matrix-valued covariates
+and constant exploration probabilities, we extend this approach to covariate-free policy inference and
+allow exploration probabilities to diminish over time. We establish the asymptotic normality of the
+studentized estimator, enabling the construction of valid confidence intervals.
+Real data analysis. We evaluate the practical merit of MCB using the SFpark and supermarket
+discount datasets, which have been widely studied in transportation and operations management
+research. In the SFpark dataset, we address the dynamic pricing problem for parking lots across
+various blocks and time periods to minimize over- and under-occupancy rates. Our algorithm learns
+optimal prices for each block and time period and makes inferences to assess policy effectiveness.
+Compared to benchmark and alternative pricing strategies, our method achieves a higher proportion
+of blocks and time periods meeting the target occupancy rates. Additionally, our method is applied
+to the superstore discount data, yielding interesting findings.
+1.2
+Related works
+Policy evaluation and inference with adaptively collected data.
+Policy evaluation with adaptively
+collected data is a closely related and challenging area, as estimators often exhibit bias and inflated
+variance. Existing approaches address these issues through de-biasing and reweighting techniques.
+For instance, Bottou et al. [2013], Wang et al. [2017], Su et al. [2020] utilize importance sampling
+to balance the trade-off between bias and variance, while Luedtke and Van Der Laan [2016], Hadad
+et al. [2021], Zhan et al. [2021] design specific weights for IPW-based estimators to stabilize variance.
+However, these works do not simultaneously consider policy inference and regret performance and
+are typically limited to low-dimensional contexts.
+Matrix completion and inference. Candes and Plan [2010] pioneered exact matrix completion
+through convex programming, while Keshavan et al. [2010] introduced a computationally efficient
+non-convex matrix factorization method that achieves statistical optimality under sub-Gaussian noise.
+Over the past decade, numerous approaches have been developed, focusing on optimization algorithms
+5
+
+````
+
+## PDF page 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+and their statistical performance [Koltchinskii et al., 2011, Hastie et al., 2015, Ge et al., 2016, Ma
+et al., 2018]. Online matrix completion and regret analysis have been explored by Jin et al. [2016] and
+Cai et al. [2023]. Statistical inference for noisy matrix completion remains challenging, with recent
+advancements by Chen et al. [2019], Xia and Yuan [2021], Yan et al. [2021], Chernozhukov et al.
+[2023]. For example, Chen et al. [2019] and Yan et al. [2021] employ leave-one-out analysis for entry-
+wise inference, while Xia and Yuan [2021] utilizes double-sample debiasing and low-rank projection
+for linear forms inference. More recently, Ma et al. [2023a] developed a symmetric data aggregation
+method to control the false discovery rate in multiple testing for noisy matrix completion. These
+methods generally assume independent observations. In this paper, we develop inferential methods
+for matrix completion with adaptively collected data, inspired by the estimation of average treatment
+effects in causal matrix completion [Athey et al., 2021, Bai and Ng, 2021, Xiong and Pelger, 2023,
+Choi and Yuan, 2023].
+A/B Testing. A/B testing is a widely used technique for the online and adaptive evaluation of
+strategies or services. It involves assigning users to control or treatment groups, collecting outcome
+data, and making statistical inference to assess differences between groups. The existing literature
+primarily focuses on developing estimators of average treatment effect that minimize bias and variance
+and on characterizing their asymptotic distributions for statistical inference [Tang et al., 2010, Johari
+et al., 2017, Yang et al., 2017, Kohavi et al., 2020, Shi et al., 2023, Wu et al., 2024]. However, A/B
+testing typically does not address policy learning algorithms, thereby avoiding the study of the trade-
+off between regret performance and inference efficiency.
+Low-rank matrix bandit. Han et al. [2022] investigates the low-rank matrix bandit problem under
+the assumption that the covariate matrix Xt consists of i.i.d. N(0, 1) entries, a scenario referred to
+as matrix sensing (Candes and Plan [2011]). In contrast, we focus on covariate-free decision-making
+through collaborative filtering, formulated as a matrix completion problem (Candes and Recht [2012]).
+The methodologies, theories, and assumptions underlying these two problems are strikingly different.
+For instance, deriving the highly non-trivial sup-norm error rate and establishing the incoherence
+property are uniquely critical yet challenging for analyzing regret performance and policy inference
+in matrix completion. Furthermore, we design new algorithms to explore the trade-off between regret
+performance and inference efficiency. Our novel two-phase design provides a straightforward approach
+to balancing these two objectives.
+6
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+2
+Collaborative Filtering and Matrix Completion Bandits
+Let ∥· ∥denote the ℓ2-norm for vectors and the spectral norm for matrices, and ∥· ∥F represent
+the Frobenius norm. We use ∥· ∥max for the sup-norm, defined as the maximum absolute entry,
+and define the 2-max norm of a matrix A by ∥A∥2,max := maxj ∥e⊤
+j A∥, representing the maximum
+row-wise ℓ2-norm. Let Od×r :=
+
+U ∈Rd×r : U ⊤U = Ir
+	
+, where Ir is the identity matrix of dimension
+r × r. For a matrix U ∈Od×r, we denote by U⊥∈Od×(d−r) its orthogonal complement, such that
+(U, U⊥) forms a d × d orthogonal matrix.
+We model the collaborative filtering (CF) policy as a covariate-free decision-making strategy.
+Consider d1d2 distinct requests arranged in a d1 × d2 grid, indexed by (j1, j2) where j1 ∈[d1] and
+j2 ∈[d2]. Specially, we allow high dimensional scenario where d1d2 ≫T. There are K arms (actions),
+each associated with an unknown reward matrix Mk ∈Rd1×d2 for k ∈[K]. Upon receiving request
+(j1, j2), selecting action k yields an expected reward [Mk]j1j2. The optimal CF policy that maximizes
+expected reward is a∗(j1, j2) := arg maxk∈[K] [Mk]j1j2 for j1 ∈[d1], j2 ∈[d2]. The matrices Mk are
+unknown and must be estimated to learn the optimal policy.
+Requests arrive sequentially, and
+after choosing an action (say, k), only a single (noisy) entry from Mk is observed. A fundamental
+assumption in collaborative filtering is that each Mk is low-rank, implying a low-dimensional structure
+in their row and column spaces.
+We formulate the matrix completion bandit (MCB) within the trace regression framework [Koltchin-
+skii et al., 2011]. For simplicity, we consider the two-armed case (K = 2), with extensions to K arms
+discussed in Appendix B.1. Let {(Xt, at, rt)}T
+t=1 denote a sequence of observations where each d1 ×d2
+matrix Xt is independently and uniformly sampled from the orthonormal basis X =
+
+ej1e⊤
+j2 : j1 ∈
+[d1], j2 ∈[d2]
+	
+. This framework applies to scenarios such as sequential pricing of parking blocks or
+weekly product discounts in a supermarket. Moreover, our model can be extended to accommodate
+general covariate distributions, as detailed in Appendix B.3. The action at ∈{0, 1} yields a reward
+according to linear function rt = ⟨Mat, Xt⟩+ ξt, where ξt is sub-Gaussian noise independent of Xt.
+The noise variance depends on the action: Var(ξt | at = 1) = σ2
+1 and Var(ξt | at = 0) = σ2
+0. Let Ft
+denote the filtration generated by {(Xτ, aτ, rτ) : τ ≤t}. Since the action at is chosen based on Ft−1,
+the data {(Xt, at, rt)}T
+t=1 are adaptively collected and thus dependent. We assume without loss of
+generality that d1 ≥d2 and that both M1 and M0 share a common low rank r ≪d2.
+Let c
+M1,t−1 and c
+M0,t−1 denote the estimated MCB parameters up to time t −1. A greedy strategy
+selects the action at = arg maxa∈{0,1}⟨c
+Ma,t−1, Xt⟩that potentially maximizes the expected reward.
+7
+
+````
+
+## PDF page 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+While this approach can maximize cumulative rewards when estimates are sufficiently accurate, it
+may lead to suboptimal performance when the estimators are not accurate. To address this, we
+employ an ε-greedy strategy [Sutton and Barto, 2018, Lattimore and Szepesv´ari, 2020], which bal-
+ances exploration and exploitation by introducing randomness into the decision-making process.
+Specifically, the action at = 1 is chosen according to the probability πt := P
+ at = 1|Xt, Ft−1
+
+:=
+(1−εt)1
+ ⟨c
+M1,t−1 −c
+M0,t−1, Xt⟩> 0
+
++εt/2, where εt is a non-increasing sequence of exploration prob-
+abilities. This means the algorithm selects the greedy action with probability 1 −εt/2 (exploitation)
+and the alternative action with probability εt/2 (exploration). As more data is collected, εt decreases,
+allowing the algorithm to increasingly favor exploitation as the parameter estimates become more
+accurate.
+3
+Policy Learning and Regret Performance
+Our primary objective is to estimate the bandit parameters M1 and M0 during online decision-making,
+which underpins policy learning and inference.
+We introduce an ε-greedy bandit algorithm that
+leverages stochastic gradient descent for sequential parameter estimation. Furthermore, we establish
+the convergence of these online estimators and analyze the regret performance of our algorithm.
+3.1
+ε-Greedy bandit algorithm with stochastic gradient descent
+We begin by introducing key notations and assumptions. For each i = 0, 1, let Mi = LiΛiR⊤
+i denote
+the singular value decomposition (SVD), where Li ∈Od1×r and Ri ∈Od2×r contain the left and
+right singular vectors, respectively. The diagonal matrix Λi = diag(λi,1, · · · , λi,r) holds the singular
+values in non-increasing order. We define the signal strength as λmin := min{λ0,r, λ1,r}. Also denote
+λmax := max{λ0,1, λ1,1} and the condition number κ := λmax/λmin. The balanced decomposition of
+Mi is written as Mi = UiV ⊤
+i , where U ⊤
+i Ui = V ⊤
+i Vi = Λi, achievable by setting Ui = LiΛ1/2
+i
+and
+Vi = RiΛ1/2
+i
+. Matrix completion becomes ill-posed if the underlying matrix is spikied, meaning that
+a few entries dominate. The incoherence parameter [Candes and Recht, 2012] for Mi is defined as
+µ(Mi) := max
+p
+d1/r∥Li∥2,max,
+p
+d2/r∥Ri∥2,max
+	
+. We assume that max{µ(M0), µ(M1)} ≤µ. For
+clarity, we treat µ and κ as bounded constants in our main results, ensuring that most entries of M0
+(M1, similarly) have comparable magnitudes and that both matrices are well-conditioned.
+At time t, a classical offline matrix completion method [Keshavan et al., 2009] is to estimate M1 by
+minimizing the sum of squares
+¯
+L1,t(U, V ) := Pt
+τ=1 ℓ1,τ(U, V ) := Pt
+τ=1 1({aτ = 1})(rτ −
+
+Xτ, UV ⊤
+)2
+8
+
+````
+
+## PDF page 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+subject to U ∈Rd1×r and V ∈Rd2×r. This is a non-convex program and can be locally optimized
+by gradient descent algorithms with guaranteed convergence and statistical performance [Burer and
+Monteiro, 2003, Zheng and Lafferty, 2016] if the observations are i.i.d..
+However, since data is
+adaptively collected under MCB, the propensities πτ := P(aτ = 1|Xτ, Fτ−1) are unequal.
+The
+impact to this can be easily seen in the conditional expected loss E[ℓ1,t(U, V )|{Ft−1, Xt, rt}] = πt(rt −
+⟨Xt, UV ⊤⟩)2, which likely places more significant weight on the entries where M1 is larger than M0.
+To mitigate the bias issue, we consider using the weighted sum of squares
+min
+U,V
+L π
+1,t(U, V ) =
+t
+X
+τ=1
+1(aτ = 1)
+πτ
+·
+ rτ −
+
+Xτ, UV ⊤2
+s.t.
+U ⊤U = V ⊤V,
+(1)
+where the last constraint enforces a balanced factorization and is for algorithmic stability [Jin et al.,
+2016]. When estimating M0, we define the loss L π
+0,t as in (1), but replace the weight 1(aτ = 1)/πτ
+with 1(aτ = 0)/(1−πτ). Re-solving this non-convex optimization problem with each new observation
+is computationally intensive. Therefore, we employ an online gradient descent algorithm to update
+the estimates of M1 and M0 incrementally as new data arrives, thereby enhancing computational
+efficiency and facilitating statistical inference. The detailed implementations of ε-greedy policy and
+online gradient decent can be found in Algorithm 1.
+Algorithm 1 ε-greedy two-arm MCB with online gradient descent
+Input: exploration probabilities {εt}t≥1; step sizes {ηt}t≥1; initializations with balanced factoriza-
+tion c
+M0,0 = bU0,0 bV ⊤
+0,0, c
+M1,0 = bU1,0 bV ⊤
+1,0.
+Output: c
+M0,T, c
+M1,T.
+for t = 1, 2, · · · , T do
+Observe a new request Xt;
+Calculate πt = (1 −εt)1
+ ⟨c
+M1,t−1 −c
+M0,t−1, Xt⟩> 0
+
++ εt
+2 ;
+Sample an action at ∼Bernoulli(πt) and get a reward rt;
+for i = 0, 1 do
+Update by
+ 
+eUi,t
+eVi,t
+!
+=
+ 
+bUi,t−1
+bVi,t−1
+!
+−
+1(at = i)ηt
+iπi,t + (1 −i)(1 −πt) ·
+  ⟨bUi,t−1 bV ⊤
+i,t−1, Xt⟩−rt
+
+Xt bVi,t−1
+ ⟨bUi,t−1 bV ⊤
+i,t−1, Xt⟩−rt)X⊤
+t bUi,t−1
+!
+.
+Set bUi,t = bLi,tbΛ1/2
+i,t and bVi,t = bRi,tbΛ1/2
+i,t , where bLi,tbΛi,t bR⊤
+i,t is the thin SVD of c
+Mi,t = eUi,t eV ⊤
+i,t.
+end for
+end for
+Algorithm 1 usually requires good initializations c
+M1,0 and c
+M0,0. In practice, these can be obtained
+9
+
+````
+
+## PDF page 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+using historical data or a preliminary forced sampling procedure to collect sufficient data for each arm.
+Subsequently, offline convex matrix completion algorithms, such as those proposed by Mazumder et al.
+[2010] and Hastie et al. [2015], can be applied. Additionally, by generating scree plots of c
+M1,0 and
+c
+M0,0, the rank r in Algorithm 1 can be determined in a data-driven manner. If the scree plot does
+not clearly reveal the elbow point, we recommend selecting a slightly larger r to prevent information
+loss due to underestimation of the rank.
+A common choice for the exploration probability is εt ≍t−γ for some γ ∈[0, 1). Instead of
+continuously decreasing εt over the entire decision horizon, we partition the learning process into
+two phases. Accurate estimation of the bandit parameters requires a sufficiently large sample size
+for each arm. However, rapidly decaying εt can cause the probability of selecting suboptimal arms
+to diminish too quickly, leading to inadequate data and biased estimates. In the first phase, we
+set εt to a constant to ensure adequate exploration and obtain reasonably accurate estimators. In
+the second phase, we switch to a geometrically decaying schedule for εt, achieving non-trivial regret
+bounds.
+Moreover, this two-phase approach facilitates policy inference, as will be demonstrated
+in Section 4. Our method resembles the “Explore-Then-Commit” (ETC) algorithm [Garivier et al.,
+2016, Lattimore and Szepesv´ari, 2020, Perchet et al., 2016]. Unlike typical ETC algorithms, which set
+εt ≡0 and adopt purely greedy decisions in the second phase, our approach continues to incorporate
+exploration during the second phase. This ongoing exploration is crucial for effective policy inference,
+as demonstrated in Section 4.
+Theorem 1. Suppose that the horizon T ≤d100
+1
+and the initializations are incoherent, satisfying
+∥c
+M0,0 −M0∥F + ∥c
+M1,0 −M1∥F ≤c0λmin for some small constant c0 > 0.
+Fix some γ ∈[0, 1),
+ε ∈(0, 1), and set T0 := C0T 1−γ for a sufficiently large constant C0 > 0. When t ≤T0, set εt ≡ε and
+ηt ≡η := c1d1d2 log(d1)/(T 1−γλmax); when T0 < t ≤T, set εt = c2t−γ and ηt = εtη, where c1, c2 > 0
+are numerical constants. Suppose that the horizon and signal-to-noise ratio (SNR) satisfy
+T ≥C1r3d1/(1−γ)
+1
+log2 d1
+and
+λ2
+min
+σ2
+0 + σ2
+1
+≥C2
+rd2
+1d2 log2 d1
+T 1−γ
+,
+for some large constants C1, C2 > 0 depending on C0, c0, c1, c2 only. There exist constant C3, C4, C5 >
+10
+
+````
+
+## PDF page 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+0 such that, for both i ∈{0, 1}, with probability at least 1−8td−200
+1
+, the output of Algorithm 1 satisfies
+c
+Mi,t −Mi
+2
+F ≤C3∥c
+Mi,0 −Mi∥2
+F
+
+1 −c1 log d1
+4κT 1−γ
+t
++ C4t · σ2
+i
+rd2
+1d2 log4 d1
+T 2−2γ
+,
+c
+Mi,T −Mi
+2
+max ≤C3
+λ2
+minr3
+d1d2
+
+1 −c1 log d1
+4κT 1−γ
+t
++ C4t · σ2
+i
+rd1 log4 d1
+T 2−2γ
+,
+for all t < T0. Moreover, for all t ≥T0, with probability at least 1 −8d−100
+1
+, we have
+c
+Mi,t −Mi
+2
+F ≤C5σ2
+i
+rd2
+1d2 log4 d1
+T 1−γ
+and
+c
+Mi,t −Mi
+2
+max ≤C5σ2
+i
+rd1 log4 d1
+T 1−γ
+.
+We assume T ≤d100
+1
+solely for technical convenience, allowing the exponent to be replaced by any
+sufficiently large constant. For clarity, Theorem 1 considers specific schedules for learning rates and
+exploration probabilities, while Appendix C.1 establishes convergence under more general schedules.
+We also present a computational acceleration of Algorithm 1 in Appendix B.2, demonstrating that
+each SVD step in Algorithm 1 can be executed within O(r3) flops.
+In Theorem 1, the parameter γ determines the duration of phase one, which maintains a constant
+exploration probability. When the primary objective is to estimate the MCB parameters and learn
+the optimal policy, γ can be set near zero.
+Under this setting, the horizon and signal strength
+conditions align with those in classical matrix completion literature [Keshavan et al., 2010, Candes
+and Recht, 2012]. Moreover, the final estimators c
+M0,T and c
+M1,T achieve statistical optimality up
+to logarithmic factors [Koltchinskii et al., 2011, Ma et al., 2018, Cai et al., 2023]. The constant
+exploration probability ensures O(T) observations for each arm, making our results comparable to
+the offline case.
+Algorithm 1 includes several tuning parameters: the initial exploration probability ε, the constants
+C0 and c1 determining the duration of and the step size in phase one, respectively.
+While the
+parameter γ is critical for balancing regret performance and statistical inference efficiency (discussed
+in subsequent sections), the other parameters are relatively flexible. We recommend selecting a small
+c1 and a sufficiently large C0.
+As shown in Section 4, a large C0 may slightly impact inference
+efficiency and the width of confidence intervals but ensures accurate estimates at T0. Similarly, a
+small c1 reduces the estimation error of c
+Mi,t as demonstrated in Theorem C.1 in Appendix C. Our
+simulation studies in Section 5 and Appendix A confirm that the method remains effective across
+various parameter settings.
+11
+
+````
+
+## PDF page 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+3.2
+Regret performance
+One of the decision maker’s goals is to maximize the expected cumulative reward during the policy
+learning process. The maximum expected cumulative reward E
+ P
+t∈[T] maxi∈{0,1}⟨Mi, Xt⟩
+
+is attain-
+able from making decisions using the optimal policy a∗defined in Section 2. Let {at, t ∈[T]} be the
+sequence of actions taken according to Algorithm 1, which results in an expected cumulative reward
+E
+ P
+t∈[T]⟨Mat, Xt⟩
+
+. Here, the expectation is taken with respect to FT. The difference between the
+achieved expected cumulative reward and the maximum one is referred to as the regret, formally
+defined by RT := E
+ PT
+t=1 maxi∈{0,1}⟨Mi, Xt⟩−⟨Mat, Xt⟩
+
+.
+Theorem 2. Suppose that the conditions in Theorem 1 hold, and denote by ¯m := ∥M0∥max+∥M1∥max
+and ¯σ := max{σ0, σ1}. Then there exists a numerical constant C6 > 0 such that the regret is upper
+bounded by
+RT ≤C6
+
+¯mr · T 1−γ + ¯σ · T (1+γ)/2p
+rd1 log2 d1
+
+Assuming r = O(1), Theorem 2 shows that Algorithm 1 achieves the regret upper bound RT =
+eO
+ ¯m · T 1−γ + ¯σ · T (1+γ)/2d1/2
+1
+
+, where logarithmic factors are hidden in eO(·).
+As discussed after
+Theorem 1, the MCB algorithm can learn the optimal policy more accurately if the value γ is closer to
+0. However, setting γ = 0 will lead to a trivial regret upper bound of O(T). By choosing a value γ > 0
+so that T 1−3γ = (¯σ/ ¯m)2d1, we end up with the best regret upper bound RT = eO
+ ( ¯m¯σ2)1/3d1/3
+1 T 2/3
+.
+The O(T 2/3) regret performance has been observed in online high-dimensional bandit algorithms
+especially when the horizon T is not too large. See, e.g., Hao et al. [2020], Ma et al. [2023b], and
+references therein.
+It is worth noting that a classical ETC bandit algorithm may achieve a similar policy learning
+accuracy and regret performance. The classical ETC algorithm will make greedy decisions in the
+second phase without exploration. By setting εt = ηt = 0 for T0 < t ≤T, the estimated MCB
+parameters will not be further updated after phase one.
+The decisions made during phase two
+are only determined by the entry-wise difference between c
+M0,T0 and c
+M1,T0. It can be shown that
+even without exploration during phase two, the regret performance remains comparable to that in
+Theorem 2. We adopt the proposed exploration probability schedule in Theorem 1 to facilitate policy
+inference, which typically requires an unbiased estimator for each arm parameter. If no exploration
+is made during phase two, there will be no chance to choose the estimated sub-optimal arm, then
+the inferential methods in Section 4 will be invalid because the debiasing procedure does not yield
+12
+
+````
+
+## PDF page 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+an unbiased estimator.
+4
+Policy Inference by Inverse Propensity Weighting
+Suppose, in the SFpark example, we want to evaluate whether high price (arm 1) is better than
+low price (arm 0) for block i at hour j. Then, there exists a d1 × d2 matrix Q = eie⊤
+j such that
+the expected rewards under arm 0 and 1 may be written as ⟨M0, Q⟩and ⟨M1, Q⟩, respectively. The
+policy evaluation process can be conveniently formulated as a hypothesis testing problem:
+H0 : ⟨M1 −M0, Q⟩= 0
+v.s.
+H1 : ⟨M1 −M0, Q⟩> 0.
+(2)
+Rejecting the null hypothesis means that high price is significantly better than the low price. The
+matrix Q can represent more general linear forms.
+4.1
+Debiasing
+Constructing a good estimator is the first step in testing hypotheses (2). The plug-in estimator
+⟨c
+M1,T −c
+M0,T, Q⟩suffers from potential bias caused by the implicit regularization of gradient descent,
+and c
+M0,T, c
+M1,T may not be unbiased estimators.
+Proper debiasing treatment is crucial for valid
+inference. The commonly used debiasing method [Chen et al., 2019, Xia and Yuan, 2021] in offline
+matrix completion considers
+c
+M u-off
+1
+:= c
+M1,T +
+d1d2
+
+t ∈[T] : at = 1
+	
+T
+X
+t=1
+1(at = 1) ·
+ rt −⟨c
+M1,T, Xt⟩
+
+Xt.
+This method may not work for MCB because data are adaptively collected, and c
+M u-off
+1
+may still be a
+biased estimator of M1. Moreover, the estimator c
+M u-off
+1
+requires access to historical data to compute
+⟨c
+M1,T, Xt⟩Xt.
+An online debiasing method was recently proposed by Han et al. [2022] for the low-rank matrix
+regression bandit, which provides an unbiased estimator even if data is adaptively collected. The
+crucial ingredient is to include the inverse propensity weight (IPW), if modified into matrix completion
+13
+
+````
+
+## PDF page 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+setting:
+c
+M IPW
+1
+:= 1
+T
+T
+X
+t=1
+c
+M1,t−1 + d1d2
+T
+T
+X
+t=1
+1(at = 1)
+πt
+ rt −⟨c
+M1,t−1, Xt⟩
+
+Xt.
+(3)
+The estimator c
+M IPW
+0
+is similarly defined using (1 −πt)−1 as the IPW. The unbiasedness of c
+M IPW
+0
+and
+c
+M IPW
+1
+can be easily verified by noticing the independence between c
+M1,t−1 and (Xt, rt, at), conditioned
+on Ft−1. The debiasing procedure (3) is online in nature, since it does not require saving historical
+data.
+The method only needs the incremental updating of the two summands in (3) over time.
+Nevertheless, the debiasing procedure (3) accumulates all past estimates, but estimates from the early
+stage may not be sufficiently accurate, which can potentially inflates the variance. As demonstrated
+in Theorem 1, the estimates c
+M1,T0 and c
+M0,T0 obtained at the end of phase one satisfy ∥c
+M1,T0 −
+M1∥max + ∥c
+M0,T0 −M0∥max = op
+ σ0 + σ1
+
+under the specified horizon and SNR conditions, which is
+essential for statistical inference [Xia and Yuan, 2021]. Consequently, our IPW debiasing approach
+utilizes only the second phase estimates. Since phase one occupies a minimal portion of the horizon,
+we retain O(T) data points for constructing the debiased estimator. Finally, we define
+c
+M IPW
+0
+: =
+1
+T −T0
+T
+X
+t=T0+1
+c
+M0,t−1 +
+d1d2
+T −T0
+T
+X
+t=T0+1
+1(at = 0)
+1 −πt
+ rt −⟨c
+M0,t−1, Xt⟩
+
+Xt
+c
+M IPW
+1
+: =
+1
+T −T0
+T
+X
+t=T0+1
+c
+M1,t−1 +
+d1d2
+T −T0
+T
+X
+t=T0+1
+1(at = 1)
+πt
+ rt −⟨c
+M1,t−1, Xt⟩
+
+Xt.
+(4)
+Given the low-rank assumption of MCB parameters, our final estimators are defined by the best
+rank-r approximation of c
+M IPW
+1
+and c
+M IPW
+0
+, denoted by c
+M1 and c
+M0, respectively. More precisely,
+c
+M1 = bL1bL⊤
+1 c
+M IPW
+1
+bR1 bR⊤
+1 , where bL1 and bR1 consist of the left and right top-r singular vectors of c
+M IPW
+1
+,
+respectively. As explained in Xia and Yuan [2021], spectral projection further reduces the variance
+at the cost of introducing a negligible bias. Using the plug-in method, we propose ⟨c
+M1 −c
+M0, Q⟩as
+the point estimator for the linear form ⟨M1 −M0, Q⟩.
+4.2
+Asymptotic normality
+We now investigate the variances of ⟨c
+M1, Q⟩and ⟨c
+M0, Q⟩, respectively, and prove that these test
+statistics are asymptotically normal under mild conditions. Take ⟨c
+M1, Q⟩as an example, the two
+key factors determining the variance of ⟨c
+M1, Q⟩are: the properness of linear form Q and the source
+14
+
+````
+
+## PDF page 15
+
+FORMULA CHECK REQUIRED: original PDF page 15.
+
+````text
+of variances in estimating c
+M1. Xia and Yuan [2021] and Ma et al. [2023a] show that the variance of
+⟨c
+M1, Q⟩is characterized by the alignment between Q and M1. More precisely, the quantity ∥PM1(Q)∥F
+determines the size of variance, where PM1(Q) := Q −L1⊥L⊤
+1⊥QR1⊥R⊤
+1⊥with L1⊥and R1⊥such that
+(L1, L1⊥) and (R1, R1⊥) are d1 × d1 and d2 × d2 orthogonal matrices, respectively. If Q is orthogonal
+to M1 in the sense that L⊤
+1 Q = 0 and QR1 = 0, statistical inference for ⟨M1, Q⟩becomes an ill-posed
+problem. In this case, Q lies in the normal space of the fixed-rank matrix manifold at point M1,
+rendering the observed data non-informative for the linear form ⟨M1, Q⟩.
+The proof of Theorem 3 shows that the variance of ⟨c
+M1 −M1, Q⟩is mainly contributed by
+bV1 :=
+d1d2
+T −T0
+T
+X
+t=T0+1
+1(at = 1)
+πt
+ξt⟨bL1bL⊤
+1 Xt bR1 bR⊤
+1 , Q⟩.
+The term bV1 is a weighted sum of the samples Xt assigned to arm 1, with weights given by the inverse
+propensity scores π−1
+t . Unlike traditional offline settings where samples are i.i.d. and contribute
+equally to the variance, each sample here contributes differently to the overall variance. For any
+δ > 0, we define Ω1(δ) :=
+
+X ∈X : ⟨M1 −M0, X⟩> δ
+	
+, Ω0(δ) :=
+
+X ∈X : ⟨M0 −M1, X⟩< δ
+	
+,
+and Ω∅(δ) :=
+ Ω1(δ) ∪Ω0(δ)
+c. Here, Ω1(δ) represents instances where arm 1 is optimal with an
+expected regret gap exceeding δ. The parameter δ denotes the reward gap between the optimal and
+suboptimal arms. For simplicity, we abbreviate these sets as Ω0, Ω1, and Ω∅, respectively, omitting
+their dependence on δ.
+The sets Ω1 and Ω0 contribute differently to the variance of ⟨c
+M1, Q⟩. After phase one, the online
+estimators c
+M1,t and c
+M0,t are sufficiently accurate so that the optimal arms for samples from Ω1 and Ω0
+are identifiable. Consequently, as the exploration probability εt diminishes, observations Xt ∈Ω1 are
+used to construct c
+M1 with propensities πt →1, while Xt ∈Ω0 have πt →0 as t →∞. Specifically,
+with εt ≍t−γ, each Xt ∈Ω1 contributes ≍1/T 2 to the variance, and each Xt ∈Ω0 contributes
+≍tγ/T 2. We demonstrate these variance contributions through simulation experiments, presenting
+box plots of samples from Ω1 and Ω0 used in constructing c
+M1 and c
+M0, respectively, in Figure 1.
+We assume that these variances satisfy the following arm optimality conditions. Let PΩ1(M)
+denote the operator which zeros out the entries of M except those in the set Ω1.
+Assumption 1. (Arm Optimality) There exists a gap δ > 0 such that the sets Ω0, Ω1, and Ω∅ensure
+∥PΩ∅PMi(Q)∥2
+F/ min{∥PΩ1PMi(Q)∥2
+F, ∥PΩ0PMi(Q)∥2
+F} = o(1) as d1, d2 →∞for i = 0, 1.
+The arm optimality assumption is prevalent in bandit literature [Goldenshluger and Zeevi, 2013,
+15
+
+````
+
+## PDF page 16
+
+FORMULA CHECK REQUIRED: original PDF page 16.
+
+````text
+−0.02
+−0.01
+0.00
+0.01
+optimal set
+ Ω1
+ Ω0
+−0.015
+−0.010
+−0.005
+0.000
+0.005
+optimal set
+ Ω1
+ Ω0
+Figure 1:
+Box plots of 1(at = 1)/πt · ξt⟨bL1bL⊤
+1 Xt bR1 bR⊤
+1 , Q⟩(left) and 1(at = 0)/(1 −πt) ·
+ξt⟨bL0bL⊤
+0 Xt bR0 bR⊤
+0 , Q⟩(right), grouped by samples Xt from Ω1 and Ω0 in a simulation with T = 60, 000
+and T0 = 20, 000. Specifically, arm 1 was assigned to 18,761 samples from Ω1 and 1,281 from Ω0,
+while arm 0 was assigned to 1,285 samples from Ω1 and 18,673 from Ω0. This demonstrates that
+most samples assigned to arm i originate from Ωi. However, samples from Ω1−i exhibit significantly
+higher variance, which primarily determines the variance of ⟨c
+Mi, Q⟩.
+Bastani and Bayati, 2020], typically requiring a constant gap between arms, holding with some
+probability. In contrast, Assumption 1 allows the gap to diminish as d1, d2 →∞, representing a
+weaker condition.
+Additionally, our assumption aligns with the margin condition [Audibert and
+Tsybakov, 2007, Qian and Murphy, 2011] commonly used in bandit studies [Bastani and Bayati,
+2020, Chen et al., 2021], which requires that P(|⟨M1 −M0, X⟩| < κ) ≤Cκ for some constant C > 0
+and all κ > 0. Both conditions ensure that the proportion of samples near the decision boundary
+⟨M1 −M0, X⟩= 0 remains small, thereby reducing the risk of missing the optimal arm due to minor
+estimation errors in c
+M1,t and c
+M0,t. Selecting the sub-optimal arms can lead to unstable variance
+during statistical inference, as samples near the decision boundary can contribute either ≍1/T 2
+or ≍tγ/T 2 to the variance of ⟨c
+M1, Q⟩and ⟨c
+M0, Q⟩, depending on the decaying propensity, even
+as t →∞. To ensure stable convergence of variance, we assume that the variance contributed by
+samples in Ω∅is negligible compared to those from Ω0 and Ω1. However, these samples do not impact
+policy learning, as they still facilitate the estimation of both M1 and M0 despite potential selection
+of sub-optimal arms. Consequently, this assumption is not required in the earlier sections.
+The following theorem instates the central limit theorem for ⟨c
+M1, Q⟩and ⟨c
+M0, Q⟩. Here ∥Q∥ℓ1
+denotes the vectorized ℓ1-norm, i.e., ∥Q∥ℓ1 = P
+X∈X |⟨Q, X⟩|.
+Theorem 3. Suppose that the conditions in Theorem 1 hold and Assumption 1 holds with δ2 := δ2
+T :=
+C1(σ2
+0 + σ2
+1)(rd1/T 1−γ) log4 d1 for some large constant C1 > 0. Define S2
+1 = T −γ∥PΩ1PM1(Q)∥2
+F +
+Cγ∥PΩ0PM1(Q)∥2
+F and S2
+0 = T −γ∥PΩ0PM0(Q)∥2
+F + Cγ∥PΩ1PM0(Q)∥2
+F, where Cγ = 2/(c2(1 + γ)) and
+16
+
+````
+
+## PDF page 17
+
+FORMULA CHECK REQUIRED: original PDF page 17.
+
+````text
+c2 is defined in Theorem 1. Assume that for each i = 0, 1,
+r2d1 log5 d1
+T 1−γ
++ σi
+λmin
+r
+rd2
+1 log d1
+T 1−γ
+∥Q∥ℓ1
+Si
++ σi
+λmin
+r
+rd2
+1d2 log d1
+T 1−γ
+→0
+(5)
+as d1, d2, T →∞. Then,
+⟨c
+M0, Q⟩−⟨M0, Q⟩
+σ0S0
+p
+d1d2/T 1−γ →N(0, 1)
+and
+⟨c
+M1, Q⟩−⟨M1, Q⟩
+σ1S1
+p
+d1d2/T 1−γ →N(0, 1),
+(6)
+as d1, d2, T →∞.
+Theorem 3 shows that the variance of ⟨c
+M1, Q⟩consists of two components:
+σ2
+1d1d2
+T
+PΩ1PM1(Q)
+2
+F +
+2σ2
+1d1d2
+c2(1 + γ)T 1−γ
+PΩ0PM1(Q)
+2
+F,
+(7)
+where the first term arises from exploitation with samples in Ω1, and the second from exploration
+with samples in Ω0.
+When the arm optimality sets are balanced, such that ∥PΩ1PM1(Q)∥F and
+∥PΩ0PM1(Q)∥F are comparable, the variance is primarily determined by the second term. Conse-
+quently, the error rate of ⟨c
+M1, Q⟩decreases at the order O
+ T −(1−γ)/2
+, aligning with the convergence
+rate of the online estimators produced by Algorithm 1.
+Our method for policy inference only requires that ∥c
+Mi,t −Mi∥2
+max = op(σ2
+i ) for i ∈{0, 1}.
+This condition is satisfied at time T0 with a constant exploration probability during phase one, as
+established in Theorem 1. For the learning phase after T0, the exploration probability can follow
+any schedule εt ≍t−γ with γ ∈[0, 1), including a constant εt.
+Choosing an appropriate γ to
+ensure the decay of εt is crucial for achieving nontrivial regret while maintaining inference efficiency.
+Specifically, a constant εt yields the most efficient, asymptotically normal estimator with variance
+O(1/T) but results in a regret of O(T), highlighting the trade-off between minimizing regret and
+optimizing inference efficiency. This trade-off is further supported by Simchi-Levi and Wang [2023],
+which establishes a minimax lower bound indicating that the product of inference error and the
+square root of regret remains a constant order in the worst case: with regret O(T 1−γ), the estimation
+error will be O(T −(1−γ)/2). To achieve a balance, a decaying εt with γ = 1/3 offers a regret upper
+bound of O(T 2/3) and a policy inference variance of O(T −2/3).
+17
+
+````
+
+## PDF page 18
+
+FORMULA CHECK REQUIRED: original PDF page 18.
+
+````text
+4.3
+Policy inference
+The asymptotic normality established in Theorem 3 depends on some unknown quantities such as
+σ0, σ1, ∥PΩ1PM0(Q)∥F, ∥PΩ0PM0(Q)∥F, ∥PΩ1PM1(Q)∥F, and ∥PΩ0PM1(Q)∥F. These quantities must be
+estimated for the purposes of constructing confidence intervals and testing hypothesis (2). Towards
+that end, we propose the following estimators:
+bσ2
+i :=
+1
+T −T0
+T
+X
+t=T0+1
+1(at = i)
+iπt + (1 −i)(1 −πt)
+ rt −⟨c
+Mi,t−1, Xt⟩
+2
+bS2
+i :=
+
+1/T γ∥PbΩi,T Pc
+Mi(Q)∥2
+F + Cγ∥PbΩ1−i,T Pc
+Mi(Q)∥2
+F
+
+bT.
+where bΩi,T = {X ∈X : ⟨c
+Mi,T −c
+M1−i,T, X⟩> 0} for i = 0, 1 and bT = T/(T −T0). A larger
+T0 would result in slightly wider confidence intervals; however, as T approaches infinity, its impact
+becomes negligible since bT converges to one.
+In the supplementary materials, we show that all
+these estimators are consistent, and the asymptotic normality still holds when replacing the standard
+deviations by its data-driven estimates.
+Theorem 4. Suppose that the conditions in Theorem 3 hold. Then,
+⟨c
+M0, Q⟩−⟨M0, Q⟩
+bσ0 bS0
+p
+d1d2/T 1−γ →N(0, 1)
+and
+⟨c
+M1, Q⟩−⟨M1, Q⟩
+bσ1 bS1
+p
+d1d2/T 1−γ →N(0, 1),
+as d1, d2, T →∞.
+Finally, we need to study the distribution of the point estimator ⟨c
+M1−c
+M0, Q⟩= ⟨c
+M1, Q⟩−⟨c
+M0, Q⟩
+and its studentized version to test between the two hypotheses in (2). A simple fact is that ⟨c
+M1, Q⟩
+and ⟨c
+M0, Q⟩are uncorrelated, and the following asymptotic normality holds.
+This immediately
+enables the classic Z-test and the construction of confidence intervals.
+Corollary 1. Suppose that the conditions in Theorem 3 hold. Then,
+⟨c
+M1 −c
+M0, Q⟩−⟨M1 −M0, Q⟩
+q bσ2
+0 bS2
+0 + bσ2
+1 bS2
+1
+
+d1d2/T 1−γ
+−→N(0, 1),
+as d1, d2, T →∞.
+18
+
+````
+
+## PDF page 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+5
+Numerical Experiments
+In this section, we present several numerical studies to evaluate the practical performance of our
+methods. Due to space constraints, additional simulation results are provided in Appendix A.
+5.1
+Statistical inference
+We evaluate the performance of online inference using true matrices M1 and M0, each with dimensions
+d1 = d2 = 300 and rank r = 2. Matrix M1 is generated by applying SVD to a random matrix with
+entries uniformly drawn from U(−100, 100). To create M0, we add a perturbation matrix with entries
+from U(−2, 2) to the aforementioned matrix and then apply SVD to obtain a low-rank matrix. The
+largest and smallest singular values are approximately λmax = 1981.3 and λmin = 1950.5, respectively.
+The noise levels are set to σ1 = σ0 = 1. Initial estimates c
+M1,0 and c
+M0,0 are obtained by applying the
+Soft-Impute algorithm [Mazumder et al., 2010] from randomly sampled offline data.
+Different decaying exploration probabilities. We evaluate the inference procedure across four sce-
+narios: (1) ⟨M1, e1e⊤
+5 ⟩, (2) ⟨M0, e1e⊤
+5 ⟩, (3)⟨M0−M1, e1e⊤
+5 ⟩and (4) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩. For each scenario,
+we perform 1,000 independent runs under two settings: γ = 1
+3 and γ = 1
+4, with a horizon T = 60, 000
+and fixed T0 = 20, 000. During phase I, the exploration parameter is set to ε = 0.6, and in phase
+II, it decays as εt = 10t−γ. The stepsize is η = 0.025d1d2 log d1/(T 1−γλmax) for phase I and ηt = εtη
+for phase II. Figure 2 presents the density histograms of (⟨c
+Mi, Q⟩−⟨Mi, Q⟩)/bσi bSi
+p
+d1d2/T 1−γ for
+scenarios (1),(2),(4), and ((⟨c
+M0, Q⟩−⟨c
+M1, Q⟩) −(⟨M0, Q⟩−⟨M1, Q⟩))/
+q
+(bσ2
+1 bS2
+1 + bσ2
+0 bS2
+0)d1d2/T 1−γ
+for scenario (3) under γ = 1/3 (top four plots) and γ = 1/4 (bottom four plots). The empirical
+distributions closely match the standard normal distribution (red curve).
+Impact of phase I duration. We assess the effect of phase I duration by setting γ = 1/3 and a
+time horizon T = 30, 000. Phase I lengths were fixed at either T0 = 8, 000 or T0 = 5, 000. As shown
+in Figure 3, both result in accurate normal approximation.
+5.2
+Regret analysis
+Next, we assess the regret of the matrix completion bandit algorithm under identical settings. For
+γ = 1/3, the time horizon T ranges from 40,000 to 80,000 in increments of 5,000, with a fixed
+T0 = 13.5T 1−γ. Similarly, for γ = 1
+4, T varies from 20,000 to 60,000 in increments of 5,000, and
+T0 = 4.5T 1−γ for each T. We conduct 100 simulation trials and plot the average cumulative regret
+against T 2/3 when γ = 1/3 and T 3/4 for γ = 1/4. As shown in Figure 4, the cumulative regret
+19
+
+````
+
+## PDF page 20
+
+FORMULA CHECK REQUIRED: original PDF page 20.
+
+````text
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+4
+density
+(a) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+density
+(b) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(c) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+4
+density
+(d) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+4
+density
+(e) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(f) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(g) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+4
+density
+(h) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+Figure 2: Empirical distributions under γ = 1/3 (top) and γ = 1/4 (bottom) with T = 60, 000 and
+T0 = 20, 000. The red curve represents the p.d.f. of standard normal distributions.
+exhibits linear scaling, following an O(T 2/3) trend for γ = 1/3 and an O(T 3/4) trend for γ = 1/4.
+These results align with our theoretical findings in Theorem 2.
+6
+Real Data Analysis
+6.1
+SFpark parking pricing project
+Starting in April 2011, San Francisco Municipal Transportation Agency (SFMTA) adopted the SF-
+park pilot project, which marked the largest pricing reform for on-street parking in San Francisco.
+The objective of this project was to effectively manage parking towards availability targets. Prior
+to that, parking meters in San Francisco charged a single hourly price regardless of the time of day
+or location within a zone. Consequently, certain blocks experienced severe overcrowding especially
+during peak hours, while others remained underutilized. Recognizing this issue, extensive literature
+has identified the on-street parking pricing as the dominant factor that determines parking behavior
+(Aljohani et al. [2021]). In general, higher prices encourage a few drivers to move away from the
+most crowded blocks, while lower prices attract the drivers to the underoccupied blocks.
+20
+
+````
+
+## PDF page 21
+
+FORMULA CHECK REQUIRED: original PDF page 21.
+
+````text
+0.0
+0.1
+0.2
+0.3
+0.4
+−5.0
+−2.5
+0.0
+2.5
+density
+(a) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(b) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+4
+density
+(c) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(d) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+4
+density
+(e) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+density
+(f) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+4
+density
+(g) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(h) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+Figure 3: Empirical distributions under γ = 1/3 with T = 30, 000, T0 = 8, 000 (top), and T0 = 5, 000
+(bottom). The red curve represents the p.d.f. of standard normal distributions.
+SFpark thus allocates parking spaces more efficiently than uniform prices can by adjusting the
+price varied by time of day, day of week and from block to block. The occupancy rate of a block of a
+given hour is defined to be divided by 3600 seconds multiplied by the number of spaces in the block.
+SFMTA established the desired target occupancy rate for every block at each hour at between 60%
+and 80%. Numerous previous studies have evaluated the effectiveness of SFpark (Pierce and Shoup
+[2013], Millard-Ball et al. [2014]). We would like to apply our matrix completion bandit algorithm
+on SFpark data, and determine the optimal parking prices for each block in a specific hour, with the
+aim of achieving the target occupancy rates for a greater number of blocks and time periods.
+We collected the data from SFpark [2013]. The dataset includes the hourly occupancy rate and
+price for each block at every hour, covering seven pilot zones and two control zones, across each
+day throughout the study period from April 2011 to July 2013. The pilot zones implemented a new
+pricing policy and involved significant data collection, while the control zones had no new policy but
+still underwent substantial data collection. During the study period, SFMTA executed ten demand-
+responsive parking price adjustments in the pilot zones, where price for each block at every hour was
+adjusted gradually and periodically according to the following rules: if the average occupancy rate
+after last adjustment was between 60% and 80%, the hourly price would remain unchanged; if the
+21
+
+````
+
+## PDF page 22
+
+FORMULA CHECK REQUIRED: original PDF page 22.
+
+````text
+30000
+35000
+40000
+45000
+50000
+1300
+1500
+1700
+T2 3
+Regret
+30000
+40000
+50000
+60000
+70000
+2000
+2500
+3000
+3500
+T3 4
+Regret
+Figure 4: Average empirical cumulative regret against T 2/3 for γ = 1
+3 (left) and T 3/4 for γ = 1
+4 (right)
+under 100 trials.
+average occupancy rate was larger than 80%, the hourly price would be raised; if the occupancy rate
+was less than 60%, the hourly price would be lowered. In the following analysis, we will focus on the
+data from Downtown, which is one of the designated pilot zones, covering the time period from April
+1st, 2011, to March 27th, 2012, as an illustrative example. We choose to include only one year of
+data because the occupancy rate after 2012 can be influenced by confounding factors such as changes
+in garage policies and overall city traffic developments. During the selected time period, a total of
+four pricing adjustments occurred on the following dates: August 1st, 2011; October 11th, 2011;
+December 13th, 2011; and February 14th, 2012. These adjustments allow us to divide the entire time
+period into five distinct periods for further analysis.
+Most parking meters in Downtown are operational from 7am to 6pm, and the traffic conditions
+differ between weekdays and weekends. To capture this variation, we define d2 = 22, representing
+each hour from 7 am to 6 pm on both weekdays and weekends. Here the action 1 corresponds to
+a high-price policy, where the hourly price is larger than or equal to $3.5.
+Conversely, action 0
+represents a low-price policy, with an hourly price below $3.5. We identified d1 = 34 blocks that
+had at least one hour for both actions during the entire time period. The underlying matrices M1
+and M0 represent the expected deviation of the real occupancy rate from the target range [0.6, 0.8]
+across different blocks and hours, under high price and low price, respectively. For instance, when
+making a decision for block j1 ∈[d1] at hour j2 ∈[d1], the contextual matrix can be represented as
+Xt = ej1e⊤
+j2. If we further choose at = 1 for the high price and observe an occupancy rate of 0.7, the
+reward rt would be calculated as rt = 0; if the actual occupancy rate is 0.5 or 0.9, then rt = −0.1.
+To simulate the online data collection procedure, we evaluate each observation by comparing the
+decision made by our algorithm with the actual observed action. If they align, we retain the sample
+to fit the model and update the online estimators. Otherwise, we discard it and proceed to the next
+22
+
+````
+
+## PDF page 23
+
+FORMULA CHECK REQUIRED: original PDF page 23.
+
+````text
+sample. Each hour for every block on each day throughout the entire time period is treated as an
+observation, resulting in a time horizon T = 105, 825. Given that we have a nearly equal amount of
+data for each block and hour, we can consider the context Xt to be uniformly distributed, meeting
+our requirements. We obtain the initial estimates c
+M1,0 and c
+M0,0 by randomly selecting a subset of
+samples. Subsequently, scree plots were generated from these estimates to determine the optimal low
+rank, resulting in r = 5, as illustrated in Figure 5.
+0.0
+2.5
+5.0
+7.5
+10.0
+0
+5
+10
+15
+20
+Factor Numbers
+Eigenvalues of Principal Factors
+0
+2
+4
+6
+8
+0
+5
+10
+15
+20
+Factor Numbers
+Eigenvalues of Principal Factors
+Figure 5: SFpark: Scree plots of eigenvalues against factor numbers for c
+M1,0 (left) and c
+M0,0 (right).
+We applied our learning and inference strategy to two representative blocks: 02ND ST 200 on
+weekdays and BATTERY ST 400 on weekends, to determine optimal hourly pricing and assess its
+impact on occupancy rates. Figure 6 illustrates the average hourly occupancy rates across different
+periods under the original SFpark policy. For comparison, we employed an offline method using all
+available data to obtain initial estimates for M1 and M0 via the SoftImpute algorithm [Mazumder
+et al., 2010], followed by the debiasing and inference technique from Ma et al. [2023a]. The results
+are summarized in Tables 1 and 2.
+Table 1: The p-values at 95% confidence level of H0 : ⟨M0−M1, ej1e⊤
+j2⟩≤0 vs H1 : ⟨M0−M1, ej1e⊤
+j2⟩>
+0 (top three rows) or H0 : ⟨M1 −M0, ej1e⊤
+j2⟩≤0 vs H1 : ⟨M1 −M0, ej1e⊤
+j2⟩> 0 (bottom three rows),
+where j1 denotes block 02ND ST 200 and j2 denotes weekday 7:00 to 11:00 (top three rows) or 12:00
+to 17:00 (bottom three rows).
+Hour
+7
+8
+9
+10
+11
+p-value(MCBantit)
+0.264
+<0.001
+0.001
+0.002
+0.410
+p-value(Offline)
+<0.001
+<0.001
+<0.001
+<0.001
+<0.001
+Hour
+12
+13
+14
+15
+16
+17
+p-value(MCBantit)
+<0.001
+<0.001
+<0.001
+0.783
+<0.001
+0.983
+p-value(Offline)
+0.999
+0.999
+0.999
+0.265
+0.035
+<0.001
+23
+
+````
+
+## PDF page 24
+
+FORMULA CHECK REQUIRED: original PDF page 24.
+
+````text
+Table 2:
+The p-values at 95% confidence level of H0 : ⟨M0 −M1, ej1e⊤
+j2⟩≤0
+vs
+H1 : ⟨M0 −
+M1, ej1e⊤
+j2⟩> 0, where j1 denotes block BATTERY ST 400 and j2 denotes weekend 7:00 to 11:00 (top
+three rows) or 12:00 to 17:00 (bottom three rows).
+Hour
+7
+8
+9
+10
+11
+p-value(MCBantit)
+0.002
+<0.001
+<0.001
+0.001
+<0.001
+p-value(Offline)
+0.050
+0.001
+<0.001
+<0.001
+<0.001
+Hour
+12
+13
+14
+15
+16
+17
+p-value(MCBantit)
+<0.001
+0.006
+<0.001
+<0.001
+<0.001
+<0.001
+p-value(Offline)
+<0.001
+<0.001
+<0.001
+<0.001
+<0.001
+0.006
+At 02ND ST 200, occupancy rates initially exceeded 80%, particularly after 12 pm. The SFpark
+policy maintained high prices throughout five periods, effectively reducing occupancy rates. However,
+early morning rates consistently remained below 60%, as shown in Figure 6. Table 1 reveals that both
+our matrix completion bandit method and the offline approach identified action 0 (low pricing) as
+significant during these hours, suggesting that lower prices before noon could optimize parking space
+utilization. For hours after noon, our results differ from the offline method for some hours. However,
+we consider our results more reliable, as Figure 6 demonstrates that the high price adjustment
+successfully reduced the occupancy rate from over 80% to nearly 60% from period 1 to 5.
+Conversely, BATTERY ST 400 exhibited consistently low occupancy rates below 60% on week-
+ends. Implementing low prices starting in period 2 led to increasing occupancy rates from periods
+2 to 5, as depicted in Figure 6. Table 2 confirms that both our method and the offline approach
+found action 0 statistically significant for all weekend hours, validating the effectiveness of low-price
+adjustments in enhancing parking space utilization.
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+ 7
+ 8
+ 9 10 11 12 13 14 15 16 17
+Time
+Occupancy Rate
+period
+1
+2
+3
+4
+5
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+ 7
+ 8
+ 9 10 11 12 13 14 15 16 17
+Time
+Occupancy Rate
+period
+1
+2
+3
+4
+5
+Figure 6: Average occupancy rates of parking space in different time of day during 5 periods. Left:
+weekday of 02ND ST 200; right: weekend of BATTERY ST 400.
+24
+
+````
+
+## PDF page 25
+
+Technical extraction; compare with original PDF page 25.
+
+````text
+Finally, we evaluate the overall performance of matrix completion bandit. This time, to generate
+the online data, we follow the same method as described earlier, keeping the samples where our
+decision coincides with the actual action. However, in cases where the actual action contradicts
+our decision, we utilize the occupancy rate of the current block and time with the matching action
+from the nearest date to fit the model, instead of simply dropping the sample. We only discard a
+sample when no other samples are available for the same actions at the given block and time. For
+comparison, we apply both the original SFpark policy and the machine learning pricing strategy
+[Simhon et al., 2017], referred to as the neighborhood approach. The latter accounts for the impact
+of price adjustments in one block on the demand in adjacent blocks by optimizing prices across all
+blocks simultaneously. This approach aims to minimize the root mean square error (RMSE) between
+predicted and target occupancy rates for all blocks.
+Figure 7 displays the percentage of all the selected time and blocks that achieves the target occu-
+pancy rate in each period under SFpark policy, our matrix completion bandit and the neighborhood
+approach. Across all time periods, there is an overall improvement in achieving the target occupancy
+rate by all the methods, and our matrix completion bandit almost consistently outperforms the other
+two methods. The original SFpark policy explored too much and may adopt sub-optimal policies in
+the beginning, sometimes maintaining unsuitable prices for more than one period. In contrast, the
+matrix completion bandit could adjust the price as soon as it detects that the current policy is not
+optimal enough.
+0.300
+0.325
+0.350
+0.375
+1
+2
+3
+4
+5
+Period
+Percentage
+policy
+MCBandit
+Neighborhood
+SFPark
+Figure 7: Comparison of percentage of blocks and times achieving target occupancy rate over periods
+by matrix completion bandit, SFpark policy, and neighborhood approach.
+6.2
+Superstore discount strategy
+Now we apply our matrix completion bandit approach to another dataset related to superstore
+discount strategies. The data is collected from Kaggle [2021]. It originates from a superstore where
+25
+
+````
+
+## PDF page 26
+
+FORMULA CHECK REQUIRED: original PDF page 26.
+
+````text
+numerous customers order various products from the website daily.
+When a customer orders a
+product, the superstore decides whether to offer a discount. Providing a discount reduces the unit
+profit but might increase the quantity ordered. Conversely, not offering a discount results in higher
+unit profit but may dampen the customer’s interest in the product. Therefore, the objective is to
+determine the appropriate discount for each product and customer to maximize overall profit.
+After data cleaning—such as removing products that receive excessive discounts leading to neg-
+ative profit—the dataset comprises d1 = 790 customers and d2 = 1196 products, with a total of
+T = 6393 orders. This presents a high-dimensional feature space where d1d2 ≫T. The data in-
+cludes information on discounts, quantities, sales prices, and profits for each order. We set arm 1 as
+offering a discount on the product to the customer, while arm 0 represents not providing a discount.
+Furthermore, we define the reward as the profit rate multiplied by the sales quantity, i.e., the profit
+divided by the total sales price times the sales quantity. Similarly as Section 6.1, to simulate the
+online data collection process, for each observation, if the decision made by our algorithm matches
+the actual action, we retain the observation for model fitting; otherwise, we discard it and move to
+the next sample.
+Taking a customer who ordered a total of 7 products as an example, we construct the point
+estimators and confidence intervals for the expected difference in reward between offering a discount
+and not offering a discount for each of these products. To evaluate our bandit algorithm, we compare
+our results with offline matrix completion method, which involves first applying the SoftImpute
+method from Mazumder et al. [2010] to fit all the offline data, followed by the approach in [Ma et al.,
+2023a] to obtain the debiased estimator and construct the corresponding confidence intervals. As
+shown in Figure 8, it is evident that for most products, our estimated values closely align with those
+from the offline estimator. The confidence intervals constructed by the matrix completion bandit
+estimator are slightly wider than those from the offline method due to the influence of IPW, as
+indicated by our theoretical findings.
+Among the 7 products, products OFF-BI-10000088 and OFF-BI-10000545 show negative signif-
+icance in the expected reward difference for both methods, suggesting that not offering a discount
+would generate more profit for these products with this customer. In the dataset, the actual actions
+for these two products also involved not offering a discount, resulting in reward profits of 0.98 and 6.5,
+respectively. For the remaining 5 products, neither method shows positive or negative significance,
+indicating that offering or not offering a discount would not lead to a significant difference in the
+final reward profit.
+26
+
+````
+
+## PDF page 27
+
+FORMULA CHECK REQUIRED: original PDF page 27.
+
+````text
+Figure 8: Superstore discount: point estimators and 95% confidence intervals for the expected dif-
+ference in reward between offering a discount and not offering a discount for a specific user and 7
+products.
+Acknowledgment
+Congyuan Duan and Dong Xia’s research was partially supported by Hong Kong RGC Grant GRF
+16302323.
+Supplementary Materials
+We provide additional numerical simulation results in Appendix A. The extension to k-armed bandits,
+algorithmic acceleration using efficient SVD implementation, adaptation to non-uniform sampling
+distributions, and discussions of the upper confidence bound (UCB) and Thompson sampling (TS)
+algorithms are presented in Appendix B. All proofs and technical lemmas are included in Appendices
+C and D.
+References
+Alekh Agarwal, Daniel Hsu, Satyen Kale, John Langford, Lihong Li, and Robert Schapire. Taming
+the monster: A fast and simple algorithm for contextual bandits. In International Conference on
+Machine Learning, pages 1638–1646. PMLR, 2014.
+Shipra Agrawal and Navin Goyal. Thompson sampling for contextual bandits with linear payoffs. In
+International conference on machine learning, pages 127–135. PMLR, 2013.
+27
+
+````
+
+## PDF page 28
+
+FORMULA CHECK REQUIRED: original PDF page 28.
+
+````text
+Meshari Aljohani, Stephan Olariu, Abrar Alali, and Shubham Jain. A survey of parking solutions for
+smart cities. IEEE Transactions on Intelligent Transportation Systems, 23(8):10012–10029, 2021.
+Pierre Alquier, Vincent Cottet, Nicolas Chopin, and Judith Rousseau. Bayesian matrix completion:
+prior specification. arXiv preprint arXiv:1406.1440, 2014.
+Sanjeev Arora, Nadav Cohen, Wei Hu, and Yuping Luo.
+Implicit regularization in deep ma-
+trix factorization.
+In H. Wallach, H. Larochelle, A. Beygelzimer, F. dAlch´e Buc, E. Fox, and
+R. Garnett, editors, Advances in Neural Information Processing Systems, volume 32. Curran As-
+sociates, Inc., 2019. URL https://proceedings.neurips.cc/paper_files/paper/2019/file/
+c0c783b5fc0d7d808f1d14a6e9c8280d-Paper.pdf.
+Susan Athey, Mohsen Bayati, Nikolay Doudchenko, Guido Imbens, and Khashayar Khosravi. Matrix
+completion methods for causal panel data models. Journal of the American Statistical Association,
+116(536):1716–1730, 2021.
+Jean-Yves Audibert and Alexandre B. Tsybakov. Fast learning rates for plug-in classifiers. The
+Annals of Statistics, 35(2):608 – 633, 2007.
+Jushan Bai and Serena Ng. Matrix completion, counterfactuals, and factor analysis of missing data.
+Journal of the American Statistical Association, 116(536):1746–1763, 2021.
+Gah-Yi Ban and Cynthia Rudin. The big data newsvendor: Practical insights from machine learning.
+Operations Research, 67(1):90–108, 2019.
+Hamsa Bastani and Mohsen Bayati. Online decision making with high-dimensional covariates. Op-
+erations Research, 68(1):276–294, 2020.
+Hamsa Bastani, Mohsen Bayati, and Khashayar Khosravi. Mostly exploration-free algorithms for
+contextual bandits. Management Science, 67(3):1329–1349, 2021.
+Dimitris Bertsimas and Nathan Kallus.
+From predictive to prescriptive analytics.
+Management
+Science, 66(3):1025–1044, 2020.
+Dimitris Bertsimas, Nathan Kallus, Alexander M Weinstein, and Ying Daisy Zhuo. Personalized
+diabetes management using electronic medical records. Diabetes care, 40(2):210–217, 2017.
+28
+
+````
+
+## PDF page 29
+
+FORMULA CHECK REQUIRED: original PDF page 29.
+
+````text
+L´eon Bottou, Jonas Peters, Joaquin Qui˜nonero-Candela, Denis X Charles, D Max Chickering, Elon
+Portugaly, Dipankar Ray, Patrice Simard, and Ed Snelson. Counterfactual reasoning and learning
+systems: The example of computational advertising. Journal of Machine Learning Research, 14
+(11), 2013.
+Samuel Burer and Renato DC Monteiro. A nonlinear programming algorithm for solving semidefinite
+programs via low-rank factorization. Mathematical programming, 95(2):329–357, 2003.
+Jian-Feng Cai, Jingyang Li, and Dong Xia. Online tensor learning: Computational and statistical
+trade-offs, adaptivity and optimal regret. arXiv preprint arXiv:2306.03372, 2023.
+Emmanuel Candes and Benjamin Recht. Exact matrix completion via convex optimization. Com-
+munications of the ACM, 55(6):111–119, 2012.
+Emmanuel J Candes and Yaniv Plan. Matrix completion with noise. Proceedings of the IEEE, 98(6):
+925–936, 2010.
+Emmanuel J Candes and Yaniv Plan. Tight oracle inequalities for low-rank matrix recovery from a
+minimal number of noisy random measurements. IEEE Transactions on Information Theory, 57
+(4):2342–2359, 2011.
+Joshua Cape, Minh Tang, and Carey E Priebe. The two-to-infinity norm and singular subspace
+geometry with applications to high-dimensional statistics. The Annals of Statistics, 47(5):2405–
+2439, 2019.
+Haoyu Chen, Wenbin Lu, and Rui Song.
+Statistical inference for online decision making: In a
+contextual bandit setting.
+Journal of the American Statistical Association, 116(533):240–255,
+2021.
+Xi Chen, Zehua Lai, He Li, and Yichen Zhang. Online statistical inference for contextual bandits via
+stochastic gradient descent. arXiv preprint arXiv:2212.14883, 2022a.
+Xi Chen, Zachary Owen, Clark Pixton, and David Simchi-Levi. A statistical learning approach to
+personalization in revenue management. Management Science, 68(3):1923–1937, 2022b.
+Yuxin Chen, Jianqing Fan, Cong Ma, and Yuling Yan. Inference and uncertainty quantification for
+noisy matrix completion. Proceedings of the National Academy of Sciences, 116(46):22931–22937,
+2019.
+29
+
+````
+
+## PDF page 30
+
+FORMULA CHECK REQUIRED: original PDF page 30.
+
+````text
+Yuxin Chen, Yuejie Chi, Jianqing Fan, Cong Ma, and Yuling Yan. Noisy matrix completion: Under-
+standing statistical guarantees for convex relaxation via nonconvex optimization. SIAM journal
+on optimization, 30(4):3098–3121, 2020.
+Victor Chernozhukov, Christian Hansen, Yuan Liao, and Yinchu Zhu. Inference for low-rank models.
+The Annals of statistics, 51(3):1309–1330, 2023.
+Jungjun Choi and Ming Yuan. Matrix completion when missing is not at random and its applications
+in causal panel data models. arXiv preprint arXiv:2308.02364, 2023.
+Chandler Davis and William Morton Kahan. The rotation of eigenvectors by a perturbation. iii.
+SIAM Journal on Numerical Analysis, 7(1):1–46, 1970.
+Aur´elien Garivier, Tor Lattimore, and Emilie Kaufmann. On explore-then-commit strategies. Ad-
+vances in Neural Information Processing Systems, 29, 2016.
+Rong Ge, Jason D Lee, and Tengyu Ma. Matrix completion has no spurious local minimum. Advances
+in neural information processing systems, 29, 2016.
+Alexander Goldenshluger and Assaf Zeevi. A linear response bandit problem. Stochastic Systems, 3
+(1):230–261, 2013.
+Yonatan Gur, Ahmadreza Momeni, and Stefan Wager. Smoothness-adaptive contextual bandits.
+Operations Research, 70(6):3198–3216, 2022.
+Vitor Hadad, David A Hirshberg, Ruohan Zhan, Stefan Wager, and Susan Athey. Confidence intervals
+for policy evaluation in adaptive experiments. Proceedings of the national academy of sciences, 118
+(15):e2014602118, 2021.
+Peter Hall and Christopher C Heyde. Martingale limit theory and its application. Academic press,
+2014.
+Qiyu Han, Will Wei Sun, and Yichen Zhang. Online statistical inference for matrix contextual bandit.
+arXiv preprint arXiv:2212.11385, 2022.
+Botao Hao, Tor Lattimore, and Mengdi Wang. High-dimensional sparse linear bandits. Advances in
+Neural Information Processing Systems, 33:10753–10763, 2020.
+30
+
+````
+
+## PDF page 31
+
+FORMULA CHECK REQUIRED: original PDF page 31.
+
+````text
+Trevor Hastie, Rahul Mazumder, Jason D Lee, and Reza Zadeh. Matrix completion and low-rank svd
+via fast alternating least squares. The Journal of Machine Learning Research, 16(1):3367–3402,
+2015.
+Biyu He, Franklin Dexter, Alex Macario, and Stefanos Zenios. The timing of staffing decisions in
+hospital operating rooms: incorporating workload heterogeneity into the newsvendor problem.
+Manufacturing & Service Operations Management, 14(1):99–114, 2012.
+Chi Jin, Sham M Kakade, and Praneeth Netrapalli. Provable efficient online matrix completion via
+non-convex stochastic gradient descent. Advances in Neural Information Processing Systems, 29,
+2016.
+Ramesh Johari, Pete Koomen, Leonid Pekelis, and David Walsh. Peeking at a/b tests: Why it mat-
+ters, and what to do about it. In Proceedings of the 23rd ACM SIGKDD International Conference
+on Knowledge Discovery and Data Mining, pages 1517–1525, 2017.
+Kaggle. Estimate the unit sales of walmart retail goods. https://www.kaggle.com/competitions/
+m5-forecasting-accuracy, 2020.
+Kaggle.
+Superstore dataset (final), 2021.
+URL https://www.kaggle.com/datasets/vivek468/
+superstore-dataset-final. Accessed: April 27, 2024.
+Raghunandan Keshavan, Andrea Montanari, and Sewoong Oh. Matrix completion from noisy entries.
+Advances in neural information processing systems, 22, 2009.
+Raghunandan H Keshavan, Andrea Montanari, and Sewoong Oh. Matrix completion from a few
+entries. IEEE transactions on information theory, 56(6):2980–2998, 2010.
+Edward S Kim, Roy S Herbst, Ignacio I Wistuba, J Jack Lee, George R Blumenschein Jr, Anne
+Tsao, David J Stewart, Marshall E Hicks, Jeremy Erasmus Jr, Sanjay Gupta, et al. The battle
+trial: personalizing therapy for lung cancer. Cancer discovery, 1(1):44–53, 2011.
+Ron Kohavi, Diane Tang, and Ya Xu. Trustworthy online controlled experiments: A practical guide
+to a/b testing. Cambridge University Press, 2020.
+Vladimir Koltchinskii, Karim Lounici, and Alexandre B. Tsybakov. Nuclear-norm penalization and
+optimal rates for noisy low-rank matrix completion. The Annals of Statistics, 39(5):2302 – 2329,
+2011.
+31
+
+````
+
+## PDF page 32
+
+FORMULA CHECK REQUIRED: original PDF page 32.
+
+````text
+John Langford and Tong Zhang. The epoch-greedy algorithm for multi-armed bandits with side
+information. Advances in neural information processing systems, 20, 2007.
+Tor Lattimore and Csaba Szepesv´ari. Bandit algorithms. Cambridge University Press, 2020.
+Lihong Li, Wei Chu, John Langford, and Robert E Schapire.
+A contextual-bandit approach to
+personalized news article recommendation. In Proceedings of the 19th international conference on
+World wide web, pages 661–670, 2010.
+Alexander R Luedtke and Mark J Van Der Laan. Statistical inference for the mean outcome under
+a possibly non-unique optimal treatment strategy. Annals of statistics, 44(2):713, 2016.
+Cong Ma, Kaizheng Wang, Yuejie Chi, and Yuxin Chen. Implicit regularization in nonconvex sta-
+tistical estimation: Gradient descent converges linearly for phase retrieval and matrix completion.
+In International Conference on Machine Learning, pages 3345–3354. PMLR, 2018.
+Wanteng Ma, Lilun Du, Dong Xia, and Ming Yuan. Multiple testing of linear forms for noisy matrix
+completion. arXiv preprint arXiv:2312.00305, 2023a.
+Wanteng Ma, Dong Xia, and Jiashuo Jiang. High-dimensional linear bandits with knapsacks. arXiv
+preprint arXiv:2311.01327, 2023b.
+Benedict C May, Nathan Korda, Anthony Lee, and David S Leslie. Optimistic bayesian sampling in
+contextual-bandit problems. Journal of Machine Learning Research, 13:2069–2106, 2012.
+Rahul Mazumder, Trevor Hastie, and Robert Tibshirani.
+Spectral regularization algorithms for
+learning large incomplete matrices. The Journal of Machine Learning Research, 11:2287–2322,
+2010.
+Adam Millard-Ball, Rachel R Weinberger, and Robert C Hampshire. Is the curb 80% full or 20%
+empty? assessing the impacts of san francisco’s parking pricing experiment. Transportation Re-
+search Part A: Policy and Practice, 63:76–92, 2014.
+Susan A Murphy. Optimal dynamic treatment regimes. Journal of the Royal Statistical Society Series
+B: Statistical Methodology, 65(2):331–355, 2003.
+Vianney Perchet and Philippe Rigollet. The multi-armed bandit problem with covariates. The Annals
+of Statistics, 41(2):693 – 721, 2013. doi: 10.1214/13-AOS1101. URL https://doi.org/10.1214/
+13-AOS1101.
+32
+
+````
+
+## PDF page 33
+
+FORMULA CHECK REQUIRED: original PDF page 33.
+
+````text
+Vianney Perchet, Philippe Rigollet, Sylvain Chassang, and Erik Snowberg. Batched bandit problems.
+The Annals of Statistics, 44(2):660–681, 2016.
+Gregory Pierce and Donald Shoup. Getting the prices right: an evaluation of pricing parking by
+demand in san francisco. Journal of the American Planning Association, 79(1):67–81, 2013.
+Min Qian and Susan A Murphy. Performance guarantees for individualized treatment rules. Annals
+of statistics, 39(2):1180, 2011.
+SFMTA.
+Sfpark
+evaluation.
+https://www.sfmta.com/getting-around/drive-park/
+demand-responsive-pricing/sfpark-evaluation, 2013.
+SFpark. Sfpark evaluation, 2013. URL https://www.sfmta.com/getting-around/drive-park/
+demand-responsive-pricing/sfpark-evaluation. Accessed: April 27, 2024.
+Chengchun Shi, Xiaoyu Wang, Shikai Luo, Hongtu Zhu, Jieping Ye, and Rui Song. Dynamic causal
+effects evaluation in a/b testing with a reinforcement learning framework. Journal of the American
+Statistical Association, 118(543):2059–2071, 2023.
+David Simchi-Levi and Chonghuan Wang. Multi-armed bandit experimental design: Online decision-
+making and adaptive inference. In International Conference on Artificial Intelligence and Statistics,
+pages 3086–3097. PMLR, 2023.
+Eran Simhon, Christopher Liao, and David Starobinski. Smart parking pricing: A machine learn-
+ing approach. In 2017 IEEE Conference on Computer Communications Workshops (INFOCOM
+WKSHPS), pages 641–646. IEEE, 2017.
+Xiaoyuan Su and Taghi M Khoshgoftaar. A survey of collaborative filtering techniques. Advances in
+artificial intelligence, 2009, 2009.
+Yi Su, Maria Dimakopoulou, Akshay Krishnamurthy, and Miroslav Dudik. Doubly robust off-policy
+evaluation with shrinkage. In International Conference on Machine Learning, pages 9167–9176.
+PMLR, 2020.
+Richard S Sutton and Andrew G Barto. Reinforcement learning: An introduction. MIT press, 2018.
+Diane Tang, Ashish Agarwal, Deirdre O’Brien, and Mike Meyer. Overlapping experiment infrastruc-
+ture: More, better, faster experimentation. In Proceedings of the 16th ACM SIGKDD international
+conference on Knowledge discovery and data mining, pages 17–26, 2010.
+33
+
+````
+
+## PDF page 34
+
+FORMULA CHECK REQUIRED: original PDF page 34.
+
+````text
+Yu-Xiang Wang, Alekh Agarwal, and Miroslav Dudik. Optimal and adaptive off-policy evaluation in
+contextual bandits. In International Conference on Machine Learning, pages 3589–3597. PMLR,
+2017.
+Per-Ake Wedin. Perturbation bounds in connection with singular value decomposition. BIT Numer-
+ical Mathematics, 12:99–111, 1972.
+Yuhang Wu, Zeyu Zheng, Guangyu Zhang, Zuohua Zhang, and Chu Wang. Nonstationary a/b tests:
+Optimal variance reduction, bias correction, and valid inference. Management Science, 2024.
+Dong Xia. Normal approximation and confidence region of singular subspaces. Electronic Journal of
+Statistics, 15(2):3798–3851, 2021.
+Dong Xia and Ming Yuan. Statistical inferences of linear forms for noisy matrix completion. Journal
+of the Royal Statistical Society Series B: Statistical Methodology, 83(1):58–77, 2021.
+Ruoxuan Xiong and Markus Pelger. Large dimensional latent factor modeling with missing observa-
+tions and applications to causal inference. Journal of Econometrics, 233(1):271–301, 2023.
+Yuling Yan, Yuxin Chen, and Jianqing Fan. Inference for heteroskedastic pca with missing data.
+arXiv preprint arXiv:2107.12365, 2021.
+Fanny Yang, Aaditya Ramdas, Kevin G Jamieson, and Martin J Wainwright. A framework for multi-
+a (rmed)/b (andit) testing with online fdr control. Advances in Neural Information Processing
+Systems, 30, 2017.
+Ruohan Zhan, Vitor Hadad, David A Hirshberg, and Susan Athey. Off-policy evaluation via adaptive
+weighting with data from contextual bandits. In Proceedings of the 27th ACM SIGKDD Conference
+on Knowledge Discovery & Data Mining, pages 2125–2135, 2021.
+Kelly Zhang, Lucas Janson, and Susan Murphy. Statistical inference with m-estimators on adaptively
+collected data. Advances in neural information processing systems, 34:7460–7471, 2021.
+Qinqing Zheng and John Lafferty. Convergence analysis for rectangular matrix completion using
+burer-monteiro factorization and gradient descent. arXiv preprint arXiv:1605.07051, 2016.
+34
+
+````
+
+## PDF page 35
+
+FORMULA CHECK REQUIRED: original PDF page 35.
+
+````text
+Supplement to “Online Policy Learning and
+Inference by Matrix Completion ”
+Congyuan Duan1, Jingyang Li2, and Dong Xia1
+1 Department of Mathematics, Hong Kong University of Science and Technology
+2 Department of Statistics, University of Michigan, Ann Arbor
+A
+Additional Simulation Experiments
+A.1
+Varying model and algorithmic parameters
+We investigate the effects of varying the matrix rank r, phase-I exploration probability ε, and noise
+levels σ2
+1 and σ2
+0. Unless otherwise specified, matrices are generated as described in Section 5 with
+parameters r = 2, d1 = d2 = 300, T = 30000, T0 = 10000, γ = 1/3 and σ2
+1 = σ2
+0 = 1.For each
+scenario, we assess the asymptotic normality of: (1) ⟨M1, e1e⊤
+5 ⟩, (2) ⟨M0, e1e⊤
+5 ⟩, (3)⟨M0 −M1, e1e⊤
+5 ⟩
+and (4) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩across 500 independent runs. The results are presented in Figures A.1-A.3.
+0.0
+0.1
+0.2
+0.3
+0.4
+−6
+−4
+−2
+0
+2
+density
+(a) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+density
+(b) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+density
+(c) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+−2
+0
+2
+density
+(d) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+density
+(e) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2.5
+0.0
+2.5
+5.0
+density
+(f) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2.5
+0.0
+2.5
+density
+(g) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2.5
+0.0
+2.5
+5.0
+density
+(h) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+Figure A.1: (Varying rank r) Empirical distributions under r = 5 (top four plots) and r = 10
+(bottom four plots). The red curve represents the p.d.f. of standard normal distributions.
+35
+
+````
+
+## PDF page 36
+
+FORMULA CHECK REQUIRED: original PDF page 36.
+
+````text
+0.0
+0.1
+0.2
+0.3
+0.4
+−2.5
+0.0
+2.5
+density
+(a) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(b) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+density
+(c) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+density
+(d) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−5.0
+−2.5
+0.0
+2.5
+density
+(e) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+density
+(f) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+4
+density
+(g) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+−2
+0
+2
+density
+(h) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+Figure A.2: (Varying phase-I exploration probability ε) Empirical distributions under ε = 0.4
+(top four plots) and ε = 0.2 (bottom four plots). The red curve represents the p.d.f. of standard
+normal distributions.
+36
+
+````
+
+## PDF page 37
+
+FORMULA CHECK REQUIRED: original PDF page 37.
+
+````text
+0.0
+0.1
+0.2
+0.3
+0.4
+−6
+−4
+−2
+0
+2
+4
+density
+(a) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(b) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(c) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(d) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−6
+−4
+−2
+0
+2
+density
+(e) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+density
+(f) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+4
+6
+density
+(g) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2.5
+0.0
+2.5
+density
+(h) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+Figure A.3: (Varying noise levels σ2
+1 and σ2
+0) Empirical distributions under σ2
+1 = 1, σ2
+0 = 4 (top
+four plots), and σ2
+0 = 0.25 (bottom four plots). The red curve represents the p.d.f. of standard
+normal distributions.
+A.2
+Misspecified ranks
+Finally, we examine the impact of misspecified matrix ranks r. Specifically, we evaluate three sce-
+narios: 1) the true rank r = 3 incorrectly specified as 5; 2) the true rank r = 5 incorrectly specified
+as 7; 3) the true rank r = 8 in correctly specified as 10.
+37
+
+````
+
+## PDF page 38
+
+FORMULA CHECK REQUIRED: original PDF page 38.
+
+````text
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+4
+density
+(a) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2.5
+0.0
+2.5
+5.0
+density
+(b) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+4
+6
+density
+(c) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+4
+6
+density
+(d) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+−3
+−2
+−1
+0
+1
+2
+density
+(e) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.2
+0.4
+0.6
+−2
+−1
+0
+1
+2
+3
+density
+(f) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+−5.0
+−2.5
+0.0
+2.5
+density
+(g) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−4
+−2
+0
+2
+density
+(h) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+−3
+−2
+−1
+0
+1
+2
+density
+(i) ⟨M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2
+0
+2
+density
+(j) ⟨M0, e1e⊤
+5 ⟩
+0.0
+0.2
+0.4
+−2
+−1
+0
+1
+2
+3
+density
+(k) ⟨M0 −M1, e1e⊤
+5 ⟩
+0.0
+0.1
+0.2
+0.3
+0.4
+−2.5
+0.0
+2.5
+density
+(l) ⟨M0, e1e⊤
+5 −e2e⊤
+2 ⟩
+Figure A.4: (Misspecified ranks) Empirical distributions under true rank r = 3 and misspecified
+as 5 (top four plots), true rank r = 5 and misspecified as 7 (middle four plots), true rank r = 8
+and misspecified as 10 (bottom four plots). The red curve represents the p.d.f. of standard normal
+distributions.
+The comprehensive experimental results demonstrate that our method consistently delivers re-
+liable statistical inference across varying tuning parameters and even when the matrix rank r is
+misspecified.
+38
+
+````
+
+## PDF page 39
+
+FORMULA CHECK REQUIRED: original PDF page 39.
+
+````text
+B
+Extensions and Discussions
+B.1
+K-armed matrix completion bandit
+In real-world applications, decision makers often face multiple action choices.
+Accordingly, this
+section extends our results to the general K-armed bandit setting. We begin by introducing the
+ε-greedy K-arm matrix completion bandit algorithm. Next, we derive the convergence properties of
+the online estimators and establish an upper bound on the cumulative regret. Finally, we present
+the online debiasing procedure and establish a central limit theorem for the IPW-based debiased
+estimator.
+Let Ma denote the bandit parameter for arm a ∈[K], and let its SVD be Ma = LaΛaR⊤
+a . Here,
+Λa = diag(λa,1, · · · , λa,r) is a diagonal matrix containing the singular values of Ma in non-increasing
+order. The signal strength is defined by λmin := mina∈[K] λa,r, and we set ¯σ := maxa∈[K] σa. Moreover,
+the incoherence parameter of Ma is defined by
+µ(Ma) := max
+r
+d1
+r ∥La∥2,max,
+r
+d2
+r ∥Ra∥2,max
+
+.
+We assume that the maximum incoherence across all arms satisfies maxa{µ(Ma)} ≤µ.
+For the policy learning algorithm, the primary modification involves updating the propensity
+scores. Instead of using πt = P(at = 1|Ft−1) and 1−πt in binary action selection, we replace them with
+πa,t = P(at = a|Ft−1) = (1 −εt)1(a = a∗) + εt
+K for each a ∈[K], where a∗= arg maxa∈[K]⟨c
+Ma,t−1, Xt⟩.
+Theorem B.1. Suppose that the horizon T ≤d100
+1
+and the initializations are incoherent satisfying
+maxa ∥c
+Ma,0 −Ma∥F ≤c0λmin for some small constant c0 > 0. Fix some γ ∈[0, 1), ε ∈(0, 1/2),
+and set T0 := C0T 1−γ for a large constant C0 > 0.
+When t ≤T0, set εt ≡ε and ηt ≡η :=
+c1d1d2 log(d1)/(T 1−γλmax); when T0 < t ≤T, set εt = c2t−γ and ηt = εtη, where c1, c2 > 0 are
+numerical constants. Suppose that the horizon and signal-to-noise ratio satisfy
+T ≥C1r3(Kd1)1/(1−γ) log2 d1
+and
+λ2
+min
+maxa σ2
+a
+≥C2K rd2
+1d2 log2 d1
+T 1−γ
+,
+for some large constants C1, C2 > 0 depending on C0, c0, c1, c2 only. There exist constant C3, C4, C5 >
+39
+
+````
+
+## PDF page 40
+
+FORMULA CHECK REQUIRED: original PDF page 40.
+
+````text
+Algorithm 2 ε-greedy K-arm MCB with online gradient descent
+Input: exploration probabilities {εt}t≥1; step sizes {ηt}t≥1; initializations with balanced factoriza-
+tion c
+Mk,0 = bUk,0 bV ⊤
+k,0, k ∈[K].
+Output: c
+Mk,T, k ∈[K].
+for t = 1, 2, · · · , T do
+Observe a new request Xt
+a∗= arg maxa∈[K]⟨c
+Ma,t−1, Xt⟩
+Calculate πa,t = (1 −εt)1(a = a∗) + εt
+K for a ∈[K]
+Sample an action at ∼Categorical(1, · · · , K; π1,t, · · · , πK,t) and get a reward rt
+for a = 1, 2, · · · , K do
+Update by
+ 
+eUa,t
+eVa,t
+!
+=
+ 
+bUa,t−1
+bVa,t−1
+!
+−1(at = a)ηt
+πa,t
+·
+  ⟨bUa,t−1 bV ⊤
+a,t−1, Xt⟩−rt
+
+Xt bVa,t−1
+ ⟨bUa,t−1 bV ⊤
+a,t−1, Xt⟩−rt)X⊤
+t bUa,t−1
+!
+.
+Set bUa,t = bLa,tbΛ1/2
+a,t and bVa,t = bRa,tbΛ1/2
+a,t , where bLa,tbΛa,t bR⊤
+a,t is the thin SVD of c
+Ma,t = eUa,t eV ⊤
+a,t.
+end for
+end for
+0 such that, for any a ∈[K], with probability at least 1 −8td−200
+1
+, the output of Algorithm 2 satisfies
+c
+Ma,T −Ma
+2
+F ≤C3∥c
+Ma,0 −Ma∥2
+F
+
+1 −c1 log d1
+4κT 1−γ
+t
++ C4t · σ2
+aK rd2
+1d2 log4 d1
+T 2−2γ
+,
+c
+Ma,T −Ma
+2
+max ≤C3
+λ2
+minr3
+d1d2
+
+1 −c1 log d1
+4κT 1−γ
+t
++ C4t · σ2
+aK rd1 log4 d1
+T 2−2γ
+,
+for all t ≤T0. Moreover, for all t ≥T0, with probability at least 1 −8d−100
+1
+, we have
+c
+Ma,t −Ma
+2
+F ≤C5σ2
+aK rd2
+1d2 log4 d1
+T 1−γ
+and
+c
+Ma,t −Ma
+2
+max ≤C5σ2
+aK rd1 log4 d1
+T 1−γ
+.
+We also derive the regret upper bound for Algorithm 2.
+Theorem B.2. Suppose that the conditions in Theorem B.1 hold, and denote by ¯m := maxk,j∈[K] ∥Mj−
+Mk∥max. Then there exists a numerical constant C6 > 0 such that the regret is upper bounded by
+RT ≤C6K
+
+¯mr · T 1−γ + ¯σ · T (1+γ)/2p
+rd1 log2 d1
+
+.
+For policy inference, we construct the debiased estimators by replacing the propensity scores πt
+40
+
+````
+
+## PDF page 41
+
+FORMULA CHECK REQUIRED: original PDF page 41.
+
+````text
+or 1 −πt with πa,t as follows:
+c
+M IPW
+a
+: =
+1
+T −T0
+T
+X
+t=T0+1
+c
+Ma,t−1 +
+d1d2
+T −T0
+T
+X
+t=T0+1
+1(at = a)
+πa,t
+ rt −⟨c
+Ma,t−1, Xt⟩
+
+Xt,
+a ∈[K].
+(8)
+We extend Assumption 1 to the K-armed case. For any constant δ > 0, we define Ωa(δ) := {X ∈
+X : mink∈[k]\{a}⟨Ma −Mk, X⟩> δ} and Ω∅(δ) := (∪a∈[K]Ωa(δ))c. Let PΩa(M) denote the operator
+which zeros out the entries of M except those in the set Ωa. We also require the variance contributed
+by samples in Ω∅to be negligible compared to others.
+Assumption B.1. (Arm Optimality) There exists a gap δ > 0 such that the sets Ωa for a ∈[K] and
+Ω∅ensure ∥PΩ∅PMa(Q)∥2
+F/ mink ∥PΩkPMa(Q)∥2
+F = o(1) as d1, d2 →∞for a ∈[K].
+The gap specified in Assumption B.1 is allowed to diminish as d1, d2 →∞. Finally, the best
+rank-r approximation of c
+M IPW
+a
+is c
+Ma = bLabL⊤
+a c
+M IPW
+a
+bRa bR⊤
+a , where bLa and bRa consist of the left and
+right top-r singular vectors of c
+M IPW
+a
+, respectively. Then the asymptotic normality for ⟨c
+Ma, Q⟩is
+described by
+Theorem B.3. Suppose that the conditions in Theorem B.1 and Assumption B.1 hold with δ2 :=
+δ2
+T := C1(σ2
+0 + σ2
+1)(rd1/T 1−γ) log4 d1 for some large constant C1 > 0 in Assumption B.1. Define
+S2
+a = T −γ∥PΩaPMa(Q)∥2
+F + P
+k̸=a,k∈[K] Cγ∥PΩkPMa(Q)∥2
+F for a ∈[K], where Cγ = K/(c2(1 + γ)) and
+c2 is defined in Theorem B.1. Assume that
+Kr2d1 log5 d1
+T 1−γ
++ σaK
+λmin
+r
+rd2
+1 log d1
+T 1−γ
+∥Q∥ℓ1
+Sa
++ σa
+λmin
+r
+Krd2
+1d2 log d1
+T 1−γ
+→0
+(9)
+as d1, d2, T →∞. Then,
+⟨c
+Ma, Q⟩−⟨Ma, Q⟩
+σaSa
+p
+d1d2/T 1−γ →N(0, 1)
+(10)
+as d1, d2, T →∞.
+We propose the following estimators for σ2
+a and S2
+a, which enable us to derive the studentized
+41
+
+````
+
+## PDF page 42
+
+FORMULA CHECK REQUIRED: original PDF page 42.
+
+````text
+central limit theorem.
+bσ2
+a :=
+1
+T −T0
+T
+X
+t=T0+1
+1(at = a)
+πa,t
+ rt −⟨c
+M0,t−1, Xt⟩
+2
+bS2
+a :=
+
+1/T γ∥PbΩa,T Pc
+Ma(Q)∥2
+F +
+X
+k̸=a,k∈[K]
+Cγ∥PbΩk,T Pc
+Ma(Q)∥2
+F
+
+bT.
+where bΩa,T = {X ∈X : arg maxk∈[K]⟨c
+Mk,T, X⟩= a} for a ∈[K] and bT = T/(T −T0).
+Theorem B.4. Suppose that the conditions in Theorem B.3 hold. Then for a ∈[K],
+⟨c
+Ma, Q⟩−⟨Ma, Q⟩
+bσa bSa
+p
+d1d2/T 1−γ →N(0, 1)
+as d1, d2, T →∞.
+The following Corollary enables the evaluation in outcomes between any two actions.
+Corollary B.1. Suppose that the conditions in Theorem B.3 hold. Then, for any g, h ∈[K],
+⟨c
+Mg −c
+Mh, Q⟩−⟨Mg −Mh, Q⟩
+q bσ2
+g bS2
+g + bσ2
+h bS2
+h
+
+d1d2/T 1−γ
+−→N(0, 1),
+as d1, d2, T →∞.
+The proof of Theorem B.1, B.4 and Corollary B.1 is almost the same with Theorem 1, 4 and
+Corollary 1. We provide the proof of Theorem B.2 and B.3 in Appendix D.11 and D.12.
+B.2
+Efficient SVD implementation
+Although Algorithm 1 enables straightforward theoretical analysis of convergence, it is computation-
+ally intensive due to the necessity of performing SVD on d1 × d2 matrices at each time step. To
+address this, we introduce an alternative algorithm that offers greater computational efficiency for
+practical implementation.
+Algorithm 3 can be shown equivalent to Algorithm 1 in the following sense:
+Lemma B.1 (Jin et al. [2016] Lemma 3.2). Given the same observations and algorithmic parameters,
+the outputs of every time step t in Algorithm 1, i.e., eUi,t, eVi,t for i = 0, 1, and those for Algorithm 3,
+i.e., bUi,t and bVi,t, satisfy eUi,t eV ⊤
+i,t = bUi,t bV ⊤
+i,t.
+42
+
+````
+
+## PDF page 43
+
+FORMULA CHECK REQUIRED: original PDF page 43.
+
+````text
+Algorithm 3 ε-greedy two-arm MCB with online gradient descent (fast SVD)
+Input: exploration probabilities {εt}t≥1; step sizes {ηt}t≥1; initializations with balanced factoriza-
+tion c
+M0,0 = bU0,0 bV ⊤
+0,0, c
+M1,0 = bU1,0 bV ⊤
+1,0.
+Output: c
+M0,T, c
+M1,T.
+for t = 1, 2, · · · , T do
+Observe a new request Xt;
+Calculate πt = (1 −εt)1
+ ⟨c
+M1,t−1 −c
+M0,t−1, Xt⟩> 0
+
++ εt
+2 ;
+Sample an action at ∼Bernoulli(πt) and get a reward rt;
+for i = 0, 1 do
+RUDUR⊤
+U ←SVD(bU ⊤
+i,t−1 bUi,t−1),
+RV DV R⊤
+V ←SVD(bV ⊤
+i,t−1 bVi,t−1),
+QUDQV ←SVD(D1/2
+U R⊤
+URV D1/2
+V ),
+Update by
+ 
+bUi,t
+bVi,t
+!
+=
+ 
+bUi,t−1
+bVi,t−1
+!
+−ηt
+1(at = i)
+iπt + (1 −i)(1 −πt)·
+  ⟨bUi,t−1 bV ⊤
+i,t−1, Xt⟩−rt
+
+Xt bVa,t−1RV D−1/2
+V
+QV Q⊤
+UD1/2
+U R⊤
+U
+ ⟨bUi,t−1 bV ⊤
+i,t−1, Xt⟩−rt)X⊤
+t bUa,t−1RUD−1/2
+U
+QUQ⊤
+V D1/2
+V R⊤
+V
+!
+,
+Set c
+Mi,t = bUi,t bV ⊤
+i,t.
+end for
+end for
+43
+
+````
+
+## PDF page 44
+
+FORMULA CHECK REQUIRED: original PDF page 44.
+
+````text
+Algorithm 3 only requires computing the SVD of the r × r matrices bU ⊤
+i,t−1 bUi,t−1 and bV ⊤
+i,t−1 bVi,t−1.
+This reduces the computational complexity of each SVD step from O(d1d2
+2) to O(r3), and the com-
+putational complexity for matrix multiplication step is O(d1r2). Since the rank r is significantly
+smaller than the dimensions d1 and d2 and is typically a constant in many applications, the com-
+putational complexity remains manageable even as the dimensions scale rapidly. Consequently, the
+computational burden remains low in high-dimensional settings.
+B.3
+Non-uniform sampling
+Our previous results assume that the covariates Xt are uniformly sampled from the orthonormal basis
+X = {ej1e⊤
+j2 : j1 ∈[d1], j2 ∈[d2]}, ensuring equal opportunity to make decisions for each product
+or block at every week or hour. While this assumption facilitates theoretical analysis, it may not
+hold in certain applications. For instance, in online recommendation systems, some products may be
+infrequently searched or visited by users, violating uniform sampling. To address this, we consider
+covariates sampled with known probabilities pX for each X ∈X. Our methods remain applicable,
+albeit with more complex formulations for theoretical analysis.
+For policy learning, all learning strategies remain the same except that the stochastic gradient
+descent step in Algorithm 1 should be modified to:
+
+
+eU1,t
+eV1,t
+
+=
+
+
+bU1,t−1
+bV1,t−1
+
+−
+ηt
+πtpXt
+·
+
+
+ ⟨bU1,t−1 bV ⊤
+1,t−1, Xt⟩−rt
+
+Xt bV1,t−1
+ ⟨bU1,t−1 bV ⊤
+1,t−1, Xt⟩−rt)X⊤
+t bU1,t−1
+
+
+and
+
+
+eU0,t
+eV0,t
+
+=
+
+
+bU0,t−1
+bV0,t−1
+
+−
+ηt
+(1 −πt)pXt
+·
+
+
+ ⟨bU0,t−1 bV ⊤
+0,t−1, Xt⟩−rt
+
+Xt bV0,t−1
+ ⟨bU0,t−1 bV ⊤
+0,t−1, Xt⟩−rt)X⊤
+t bU0,t−1
+
+.
+Define pL = minX∈X pX, and set T0 = C0T 1−γ for large C0. When t ≤T0, set a constant exploration
+probability εt = ε and the step size ηt := η =
+c1 log d1
+T 1−γλmax for some constant c1; when T0 < t ≤T,
+set εt ≍t−γ and ηt = εtη. Assume that the sample size and SNR satisfy T 1−γ ≫r log(d1)/(pLd2)
+and λ2
+min/(σ2
+0 + σ2
+1) ≫r log(d1)/(d2p2
+LT 1−γ).
+Under these settings, we can achieve the following
+44
+
+````
+
+## PDF page 45
+
+FORMULA CHECK REQUIRED: original PDF page 45.
+
+````text
+convergence results for the online estimators:
+c
+Mi,t −Mi
+2
+F ≤C3∥c
+Mi,0 −Mi∥2
+F
+
+1 −c1 log d1
+4κT 1−γ
+t
++ C4t · σ2
+i
+rd1 log4 d1
+pLT 2−2γ ,
+∀t ≤T0;
+c
+Mi,t −Mi
+2
+F ≤C5σ2
+i
+rd1 log4 d1
+pLT 1−γ ,
+∀t > T0.
+For policy inference, the debiasing procedure would require slight modification:
+c
+M IPW
+0
+: =
+1
+T −T0
+T
+X
+t=T0+1
+c
+M0,t−1 +
+1
+T −T0
+T
+X
+t=T0+1
+1(at = 0)
+(1 −πt)pXt
+ rt −⟨c
+M0,t−1, Xt⟩
+
+Xt
+c
+M IPW
+1
+: =
+1
+T −T0
+T
+X
+t=T0+1
+c
+M1,t−1 +
+1
+T −T0
+T
+X
+t=T0+1
+1(at = 1)
+πtpXt
+ rt −⟨c
+M1,t−1, Xt⟩
+
+Xt.
+Moreover, if the arm-optimality sets satisfy
+P
+X∈Ω∅1/pX⟨X, PMi(Q)⟩2
+min{P
+X∈Ω1 1/pX⟨X, PMi(Q)⟩2, P
+X∈Ω0 1/pX⟨X, PMi(Q)⟩2} = o(1),
+i ∈{0, 1},
+then the following asymptotic normality holds:
+⟨c
+M0, Q⟩−⟨M0, Q⟩
+σ0S0
+p
+1/T 1−γ
+→N(0, 1)
+and
+⟨c
+M1, Q⟩−⟨M1, Q⟩
+σ1S1
+p
+1/T 1−γ
+→N(0, 1),
+as d1, d2, T →∞, where
+S2
+1 = T −γ X
+X∈Ω1
+1/pX⟨X, PM1(Q)⟩2 + Cγ
+X
+X∈Ω0
+1/pX⟨X, PM1(Q)⟩2
+S2
+0 = T −γ X
+X∈Ω0
+1/pX⟨X, PM0(Q)⟩2 + Cγ
+X
+X∈Ω1
+1/pX⟨X, PM0(Q)⟩2.
+B.4
+Other bandit algorithms
+We discuss two common bandit algorithms: upper confidence bound (UCB) (Li et al. [2010]) and
+Thompson sampling (TS) (Agrawal and Goyal [2013]) for matrix completion bandit. Although both
+algorithms are well-established in the broader bandit literature, their applications to high-dimensional
+linear bandits remain relatively limited, let alone matrix completion bandits.
+(1) Upper confidence bound (UCB)
+The UCB algorithm effectively balances the trade-off
+45
+
+````
+
+## PDF page 46
+
+FORMULA CHECK REQUIRED: original PDF page 46.
+
+````text
+between exploration and exploitation through the principle of optimism in the face of uncertainty.
+The fundamental idea behind UCB is to maintain an optimistic estimate of each arm’s potential
+reward, thereby encouraging the selection of arms that may yield higher rewards based on both
+observed data and inherent uncertainty. The uncertainty of estimated bandit parameters can be
+quantified by the sup-norm convergence rate. Therefore, at time t, we define
+bpi,t := C0bσi
+s
+rd1 log4 d1
+T 1−γ
+,
+∀i ∈{0, 1} and t ≥T0,
+where C0 > 0 is a large constant. Then the action at is selected by
+at := 1
+
+⟨Xt, c
+M1,t−1⟩+ bp1,t > ⟨Xt, c
+M0,t−1⟩+ bp0,t
+
+,
+∀t ≥T0.
+For simplicity, we still adopt a constant exploration probability during phase I when t < T0 :≍T 1−γ
+for some γ ∈(0, 1).
+We can show that UCB algorithm achieves a regret of eO
+ ¯m · T 1−γ + ¯σ ·
+T (1+γ)/2√rd1 log2 d1
+
+. However, policy inference under UCB algorithm is significantly challenging
+because of the inherent bias in c
+Mi,t’s and that the action at is deterministic conditioned on Ft−1
+and Xt. In contrast, the ε-greedy algorithm randomizes the action at and facilitates the IPW-based
+debiaing technique.
+(2) Thompson sampling (TS) Unlike UCB which takes a deterministic approach to balancing
+exploration and exploitation, Thompson sampling is a probabilistic strategy that uses Bayesian prin-
+ciples to guide decision-making. It works by maintaining a posterior distribution for the reward of
+each arm, which represents the uncertainty about the true reward.
+We follow the Bayesian matrix completion method in Alquier et al. [2014]. Denote the h-th row of
+Ui as U (h)⊤
+i
+, the g-th row of Vi as V (g)⊤
+i
+, and the l-th column of Ui and Vi as ui,l and vi,l. Given some
+constant vector δ = (δ1, · · · , δr), we assign the Gaussian priors for ui,l and vi,l as ui,l ∼N(0, δlId1)
+and vi,l ∼N(0, δlId2).
+At each iteration t, suppose the context is Xt = eite⊤
+jt. We first draw U (it)⊤
+i,t
+and V (jt)⊤
+i,t
+from their
+posteriors at time t −1 for i = 0, 1. The action at is selected by
+at := 1
+
+U (it)⊤
+1,t
+V (jt)
+1,t
+> U (it)⊤
+0,t
+V (jt)
+0,t
+
+.
+46
+
+````
+
+## PDF page 47
+
+FORMULA CHECK REQUIRED: original PDF page 47.
+
+````text
+Then we can update the posterior distribution of U (it)⊤
+at
+and V (jt)⊤
+at
+at time t as
+U (it)⊤
+at
+Ft, δ ∼N( ¯U (it)⊤
+at
+, Vat,it)
+V (jt)⊤
+at
+Ft, δ ∼N(¯V (jt)⊤
+at
+, Wat,jt),
+where
+V−1
+at,it = diag(δ)−1 + 2βV (jt)
+at,t V (jt)⊤
+at,t
+,
+¯U (it)⊤
+at
+= 2rtβV (jt)⊤
+at,t
+Vat,it,
+W−1
+at,jt = diag(δ)−1 + 2βU (it)
+at,tU (it)⊤
+at,t ,
+¯V (jt)⊤
+at
+= 2rtβU (it)⊤
+at,t Wat,jt,
+and β is a tuning parameter depending on σi.
+C
+Proofs of Main Results
+C.1
+Proof of Theorem 1
+We first state the convergence result under general choices of step size ηt and εt and provide the proof
+for this Theorem.
+Theorem C.1. Suppose that the horizon T ≤d50
+1 and the initializations are incoherent, satisfying
+∥c
+M0,0 −M0∥F +∥c
+M1,0 −M1∥F ≤c0λmin for some small constant c0 > 0. Let c
+M0,t, c
+M1,t, t ∈[T] denote
+the output of Algorithm 1. There exist absolute constants C1, C2, C3, C4 > 0 such that if, for any
+t ∈[T],
+min
+ λ2
+min
+σ2
+0 + σ2
+1
+, d1d2 log d1
+
+≥C1
+t
+X
+τ=1
+(ητλmax)2
+ετ
+· r log2 d1
+d2
+and
+max
+τ∈[t]
+η2
+τ
+ε2
+τ
+≤C2
+t
+X
+τ=1
+η2
+τ
+ετ
+,
+(11)
+then with probability at least 1 −8td−200,
+∥c
+Mi,t −Mi∥2
+F ≤C3∥c
+Mi,0 −Mi∥2
+F ·
+tY
+τ=1
+
+1 −ητλmin
+4d1d2
+
++ C4σ2
+i
+r log2 d1
+d2
+·
+t
+X
+τ=1
+(ητλmax)2
+ετ
+∥c
+Mi,t −Mi∥2
+max ≤C3
+λ2
+minr3
+d1d2
+tY
+τ=1
+
+1 −ητλmin
+4d1d2
+
++ C4σ2
+i
+r3 log2 d1
+d1d2
+2
+·
+t
+X
+τ=1
+(ητλmax)2
+ετ
+,
+for i = 0, 1.
+47
+
+````
+
+## PDF page 48
+
+FORMULA CHECK REQUIRED: original PDF page 48.
+
+````text
+Proof of Theorem C.1. Define event Et for 1 ≤t ≤T as
+Et =
+
+∀i ∈{0, 1}, ∀τ < t : ∥c
+Mi,τ −Mi∥2
+F ≲
+τY
+k=1
+(1 −f(ηk)
+2
+)∥c
+Mi,0 −M∥2
+F +
+τ
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+,
+∥c
+Mi,τ −Mi∥2
+max ≲
+τY
+k=1
+(1 −f(ηk)
+2
+)poly(µ, r, κ)λ2
+min
+d1d2
++
+τ
+X
+k=1
+η2
+kpoly(µ, r, κ)λ2
+maxσ2 log2 d1
+εkd1d2
+2
+,
+∥e⊤
+l bUi,τ bV ⊤
+i,τ∥2 ≤µ0rλ2
+max
+d1
+, ∥e⊤
+j bVi,τ bU ⊤
+i,τ∥2 ≤µ0rλ2
+max
+d2
+,
+∀l ∈[d1], j ∈[d2]
+
+,
+where f(ηk) = ηkλmin
+d1d2
+and µ0 = 100µ.
+Recall in Algorithm 1, at each step, we update eUi,t and eVi,t by
+eUi,t = bUi,t−1 −
+1(at = i)
+iπt + (1 −i)(1 −πt)ηt(⟨bUi,t−1 bV ⊤
+i,t−1, Xt⟩−rt)Xt bVi,t−1,
+eVi,t = bVi,t−1 −
+1(at = i)
+iπt + (1 −i)(1 −πt)ηt(⟨bUi,t−1 bV ⊤
+i,t−1, Xt⟩−rt)X⊤
+t bUi,t−1.
+Then
+bUi,t bV ⊤
+i,t =eUi,t eV ⊤
+i,t = bUi,t−1 bV ⊤
+i,t−1 −
+1(at = i)
+iπt + (1 −i)(1 −πt)ηt(⟨Ui,t−1V ⊤
+i,t−1, Xt⟩−yt)Xt bVi,t−1 bV ⊤
+i,t−1
+−
+1(at = i)
+iπt + (1 −i)(1 −πt)ηt(⟨bUi,t−1 bV ⊤
+i,t−1, Xt⟩−rt)bUi,t−1 bU ⊤
+i,t−1Xt
++
+1(at = i)
+iπ2
+t + (1 −i)(1 −πt)2η2
+t (⟨bUi,t−1 bV ⊤
+i,t−1, Xt⟩−rt)2Xt bVi,t−1 bU ⊤
+i,t−1Xt.
+Without loss of generality, in the rest of the proof, we only consider i = 1 and omit the subscript i,
+then i = 0 case can be proved similarly. Let
+∆t =1(at = 1)
+πt
+ηt(⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)Xt bVt−1 bV ⊤
+t−1
++ 1(at = 1)
+πt
+ηt(⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)bUt−1 bU ⊤
+t−1Xt
+−1(at = 1)
+π2
+t
+η2
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)2Xt bVt−1 bU ⊤
+t−1Xt,
+where πt = P(at = 1|Xt, Ft−1). In the following steps, we prove that if event Et−1 happens, event Et
+will happen with high probability.
+Step 1: bounding ∥bUt bV ⊤
+t −M∥2
+F.
+48
+
+````
+
+## PDF page 49
+
+FORMULA CHECK REQUIRED: original PDF page 49.
+
+````text
+We have bUt bVt = bUt−1 bV ⊤
+t−1 −∆t and
+E[∥bUt bV ⊤
+t −M∥2
+F|Ft−1] = ∥bUt−1 bV ⊤
+t−1 −M∥2
+F −2⟨E[∆t|Ft−1], bUt−1 bV ⊤
+t−1 −M⟩+ E[∥∆t∥2
+F|Ft−1].
+We first compute 2⟨E[∆t|Ft−1], bUt−1 bV ⊤
+t−1 −M⟩,
+2⟨E[∆t|Ft−1], bUt−1 bV ⊤
+t−1 −M⟩= 2ηt
+d1d2
+ ∥(bUt−1 bV ⊤
+t−1 −M)bVt−1∥2
+F + ∥bU ⊤
+t−1(bUt−1 bV ⊤
+t−1 −M)∥2
+F
+
+−2η2
+t E
+1(at = 1)
+π2
+t
+
+⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩2⟨Xt bVt−1 bU ⊤
+t−1Xt, bUt−1 bV ⊤
+t−1 −M⟩
++ξ2
+t ⟨Xt bVt−1 bU ⊤
+t−1Xt, bUt−1 bV ⊤
+t−1 −M⟩
+
+|Ft−1
+i
+≥ηtλmin
+d1d2
+∥bUt−1 bV ⊤
+t−1 −M∥2
+F
+−4η2
+t
+εt
+∥bVt−1 bU ⊤
+t−1∥max∥bUt−1 bV ⊤
+t−1 −M∥max( 1
+d1d2
+∥bUt−1 bV ⊤
+t−1 −M∥2
+F + σ2).
+It is clear to see that ∥(bUt−1 bV ⊤
+t−1 −M)bVt−1∥2
+F + ∥bU ⊤
+t−1(bUt−1 bV ⊤
+t−1 −M)∥2
+F ≥λmin
+2 ∥bUt−1 bV ⊤
+t−1 −M∥2
+F, and
+we apply
+1
+πt ≤2
+εt in the latter term. Applying the incoherence property of bUt−1, bVt−1, U and V and
+Cauchy Schwarz inequality, ∥bVt−1 bU ⊤
+t−1∥max = O(µ0rλmax
+√d1d2 ) and ∥bUt−1 bV ⊤
+t−1 −M∥max ≤2µ0rλmax
+√d1d2
+under
+event Et−1. Therefore,
+2⟨E[∆t|Ft−1], bUt−1 bV ⊤
+t−1 −M⟩≥ηtλmin
+d1d2
+∥bUt−1 bV ⊤
+t−1 −M∥2
+F
+−8η2
+t
+εt
+µ2
+0r2λ2
+max
+d1d2
+( 1
+d1d2
+∥bUt−1 bV ⊤
+t−1 −M∥2
+F + σ2).
+Then we compute E [∥∆t∥2
+F|Ft−1]. Since (a + b + c)2 ≤3(a2 + b2 + c2),
+E
+
+∥∆t∥2
+F|Ft−1
+
+≤3E
+1(at = 1)
+π2
+t
+η2
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)2∥Xt bVt−1 bV ⊤
+t−1∥2
+F|Ft−1
+
++ 3E
+1(at = 1)
+π2
+t
+η2
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)2∥bUt−1 bU ⊤
+t−1Xt∥2
+F|Ft−1
+
++ 3E
+1(at = 1)
+π4
+t
+η4
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)4∥Xt bVt−1 bU ⊤
+t−1Xt∥2
+F|Ft−1
+
+.
+49
+
+````
+
+## PDF page 50
+
+FORMULA CHECK REQUIRED: original PDF page 50.
+
+````text
+For the first expectation, we have
+E
+1(at = 1)
+π2
+t
+η2
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)2∥Xt bVt−1 bV ⊤
+t−1∥2
+F|Ft−1
+
+≤2η2
+t
+εt
+
+E
+h
+⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩2|Ft−1
+i
+∥bVt−1 bV ⊤
+t−1∥2
+2,max + E[ξ2
+t ]E
+h
+∥Xt bVt−1 bV ⊤
+t−1∥2
+F|Ft−1
+i
+≤2η2
+t
+εt
+ 1
+d1d2
+∥bUt−1 bV ⊤
+t−1 −M∥2
+F
+µ0rλ2
+max
+d2
++ σ2 1
+d2
+∥bVt−1 bV ⊤
+t−1∥2
+F
+
+≤
+2η2
+t
+εtd1d2
+∥bUt−1 bV ⊤
+t−1 −M∥2
+F
+µ0rλ2
+max
+d2
++ 2η2
+t rσ2
+εtd2
+O(λ2
+max).
+The last inequality holds since ∥bVt−1 bV ⊤
+t−1∥2
+F ≤r∥bVt−1 bV ⊤
+t−1∥2 and ∥bVt−1 bV ⊤
+t−1∥2 = O(λ2
+max).
+By symmetry, E
+h
+1(at=1)
+π2
+t
+η2
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)2∥bUt−1 bU ⊤
+t−1Xt∥2
+F|Ft−1
+i
+≤
+2η2
+t
+εtd1d2∥bUt−1 bV ⊤
+t−1−M∥2
+F
+µ0rλ2
+max
+d1
++
+2η2
+t rσ2
+εtd1 O(λ2
+max). Similarly, the last expectation can be written as
+E
+1(at = 1)
+π4
+t
+η4
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)4∥Xt bVt−1 bU ⊤
+t−1Xt∥2
+F|Ft−1
+
+≤8η4
+t
+ε3
+t
+
+E
+h
+⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩4|Ft−1
+i
+∥bVt−1 bU ⊤
+t−1∥2
+max + E(ξ4
+t )∥bVt−1 bU ⊤
+t−1∥2
+max
+
+≲η4
+t
+ε3
+t
+ 1
+d1d2
+∥bUt−1 bV ⊤
+t−1 −M∥2
+max
+X
+(bUt−1 bV ⊤
+t−1 −M)2
+ij
+ µ2
+0r2λ2
+max
+d1d2
++ η4
+t σ4
+ε3
+t
+µ2
+0r2λ2
+max
+d1d2
+≲η4
+t
+ε3
+t
+µ2
+0r2λ4
+max
+d3
+1d3
+2
+∥bUt−1 bV ⊤
+t−1 −M∥2
+F + η4
+t σ4
+ε3
+t
+µ2
+0r2λ2
+max
+d1d2
+.
+As long as ηt ≲
+εtd1d1/2
+2
+√µ0rλmax and λ2
+min
+σ2
+≫η2
+t
+ε2
+t
+λ2
+max
+d1rκ2, the second order terms of ηt above will dominate the
+fourth order terms. Above all, for some positive constants c1 and c2,
+−2E
+
+⟨∆t, bUt−1 bV ⊤
+t−1 −M⟩|Ft−1
+
++ E
+ ∥∆t∥2
+F|Ft−1
+
+≤(−ηtλmin
+d1d2
++ c1η2
+t µ0rλ2
+max
+εtd1d2
+2
+)∥bUt−1 bV ⊤
+t−1 −M∥2
+F + c2η2
+t rλ2
+maxσ2
+εtd2
+≤−f(ηt)∥bUt−1 bV ⊤
+t−1 −M∥2
+F + c2η2
+t rλ2
+maxσ2
+εtd2
+,
+where f(ηt) = ηtλmin
+2d1d2 . The second order term c1η2
+t µ0rλ2
+max
+εtd1d2
+2
+is dominated as long as ηt ≲
+εtd2
+µ0rκλmax.
+Next, we use telescoping to derive the relationship between ∥bUt−1 bV ⊤
+t−1 −M∥2
+F and ∥bU0 bV ⊤
+0 −M∥2
+F.
+50
+
+````
+
+## PDF page 51
+
+FORMULA CHECK REQUIRED: original PDF page 51.
+
+````text
+Notice that,
+∥bUt bV ⊤
+t −M∥2
+F = ∥bUt−1 bV ⊤
+t−1 −∆t −M∥2
+F = ∥bUt−1 bV ⊤
+t−1 −M∥2
+F −2⟨∆t, bUt−1 bV ⊤
+t−1 −M⟩+ ∥∆t∥2
+F
+= ∥bUt−1 bV ⊤
+t−1 −M∥2
+F −2(⟨∆t, bUt−1 bV ⊤
+t−1 −M⟩−E(⟨∆t, bUt−1 bV ⊤
+t−1 −M⟩|Ft−1))
++ (∥∆t∥2
+F −E(∥∆t∥2
+F|Ft−1)) −2E(⟨∆t, bUt−1 bV ⊤
+t−1 −M⟩|Ft−1) + E(∥∆t∥2
+F|Ft−1)
+≤(1 −f(ηt))∥bUt−1 bV ⊤
+t−1 −M∥2
+F + c2η2
+t rλ2
+maxσ2
+εtd2
++ 2(E(⟨∆t, bUt−1 bV ⊤
+t−1 −M⟩|Ft−1) −⟨∆t, bUt−1 bV ⊤
+t−1 −M⟩)
+|
+{z
+}
+At
++ (∥∆t∥2
+F −E(∥∆t∥2
+F|Ft−1))
+|
+{z
+}
+Bt
+= (1 −f(ηt))(1 −f(ηt−1))∥bUt−2 bV ⊤
+t−2 −M∥2
+F + c2η2
+t rλ2
+maxσ2
+εtd2
++ (1 −f(ηt))c2η2
+t−1rλ2
+maxσ2
+εt−1d2
++ (1 −f(ηt))(At−1 + Bt−1) + (At + Bt)
+=
+tY
+k=1
+(1 −f(ηk))∥bU0 bV ⊤
+0 −M∥2
+F +
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))c2η2
+τrλ2
+maxσ2
+ετd2
++ c2η2
+t rλ2
+maxσ2
+εtd2
++
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Aτ +
+t
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Bτ + At + Bt
+≤
+tY
+k=1
+(1 −f(ηk))∥bU0 bV ⊤
+0 −M∥2
+F +
+t
+X
+k=1
+c2η2
+krλ2
+maxσ2 log2 d1
+εkd2
++
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Aτ +
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Bτ + At + Bt.
+In Lemma 1, we show Pt−1
+τ=1
+Qt
+k=τ+1(1 −f(ηk))Aτ + At and Pt
+τ=1
+Qt
+k=τ+1(1 −f(ηk))Bτ + Bt will be
+dominated.
+Lemma 1. For any 1 ≤t ≤T, under the conditions in Theorem 1 and event Et−1, with probability
+at least 1 −td−200
+1
+,
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Aτ + At ≲γ
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F + γ
+t
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+,
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Bτ + Bt ≲γ
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F + γ
+t
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+.
+51
+
+````
+
+## PDF page 52
+
+FORMULA CHECK REQUIRED: original PDF page 52.
+
+````text
+Combine with the union bound, with probability at least 1 −td−200
+1
+,
+∥UtV ⊤
+t −M∥2
+F ≲
+tY
+k=1
+(1 −f(ηk)
+2
+)∥U0V ⊤
+0 −M∥2
+F +
+t
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+.
+Step 2: proof of incoherence.
+In Lemma 2, we prove the incoherence property holds true for every Ut and Vt.
+Lemma 2. For any 1 ≤t ≤T, under the conditions in Theorem 1 and event Et−1, with probability
+at least 1 −td−200
+1
+,
+∥e⊤
+l bUi,τ bV ⊤
+i,τ∥2 ≤µ0rλ2
+max
+d1
+∥e⊤
+j bVi,τ bU ⊤
+i,τ∥2 ≤µ0rλ2
+max
+d2
+,
+∀l ∈[d1], j ∈[d2],
+where µ0 = 100µ.
+Step 3: bounding ∥bUt bV ⊤
+t −M∥2
+max.
+In order to bound ∥bUt bV ⊤
+t −M∥2
+max, we need to bound ∥e⊤
+l (bUt bV ⊤
+t −M)∥2 and ∥e⊤
+j (bVt bU ⊤
+t −M ⊤)∥2 for
+any l ∈[d1], j ∈[d2] first.
+Lemma 3. For any 1 ≤t ≤T, under the conditions in Theorem 1 and event Et−1, with probability
+at least 1 −d−200
+1
+,
+∥e⊤
+l (bUt bV ⊤
+t −M)∥2 ≲
+tY
+k=1
+(1 −f(ηk)
+2
+)poly(µ, r, κ)λ2
+min
+d1
++
+t
+X
+k=1
+η2
+kpoly(κ, µ, r)λ2
+maxσ2 log2 d1
+εkd1d2
+,
+∥e⊤
+j (bVt bU ⊤
+t −M ⊤)∥2 ≲
+tY
+k=1
+(1 −f(ηk)
+2
+)poly(µ, r, κ)λ2
+min
+d2
++
+t
+X
+k=1
+η2
+kpoly(κ, µ, r)λ2
+maxσ2 log2 d1
+εkd2
+2
+for ∀l ∈[d1], j ∈[d2].
+Now we are ready to prove the upper bound for ∥bUt bV ⊤
+t −M∥2
+max. For simplicity, denote c
+Mt = bUt bV ⊤
+t
+.The SVD of c
+Mt and M are Mt = bLtbΛt bRt and M = LΛR, respectively. Then, c
+Mt −M can be written
+as
+c
+Mt −M = bLtbL⊤
+t c
+Mt bRt bR⊤
+t −LL⊤MRR⊤
+= bLtbL⊤
+t (c
+Mt −M) bRt bR⊤
+t + (bLtbL⊤
+t −LL⊤)M bRt bR⊤
+t + LL⊤M( bRt bR⊤
+t −RR⊤)
+52
+
+````
+
+## PDF page 53
+
+FORMULA CHECK REQUIRED: original PDF page 53.
+
+````text
+As a result, for any l ∈[d1], j ∈[d2], e⊤
+l (Mt −M)ej can be decomposed as
+∥e⊤
+l (c
+Mt −M)ej∥2 ≲∥e⊤
+l bLtbL⊤
+t (c
+Mt −M) bRt bR⊤
+t ej∥2
+|
+{z
+}
+I
++ ∥e⊤
+l (bLtbL⊤
+t −LL⊤)M bRt bR⊤
+t ej∥2
+|
+{z
+}
+II
++ ∥e⊤
+l LL⊤M( bRt bR⊤
+t −RR⊤)ej∥2
+|
+{z
+}
+III
+.
+Term I can be bounded in the following way,
+I ≤∥e⊤
+l bLtbL⊤
+t ∥2∥Mt −M∥2
+F∥bRt bR⊤
+t ej∥2
+≲µ0r
+d1
+ tY
+k=1
+(1 −f(ηk)
+2
+)∥c
+M0 −M∥2
+F +
+t
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+!
+µ0r
+d2
+≲
+tY
+k=1
+(1 −f(ηk)
+2
+)µ2
+0r2∥c
+M0 −M∥2
+F
+d1d2
++
+t
+X
+k=1
+η2
+kµ2
+0r3λ2
+maxσ2 log2 d1
+εkd1d2
+2
+≲
+tY
+k=1
+(1 −f(ηk)
+2
+)µ2
+0r2λ2
+min
+d1d2
++
+t
+X
+k=1
+η2
+kµ2
+0r3λ2
+maxσ2 log2 d1
+εkd1d2
+2
+.
+The last inequality holds since ∥c
+M0 −M∥2
+F ≲λ2
+min.
+Next, we look at Term II.
+Let ObLt =
+arg minO∈Or ∥bLt−LO∥, where Or denotes the set of all r×r real matrices with orthonormal columns,
+then
+II ≲∥e⊤
+l (bLt −LObLt)bL⊤
+t M bRt bR⊤
+t ej∥2 + ∥e⊤
+l LObLt(bL⊤
+t −O⊤
+bLtL⊤)M bRt bR⊤
+t ej∥2.
+The second part can be bounded by,
+∥e⊤
+l LObLt(bL⊤
+t −O⊤
+bLtL⊤)M bRt bR⊤
+t ej∥2 ≤∥e⊤
+l LObLt∥2∥bL⊤
+t −O⊤
+bLtL⊤∥2∥M bRt bR⊤
+t ej∥2
+≤µr
+d1
+∥bL⊤
+t −O⊤
+bLtL⊤∥2µ0rλ2
+max
+d2
+,
+where we use the incoherence property and the consistency of matrix norm and vector norm. By
+53
+
+````
+
+## PDF page 54
+
+FORMULA CHECK REQUIRED: original PDF page 54.
+
+````text
+Wedin’s sin Θ Theorem (Davis and Kahan [1970], Wedin [1972]),
+∥bL⊤
+t −O⊤
+bLtL⊤∥2 ≤4∥c
+Mt −M∥2
+F
+λ2
+min
+≲
+tY
+k=1
+(1 −f(ηk)
+2
+)∥c
+M0 −M∥2
+F
+λ2
+min
++
+t
+X
+k=1
+η2
+krκ2σ2 log2 d1
+εkd2
+≲γ
+tY
+k=1
+(1 −f(ηk)
+2
+) + γ
+t
+X
+k=1
+η2
+krκ2σ2 log2 d1
+εkd2
+.
+The first part can be bounded by the upper bound of ∥e⊤
+l (bUt bV ⊤
+t −M)∥2 we have obtained in Lemma
+3,
+∥e⊤
+l (bLt −LObLt)L⊤
+t M bRt bR⊤
+t ej∥2 ≤∥e⊤
+i (bLt −LObLt)∥2∥bL⊤
+t M∥2∥bRt bR⊤
+t ej∥2
+≤∥e⊤
+i (bLt −LObLt)∥2µ0rλ2
+max
+d2
+.
+By Theorem3.7 in Cape et al. [2019] and Wedin’s sin Θ Theorem again,
+∥e⊤
+l (bLt −LObLt)∥≤4∥(I −LL⊤)(c
+Mt −M)∥2,max
+λmin
++ ∥sin Θ(bLt, L)∥2∥L∥2,max
+≤4∥c
+Mt −M∥2,max + ∥LL⊤∥∥c
+Mt −M∥2,max
+λmin
++ ∥sin Θ(bLt, L)∥2
+rµr
+d1
+≤8∥c
+Mt −M∥2,max
+λmin
++ 2∥c
+Mt −M∥F
+λmin
+rµr
+d1
+.
+Then
+∥e⊤
+i (bLt −LObLt)∥2 ≲∥c
+Mt −M∥2
+2,max
+λ2
+min
++ ∥c
+Mt −M∥2
+F
+λ2
+min
+µr
+d1
+≲
+tY
+k=t
+(1 −f(ηk)
+2
+)poly(µ, r, κ)
+d1
++
+t
+X
+k=1
+η2
+kσ2 log2 d1poly(µ, r, κ)
+εkd1d2
+.
+Above all,
+II ≲
+tY
+k=t
+(1 −f(ηk)
+2
+)poly(µ, r, κ)λ2
+min
+d1d2
++
+t
+X
+k=1
+η2
+kλ2
+maxσ2 log2 d1poly(µ, r, κ)
+εkd1d2
+2
+.
+By symmetry, following the same arguments, III will also have the same upper bound.
+54
+
+````
+
+## PDF page 55
+
+FORMULA CHECK REQUIRED: original PDF page 55.
+
+````text
+Combine the above three terms together as well as the union bound, we can conclude that with
+probability at least 1 −8td−200
+1
+,
+∥c
+Mt −M∥2
+max ≲
+tY
+k=1
+(1 −f(ηk)
+2
+)poly(µ, r, κ)λ2
+min
+d1d2
++
+t
+X
+k=1
+η2
+kpoly(µ, r, κ)λ2
+maxσ2 log2 d1
+εkd1d2
+2
+.
+Next we derive the upper bound of ∥c
+Mi,t −Mi∥2
+F under specific choices of ηt and εt for all
+1 ≤t ≤T, and the entrywise error bound can be derived following the same arguments. When
+1 ≤t ≤T0 = C0T 1−γ, ηt = η = c1d1d2 log d1
+T 1−γλ2max and εt = ε. Then
+∥c
+Mi,t −Mi∥2
+F ≲∥c
+Mi,0 −Mi∥2
+F
+tY
+τ=1
+(1 −c1 log d1
+4κT 1−γ ) + σ2
+i
+r log2 d1
+d2
+tc2
+1d2
+1d2
+2 log2 d1
+T 2(1−γ)ε
+≲∥c
+Mi,0 −Mi∥2
+F(1 −c1 log d1
+4κT 1−γ )t + trd2
+1d2 log4 d1
+T 2(1−γ)
+.
+When T0 + 1 ≤t ≤T, εt = c2t−γ and ηt = εtη. Note that the contraction term becomes (1 −
+c1 log d1
+4κT 1−γ )T0 Qt
+τ=T0+1(1 −c1c2εt log d1
+4κT 1−γ
+) ≤(1 −c1 log d1
+4κT 1−γ )C0T 1−γ = O(d−C0c1/4κ
+1
+). Since C0 can be sufficiently
+large, O(d−C0c1/4κ
+1
+) can be small enough to make the first computational error term dominated by
+the second statistical error term. Therefore,
+∥c
+Mi,t −Mi∥2
+F ≲σ2
+i rd2
+1d2 log4 d1
+T 1−γ + Pt
+τ=T0+1 τ −γ
+T 2(1−γ)
+≲σ2
+i rd2
+1d2 log4 d1
+T 1−γ
+,
+(12)
+where the second inequality comes from the fact that Pt
+τ=T0+1 τ −γ ≤Pt
+τ=1 τ −γ = O(t1−γ) ≤
+O(T 1−γ).
+55
+
+````
+
+## PDF page 56
+
+FORMULA CHECK REQUIRED: original PDF page 56.
+
+````text
+C.2
+Proof of Theorem 2
+Proof. Without loss of generality, assume at time t, arm 1 is optimal, i.e., ⟨M1 −M0, Xt⟩> 0, then
+the expected regret is
+rt = E [⟨M1 −M0, Xt⟩1(choose arm 0)]
+= E
+h
+⟨M1 −M0, Xt⟩1(choose arm 0, ⟨c
+M1,t−1 −c
+M0,t−1, Xt⟩≥0)
+i
++ E
+h
+⟨M1 −M0, Xt⟩1(choose arm 0, ⟨c
+M0,t−1 −c
+M1,t−1, Xt⟩> 0)
+i
+≤εt
+2 ∥M1 −M0∥max + E
+h
+⟨M1 −M0, Xt⟩1(⟨c
+M0,t−1 −c
+M1,t−1, Xt⟩> 0)
+i
+|
+{z
+}
+(2)
+.
+Define δ2
+t the entrywise bound in Theorem 1 such that ∥Ui,tV ⊤
+i,t −M∥2
+max ≤δ2
+t with probability at
+least 1 −8td−200
+1
+, and event Bt = {⟨M1 −M0, Xt⟩> 2δt}, then the latter expectation can be written
+as
+(2) ≤E
+h
+⟨M1 −M0, Xt⟩1
+
+⟨c
+M0,t−1 −c
+M1,t−1, Xt⟩> 0 ∩Bt
+i
++ E
+h
+⟨M1 −M0, Xt⟩1
+
+⟨c
+M0,t−1 −c
+M1,t−1, Xt⟩> 0 ∩Bc
+t
+i
+≤∥M1 −M0∥maxE
+h
+1
+
+⟨c
+M0,t−1 −c
+M1,t−1, Xt⟩> 0 ∩Bt
+i
++ 2δtE [1(Bc
+t)] .
+Under event Bt and ⟨c
+M0,t−1 −c
+M1,t−1, Xt⟩> 0,
+0 > ⟨c
+M1,t−1 −c
+M0,t−1, Xt⟩= ⟨c
+M1,t−1 −M1, Xt⟩+ ⟨M0 −c
+M0,t−1, Xt⟩+ ⟨M1 −M0, Xt⟩
+> ⟨c
+M1,t−1 −M1, Xt⟩+ ⟨M0 −c
+M0,t−1, Xt⟩+ 2δt.
+This means either ⟨c
+M1,t−1 −M1, Xt⟩< −δt or ⟨M0 −c
+M0,t−1, Xt⟩< −δt, which further implies either
+∥c
+M1,t−1 −M1∥max or ∥M0 −c
+M0,t−1∥max should be larger than δt. Therefore,
+E [1(⟨M0,t−1 −M1,t−1, Xt⟩> 0) ∩Bt] = P (⟨M0,t−1 −M1,t−1, Xt⟩> 0 ∩Bt)
+≤P (∥M1,t−1 −M1∥max > δt) + P (∥M0,t−1 −M0∥max > δt)
+≤16(t −1)
+d200
+,
+56
+
+````
+
+## PDF page 57
+
+FORMULA CHECK REQUIRED: original PDF page 57.
+
+````text
+For the other term, since E [1(Bc
+t)] = P(⟨M1 −M0, Xt⟩< 2δt) ≤1, then
+rt ≤εt∥M1 −M0∥max + 16(t −1)
+d200
+∥M1 −M0∥max + 2δt.
+The total regret up to time T is
+RT =
+T
+X
+t=1
+rt ≤
+T
+X
+t=1
+εt∥M1 −M0∥max + 8T(T −1)
+d200
+1
+∥M1 −M0∥max + 2
+T
+X
+t=1
+δt.
+In Theorem 1, we have shown that δ2
+t = C3
+λ2
+minr3
+d1d2
+Qt
+τ=1(1 −c1 log d1
+4κT 1−γ ) + C4
+t·rd1 log4 d1σ2
+i
+T 2(1−γ)
+when 1 ≤t ≤T0
+and δ2
+t = C5
+rd1 log4 d1¯σ2
+T 1−γ
+when T0 + 1 ≤t ≤T, for some constants C3 ,C4 and C5. Therefore,
+RT ≲
+T0
+X
+t=1
+ε∥M1 −M0∥max +
+T
+X
+t=T0+1
+1
+tγ ∥M1 −M0∥max + ∥M1 −M0∥maxT 2
+d200
+1
++
+T0
+X
+t=1
+v
+u
+u
+tλ2
+minr3
+d1d2
+tY
+τ=1
+(1 −c1 log d1
+4κT 1−γ ) +
+T0
+X
+t=1
+s
+t · rd1 log4 d1¯σ2
+T 2(1−γ)
++
+T
+X
+t=T0+1
+s
+rd1 log4 d1¯σ2
+T 1−γ
+.
+Since T ≪d50
+1 , the third term is negligible. As a result, from the fact that PT
+t=1 t−γ ≲T 1−γ,
+RT ≲T 1−γ∥M1 −M0∥max + T 1−γ λminr3/2
+√d1d2
++ T (1+γ)/2
+q
+rd1 log4 d1¯σ2
+≲T 1−γ(∥M1∥max + ∥M0∥max) + T (1+γ)/2
+q
+rd1 log4 d1¯σ2.
+C.3
+Proof of Theorem 3
+Proof. Without loss of generality, we only consider the proof for i = 1, and omit all the subscript.
+We follow the arguments in Xia and Yuan [2021] to decompose ⟨c
+M, Q⟩−⟨M, Q⟩. Notice that
+⟨c
+M, Q⟩−⟨M, Q⟩= ⟨bLbL⊤bZ bR bR⊤, Q⟩+ ⟨bLbL⊤M bR bR⊤−M, Q⟩.
+57
+
+````
+
+## PDF page 58
+
+FORMULA CHECK REQUIRED: original PDF page 58.
+
+````text
+Let b =
+T
+T−T0, notice that b = O(1) and will converge to 1 as T →∞. We can write c
+M IPW in (4) into
+c
+M IPW = b
+T
+T
+X
+t=T0+1
+c
+Mt−1 + b
+T
+T
+X
+t=T0+1
+d1d21(at = 1)
+πt
+(yt −⟨Mt−1, Xt⟩)Xt
+= M1 + b
+T
+T
+X
+t=T0+1
+d1d21(at = 1)
+πt
+ξtXt
+|
+{z
+}
+=: bZ1
++ b
+T
+T
+X
+t=T0+1
+d1d21(at = 1)
+πt
+⟨b∆t−1, Xt⟩Xt −b∆t−1
+
+|
+{z
+}
+=: bZ2
+.
+Moreover, recall that bL and bR are the top-r left and right singular vectors of c
+M IPW. Define (d1 +
+d2) × (2r) matrices
+Θ =
+
+L
+0
+0
+R
+
+
+bΘ =
+
+
+bL
+0
+0
+bR
+
+
+A =
+
+0
+M
+M ⊤
+0
+
+.
+Then, we can write
+bΘbΘ⊤AbΘbΘ⊤−ΘΘ⊤AΘΘ⊤=
+
+
+0
+bLbL⊤M bR bR⊤−M
+(bLbL⊤M bR bR⊤−M)⊤
+0
+
+.
+We further define
+eQ =
+
+0
+Q
+0
+0
+
+
+and
+bE =
+
+0
+bZ
+bZ⊤
+0
+
+,
+where bZ = bZ1 + bZ2. Therefore, we have
+⟨bLbL⊤M bR bR⊤−M, Q⟩= ⟨bΘbΘ⊤AbΘbΘ⊤−ΘΘ⊤AΘΘ⊤, eQ⟩.
+Define
+P−s =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LΛ−sL⊤
+0
+0
+RΛ−sR⊤
+
+
+if s is even
+
+
+0
+LΛ−sR⊤
+RΛ−sL⊤
+0
+
+
+if s is odd,
+58
+
+````
+
+## PDF page 59
+
+FORMULA CHECK REQUIRED: original PDF page 59.
+
+````text
+and
+P0 = P⊥=
+
+L⊥L⊤
+⊥
+0
+0
+R⊥R⊤
+⊥
+
+.
+By Theorem 1 in Xia [2021], bΘbΘ⊤−ΘΘ⊤has explicit representation formula of empirical spectral
+projector, in the form of
+bΘbΘ⊤−ΘΘ⊤=
+∞
+X
+k=1
+SA,k( bE)
+SA,k( bE) =
+k
+X
+s1+···+sk+1=k
+(−1)1+τ(s)P−s1 bEP−s2 · · · P−sk bEP−sk+1
+where s1, · · · , sk+1 ≥0 are integers, τ(s) = Pk+1
+i=1 1(si > 0).
+As a result,
+bΘbΘ⊤AbΘbΘ⊤−ΘΘ⊤AΘΘ⊤= (SA,1( bE)AΘΘ⊤+ ΘΘ⊤ASA,1( bE)) +
+∞
+X
+k=2
+(SA,k( bE)AΘΘ⊤+ ΘΘ⊤ASA,k( bE))
++ (bΘbΘ⊤−ΘΘ⊤)A(bΘbΘ⊤−ΘΘ⊤).
+By definition of SA,1( bE),
+⟨SA,1( bE)AΘΘ⊤+ ΘΘ⊤ASA,1( bE), eQ⟩= ⟨LL⊤bZR⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZRR⊤, Q⟩
+= ⟨LL⊤bZ1R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ1RR⊤, Q⟩+ ⟨LL⊤bZ2R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ2RR⊤, Q⟩.
+Combine all the terms above, ⟨c
+M, Q⟩−⟨M, Q⟩can be decomposed into
+⟨c
+M, Q⟩−⟨M, Q⟩= ⟨LL⊤bZ1R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ1RR⊤, Q⟩+ ⟨LL⊤bZ1RR⊤, Q⟩
+(13)
++ ⟨LL⊤bZ2R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ2RR⊤, Q⟩+ ⟨LL⊤bZ2RR⊤, Q⟩
+(14)
++ ⟨bLbL⊤bZ bR bR⊤, Q⟩−⟨LL⊤bZRR⊤, Q⟩
+(15)
++ ⟨
+∞
+X
+k=2
+(SA,k( bE)AΘΘ⊤+ ΘΘ⊤ASA,k( bE)), eQ⟩+ ⟨(bΘbΘ⊤−ΘΘ⊤)A(bΘbΘ⊤−ΘΘ⊤), eQ⟩.
+(16)
+59
+
+````
+
+## PDF page 60
+
+FORMULA CHECK REQUIRED: original PDF page 60.
+
+````text
+In Lemma 4, we aim to show equation (13) is the main term which is asymptotic normal. In Lemma
+5, Lemma 6 and Lemma 7, we show equation (14), (15) and (16) are negligible higher order terms,
+respectively.
+Lemma 4. Under the conditions in Theorem 3,
+
+⟨LL⊤bZ1R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ1RR⊤, Q⟩+ ⟨LL⊤bZ1RR⊤, Q⟩
+
+σS
+p
+d1d2/T 1−γ
+→N(0, 1)
+where S2 = 1/T γ∥PΩ1PM(Q)∥2
+F + Cγ∥PΩ0PM(Q)∥2
+F.
+Lemma 5. Under the conditions in Theorem 3,
+⟨LL⊤bZ2R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ2RR⊤, Q⟩+ ⟨LL⊤bZ2RR⊤, Q⟩
+
+σS
+p
+d1d2/T 1−γ
+p→0.
+Lemma 6. Under the conditions in Theorem 3,
+⟨bLbL⊤bZ bR bR⊤, Q⟩−⟨LL⊤bZRR⊤, Q⟩
+
+σS
+p
+d1d2/T 1−γ
+p→0.
+Lemma 7. Under the conditions in Theorem 3,
+ P∞
+k=2⟨(SA,k( bE)AΘΘ⊤+ ΘΘ⊤ASA,k( bE)), eQ⟩
+
+σS
+p
+d1d1/T 1−γ
+p→0,
+⟨(bΘbΘ⊤−ΘΘ⊤)A(bΘbΘ⊤−ΘΘ⊤), eQ⟩
+
+σS
+p
+d1d1/T 1−γ
+p→0.
+Combine Lemma 4-7, we can conclude that
+⟨c
+M, Q⟩−⟨M, Q⟩
+σS
+p
+d1d2/T 1−γ →N(0, 1).
+C.4
+Proof of Theorem 4
+Proof. Without loss of generality, we only prove the i = 1 case. As long as we show bσ2
+p→σ2 and
+bS2
+p→S2, then by Slutsky’s Theorem, we can obtain the desired result.
+60
+
+````
+
+## PDF page 61
+
+FORMULA CHECK REQUIRED: original PDF page 61.
+
+````text
+bσ2
+p→σ2
+Notice that, bσ2 can be written as
+bσ2 = b
+T
+T
+X
+t=T0+1
+1(at = 1)
+πt
+⟨M −c
+Mt−1, Xt⟩2
+|
+{z
+}
+I
++ 2b
+T
+T
+X
+t=T0+1
+1(at = 1)
+πt
+⟨M −c
+Mt−1, Xt⟩ξt
+|
+{z
+}
+II
++ b
+T
+T
+X
+t=T0+1
+1(at = 1)
+πt
+ξ2
+t
+|
+{z
+}
+III
+.
+For term I,
+ b
+T
+1(at = 1)
+πt
+⟨M −c
+Mt−1, Xt⟩2 ≲tγ
+T ∥b∆t−1∥2
+max ≲
+1
+T 1−γ σ2,
+and
+E
+ b2
+T 2
+1(at = 1)
+π2
+t
+⟨M −c
+Mt−1, Xt⟩4Ft−1
+
+≤b2
+T 2
+2
+εt
+∥b∆t−1∥2
+max
+1
+d1d2
+∥b∆t−1∥2
+F
+≲tγ
+T 2σ4.
+By martingale Bernstein inequality, with probability at least 1 −d−2
+1 ,
+I ≲
+
+b
+T
+T
+X
+t=T0+1
+E
+1(at = 1)
+πt
+⟨M −c
+Mt−1, Xt⟩2Ft−1
+  +
+r
+log d1
+T 1−γ σ2
+≲d1rσ2 log4 d1poly(µ, r, κ)
+T 1−γ
++
+r
+log d1
+T 1−γ σ2,
+which indicates I
+p→0 when d1 log4 d1
+T 1−γ
+→0.
+Similarly, for term II, note that |ξt| is bounded with σ log1/2 d1 with high probability,
+
+2b
+T
+1(at = 1)
+πt
+⟨M −c
+Mt−1, Xt⟩ξt
+ ≤2b
+T
+2
+εt
+∥b∆t−1∥maxσ log1/2 d1 ≲σ2 log1/2 d1
+T 1−γ
+,
+and
+E
+4b2
+T 2
+1(at = 1)
+π2
+t
+⟨M −c
+Mt−1, Xt⟩2ξ2
+t |Ft−1
+
+≲tγσ2
+T 2 ∥b∆t−1∥2
+max ≲tγσ4
+T 2 .
+61
+
+````
+
+## PDF page 62
+
+FORMULA CHECK REQUIRED: original PDF page 62.
+
+````text
+By martingale Bernstein inequality, with probability at least 1 −d−2
+1 ,
+II −2b
+T
+T
+X
+t=T0+1
+E
+1(at = 1)
+πt
+⟨M −c
+Mt−1, Xt⟩ξt|Ft−1
+  ≲
+r
+log d1
+T 1−γ σ2,
+which indicates II
+p→0 as long as log d1
+T 1−γ →0.
+Lastly, for term III,
+∥b
+T
+1(at = 1)
+πt
+ξ2
+t ∥ψ1 ≲tγσ2
+T ,
+and
+E
+ b2
+T 2
+1(at = 1)
+π2
+t
+ξ4
+t |Ft−1
+
+≲tγσ4
+T .
+By martingale Bernstein inequality, with probability at least 1 −d−2
+1 ,
+III −b
+T
+T
+X
+t=T0+1
+E
+1(at = 1)
+πt
+ξ2
+t |Ft−1
+  ≲
+r
+log d1
+T 1−γ σ2,
+which indicates III
+p→σ2 as long as log d1
+T 1−γ →0.
+Showing bS2
+p→S2.
+Notice that
+∥PM(Q)∥2
+F −∥Pc
+M(Q)∥2
+F
+ =
+∥L⊤Q∥2
+F + ∥L⊤
+⊥QR∥2
+F −∥bL⊤Q∥2
+F −∥bL⊤
+⊥Q bR∥2
+F
+
+≤
+∥L⊤Q∥2
+F −∥bL⊤Q∥2
+F
+ +
+∥L⊤
+⊥QR∥2
+F −∥bL⊤
+⊥Q bR∥2
+F
+ .
+Observing that L and bL both have orthonormal columns, then
+∥L⊤Q∥2
+F −∥bL⊤Q∥2
+F
+ =
+∥LL⊤Q∥2
+F −∥bLbL⊤Q∥2
+F
+
+≤∥(LL⊤−bLbL⊤)Q∥2
+F + 2
+⟨(LL⊤−bLbL⊤)Q, LL⊤Q⟩
+ .
+In the following we shall consider the upper bound under the event E defined in the proof of Lemma
+62
+
+````
+
+## PDF page 63
+
+FORMULA CHECK REQUIRED: original PDF page 63.
+
+````text
+10. The probability of the following event
+∥(LL⊤−bLbL⊤)Q∥2
+F ≤
+ X
+j1,j2
+|Q(j1, j2)|∥(LL⊤−bLbL⊤)ej1∥
+!2
+≤∥Q∥2
+ℓ1∥LL⊤−bLbL⊤∥2
+2,max ≲∥Q∥2
+ℓ1
+σ2
+λ2
+min
+µrd1d2 log d1
+T 1−γ
+.
+approaches 1 as ∥Q∥2
+ℓ1
+σ2
+λ2
+min
+d1d2 log d1
+T 1−γ
+→0, which can be easily satisfied under the conditions in Theorem
+3.
+Similarly,
+⟨(LL⊤−bLbL⊤)Q, LL⊤Q⟩
+ ≤∥L⊤Q∥F∥L⊤(LL⊤−bLbL⊤)Q∥F
+≤∥L⊤Q∥F∥Q∥ℓ1∥∥LL⊤−bLbL⊤∥2,max ≲∥Q∥F∥Q∥ℓ1
+σ
+λmin
+r
+µrd1d2 log d1
+T 1−γ
+.
+Therefore, as long as ∥Q∥F∥Q∥ℓ1
+σ
+λmin
+q
+µrd1d2 log d1
+T 1−γ
+→0, the above term converges to 0 in probability.
+Next we bound
+∥L⊤
+⊥QR∥2
+F −∥bL⊤
+⊥Q bR∥2
+F
+. It can be decomposed into
+∥L⊤
+⊥QR∥2
+F −∥bL⊤
+⊥Q bR∥2
+F
+ ≤
+∥L⊤
+⊥QR∥2
+F −∥L⊤
+⊥Q bR∥2
+F
+ +
+∥L⊤
+⊥Q bR∥2
+F −∥bL⊤
+⊥Q bR∥2
+F
+ .
+It follows that
+∥L⊤
+⊥QR∥2
+F −∥L⊤
+⊥Q bR∥2
+F
+ ≤∥L⊤
+⊥Q(RR⊤−bR bR⊤)∥2
+F + 2
+⟨L⊤
+⊥Q(RR⊤−bR bR⊤), L⊤
+⊥QR⟩
+
+≲∥Q∥2
+ℓ1
+σ2
+λ2
+min
+µrd2
+1 log d1
+T
++ ∥L⊤
+⊥QR∥F∥Q∥ℓ1
+σ
+λmin
+r
+µrd2
+1 log d1
+T 1−γ
+,
+and
+∥L⊤
+⊥Q bR∥2
+F −∥bL⊤
+⊥Q bR∥2
+F
+ ≤∥(bLbL⊤−LL⊤)Q bR bR⊤∥2
+F + 2
+⟨L⊤
+⊥Q(RR⊤−bR bR⊤), L⊤
+⊥Q bR⟩
+
+≲∥Q∥2
+ℓ1
+σ2
+λ2
+min
+µrd1d2 log d1
+T 1−γ
++ (∥L⊤
+⊥QR∥F + ∥L⊤
+⊥Q(RR⊤−bR bR⊤)∥F)∥Q∥ℓ1
+σ
+λmin
+r
+µrd2
+1 log d1
+T 1−γ
+≲∥Q∥2
+ℓ1
+σ2
+λ2
+min
+µrd1d2 log d1
+T 1−γ
++ ∥L⊤
+⊥QR∥F∥Q∥ℓ1
+σ
+λmin
+r
+µrd2
+1 log d1
+T 1−γ
++ ∥Q∥2
+ℓ1
+σ2
+λ2
+min
+µrd2
+1 log d1
+T 1−γ
+.
+We can show
+∥L⊤
+⊥Q bR∥2
+F −∥bL⊤
+⊥Q bR∥2
+F
+ converges to 0 in probability as long as ∥Q∥2
+ℓ1
+σ2
+λ2
+min
+d2
+1 log d1
+T 1−γ
+→
+63
+
+````
+
+## PDF page 64
+
+FORMULA CHECK REQUIRED: original PDF page 64.
+
+````text
+0.
+As a result, ∥Pc
+M(Q)∥2
+F
+p→∥PM(Q)∥2
+F.
+By Lemma 8, it directly follows ∥PbΩi,T Pc
+M(Q)∥2
+F
+p→
+∥PΩiPM(Q)∥2
+F for i = 0, 1. Moreover, bT →1 when T →∞. Then by Slutsky’s Theorem, bS2
+p→
+S2.
+C.5
+Proof of Corollary 1
+Proof. Note that
+(⟨c
+M1, Q⟩−⟨c
+M0, Q⟩) −(⟨M1, Q⟩−⟨M0, Q⟩) = (⟨c
+M1, Q⟩−⟨M1, Q⟩) −(⟨c
+M0, Q⟩−⟨M0, Q⟩),
+then ⟨c
+M1, Q⟩−⟨M1, Q⟩and ⟨c
+M0, Q⟩−⟨M0, Q⟩can be decomposed into main term and negligible
+terms in the same way as Theorem 3. The upper bound of all the negligible terms for both i = 0
+and 1 still follow the Lemma 5-7. The main CLT term is
+b
+T
+T
+X
+t1=T0+1
+d1d21(at1 = 1)
+πt1
+ξt1⟨Xt1, PM1(Q)⟩−b
+T
+T
+X
+t2=T0+1
+d1d21(at2 = 0)
+1 −πt2
+ξt2⟨Xt2, PM0(Q)⟩.
+As long as we show PT
+t1=T0+1
+d1d21(at1=1)
+πt1
+ξt1⟨Xt1, PM1(Q)⟩is uncorrelated with
+PT
+t2=T0+1
+d1d21(at2=0)
+1−πt2
+ξt2⟨Xt2, PM0(Q)⟩, then the asymptotic variance is the sum of their individual
+variance, i.e., σ2
+1S2
+1 + σ2
+0S2
+0. Notice that,
+b2
+T 2
+T
+X
+t1=T0+1
+d1d21(at1 = 1)
+πt1
+ξt1⟨Xt1, PM1(Q)⟩
+T
+X
+t2=T0+1
+d1d21(at2 = 0)
+1 −πt2
+ξt2⟨Xt2, PM0(Q)⟩
+= b2d2
+1d2
+2
+T 2
+T
+X
+t1=T0+1
+T
+X
+t2=T0+1
+1(at1 = 1)1(at2 = 0)
+πt1(1 −πt2)
+ξt1ξt2⟨Xt1, PM1(Q)⟩⟨Xt2, PM0(Q)⟩.
+When t1 = t2, 1(at1 = 1)1(at2 = 0) = 0. When t1̸ = t2, E[
+1(at1=1)1(at2=0)
+πt1(1−πt2)
+ξt1ξt2Xt1Xt2] = 0 due to the
+i.i.d. distributed ξt. As a result, the two terms are uncorrelated.
+Together with Lemma 5-7, all the negligible terms converge to 0 when divided by
+p
+(σ2
+1S2
+1 + σ2
+0S2
+0)d1d2/T 1−γ. Then similar as Theorem 4, we can replace σ2
+1S2
+1 +σ2
+0S2
+0 with bσ2
+1 bS2
+1 +bσ2
+0 bS2
+0
+and conclude the proof.
+64
+
+````
+
+## PDF page 65
+
+FORMULA CHECK REQUIRED: original PDF page 65.
+
+````text
+D
+Proofs of Technical Lemmas
+D.1
+Proof of Lemma 1
+Proof. Step 1: uniform bound for Qt
+k=τ+1(1 −f(ηk))Aτ and Qt
+k=τ+1(1 −f(ηk))Bτ.
+For ∀1 ≤τ ≤t −1, under Eτ−1, by inequality (a + b + c)2 ≤3(a2 + b2 + c3),
+∥∆τ∥2
+F ≤24
+ε2
+τ
+η2
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξt)2 max(∥bVτ−1 bV ⊤
+τ−1∥2
+2,max, ∥bUτ−1 bU ⊤
+τ−1∥2
+2,max)
++ 48
+ε4
+t
+η4
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)4∥bVτ−1 bU ⊤
+τ−1∥2
+max.
+Since ∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max ≲µ0rκ2
+d2 ∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F ≲µ0rκ2 Qτ−1
+k=1(1 −f(ηk)
+2 )
+∥bU0 bV ⊤
+0 −M∥2
+F
+d2
++
+Pτ−1
+k=1
+µ0κ2η2
+kr2λ2
+maxσ2 log2 d1
+εkd2
+2
+. And by the property of subGaussian random variable, max |ξτ| < Cσ log1/2 d1
+for some constant C. Therefore,
+∥∆τ∥2
+F ≲η2
+τ
+ε2
+τ
+µ0rλ2
+max
+d2
+ 
+µ0rκ2
+τ−1
+Y
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F
+d2
++
+τ−1
+X
+k=1
+µ0κ2η2
+kr2λ2
+maxσ2 log2 d1
+εkd2
+2
++ σ2 log d1
+!
++ η4
+τ
+ε4
+τ
+µ3
+0r3κ2λ2
+max
+d1d2
+ 
+µ2
+0r2λ2
+max
+d1d2
+ τ−1
+Y
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F
+d2
++
+τ−1
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+2
+!
++ σ4 log2 d1
+!
+,
+where we use ∥bUτ−1 bV ⊤
+τ−1 −M∥4
+max = ∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max ≲2µ3
+0r3κ2λ2
+max
+d1d2
+(Qτ−1
+k=1(1 −
+f(ηk)
+2 )
+∥bU0 bV ⊤
+0 −M∥2
+F
+d2
++ Pτ−1
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+2
+) in the second line. The fourth order terms will be domi-
+nated as long as ητ ≲
+ετd1d1/2
+2
+µ0rλmax and λ2
+min
+σ2
+≫
+η2
+τ
+ε2τ
+µ0rλ2
+max log d1
+d1κ2
+. So ∥∆τ∥2
+F ≲
+η2
+τ
+ε2τ
+µ0rλ2
+max
+d2
+(µ0rκ2 Qτ−1
+k=1(1 −
+f(ηk)
+2 )
+∥U0V ⊤
+0 −M∥2
+F
+d2
++ Pτ−1
+k=1
+µ0κ2η2
+kr2λ2
+maxσ2 log2 d1
+εkd2
+2
++ σ2 log d1).
+Similarly,
+⟨∆τ, bUτ−1 bV ⊤
+τ−1 −M⟩
+ ≤
+
+1(aτ = 1)
+πτ
+ητ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)⟨Xτ, (bUτ−1 bV ⊤
+τ−1 −M)bVτ−1 bV ⊤
+τ−1⟩
+
++
+
+1(aτ = 1)
+πτ
+ηt(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)⟨Xτ, bUτ−1 bU ⊤
+τ−1(bUτ−1 bV ⊤
+τ−1 −M)⟩
+
++
+
+1(aτ = 1)
+π2
+τ
+η2
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)2⟨Xτ bVτ−1 bU ⊤
+τ−1Xτ, bUτ−1 bV ⊤
+τ−1 −M⟩
+ .
+65
+
+````
+
+## PDF page 66
+
+FORMULA CHECK REQUIRED: original PDF page 66.
+
+````text
+For term ⟨Xτ, (Uτ−1V ⊤
+τ−1 −M)bVτ−1 bV ⊤
+τ−1⟩, we have
+⟨Xτ, (bUτ−1 bV ⊤
+τ−1 −M)bVτ−1 bV ⊤
+τ−1⟩= ⟨Xτ bVτ−1 bV ⊤
+τ−1, bUτ−1 bV ⊤
+τ−1 −M⟩
+≤∥bVτ−1 bV ⊤
+τ−1∥2,max∥bUτ−1 bV ⊤
+τ−1 −M∥F ≤
+s
+µ0rλ2
+max
+d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥F.
+By symmetry, ⟨Xτ, bUτ−1 bU ⊤
+τ−1(bUτ−1 bV ⊤
+τ−1 −M)⟩≤
+q
+µ0rλ2max
+d1
+∥bUτ−1 bV ⊤
+τ−1 −M∥F. In addition,
+⟨Xτ bVτ−1 bU ⊤
+τ−1Xτ, bUτ−1 bV ⊤
+τ−1 −M⟩≤∥bVτ−1 bU ⊤
+τ−1∥max∥bUτ−1 bV ⊤
+τ−1 −M∥F ≤µ0rλmax
+√d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥F.
+Therefore,
+|⟨∆τ, bUτ−1 bV ⊤
+τ−1 −M⟩| ≲ητ
+ετ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥max + σ log1/2 d1)
+s
+µ0rλ2
+max
+d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥F
++ η2
+τ
+ε2
+τ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max + σ2 log d1)µ0rλmax
+√d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥F
+≲ητ
+εt
+
+µ1/2
+0 r1/2κ
+τ−1
+Y
+k=1
+(1 −f(ηk)
+2
+)1/2∥bU0 bV ⊤
+0 −M∥F
+√d2
++
+v
+u
+u
+t
+τ−1
+X
+k=1
+µ0κ2η2
+kr2λ2
+maxσ2 log2 d1
+εkd2
+2
++σ log1/2 d1
+ s
+µ0rλ2
+max
+d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥F
+≲η2
+τ
+ε2
+τ
+ 
+µ0rκ2
+τ−1
+Y
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F
+d2
++
+τ−1
+X
+k=1
+µ0κ2η2
+kr2λ2
+maxσ2 log2 d1
+εkd2
+2
++ σ2 log2 d1
+!
+µ0rλ2
+max
+d2
+log d1
++
+ τ−1
+Y
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F +
+τ−1
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+!
+log−1 d1.
+By dealing ∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max ≲µ3/2
+0
+r3/2κλmax
+√d1d2
+(Qτ−1
+k=1(1−f(ηk)
+2 )1/2 ∥bU0 bV ⊤
+0 −M∥F
+√d2
++
+qPτ−1
+k=1
+η2
+krλ2maxσ2 log2 d1
+εkd2
+2
+)
+as before, the second inequality holds since the second order term will be dominated as long as
+ητ ≲
+ετd1d1/2
+2
+µ0rκλmax and λ2
+min
+σ2 ≫η2
+τ
+ε2τ
+µ0rλ2
+max log d1
+d1κ2
+. And the third inequality holds by 2ab ≤a2 + b2.
+66
+
+````
+
+## PDF page 67
+
+FORMULA CHECK REQUIRED: original PDF page 67.
+
+````text
+As a result, we have the uniform bound of Qt
+k=τ+1(1 −f(ηk))Aτ for 1 ≤τ ≤t −1,
+tY
+k=τ+1
+(1 −f(ηk))Aτ ≲
+tY
+k=τ+1
+(1 −f(ηk))
+ 
+µ0rκ2
+τ−1
+Y
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F
+d2
++
+τ−1
+X
+k=1
+µ0κ2η2
+kr2λ2
+maxσ2 log2 d1
+εkd2
+2
++ σ2 log d1
+!
+η2
+τ
+ε2
+τ
+µ0rλ2
+max
+d2
+log d1
++
+tY
+k=τ+1
+(1 −f(ηk))
+ τ−1
+Y
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F +
+τ−1
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+!
+log−1 d1
+≲max
+τ
+η2
+τ
+ε2
+τ
+µ0rλ2
+max
+d2
+log d1
+ 
+µ0rκ2
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F
+d2
++
+t−1
+X
+k=1
+µ0κ2η2
+kr2λ2
+maxσ2 log2 d1
+εkd2
+2
++ σ2 log d1
+!
++
+ tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F +
+t
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+!
+log−1 d1 := RA.
+Similarly,
+tY
+k=τ+1
+(1 −f(ηk))Bτ ≲max
+τ
+η2
+τ
+ε2
+τ
+µ0rλ2
+max
+d2
+ 
+µ0rκ2
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F
+d2
++
+t
+X
+k=1
+µ0κ2η2
+kr2λ2
+maxσ2 log2 d1
+εkd2
+2
++ σ2 log d1
+!
+:= RB.
+Obviously, the uniform bounds for At and Bt are the same as above.
+Step 2: calculating the variance.
+Denote the variance of Qt
+k=τ+1(1 −f(ηk))Aτ as σ2
+Aτ,
+σ2
+Aτ ≲
+tY
+k=τ+1
+(1 −f(ηk))2E
+1(aτ = 1)
+π2
+τ
+η2
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)2⟨Xτ, (bUτ−1 bV ⊤
+τ−1 −M)bVτ−1 bV ⊤
+τ−1⟩2Fτ−1
+
++
+tY
+k=τ+1
+(1 −f(ηk))2E
+1(aτ = 1)
+π2
+τ
+η2
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)2⟨Xτ, bUτ−1 bU ⊤
+τ−1(bUτ−1 bV ⊤
+τ−1 −M)⟩2Fτ−1
+
++
+tY
+k=τ+1
+(1 −f(ηk))2E
+1(aτ = 1)
+π4
+τ
+η4
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)4⟨Xτ bVτ−1 bU ⊤
+τ−1Xτ, bUτ−1 bV ⊤
+τ−1 −M⟩2Fτ−1
+
+.
+67
+
+````
+
+## PDF page 68
+
+FORMULA CHECK REQUIRED: original PDF page 68.
+
+````text
+For the first expectation, we have
+E
+1(aτ = 1)
+π2
+τ
+η2
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)2⟨Xτ, (bUτ−1 bV ⊤
+τ−1 −M)bVτ−1 bV ⊤
+τ−1⟩2Fτ−1
+
+≤2η2
+τ
+ετ
+E
+h
+⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩2|Ft−1
+i ⟨Xτ bVτ−1 bV ⊤
+τ−1, bUτ−1 bV ⊤
+τ−1 −M⟩
+
+2
++ 2η2
+τ
+ετ
+E[ξ2
+τ]E
+
+⟨Xτ, (bUτ−1 bV ⊤
+τ−1 −M)bVτ−1 bV ⊤
+τ−1⟩2|Fτ−1
+
+≤2η2
+τ
+ετ
+1
+d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F∥bVτ−1 bV ⊤
+τ−1∥2
+2,max
++ 2η2
+τσ2
+ετ
+1
+d1d2
+X
+ij
+
+(bUτ−1 bV ⊤
+τ−1 −M)bVτ−1 bV ⊤
+τ−1
+2
+ij
+≤2η2
+τ
+ετ
+1
+d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥4
+F
+µ0rλ2
+max
+d2
++ 2η2
+τσ2
+ετ
+1
+d1d2
+∥(bUτ−1 bV ⊤
+τ−1 −M)bVτ−1 bV ⊤
+τ−1∥2
+F
+≤2η2
+τ
+ετ
+1
+d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥4
+F
+µ0rλ2
+max
+d2
++ 2η2
+τσ2
+ετ
+1
+d1d2
+∥bVτ−1 bV ⊤
+τ−1∥2∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F
+≤2η2
+τ
+ετ
+1
+d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥4
+F
+µ0rλ2
+max
+d2
++ 2η2
+τσ2
+ετ
+O(λ2
+max)
+d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F.
+By symmetry,
+E
+1(aτ = 1)
+π2
+τ
+η2
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)2⟨Xτ, bUτ−1 bU ⊤
+τ−1(bUτ−1 bV ⊤
+τ−1 −M)⟩2Fτ−1
+
+≤2η2
+τ
+ετ
+1
+d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥4
+FO(µ0rλ2
+max
+d1
+) + 2η2
+τσ2
+ετ
+O(λ2
+max)
+d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F.
+And the last expectation is
+E
+1(aτ = 1)
+π4
+τ
+η4
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)4⟨Xτ bVτ−1 bU ⊤
+τ−1Xτ, bUτ−1 bV ⊤
+τ−1 −M⟩2Fτ−1
+
+≲η4
+τ
+ε3
+τ
+ 
+1
+d1d2
+X
+ij
+(bUτ−1 bV ⊤
+τ−1 −M)4 + σ4
+!
+∥bVτ−1 bU ⊤
+τ−1∥2
+max∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F
+≲η4
+τ
+ε3
+τ
+ 
+1
+d1d2
+X
+ij
+(bUτ−1 bV ⊤
+τ−1 −M)4 + σ4
+!
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F
+µ2
+0r2λ2
+max
+d1d2
+.
+This gives,
+σ2
+Aτ ≲
+tY
+k=τ+1
+(1 −f(ηk))2η2
+τ
+ετ
+1
+d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥4
+F
+µ0rλ2
+max
+d2
++
+tY
+k=τ+1
+(1 −f(ηk))2η2
+τλ2
+maxσ2
+ετd1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F.
+68
+
+````
+
+## PDF page 69
+
+FORMULA CHECK REQUIRED: original PDF page 69.
+
+````text
+The fourth order terms is dominated as long as ητ ≲
+ετd1d1/2
+2
+√d1d2λmax and
+λ2
+min
+σ2
+≫
+η2
+τ
+ε2τ
+µ0rλ2
+max
+d1κ2 .
+Since
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F ≤Qτ−1
+k=1(1 −f(ηk)
+2 )∥bU0 bV ⊤
+0 −M∥2
+F + Pτ−1
+k=1
+c2η2
+krλ2
+maxσ2 log2 d1
+εkd2
+, we can further obtain
+σ2
+Aτ ≲η2
+τ
+ετ
+1
+d1d2
+
+
+tY
+k=1
+(1 −f(ηk)
+2
+)2∥bU0 bV ⊤
+0 −M∥4
+F +
+ 
+t
+X
+k=1
+c2η2
+krλ2
+maxσ2 log2 d1
+εkd2
+!2
+µ0rλ2
+max
+d2
++ η2
+τλ2
+maxσ2
+ετd1d2
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F + η2
+τλ2
+maxσ2
+ετd1d2
+t
+X
+k=1
+c2η2
+krλ2
+maxσ2 log2 d1
+εkd2
+.
+As a result,
+v
+u
+u
+t
+t
+X
+τ=1
+σ2
+Aτ ≲
+v
+u
+u
+t
+t
+X
+τ=1
+η2
+τ
+ετ
+1
+√d1d2
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+FO(
+s
+µ0rλ2
+max
+d2
+)
++
+v
+u
+u
+t
+t
+X
+τ=1
+η2
+τ
+ετ
+1
+√d1d2
+t
+X
+k=1
+c2η2
+krλ2
+maxσ2 log2 d1
+εkd2
+O(
+s
+µ0rλ2
+max
+d2
+)
++
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F log−1/2 d1 +
+t
+X
+τ=1
+η2
+τλ2
+maxσ2 log3/2 d1
+ετd1d2
+,
+where we apply inequality 2ab ≤a2 +b2 to term
+qPt
+τ=1
+η2τ
+ετ
+q
+λ2maxσ2
+d1d2
+Qt
+k=1(1−f(ηk)
+2 )1/2∥bU0 bV ⊤
+0 −M∥F.
+Similarly, denote the variance of Qt
+k=τ+1(1 −f(ηk))Bτ as σ2
+Bτ, it can be shown that,
+σ2
+Bτ ≲
+tY
+k=τ+1
+(1 −f(ηk))2η4
+τ
+ε3
+τ
+
+E
+h
+⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩4|Fτ−1
+i
+max
+
+∥bVτ−1 bV ⊤
+τ−1∥4
+2,max, ∥bUτ−1 bU ⊤
+τ−1∥4
+2,max
+
++E[ξ4
+τ] max
+
+E
+h
+∥Xτ bVτ−1 bV ⊤
+τ−1∥4
+F|Fτ−1
+i
+, E
+h
+∥bUτ−1 bU ⊤
+τ−1Xτ∥4
+F|Fτ−1
+i
+≲
+tY
+k=τ+1
+(1 −f(ηk))2η4
+τ
+ε3
+τ
+ 1
+d1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max
+µ2
+0r2λ4
+max
+d2
+2
++ σ4µ0rλ4
+max
+d2
+2
+
+≲η4
+τ
+ε3
+τ
+1
+d1d2
+2
+ tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥F +
+t
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+!2
+µ3
+0r3κ2λ4
+max
+d2
+2
++ η4
+τ
+ε3
+τ
+σ4µ0rλ4
+max
+d2
+2
+,
+where the second term in the second last inequality comes from
+E
+
+∥Xτ bVτ−1 bV ⊤
+τ−1∥4
+F|Fτ−1
+
+≤E
+
+∥Xτ bVτ−1 bV ⊤
+τ−1∥2
+F|Fτ−1
+
+∥bVτ−1 bV ⊤
+τ−1∥2
+2,max ≤rO(λ2
+max)
+d2
+O(µ0rλ2
+max
+d2
+).
+69
+
+````
+
+## PDF page 70
+
+FORMULA CHECK REQUIRED: original PDF page 70.
+
+````text
+And in the last inequality we again use
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max ≲µ0rκ2
+d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+F
+≲µ0rκ2
+τ−1
+Y
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥F
+d2
++
+τ−1
+X
+k=1
+µ0κ2η2
+kr2λ2
+maxσ2 log2 d1
+εkd2
+2
+.
+Therefore,
+v
+u
+u
+t
+t
+X
+τ=1
+σ2
+Bτ ≲
+v
+u
+u
+t
+t
+X
+τ=1
+η4
+τ
+ε3
+τ
+1
+d1d1/2
+2
+(
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥F
++
+t
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+)µ0rλ2
+max
+d2
++
+v
+u
+u
+t
+t
+X
+τ=1
+η4
+τ
+ε3
+τ
+µ0rλ2
+maxσ2
+d2
+.
+Step 3: Proof of concentration.
+From the calculation in Step 2,
+RA log d1 +
+v
+u
+u
+t
+t
+X
+τ=1
+σ2
+Aτ log d1 ≲
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F +
+t
+X
+k=1
+c2η2
+krλ2
+maxσ2 log2 d1
+εkd2
+and
+RB log d1 +
+v
+u
+u
+t
+t
+X
+τ=1
+σ2
+Bτ log d1 ≲
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F +
+t
+X
+k=1
+c2η2
+krλ2
+maxσ2 log2 d1
+εkd2
+,
+as long as: (1). maxτ≤t
+η2
+τ
+ε2τ ≤Pt
+τ=1
+η2
+τ
+ετ ; (2). ητ ≲
+ετd2
+√µ0rλmax log1/2 d1; (3). Pt
+τ=1
+η2
+τ
+ετ ≲
+d1d2
+2
+µ0rλ2max log d1; (4).
+Pt
+τ=1
+η4
+τ
+ε3τ ≲
+d2
+1d3
+2
+µ2
+0r2λ4max log d1; (5).
+qPt
+τ=1
+η4τ
+ε3τ ≲Pt
+τ=1
+η2
+τ
+ετ . Under the stepsize and SNR conditions in
+Equation 11, all of them can be satisfied.
+By martingale Bernstein inequality, with probability at least 1 −d−200
+1
+,
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Aτ + At ≲
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F +
+t
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+,
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Bτ + Bt ≲
+tY
+k=1
+(1 −f(ηk)
+2
+)∥bU0 bV ⊤
+0 −M∥2
+F +
+t
+X
+k=1
+η2
+krλ2
+maxσ2 log2 d1
+εkd2
+.
+70
+
+````
+
+## PDF page 71
+
+FORMULA CHECK REQUIRED: original PDF page 71.
+
+````text
+D.2
+Proof of Lemma 2
+Proof. For any l in [d1],
+∥e⊤
+l bUt bV ⊤
+t ∥2 = e⊤
+l (bUt−1 bV ⊤
+t−1 −∆t)(bVt−1 bU ⊤
+t−1 −∆⊤
+t )el = ∥e⊤
+l bUt−1 bV ⊤
+t−1∥2 −2e⊤
+l ∆t bVt−1 bU ⊤
+t−1el + ∥e⊤
+l ∆t∥2.
+This leads to
+E[∥e⊤
+l bUt bV ⊤
+t ∥2|Ft−1] = ∥e⊤
+l bUt−1 bV ⊤
+t−1∥2 −2E[e⊤
+l ∆t bVt−1 bU ⊤
+t−1el|Ft−1] + E[∥e⊤
+l ∆t∥2|Ft−1].
+We first compute 2E[e⊤
+l ∆t bVt−1 bU ⊤
+t−1el|Ft−1]. Denote δij = 1(i = j), then
+2E(e⊤
+l ∆t bVt−1 bU ⊤
+t−1el|Ft−1) = 2E
+
+e⊤
+l
+1(at = 1)
+πt
+ηt(⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)Xt bVt−1 bV ⊤
+t−1 bVt−1 bU ⊤
+t−1el|Ft−1
+
++ 2E
+
+e⊤
+l
+1(at = 1)
+πt
+ηt(⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)bUt−1 bU ⊤
+t−1XtVt−1U ⊤
+t−1el|Ft−1
+
+−2E
+
+e⊤
+l
+1(at = 1)
+π2
+t
+η2
+t (⟨Ut−1V ⊤
+t−1 −M, Xt⟩−ξt)2XtVt−1U ⊤
+t−1XtVt−1U ⊤
+t−1el|Ft−1
+
+≥2ηt
+d1d2
+e⊤
+l (Ut−1V ⊤
+t−1 −M)bVt−1 bV ⊤
+t−1 bVt−1 bU ⊤
+t−1el + 2ηt
+d1d2
+e⊤
+l bUt−1 bU ⊤
+t−1(bUt−1 bV ⊤
+t−1 −M)bVt−1 bU ⊤
+t−1el
+−
+4η2
+t
+εtd1d2
+X
+ij
+δil(bUt−1 bV ⊤
+t−1 −M)2
+ij(bUt−1 bV ⊤
+t−1)2
+ij −4η2
+t σ2
+εtd1d2
+X
+ij
+δil(bUt−1 bV ⊤
+t−1)2
+ij
+≥ηtλmin
+d1d2
+e⊤
+l bUt−1 bV ⊤
+t−1 bVt−1 bU ⊤
+t−1el −4ηtλmax
+d1d2
+e⊤
+l M bVt−1 bU ⊤
+t−1el + ηtλmin
+d1d2
+e⊤
+l bUt−1 bV ⊤
+t−1 bVt−1 bU ⊤
+t−1el
+−4ηtλmax
+d1d2
+e⊤
+l M bVt−1 bU ⊤
+t−1el −
+4η2
+t
+εtd1d2
+µ2
+0r2λ4
+max
+d2
+1
+−4η2
+t σ2
+εtd1d2
+µ0rλ2
+max
+d1
+≥2ηtλmin
+d1d2
+∥e⊤
+l bUt−1 bV ⊤
+t−1∥2 −8ηtλmax
+d1d2
+√µµ0rλ2
+max
+d1
+−
+4η2
+t
+εtd1d2
+µ2
+0r2λ4
+max
+d2
+1
+−4η2
+t σ2
+εtd1d2
+µ0rλ2
+max
+d1
+.
+The second order term in the second last inequality comes from P
+ij δil(bUt−1 bV ⊤
+t−1−M)2
+ij(bUt−1 bV ⊤
+t−1)2
+ij ≤
+∥bUt−1 bV ⊤
+t−1 −M∥2
+2,max∥bUt−1 bV ⊤
+t−1∥2
+2,max. And the other term is similar. The last inequality holds since
+e⊤
+l M bVt−1 bU ⊤
+t−1el ≤∥e⊤
+l M∥∥bVt−1 bU ⊤
+t−1el∥and ∥e⊤
+l M∥≤
+q
+µrλ2max
+d1
+while ∥bVt−1 bU ⊤
+t−1el∥≤
+q
+µ0rλ2max
+d1
+.
+71
+
+````
+
+## PDF page 72
+
+FORMULA CHECK REQUIRED: original PDF page 72.
+
+````text
+Then we compute E(∥e⊤
+l ∆t∥2|Ft−1). Since (a + b + c)2 ≤3a2 + 3b2 + 3c2,
+E(∥e⊤
+l ∆t∥2|Ft−1) ≤3E
+
+e⊤
+l
+1(at = 1)
+π2
+t
+η2
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)2Xt bVt−1 bV ⊤
+t−1 bVt−1 bV ⊤
+t−1X⊤
+t el|Ft−1
+
++ 3E
+
+e⊤
+l
+1(at = 1)
+π2
+t
+η2
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)2 bUt−1 bU ⊤
+t−1XtX⊤
+t bUt−1 bU ⊤
+t−1el|Ft−1
+
++ 3E
+
+e⊤
+l
+1(at = 1)
+π4
+t
+η4
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)4Xt bVt−1 bU ⊤
+t−1XtX⊤
+t bUt−1 bV ⊤
+t−1X⊤
+t el|Ft−1
+
+.
+The first term can be written as,
+3E
+
+e⊤
+l
+1(at = 1)
+π2
+t
+η2
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)2Xt bVt−1 bV ⊤
+t−1 bVt−1 bV ⊤
+t−1X⊤
+t el|Ft−1
+
+≤
+6η2
+t
+εtd1d2
+X
+ij
+(bUt−1 bV ⊤
+t−1 −M)2
+ijδil∥e⊤
+j bVt−1 bV ⊤
+t−1∥2 +
+6η2
+t
+εtd1d2
+σ2 X
+ij
+δil∥e⊤
+j bVt−1 bV ⊤
+t−1∥2
+≤
+6η2
+t
+εtd1d2
+µ0rλ2
+max
+d2
+∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 + 6η2
+t
+εtd1
+µ0rλ2
+maxσ2
+d2
+≤
+6η2
+t
+εtd1d2
+µ2
+0r2λ4
+max
+d1d2
++ 6η2
+t
+εtd1
+µ0rλ2
+maxσ2
+d2
+.
+Similarly,
+3E
+
+e⊤
+l
+1(at = 1)
+π2
+t
+η2
+t (⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)2 bUt−1 bU ⊤
+t−1XtX⊤
+t bUt−1 bU ⊤
+t−1el|Ft−1
+
+≤
+6η2
+t
+εtd1d2
+X
+ij
+(bUt−1 bV ⊤
+t−1 −M)2
+ij(bUt−1 bU ⊤
+t−1)2
+li + 6η2
+t σ2
+εtd1d2
+X
+ij
+(bUt−1 bU ⊤
+t−1)2
+li
+≤
+6η2
+t
+εtd1d2
+µ2
+0r2λ4
+max
+d2
+1
++ 6η2
+t σ2
+εtd1
+µ0rλ2
+max
+d1
+.
+And the last fourth order term can be bounded in the same way. Moreover, the first order term
+8ηtλmax
+d1d2
+√µµ0rλ2
+max
+d1
+will dominate all the higher order terms as long as ηt ≲
+εtd2
+µ0rλmax and λ2
+min
+σ2 ≫ηt
+εt
+λmaxd1
+κ
+.
+So the sum of all the higher order terms will be less than 2ηtλmax
+d1d2
+√µµ0rλ2
+max
+d1
+. Recall f(ηt) = ηtλmin
+d1d2 .
+72
+
+````
+
+## PDF page 73
+
+FORMULA CHECK REQUIRED: original PDF page 73.
+
+````text
+Overall, we have
+∥e⊤
+l UtV ⊤
+t ∥2 = ∥e⊤
+l bUt−1 bV ⊤
+t−1∥2 −2e⊤
+l ∆t bVt−1 bU ⊤
+t−1el + ∥e⊤
+l ∆t∥2
+= ∥e⊤
+l bUt−1 bV ⊤
+t−1∥2 −2(e⊤
+l ∆t bVt−1 bU ⊤
+t−1el −E(e⊤
+l ∆t bVt−1 bU ⊤
+t−1el|Ft−1))
++ (∥e⊤
+l ∆t∥2 −E(∥e⊤
+l ∆t∥2|Ft−1)) −2E(e⊤
+l ∆t bVt−1 bU ⊤
+t−1el|Ft−1) + E(∥e⊤
+l ∆t∥2|Ft−1)
+≤(1 −f(ηt))∥e⊤
+l bUt−1 bV ⊤
+t−1∥2 + 10ηt√µµ0rλ3
+max
+d2
+1d2
++ 2(E(e⊤
+l ∆t bVt−1 bU ⊤
+t−1el|Ft−1) −e⊤
+l ∆t bVt−1 bU ⊤
+t−1el)
+|
+{z
+}
+At
++ (∥e⊤
+l ∆t∥2 −E(∥e⊤
+l ∆t∥2|Ft−1))
+|
+{z
+}
+Bt
+≤(1 −f(ηt))(1 −f(ηt−1))∥e⊤
+l bUt−2 bV ⊤
+t−2∥2 + (1 −f(ηt−1))10ηt−1√µµ0rλ3
+max
+d2
+1d2
++ 10ηt√µµ0rλ3
+max
+d2
+1d2
++ (1 −f(ηt))(At−1 + Bt−1) + (At + Bt)
+≤
+tY
+τ=1
+(1 −f(ητ))∥e⊤
+l bU0 bV ⊤
+0 ∥2 +
+t
+X
+τ=1
+10ητ√µµ0rλ3
+max
+d2
+1d2
++
+t
+X
+τ=1
+Aτ +
+t
+X
+τ=1
+Bτ.
+It can be shown that the first term is less than 1
+6
+µ0rλ2
+max
+d1
+. The second term will be less than 1
+2
+µ0rλ2
+max
+d1
+as long as µ0 = 100µ and Pt
+τ=1 ητ ≤
+d1d2
+2λmax, which is satisfied under the stepsize condition in Theorem
+1. Then we need to show Pt
+τ=1 Aτ ≤1
+6
+µ0rλ2
+max
+d1
+and Pt
+τ=1 Bτ ≤1
+6
+µ0rλ2
+max
+d1
+.
+Similar as the proof of Lemma 1, we first derive the uniform bound for Aτ and Bτ. Under Eτ−1,
+73
+
+````
+
+## PDF page 74
+
+FORMULA CHECK REQUIRED: original PDF page 74.
+
+````text
+obviously, ∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max ≲λ2
+max
+d1d2 . We use this trivial bound in the following calculation.
+|e⊤
+l ∆τ bVτ−1 bU ⊤
+τ−1el| ≤|e⊤
+l
+1(aτ = 1)
+πτ
+ητ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)Xτ bVτ−1 bV ⊤
+τ−1 bVτ−1 bU ⊤
+τ−1el|
++ |e⊤
+l
+1(aτ = 1)
+πτ
+ητ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)bUτ−1 bU ⊤
+τ−1Xτ bVτ−1 bU ⊤
+τ−1el|
++ |e⊤
+l
+1(aτ = 1)
+π2
+τ
+η2
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)2Xτ bVτ−1 bU ⊤
+τ−1Xτ bVτ−1 bU ⊤
+τ−1el|
+≤2ητ
+ετ
+|⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ| max
+j
+|e⊤
+j bVτ−1 bV ⊤
+τ−1 bVτ−1 bU ⊤
+τ−1el|
++ 2ητ
+ετ
+|⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ|∥e⊤
+l bUτ−1 bU ⊤
+τ−1Xτ∥∥bVτ−1 bU ⊤
+τ−1el∥
++ 4η2
+τ
+ε2
+τ
+|⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ|2 max
+j
+∥e⊤
+j bVτ−1 bU ⊤
+τ−1Xτ∥∥bVτ−1 bU ⊤
+τ−1el∥
+≤2ητ
+ετ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥max + σ log1/2 d1)µ2
+0r2λ2
+max
+d1d2
++ 2ητ
+ετ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥max + σ log1/2 d1)
+s
+µ2
+0r2λ2
+max
+d1d2
+s
+µ0rλ2
+max
+d1
++ 4η2
+τ
+ε2
+τ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max + σ2 log d1)
+s
+µ2
+0r2λ2
+max
+d1d2
+s
+µ0rλ2
+max
+d1
+≲ητ
+ετ
+( λmax
+√d1d2
++ σ log1/2 d1)
+s
+µ2
+0r2λ2
+max
+d1d2
+s
+µ0rλ2
+max
+d1
+.
+The first order term dominates as long as ητ ≲ετ
+√d1d2
+λmax
+and λ2
+min
+σ2 ≫η2
+τ
+ε2τ
+λ2
+max log d1
+κ
+. Then
+Aτ ≲max
+τ
+ητ
+ετ
+( λmax
+√d1d2
++ σ log1/2 d1)O(
+s
+µ2
+0r2λ2
+max
+d1d2
+)O(
+s
+µ0rλ2
+max
+d1
+) := RA.
+74
+
+````
+
+## PDF page 75
+
+FORMULA CHECK REQUIRED: original PDF page 75.
+
+````text
+For ∥e⊤
+l ∆τ∥2, we also have
+∥e⊤
+l ∆τ∥2 ≲|e⊤
+l
+1(aτ = 1)
+π2
+τ
+η2
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)2Xτ bVτ−1 bV ⊤
+τ−1 bVτ−1 bV ⊤
+τ−1X⊤
+τ el|
++ |e⊤
+l
+1(aτ = 1)
+π2
+τ
+η2
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)2 bUτ−1 bU ⊤
+τ−1XτX⊤
+τ bUτ−1 bU ⊤
+τ−1el|
++ |e⊤
+l
+1(aτ = 1)
+π4
+τ
+η4
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)4Xτ bVτ−1 bU ⊤
+τ−1XτX⊤
+τ bUτ−1 bV ⊤
+τ−1X⊤
+τ el|
+≲η2
+τ
+ε2
+τ
+|⟨bUτ−1 bV ⊤
+τ−1 −M, Xt⟩−ξt|2 max
+j
+|e⊤
+j bVτ−1 bV ⊤
+τ−1 bVτ−1 bV ⊤
+τ−1ej|
++ η2
+τ
+ε2
+τ
+|⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ|2∥e⊤
+l bUτ−1 bU ⊤
+τ−1Xτ∥2
++ η4
+τ
+ε4
+τ
+|⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ|4 max
+j
+∥e⊤
+j bVτ−1 bU ⊤
+τ−1Xτ∥2
+≲η2
+τ
+ε2
+τ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max + σ2 log d1)µ2
+0r2λ2
+max
+d2
+2
++ η2
+τ
+ε2
+τ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max + σ2 log d1)µ2
+0r2λ2
+max
+d2
+1
++ η4
+τ
+ε4
+τ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥4
+max + σ4 log2 d1)µ2
+0r2λ2
+max
+d1d2
+≲η2
+τ
+ε2
+τ
+(λ2
+max
+d1d2
++ σ2 log d1)µ2
+0r2λ2
+max
+d2
+2
+.
+The second order term dominates as long as ητ ≲ετd1
+λmax and λ2
+min
+σ2 ≫η2
+τ
+ε2τ
+λ2
+max log d1
+κ2
+. Then
+Bτ ≲max
+τ
+η2
+τ
+ε2
+τ
+(λ2
+max
+d1d2
++ σ2 log d1)O(µ2
+0r2λ2
+max
+d2
+2
+) := RB.
+75
+
+````
+
+## PDF page 76
+
+FORMULA CHECK REQUIRED: original PDF page 76.
+
+````text
+The variance of Aτ and Bτ, denoted as σ2
+Aτ and σ2
+Bτ, can be calculated as before.
+σ2
+Aτ ≲
+η2
+τ
+ετd1d2
+X
+ij
+(bUτ−1 bV ⊤
+τ−1 −M)2
+ijδil(bVτ−1 bV ⊤
+τ−1 bVτ−1 bU ⊤
+τ−1)2
+jl
++
+η2
+τ
+ετd1d2
+X
+ij
+(bUτ−1 bV ⊤
+τ−1 −M)2
+ij(bUτ−1 bU ⊤
+τ−1)2
+li(bVτ−1 bU ⊤
+τ−1)2
+jl
++ η2
+τσ2
+ετd1d2
+X
+ij
+δil(bVτ−1 bV ⊤
+τ−1 bVτ−1 bU ⊤
+τ−1)2
+jl + η2
+τσ2
+ετd1d2
+X
+ij
+(bUτ−1 bU ⊤
+τ−1)2
+li(bVτ−1 bU ⊤
+τ−1)2
+jl
+≲
+η2
+τ
+ετd1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max
+X
+ij
+δil(bVτ−1 bV ⊤
+τ−1 bVτ−1 bU ⊤
+τ−1)2
+jl
++
+η2
+τ
+ετd1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max∥bUτ−1 bU ⊤
+τ−1∥2
+max
+X
+ij
+(bVτ−1 bU ⊤
+τ−1)2
+jl
++ η2
+τσ2
+ετd1d2
+X
+ij
+δil(bVτ−1 bV ⊤
+τ−1 bVτ−1 bU ⊤
+τ−1)2
+jl + η2
+τσ2
+ετd1d2
+∥bUτ−1 bU ⊤
+τ−1∥2
+max
+X
+ij
+(bVτ−1 bU ⊤
+τ−1)2
+jl
+≲
+η2
+τ
+ετd1d2
+λ2
+max
+d1d2
+µ0rλ4
+max
+d1
++ η2
+τ
+ετd2
+λ2
+max
+d1d2
+µ2
+0r2λ2
+max
+d2
+1
+µ0rλ2
+max
+d1
++ η2
+τσ2
+ετd1d2
+µ0rλ4
+max
+d1
++ η2
+τσ2
+ετd2
+µ2
+0r2λ2
+max
+d2
+1
+µ0rλ2
+max
+d1
+,
+where we apply P
+ij δil(bVτ−1 bV ⊤
+τ−1 bVτ−1 bU ⊤
+τ−1)2
+jl = ∥el bUτ−1 bV ⊤
+τ−1 bVτ−1 bV ⊤
+τ−1∥2 ≤∥el bUτ−1 bV ⊤
+τ−1∥2∥bVτ−1 bV ⊤
+τ−1∥2
+≲µ0rλ2
+max
+d1
+λ2
+max in the last inequality.
+76
+
+````
+
+## PDF page 77
+
+FORMULA CHECK REQUIRED: original PDF page 77.
+
+````text
+Similarly,
+σ2
+Bτ ≲
+η4
+τ
+ε3
+τd1d2
+X
+ij
+(bUτ−1 bV ⊤
+τ−1 −M)4
+ijδil∥e⊤
+j bVτ−1 bV ⊤
+τ−1∥4 +
+η4
+τ
+ε3
+τd1d2
+σ4 X
+ij
+δil∥e⊤
+j bVτ−1 bV ⊤
+τ−1∥4
++
+η4
+τ
+ε3
+τd1d2
+X
+ij
+(bUτ−1 bV ⊤
+τ−1 −M)4
+ij(bUτ−1 bU ⊤
+τ−1)4
+li + η4
+τσ4
+ε3
+τd1d2
+X
+ij
+(bUτ−1 bU ⊤
+τ−1)4
+li
+≲
+η4
+τ
+ε3
+τd1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥4
+max
+X
+ij
+δil
+µ2
+0r2λ4
+max
+d2
+2
++ η4
+τσ4
+ε3
+τd1d2
+X
+ij
+δil
+µ2
+0r2λ4
+max
+d2
+2
++
+η4
+τ
+ε3
+τd1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥4
+max∥bUτ−1 bU ⊤
+τ−1∥2
+max
+X
+ij
+(bUτ−1 bU ⊤
+τ−1)2
+li
++ η4
+τσ4
+ε3
+τd1d2
+∥bUτ−1 bU ⊤
+τ−1∥2
+max
+X
+ij
+(bUτ−1 bU ⊤
+τ−1)2
+li
+≲
+η4
+τ
+ε3
+τd1
+λ4
+max
+d2
+1d2
+2
+µ2
+0r2λ4
+max
+d2
+2
++ η4
+τσ4
+ε3
+τd1
+µ2
+0r2λ4
+max
+d2
+2
++ η4
+τ
+ε3
+τd1
+λ4
+max
+d2
+1d2
+2
+µ2
+0r2λ2
+max
+d2
+1
+µ0rλ2
+max
+d1
++ η4
+τσ4
+ε3
+τd1
+µ2
+0r2λ2
+max
+d2
+1
+µ0rλ2
+max
+d1
+.
+From the calculation above, RA log d+
+qPt
+τ=1 σ2
+Aτ log d1 ≲µ0rλ2
+max
+d1
+and RB log d+
+qPt
+τ=1 σ2
+Bτ log d1 ≲
+µ0rλ2
+max
+d1
+as long as 1.maxτ
+ητ
+ετ ≲
+d3/2
+2
+√µ0r log d1λmax, 2.λ2
+min
+σ2
+≫maxτ
+η2
+τ
+ε2τ
+µ0rλ2
+max log3 d1
+d3
+2κ2
+, 3.Pt
+τ=1
+η2
+τ
+ε1τ ≲
+d1d2
+2
+µ0rλ4max,
+4.λ2
+min
+σ2
+≫Pt
+τ=1
+η2
+τ
+ετ
+λ2
+max
+d2κ2 , 5.Pt
+τ=1
+η4
+τ
+ε3τ ≲
+d1d4
+2
+µ2
+0r2λ4max, 6.λ2
+min
+σ2
+≫
+qPt
+τ=1
+η4τ
+ε3τ
+λ4max
+d2κ4 . All of them can be satisfied
+under the stepsize and SNR conditions in Equation 11.
+As a result, by Bernstein inequality, with probability at least 1 −d−200
+1
+,
+t
+X
+τ=1
+Aτ ≤1
+6
+µ0rλ2
+max
+d1
+.
+And with probability at least 1 −d−200
+1
+,
+t
+X
+τ=1
+Bτ ≤1
+6
+µ0rλ2
+max
+d1
+.
+Finally, combine all the results above and the union bound, we can obtain that with probability at
+least 1 −d−200
+1
+,
+∥e⊤
+l bUtV ⊤
+t ∥2 ≤µ0rλ2
+max
+d1
+.
+77
+
+````
+
+## PDF page 78
+
+FORMULA CHECK REQUIRED: original PDF page 78.
+
+````text
+By symmetry, following the same arguments, we have for ∀j ∈[d2], with the same probability,
+∥e⊤
+j bVt bU ⊤
+t ∥2 ≤µ0rλ2
+max
+d2
+.
+D.3
+Proof of Lemma 3
+Proof. For any l in [d1],
+∥e⊤
+l (bUt bV ⊤
+t −M)∥2 = e⊤
+l (bUt−1 bV ⊤
+t−1 −M −∆t)(bUt−1 bV ⊤
+t−1 −M ⊤−∆⊤
+t )el
+= ∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 −2e⊤
+l ∆t(bVt−1 bU ⊤
+t−1 −M ⊤)el + ∥e⊤
+l ∆t∥2.
+This leads to
+E(∥e⊤
+l bUt bV ⊤
+t ∥2|Ft−1) = ∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 −2E[e⊤
+l ∆t(bVt−1 bU ⊤
+t−1 −M ⊤)el|Ft−1] + E[∥e⊤
+l ∆t∥2|Ft−1].
+78
+
+````
+
+## PDF page 79
+
+FORMULA CHECK REQUIRED: original PDF page 79.
+
+````text
+We first compute 2E[e⊤
+l ∆t(bVt−1 bU ⊤
+t−1 −M ⊤)el|Ft−1].
+2E[e⊤
+l ∆t(bVt−1 bU ⊤
+t−1 −M ⊤)el|Ft−1]
+= 2E
+
+e⊤
+l
+1(at = 1)
+πt
+ηt(⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)Xt bVt−1 bV ⊤
+t−1(bVt−1 bU ⊤
+t−1 −M ⊤)el|Ft−1
+
++ 2E
+
+e⊤
+l
+1(at = 1)
+πt
+ηt(⟨bUt−1 bV ⊤
+t−1 −M, Xt⟩−ξt)bUt−1 bU ⊤
+t−1Xt(bVt−1 bU ⊤
+t−1 −M ⊤)el|Ft−1
+
+−2E
+
+e⊤
+l
+1(at = 1)
+π2
+t
+η2
+t (⟨bUt−1 bV ⊤
+t−1, Xt⟩−ξt)2Xt bVt−1 bU ⊤
+t−1Xt(bVt−1 bU ⊤
+t−1 −M ⊤)el|Ft−1
+
+≥2ηt
+d1d2
+e⊤
+l (bUt−1 bV ⊤
+t−1 −M)bVt−1 bV ⊤
+t−1(bVt−1 bU ⊤
+t−1 −M ⊤)el
++ 2ηt
+d1d2
+e⊤
+l bUt−1 bU ⊤
+t−1(bUt−1 bV ⊤
+t−1 −M)(bVt−1 bU ⊤
+t−1 −M ⊤)el
+−
+4η2
+t
+εtd1d2
+X
+ij
+δil(bUt−1 bV ⊤
+t−1 −M)3
+ij(bUt−1 bV ⊤
+t−1)ij −4η2
+t σ2
+εtd1d2
+X
+ij
+δil(bUt−1 bV ⊤
+t−1)ij(bUt−1 bV ⊤
+t−1 −M)ij
+≥ηtλmin
+d1d2
+e⊤
+l (bUt−1 bV ⊤
+t−1 −M)(bVt−1 bU ⊤
+t−1 −M ⊤)el + ηtλmin
+d1d2
+e⊤
+l (bUt−1 bV ⊤
+t−1 −M)(bVt−1 bU ⊤
+t−1 −M ⊤)el
+−
+4η2
+t
+εtd1d2
+µ2
+0r2λ2
+max
+d1d2
+∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 −4η2
+t σ2
+εtd1
+µ2
+0r2λ2
+max
+d1d2
+≥2ηtλmin
+d1d2
+∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 −
+4η2
+t
+εtd1d2
+O(µ2
+0r2λ2
+max
+d1d2
+)∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 −4η2
+t σ2
+εtd1
+µ2
+0r2λ2
+max
+d1d2
+.
+The first second order term in the second last inequality comes from P
+ij δil(bUt−1 bV ⊤
+t−1−M)3
+ij(bUt−1 bV ⊤
+t−1)ij ≤
+∥bUt−1 bV ⊤
+t−1 −M∥max∥bUt−1 bV ⊤
+t−1∥max
+P
+ij δil(bUt−1 bV ⊤
+t−1 −M)2
+ij ≤O(µ2
+0r2λ2
+max
+d1d2
+)∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2. And
+the other term is similar.
+For E(∥e⊤
+l ∆t∥2|Ft−1), analogous to the calculation before, we also have
+E(∥e⊤
+l ∆t∥2|Ft−1) ≲
+η2
+t
+εtd1d2
+µ0rλ2
+max
+d1
+∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 + η2
+t σ2µ0rλ2
+max
+εtd1d2
+.
+Recall f(ηt) = ηtλmin
+2d1d2 . Then for some constant c2,
+−2E(e⊤
+l ∆t bVt−1 bU ⊤
+t−1el|Ft−1) + E(∥e⊤
+l ∆t∥2|Ft−1) ≤−2f(ηt)∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 + c2η2
+t σ2µ0rλ2
+max
+εtd1d2
+≤−f(ηt)∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 + c2η2
+t σ2µ0rλ2
+max
+εtd1d2
+.
+79
+
+````
+
+## PDF page 80
+
+FORMULA CHECK REQUIRED: original PDF page 80.
+
+````text
+We again use telescoping to derive
+∥e⊤
+l (UtV ⊤
+t −M)∥2 = ∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 −2e⊤
+l ∆t(bVt−1 bU ⊤
+t−1 −M ⊤)el + ∥e⊤
+l ∆t∥2
+= ∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 −2(e⊤
+l ∆t(bVt−1 bU ⊤
+t−1 −M ⊤)el −E(e⊤
+l ∆t(bVt−1 bU ⊤
+t−1 −M ⊤)el|Ft−1))
++
+ ∥e⊤
+l ∆t∥2 −E[∥e⊤
+l ∆t∥2|Ft−1]
+
+−2E[e⊤
+l ∆t bVt−1 bU ⊤
+t−1el|Ft−1] + E[∥e⊤
+l ∆t∥2|Ft−1]
+≤(1 −f(ηt))∥e⊤
+l (bUt−1 bV ⊤
+t−1 −M)∥2 + c2η2
+t σ2µ0rλ2
+max
+εtd1d2
++ 2(E(e⊤
+l ∆t(bVt−1 bU ⊤
+t−1 −M ⊤)el|Ft−1) −e⊤
+l ∆t(bVt−1 bU ⊤
+t−1 −M ⊤)el)
+|
+{z
+}
+At
++ (∥e⊤
+l ∆t∥2 −E[∥e⊤
+l ∆t∥2|Ft−1])
+|
+{z
+}
+Bt
+≤(1 −f(ηt))(1 −f(ηt−1))∥e⊤
+l (bUt−2 bV ⊤
+t−2 −M)∥2 + (1 −f(ηt))c2η2
+t−1σ2µ0rλ2
+max
+εt−1d1d2
++ c2η2
+t σ2µ0rλ2
+max
+εtd1d2
++ (1 −f(ηt))(At−1 + Bt−1) + (At + Bt)
+≤
+tY
+τ=1
+(1 −f(ητ))∥e⊤
+l (bU0 bV ⊤
+0 −M)∥2 +
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))c2η2
+τσ2µ0rλ2
+max
+ετd1d2
++ c2η2
+t σ2µ0rλ2
+max
+εtd1d2
++
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Aτ + At +
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Bτ + Bt
+≤
+tY
+τ=1
+(1 −f(ητ))µ0rλ2
+max
+d1
++
+t
+X
+τ=1
+c2η2
+τσ2µ0rλ2
+max log2 d1
+ετd1d2
++
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Aτ + At +
+t−1
+X
+τ=1
+tY
+k=τ+1
+(1 −f(ηk))Bτ + Bt.
+80
+
+````
+
+## PDF page 81
+
+FORMULA CHECK REQUIRED: original PDF page 81.
+
+````text
+The first term ∥e⊤
+l (bU0 bV ⊤
+0 −M)∥2 ≲µ0rλ2
+max
+d1
+under the incoherence condition of U0 and V0.
+Next, we derive the uniform bound for Qt
+k=τ+1(1 −f(ηk))Aτ and Qt
+k=τ+1(1 −f(ηk))Bτ.
+|e⊤
+l ∆τ(bVτ−1 bU ⊤
+τ−1 −M ⊤)el| ≤|e⊤
+l
+1(aτ = 1)
+πτ
+ητ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)Xτ bVτ−1 bV ⊤
+τ−1(bVτ−1 bU ⊤
+τ−1 −M ⊤)el|
++ |e⊤
+l
+1(aτ = 1)
+πτ
+ητ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xτ⟩−ξτ)bUτ−1 bU ⊤
+τ−1Xτ(bVτ−1 bU ⊤
+τ−1 −M ⊤)el|
++ |e⊤
+l
+1(aτ = 1)
+π2
+τ
+η2
+τ(⟨bUτ−1 bV ⊤
+τ−1 −M, Xt⟩−ξτ)2Xτ bVτ−1 bU ⊤
+τ−1Xτ(bVτ−1 bU ⊤
+τ−1 −M ⊤)el|
+≤2ητ
+ετ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥max + σ log1/2 d1)∥bVτ−1 bV ⊤
+τ−1∥max∥bVτ−1 bU ⊤
+τ−1 −M ⊤∥max
++ 2ητ
+ετ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥max + σ log1/2 d1)∥bUτ−1 bU ⊤
+τ−1∥max∥bVτ−1 bU ⊤
+τ−1 −M∥max
++ 4η2
+τ
+ε2
+τ
+|(∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max + σ2 log d1)∥bVτ−1 bU ⊤
+τ−1∥max∥bVτ−1 bU ⊤
+τ−1 −M∥max
+≲ητ
+ετ
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max
+µ0rλmax
+d2
++ ητ
+ετ
+σ log1/2 d1∥bUτ−1 bV ⊤
+τ−1 −M∥max
+µ0rλmax
+d2
++ η2
+τ
+ε2
+τ
+∥bVτ−1 bU ⊤
+τ−1 −M∥2
+max
+µ2
+0r2λ2
+max
+d1d2
++ η2
+τ
+ε2
+τ
+σ2 log d1∥bVτ−1 bU ⊤
+τ−1 −M∥max
+µ0rλmax
+√d1d2
+≲ητ
+ετ
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max
+µ0rλmax
+d2
++ ητ
+ετ
+σ log1/2 d1∥bUτ−1 bV ⊤
+τ−1 −M∥max
+µ0rλmax
+d2
+.
+The first order terms dominate as long as ητ ≲
+ετd1
+µ0rλmax and λ2
+min
+σ2 ≫η2
+τ
+ε2τ
+λ2
+max log d1
+κ2
+.
+Since ∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max ≲Qτ−1
+k=1(1 −f(ηk)
+2 )poly(κ,µ,r)λ2
+min
+d1d2
++ Pτ−1
+k=1
+η2
+kpoly(κ,µ,r)λ2
+maxσ2 log2 d1
+εkd1d2
+2
+under event
+Eτ−1, and applying 2ab ≤a2 + b2 to term ητ
+ετ σ log1/2 d1∥bUτ−1 bV ⊤
+τ−1 −M∥max
+µ0rλmax
+d2
+, we have
+tY
+k=τ+1
+(1 −f(ηk)
+2
+)|e⊤
+l ∆τ(bVτ−1 bU ⊤
+τ−1 −M ⊤)el| ≲max
+τ
+ητ
+ετ
+ tY
+k=1
+(1 −f(ηk)
+2
+)poly(κ, µ, r)λ2
+min
+d1d2
++
+t
+X
+k=1
+η2
+kλ2
+maxσ2 log2 d1poly(κ, µ, r)
+εkd1d2
+2
+!
+µ0rλmax
+d2
++
+tY
+k=1
+(1 −f(ηk)
+2
+)poly(κ, µ, r)λ2
+min
+d1d2
++
+t
+X
+k=1
+η2
+kλ2
+maxσ2 log2 d1poly(κ, µ, r)
+εkd1d2
+2
++ max
+τ
+η2
+τ
+ε2
+τ
+σ2 log d1
+µ2
+0r2λ2
+max
+d2
+2
+:= RA.
+81
+
+````
+
+## PDF page 82
+
+FORMULA CHECK REQUIRED: original PDF page 82.
+
+````text
+Similarly, we can obtain
+tY
+k=τ+1
+(1 −f(ηk)
+2
+)∥e⊤
+l ∆τ∥2 ≲η2
+τ
+ε2
+τ
+(∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max + σ2 log d1)(∥bVτ−1 bV ⊤
+τ−1∥2
+max + ∥bUτ−1 bU ⊤
+τ−1∥2
+max)
+≲max
+τ
+η2
+τ
+ε2
+τ
+ tY
+k=1
+(1 −f(ηk)
+2
+)poly(κ, µ, r)λ2
+min
+d1d2
+O(µ2
+0r2λ2
+max
+d2
+2
+) +
+t
+X
+k=1
+η2
+kpoly(κ, µ, r)λ2
+maxσ2 log2 d1
+εkd1d2
+2
+!
+µ2
+0r2λ2
+max
+d2
+2
++ max
+τ
+η2
+τ
+ε2
+τ
+σ2 log d1O(µ2
+0r2λ2
+max
+d2
+2
+) := RB.
+Then we calculate their conditional variance, respectively.
+Denote the variance of Qt
+k=τ+1(1 −
+f(ητ))Aτ and Qt
+k=τ+1(1 −f(ητ))Bτ as σ2
+Aτ and σ2
+Bτ, we have
+σ2
+Aτ ≲
+tY
+k=τ+1
+(1 −f(ητ))2
+ 
+η2
+τ
+ετd1d2
+X
+ij
+(bUτ−1 bV ⊤
+τ−1 −M)2
+ijδil(bVτ−1 bV ⊤
+τ−1(bVτ−1 bU ⊤
+τ−1 −M ⊤))2
+jl
++
+η2
+τ
+ετd1d2
+X
+ij
+(bUτ−1 bV ⊤
+τ−1 −M)2
+ij(bUτ−1 bU ⊤
+τ−1)2
+li(bVτ−1 bU ⊤
+τ−1 −M ⊤)2
+jl
++ η2
+τσ2
+ετd1d2
+X
+ij
+δil(bVτ−1 bV ⊤
+τ−1(bVτ−1 bU ⊤
+τ−1 −M ⊤))2
+jl + η2
+τσ2
+ετd1d2
+X
+ij
+(bUτ−1 bU ⊤
+τ−1)2
+li(bVτ−1 bU ⊤
+τ−1 −M ⊤)2
+jl
+!
+≲
+tY
+k=τ+1
+(1 −f(ητ))2
+
+η2
+τ
+ετd1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max∥bVτ−1 bV ⊤
+τ−1∥2∥el(bUτ−1 bV ⊤
+τ−1 −M)∥2
++
+η2
+τ
+ετd1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥4
+max
+X
+ij
+(bUτ−1 bU ⊤
+τ−1)2
+li
++ η2
+τσ2
+ετd1d2
+∥bVτ−1 bV ⊤
+τ−1∥2∥el(bUτ−1 bV ⊤
+τ−1 −M)∥2 + η2
+τσ2
+ετd1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max
+X
+ij
+(bUτ−1 bU ⊤
+τ−1)2
+li
+!
+.
+Notice that, ∥bUτ−1 bV ⊤
+τ−1 −M∥2
+max∥el(bUτ−1 bV ⊤
+τ−1 −M)∥2 ≲
+1
+d2(Qt
+k=1(1 −f(ηk)
+2 )poly(µ,r,κ)λ2
+min
+d1
++
+Pt
+k=1
+η2
+kpoly(κ,µ,r)λ2
+maxσ2 log2 d1
+εkd1d2
+)2 and ∥bUτ−1 bV ⊤
+τ−1 −M∥4
+max ≲
+1
+d2
+2(Qτ−1
+k=1(1 −f(ηk)
+2 )poly(µ,r,κ)λ2
+min
+d1
++ Pτ−1
+k=1
+η2
+kpoly(κ,µ,r)λ2
+maxσ2 log2 d1
+εkd1d2
+)2 under event Eτ−1. As a result,
+σ2
+Aτ ≲η2
+τλ2
+max
+ετd1d2
+2
+ tY
+k=1
+(1 −f(ηk)
+2
+)poly(µ, r, κ)λ2
+min
+d1
++
+t
+X
+k=1
+η2
+kpoly(κ, µ, r)λ2
+maxσ2 log2 d1
+εkd1d2
+!2
++ η2
+τσ2λ2
+max
+ετd1d2
+ tY
+k=1
+(1 −f(ηk)
+2
+)poly(µ, r, κ)λ2
+min
+d1
++
+t
+X
+k=1
+η2
+kpoly(κ, µ, r)λ2
+maxσ2 log2 d1
+εkd1d2
+!
+.
+82
+
+````
+
+## PDF page 83
+
+FORMULA CHECK REQUIRED: original PDF page 83.
+
+````text
+Similarly,
+σ2
+Bτ ≲
+tY
+k=τ+1
+(1 −f(ητ))2
+ 
+η4
+τ
+ε3
+τd1d2
+X
+ij
+(bUτ−1 bV ⊤
+τ−1 −M)4
+ijδil∥e⊤
+j bVτ−1 bV ⊤
+τ−1∥4 +
+η4
+τ
+ε3
+τd1d2
+σ4 X
+ij
+δil∥e⊤
+j bVτ−1 bV ⊤
+τ−1∥4
++
+η4
+τ
+ε3
+τd1d2
+X
+ij
+(bUτ−1 bV ⊤
+τ−1 −M)4
+ij(bUτ−1 bU ⊤
+τ−1)4
+li + η4
+τσ4
+ε3
+τd1d2
+X
+ij
+(bUτ−1 bU ⊤
+τ−1)4
+li
+!
+≲
+tY
+k=τ+1
+(1 −f(ητ))2
+ 
+η4
+τ
+ε3
+τd1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥4
+max
+X
+ij
+δil∥e⊤
+j bVτ−1 bV ⊤
+τ−1∥4 + η4
+τσ4
+ε3
+τd1d2
+X
+ij
+δil∥e⊤
+j bVτ−1 bV ⊤
+τ−1∥4
++
+η4
+τ
+ε3
+τd1d2
+∥bUτ−1 bV ⊤
+τ−1 −M∥4
+max
+X
+ij
+(bUτ−1 bU ⊤
+τ−1)4
+li + η4
+τσ4
+ε3
+τd1d2
+X
+ij
+(bUτ−1 bU ⊤
+τ−1)4
+li
+!
+≲η4
+τ
+ε3
+τ
+µ2
+0r2λ4
+max
+d1d4
+2
+ tY
+k=1
+(1 −f(ηk)
+2
+)poly(µ, r, κ)λ2
+min
+d1
++
+t
+X
+k=1
+η2
+kpoly(κ, µ, r)λ2
+maxσ2 log2 d1
+εkd1d2
+!2
++ η4
+τ
+ε3
+τ
+σ4µ2
+0r2λ4
+max
+d1d3
+2
+.
+From the calculation above, RA log d1 +
+qPt
+τ=1 σ2
+Aτ log d1 ≲Qt
+k=1(1 −f(ηk)
+2 )
+poly(µ,r,κ)∥bU0 bV ⊤
+0 −M∥2
+F
+d1
++
+Pt
+k=1
+η2
+kλ2
+maxσ2 log2 d1poly(κ,µ,r)
+εkd1d2
+and RB log d1 +
+qPt
+τ=1 σ2
+Bτ log d1 ≲Qt
+k=1(1−f(ηk)
+2 )
+poly(µ,r,κ)∥bU0 bV ⊤
+0 −M∥2
+F
+d1
++
+Pt
+k=1
+η2
+kλ2
+maxσ2 log2 d1poly(κ,µ,r)
+εkd1d2
+as long as 1. ητ ≲
+ετd3/2
+2
+µ0rλmax, 2. max η2
+τ
+ε2τ ≤Pt
+τ=1
+η2
+τ
+ετ , 3. Pt
+τ=1
+η2
+τ
+ετ ≲
+d1d2
+2
+λ2max log d1,
+4. Pt
+τ=1
+η4
+τ
+ε3τ ≲
+d1d4
+2
+µ2
+0r2λ4max log d1, 5. Pt
+τ=1
+η4
+τ
+ε3τ ≤(Pt
+τ=1
+η2
+τ
+ετ )2. All of them can be satisfied under the stepsize
+and SNR conditions in Equation 11.
+By Bernstein inequality, with probability at least 1−d−2
+1 , Pt−1
+τ=1
+Qt
+k=τ+1(1−f(ητ))Aτ +At ≲Qt
+k=1(1−
+f(ηk)
+2 )poly(µ,r,κ)λ2
+min
+d1
++ Pt
+k=1
+η2
+kpoly(κ,µ,r)λ2
+maxσ2 log2 d1
+εkd1d2
+and Pt−1
+τ=1
+Qt
+k=τ+1(1 −f(ητ))Bτ + Bt ≲Qt
+k=1(1 −
+f(ηk)
+2 )poly(µ,r,κ)λ2
+min
+d1
++ Pt
+k=1
+η2
+kpoly(κ,µ,r)λ2
+maxσ2 log2 d1
+εkd1d2
+.
+Finally, we conclude that, with probability at least 1 −td−200
+1
+,
+∥e⊤
+l (bUt bV ⊤
+t −M)∥2 ≲
+tY
+k=1
+(1 −f(ηk)
+2
+)poly(µ, r, κ)λ2
+min
+d1
++
+t
+X
+k=1
+η2
+kpoly(κ, µ, r)λ2
+maxσ2 log2 d1
+εkd1d2
+.
+By symmetry, following the same arguments, we can prove with same probability, for any j ∈[d2],
+∥e⊤
+j (bVt bU ⊤
+t −M ⊤)∥2 ≲
+tY
+k=1
+(1 −f(ηk)
+2
+)poly(µ, r, κ)λ2
+min
+d2
++
+t
+X
+k=1
+η2
+kpoly(κ, µ, r)λ2
+maxσ2 log2 d1
+εkd2
+2
+.
+83
+
+````
+
+## PDF page 84
+
+FORMULA CHECK REQUIRED: original PDF page 84.
+
+````text
+D.4
+Proof of Lemma 4
+Proof. Denote S2 = 1/T γ∥PΩ1(PM(Q))∥2
+F + Cγ∥PΩ0(PM(Q))∥2
+F. By definition,
+q
+T 1−γ
+d1d2
+
+⟨LL⊤bZ1R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ1RR⊤, Q⟩+ ⟨LL⊤bZ1RR⊤, Q⟩
+
+σS
+=
+q
+1
+T 1+γ
+PT
+t=T0+1
+b√d1d21(at=1)
+πt
+ξt⟨Xt, PM(Q)⟩
+σS
+.
+Next, we apply Theorem 3.2 and Corollary 3.1 in Hall and Heyde [2014], the Martingale Central
+Limit Theorem to show the asymptotic normality.
+Step 1: checking Lindeberg condition.
+For any δ > 0,
+T
+X
+t=T0+1
+E
+b2d1d21(at = 1)
+σ2S2T 1+γπ2
+t
+ξ2
+t ⟨Xt, PM(Q)⟩2 × 1
+ξt
+√d1d21(at = 1)⟨Xt, PM(Q)⟩
+σS
+√
+T 1+γπt
+ > δ
+ Ft−1
+
+≤
+b2d1d2
+σ2S2T 1+γ
+T
+X
+t=T0+1
+E
+"
+1(at = 1)
+π2
+t
+ξ2
+t ⟨Xt, PM(Q)⟩2 × 1
+ 
+|ξt⟨Xt, PM(Q)⟩| > σSδ
+√
+T 1+γεt
+2√d1d2
+! Ft−1
+#
+≲
+b2d1d2
+σ2S2T 1+γ
+T
+X
+t=T0+1
+2
+εt
+max
+X∈X ⟨X, PM(Q)⟩2 ×
+v
+u
+u
+tE
+"
+1
+ 
+|ξt⟨Xt, PM(Q)⟩| > σSδ
+√
+T 1+γεt
+2√d1d2
+!#
+,
+where in the last inequality we use E[XY ] ≤
+p
+E[X2]E[Y 2]. By incoherence condition,
+max
+X∈X
+⟨X, PM(Q)⟩
+ ≲
+rµr
+d2
+∥PM(Q)∥F.
+Moreover, since ξt is a subGaussian random variable, so the product ξt⟨Xt, PM(Q)⟩has subGaussian
+tail probability
+P
+ 
+|ξt⟨Xt, PM(Q)⟩| > σSδ
+√
+T 1+γεt
+2√d1d2
+!
+< 2e
+−
+σ2S2δ2T 1+γε2
+t
+8d1d2ν2
+,
+where ν is the subGaussian parameter of order O(
+q
+µr
+d2 ∥PM(Q)∥Fσ). Notice that T 1+γε2
+t ≤T 1+γε2
+T =
+O(T 1−γ). By property of exponential function,
+d1d2σ2
+σ2S2T 1+γ
+µr
+d2 ∥PM(Q)∥2
+F
+PT
+t=T0+1
+2
+εt2e
+−
+σ2S2δ2T 1+γε2
+t
+16d1d2ν2
+con-
+verges to 0 as long as
+d1
+T 1−γ →0. Then the Lindeberg condition is satisfied.
+84
+
+````
+
+## PDF page 85
+
+FORMULA CHECK REQUIRED: original PDF page 85.
+
+````text
+Step 2: calculating the variance.
+Next, we show the conditional variance equals to 1. Recall the definition Ω1 = {X ∈X : ⟨M1 −
+M0, X⟩> δT,d1,d2}, Ω0 = {X ∈X : ⟨M1 −M0, X⟩< δT,d1,d2} and Ω∅= X ∪(Ω1 ∪Ω0)c. Then
+b2d1d2
+σ2S2T 1+γ
+T
+X
+t=T0+1
+E
+1(at = 1)
+π2
+t
+ξ2
+t ⟨Xt, PM(Q)⟩2
+Ft−1
+
+=
+b2
+σ2S2T 1+γ σ2
+T
+X
+t=T0+1
+X
+X∈Ω1
+1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩> 0)
+1
+1 −εt
+2
+⟨X, PM(Q)⟩2
++ 1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩< 0) 1
+εt
+2
+⟨X, PM(Q)⟩2
++
+X
+X∈Ω0
+1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩> 0)
+1
+1 −εt
+2
+⟨X, PM(Q)⟩2 + 1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩< 0) 1
+εt
+2
+⟨X, PM(Q)⟩2
++
+X
+X∈Ω∅
+1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩> 0)
+1
+1 −εt
+2
+⟨X, PM(Q)⟩2 + 1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩< 0) 1
+εt
+2
+⟨X, PM(Q)⟩2.
+The next Lemma shows the convergence of the indicator function.
+Lemma 8. Given any X ∈Ω1 ∪Ω0, we have for any T0 + 1 ≤t ≤T, with probability at least
+1 −8td−200
+1
+,
+1(⟨c
+Mi,t −c
+M1−i,t, X⟩> 0) = 1(⟨Mi −M1−i, X⟩> 0).
+Under this result, P
+X∈Ωi 1(⟨c
+Mi,t−1 −c
+M1−i,t−1, X⟩> 0)⟨X, PM(Q)⟩2 →∥PΩi(PM(Q))∥2
+F and
+P
+X∈Ω1−i 1(⟨c
+Mi,t−1 −c
+M1−i,t−1, X⟩> 0)⟨X, PM(Q)⟩2 →0 for i = 0, 1.
+Note that
+b
+T
+PT
+t=T0+1 1/(1 −εt/2) →1 and
+b
+T 1+γ
+PT
+t=T0+1 2/εt →
+2
+c2(1+γ) when εt = c2t−γ.
+And
+by Assumption 1, P
+X∈Ω∅1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩> 0)
+1
+1−εt
+2 ⟨X, PM(Q)⟩2 + 1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩<
+0) 1
+εt
+2 ⟨X, PM(Q)⟩2 ≤2/εt∥PΩ∅(PM(Q))∥2
+F is negligible. Then the conditional variance will converge
+in probability to 1. It follows
+PT
+t=T0+1
+d1d21(at=1)
+πt
+ξt⟨Xt, PM(Q)⟩
+σS
+p
+d1d2/T 1−γ
+→N(0, 1)
+when T, d1, d2 →∞.
+85
+
+````
+
+## PDF page 86
+
+FORMULA CHECK REQUIRED: original PDF page 86.
+
+````text
+D.5
+Proof of Lemma 5
+Proof. By definition,
+⟨LL⊤bZ2R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ2RR⊤, Q⟩+ ⟨LL⊤bZ2RR⊤, Q⟩= ⟨bZ2, PM(Q)⟩
+= b
+T
+T
+X
+t=T0+1
+d1d21(at = 1)
+πt
+⟨b∆t−1, Xt⟩⟨Xt, PM(Q)⟩−⟨b∆t−1, PM(Q)⟩.
+Then we prove its upper bound. For any T0 + 1 ≤t ≤T,
+b
+T
+
+d1d21(at = 1)
+πt
+⟨b∆t−1, Xt⟩⟨Xt, PM(Q)⟩−⟨b∆t−1, PM(Q)⟩
+
+≤bd1d2
+T
+2
+εt
+∥b∆t−1∥max
+rµr
+d2
+∥PM(Q)∥F + 1
+T
+p
+d1d2∥b∆t−1∥max∥PM(Q)∥F
+≲d1d1/2
+2
+√µr
+T 1−γ
+∥b∆t−1∥max∥PM(Q)∥F ≲d1d1/2
+2
+√µrσ
+T 1−γ
+∥PM(Q)∥F.
+Moreover,
+E
+b2d2
+1d2
+21(at = 1)
+T 2π2
+t
+⟨b∆t−1, Xt⟩2⟨Xt, PM(Q)⟩2Ft−1
+
+≤b2d1d2
+T 2
+∥b∆t−1∥2
+maxE
+ 1
+πt
+⟨Xt, PM(Q)⟩2Ft−1
+
+= b2d1d2
+T 2
+∥b∆t−1∥2
+max
+X
+X∈X
+1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩> 0)
+1
+1 −εt
+2
+⟨X, PM(Q)⟩2
++ 1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩< 0) 1
+εt
+2
+⟨X, PM(Q)⟩2
+≲d2
+1d2r log4 d1σ2
+T 3−γ
+X
+X∈X
+1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩> 0)
+1
+1 −εt
+2
+⟨X, PM(Q)⟩2
++ 1(⟨c
+M1,t−1 −c
+M0,t−1, X⟩< 0) 1
+εt
+2
+⟨X, PM(Q)⟩2.
+Denote S2
+T :=
+1
+T 1+γ
+PT
+t=T0+1
+P
+X∈X 1(⟨c
+M1,t−1−c
+M0,t−1, X⟩> 0)
+1
+1−εt
+2 ⟨X, PM(Q)⟩2+1(⟨c
+M1,t−1−c
+M0,t−1, X⟩<
+0) 1
+εt
+2 ⟨X, PM(Q)⟩2. By martingale Bernstein inequality, with probability at least 1 −d−10
+1
+,
+
+1
+T
+T
+X
+t=T0+1
+d1d21(at = 1)
+πt
+⟨b∆t−1, Xt⟩⟨Xt, PM(Q)⟩−⟨b∆t−1, PM(Q)⟩
+ ≲
+s
+d2
+1d2 log5 d1
+T 2−2γ
+σST.
+86
+
+````
+
+## PDF page 87
+
+FORMULA CHECK REQUIRED: original PDF page 87.
+
+````text
+As we have shown in the proof of Lemma 4, ST →S when T, d1, d2 →∞. Then
+PT
+t=T0+1
+d1d21(at=1)
+πt
+⟨b∆t−1,Xt⟩⟨Xt,PM(Q)⟩−⟨b∆t−1,PM(Q)⟩
+σS√
+d1d2/T 1−γ
+p→0 as long as d1 log5 d1
+T 1−γ
+→0.
+D.6
+Proof of Lemma 6
+Proof. We first state the following Lemmas.
+Lemma 9. Under the conditions in Theorem 3, with probability at least 1 −d−3
+1 ,
+∥bZ∥≲
+r
+d2
+1d2 log d1
+T 1−γ
+σ.
+Lemma 10. Under the conditions in Theorem 3, with probability at least 1 −5d−2
+1 ,
+∥bLbL⊤−LL⊤∥2,max ≲
+σ
+λmin
+r
+d2
+1d2 log d1
+T 1−γ
+rµr
+d1
+∥bR bR⊤−RR⊤∥2,max ≲
+σ
+λmin
+r
+d2
+1d2 log d1
+T 1−γ
+rµr
+d2
+.
+Notice that
+|⟨bLbL⊤bZ bR bR⊤−LL⊤bZRR⊤, Q⟩| ≤∥Q∥ℓ1∥bLbL⊤bZ bR bR⊤−LL⊤bZRR⊤∥max.
+Now by triangular inequality,
+∥bLbL⊤bZ bR bR⊤−LL⊤bZRR⊤∥max ≤∥(bLbL⊤−LL⊤) bZRR⊤∥max + ∥LL⊤bZ( bR bR⊤−RR⊤)∥max
++ ∥(bLbL⊤−LL⊤) bZ( bR bR⊤−RR⊤)∥max
+≤∥bZ∥
+
+∥bLbL⊤−LL⊤∥2,max∥R∥2,max + ∥bR bR⊤−RR⊤∥2,max∥L∥2,max
+
++ ∥bZ∥∥bLbL⊤−LL⊤∥2,max∥bR bR⊤−RR⊤∥2,max
+≲σ2
+λmin
+µrd3/2
+1 d1/2
+2
+log d1
+T 1−γ
+.
+Then as long as
+∥Q∥ℓ1
+σS√
+d1d2/T 1−γ ·
+σ2
+λmin
+µrd3/2
+1
+d1/2
+2
+log d1
+T 1−γ
+=
+∥Q∥ℓ1
+S
+σ
+λmin
+q
+r2d2
+1 log d1
+T 1−γ
+→0, we prove the claimed
+results.
+87
+
+````
+
+## PDF page 88
+
+FORMULA CHECK REQUIRED: original PDF page 88.
+
+````text
+D.7
+Proof of Lemma 7
+Proof. Similarly as the proof of Lemma 6, we again define events E0 = {∥bZ∥≲
+q
+d2
+1d2 log d1
+T 1−γ
+σ := δ},
+E1 = {∥bLbL⊤−LL⊤∥2,max ≲
+σ
+λmin
+q
+d2
+1d2 log d1
+T 1−γ
+q
+µr
+d1 , ∥bR bR⊤−RR⊤∥2,max ≲
+σ
+λmin
+q
+d2
+1d2 log d1
+T 1−γ
+q
+µr
+d2 }. Then
+by Lemma 5 and Lemma 6 in Xia and Yuan [2021], under the E0 and E1,
+
+∞
+X
+k=2
+⟨(SA,k( bE)AΘΘ⊤+ ΘΘ⊤ASA,k( bE)), eQ⟩
+ ≲∥Q∥ℓ1
+µr
+λmin
+√d1d2
+δ2
+= ∥Q∥ℓ1
+σ2
+λmin
+µrd3/2
+1 d1/2
+2
+log d1
+T 1−γ
+,
+and
+⟨(bΘbΘ⊤−ΘΘ⊤)A(bΘbΘ⊤−ΘΘ⊤), eQ⟩
+ ≲∥Q∥ℓ1∥Λ∥∥bLbL⊤−LL⊤∥2,max∥bR bR⊤−RR⊤∥2,max
+≤∥Q∥ℓ1
+σ2
+λmin
+µrκd3/2
+1 d1/2
+2
+log d1
+T 1−γ
+.
+Then as long as
+∥Q∥ℓ1
+S
+σ
+λmin
+q
+r2d2
+1 log d1
+T 1−γ
+→0, we prove the claimed results.
+D.8
+Proof of Lemma 8
+Proof. Without loss of generality, we just prove the i = 1 case and i = 0 case can be shown following
+the same arguments.
+Recall δ defined in Theorem 3. Suppose ⟨M1 −M0, X⟩> 0, then we have for any T0 + 1 ≤t ≤T,
+⟨c
+M1,t −c
+M0,t, X⟩= ⟨c
+M1,t −M1, X⟩+ ⟨M0 −c
+M0,t, X⟩+ ⟨M1 −M0, X⟩
+≥⟨M1 −M0, X⟩−2δ > 0
+with probability at least 1−8td−200
+1
+. The second inequality comes from the gap condition in Assump-
+tion 1. As a result, with the same probability, 1(⟨c
+M1,t −c
+M0,T, X⟩> 0) = 1(⟨M1 −M0, X⟩> 0).
+88
+
+````
+
+## PDF page 89
+
+FORMULA CHECK REQUIRED: original PDF page 89.
+
+````text
+D.9
+Proof of Lemma 9
+Proof. We first look at ∥bZ1∥= ∥b
+T
+PT
+t=T0+1
+d1d21(at=1)
+πt
+ξtXt∥.
+Since ξt is subGaussian random variable, then for any T0 + 1 ≤t ≤T,
+∥b
+T
+d1d21(at = 1)
+πt
+ξtXt∥
+
+ψ2
+≤2bd1d2
+Tεt
+∥ξt∥ψ2 ≲d1d2σ
+T 1−γ .
+Meanwhile,
+T
+X
+t=T0+1
+E
+ b2
+T 2
+d2
+1d2
+21(at = 1)
+π2
+t
+ξ2
+t XtX⊤
+t
+Ft−1
+
+≤b2d2
+1d2
+2
+T 2
+T
+X
+t=T0+1
+2
+εt
+σ2E[XtX⊤
+t ]
+= b2d2
+1d2
+2
+T 2
+T
+X
+t=1
+2
+εt
+σ2 1
+d1
+Id1 ≲d1d2
+2σ2
+T 1−γ Id1.
+By symmetry, we can have
+max
+(
+T
+X
+t=T0+1
+E
+ b2
+T 2
+d2
+1d2
+21(at = 1)
+π2
+t
+ξ2
+t XtX⊤
+t
+Ft−1
+ ,
+
+T
+X
+t=T0+1
+E
+ b2
+T 2
+d2
+1d2
+21(at = 1)
+π2
+t
+ξ2
+t X⊤
+t Xt
+Ft−1
+ 
+)
+≲d2
+1d2σ2
+T 1−γ .
+Then by matrix Bernstein inequality, with probability at least 1 −d−2
+1 ,
+∥bZ1∥≲d1d2σ
+T 1−γ log d1 +
+r
+d2
+1d2σ2 log d1
+T 1−γ
+≲
+r
+d2
+1d2 log d1
+T 1−γ
+σ.
+The first term will be dominated by the second term since T ≫d1/(1−γ)
+1
+log3 d1.
+To prove the upper bound for ∥bZ2∥= ∥b
+T
+PT
+t=T0+1
+d1d21(at=1)
+πt
+⟨b∆t−1, Xt⟩Xt−b∆t−1∥, we follow the same
+arguments by observing that for any T0 + 1 ≤t ≤T,
+
+b
+T
+d1d21(at = 1)
+πt
+⟨b∆t−1, Xt⟩Xt −b∆t−1
+  ≤bd1d2
+T
+2
+εt
+∥b∆t−1∥max + b
+T ∥b∆t−1∥
+≲d1d2
+T 1−γ ∥b∆t−1∥max +
+√d1d2
+T
+∥b∆t−1∥max ≲d1d2σ
+T 1−γ .
+The second inequality comes from the fact that ∥b∆t−1∥≤√d1d2∥b∆t−1∥max, and in the last inequality
+we again use ∥b∆t−1∥max ≲σ.
+89
+
+````
+
+## PDF page 90
+
+FORMULA CHECK REQUIRED: original PDF page 90.
+
+````text
+Meanwhile,
+
+b2
+T 2
+T
+X
+t=T0+1
+E
+"d1d21(at = 1)
+πt
+⟨b∆t−1, Xt⟩Xt −b∆t−1
+ d1d21(at = 1)
+πt
+⟨b∆t−1, Xt⟩Xt −b∆t−1
+⊤Ft−1
+# 
+≤b2
+T 2
+T
+X
+t=T0+1
+E
+d2
+1d2
+21(at = 1)
+π2
+t
+⟨b∆t−1, Xt⟩2XtX⊤
+t
+Ft−1
+  + ∥b∆t−1∥2
+≤b2
+T 2
+T
+X
+t=T0+1
+2d2
+1d2
+2
+εt
+∥b∆t−1∥2
+max∥E(XtX⊤
+t )∥+ d1d2∥b∆t−1∥2
+max ≲d1d2
+2σ2
+T 1−γ .
+Finally, by matrix Bernstein inequality, with probability 1 −d−2
+1 ,
+∥bZ2∥≲
+r
+d2
+1d2 log d1
+T 1−γ
+σ.
+D.10
+Proof of Lemma 10
+Proof. Consider the event in Theorem 9
+E =
+
+∥eZ∥≲
+r
+d2
+1d2 log d1
+T 1−γ
+σ
+
+.
+The following proof is adapted from Theorem 4 and Lemma 9 in Xia and Yuan [2021]. We adapt it
+to martingale version. Under E, we have ∥bZ∥≲
+q
+d2
+1d2 log d1
+T 1−γ
+σ ≲λmin =: δ. As long as
+q
+d2
+1d2 log d1
+T 1−γ
+σ ≲
+λmin, we have ∥bE∥= ∥bZ∥≲λmin. Recall the P−s for s ≥0 and P⊥defined in the proof of Theorem 3.
+Following the proof in Xia and Yuan [2021], it suffices to show under E, there exist absolute constants
+C1, C2 > 0 so that for all k ≥0, the following bounds hold with probability at least 1 −2(k + 1)d−2
+1 ,
+max
+j∈[d1] ∥e⊤
+j P⊥(P⊥bEP⊥)k bEΘ∥≤C1(C2δ)k+1
+rµr
+d1
+,
+max
+j∈[d2] ∥e⊤
+j+d1P⊥(P⊥bEP⊥)k bEΘ∥≤C1(C2δ)k+1
+rµr
+d2
+.
+90
+
+````
+
+## PDF page 91
+
+FORMULA CHECK REQUIRED: original PDF page 91.
+
+````text
+Here we only present the proof for k = 0 and the cases k ≥1 can be similarly extended. Clearly, for
+j ∈[d1],
+∥e⊤
+j P⊥bEΘ∥≤∥e⊤
+j ΘΘ⊤bEΘ∥+ ∥e⊤
+j bEΘ∥≤δ
+rµr
+d1
++ ∥e⊤
+j bEΘ∥= δ
+rµr
+d1
++ ∥e⊤
+j bZR∥.
+We write
+e⊤
+j bZR = b
+T
+ 
+T
+X
+t=T0+1
+d1d21(at = 1)
+πt
+ξte⊤
+j XtR
++
+T
+X
+t=T0+1
+d1d21(at = 1)
+πt
+⟨b∆t−1, Xt⟩e⊤
+j XtR −ej b∆t−1R
+!
+.
+Obviously, for any T0 + 1 ≤t ≤T,
+
+bd1d21(at = 1)
+Tπt
+e⊤
+j ξtXtR
+
+
+ψ2
+≲d1d2
+T 1−γ σ∥R∥2,max ≤d1d2
+T 1−γ σ
+rµr
+d2
+and
+E
+b2d2
+1d2
+21(at = 1)
+T 2π2
+t
+ξ2
+t e⊤
+j XtRR⊤X⊤
+t ej
+Ft−1
+
+≲tγσ2d1d2
+T 2
+tr(RR⊤) ≤tγrσ2d1d2
+T 2
+.
+Then by martingale Bernstein inequality, with probability at least 1 −d−3
+1 ,
+
+b
+T
+T
+X
+t=T0+1
+d1d21(at = 1)
+πt
+ξte⊤
+j XtR
+ ≲
+r
+rd1d2 log d1
+T 1−γ
+σ.
+Similarly, with the same probability,
+
+b
+T
+T
+X
+t=T0+1
+d1d21(at = 1)
+πt
+⟨b∆t−1, Xt⟩e⊤
+j XtR −ej b∆t−1R
+ ≲
+r
+rd1d2 log d1
+T 1−γ
+σ.
+Then we can conclude that
+∥e⊤
+j bZR∥≲
+r
+rd1d2 log d1
+T 1−γ
+σ
+91
+
+````
+
+## PDF page 92
+
+FORMULA CHECK REQUIRED: original PDF page 92.
+
+````text
+with probability at least 1 −3d−3
+1 . Taking union bound,
+P
+
+max
+j∈[d1] ∥e⊤
+j P⊥bEΘ∥≳δ
+rµr
+d1
+
+≤3d−2
+1 ,
+P
+
+max
+j∈[d2] ∥e⊤
+j P⊥bEΘ∥≳δ
+rµr
+d2
+
+≤3d−2
+1 .
+Then following the proof of Lemma 4 in Xia and Yuan [2021],
+P
+
+∥bLbL⊤−LL⊤∥2,max ≳
+σ
+λmin
+r
+d2
+1d2 log d1
+T 1−γ
+rµr
+d1
+E
+
+≤5d−2
+1 log2 d1.
+And similarly we can prove the statement for ∥bR bR⊤−RR⊤∥2,max.
+D.11
+Proof of Theorem B.2
+Proof. Without loss of generality, assume at time t, arm 1 is optimal, i.e., for any k ∈[K]\{1},
+⟨M1 −Mk, Xt⟩> 0, then the expected regret is
+rt = E
+
+
+X
+k∈[K]\{1}
+⟨M1 −Mk, Xt⟩1(choose arm k)
+
+
+= E
+
+
+X
+k∈[K]\{1}
+⟨M1 −Mk, Xt⟩1(choose arm k, ⟨c
+M1,t−1 −c
+Mk,t−1, Xt⟩≥0)
+
+
++ E
+
+
+X
+k∈[K]\{1}
+⟨M1 −Mk, Xt⟩1(choose arm 0, ⟨c
+Mk,t−1 −c
+M1,t−1, Xt⟩> 0)
+
+
+≤(K −1)εt
+K
+¯m + E
+
+
+X
+k∈[K]\{1}
+⟨M1 −Mk, Xt⟩1(⟨c
+Mk,t−1 −c
+M1,t−1, Xt⟩> 0)
+
+
+|
+{z
+}
+(2)
+.
+Define δ2
+t the entrywise bound in Theorem B.1 such that ∥Ui,tV ⊤
+i,t −M∥2
+max ≤δ2
+t with probability at
+least 1−8td−200
+1
+, and event Bk,t = {⟨M1 −Mk, Xt⟩> 2δt}, then the latter expectation can be written
+92
+
+````
+
+## PDF page 93
+
+FORMULA CHECK REQUIRED: original PDF page 93.
+
+````text
+as
+(2) ≤E
+
+
+X
+k∈[K]\{1}
+⟨M1 −Mk, Xt⟩1
+
+⟨c
+Mk,t−1 −c
+M1,t−1, Xt⟩> 0 ∩Bk,t
+
+
+
++ E
+
+
+X
+k∈[K]\{1}
+⟨M1 −Mk, Xt⟩1
+
+⟨c
+Mk,t−1 −c
+M1,t−1, Xt⟩> 0 ∩Bc
+k,t
+
+
+
+≤
+X
+k∈[K]\{1}
+¯mE
+h
+1
+
+⟨c
+Mk,t−1 −c
+M1,t−1, Xt⟩> 0 ∩Bt
+i
++ 2δtE
+
+
+X
+k∈[K]\{1}
+1(Bc
+k,t)
+
+.
+For the first term, under event Bk,t and ⟨c
+Mk,t−1 −c
+M1,t−1, Xt⟩> 0,
+0 > ⟨c
+M1,t−1 −c
+Mk,t−1, Xt⟩= ⟨c
+M1,t−1 −M1, Xt⟩+ ⟨Mk −c
+Mk,t−1, Xt⟩+ ⟨M1 −Mk, Xt⟩
+> ⟨c
+M1,t−1 −M1, Xt⟩+ ⟨Mk −c
+Mk,t−1, Xt⟩+ 2δt.
+This means either ⟨c
+M1,t−1 −M1, Xt⟩< −δt or ⟨Mk −c
+Mk,t−1, Xt⟩< −δt, which further implies either
+∥c
+M1,t−1 −M1∥max or ∥Mk −c
+Mk,t−1∥max should be larger than δt. Therefore,
+E [1(⟨Mk,t−1 −M1,t−1, Xt⟩> 0) ∩Bt] = P (⟨Mk,t−1 −M1,t−1, Xt⟩> 0 ∩Bk,t)
+≤P (∥M1,t−1 −M1∥max > δt) + P (∥Mk,t−1 −Mk∥max > δt)
+≤16(t −1)
+d200
+,
+For the other term, since E
+
+1(Bc
+k,t)
+
+= P(⟨M1 −Mk, Xt⟩< 2δt) ≤1, then
+rt ≤εt ¯m + 16(K −1)(t −1)
+d200
+¯m + 2(K −1)δt.
+The total regret up to time T is
+RT =
+T
+X
+t=1
+rt ≤
+T
+X
+t=1
+εt ¯m + 8KT(T −1)
+d200
+1
+¯m + 2K
+T
+X
+t=1
+δt.
+93
+
+````
+
+## PDF page 94
+
+FORMULA CHECK REQUIRED: original PDF page 94.
+
+````text
+Since δ2
+t = C3
+λ2
+minr3
+d1d2
+Qt
+τ=1(1 −c1 log d1
+4κT 1−γ ) + C4
+t·rd1 log4 d1¯σ2
+T 2(1−γ)
+when 1 ≤t ≤T0 and δ2
+t = C5
+rd1 log4 d1¯σ2
+T 1−γ
+when
+T0 + 1 ≤t ≤T, for some constants C3 ,C4 and C5. Therefore,
+RT ≲
+T0
+X
+t=1
+ε ¯m +
+T
+X
+t=T0+1
+1
+tγ ¯m + K ¯mT 2
+d200
+1
++ K
+T0
+X
+t=1
+v
+u
+u
+tλ2
+minr3
+d1d2
+tY
+τ=1
+(1 −c1 log d1
+4κT 1−γ ) + K
+T0
+X
+t=1
+s
+t · rd1 log4 d1¯σ2
+T 2(1−γ)
++ K
+T
+X
+t=T0+1
+s
+rd1 log4 d1¯σ2
+T 1−γ
+.
+Since T ≪d50
+1 , the third term is negligible. As a result, from the fact that PT
+t=1 t−γ ≲T 1−γ,
+RT ≲T 1−γ ¯m + KT 1−γ λminr3/2
+√d1d2
++ KT (1+γ)/2
+q
+rd1 log4 d1¯σ2
+≲T 1−γ ¯m + KT (1+γ)/2
+q
+rd1 log4 d1¯σ2.
+D.12
+Proof of Theorem B.3
+Proof. Without loss of generality, we prove a = 1 case and omit all the subscript.
+Recall that
+⟨c
+M, Q⟩−⟨M, Q⟩can be decomposed into
+⟨c
+M, Q⟩−⟨M, Q⟩= ⟨LL⊤bZ1R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ1RR⊤, Q⟩+ ⟨LL⊤bZ1RR⊤, Q⟩
+(17)
++ ⟨LL⊤bZ2R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ2RR⊤, Q⟩+ ⟨LL⊤bZ2RR⊤, Q⟩
+(18)
++ ⟨bLbL⊤bZ bR bR⊤, Q⟩−⟨LL⊤bZRR⊤, Q⟩
+(19)
++ ⟨
+∞
+X
+k=2
+(SA,k( bE)AΘΘ⊤+ ΘΘ⊤ASA,k( bE)), eQ⟩+ ⟨(bΘbΘ⊤−ΘΘ⊤)A(bΘbΘ⊤−ΘΘ⊤), eQ⟩,
+(20)
+where bZ1 =
+b
+T
+PT
+t=T0+1
+d1d21(at=1)
+πt
+ξtXt and bZ2 =
+b
+T
+PT
+t=T0+1
+
+d1d21(at=1)
+πt
+⟨b∆t−1, Xt⟩Xt −b∆t−1
+
+. The
+only different analysis is the main term (17). (18)-(20) can be shown negligible following the same
+arguments in Lemma 5-7. Next we show the asymptotic normality of (17).
+94
+
+````
+
+## PDF page 95
+
+FORMULA CHECK REQUIRED: original PDF page 95.
+
+````text
+Denote S2 = 1/T γ∥PΩ1(PM(Q))∥2
+F + Cγ∥P∪k∈[K]\{1}Ωk(PM(Q))∥2
+F. By definition,
+q
+T 1−γ
+d1d2
+
+⟨LL⊤bZ1R⊥R⊤
+⊥, Q⟩+ ⟨L⊥L⊤
+⊥bZ1RR⊤, Q⟩+ ⟨LL⊤bZ1RR⊤, Q⟩
+
+σS
+=
+q
+1
+T 1+γ
+PT
+t=T0+1
+b√d1d21(at=1)
+πt
+ξt⟨Xt, PM(Q)⟩
+σS
+.
+Similarly, we apply Theorem 3.2 and Corollary 3.1 in Hall and Heyde [2014], the Martingale Central
+Limit Theorem to show the asymptotic normality.
+Step 1: checking Lindeberg condition.
+For any δ > 0,
+T
+X
+t=T0+1
+E
+b2d1d21(at = 1)
+σ2S2T 1+γπ2
+t
+ξ2
+t ⟨Xt, PM(Q)⟩2 × 1
+ξt
+√d1d21(at = 1)⟨Xt, PM(Q)⟩
+σS
+√
+T 1+γπt
+ > δ
+ Ft−1
+
+≤
+b2d1d2
+σ2S2T 1+γ
+T
+X
+t=T0+1
+E
+"
+1(at = 1)
+π2
+t
+ξ2
+t ⟨Xt, PM(Q)⟩2 × 1
+ 
+|ξt⟨Xt, PM(Q)⟩| > σSδ
+√
+T 1+γεt
+2√d1d2
+! Ft−1
+#
+≲
+b2d1d2
+σ2S2T 1+γ
+T
+X
+t=T0+1
+2
+εt
+max
+X∈X ⟨X, PM(Q)⟩2 ×
+v
+u
+u
+tE
+"
+1
+ 
+|ξt⟨Xt, PM(Q)⟩| > σSδ
+√
+T 1+γεt
+2√d1d2
+!#
+,
+where in the last inequality we use E[XY ] ≤
+p
+E[X2]E[Y 2]. By incoherence condition,
+max
+X∈X
+⟨X, PM(Q)⟩
+ ≲
+rµr
+d2
+∥PM(Q)∥F.
+Moreover, since ξt is a subGaussian random variable, so the product ξt⟨Xt, PM(Q)⟩has subGaussian
+tail probability
+P
+ 
+|ξt⟨Xt, PM(Q)⟩| > σSδ
+√
+T 1+γεt
+2√d1d2
+!
+< 2e
+−
+σ2S2δ2T 1+γε2
+t
+8d1d2ν2
+,
+where ν is the subGaussian parameter of order O(
+q
+µr
+d2 ∥PM(Q)∥Fσ). Notice that T 1+γε2
+t ≤T 1+γε2
+T =
+O(T 1−γ). By property of exponential function,
+d1d2σ2
+σ2S2T 1+γ
+µr
+d2 ∥PM(Q)∥2
+F
+PT
+t=T0+1
+2
+εt2e
+−
+σ2S2δ2T 1+γε2
+t
+16d1d2ν2
+con-
+verges to 0 as long as
+d1
+T 1−γ →0. Then the Lindeberg condition is satisfied.
+Step 2: calculating the variance
+Next, we show the conditional variance equals to 1. Recall the definition Ω1 = {X ∈X : ⟨M1 −
+95
+
+````
+
+## PDF page 96
+
+FORMULA CHECK REQUIRED: original PDF page 96.
+
+````text
+M0, X⟩> δT,d1,d2}, Ω0 = {X ∈X : ⟨M1 −M0, X⟩< δT,d1,d2} and Ω∅= X ∪(Ω1 ∪Ω0)c. Then
+b2d1d2
+σ2S2T 1+γ
+T
+X
+t=T0+1
+E
+1(at = 1)
+π2
+t
+ξ2
+t ⟨Xt, PM(Q)⟩2
+Ft−1
+
+=
+b2
+σ2S2T 1+γ σ2
+T
+X
+t=T0+1
+X
+X∈Ω1
+1
+
+max
+k∈[K]⟨c
+Mk,t−1, X⟩= 1
+
+1
+1 −εt
+K
+⟨X, PM(Q)⟩2
++ 1
+
+max
+k∈[K]⟨c
+Mk,t−1, X⟩̸ = 1
+ 1
+εt
+K
+⟨X, PM(Q)⟩2
++
+X
+k∈[K]\{1}
+X
+X∈Ωk
+1
+
+max
+k∈[K]⟨c
+Mk,t−1, X⟩= 1
+
+1
+1 −εt
+K
+⟨X, PM(Q)⟩2 + 1
+
+max
+k∈[K]⟨c
+Mk,t−1, X⟩̸ = 1
+ 1
+εt
+K
+⟨X, PM(Q)⟩2
++
+X
+X∈Ω∅
+1
+
+max
+k∈[K]⟨c
+Mk,t−1, X⟩= 1
+
+1
+1 −εt
+K
+⟨X, PM(Q)⟩2 + 1
+
+max
+k∈[K]⟨c
+Mk,t−1, X⟩̸ = 1
+ 1
+εt
+K
+⟨X, PM(Q)⟩2.
+We aim to show the convergence of the indicator function. For any X ∈∪k∈[K]Ωk and any j, w ∈[K],
+suppose ⟨Mj −Mw, X⟩> 0, we have for any T0 + 1 ≤t ≤T,
+⟨c
+Mj,t −c
+Mw,t, X⟩= ⟨c
+Mj,t −Mj, X⟩+ ⟨Mw −c
+Mw,t, X⟩+ ⟨Mj −Mw, X⟩
+≥⟨Mj −Mw, X⟩−2δ > 0
+with probability at least 1 −8td−200
+1
+, where δ is defined in Theorem B.3. The second inequality
+comes from the gap condition in Assumption B.1. Similarly, if ⟨Mj −Mw, X⟩< 0, we can show
+⟨c
+Mj,t −c
+Mw,t, X⟩< 0 with the same probability. As a result, with the same probability, 1(⟨c
+Mj,t −
+c
+Mw,T, X⟩> 0) = 1(⟨Mj −Mw, X⟩> 0). Combine with a union bound, with probability at least
+1 −8Ktd−200
+1
+,
+1
+
+max
+k∈[K]⟨c
+Mk,t−1, X⟩= 1
+
+=
+Y
+k∈[K]\{1}
+1
+
+⟨c
+M1,t −c
+Mk,t, X⟩> 0
+
+=
+Y
+k∈[K]\{1}
+1 (⟨M1,t −Mk,t, X⟩> 0)
+= 1
+
+max
+k∈[K]⟨Mk, X⟩= 1
+
+.
+Therefore, P
+X∈Ω1 1(maxk∈[K]⟨c
+Mk,t−1, X⟩= 1)⟨X, PM(Q)⟩2 →∥PΩ1(PM(Q))∥2
+F and
+P
+k∈[K]\{1}
+P
+X∈Ωk 1(maxk∈[K]⟨c
+Mk,t−1, X⟩̸ = 1)⟨X, PM(Q)⟩2 →∥P∪k∈[K]\{1}Ωk(PM(Q))∥2
+F. On the other
+hand, P
+X∈Ω1 1(maxk∈[K]⟨c
+Mk,t−1, X⟩̸ = 1)⟨X, PM(Q)⟩2 →0 and
+96
+
+````
+
+## PDF page 97
+
+FORMULA CHECK REQUIRED: original PDF page 97.
+
+````text
+P
+k∈[K]\{1}
+P
+X∈Ωk 1(maxk∈[K]⟨c
+Mk,t−1, X⟩= 1)⟨X, PM(Q)⟩2 →0. Also note that
+b
+T
+PT
+t=T0+1 1/(1 −
+εt/K) →1 and
+b
+T 1+γ
+PT
+t=T0+1 K/εt →
+K
+c2(1+γ). And by Assumption B.1, P
+X∈Ω∅1(maxk∈[K]⟨c
+Mk,t−1, X⟩=
+1)
+1
+1−εt
+K ⟨X, PM(Q)⟩2 + 1(maxk∈[K]⟨c
+Mk,t−1, X⟩̸ = 1) 1
+εt
+K ⟨X, PM(Q)⟩2 ≤K/εt∥PΩ∅(PM(Q))∥2
+F is negligi-
+ble. Then the conditional variance will converge in probability to 1. It follows
+PT
+t=T0+1
+d1d21(at=1)
+πt
+ξt⟨Xt, PM(Q)⟩
+σS
+p
+d1d2/T 1−γ
+→N(0, 1)
+when T, d1, d2 →∞.
+D.13
+Proof of Corollary B.1
+Proof. Note that for any g, h ∈[K]
+(⟨c
+Mg, Q⟩−⟨c
+Mh, Q⟩) −(⟨Mg, Q⟩−⟨Mh, Q⟩) = (⟨c
+Mg, Q⟩−⟨Mg, Q⟩) −(⟨c
+Mh, Q⟩−⟨Mh, Q⟩),
+then ⟨c
+Mg, Q⟩−⟨Mg, Q⟩and ⟨c
+Mh, Q⟩−⟨Mh, Q⟩can be decomposed into main term and negligible
+terms in the same way as Theorem 3. The upper bound of all the negligible terms follow the Lemma
+5-7. The main CLT term is
+b
+T
+T
+X
+t1=T0+1
+d1d21(at1 = g)
+πg,t1
+ξt1⟨Xt1, PM1(Q)⟩−b
+T
+T
+X
+t2=T0+1
+d1d21(at2 = h)
+πh,t2
+ξt2⟨Xt2, PM0(Q)⟩.
+As long as we show PT
+t1=T0+1
+d1d21(at1=g)
+πg,t1
+ξt1⟨Xt1, PMg(Q)⟩is uncorrelated with
+PT
+t2=T0+1
+d1d21(at2=h)
+πh,t2
+ξt2⟨Xt2, PMh(Q)⟩, then the asymptotic variance is the sum of their individual
+variance, i.e., σ2
+gS2
+g + σ2
+hS2
+h. Notice that,
+b2
+T 2
+T
+X
+t1=T0+1
+d1d21(at1 = g)
+πg,t1
+ξt1⟨Xt1, PMg(Q)⟩
+T
+X
+t2=T0+1
+d1d21(at2 = h)
+πh,t2
+ξt2⟨Xt2, PMh(Q)⟩
+= b2d2
+1d2
+2
+T 2
+T
+X
+t1=T0+1
+T
+X
+t2=T0+1
+1(at1 = g)1(at2 = h)
+πg,t1πh,t2
+ξt1ξt2⟨Xt1, PMg(Q)⟩⟨Xt2, PMh(Q)⟩.
+When t1 = t2, 1(at1 = g)1(at2 = h) = 0. When t1̸ = t2, E[
+1(at1=g)1(at2=h)
+πg,t1πh,t2
+ξt1ξt2Xt1Xt2] = 0 due to the
+i.i.d. distributed ξt. As a result, the two terms are uncorrelated.
+Together with Lemma 5-7, all the negligible terms converge to 0 when divided by
+97
+
+````
+
+## PDF page 98
+
+FORMULA CHECK REQUIRED: original PDF page 98.
+
+````text
+q
+(σ2
+gS2
+g + σ2
+hS2
+h)d1d2/T 1−γ. Then similar as Theorem 4, we can replace σ2
+gS2
+g +σ2
+hS2
+h with bσ2
+g bS2
+g +bσ2
+h bS2
+h
+and conclude the proof.
+98
+
+````
+

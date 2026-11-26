@@ -1,0 +1,53 @@
+{
+  "paper_id": "N476cce5c63",
+  "category": "A",
+  "title": "Policy Learning for Optimal Dynamic Treatment Regimes with Observational Data",
+  "authors": "Shosei Sakaguchi",
+  "doi": "10.2139/ssrn.5269467",
+  "year": "2025",
+  "original_url": "https://doi.org/10.2139/ssrn.5269467",
+  "local_fulltext": true,
+  "public_pdf": [
+    "A/N476cce5c63/artifacts/4aef40abfe18/original.pdf"
+  ],
+  "public_markdown": [
+    "A/N476cce5c63/artifacts/4aef40abfe18/fulltext.md"
+  ],
+  "public_txt": [
+    "A/N476cce5c63/artifacts/4aef40abfe18/fulltext.txt"
+  ],
+  "original_tex": [
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/appendix.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/document_May2025.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/mai_text.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/subtext.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/algorithm.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/ate_one_period.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/ate_two_period.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/balance_check.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/decomposition_table.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/decomposition_table_2.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/decomposition_table_3.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/decomposition_table_4.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/table_empirical.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/table_simulation.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/table_simulation_supplement.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/welfare_table_comparison.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/welfare_table_comparison_w1.tex",
+    "A/N476cce5c63/artifacts/4aef40abfe18/latex/tables/welfare_table_gain.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "4aef40abfe18f288f25ad66d6d2e0b565fbe2a3a203395df3dd9f817e8ee9979",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2404.00221",
+      "provenance": "A/N476cce5c63/artifacts/4aef40abfe18/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/N476cce5c63/README.md",
+  "status": "public_fulltext"
+}

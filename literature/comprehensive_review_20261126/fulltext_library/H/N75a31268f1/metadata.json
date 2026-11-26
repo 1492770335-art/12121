@@ -1,0 +1,28 @@
+{
+  "paper_id": "N75a31268f1",
+  "category": "H",
+  "title": "On estimation and cross‐validation of dynamic treatment regimes with competing risks",
+  "authors": "Paweł Morzywołek and Johan Steen and Wim Van Biesen and Johan Decruyenaere and Stijn Vansteelandt",
+  "doi": "10.1002/sim.9568",
+  "year": "2022",
+  "original_url": "https://doi.org/10.1002/sim.9568",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "7cfc79da52ea721a0aad1027e1f885ce02de8419261a751956726a7441b149b4",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2109.00396"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/N75a31268f1/README.md",
+  "status": "local_only"
+}

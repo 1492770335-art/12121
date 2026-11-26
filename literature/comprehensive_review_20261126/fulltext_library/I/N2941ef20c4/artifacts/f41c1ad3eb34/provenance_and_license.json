@@ -1,0 +1,30 @@
+{
+  "paper_id": "N2941ef20c4",
+  "category": "I",
+  "artifact_type": "main",
+  "sha256": "f41c1ad3eb34d2079e9a989ff621dd0f476c76ff3a2b363379d30e31edc7f0df",
+  "source_url": "https://www.mdpi.com/1099-4300/28/3/329/pdf",
+  "original_version": "publishedVersion",
+  "bytes": "5011162",
+  "pdf_pages": "24",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.mdpi.com/1099-4300/28/3/329/pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:45.909152+08:00",
+  "format": "pdf",
+  "title": "Power Load Probabilistic Prediction Based on Multi-Value Quantile Regression and Timing Fusion Ensemble Learning Model",
+  "authors": "Yuhang Liu and Fei Mei and Jun Zhang and Xiang Dai and Wen Li",
+  "doi": "10.3390/e28030329",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "conditions of the Creative Commons\nAttribution (CC BY) license."
+    }
+  ]
+}

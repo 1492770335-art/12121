@@ -1,0 +1,30 @@
+{
+  "paper_id": "Nc6b55d6c2b",
+  "category": "G",
+  "artifact_type": "main",
+  "sha256": "fe7ec617f7f37758d22ed4dc5de7cc968ab53baec00ef444dda518722ace93b1",
+  "source_url": "https://public-pages-files-2025.frontiersin.org/journals/applied-mathematics-and-statistics/articles/10.3389/fams.2026.1777018/pdf",
+  "original_version": "publishedVersion",
+  "bytes": "709708",
+  "pdf_pages": "6",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://public-pages-files-2025.frontiersin.org/journals/applied-mathematics-and-statistics/articles/10.3389/fams.2026.1777018/pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:59:03.421741+08:00",
+  "format": "pdf",
+  "title": "Cause-distinct incidence for resolving confusion in competing risk analysis: a critical review",
+  "authors": "Tsuyoshi Nakamura and Tomomi Yamada and Yoshiaki Nose",
+  "doi": "10.3389/fams.2026.1777018",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "Commons Attribution License (CC BY)."
+    }
+  ]
+}

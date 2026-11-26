@@ -1,0 +1,104 @@
+We show consistency of our proposed optimal ITR estimator \( \doptHAT(Z) \), as well as the random survival forest in the single stage setting and our proposed RCIF. \if0\prelim The proofs of all theorems are presented in the Supplementary Material. \fi We use the definition of regular trees and random-split trees from the random forest literature \citep{meinshausen_quantile_2006, wager_adaptive_2016, cui_consistency_2022}.
+\begin{definition}[Random-split and \( \alpha \)-regular trees and forests]
+\label{def:regsplotalphatree}
+A tree is called a random-split tree if each feature is given a minimum probability \( (\psi/d) \) of being the split variable at each intermediate node, where \( 0 < \psi < 1 \) and \( d \) is the dimension of the feature space. A tree is \( \alpha \)-regular if every daughter node has at least an \( \alpha \) fraction of the training sample in the corresponding parent node. A random forest is called a random-split (\( \alpha \)-regular) forest if each of its member trees is random-split (\( \alpha \)-regular).
+\end{definition}
+
+In addition to Assumptions \ref{assump:Causal1}-\ref{assump:Causal3} in Section \ref{sec:proposedmethod}, we also assume the following assumptions.
+% survival assumption
+Assumption \ref{assump:CuiAssump1} is important for asymptotic results, and is typical for survival analysis \citep{fleming_counting_2011,cui_tree_2017}. This assumption ensures we only calculate each survival or cumulative incidence curve up to a time point with sufficiently large sample size.
+
+\begin{assumption}
+\label{assump:CuiAssump1}
+There exists a fixed maximum follow-up time $0 < \tau < \infty$ and a constant $\tauUB \in (0, 1)$, such that $Pr(X_\tau \geq \tau | Z = z) \geq \tauUB$, for all $z \in \mathcal{Z}$.
+\end{assumption}
+
+% INPUTTING ASSUMPTIONS for forest consistency
+% Assumptions for Forest Consistency
+Below are assumptions used for consistency of both forests. Assumptions \ref{assump:Cho1}-\ref{assump:Cho3} are necessary and realistic for the tree-based estimator terminal node size and splitting rules. Assumption \ref{assump:Cho1} requires the terminal node size to be not only sufficiently large absolutely but also sufficiently small relative to the sample size. Assumption \ref{assump:Cho2} follows from Definition \ref{def:regsplotalphatree}. Assumption \ref{assump:Cho3} adds smoothness to the survival function and censoring cumulative distribution function. Assumption \ref{assump:CuiAssump2} follows from \cite{cui_tree_2017} and \cite{wager_adaptive_2016}, which allows for dependency between covariates. Thus, non-hyper-rectangular or categorical history spaces are allowed with this assumption. Assumption \ref{khbddtv} is necessary for the random cumulative incidence forest because there is non-differentiability of the treatment policy.
+
+\begin{assumption}[Terminal node size, polynomial]
+\label{assump:Cho1}
+The minimum size \( n_{\text{min}} \) of the terminal nodes grows at the rate \( n_{\text{min}} \bowtie n^\beta \), \( \frac{1}{2} < \beta < 1 \), where \( a \bowtie b \) implies that both \( a = O(b) \) and \( b = O(a) \).
+\end{assumption}
+
+\begin{assumption}
+[\( \alpha \)-regular and random-split trees]
+\label{assump:Cho2}
+Trees are \( \alpha \)-regular and random-split with a constant \( 0 < \psi < 1 \).
+\end{assumption}
+
+\begin{assumption}[Lipschitz continuous and bounded survival and censoring cumulative densities]
+\label{assump:Cho3}
+There exist constants \( \lipS \) and \( \lipG \) such that \( |\survfunc(t | h_1) - \survfunc(t | h_2)| \leq \lipS\|h_1 - h_2\| \) and \( |G(t | h_1) - G(t | h_2)| \leq \lipG \|h_1 - h_2\| \) for all \( h_1, h_2 \in \history \), \( t \in [0, \tau] \), where \( G \) is the censoring cumulative distribution function (CDF) and \( \survfunc(\tau^- \mid \histlower)G(\tau^- \mid \histlower) > c_1 \) for all \( \histlower \) and some constant \( c_1 > 0 \).
+\end{assumption}
+
+\begin{assumption}
+    \label{assump:CuiAssump2}
+    The covariates $Z \in [0; 1]^d$ are distributed according to a density function $p(\cdot)$ satisfying $1/\assumpcovbound \leq p(z) \leq \assumpcovbound$, for all $z$ and some $\assumpcovbound \geq 1$.
+\end{assumption}
+
+\begin{assumption}
+\label{khbddtv}
+The kernel \( \kernel \) for the random cumulative incidence forest has bounded total variation. Specifically, there exists a constant \( C \) such that the total variation of \( \kernel \) satisfies
+\[
+\int_{-\infty}^{\infty} \abs{\kernel^\prime(x)} \, dx \leq C,
+\]
+where \( \kernel^\prime(x) \) denotes the derivative of the kernel \( \kernel \).
+\end{assumption}
+
+% ITR consistency assumptions
+% Assumptions for ITR Consistency
+Below are assumptions for the proposed estimator for consistency. We assume bounding in Assumptions \ref{assump:boundeddensity}-\ref{assump:boundedV0} to account for nonregularity of the value function. This is a necessary and standard assumption for non-regularity conditions.
+
+\begin{assumption}
+\label{assump:boundeddensity}
+Define the random function $B(a,Z) = \valueoneTRUE - (1-\tol)\valueonemaxTRUE$, $a \in \mathcal{A}$. Assume $B(a,Z)$ has continuous, bounded densities at 0, for each $a \in \mathcal{A}$.
+\end{assumption}
+
+\begin{assumption}
+\label{assump:boundedV0}
+    $\sup_{a,Z} \left\| \valueTRUE \right\|$ is bounded by some $\sevenbound < \infty$.
+\end{assumption}
+
+%%%% ITR
+\subsection{Individualized Treatment Rule Estimator}
+\label{Sec:ITRestimator_Consistency}
+
+For any fixed value of covariate $Z$, the difference in value functions between true optimal ITR and estimated optimal ITR based on Algorithm \ref{alg:Overview} is
+\begin{equation}
+\label{eqn:ValueDiff}
+    \mathbb{V}(\doptTRUE(Z)) - \mathbb{V}(\doptHAT(Z)) = \sum_{a \in \mathcal{A}} \mathbb{E}\left[ \valueTRUE
+\cdot \left( \mathbf{1}\{\doptTRUE(Z) = a\} - \mathbf{1}\{\doptHAT(Z) = a\} \right)
+\right]
+\end{equation}
+where \( \mathbb{V}(d(Z)) \) is $\phi$ of a treatment regime \( d(Z) \) if all individuals in a population follow the treatment regime. Showing Equation \cref{eqn:ValueDiff} converges in probability to $0$ proves that $\doptHAT$ converges in probability to the true $\doptTRUE$. The following theorem states that the individualized treatment regime estimator has a value consistent for the value of the optimal regime.
+
+% ITR estimator CONSISTENCY Theorem and Proof
+\input{Chapters/02_Proj1/02_theorems/ITR_Estimator/Consistency/Consistency_ITR} 
+\ITRconsistency
+
+\input{Chapters/02_Proj1/01_chapters/3.Theory/prelim_proofs}
+\PRELIMproofITR
+
+\subsection{Random Forests}
+\label{Sec:Forest_Consistency}
+Consistency of our proposed estimator depends on consistency of the forests. We show this in Theorems \ref{genRSF_consistency} and \ref{rcif_consistency}. For simplicity, let $h = (a,Z)$.
+
+% Theorem
+\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/Paper1_Consistency_Theorems}
+\genrsfconsistency
+\if1\prelim
+{
+\proofSM
+} \fi
+
+\rcifconsistency
+
+\ifnum\prelim=1
+\ifnum\jasa=0
+% proof included for prelim
+\input{Chapters/02_Proj1/01_chapters/3.Theory/prelim_proofs}
+\PRELIMproofRCIF
+\fi
+\fi

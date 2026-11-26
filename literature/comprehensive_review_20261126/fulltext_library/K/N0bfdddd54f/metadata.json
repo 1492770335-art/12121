@@ -1,0 +1,34 @@
+{
+  "paper_id": "N0bfdddd54f",
+  "category": "K",
+  "title": "Transplant outcomes after intensive chemotherapy or venetoclax plus azacitidine in acute myeloid leukemia: a multicenter retrospective study in Japan",
+  "authors": "Hiroyuki Muranushi and Junya Kanda and Tadakazu Kondo and Yasuyuki Arai and Ikue Okamura-Shiki and Takashi Ikeda and Hiroki Amagase and Takehiro Okuda and Daishi Nakagawa and Takeshi Maeda and Yasunori Ueda and Kazunori Imada and Kazuhiro Yago and Tomoharu Takeoka and Mutsumi Okada and Yasuko Miyahara and MItsumasa Watanabe and Nobuyoshi Arima and Toshiyuki Kitano and Masakatsu Hishizawa and Katsuhiro Io and Satoko Oka and Kosuke Asagoe and Takashi Akasaka and Kouhei Yamashita and Akifumi Takaori-Kondo",
+  "doi": "10.46989/001c.170281",
+  "year": "2026",
+  "original_url": "https://doi.org/10.46989/001c.170281",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/N0bfdddd54f/artifacts/8d7d41df4da9/original.pdf"
+  ],
+  "public_markdown": [
+    "K/N0bfdddd54f/artifacts/8d7d41df4da9/fulltext.md"
+  ],
+  "public_txt": [
+    "K/N0bfdddd54f/artifacts/8d7d41df4da9/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "8d7d41df4da906306cd6e9025fa0b27e761a5b6d8cea56c3daa09338ef4de493",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://chi.scholasticahq.com/article/170281.pdf",
+      "provenance": "K/N0bfdddd54f/artifacts/8d7d41df4da9/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N0bfdddd54f/README.md",
+  "status": "public_fulltext"
+}

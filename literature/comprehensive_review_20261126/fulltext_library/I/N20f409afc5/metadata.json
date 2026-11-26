@@ -1,0 +1,28 @@
+{
+  "paper_id": "N20f409afc5",
+  "category": "I",
+  "title": "Beyond Fixed Thresholds: Optimizing Summaries of Wearable Device Data via Piecewise Linearization of Quantile Functions",
+  "authors": "Junyoung Park and Neo Kok and Irina Gaynanova",
+  "doi": "10.1002/sim.70646",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1002/sim.70646",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "be78e25bf2602b431fa62c4e2941c3de6c38d10a1e3cd95dc87d3969a650a581",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2501.11777"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/N20f409afc5/README.md",
+  "status": "local_only"
+}

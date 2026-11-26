@@ -1,0 +1,44 @@
+
+{ 
+
+
+
+\section{More Related Works} \label{sec:related}
+
+
+
+
+
+\label{sec:contribution_over}
+
+
+We elaborate on the challenge and novelty of our guarantees in comparison to  previous related works.  
+
+
+\paragraph{Existing $L^2$-guarantees for offline RL \citep{shi2022statistical}.}
+
+
+\citet{shi2022statistical} derived the $L^2$ convergence rate for learning the optimal $Q^{\star}$-function. However, their result is restricted to linear models. While linear models allow for converting Bellman residual errors into $L^2$-errors under mild assumptions regarding the non-singularity of the covariance matrix, this guarantee can be achieved through various methods such as modified BRM \citep{antos2008learning}. However, it remains unclear how to extend this guarantee to general function approximation settings.
+
+
+\paragraph{Existing $L^2$-guarantees for off-policy evaluation \citep{huang2022beyond,zhan2022offline}.}
+
+According to \citet{huang2022beyond}, $L^2$-rates were obtained in the context of offline policy evaluation, while \citet{zhan2022offline} obtained the $L^2$-rate for the (regularized) optimal marginal density ratio function. While our approach builds upon these works, it is still considered novel due to the nonlinear constraints we consider, which provide an additional challenge in the analysis. In contrast, the constraints considered by \citet{huang2022beyond,zhan2022offline} were linear.
+
+In order to grasp the difficulty at a high level, suppose that the state space is tabular \footnote{Note our theory still proceeds in the non-tabular case.}. Recall our estimator is motivated by the constrained optimization problem \pref{eq:constraint1}. Although the left-hand side of \pref{eq:constraint1} is convex in $q$, the constraint induced by the equality is generally not convex. As a result, this problem is not a convex optimization problem. Therefore, it is not straightforward whether the saddle point exists when we consider the minimax form. This differs from previous works \citep{huang2022beyond,zhan2022offline}, where the constraint from the linear equality remains convex. 
+
+The key insight for addressing this issue is the realization that the equality constraint ($=$) in \pref{eq:constraint1} can be relaxed to an inequality constraint ($\leq$) in \pref{eq:constraint1}. This relaxation is surprisingly valid in our problem. As a result, the resulting optimization problem is convex, and a saddle point exists. For further discussion, see \pref{sec:intuition}.
+
+\vspace{-0.2cm}
+\paragraph{Bellman residual minimization \citep{antos2008learning,chen2019information,chen2022well}.} \citet{chen2019information} derived convergence rates for Q-functions in terms of Bellman residual errors: $\EE_{(s,a)\sim P_b}[(\Bcal^\star q-q)^2(s,a)]$ where $\Bcal^{\star}$ is a Bellman operator. While the convergence of the $L^2$-error implies that of the Bellman residual error since we have 
+\begin{align*}
+&\EE_{(s,a)\sim P_b}[(\Bcal^{\star} q-q)^2(s,a)]\leq %
+(1+\gamma^2 \EE_{(s,a)\sim P_b}[(\pi^{\star}/\pi_b)^2(s,a)])\|q-q^{\star}\|^2_2, 
+\end{align*}
+the reverse direction does \emph{not} generally hold. Although \citet{chen2022well} demonstrated the reverse direction by postulating several potentially stringent conditions \footnote{These conditions would implicitly impose restriction of the coverage of the offline data.} of offline data regarding OPE, it does not generally hold in the absence of these assumptions. Furthermore, we consider the more challenging setting, offline policy optimization where the Bellman operator is nonlinear. Thus, it is imperative to utilize our specialized objective function to ensure a stronger guarantee in terms of $L^2$-errors.
+
+
+
+
+
+\vspace{-0.25cm}

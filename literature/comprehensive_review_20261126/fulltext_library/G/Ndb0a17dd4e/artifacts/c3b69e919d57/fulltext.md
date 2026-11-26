@@ -1,0 +1,9051 @@
+# Doubly robust estimation of the hazard difference for competing risks data
+
+Original PDF: [original.pdf](original.pdf). SHA256: `c3b69e919d578b6ab02944129a96923d6e3d2b1ce7ba3f1f09b71b6aff2fd5d2`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+FORMULA CHECK REQUIRED: original PDF page 1.
+
+````text
+Doubly Robust Estimation of the Hazard Diﬀerence for
+Competing Risks Data
+Denise Rava, drava@ucsd.edu
+Department of Mathematics, University of California, San Diego
+Ronghui Xu, rxu@health.ucsd.edu
+Department of Mathematics and Herbert Wertheim School of Public Health
+University of California, San Diego
+Abstract
+We consider the conditional treatment eﬀect for competing risks data in obser-
+vational studies. While it is described as a constant diﬀerence between the hazard
+functions given the covariates, we do not assume speciﬁc functional forms for the
+covariates. We derive the eﬃcient score for the treatment eﬀect using modern semi-
+parametric theory, as well as two doubly robust scores with respect to 1) the assumed
+propensity score for treatment and the censoring model, and 2) the outcome models for
+the competing risks. An important asymptotic result regarding the estimators is rate
+double robustness, in addition to the classical model double robustness. Rate double
+robustness enables the use of machine learning and nonparametric methods in order
+to estimate the nuisance parameters, while preserving the root-n asymptotic normality
+of the estimators for inferential purposes. We study the performance of the estimators
+using simulation. The estimators are applied to the data from a cohort of Japanese
+men in Hawaii followed since 1960s in order to study the eﬀect of mid-life drinking
+behavior on late life cognitive outcomes.
+1
+arXiv:2112.09535v2  [stat.AP]  27 Dec 2021
+
+````
+
+## PDF page 2
+
+FORMULA CHECK REQUIRED: original PDF page 2.
+
+````text
+1
+Introduction
+Our work was motivated by data from the linked epidemiological projects Honolulu Hearth
+Program (HHP) and Honolulu-Asia Aging Study (HAAS). HHP was established in 1965
+as an epidemiological study of rates and risk factors for heart disease and stroke in men of
+Japanese ancestry living in Oahu and born between 1900 and 1919. HAAS was established
+in 1991 as a continuation of the HHP with a shift of focus on brain aging, Alzheimer’s
+disease, vascular dementia, other causes of cognitive and motor impairment, stroke, and
+the common chronic conditions of late life. During the HAAS period neuropsychological
+assessments were performed every 2-3 years until 2012. In particular, we are interested
+in the eﬀect of mid-life exposures captured during HHP on late life cognitive outcomes
+collected in HAAS. For this cohort of participants then, death presents a competing risk
+for the cognitive outcomes. This is commonly referred as truncation by death when the
+cognitive outcomes are analyzed as longitudinal repeated measures (Ding et al., 2011;
+Tchetgen Tchetgen, 2014; Estes et al., 2016; Yang and Small, 2016), and competing risk
+when the cognitive outcomes are time to events, which is the case here.
+In observational studies such as the above, it is necessary to control for confounding
+in order to study the causal eﬀects of exposures such as alcohol. One way to control for
+confounding is through including the covariates in a regression model. This leads to the
+so-called conditional treatment eﬀect. For the analysis of time-to-event data, the additive
+hazards model (Aalen, 1980, 1989) has recently been considered in this context (Dukes
+et al., 2019; Hou et al., 2021). For a binary treatment, this conditional treatment eﬀect
+is the hazard diﬀerence given the covariates under the additive hazards model. Note that
+misspeciﬁcation of the functional form of the covariates in the hazard regression model can
+lead to bias in the estimation of the treatment eﬀect of interest.
+To alleviate the reliance on the correct speciﬁcation of the covariate forms which are
+‘nuisance’ themselves, ﬂexible modeling such as nonparametric approaches might be con-
+sidered.
+However, they are often ineﬃcient and lead to slower rates of convergence of
+the estimated treatment eﬀect; this is the ‘curse of dimensionality’ problem discussed in
+Robins and Ritov (1997). Alternatively, there has been a growing literature on doubly
+robust estimators that protect against misspeciﬁcation of the ‘nuisance’ parts of the model
+(Robins and Rotnitzky, 1995; Robins et al., 1995; Scharfstein et al., 1999; Robins et al.,
+2000; Robins, 2000; Robins et al., 2000; Van Der Laan et al., 2003; Robins and Rotnitzky,
+2001; Bang and Robins, 2005; Tsiatis, 2006; Tchetgen Tchetgen et al., 2010). In the sur-
+vival context Zhang and Schaubel (2012), Bai et al. (2017) and Sj¨olander and Vansteelandt
+(2017) derived doubly robust estimators for the treatment eﬀect deﬁned as, or equivalent
+to, a contrast between expectations of functions of the potential failure times, i.e. the
+failure time that would be observed if the same subject were treated or untreated, respec-
+tively, regardless of the actual treatment received. Yang et al. (2020) developed a doubly
+robust estimator for the structural accelerated failure time models. Petersen et al. (2014)
+and Zheng et al. (2016) derived targeted maximum likelihood estimators that are doubly
+robust after discretizing time and recasting the failure event as a binary outcome.
+In the absence of competing risks, doubly robust estimators for the hazard diﬀerence
+have been proposed by Dukes et al. (2019) and Hou et al. (2021). Dukes et al. (2019)
+considered low dimensional setting, i.e. all the nuisance parameters are estimated para-
+2
+
+````
+
+## PDF page 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+metrically or semiparametrically at root-n rate, but the treatment might be continuous.
+Hou et al. (2021) considered high dimensional setting, using regularization methods with
+LASSO as a speciﬁc case for their theoretical as well as empirical investigation.
+In the following we ﬁrst derive the semiparametrically eﬃcient score for the cause-
+speciﬁc hazard diﬀerence under competing risks.
+We then propose two doubly robust
+estimators with respect to two sets of models. The ﬁrst set contains the treatment as-
+signment model, also called the propensity score model, and the model for the censoring
+distribution. The second set contains the cause-speciﬁc hazard models for the competing
+risks. The proposed estimators are both model doubly robust and rate doubly robust.
+Model doubly robust refers to the property that the estimators of treatment eﬀects are
+consistent and asymptotically normal, as long as any one of the two sets of the models are
+correctly speciﬁed, and that the correctly speciﬁed models are estimated at root-n rate.
+This is doubly robust in the classical sense.
+Rate doubly robust refers to the property that the estimators of treatment eﬀects are
+consistent and asymptotically normal, when both sets of the models estimate the truth but
+at possibly slower than root-n rate, as long as their product rate is faster than root-n. Rate
+doubly robust property enables the use of modern machine learning or other nonparametric
+methods, which substantially broadens the range of estimators to be used for the nuisance
+parameters. With these methods model speciﬁcation might become much less an issue
+than previously, so that one might be less concerned about having at least one of the two
+sets of models correctly speciﬁed. We note that rate double robustness was not considered
+in Dukes et al. (2019). Meanwhile, although rate double robustness was established in Hou
+et al. (2021) for the LASSO estimators, our results in this paper can be much more broadly
+applied to potentially many machine learning and other nonparametric methods. In the
+process we also weaken the censoring assumption as required in Dukes et al. (2019) and
+Hou et al. (2021).
+The rest of the paper is organized as follows: after formally deﬁning the parameter of
+interest, in Section 2 we derive the semiparametrically eﬃcient and Section 3 the two doubly
+robust scores. In Section 4 we describe the implementation of the doubly robust estimators,
+and derive the asymptotic distribution of the estimated treatment eﬀects. We study the
+ﬁnite sample performance of the proposed estimators through extensive simulations in
+Section 5, and apply them to the HHP-HAAS data in order to estimate the eﬀect of
+alcohol exposure on cognitive impairment in Section 6. We conclude with discussion in the
+last section.
+1.1
+Model and Notation
+Denote T time to failure, and ϵ = 1, . . . , J the type of failure. Let C be the censoring
+random variable, X = min(T, C) be the observed (and possibly censored) failure time, and
+δ = 1{T ≤C} the event indicator. Let A = 0, 1 be a binary treatment, and Z be a vector
+of baseline covariates. We assume τ < ∞to be an upper limit of follow-up time.
+A commonly used approach for competing risks data is to model the cause-speciﬁc
+hazard function for each type of failure (Holt, 1978; Kalbﬂeisch and Prentice, 2011). The
+cause-speciﬁc hazard functions are the quantities ‘just identiﬁed’ by such data, in the
+3
+
+````
+
+## PDF page 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+sense that any other quantity that can be identiﬁed from the competing risks data, can be
+expressed as a function of the cause-speciﬁc hazard (Kalbﬂeisch and Prentice, 2011). We
+assume that the conditional cause-speciﬁc hazard function, hj(t|A, Z) = lim∆t→0+
+1
+∆tP(t ≤
+T < t + ∆t, ϵ = j|T ≥t, A, Z), for j = 1, . . . , J, satisﬁes:
+hj(t|A, Z) = βjA + λj(t, Z),
+(1)
+where λj(t, Z), representing the eﬀect of the covariates on the hazard, is left unspeciﬁed.
+This is a key diﬀerence from the more traditional cause-speciﬁc additive hazards model
+that assumes linear eﬀects of both A and Z; see for example, Shen and Cheng (1999).
+From model (1) then, βj = hj(t|A = 1, Z) −hj(t|A = 0, Z) is the diﬀerence between the
+conditional cause-speciﬁc hazard functions of the two treatment groups.
+In the following we assume that C ⊥T|(A, Z), where ‘⊥’ indicates statistical in-
+dependence.
+This is a standard assumption in the analysis of time-to-event data, and
+it relaxes the stricter C ⊥(A, T)|Z assumption imposed by both Hou et al. (2021)
+and Dukes et al. (2019). We will also use the counting process and the at-risk process
+notation: Nj(t) = 1 {X ≤t, δ = 1, ϵ = j} and Y (t) = 1 {X ≥t}.
+Under model (1),
+Mj(t) = Nj(t) −
+R t
+0 Y (u)hj(u|A, Z)du is a local square-integrable martingale with respect
+to the ﬁltration
+Ft = σ {Nj(s), Y (s+), A, Z : j = 1, . . . , J, 0 < s < t}. In addition, the predictable covaria-
+tion process < Ml, Mj > (t) = 0 for l̸ = j because with absolutely continuous distributions
+of the event times, the probability that the competing events happen at the same time
+equals zero.
+2
+Semiparametrically eﬃcient score for β
+The derivation below follows the modern semiparametric theory as described in Tsiatis
+(2006). We provide a sketch for the readers here and leave all the details to the Supple-
+mentary Materials.
+Under the semiparametric model (1), the parameter of interest is β = [β1, . . . , βJ]⊤
+and the nuisance parameter is η = [λ1(t, z), . . . , λJ(t, z), λc(t|a, z), P(a|z), f(z)]⊤, where
+λc(t|a, z) is the conditional hazard function for C given A and Z, P(a|z) is the conditional
+probability of A given Z, and f(z) is the density or probability function of the covariates
+Z. The likelihood for a single copy of the data takes the following form:
+L
+=
+J
+Y
+j=1
+{βjA + λj(X, Z)}1{δ=1,ϵ=j} exp {−βjAt −Λj(X, Z)}
+× {λc(X|A, Z)}1−δ exp {−Λc(X|A, Z)} P(A|Z)f(Z),
+where Λj(t, z) =
+R t
+0 λj(u, z)du for j = 1, . . . , J and Λc(t|a, z) =
+R t
+0 λc(u|a, z)du. From the
+likelihood, one can derive the score for the parameter of interest. In the Supplementary
+Materials we show that under model (1),
+Sβ = ∂log L
+∂β
+=
+Z τ
+0
+A · dMj(t)
+hj(t|A, Z)
+J
+j=1
+.
+(2)
+4
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+In addition, if η were ﬁnite dimensional, the score for the nuisance parameter would be
+Sη = ∂log L/∂η. The nuisance tangent space, denoted by Λ, is the space spanned by
+the nuisance score. When η has inﬁnite dimension, as in our case, the notion of nuisance
+tangent space can be extended through the deﬁnition of parametric submodels. We leave
+the technicality of this deﬁnition to Chapter 4 of Tsiatis (2006).
+An estimator ˆβ is asymptotically linear if there exists a function of the data ϕ, such that
+√n(ˆβ −β0) = Pn
+i=1 ϕi/√n + op(1). The function ϕ, named inﬂuence function, has mean
+zero and ﬁnite variance, thus guarantees the asymptotic normality of the estimator ˆβ. Such
+estimators are therefore desirable and they are uniquely deﬁned by their inﬂuence functions.
+Every inﬂuence function belongs to the orthogonal complement of the nuisance tangent
+space (Tsiatis, 2006, Theorem 4.2). This space, denoted by Λ⊥, is therefore the starting
+point to deﬁne semiparametric estimators for β that are consistent and asymptotically
+normal.
+The space Λ⊥is also important because it allows one to ﬁnd orthogonal scores. A score
+ψ(β, η) is orthogonal if
+∂
+∂rE {ψ(β0; η0 + r(η −η0))}
+
+r=0
+= 0,
+(3)
+where we use the subscript ‘0’ to indicate the true value of the parameters. Orthogonal
+scores are invariant to small perturbations of the nuisance parameter around the truth and
+so the estimation of the nuisance parameter may not greatly aﬀect the estimation of the
+treatment eﬀect (Bickel et al., 1993; Newey, 1990, 1994). It is shown in the Supplementary
+Materials (Lemma 3) that an estimating function belongs to Λ⊥if and only if it is an
+orthogonal score.
+The following lemma gives the form of the orthogonal complement of the nuisance
+tangent space under model (1).
+Lemma 1. Under model (1), the orthogonal complement of the nuisance tangent space
+takes the following form:
+Λ⊥
+=
+
+
+
+J
+X
+j=1
+Z τ
+0
+
+gj(t, A, Z) −
+E
+n
+gj(t, A, Z)h−1
+j (t|A, Z)Sc(t|A, Z)e−PJ
+l=1 βlAt|Z
+o
+E
+n
+h−1
+j (t|A, Z)Sc(t|A, Z)e−PJ
+l=1 βlAt|Z
+o
+
+
+× dMj(t)
+hj(t|A, Z) :
+for all gj(t, A, Z), j = 1, ..., J
+
+.
+(4)
+The proofs of all results can be found in the Supplementary Materials.
+Among all the semiparametric asymptotically linear estimators of β, the eﬃcient score
+is Sβ −Π{Sβ|Λ} = Π{Sβ|Λ⊥} (Tsiatis, 2006), where Π{Sβ|Λ} and Π{Sβ|Λ⊥} are the
+projections of Sβ onto Λ and Λ⊥, respectively. From (2) it can be seen that this would be
+the element of Λ⊥that corresponds to gj(t, A, Z) = Aej, where ej is a vector with 1 at the
+jth position and 0 elsewhere, j = 1, ..., J. Therefore we have the following result.
+5
+
+````
+
+## PDF page 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+Theorem 1. Under model (1) the eﬃcient score has the following form:
+Seff(β)
+=
+
+
+
+Z τ
+0
+
+A −
+E
+n
+Ah−1
+j (t|A, Z)Sc(t|A, Z)e−PJ
+l=1 βlAt|Z
+o
+E
+n
+h−1
+j (t|A, Z)Sc(t|A, Z)e−PJ
+l=1 βlAt|Z
+o
+
+
+dMj(t)
+hj(t|A, Z)
+
+
+
+J
+j=1
+.(5)
+Remark 1: If we make the stronger assumption of C ⊥(A, T)|Z as in Dukes et al.
+(2019) and Hou et al. (2021), Sc(t|A, Z) = Sc(t|Z), and so the eﬃcient score simpliﬁes to:
+Seff(β)
+=
+
+
+
+Z τ
+0
+
+A −
+E
+n
+Ah−1
+j (t|A, Z)e−PJ
+l=1 βlAt|Z
+o
+E
+n
+h−1
+j (t|A, Z)e−PJ
+l=1 βlAt|Z
+o
+
+
+dMj(t)
+hj(t|A, Z)
+
+
+
+J
+j=1
+.
+In this case, Sc is therefore no longer needed for the estimation of β. If further J = 1, the
+eﬃcient score in Dukes et al. (2019) is recovered.
+Remark 2: Traditionally, estimation of parameters from competing risks data allows esti-
+mating the parameters for one type of failure at a time. This is the case for the widely used
+cause-speciﬁc Cox model and the traditional additive cause-speciﬁc hazards model (Shen
+and Cheng, 1999). However, for both the eﬃcient score and the doubly robust scores below,
+the components of β are estimated jointly from a multi-dimensional score.
+The above score is locally eﬃcient in the sense that its asymptotic variance attains the
+semiparametric eﬃcency bound when λj(t, z), Sc(t|a, z) and P(a|z) are known or correctly
+estimated (Tsiatis, 2006, Theorem 4.1). Unfortunately, since hj(t|A, Z) in (5) is unknown
+and estimators for it are not readily available, the eﬃcient score may not be directly used
+in practice. We will however exploit both (4) and (5) to derive two doubly robust scores
+for the estimation of β.
+3
+Doubly robust scores
+Doubly robust Score 1
+Denote π(Z) = P(A = 1|Z). Inspired by Hou et al. (2021), we choose in (4) gj(t, A, Z) =
+e
+PJ
+l=1 βlAtS−1
+c (t|A, Z) {A −π(Z)} hj(t|A, Z), and obtain
+S1(β; Sc, π, Λ) =
+Z τ
+0
+e
+PJ
+l=1 βlAtS−1
+c (t|A, Z) {A −π(Z)} dMj(t; βj, Λj)
+J
+j=1
+,
+(6)
+where Λ = (Λ1, ..., ΛJ)⊤, and dMj(t; βj, Λj) = dNj(t) −Y (t)βjAdt −Y (t)dΛj(t, Z). We
+note that Mj(t; β0, Λ0) is a martingale under model (1), where again the subscript ‘0’
+indicates the true value. The main diﬀerence between (6) when J = 1 and the score from
+Hou et al. (2021) is the incorporation of the censoring distribution Sc, so that we do not
+need the stronger assumption C ⊥(T, A)|Z. We note also that Hou et al. (2021) directly
+constructed their score as a member of Λ⊥using deﬁnition (3).
+6
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+Doubly robust Score 2
+The second approach removes the unknown hazard weights from the eﬃcient score (5), as
+done in Lin and Ying (1994) for the additive hazards regression model, and we have
+S2(β; Sc, π, Λ) =
+Z τ
+0
+{A −E(t; β, Sc, π)} dMj(t; βj, Λj)
+J
+j=1
+,
+(7)
+where:
+E(t; β, Sc, π)
+=
+E
+h
+Ae−PJ
+j=1 βjAtSc(t|A, Z)|Z
+i
+E
+h
+e−PJ
+j=1 βjAtSc(t|A, Z)|Z
+i
+=
+e−PJ
+j=1 βjtSc(t|A = 1, Z)π(Z)
+e−PJ
+j=1 βjtSc(t|A = 1, Z)π(Z) + Sc(t|A = 0, Z) {1 −π(Z)}
+.
+We note that Score 2 in (7) is completely new to our best knowledge, even in the absence
+of competing risks.
+Since both scores (6) and (7) belong to Λ⊥, they are orthogonal scores. In addition,
+they are doubly robust with respect to the estimation of both Sc and π, and that of Λ, as
+stated in the theorem below.
+Theorem 2. E {S1(β0; Sc, π, Λ)} = E {S2(β0; Sc, π, Λ)} = 0 if either Sc = Sc0 and π = π0,
+or Λ = Λ0, where subscript ‘0’ indicates the true quantities.
+Finally, if we are willing to make the stronger assumption C ⊥(T, A)|Z, the above two
+scores simplify to:
+˜S1(β; π, Λ)
+=
+Z τ
+0
+e
+PJ
+j=1 βjAt {A −π(Z)} dMj(t; β, Λ)
+J
+j=1
+,
+(8)
+˜S2(β; π, Λ)
+=
+(Z τ
+0
+(
+A −
+e−PJ
+j=1 βjtπ(Z)
+e−PJ
+j=1 βjtπ(Z) + {1 −π(Z)}
+)
+dMj(t; β, Λ)
+)J
+j=1
+,
+(9)
+where Sc is no longer involved. We will consider the implementation of these two simpliﬁed
+scores in the simulation below as well.
+4
+Estimation and inference
+Given a random sample of size n we write
+S1,n(β; Sc, π, Λ) := 1
+n
+n
+X
+i=1
+S1i(β; Sc, π, Λ),
+(10)
+and
+S2,n(β; Sc, π, Λ) := 1
+n
+n
+X
+i=1
+S2i(β; Sc, π, Λ).
+(11)
+7
+
+````
+
+## PDF page 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+Both (10) and (11) depend on the quantities Sc, π and Λ that need to be estimated.
+For estimation of the propensity score π(·) and the censoring model Sc(·|·, ·), we leave it
+to the users to choose any working model as long as some mild assumptions, given later, are
+satisﬁed. From here on we use ˆSc, ˆπ and ˆΛ to denote estimators of the nuisance parameters
+Sc, π and Λ; note that the estimator for Λ may also depend on β as described below.
+For the estimation of Λ we consider here the usual linear working models: Λj(t, Z; Gj, γj) =
+Gj(t) + γ⊤
+j Zt, j = 1, ..., J. The parameters γ = (γ1, . . . , γJ)⊤and G = (G1, . . . , GJ)⊤can
+be estimated using the approach of Shen and Cheng (1999), which is equivalent to applying
+the estimating equations of Lin and Ying (1994) separately to each failure type:
+ˆγj =
+" n
+X
+i=1
+Z τ
+0
+Yi(t){Zi −¯Z(t)}⊗2dt
+#−1 " n
+X
+i=1
+Z τ
+0
+Yi(t){Zi −¯Z(t)}dNji(t)
+#
+,
+(12)
+where ¯Z(t) = {Pn
+i=1 Yi(t)}−1 Pn
+i=1 Yi(t)Zi, Z⊗2 = ZZ⊤, and
+ˆGj(t; βj, γj) =
+Z t
+0
+Pn
+i=1
+n
+dNji(u) −Yi(u)βjAidu −Yi(u)γ⊤
+j Zidu
+o
+Pn
+i=1 Yi(u)
+.
+(13)
+For the estimation of Gj, following Hou et al. (2021) we consider also the weighted
+Breslow estimator:
+˜Gj(t; βj, γj, Sc, π) =
+Z t
+0
+Pn
+i=1 wi(Sc, π)
+n
+dNji(u) −Yi(u)βjAidu −Yi(u)γ⊤
+j Zidu
+o
+Pn
+i=1 wi(Sc, π)Yi(u)
+,
+(14)
+where wi(Sc, π) = Ai {1 −π(Zi)} S−1
+c (u|Ai, Zi). The advantage of using (14) is that it leads
+to the closed-form solution to S1,n for j = 1, ..., J:
+ˆβ(1)
+j
+= −
+( n
+X
+i=1
+Z τ
+0
+ˆS−1
+c (t|Ai, Zi)(1 −Ai)ˆπ(Zi)Yi(t)dt
+)−1
+×
+n
+X
+i=1
+Z τ
+0
+ˆS−1
+c (t|Ai, Zi)
+·(1 −Ai)ˆπ(Zi) ·
+
+dNji(t) −Yi(t)
+h
+ˆγ⊤
+j
+n
+Zi −¯Z(t; ˆSc, ˆπ)
+o
+dt + d ¯Nj(t; ˆSc, ˆπ)
+i
+,
+(15)
+where
+¯Z(t; ˆSc, ˆπ) =
+Pn
+i=1 Yi(t)Ziwi( ˆSc, ˆπ)
+Pn
+i=1 Yi(t)wi( ˆSc, ˆπ)
+,
+d ¯Nj(t; ˆSc, ˆπ) =
+Pn
+i=1 dNji(t)wi( ˆSc, ˆπ)
+Pn
+i=1 Yi(t)wi( ˆSc, ˆπ)
+.
+We show below that the asymptotic distribution of the solution to S1,n does not depend on
+the speciﬁc estimator of Λ, as long as the nuisance parameters are consistently estimated
+at a certain rate. Therefore, the choice of (14) is purely due to its numerical advantage.
+For S2,n, using (13) and after some algebra, we have:
+S2,n(β; ˆSc, ˆπ, ˆΛ)
+=
+(
+1
+n
+n
+X
+i=1
+Z τ
+0
+n
+Ai −Ei(t; β, ˆSc, ˆπ) −¯A(t) + ¯E(t)
+o
+(16)
+·
+n
+dNji(t) −Yi(t)
+
+βjAi + ˆγ⊤
+j Zi
+
+dt
+ooJ
+j=1 ,
+8
+
+````
+
+## PDF page 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+where
+¯A(t) =
+Pn
+i=1 Yi(t)Ai
+Pn
+i=1 Yi(t) ,
+¯E(t) =
+Pn
+i=1 Yi(t)Ei(t; β, ˆSc, ˆπ)
+Pn
+i=1 Yi(t)
+.
+Once the estimators ˆπ, ˆSc and ˆΛ are available, we deﬁne ˆβ(2) to be the root of S2,n(β; ˆSc, ˆπ, ˆΛ).
+We study the asymptotic properties of these estimators below. For ease of notation we
+assume J = 2; extension to J > 2 should be straightforward. We need the following main
+assumption concerning the convergence of the nuisance parameter estimators.
+Assumption 1. There exist S∗
+c (·|·, ·), π∗(·), Λ∗(·, ·) such that:
+sup
+t∈[0,τ],z∈Z,a=0,1
+ ˆSc(t|a, z) −S∗
+c (t|a, z)
+
+=
+Op(an),
+sup
+z∈Z
+|ˆπ(z) −π∗(z)|
+=
+Op(bn),
+sup
+t∈[0,τ],z∈Z
+ˆΛj(t, z; βj0) −Λ∗
+j(t, z)
+
+=
+Op(cn),
+for some an = o(1), bn = o(1), cn = o(1) and for j = 1, 2, where Z is the sample space of
+Z.
+4.1
+Asymptotic properties using Score 1
+Under Assumption 1 and additional General Assumptions in the Supplementary Materials,
+under case a), b) or c) listed below, ˆβ(1) −β0 = op(1) and
+√n
+
+ˆβ(1) −β0
+ D
+→N(0, Σ),
+where:
+(a) Σ = Σ(a) given in the Supplementary Materials, as long as S∗
+c = Sc0 and π∗= π0,
+an = bn = n−1/2, and Assumptions A1-A2 in the Supplementary Materials hold;
+(b) Σ = Σ(b) given in the Supplementary Materials, as long as Λ∗= Λ0, cn = n−1/2,
+and Assumptions B1-B2 in the Supplementary Materials hold;
+(c) Σ = Σ(c) given in the Supplementary Materials, as long as S∗
+c = Sc0, π∗= π0
+and Λ∗= Λ0, ancn = o(n−1/2) and bncn = o(n−1/2), and Assumptions C1, C2 in the
+Supplementary Materials hold. In this case a consistent estimator of Σ(c) is also given in
+the Supplementary Materials.
+In the above (a) and (b) are known as model double robustness, and (c) is known as
+rate double robustness (Smucler et al., 2019; Hou et al., 2021).
+For application of the above asymptotic results the user may choose from a variety of
+estimators for the nuisance parameters. In simulations below we show that the variance
+estimator derived in case (c) above is somehow robust to model misspeciﬁcation. Alter-
+natively we may use nonparametric bootstrap, the validity of which is guaranteed by the
+fact that the estimated treatment eﬀect is asymptotically linear. In the Supplementary
+9
+
+````
+
+## PDF page 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+Materials we also show that the explicit form of the asymptotic variance can be derived
+for speciﬁc working models in the cases (a) and (b). In particular, we illustrate with pro-
+portional hazards modeling for Sc and logistic regression for π in case (a), and additive
+hazards modeling for Λj in case (b). However, due to their complex forms and also because
+in practice one does not know which model is correct, we do not derive an estimator for
+the asymptotic variance.
+4.2
+Asymptotic properties using Score 2
+We obtain similar asymptotic results using Score 2. Under Assumption 1 and additional
+General Assumptions in the Supplementary Materials, under case a), b) or c) listed below,
+ˆβ(2) −β0 = op(1). In addition,
+√n
+
+ˆβ(2) −β0
+ D
+→N(0, Γ),
+where:
+(a) Γ = Γ(a) given in the Supplementary Materials, as long as S∗
+c = Sc0, π∗= π0,
+an = bn = n−1/2, and Assumption A’1 in the Supplementary Materials hold (model double
+robustness 1).
+(b) Γ = Γ(b) given in the Supplementary Materials, as long as Λ∗= Λ0, and Assumption
+B’1 in the Supplementary Materials hold (model double robustness 2).
+(c) Γ = Γ(c) given in the Supplementary Materials, as long as S∗
+c = Sc0, π∗= π0
+and Λ∗= Λ0, ancn = o(n−1/2) and bncn = o(n−1/2), and Assumptions C’1, 2 in the
+Supplementary Materials hold (rate double robustness). In this case a consistent estimator
+of Γ(c) is also given in the Supplementary Materials.
+5
+Simulation experiments
+In this section we investigate the performance of the proposed estimators on a series of
+simulated data sets. For each scenario, we simulate 500 data sets of 1000 observations.
+True β1 = β2 = 0.1. The percentage of treated subjects is 40% −50% and the percentage
+of censored subjects is 10% −30%. For both estimators ˆβ(1) and ˆβ(2), model-based stan-
+dard errors are used to construct 95% conﬁdence intervals. As illustration, in one of the
+scenarios we also report the nonparametric bootstrap standard error based on the ﬁrst 100
+simulations due to the intensive computation demand, where we draw 100 resamples with
+replacement from (Xi, ϵi, δi, Ai, Zi), i = 1, . . . , n.
+We consider separately independent and dependent censoring. For independent cen-
+soring, estimation of the censoring distribution is not required and we use the simpliﬁed
+scores (8) and (9).
+5.1
+Independent censoring
+Here the censoring variable C is simulated independently of T, A, Z. We consider four dif-
+ferent simulation scenarios described in Table 1. For estimation of the propensity score, the
+10
+
+````
+
+## PDF page 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+working models Alog, A∗
+log and Atw are given in the footnote of the table, which are, respec-
+tively, logistic regression, logistic regression with interaction, and the R package ‘twang’
+implementing gradient boosted models for estimation of the propensity score (Cefalu et al.,
+2021). For the competing risks, we ﬁt as working models B the semiparametric additive
+hazards model.
+Both ˆβ(1) and ˆβ(2) are consistent and asymptotically normal as long as one of the A
+or B working models is correct in low dimensions, i.e. when one of the working models is
+parametric or semiparametric and correctly speciﬁed. For comparison we also report the
+estimate of β under ‘Regression’ from ﬁtting B, which is valid when B is correctly speciﬁed.
+The results of the simulations are reported in Table 2.
+It can be seen that when
+model B is misspeciﬁed as in Scenarios 3 and 4, the direct regression estimator of β is
+severely biased with poor coverage of the conﬁdence intervals (CI). The estimators from
+both Scores 1 and 2 have little bias in Scenarios 1, 2 and 3, with good coverage of CI’s using
+model-based standard errors (SE), even when one of the models is wrong. In Scenario 4
+where the competing risks are generated by the Cox-Aalen model, the model-based SE’s
+underestimate the SD’s, and the CI’s undercover. Bootstrap increases the SE and hence the
+coverage of the CI’s. In addition in Scenario 4 when ‘twang’ is used, there is no guarantee
+according to our theory and the estimation bias is much more substantial, although this
+seems less an issue in Scenario 3 when ‘twang’ is used.
+5.2
+Dependent censoring
+For dependent censoring we consider the four scenarios described in Table 3. For estimat-
+ing the censoring distribution, we consider the proportional hazards working model for all
+four scenarios; in Scenario 7 we also estimate the censoring distribution using the random
+survival forest (Ishwaran et al., 2008). For the latter we use the R package ‘randomForest-
+SRC’ and its default hyperparameters. We report the results using both the simpliﬁed
+scores, (8) and (9), which assume independent censoring, and Score 1 in (15) with the
+estimated Sc. Model-based standard errors are used to construct 95% conﬁdence intervals
+in all cases.
+The results of the simulations are reported in Table 4. It is interesting to note that
+although censoring depends on A and Z, the simpliﬁed scores using (8) and (9) in general
+perform better than (15) with the estimated Sc, which has generally over 10% bias except
+when the random survival forest is used to estimate Sc in Scenario 7. In Scenario 7, when
+the proportional hazards model, which is wrong, is used to estimate Sc, the model-based
+SE underestimates SD, leading to substantial under coverage of the CI’s. On the other
+hand, when the random survival forest is used to estimate Sc, the bias becomes small and
+the coverage is relatively accurate, so that the performance of (15) is similar to those of
+(8) and (9).
+6
+Application
+Here we study the eﬀect of mid-life alcohol exposure on late life development of cognitive
+impairment. Cognitive impairment is assessed using the Cognitive Assessment and Screen-
+11
+
+````
+
+## PDF page 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+Table 1: Data-generating mechanisms of Scenarios 1-4; Z = [Z1, Z2]⊤, C ⊥(T, A, Z).
+Scenario
+Data-generating mechanism
+Fitted models
+1
+Z1, Z2 ∼U(0, 0.5)
+logit π(Z) = Z1 −Z2
+Alog: CORRECT and Atw
+λj(t) = 0.1A + 1 + Z1 + Z2
+B: CORRECT
+C ∼U(0, 3)
+2
+Z1, Z2 ∼U(0, 0.5)
+logit π(Z) = 0.25(Z1 −Z2) −0.5Z1Z2
+Alog: WRONG and Atw
+λj(t) = 0.1A + 0.3 + Z1 + Z2
+B: CORRECT
+C ∼U(0, 3)
+3
+Z1 ∼N(0, 1), Z2 ∼N(Z1, 1)
+logit π(Z) = 0.25(Z1 −Z2) + 0.5Z1Z2 −1
+A∗
+log: CORRECT and Atw
+λj(t) = 0.1A + 0.3 + |Z1| + log(1 + |Z2|)
+B: WRONG
+C ∼U(0, 3)
+4
+Z1 ∼N(0, 1), Z2 ∼N(Z1, 1)
+logit π(Z) = 0.25(Z1 −Z2) + 0.5Z1Z2 −1
+A∗
+log: CORRECT and Atw
+λj(t) = 0.1A + exp (Z1 + Z2)
+B: WRONG
+C ∼U(0, 3)
+Alog : π(z; α) = expit(α⊤z)
+Atw: twang
+A∗
+log : π(z; α) = expit(α⊤z + α∗z1z2)
+B : Λj(t, z; Gj, γj) = Gj(t) + γ⊤
+j z, j = 1, 2
+ing Instrument (CASI), collected from the participants starting in 1991 during the HAAS
+period. A score below 74 is considered moderate impairment, which is the event of interest.
+The data set consist of 1881 observations with normal cognitive functions at the start of
+HAAS, which is considered baseline for this competing risks analysis.
+Mid-life alcohol exposure was assessed during the HHP period between 1965 - 1974,
+and is divided into two groups of 1390 light drinkers, and 491 heavy drinkers at some
+point during mid-life. At the end of follow-up, among light drinkers 557 (40%) developed
+cognitive impairment and 474 (34%) died without impairment, while among heavy drinkers
+216 (44%) developed cognitive impairment and 163 (33%) died without impairment. The
+cumulative incidence function curves for the two groups are presented in Figure 1.
+The covariates used to adjust for confounding are maximum years of education, age,
+systolic blood pressure and heart rate at the start of HHP, and ApoE genotype. ApoE is
+known to be related to Alzheimer’s disease (AD) and AD related dementia. In addition,
+since CASI at baseline (i.e. start of HAAS) is post mid-life alcohol exposure, it might be
+considered as a mediator for the later development of cognitive impairment. Under the
+additive eﬀect model (1), similar to Lange and Hansen (2011) and VanderWeele (2011), if
+12
+
+````
+
+## PDF page 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+Table 2: Results of simulations from Scenarios 1-4, independent censoring; true β1 = β2 =
+0.1. Column PS indicates the working model for the propensity score. For Scenario 4, the
+ﬁrst row of SE and CP are model-based, and the second row from bootstrap. SD, standard
+deviation; SE, standard error; CP, coverage of the 95% conﬁdence interval.
+Score 1
+Score 2
+Regression
+Scenario
+PS
+Bias
+SD
+SE
+CP
+Bias
+SD
+SE
+CP
+Bias
+SD
+SE
+CP
+1
+β1
+logistic
+−0.012
+0.156
+0.146
+0.93
+−0.006
+0.157
+0.146
+0.93
+-0.006
+0.157
+0.147
+0.93
+twang
+−0.012
+0.159
+0.150
+0.93
+−0.006
+0.161
+0.149
+0.93
+β2
+logistic
+0.0006
+0.144
+0.147
+0.95
+0.006
+0.146
+0.146
+0.95
+0.006
+0.146
+0.147
+0.95
+twang
+−0.0003
+0.147
+0.150
+0.96
+0.005
+0.148
+0.149
+0.95
+2
+β1
+logstic
+−0.010
+0.108
+0.120
+0.97
+−0.007
+0.108
+0.120
+0.97
+-0.007
+0.108
+0.121
+0.97
+twang
+−0.011
+0.110
+0.124
+0.97
+−0.008
+0.110
+0.124
+0.97
+β2
+logistic
+0.001
+0.127
+0.121
+0.95
+0.005
+0.129
+0.121
+0.95
+0.005
+0.128
+0.121
+0.95
+twang
+0.001
+0.131
+0.124
+0.95
+0.004
+0.133
+0.124
+0.94
+3
+β1
+logistic
+−0.009
+0.160
+0.163
+0.96
+0.001
+0.162
+0.163
+0.95
+0.336
+0.170
+0.163
+0.48
+twang
+−0.006
+0.158
+0.162
+0.97
+0.006
+0.161
+0.162
+0.96
+β2
+logistic
+0.000
+0.157
+0.163
+0.97
+0.011
+0.158
+0.163
+0.96
+0.350
+0.163
+0.163
+0.42
+twang
+0.006
+0.153
+0.162
+0.97
+0.018
+0.155
+0.163
+0.96
+4
+β1
+logistic
+0.004
+0.091
+0.099
+0.077
+0.98
+0.90
+0.006
+0.091
+0.099
+0.080
+0.98
+0.91
+0.570
+0.127
+0.095
+0
+twang
+0.044
+0.089
+0.095
+0.075
+0.93
+0.84
+0.047
+0.092
+0.100
+0.079
+0.95
+0.86
+β2
+logistic
+0.002
+0.094
+0.099
+0.077
+0.96
+0.89
+0.003
+0.095
+0.099
+0.080
+0.96
+0.90
+0.566
+0.128
+0.095
+0
+twang
+0.041
+0.092
+0.095
+0.075
+0.90
+0.89
+0.044
+0.095
+0.101
+0.079
+0.93
+0.86
+Ma is the potential value of the mediator under treatment a = 0, 1, we have
+hj(t|A = 1, M1, Z) −hj(t|A = 0, M0, Z)
+=
+βj + λj(t|M1, Z) −λj(t|M0, Z)
+=
+βj + hj(t|A = 1, M1, Z) −hj(t|A = 1, M0, Z),
+for j = 1, 2. The above gives the usual decomposition of the total eﬀect as the diﬀerence
+of the hazards in the left-hand side of the above, so that βj (j = 1, 2) may be seen as the
+direct eﬀect of mid-life alcohol exposure on the outcome (i.e. competing risk) of interest,
+when we include CASI at baseline in the regression model (1).
+For estimation of the
+total eﬀect on the left-hand side above, if we make the standard consistency assumption
+(i.e. T a,m = T if A = a, M = m and T a = T if A = a) and the composition assumption
+for mediators (VanderWeele and Vansteelandt, 2009, i.e. T a,Ma = T a), where we again use
+the superscripts to indicate the potential values, it can be shown that
+hj(t|A = a, Ma, Z)
+=
+˜hj(t|A = a, Z)
+for j = 1, 2 and a = 0, 1, where ˜hj denotes the conditional cause-speciﬁc hazard when the
+mediator is not included in the regression model. Therefore the exposure eﬀect from the
+13
+
+````
+
+## PDF page 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+Table 3: Data-generating mechanisms of Scenarios 5-8; Z = [Z1, Z2]⊤, C ⊥T|A, Z.
+Scenario
+Data-generating mechanism
+Fitted models
+5
+Z1, Z2 ∼U(0, 0.5)
+logit π(Z) = Z1 −Z2
+Alog: CORRECT and Atw
+C ∼Exp(exp(−1 + A + Z1 + Z2))
+C: CORRECT
+λj(t) = 0.1A + 1 + Z1 + Z2
+B: CORRECT
+6
+Z1, Z2 ∼U(0, 0.5)
+logit π(Z) = 0.25(Z1 −Z2) −0.5Z1Z2
+Alog: WRONG and Atw
+C ∼Exp(exp(−1 + A + Z1 + Z2))
+C: CORRECT
+λj(t) = 0.1A + 0.3 + Z1 + Z2
+B: CORRECT
+7
+Z1, Z2 ∼U(0, 0.5)
+logit π(Z) = 0.25(Z1 −Z2) −0.5Z1Z2
+Alog: WRONG and Atw
+λc(t|A, Z) = 2t + A −Z1 −Z2
+C: WRONG and RSF
+λj(t) = 0.1 ∗A + 0.3 + Z1 + Z2
+B: CORRECT
+8
+Z1 ∼N(0, 1), Z2 ∼N(Z1, 1)
+logit π(Z) = 0.25(Z1 −Z2) + 0.5Z1Z2 −1
+A∗
+log: CORRECT and Atw
+C ∼Exp(exp(−A + Z1 −Z2))
+C: CORRECT
+λj(t) = 0.1A + 0.3 + |Z1| + log(1 + |Z2|)
+B: WRONG
+Alog : π(z; α) = expit(α⊤z)
+Atw: twang
+A∗
+log : π(z; α) = expit(α⊤z + α∗z1z2)
+B : Λj(t, z; Gj, γj) = Gj(t) + γ⊤
+j z, j = 1, 2
+C : Sc(t|a, z; η, Λc) = exp
+n
+−Λc(t)eη⊤do
+where d = (a, z)⊤
+RSF: random survival forest
+latter, i.e. when CASI at baseline is not included in model (1), may be considered as the
+total eﬀect of mid-life alcohol on the outcome.
+In order to estimate the above eﬀects we use both logistic regression without interaction
+and ‘twang’ to estimate the propensity score. In Figure 2 we plot the Kaplan-Meier curves
+of the censoring distribution for diﬀerent groups deﬁned by the exposure and the covariates,
+those that have suﬃcient censoring events out of the 32 possible combinations of the 5
+dichotomized covariates (by their medians for the continuous). The plots seem to suggest
+that the stronger assumption of C ⊥(T, A)|Z may not hold here.
+We utilize the scores studied in the above simulations to estimate the eﬀect of mid-life
+alcohol exposure on the development of moderate cognitive impairment and on the com-
+peting risk of death without cognitive impairment. The censoring distribution is estimated
+14
+
+````
+
+## PDF page 15
+
+FORMULA CHECK REQUIRED: original PDF page 15.
+
+````text
+Table 4: Results of simulations from Scenarios 5-8, dependent censoring; true β1 = β2 =
+0.1. Column PS indicates the working model for the propensity score. For Scenario 7,
+the ﬁrst row of ‘Score 1 with ˆSc’ uses the Cox model to estimate Sc while the second row
+uses the random survival forest. SD, standard deviation; SE, standard error; CP, coverage
+of the 95% conﬁdence interval.
+∗median is reported when the distribution of SE is left
+skewed, i.e. with heavy right tail.
+Score 1 - Simpliﬁed
+Score 1 with ˆSc
+Score 2 - Simpliﬁed
+Scenario
+PS
+Bias
+SD
+SE
+CP
+Bias
+SD
+SE
+CP
+Bias
+SD
+SE
+CP
+5
+β1
+logistic
+−0.021
+0.157
+0.181
+0.97
+−0.032
+0.163
+0.180
+0.97
+−0.006
+0.154
+0.180
+0.98
+twang
+−0.021
+0.159
+0.186
+0.97
+−0.030
+0.166
+0.184
+0.97
+−0.007
+0.157
+0.184
+0.97
+β2
+logistic
+−0.018
+0.160
+0.182
+0.97
+−0.026
+0.168
+0.181
+0.96
+−0.003
+0.158
+0.180
+0.97
+twang
+−0.018
+0.163
+0.186
+0.97
+−0.026
+0.171
+0.185
+0.95
+−0.003
+0.162
+0.184
+0.97
+6
+β1
+logistic
+−0.009
+0.115
+0.113
+0.95
+−0.012
+0.115
+0.119
+0.96
+−0.006
+0.115
+0.113
+0.95
+twang
+−0.009
+0.120
+0.117
+0.95
+−0.013
+0.118
+0.123
+0.96
+−0.005
+0.119
+0.117
+0.95
+β2
+logistic
+−0.011
+0.127
+0.113
+0.92
+−0.013
+0.124
+0.119
+0.94
+−0.008
+0.127
+0.113
+0.93
+twang
+−0.013
+0.131
+0.116
+0.91
+−0.014
+0.128
+0.123
+0.93
+−0.009
+0.131
+0.116
+0.91
+7
+β1
+logistic
+−0.007
+0.126
+0.136
+0.96
+-0.008
+-0.012
+0.126
+0.128
+0.128
+0.120∗
+0.94
+0.83
+0.000
+0.127
+0.135
+0.95
+twang
+−0.007
+0.128
+0.140
+0.96
+-0.008
+-0.012
+0.128
+0.129
+0.131
+0.122∗
+0.95
+0.83
+0.001
+0.129
+0.139
+0.97
+β2
+logistic
+−0.008
+0.128
+0.136
+0.97
+-0.008
+-0.014
+0.129
+0.131
+0.128
+0.124∗
+0.95
+0.82
+−0.002
+0.129
+0.135
+0.97
+twang
+−0.009
+0.135
+0.140
+0.96
+-0.008
+-0.014
+0.136
+0.138
+0.132
+0.126∗
+0.94
+0.81
+−0.003
+0.135
+0.139
+0.96
+8
+β1
+logistic
+0.001
+0.170
+0.160
+0.93
+−0.030
+0.184
+0.197
+0.96
+0.012
+0.168
+0.161
+0.94
+twang
+0.011
+0.168
+0.159
+0.94
+−0.024
+0.185
+0.197
+0.96
+0.020
+0.166
+0.160
+0.95
+β2
+logistic
+0.002
+0.164
+0.160
+0.95
+−0.034
+0.177
+0.197
+0.97
+0.013
+0.163
+0.161
+0.94
+twang
+0.014
+0.160
+0.159
+0.95
+−0.026
+0.176
+0.198
+0.97
+0.022
+0.160
+0.159
+0.94
+using the proportional hazards model. The results of the analysis are reported in Table
+5. The results are similar quantitatively regardless of the estimation method, and seem
+to indicate that mid-life alcohol exposure has a signiﬁcant eﬀect on both the development
+of cognitive impairment and death without cognitive impairment, where the hazards are
+both increased (total eﬀects). While there seems to be no obvious diﬀerence between the
+estimated total and direct eﬀect on death without cognitive impairment, the estimate di-
+rect eﬀect is visibly less than the estimated total eﬀect of alcohol on late life cognitive
+impairment, once the baseline CASI score has been accounted for. In other words, mid-life
+alcohol exposure conceivably contributed to late life cognitive impairment both through
+its earlier impact on cognitive function as well as through its sustained (i.e. direct) impact
+later in life.
+15
+
+````
+
+## PDF page 16
+
+Technical extraction; compare with original PDF page 16.
+
+````text
+Figure 1: Cumulative incidence function curves for the HHP-HAAS data; (a) Cognitive
+Impairment, (b) death without impairment.
+0.0
+0.2
+0.4
+0
+5
+10
+15
+20
+time
+CIF
+(a)
+0.0
+0.1
+0.2
+0.3
+0.4
+0
+5
+10
+15
+20
+time
+CIF
+(b)
+Group
+Heavy Drinkers
+Light Drinkers
+16
+
+````
+
+## PDF page 17
+
+FORMULA CHECK REQUIRED: original PDF page 17.
+
+````text
+Figure 2: Censoring distribution for the two exposure groups given diﬀerent combinations
+of the covariates in the HHP-HAAS dataset. ‘p’ indicates the log-rank test p-value.
+17
+
+````
+
+## PDF page 18
+
+FORMULA CHECK REQUIRED: original PDF page 18.
+
+````text
+Table 5: Estimated treatment eﬀect for the HHP-HAAS data. Column PS indicates the
+working model for the propensity score. Every ﬁrst row of 95% CI is model-based, second
+row uses bootstrap. CI, conﬁdence interval
+Score 1
+Score 1-Cens
+Score 2
+Outcome
+PS
+Eﬀect
+ˆβ
+95% CI
+ˆβ
+95% CI
+ˆβ
+CI
+Cog. imp.
+logistic Total
+0.013 [0.003,0.023]
+[0.004,0.022]
+0.015
+[0.004,0.022]
+[0.005,0.025]
+0.012 [0.003,0.022]
+[0.004,0.021]
+Direct 0.010 [0.002,0.019]
+[0.001,0.019]
+0.009
+[0.000,0.019]
+[0.000,0.019]
+0.009 [0.002,0.019]
+[0.001,0.018]
+twang
+Total
+0.012 [0.001,0.022]
+[0.003,0.020]
+0.013
+[0.002,0.025]
+[0.004,0.023]
+0.011 [0.002,0.021]
+[0.003,0.020]
+Direct 0.008 [0.005,0.011]
+[0.000,0.017]
+0.008 [-0.001,0.006]
+[-0.002,0.017]
+0.008 [0.001,0.016]
+[0.000,0.016]
+Death
+logistic Total
+0.012 [0.005,0.020]
+[0.005,0.020]
+0.013
+[0.005,0.021]
+[0.004,0.022]
+0.012 [0.006,0.018]
+[0.005,0.019]
+Direct 0.012 [0.005,0.022]
+[0.005,0.020]
+0.013
+[0.004,0.023]
+[0.004,0.022]
+0.012 [0.004,0.021]
+[0.005,0.019]
+twang
+Total
+0.012 [0.002,0.021]
+[0.004,0.020]
+0.012
+[0.001,0.024]
+[0.003,0.022]
+0.011 [0.003,0.020]
+[0.004,0.019]
+Direct 0.010 [0.007,0.014]
+[0.003,0.018]
+0.011
+[0.000,0.007]
+[0.002,0.020]
+0.010 [0.003,0.018]
+[0.003,0.018]
+7
+Discussion
+In this article we have proposed two doubly robust estimators for the conditional cause-
+speciﬁc hazard diﬀerence under competing risks. We proposed two estimators that are
+model doubly robust: they are consistent and asymptotically normal if both the propensity
+score and the censoring distribution models are correctly speciﬁed, or if the outcome models
+for the competing risks are correctly speciﬁed. In addition, they are rate doubly robust:
+they are consistent and asymptotically normal if both sets of models are correctly speciﬁed
+and the product of their convergence rates is o(√n).
+Rate double robustness gives the user the possibility to use modern nonparametric
+methods, which are known to have rates of convergence slower than √n. In simulations we
+showed the performance of the proposed estimators when gradient boosted method is used
+for estimation of the propensity score, as well as survival random forest for estimation of
+the censoring distribution. In the absence of competing risks, Hou et al. (2021) proposed in
+their discussion to estimate nonparametrically the cumulative hazard function separately
+for the treated and the untreated, and then combine them using some weights to estimate
+what corresponds to Λj(t, Z) under our model (1). The procedure was not implemented or
+further investigated. For competing risks Ishwaran et al. (2014) proposed survival random
+18
+
+````
+
+## PDF page 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+forest for estimation of both cumulative cause-speciﬁc hazard functions and cumulative
+incidence functions; these might be adapted in an approach similar to Hou et al. (2021).
+This would be of interest for future work.
+Recently further considerations of the competing event as a mediator to the event type
+of interest were described in Young et al. (2020) and Stensrud et al. (2021), in discrete
+time setting. As with any such decomposition of total causal eﬀects into direct and indi-
+rect eﬀects, additional assumptions are needed. It is also not immediately clear how to
+extend the decomposition in the continuous time setting considered here as well as often
+encountered in practical applications.
+In simulations we have seen that the simple estimators using (8) and (9) appear to
+be somehow robust when the stronger independent censoring assumption is violated. On
+the other hand, when the censoring distribution is estimated, the model-based conﬁdence
+intervals can have inaccurate coverage if the censoring model is misspeciﬁed. Using ran-
+dom survival forest to estimate the censoring distribution improves the performance of
+the treatment eﬀect estimate. In practice bootstrap variance estimate might be used to
+construct conﬁdence intervals in general.
+The R codes developed in this work have been implemented in the R package ’Haz-
+ardDiﬀ’ and are publicly available on CRAN (https://CRAN.R-project.org/package=
+HazardDiff).
+Acknowledgements
+This research was partially supported by NIH/NIA grant R03 AG062432.
+We thank
+Drs. Steve Edland and Lon White for helpful discussion regarding the HHP-HAAS data,
+and Ms. Yiran Zhang for preparation of the data.
+8
+Supplementary materials
+8.1
+Derivation of the semiparametrically eﬃcient score
+8.1.1
+Score for β
+As shorthand we denote ∂βj = ∂/∂βj, and similarly for other variables later.
+We ﬁrst prove a generic result.
+Lemma 2. For a generic cause-speciﬁc hazards model hj(t|W; θ), j = 1, . . . , J, where
+θ = (β, η) with ﬁnite dimensional β = [β⊤
+1 , . . . , β⊤
+J ]⊤and covariates W, we have:
+Sβ =
+Z τ
+0
+∂βjhj(t|W; θ)
+
+β=β0
+dMj(t)
+hj(t|W; θ)
+J
+j=1
+.
+(17)
+19
+
+````
+
+## PDF page 20
+
+FORMULA CHECK REQUIRED: original PDF page 20.
+
+````text
+Proof. of Lemma 2. The log likelihood for an individual is
+log L(θ)
+=
+J
+X
+j=1
+[1{δ = 1, ϵ = j} log {hj(X|W; θ)} −Hj(X|W; θ)]
++(1 −δ) log {λc(X|A, Z)} −Λc(X|A, Z) + log P(A|Z) + log f(Z),
+and the associated martingales are:
+Mj(t) = Nj(t) −
+Z t
+0
+Y (u)hj(u|W; θ0)du,
+j = 1, . . . , J.
+(18)
+Therefore,
+{Sβ}j
+=
+∂log L(θ)
+βj
+
+θ=θ0
+=
+J
+X
+j=1
+1{δ = 1, ϵ = j}
+"
+∂βjhj(X|W; θ)
+hj(X|W; θ)
+
+θ=θ0
+−∂βjHj(X|W; θ)
+
+θ=θ0
+#
+=
+Z τ
+0
+∂βjhj(t|W; θ)
+hj(t|W; θ)
+
+θ=θ0
+dNj(t) −
+Z τ
+0
+∂βjhj(t|W; θ)
+
+θ=θ0 Y (t)dt
+=
+Z τ
+0
+∂βjhj(t|W; θ)
+
+θ=θ0
+dMj(t)
+hj(t|W; θ).
+Application of the above Lemma to model (1) leads to:
+Sβ =
+Z τ
+0
+A dMj(t)
+hj(t|A, Z)
+J
+j=1
+.
+(19)
+8.1.2
+Proof of Lemma 1
+Under model (1) we have J+2 nuisance parameters: λ1(t, z), . . . , λJ(t, z), λc(t|a, z), P(a|z)f(z).
+We call their tangent spaces Λ1
+1s, . . . , ΛJ
+1s, Λ2s, Λ3s, respectively.
+Lemma 5.1 of Tsiatis
+(2006) proved that:
+Λ2s =
+Z τ
+0
+g(t, A, Z)dMc(t)
+:
+for all g(t, A, Z)
+
+,
+(20)
+where Mc(t) is the martingale associated with the censoring distribution. Pag. 117 of
+Tsiatis (2006) proved that:
+Λ3s = {g(A, Z)
+:
+E {g(A, Z)} = 0} .
+(21)
+Step 1:
+We show that Λ is a direct sum of following orthogonal spaces
+Λ = Λ1
+1s ⊕. . . ⊕ΛJ
+1s ⊕Λ2s ⊕Λ3s,
+(22)
+20
+
+````
+
+## PDF page 21
+
+FORMULA CHECK REQUIRED: original PDF page 21.
+
+````text
+and
+Λj
+1s =
+Z τ
+0
+g(t, Z) dMj(t)
+hj(t|A, Z)
+:
+for all g(t, Z)
+
+.
+(23)
+The nuisance tangent space, when the nuisance parameter has ﬁnite dimension, is
+deﬁned as the space spanned by the nuisance score. The nuisance tangent space for a
+semiparametric model is the mean-square closure of all parametric submodel nuisance
+tangent spaces. We therefore start by considering parametric submodels. Let’s assume
+that j is ﬁxed and consider a parametric submodel:
+hj(t|A, Z; η) = λj(t, Z; η) + βjA,
+and η0 indicates the true value of the parameter. For this parametric submodel, by Lemma
+2, we have
+Sη =
+Z τ
+0
+∂ηλj(t, Z; η)|η=η0
+dMj(t)
+hj(t|A, Z).
+We hence conjecture (23).
+By the above calculations, we know that, the nuisance
+tangent space of any parametric submodel belongs to Λj
+1s. To complete our proof we need
+to prove that for any element of the conjectured (23), indexed by g(t, Z), there exists a
+parametric submodel such that, such element belongs to its nuisance tangent space. Given
+g(t, Z), straightforward algebra proves that the score of the following parametric submodel:
+hj(t|A, Z; η) = λj(t, Z; η0) + ηg(t, Z) + βjA,
+corresponds to the element of Λj
+1s indexed by the chosen g(t, Z). Our conjecture is therefore
+proven.
+We now focus on proving the orthogonality of these spaces. For each gl(t, Z), gj(t, Z)
+with l̸ = j, we have:
+E
+Z τ
+0
+gl(t, Z)
+dMl(t)
+hl(t | A, Z) ×
+Z τ
+0
+gj(t, Z)
+dMj(t)
+hj(t | A, Z)
+
+=
+E
+Z τ
+0
+gl(t, Z)gj(t, Z)
+1
+hl(t | A, Z)hj(t | A, Z) < dMl(t), dMj(t) >
+
+= 0,
+where the last equality comes from the fact that with absolutely continuous distributions
+of the event times, the probability that the competing events happen at the same time
+equals zero. Therefore Λl
+1s ⊥Λj
+1s for l̸ = j.
+Finally the spaces Λj
+1s, Λ2s and Λ3s are orthogonal to each other because the corre-
+sponding nuisance parameters are variationally independent and the likelihood factors into
+the likelihoods for each of them (Tsiatis, 2006).
+Step 2:
+If we don’t put any restrictions on the density that generates the data, it follows from
+Theorem 4.4 of Tsiatis (2006) that the corresponding tangent space is the entire Hilbert
+space H = {g(X, δ, A, Z) : E{g} = 0, E{g⊤g} < ∞}. That is,
+H = Λ1∗
+1s ⊕. . . , ⊕ΛJ∗
+1s ⊕Λ2s ⊕Λ3s,
+(24)
+21
+
+````
+
+## PDF page 22
+
+FORMULA CHECK REQUIRED: original PDF page 22.
+
+````text
+where Λj∗
+1s is the tangent space associated with hj(t|A, Z), now left arbitrary. Similarly to
+(23), it is easy to show that:
+Λj∗
+1s =
+Z τ
+0
+gj(t, A, Z) dMj(t)
+hj(t|A, Z)
+:
+for all gj(t, A, Z)
+
+,
+(25)
+and that, for any l̸ = j:
+Λl∗
+1s ⊥Λj∗
+1s, Λl∗
+1s ⊥Λj
+1s, Λl
+1s ⊥Λj∗
+1s.
+(26)
+Therefore, to ﬁnd Λ⊥it is suﬃcient to ﬁnd the residual of the projection of an arbitrary
+element of Λ1∗
+1s ⊕. . . , ⊕ΛJ∗
+1s onto Λ1
+1s ⊕. . . , ⊕ΛJ
+1s. For any g1(t, A, Z), . . . , gJ(t, A, Z):
+Y
+
+
+
+J
+X
+j=1
+Z τ
+0
+gj(t, A, Z) dMj(t)
+hj(t|A, Z)
+ Λ1
+1s ⊕. . . , ⊕, ΛJ
+1s
+
+
+
+=
+J
+X
+l=1
+J
+X
+j=1
+Y Z τ
+0
+gj(t, A, Z) dMj(t)
+hj(t|A, Z)
+ Λl
+1s
+
+=
+J
+X
+j=1
+Y Z τ
+0
+gj(t, A, Z) dMj(t)
+hj(t|A, Z)
+ Λj
+1s
+
+.
+Step 3:
+Finally we show that for any gj(t, A, Z):
+Y Z τ
+0
+gj(t, A, Z) dMj(t)
+hj(t|A, Z)
+ Λj
+1s
+
+=
+Z τ
+0
+g∗
+j (t, Z) dMj(t)
+hj(t|A, Z),
+where
+g∗
+j (t, Z)
+=
+E
+h
+gj(t, A, Z)h−1
+j (t|A, Z)Sc(t|A, Z)e−PJ
+l=1 βlAt Z
+i
+E
+h
+h−1
+j (t|A, Z)Sc(t|A, Z)e−PJ
+l=1 βlAt
+ Z
+i
+.
+By deﬁnition of projection, we need, for any g(t, Z), that:
+0
+=
+E
+Z τ
+0
+
+gj(t, A, Z) −g∗
+j (t, Z)
+	
+dMj(t)
+hj(t|A, Z) ×
+Z τ
+0
+g(t, Z) dMj(t)
+hj(t|A, Z)
+
+=
+E
+Z τ
+0
+
+gj(t, A, Z) −g∗
+j (t, Z)
+	
+g(t, Z)h−2
+j (t|A, Z) < dMj(t) >
+
+=
+E
+Z τ
+0
+
+gj(t, A, Z) −g∗
+j (t, Z)
+	
+g(t, Z)h−1
+j (t|A, Z)Y (t)dt
+
+=
+Z τ
+0
+E
+
+E
+h
+gj(t, A, Z) −g∗
+j (t, Z)
+	
+h−1
+j (t|A, Z)Y (t)|Z
+i
+g(t, Z)
+
+dt,
+implying that, almost surely,
+E
+h
+gj(t, A, Z) −g∗
+j (t, Z)
+	
+h−1
+j (t|A, Z)Y (t)|Z
+i
+= 0.
+22
+
+````
+
+## PDF page 23
+
+FORMULA CHECK REQUIRED: original PDF page 23.
+
+````text
+By contradiction, let’s assume that the above expectation is not zero on an interval with
+positive measure. If we take
+g(t, Z) = E
+h
+gj(t, A, Z) −g∗
+j (t, Z)
+	
+h−1
+j (t|A, Z)Y (t)|Z
+i
+,
+then
+Z τ
+0
+E
+
+E
+h
+gj(t, A, Z) −g∗
+j (t, Z)
+	
+h−1
+j (t|A, Z)Y (t)|Z
+i
+g(t, Z)
+
+dt̸ = 0.
+and so the contradiction.
+Therefore:
+g∗
+j (t, Z)
+=
+E
+n
+gj(t, A, Z)h−1
+j (t|A, Z)Y (t)|Z
+o
+E
+n
+h−1
+j (t|A, Z)Y (t)|Z
+o
+=
+E
+h
+gj(t, A, Z)h−1
+j (t|A, Z)E {Y (t)|A, Z} |Z
+i
+E
+h
+h−1
+j (t|A, Z)E {Y (t)|A, Z} |Z
+i
+=
+E
+n
+gj(t, A, Z)h−1
+j (t|A, Z)Sc(t|A, Z)e−PJ
+l=1 βlAt|Z
+o
+E
+n
+h−1
+j (t|A, Z)Sc(t|A, Z)e−PJ
+l=1 βlAt|Z
+o
+.
+8.1.3
+Lemma 3
+Lemma 3. Let’s consider a generic probability model p(x; β0, η0) for which β0 is the
+true parameter of interest and η0 is the nuisance parameter. Let φ(x, β, η) be such that
+Eβ,η {φ(x, β, η)} = 0 and let Λ⊥be the space orthogonal to the nuisance tangent space.
+Then, φ ∈Λ⊥if and only if the score is orthogonal, that is
+∂
+∂r E {φ(x, β0, ηr)}|r=0 = 0,
+(27)
+where ηr = η0 + r∆η.
+Proof. of Lemma 3.
+We have:
+Z
+φ(x, β0, ηr)p(x; β0, ηr)dx = 0,
+and so
+0
+=
+∂
+∂r
+Z
+φ(x, β0, ηr)p(x; β0, ηr)dx
+
+r=0
+=
+Z
+∂rφ(x, β0, ηr)|r=0 p(x; β0, ηr)|r=0 dx +
+Z
+φ(x, β, ηr)|r=0 ∂rp(x; β0, ηr)|r=0 dx
+=
+Z
+∂rφ(x, β0, ηr)|r=0 p(x; β0, η0)dx +
+Z
+φ(x, β0, η0)∂r log p(x; β0, ηr)|r=0 p(x; β0, η0)dx
+=
+∂
+∂rE {φ(x, β0, ηr)}|r=0 + E {φ(x, β0, η0)Sη} .
+23
+
+````
+
+## PDF page 24
+
+FORMULA CHECK REQUIRED: original PDF page 24.
+
+````text
+Therefore, if φ ∈Λ⊥, and therefore E {φ(x, β0, η0)Sη} = 0, we obtain ∂
+∂rE {φ(x, β0, ηr)}|r=0 =
+0. On the other hand, if
+∂
+∂rE {φ(x, β0, ηr)}|r=0 = 0, we have E {φ(x, β0, η0)Sη} = 0 and so
+φ ∈Λ⊥.
+8.1.4
+Proof of Theorem 2
+For j = 1, . . . , J, we have:
+E [{S1}j(β0; Sc, π, Λ)]
+=
+Z τ
+0
+E
+h
+e
+PJ
+j=1 βj0AtS−1
+c (t|A, Z) {A −π(Z)} {dNj(t) −Y (t)dΛj(t, Z) −Y (t)βj0Adt}
+i
+=
+Z τ
+0
+E[e
+PJ
+j=1 βj0AtS−1
+c (t|A, Z) {A −π(Z)} dMj(t)]
++
+Z τ
+0
+E[e
+PJ
+j=1 βjAtS−1
+c (t|A, Z) {A −π(Z)} Y (t)d {Λj0(t, Z) −Λj(t, Z)}].
+Note that under model (1) from the main paper, E {Y (t)|A, Z} = e−PJ
+j=1 βj0AtSc0(t|A, Z)e−PJ
+j=1 Λj0(t,Z).
+Therefore
+E [{S1}j(β0; Sc, π, Λ)]
+=
+Z τ
+0
+E(E[e
+PJ
+j=1 βj0AtS−1
+c (t|A, Z) {A −π(Z)} E {Y (t)|A, Z} |Z]d {Λj0(t, Z) −Λj(t, Z)})
+=
+Z τ
+0
+E(E[S−1
+c (t|A, Z)Sc0(t|A, Z) {A −π(Z)} |Z]e−PJ
+l=1 Λl0(t,Z)d {Λj0(t, Z) −Λj(t, Z)})
+=
+Z τ
+0
+E
+ 
+S−1
+c (t|1, Z)Sc0(t|1, Z) {1 −π(Z)} π0(Z) −S−1
+c (t|0, Z)Sc0(t|0, Z)π(Z) {1 −π0(Z)}
+
+× e−PJ
+l=1 Λl0(t,Z)d {Λj0(t, Z) −Λj(t, Z)}
+
+.
+The above is zero if either {Sc (·|·, ·) = Sc0(·|·, ·) and π(·) = π0(·)}, or Λj(·, ·) = Λj0(·, ·).
+For S2 we have, for j = 1, . . . , J:
+E [{S2}j(β0; Sc, π, Λ)]
+=
+Z τ
+0
+E [{A −E(t; β0, Sc, π)} {dNj(t) −Y (t)dΛj0(t, Z) −Y (t)βj0Adt}]
+=
+Z τ
+0
+E [{A −E(t; β0, Sc, π)} dMj(t)]
++
+Z τ
+0
+E [{A −E(t; β0, Sc, π)} Y (t)d {Λj0(t, Z) −Λj(t, Z)}]
+=
+Z τ
+0
+E (E [{A −E(t; β0, Sc, π)} E {Y (t)|A, Z} |Z] d {Λj0(t, Z) −Λj(t, Z)}) .
+24
+
+````
+
+## PDF page 25
+
+FORMULA CHECK REQUIRED: original PDF page 25.
+
+````text
+Therefore
+E [{S2}j(β0; Sc, π, Λ)]
+=
+Z τ
+0
+E
+
+E
+h
+{A −E(t; β0, Sc, π)} e−PJ
+l=1 βl0AtSc0(t|A, Z)|Z
+i
+×e−PJ
+l=1 Λl0(t,Z)d {Λj0(t, Z) −Λj(t, Z)}
+
+=
+Z τ
+0
+E
+n
+e−PJ
+l=1 βl0AtSc0(t|A = 1, Z)π0(Z)
+−E(t; β0, Sc, π)
+h
+e−PJ
+l=1 βl0AtSc0(t|A = 1, Z)π0(Z) + Sc0(t|A = 0, Z) {1 −π0(Z)}
+i
+× e−PJ
+l=1 Λl0(t,Z)d {Λj0(t, Z) −Λj(t, Z)}
+o
+.
+The above is zero if either {Sc (·|·, ·) = Sc0(·|·, ·) and π(·) = π0(·)}, or Λj(·, ·) = Λj0(·, ·).
+25
+
+````
+
+## PDF page 26
+
+FORMULA CHECK REQUIRED: original PDF page 26.
+
+````text
+8.2
+Technical assumptions for the asymptotic properties
+8.2.1
+General Assumptions
+We note below that Assumptions 2 - 4 and 6 are standard regularity assumptions, Assump-
+tions 5 and 7 are positivity assumptions often used in causal inference, and Assumptions
+8 and 9 are technical assumptions.
+Assumption 2. β0 is contained in the interior of a compact set.
+Assumption 3. There exists an upper bound of time τ < ∞and, for j = 1, . . . , J, there
+exist Lj < ∞such that supz∈Z Λj(τ, z) ≤Lj where Z is the sample space of the random
+variable Z.
+Assumption 4. There exists C1, such that P (∥Z∥∞≤C1) = 1.
+Assumption 5. There exist C2 such that
+inf
+z∈Z,a=0,1 Sc0(τ|a, z) > C2 > 0,
+and C3, C4 such that:
+0 < C3 < inf
+z∈Z π0(z) < sup
+z∈Z
+π0(z) < C4 < 1.
+Also there exists ϵ > 0 such that V ar(A|Z) > ϵ, E {N(τ)|A = 0, Z} < 1−ϵ, E {Y (τ)|A, Z} >
+ϵ.
+Assumption 6. If the estimator ˆΛ depends on the unknown β for j = 1, 2 in a neighbor-
+hood of β0,
+τ_
+t=0
+sup
+z∈Z
+n
+ˆΛj(t, z; βj) −ˆΛj(t, z; βj0)
+o
+= Op(|βj −βj0|),
+where Wτ
+t=0 g(t) = sup0<t0<...<tN=τ,N∈N
+PN
+j=1 |g(tj−1) −g(tj)| .
+Assumption 7. There exist a positive C5 such that
+inf
+z∈Z,a=0,1 S∗
+c (τ|a, z) > C5 > 0,
+and C6, C7 such that:
+0 < C6 < inf
+z∈Z π∗(z) < sup
+z∈Z
+π∗(z) < C7.
+Assumption 8. There exists ϵ > 0 such that:
+E
+
+Z τ
+0
+[1 + td {Λ∗
+1(t, Z) −Λ10(t, Z)} + td {Λ∗
+2(t, Z) −Λ20(t, Z)}] dt
+ > ϵ.
+Moreover, If the estimator ˆΛ depends on the unknown β,
+E [{A −π∗(Z)} {A −E(qj(t))} |Z] > ϵ,
+where we call qj(t) a function, such that:
+ˆΛj(t, Z; β) −ˆΛj(t, Z; β0)
+=
+(βj −βj0) × 1
+n
+n
+X
+i=1
+Z τ
+0
+qji(t).
+26
+
+````
+
+## PDF page 27
+
+FORMULA CHECK REQUIRED: original PDF page 27.
+
+````text
+Assumption 9. There exists ϵ > 0 such that
+Z τ
+0
+E
+h
+A −te−PJ
+j=1 βj0AtSc(t|A, Z)d {Λ∗
+1(t, Z) −Λ10(t, Z) + Λ∗
+2(t, Z) −Λ20(t, Z)} |Z
+i
+> ϵ,
+Z τ
+0
+E
+
+A + d∂βjΛ∗
+j(t, Z)
+	
+{A −E(t; β, Sc, π)} |Z
+
+> ϵ.
+8.2.2
+Speciﬁc assumptions for β(1)
+In the following, for generic inﬁnite-dimensional parameter η, a speciﬁc value η0 and a
+generic function f we use:
+∂ηf(η0, ·) = ∂r f {η0 + r(η + η0), ·}|r=0 .
+We also use ˆGj(t) to denote a generic estimate of Gj(t), unless noted otherwise.
+Assumption A1. For j = 1, 2 let
+P (a)
+1j (t)
+:=
+1
+n
+n
+X
+i=1
+e(β10+β20)Ait {Ai −π(Zi; α0)} ∂ηS−1
+c (t|A, Z; η0, Λc0)dMji(t; βj0, Λ∗
+j),
+P (a)
+2j (t)
+:=
+1
+n
+n
+X
+i=1
+e(β10+β20)Ait {Ai −π(Zi; α0)} ∂ΛcS−1
+c (t|A, Z; η0, Λc0)dMji(t; βj0, Λ∗
+j),
+P (a)
+3j (t)
+:=
+1
+n
+n
+X
+i=1
+e(β10+β20)Ait∂απ(Zi; α0)S−1
+c (t|A, Z; η0, Λc0)dMji(t; βj0, Λ∗
+j).
+For l = 1, 2, 3, there exist some bounded p(a)
+lj (t) and a neighborhood B of
+{β0, Sc0(·|·, ·), π0(·), Λ∗
+j(·, ·)} such that:
+sup
+t∈[0,τ],{β,Sc,π,Λj}∈B
+P (a)
+lj (t) −p(a)
+lj (t)
+
+p→0,
+where ∥· ∥denotes the L2 norm.
+Assumption A2. There exist inﬂuence functions σ1, σ2(·), σ3 such that, for any t ∈[0, τ]:
+ˆη −η0
+=
+1
+n
+n
+X
+i=1
+σ1i,
+ˆΛc(t) −Λc0(t)
+=
+1
+n
+n
+X
+i=1
+σ2i(t),
+ˆα −α0
+=
+1
+n
+n
+X
+i=1
+σ3i.
+Assumption B1. Let
+P (b)
+1j (t)
+:=
+1
+n
+n
+X
+i=1
+e(β10+β20)Ait {S∗
+c (t|Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)∂γjdLj(t, Z; Gj0, γj0),
+P (b)
+2j (t)
+:=
+1
+n
+n
+X
+i=1
+e(β10+β20)Ait {S∗
+c (t|Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)∂GjLj(t, Z; Gj0, γj0).
+27
+
+````
+
+## PDF page 28
+
+FORMULA CHECK REQUIRED: original PDF page 28.
+
+````text
+We assume that, there exist p(b)
+lj (t), for l = 1, 2 and a neighborhood B of
+{β0, Λj0(·, ·), S∗
+c (·|·, ·), π∗(·, ·)} such that :
+sup
+t∈[0,τ],{β,Λj,Sc,π}∈B
+P (b)
+lj (t) −p(b)
+lj (t)
+
+p→0.
+Assumption B2. There exists inﬂuence functions σ4, σ5(·) such that, for any t ∈[0, τ],
+j = 1, . . . , J:
+ˆγj −γj0
+=
+1
+n
+n
+X
+i=1
+σ4i,
+ˆGj(t) −Gj0(t)
+=
+1
+n
+n
+X
+i=1
+σ5i(t).
+Assumption C1. Let
+h(t; A, Z)
+=
+e(β10+β20)Ait {Sc0(t|A, Z)}−1 {A −π0(Z)} ,
+P(t)
+=
+1
+n
+n
+X
+i=1
+h2(t; Ai, Zi)AiYi(t),
+Qj(t)
+=
+1
+n
+n
+X
+i=1
+h2(t; Ai, Zi)Λj0(t, Zi)Yi(t).
+We assume that, there exists p(t), qj(t) and a neighborhood B of the true
+{β0, Sc0(·|·, ·), π0(·), Λ0(·, ·)} such that:
+sup
+t∈[0,τ],{β,Sc,π,Λ}∈B
+|P(t) −p(t)|
+p→
+0,
+sup
+t∈[0,τ],{β,Sc,π,Λ}∈B
+|Qj(t) −qj(t)|
+p→
+0.
+Assumption C2. Let p(t), qj(t) be as deﬁned in Assumption C1. For j = 1, 2, we assume
+that
+R τ
+0 {p(u)βj + qj(u)} du > 0.
+8.2.3
+Speciﬁc assumptions for β(2)
+Assumption A’1. There exist σ6 such that:
+S2,n(β0, ˆSc, ˆπ, Λ∗) −S2,n(β0, Sc0, π0, Λ∗) = 1
+n
+n
+X
+i=1
+σ6i.
+Assumption B’1. There exist σ7 such that:
+S2,n(β0, S∗
+c , π∗, ˆΛ) −S2,n(β0, S∗
+c , π∗, Λ0) = 1
+n
+n
+X
+i=1
+σ7i.
+28
+
+````
+
+## PDF page 29
+
+FORMULA CHECK REQUIRED: original PDF page 29.
+
+````text
+Assumption C’1. Let
+h(t; A, Z) = {A −E(t; β0, Sc0, π0)} ,
+P ′(t) = 1
+n
+n
+X
+i=1
+h2(t; Ai, Zi)AiYi(t),
+and
+Q′
+j(t) = 1
+n
+n
+X
+i=1
+h2(t; Ai, Zi)Λj0(t, Zi)Yi(t).
+We assume that, there exist p′(t), q′
+j(t) and a neighborhood B of the true
+{β0, Sc0(·|·, ·), π0(·), Λ0(·, ·)} such that:
+sup
+t∈[0,τ],{β,Sc,π,Λ}∈B
+P ′(t) −p′(t)
+ p→0,
+and
+sup
+t∈[0,τ],{β,Sc,π,Λ}∈B
+Q′
+j(t) −q′
+j(t)
+ p→0.
+Assumption C’2. Let p′(t), q′
+j(t) as in assumption C’1, then for j = 1, 2, we assume that:
+Z τ
+0
+
+p′(u)βj + q′
+j(u)
+	
+du > 0.
+Remark 1. Similarly to score 1, Assumption A’ 1 can be proved assuming some regularity
+assumptions and assuming that there exist inﬂuence functions for ˆSc(·|·, ·) −Sc0(·|·, ·) and
+ˆπ(·) −π0(·). In the same way Assumption B’ 1 can be proved assuming some regularity
+assumptions and assuming that there exist an inﬂuence function for ˆΛ(·, ·) −Λ0(·, ·).
+8.3
+Quantities related to asymptotic properties
+8.3.1
+For β(1)
+For ease of reading we introduce the following additional notation, for j = 1, 2:
+K(1)(β, Sc, π)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β1+β2)AitS−1
+c (t | Ai, Zi) {Ai −π(Zi)} Yi(t)Aidt,
+(28)
+K(2)
+j (β, Sc, π)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitS−1
+c (t | Ai, Zi) {Ai −π(Zi)} Yi(t)
+×d
+n
+ˆΛj(t, Zi; β) −ˆΛj(t, Zi; β0)
+o
+,
+(29)
+K(3)
+ji (t, β, Sc, π)
+=
+S−1
+c (t | Ai, Zi) {Ai −π(Zi)} dMji(t; βj, ˆΛ),
+(30)
+K(4)
+j (β, Sc, π, Λ)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β1+β2)AitAit {Sc(t | Ai, Zi)}−1 {Ai −π(Zi)} Yi(t)
+×d {Λj(t, Zi) −Λj0(t, Zi)} .
+(31)
+29
+
+````
+
+## PDF page 30
+
+FORMULA CHECK REQUIRED: original PDF page 30.
+
+````text
+The introduction of the above quantities will become clear in the proof of Lemma 4.
+Part (a):
+Σ(a) =
+
+E(K(a))−1	⊤Var(ψ(a))E(K(a))−1), where
+
+K(a)	−1 ψ(a) is the inﬂuence func-
+tion of ˆβ(1) with
+ψ(a)
+=
+Z τ
+0
+e(β10+β20)At {Sc0(t|A, Z)}−1 {A −π0(Z)} dMj(t; βj0, Λ∗
+j)
++
+Z τ
+0
+
+{p(a)
+1j (t)}⊤σ1dt +
+Z τ
+0
+p(a)
+2j (t)σ2(t)dt −
+Z τ
+0
+{p(a)
+3j (t)}⊤σ3dt
+
+j=1,2
+,
+and K(a) a 2 × 2 matrix with the following elements:
+K(a)
+jj
+=
+−K(1)(β0, Sc0, π0) −K(4)
+j (β0, Sc0, π0, Λ∗),
+K(a)
+12 = −K(4)
+1 (β0, Sc0, π0, Λ∗),
+K(a)
+21 = −K(4)
+2 (β0, Sc0, π0, Λ∗).
+Part (b):
+Σ(b) =
+
+E(K(b))−1	⊤Var(ψ(b))E(K(b))−1), where
+
+K(b)	−1 ψ(b) is the inﬂuence func-
+tion of ˆβ(1) with
+ψ(b)
+=
+Z τ
+0
+e(β10+β20)At {S∗
+c (t|A, Z)}−1 {A −π∗(Z)} dMj(t)
++
+Z τ
+0
+n
+σ4p(b)
+1j (t)dt + p(b)
+2j (t)dσ5(t) + dp(b)
+2j (t)σ5(t)
+o
+j=1,2
+,
+and K(b) a 2 × 2 diagonal matrix with:
+K(b)
+jj
+=
+−K(1)(β0, S∗, π∗) −K(2)
+j (β, S∗
+c , π∗)/(βj −βj0).
+Part (c):
+Σ(c) =
+
+(W (c))−1	⊤V (c)(W (c))−1), where V (c) and W (c) are diagonal matrices with ele-
+ments
+R τ
+0 {p(u)βj0 + qj(u)} du and E
+R τ
+0 e(β10+β20)AtA {Sc0(t|A, Z)}−1 {A −π0(Z)} Y (t)dt
+
+,
+respectively.
+Σ(c) can be consistently estimated by:
+n
+ˆW (c)o−1 ˆV (c)(τ)
+n
+ˆW (c)o−1
+,
+(32)
+where
+ˆW (c)
+jj = 1
+n
+n
+X
+i=1
+Ai {Ai −ˆπ(Zi)}
+Z Xi
+0
+n
+ˆSc(t|Ai, Zi)
+o−1
+e(ˆβ(1)
+1
++ˆβ(1)
+2
+)tdt,
+and
+ˆV (c)
+jj (τ) = 1
+n
+n
+X
+i=1
+1{δi = 1, ϵi = j}e2(ˆβ(1)
+1
++ˆβ(1)
+2
+)AiXi ˆS−2
+c (Xi|Ai, Zi) {Ai −ˆπ(Zi)}2 ,
+for j = 1, 2.
+30
+
+````
+
+## PDF page 31
+
+FORMULA CHECK REQUIRED: original PDF page 31.
+
+````text
+8.3.2
+For β(2)
+Deﬁne
+J(1)
+jj
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+{Ai −Ei(t; β∗, S∗
+c , π∗)} AiYi(t)dt,
+J(2)
+jj
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+∂βjEi(t; β∗, S∗
+c , π∗)Yi(t)d
+
+Λ∗
+j(t, Zi; βj0) −Λj0(t, Zi)
+	
+,
+J(3)
+jj
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+{Ai −Ei(t; β∗, S∗
+c , π∗)} Yi(t)∂βjdΛ∗
+j(t, Zi),
+J(1)
+12
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+∂β2Ei(t; β∗, S∗
+c , π∗)Yi(t)d {Λ∗
+1(t, Zi; β10) −Λ10(t, Zi)} ,
+J(1)
+21
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+∂β1Ei(t; β∗, S∗
+c , π∗)Yi(t)d {Λ∗
+2(t, Zi; β10) −Λ20(t, Zi)} .
+Part (a):
+Γ(a) =
+
+E(J(a))−1	⊤V ar(φ(a))E(J(a))−1, where
+
+J(a)	−1 φ(a) is the inﬂuence function
+of ˆβ(2) with
+φ(a)
+=
+Z τ
+0
+{A −E(t; β, Sc, π)} dMj(t; βj0, Λ∗
+j) + {σ6}j
+
+j=1,2
+,
+and J(a) a 2 × 2 matrix with J(a)
+jj = J(1)
+jj + J(2)
+jj and J(a)
+12 = J(3)
+12 , J(a)
+21 = J(3)
+21 .
+Part (b):
+Γ(b) =
+
+E(J(b))−1	⊤V ar(φ(b))E(J(b))−1, where
+
+J(b)	−1 φ(b) is the inﬂuence function
+of ˆβ(2) with
+φ(b)
+=
+Z τ
+0
+{A −E(t; β, Sc, π)} dMj(t; βj0, Λ∗
+j) + {σ7}j
+
+j=1,2
+,
+and J(b) a diagonal matrix with J(b)
+jj = J(1)
+jj + J(3)
+jj .
+Part (c): Γ(c) = (W (c′))−1V (c′)(τ)(W (c′))−1) where W (c′) is a 2 × 2 diagonal matrix
+with diagonal element E
+h
+A
+R X
+0 {A −E(t; β0, Sc0, π0)} dt
+i
+and V (c′)(τ) is a diagonal matrix
+with diagonal elements
+R τ
+0
+n
+p′(u)βj0 + q′
+j(u)
+o
+du. Γ(c) can be consistently estimated by
+( ˆW (c′))−1 ˆV (c′)(τ)( ˆW (c′))−1,
+(33)
+where:
+ˆW (c′)
+jj
+= 1
+n
+n
+X
+i=1
+Ai
+Z Xi
+0
+n
+Ai −Ei(t; ˆβ, ˆSc, ˆπ)
+o
+dt,
+31
+
+````
+
+## PDF page 32
+
+FORMULA CHECK REQUIRED: original PDF page 32.
+
+````text
+and
+ˆV (c′)
+jj (τ) = 1
+n
+n
+X
+i=1
+1{δi = 1, ϵi = j}
+n
+Ai −Ei(Xi; ˆβ, ˆSc, ˆπ)
+o2
+.
+32
+
+````
+
+## PDF page 33
+
+FORMULA CHECK REQUIRED: original PDF page 33.
+
+````text
+8.4
+Proofs of the asymptotic results
+8.4.1
+Asymptotic properties using Score 1
+We suppose that Assumptions 2-8 hold. In the following, for asymptotic normality we need
+√n-convergence under the correctly speciﬁed model if the other model is misspeciﬁed. For
+this we will assume that the correctly speciﬁed working models for Sc(·|·, ·) and Λ(·, ·) are
+semiparametric, with a parametric component encoded by η and γ, and a nonparametric
+component encoded by Λc(t) and G(t), respectively. The correctly speciﬁed working models
+for π(·) will be assumed to be parametric, with parameter α.
+Recall that
+S1,n(β; Sc, π, Λ) =
+(
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β1+β2)AitS−1
+c (t | Ai, Zi) {Ai −π(Zi)} dMji(t; βj, Λj)
+)
+j=1,2
+.
+Consider the following decomposition of the score:
+S1,n(β, ˆSc, ˆπ, ˆΛ)
+=
+S1,n(β, ˆSc, ˆπ, ˆΛ) −S1,n(β0, ˆSc, ˆπ, ˆΛ)
++S1,n(β0, ˆSc, ˆπ, ˆΛ) −S1,n(β0, ˆSc, ˆπ, Λ∗)
++S1,n(β0, ˆSc, ˆπ, Λ∗) −S1,n(β0, S∗
+c , π∗, Λ∗)
++S1,n(β0, S∗
+c , π∗, Λ∗).
+The last term S1,n(β0, S∗
+c , π∗, Λ∗) is sum of i.i.d mean zero terms by Theorem 2. In the
+following lemma, we will show that: S1,n(β, ˆSc, ˆπ, ˆΛ) −S1,n(β0, ˆSc, ˆπ, ˆΛ) can be written as
+(β −β0) times a positive deﬁnite matrix; S1,n(β0, ˆSc, ˆπ, ˆΛ) −S1,n(β0, ˆSc, ˆπ, Λ∗) is negligible
+when the censoring model and the propensity score model are correctly speciﬁed, otherwise
+it is a sum of i.i.d mean zero terms plus a negligible term, as long as Λ∗(·, ·) = Λ0(·, ·) and
+the rate of convergence of ˆΛ(·, ·) is √n S1,n(β0, ˆSc, ˆπ, Λ∗) −S1,n(β0, S∗
+c , π∗, Λ∗) is negligible
+when Λ(·, ·) is correctly speciﬁed, otherwise it is a sum of i.i.d mean zero terms plus a
+negligible term, as long as S∗
+c (·|·, ·) = Sc0(·|·, ·), π∗(·) = π0(·) and the rate of convergence
+of ˆSc(·|·, ·), ˆπ(·) is √n.
+Therefore, in each of the three scenarios, ˆβ(1) −β0 can be written as a sum of i.i.d mean
+zero terms and hence the consistency and the asymptotic normality of ˆβ1.
+Lemma 4. For β in a compact neighborhood of β0, under Assumptions 1-8 we have:
+S1,n(β, ˆSc, ˆπ, ˆΛ)
+=
+S1,n(β0, S∗
+c , π∗, Λ∗) + Q(21) + Q(3) + K(β −β0)
++Op
+
+n−1/2 |β1 + β2 −β10 −β20| + |β1 + β2 −β10 −β20|2
+,
+where
+Q(21)
+j
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait {S∗
+c (t|Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)
+×d
+n
+ˆΛj(t, Zi; β0) −Λ∗
+j(t, Zi)
+o
+= op(1),
+(34)
+Q(3)
+j
+=
+{S1,n}j (β0, ˆSc, ˆπ, Λ∗) −{S1,n}j (β0, S∗
+c , π∗, Λ∗) = op(1),
+(35)
+33
+
+````
+
+## PDF page 34
+
+FORMULA CHECK REQUIRED: original PDF page 34.
+
+````text
+K is a 2 × 2 matrix with the following elements:
+Kjj
+=
+−K(1)(β0, S∗
+c , π∗) −K(2)
+j (β, S∗
+c , π∗)/(βj −βj0) −K(4)
+j (β0, S∗
+c , π∗, Λ∗),
+and
+K12 = −K(4)
+1 (β0, S∗
+c , π∗, Λ∗),
+K21 = −K(4)
+2 (β0, S∗
+c , π∗, Λ∗).
+In addition,
+a) If S∗
+c (t|a, z) = Sc(t|a, z; η0, Λc0) = Sc0(t|a, z) and π∗(z) = π(z; α0) = π0(Z) for some
+known functions Sc and π with an = n−1/2, bn = n−1/2; speciﬁcally, under Assumptions
+A1-2:
+Q(21) = op(n−1/2) and Q(3) = Op(n−1/2).
+b) If Λ∗(t, z) = L(t, z; G0, γ0) = Λ0(t, z) for some known function L with cn = n−1/2,
+speciﬁcally under Assumptions B1-2:
+Q(3) = op(n−1/2) and Q(21) = Op(n−1/2).
+c) If S∗
+c (·|·, ·) = Sc0(·|·, ·), π∗(·) = π0(·) and Λ∗(·, ·) = Λ0(·, ·) with ancn = o(n−1/2) and
+bncn = o(n−1/2) under assumptions C1-2 :
+Q(21) = op(n−1/2) and Q(3) = op(n−1/2).
+The proof of the Lemma is given in Section 8.5.
+We prove separately consistency and asymptotic normality of ˆβ(1).
+Consistency: In Lemma 4 we showed that for β in a neighboorhood of β0, under case
+a) or b) or c):
+S1,n(β, ˆSc, ˆπ, ˆΛ)
+=
+S1,n(β0, S∗
+c , π∗, Λ∗) + K(β −β0)
++Op
+
+n−1/2 |β1 + β2 −β10 −β20| + |β1 + β2 −β10 −β20|2 + n−1/2
+.
+By Theorem 2 we have:
+E [S1,n(β0, S∗
+c , π∗, Λ∗)] = 0.
+Therefore by Lemma 9, and Assumptions 2, 3 and 7 we have S1,n(β0, S∗
+c , π∗, Λ∗) = Op(n−1/2).
+Hence
+S1,n(β, ˆSc, ˆπ, ˆΛ)
+=
+(β −β0)K
+(36)
++Op
+
+n−1/2 |β1 + β2 −β10 −β20| + |β1 + β2 −β10 −β20|2 + n−1/2
+.
+By the above, we prove that, for |δ| < 1/2:
+S1,n(β0 ± n−δ, ˆSc, ˆπ, ˆΛ)
+=
+S1,n(β0, S∗
+c , π∗, Λ∗) + n−δK + Op(n−1/2).
+If K is invertible we can conclude that component-wise, either:
+S1,n(β0 −n−δ, ˆSc, ˆπ, ˆΛ) < 0 < S1,n(β0 + n−δ, ˆSc, ˆπ, ˆΛ),
+or
+S1,n(β0 + n−δ, ˆSc, ˆπ, ˆΛ) < 0 < S1,n(β0 −n−δ, ˆSc, ˆπ, ˆΛ).
+Therefore by deﬁnition of ˆβ(1), we can conclude that ˆβ(1) −β0 = Op(n−δ) = op(1).
+We are now left to prove that K is invertible. This is done according to the following
+two cases.
+34
+
+````
+
+## PDF page 35
+
+FORMULA CHECK REQUIRED: original PDF page 35.
+
+````text
+• Case a): S∗
+c (·|·, ·) = Sc0(·|·, ·) and π∗(·) = π0(·), or ˆΛ(·, ·) does not depend on β
+beyond an initial estimator of it.
+By Lemma 10, we have:
+sup
+t∈[0,τ]
+
+1
+n
+n
+X
+i=1
+{Ai −π0(Zi)} {Sc0(t | Ai, Zi)}−1 Yi(t)e(β10+β20)Ait
+ = Op
+
+n−1/2
+.
+Together with Assumption6, we have:
+K(2)
+j (β, Sc0, π0) = Op(n−1/2|βj −βj0|) = op(1).
+Therefore K simpliﬁes and it has the following determinant:
+|K|
+=
+n
+K(1)(β0, Sc0, π0)
+o2
++ K(1)(β0, Sc0, π0)K(4)
+2 (β0, Sc0, π0, Λ∗)
++K(4)
+1 (β0, Sc0, π0, Λ∗)K(4)
+2 (β0, Sc0, π0, Λ∗) + K(1)(β0, Sc0, π0)K(4)
+1 (β0, Sc0, π0, Λ∗)
+−K(4)
+1 (β0, Sc0, π0, Λ∗)K(4)
+2 (β0, Sc0, π0, Λ∗)
+=
+K(1)(β0, Sc0, π0)
+n
+K(1)(β0, Sc0, π0) + K(4)
+2 (β0, Sc0, π0, Λ∗) + K(4)
+1 (β0, Sc0, π0, Λ∗)
+o
+.
+We prove now that both K(1)(β0, Sc0, π0) and
+n
+K(1)(β0, π0, Sc0) + K(4)
+2 (β0, π0, Sc0, Λ∗) + K(4)
+1 (β0, π0, Sc0, Λ∗)
+o
+are diﬀerent from zero.
+We ﬁrst focus on K(1)(β0, Sc0, π0). By Assumptions 2 and 7, we have for some ﬁnite
+constant C:
+Ai {Ai −π0(Zi)}
+Z τ
+0
+{Sc0(t | Ai, Zi)}−1 e(β10+β20)tYi(t)dt
+ ≤C−1e(β10+β20)ττ < ∞.
+(37)
+Under model (1), E {Y (t)| A, Z} = Sc0(t | A, Z)e−(β10+β20)Ate−Λ10(t,Z)−Λ20(t,Z), we have:
+E
+
+A {A −π0(Z)}
+Z τ
+0
+{Sc0(t | A, Z)}−1 e(β10+β20)tY (t)dt
+
+=
+E
+
+E
+
+A {A −π0(Z)}
+Z τ
+0
+{Sc0(t | A, Z)}−1 e(β10+β20)AtE {Y (t)|A, Z} dt
+ Z
+
+=
+E
+
+E
+
+A {A −π0(Z)}
+Z τ
+0
+P {T ≥t| A = 0, Z} dt
+ Z
+
+≥
+E
+
+E [A {A −π0(Z)}| Z]
+Z τ
+0
+P {T ≥t| A = 0, Z} dt
+
+≥
+E [Var (A| Z) τ(1 −E {N(τ)| A = 0, Z})] .
+Therefore, by Assumption 7 and 5, we have, for some positive ϵ:
+E
+
+A {A −π0(Z)}
+Z τ
+0
+{Sc0(t | A, Z)}−1 e(β10+β20)tY (t)dt
+
+>
+ϵ > 0.
+(38)
+Hence, by Assumptions 2, 3, 7, by Hoeﬀding’s inequality:
+K(1)(β0, Sc0, π0) = E
+n
+K(1)(β0, Sc0, π0)
+o
++ Op(n−1/2) > ϵ > 0.
+35
+
+````
+
+## PDF page 36
+
+FORMULA CHECK REQUIRED: original PDF page 36.
+
+````text
+We now focus on K(1)(β0, π0, Sc0) + K(2)
+4 (β0, Sc0, π0, Λ∗) + K(1)
+4 (β0, Sc0, π0, Λ∗). Simi-
+larly, by Assumptions 5 and 8 we have:
+K(1)(β0, Sc0, π0) + K(2)
+4 (β0, Sc0, π0, Λ∗) + K(1)
+4 (β0, Sc0, π0, Λ∗)
+
+=
+
+1
+n
+n
+X
+i=1
+Ai {Ai −π0(Zi)}
+Z τ
+0
+{Sc0(t | Ai, Zi)}−1 Yi(t)e(β10+β20)Ait
+× [1 + td {Λ∗
+1(t, Zi) −Λ10(t, Zi)} + td {Λ∗
+2(t, Zi) −Λ20(t, Zi)}]|
+≥
+E
+
+{A −π0(Z)}
+Z τ
+0
+exp {−Λ10(t, Z) −Λ20(t, Z)}
+× [A + Atd {Λ∗
+1(t, Z) −Λ10(t, Z)} + Atd {Λ∗
+2(t, Z) −Λ20(t, Z)}])| + Op(n−1/2)
+≥
+E
+
+E [A {A −π0(Z)} |Z]
+Z τ
+0
+[1 + td {Λ∗
+1(t, Z) −Λ10(t, Z)} + td {Λ∗
+2(t, Z) −Λ20(t, Z)}]
+
+·(1 −E {N(τ)|A = 0, Z}) + Op(n−1/2)
+=
+E
+
+Var (A|Z)
+Z τ
+0
+|1 + td {Λ∗
+1(t, Z) −Λ10(t, Z)} + td {Λ∗
+2(t, Z) −Λ20(t, Z)}|
+×(1 −E {N(τ)| A = 0, Z})) + Op(n−1/2) > ϵ.
+We can therefore conclude that K is invertible.
+• Case b): ˆΛ(·, ·) depends on the unknown β and Λ∗(·, ·) = Λ0(·, ·).
+By deﬁnition K(4)
+j (β0, S∗
+c , π∗, Λ0) = 0. Again, we want to prove that K is invertible by
+proving that the determinant is diﬀerent from zero. Since K(4)
+j (β0, S∗
+c , π∗, Λ0) = 0, K is a
+diagonal matrix so we just need to verify that the diagonal elements are not null. We have:
+|Kjj|
+=
+K(1)(β0, S∗
+c , π∗) + K(2)
+j (β, S∗
+c , π∗)/(βj −βj0)
+
+=
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait {S∗
+c (t | Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)
+(
+Ai + 1
+n
+n
+X
+l=1
+qjl(t)
+)
+dt
+ ,
+where we call qji(t) a function, such that:
+ˆΛj(t, Z; β) −ˆΛj(t, Z; β0)
+=
+(βj −βj0) ∗1
+n
+n
+X
+i=1
+Z τ
+0
+qji(t).
+Similarly to before, by Assumptions 2, 7, and Hoeﬀding’s inequality, we have:
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait {S∗
+c (t | Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)
+"
+Ai −1
+n
+n
+X
+l=1
+qjl(t)
+#
+dt
+= E
+Z τ
+0
+{S∗
+c (t | A, Z)}−1 Sc0(t | A, Z)e−P2
+l=1 Λl0(t,Z) {A −π∗(Z)} [A −E(qj(t))] dt
+
++Op(n−1/2)
+≥
+CE
+Z τ
+0
+e−P2
+l=1 Λl0(t,Z)E [{A −π∗(Z)} {A −E(qj(t))} |Z] dt
+
++ Op(n−1/2).
+36
+
+````
+
+## PDF page 37
+
+FORMULA CHECK REQUIRED: original PDF page 37.
+
+````text
+Therefore, by Assumptions 7 and 8, we have |Kjj| > ϵ + Op(n−1/2) and hence K is
+invertible.
+Asymptotic normality: In Lemma 4 we proved that for β in a neighboorhood of β0:
+S1,n(β, ˆSc, ˆπ, ˆΛ)
+=
+S1,n(β0, S∗
+c , π∗, Λ∗) + Q(21) + Q(3) + K(β −β0)
++Op
+
+n−1/2 |β1 + β2 −β10 −β20| + |β1 + β2 −β10 −β20|2
+,
+where
+Q(21)
+j
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait {S∗
+c (t | Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)
+×d
+n
+ˆΛj(t, Zi; β0) −Λ∗
+j(t, Zi)
+o
+= op(1),
+Q(3)
+j
+=
+{S1,n}j (β0, ˆSc, ˆπ, Λ∗) −{S1,n}j (β0, S∗
+c , π∗, Λ∗) = op(1).
+In the previous part of the proof we proved that ˆβ −β0 = Op(n−δ) for any |δ| < 1/2
+and that K is invertible. Therefore we have:
+√n(ˆβ(1) −β0)
+=
+K−1 n√nS1,n(β0, S∗
+c , π∗, Λ∗) + √nQ(21) + √nQ(3)o
++ op(1). (39)
+We remind the reader that if the censoring model and the propensity score model are
+correctly speciﬁed, Q(21) = op(n−1/2).
+If Λ(·) is correctly speciﬁed, Q(3) = op(n−1/2).
+Hence, if every model is correctly speciﬁed, (39) simpliﬁes and the asymptotic normality of
+ˆβ(1) is obtained by the normality of √nS1,n(β0, S∗
+c , π∗, Λ∗), that is a sum of i.i.d multivariate
+martingale integral.
+If only the censoring model and the propensity score model are correctly speciﬁed, under
+Assumption A2, Q(3) is asymptotically linear. Asymptotic normality of ˆβ(1) is therefore
+obtained by the normality of √nS2,n(β0, S∗
+c , π∗, Λ∗) + √nQ(3) that is a sum of i.i.d mean
+zero random variables.
+If only the baseline hazard model is correctly speciﬁed, under Assumptions B2, Q(21) is
+asymptotically linear. Asymptotic normality of ˆβ(1) is therefore obtained by the normality
+of √nS1,n(β0, S∗
+c , π∗, Λ∗) + √nQ(21)that is a sum of i.i.d mean zero random variables.
+In the following we prove the above statements in details.
+• Case (a):
+We remind the reader that, if S∗
+c (·|·, ·) = Sc0(·|·, ·) and π∗(·) = π0(·), Q(21) = op(n−1/2)
+and K(2)
+j (β, S∗
+c , π∗) = op(1). In the previous part of the proof we have proved that K
+simpliﬁes to a 2 × 2 matrix with Kjj = −K(1)(β0, S∗
+c , π∗) −K(4)
+j (β0, S∗
+c , π∗, Λ∗), and K12 =
+−K(4)
+1 (β0, S∗
+c , π∗, Λ∗),
+K21 = −K(4)
+2 (β0, S∗
+c , π∗, Λ∗).
+Therefore, in (39) we are left with
+√n(ˆβ −β0) = K−1√n
+n
+S2,n(β0, S∗
+c , π∗, Λ∗) + Q(3)o
++ op(1).
+(40)
+37
+
+````
+
+## PDF page 38
+
+FORMULA CHECK REQUIRED: original PDF page 38.
+
+````text
+Since √nS1,n(β0, S∗
+c , π∗, Λ∗) is already a sum of i.i.d mean zero terms, with the help
+of Assumption A 2, we now prove that also term Q(3) can be written as the sum of
+i.i.d mean zero terms.
+We can then apply the multivariate central limit theorem to
+√nS1,n(β0, S∗
+c , π∗, Λ∗) + √nQ(3) and reach our conclusion.
+We now look at the details. Using the fact that ˆπ(z) = π(z; ˆα), ˆSc(t|a, z) = Sc(t|a, z; ˆη, ˆΛc)
+we have, by Taylor expansion:
+Q(3)
+j
+=
+√n
+h
+{S1,n}j (β0, ˆSc, ˆπ, Λ∗) −{S1,n}j (β0, Sc0, π0, Λ∗)
+i
+=
+√n
+h
+{S1,n}j (β0, ˆη, ˆΛc, ˆα, Λ∗) −{S1,n}j (β0, η0, Λc0, α0, Λ∗)
+i
+=
+√n 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait 
+Dn
+ij(t, η0, Λc0, α0, Λ∗)
+	⊤∆dMji(t; βj0, Λ∗
+j) + op(n−1/2),
+where
+Dn
+ij(η, Λc, α) := [∂ηf(Ai, Zi; η, Λc, α), ∂Λcf(Ai, Zi; η, Λc, α), ∂αf(Ai, Zi; η, Λc, α)]⊤,
+f(Ai, Zi; η, Λc, α) := {Ai −π(Z; ˆα)} S−1
+c (t|A, Z; ˆη, ˆΛc),
+and
+∆:= [ˆη −η0, ˆΛc(t) −Λc0(t), ˆα −α0]⊤.
+Standard algebra gives us:
+Dn
+ij(η, Λc, α)
+=
+[{Ai −π(Zi; α)} ∂ηS−1
+c (t|A, Z; η, Λc), {Ai −π(Zi; α)} ∂ΛcS−1
+c (t|A, Z; η, Λc)
+, −∂απ(Zi; α)S−1
+c (t|A, Z; η, Λc)]⊤.
+Moreover, by Assumption A2, we have:
+ˆα −α0 = Op(n−1/2),
+ˆη −η0 = Op(n−1/2),
+sup
+t∈[0,τ]
+n
+ˆΛc(t) −Λc0(t)
+o
+= Op(n−1/2).
+Therefore, by the above and by Assumptions A1 and A2 we have:
+Q(3)
+j
+=
+Z τ
+0
+n
+P (a)
+1j (t)
+o⊤
+(ˆη −η0) + P (a)
+2j (t)
+n
+ˆΛc(t; ˆη) −Λc0(t)
+o
+−
+n
+P (a)
+3j (t)
+o⊤
+(ˆα −α0)
+
+dt
+=
+Z τ
+0
+n
+p(a)
+1j (t)
+o⊤
+(ˆη −η0) + p(a)
+2j (t)
+n
+ˆΛc(t; ˆη) −Λc0(t)
+o
+−
+n
+p(a)
+3j (t)
+o⊤
+(ˆα −α0)
+
+dt
++op(n−1/2)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+n
+p(a)
+1j (t)
+o⊤
+σ1i +
+Z τ
+0
+p(a)
+2j (t)σ2i(t) −
+Z τ
+0
+n
+p(a)
+3j (t)
+o⊤
+σ3i
+
+dt + op(n−1/2).
+Therefore we have:
+√nS1,n(β0, Sc0, π0, Λ∗) + √nQ(3) =
+1
+√n
+n
+X
+i=1
+ψ(a)
+i
+(t) + op(1),
+(41)
+38
+
+````
+
+## PDF page 39
+
+FORMULA CHECK REQUIRED: original PDF page 39.
+
+````text
+where
+ψ(a)
+i,j
+=
+Z τ
+0
+e(β10+β20)Ait {Sc0(t | Ai, Zi)}−1 {Ai −π0(Zi)} dMji(t; βj0, Λ∗
+j)
++
+Z τ
+0
+n
+p(a)
+1j (t)
+o⊤
+σ1 + p(a)
+2j (t)σ2(t) −
+Z τ
+0
+n
+p(a)
+3j (t)
+o⊤
+σ3
+
+dt.
+By Theorem 2 and by construction of Q(3) the right hand side of (40) is a sum of i.i.d
+mean zero and the multivariate central limit theorem can be applied. Therefore, case a) of
+the asymptotic normality is proven.
+• Case (b):
+We remind the reader that, if Λ∗(·, ·) = Λ0(·, ·), Q(3) = op(n−1/2). In the previous part of
+the proof we have proved that K simpliﬁes to a 2 × 2 diagonal matrix with:
+Kjj
+=
+−K(1)(β0, S∗
+c , π∗) −K(2)
+j (β, S∗
+c , π∗)/(βj −βj0).
+Therefore, in (39) we are left with
+√n(ˆβ −β0) = K−1√n
+n
+S1,n(β0, S∗
+c , π∗, Λ∗) + Q(21)o
++ op(1).
+(42)
+Since √nS1,n(β0, S∗
+c , π∗, Λ∗) is already a sum of i.i.d mean zero terms, with the help of
+Assumption B2, we now prove that also term Q(21) can be written as a sum of i.i.d mean zero
+terms. We can then apply the multivariate central limit theorem to √nS1,n(β0, S∗
+c , π∗, Λ∗)+
+√nQ(21) and reach our conclusion.
+We now look at the details.
+By Assumption B2, we know that
+ˆγj −γj0 = Op(n−1/2),
+ˆGj(t) −Gj0(t) = Op(n−1/2).
+Therefore by Taylor expansion we have:
+√nQ(21)
+j
+=
+−1
+√n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait {S∗
+c (t | Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)
+×d
+n
+L(t, Z; ˆGj, ˆγj) −L(t, Z; Gj0, γj0)
+o
++ op(n−1/2)
+=
+−1
+√n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait {S∗
+c (t | Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)
+×
+h
+(ˆγj −γj0)⊤∂γjdL(t, Z; Gj0, γj0) + d
+n
+ˆGj(t) −Gj0(t)
+o
+∂γjL(t, Z; Gj0, γj0)
++
+n
+ˆGj(t) −Gj0(t)
+o
+∂γjdL(t, Z; Gj0, γj0)
+i
++ op(n−1/2).
+39
+
+````
+
+## PDF page 40
+
+FORMULA CHECK REQUIRED: original PDF page 40.
+
+````text
+Hence, by the above and by Assumption B1 and B2, we have:
+Q(21)
+j
+=
+Z τ
+0
+h
+(ˆγj −γj0)⊤P (b)
+1j (t)dt + P (b)
+2j (t)d
+n
+ˆGj(t) −Gj0(t)
+o
+(43)
++dP (b)
+2j (t)
+n
+ˆGj(t) −Gj0(t)
+oi
+=
+Z τ
+0
+h
+(ˆγj −γj0)⊤p(b)
+1j (t)dt + p(b)
+2j (t)d
+n
+ˆGj(t) −Gj0(t)
+o
++dp(b)
+2j (t)
+n
+ˆGj(t) −Gj0(t)
+oi
++ op(n−1/2)
+=
+1
+√n
+n
+X
+i=1
+Z τ
+0
+h
+σ4ip(b)
+1j (t)dt + p(b)
+2j (t)dσ5i(t) + dp(b)
+2j (t)σ5i(t)
+i
++ op(n−1/2).
+Therefore we have:
+√nS1,n(β0, Sc0, π0, Λ∗) + √nQ(21) =
+1
+√n
+n
+X
+i=1
+ψ(b)
+i (t) + op(1)
+(44)
+where
+ψ(b)
+i,j
+=
+Z τ
+0
+e(β10+β20)Ait {S∗
+c (t | Ai, Zi)}−1 {Ai −π∗(Zi)} dMji(t; βj0, Λ∗
+j)
++
+Z τ
+0
+h
+σ4ip(b)
+1j (t)dt + p(b)
+2j (t)dσ5i(t)dt + p(b)
+2j (t)σ5i(t)
+i
+.
+By Theorem 2 and by construction of Q(21) the right hand side of (42) is a sum of
+i.i.d mean zero random variable and the multivariate central limit theorem can be ap-
+plied. Therefore, by the above together with (42), we can prove part b) of the asymptotic
+normality.
+• Case (c):
+We remind the reader that, if S∗
+c (·|·, ·) = Sc0(·|·, ·), π∗(·) = π0(·) and Λ∗(·, ·) = Λ0(·, ·), we
+have Q(21) = op(n−1/2), Q(3) = op(n−1/2) and therefore the inﬂuence function in this case
+simpliﬁes. In the previous part of the proof we have proved that K simpliﬁes to a 2 × 2
+diagonal matrix with: Kjj = −K(1)(β0, Sc0, π0, Λ0).
+Indeed by this, by consistency of ˆβ(1) proved in the above and by (39), we have:
+√n(β −β0)
+=
+K−1√nS1,n(β0, Sc0, π0, Λ0) + op(1).
+We prove that √nS1,n(β0, Sc0, π0, Λ0) is normal by martingale central limit theorem.
+Since here we assume that we plug in the true parameters, for ease of notation, in the
+following we will suppress the dependency of the martingale on β, Λ0. We consider the
+following multivariate martingale: Mi(t) = [M1i(t), M2i(t)]⊤with respect to the ﬁltra-
+tion Ft = σ {Nj(s), Y (s+), A, Z : j = 1, 2, 0 < s < t}.
+We consider the following two-
+dimensional vector: Mn(t) =
+1
+√n
+Pn
+i=1
+R t
+0 h(u; Ai, Zi)dMi(u), where
+h(t; A, Z) = e(β10+β20)Ait {Sc0(t | A, Z)}−1 {A −π0(Z)} .
+40
+
+````
+
+## PDF page 41
+
+FORMULA CHECK REQUIRED: original PDF page 41.
+
+````text
+Since h(t; A, Z) is predictable with respect to the ﬁltration, then Mn(t) is a multivariate
+martingale too. We have
+< M1i(t), M2i(t) >=< M1i(t), M1j(t) >=< M2i(t), M2j(t) >=< M1i(t), M2j(t) >= 0,
+for each i̸ = j therefore:
+< Mn
+1 (t), Mn
+2 (t) >
+=
+<
+1
+√n
+n
+X
+i=1
+Z t
+0
+h(u; Ai, Zi)dM1i(u), 1
+√n
+n
+X
+i=1
+Z t
+0
+h(u; Ai, Zi)dM2i(u) >
+=
+1
+n
+n
+X
+i,j=1
+Z t
+0
+h2(u; Ai, Zi)d < M1i(u), M2j(u) >= 0,
+and so the two components of the multidimensional martingale Mn(t) are orthogonal to
+each other. Therefore, we can apply the multidimensional version of the martingale central
+limit theorem of Rebolledo (Theorem 5 of Rebolledo (1978)).
+First we verify Assumption 2 about the convergence of the variance.
+We have, by
+Assumption1, for j = 1, 2:
+< Mn
+j (t), Mn
+j (t) >
+=
+1
+n
+n
+X
+i=1
+Z t
+0
+h2(u; Ai, Zi)dΛj(u | Ai, Zi)Yi(u)
+=
+1
+n
+n
+X
+i=1
+Z t
+0
+h2(u; Ai, Zi) {dΛj0(u, Zi) + βj0Adu} Yi(u)
+=
+1
+n
+n
+X
+i=1
+Z t
+0
+e2(β10+β20)Aiu {Sc0(u | Ai, Zi)}−2 {Ai −π0(Zi)}2
+× {dΛj0(u, Zi) + βj0Aidu} Yi(u)
+=
+Z t
+0
+{P(u)βj + Qj(u)} du
+p→
+Z t
+0
+{p(u)βj + qj(u)} du = Vj(t),
+and so Assumption 2 of the MCLT is veriﬁed.
+We now look at Assumption 1 about the jumps of each component of the martingale.
+Rebolledo (1978) at pag. 39 claims that if the Lindeberg condition is veriﬁed, then As-
+sumption 1 of its theorem holds. We therefore needs to prove that, for any ϵ and any
+j:
+Z τ
+0
+1
+n
+n
+X
+i=1
+h2(u; Ai, Zi)1
+
+|h(u; Ai, Zi)| > √nϵ
+	
+Yi(t) {dΛj0(t, Zi) + βj0Aidt}
+p→0,
+by Assumption2 and 7, we know that:
+|h(t; A, Z)| ≤C−1
+c e(β10+β20)τ < ∞,
+so, we have:
+Z τ
+0
+1
+n
+n
+X
+i=1
+h2(u; A, Z)1
+
+|h(u; A, Z)| > √nϵ
+	
+Yi(t) {dΛj0(t, Zi) + βj0Aidt}
+≤
+Z τ
+0
+1
+n
+n
+X
+i=1
+h2(u; A, Z)1
+
+C−1
+c
+exp(β10τ + β20τ) > √nϵ
+	
+Yi(t)
+× {dΛj0(t, Zi) + βj0Aidt} .
+41
+
+````
+
+## PDF page 42
+
+FORMULA CHECK REQUIRED: original PDF page 42.
+
+````text
+Moreover, by Assumption3, we also know that:
+
+Z τ
+0
+1
+n
+n
+X
+i=1
+h2(u; A, Z)1
+n
+C−1
+c e(β10+β20)τ > √nϵ
+o
+Yi(t) {dΛj0(t, Zi) + βj0Aidt}
+
+≤
+C−2
+c e2(β10+β20)τ1
+n
+C−1
+c e(β10+β20)τ > √nϵ
+o
+τ |Lj + βj0|
+p→0,
+and so Assumption 1 of the martingale central limit theorem holds.
+Therefore, we can conclude that
+√nS1,n(β0, Sc0, π0, Λ0) = Mn(t) D
+→N(0, V (τ)).
+Consistent variance estimator: We now prove that ˆW (c)
+jj −W (c)
+jj = op(1) and that
+ˆV (c)
+jj (τ) −V (c)
+jj (τ) = op(1).
+We have:
+ˆW (c)
+jj −W (c)
+jj
+= 1
+n
+n
+X
+i=1
+Ai {Ai −ˆπ(Zi)}
+Z Xi
+0
+n
+ˆSc(t | Ai, Zi)
+o−1
+e(ˆβ1+ˆβ2)tdt
+−E
+
+A {A −π0(Z)}
+Z X
+0
+{Sc0(t | A, Z)}−1 e(β10+β20)tdt
+
+= 1
+n
+n
+X
+i=1
+Ai {Ai −π0(Zi)}
+Z Xi
+0
+{Sc0(t | Ai, Zi)}−1 e(β10+β20)tdt
+−E
+
+A {A −π0(Z)}
+Z X
+0
+{Sc0(t | A, Z)}−1 e(β10+β20)tdt
+
++ 1
+n
+n
+X
+i=1
+Z Xi
+0
+Ai {Ai −π0(Zi)} {Sc0(t | Ai, Zi)}−1 n
+e(ˆβ1+ˆβ2)t −e(β10+β20)to
+dt
++ 1
+n
+n
+X
+i=1
+Z Xi
+0
+Ai
+
+{Ai −ˆπ(Zi)}
+n
+ˆSc(t | Ai, Zi)
+o−1
+−{Ai −π0(Zi)} {Sc0(t | Ai, Zi)}−1
+
+×
+n
+e(ˆβ1+ˆβ2)t −e(β10+β20)to
+dt
++ 1
+n
+n
+X
+i=1
+Z Xi
+0
+Ai
+
+{Ai −ˆπ(Zi)}
+n
+ˆSc(t | Ai, Zi)
+o−1
+−{Ai −π0(Zi)} {Sc0(t | Ai, Zi)}−1
+
+×e(β10+β20)tdt
+= Q1 −Q2 + Q3 + Q4 + Q5.
+As before, by Assumptions 2 and 7, by Hoeﬀding’s inequality we have:
+Q1 −Q2 =
+Op(n−1/2). by Assumptions 2 and 7 and by Lemma 8, we get:
+|Q3| ≤τC−1
+c
+n
+e(ˆβ1+ˆβ2)τ −e(β10+β20)τo
+= τC−1
+c e(β∗
+1+β∗
+2)ττ
+
+ˆβ1 + ˆβ2 −β10 −β20
+
+.
+where β∗
+j are points between ˆβj and βj0. Therefore, by consistency of the estimator ˆβ, we
+have |Q3| = op(1).
+42
+
+````
+
+## PDF page 43
+
+FORMULA CHECK REQUIRED: original PDF page 43.
+
+````text
+By Assumption 1 and by consistency of β we have Q4 = op(1). By this and by Assumptions
+1, 2, 7, we have:
+|Q5|
+≤
+sup
+t∈[0,τ],Z∈Z,A∈0,1
+n ˆS−1
+c (t | A, Z) −{Sc0(t | A, Z)}−1 +
+ ˆS−1
+c (t | A, Z)
+ |ˆπ(Z) −π0(Z)|
+o
+×τe(β10+β20)τ
+=
+op(1).
+(45)
+We can therefore conclude that ˆW −W = op(1).
+We have:
+ˆV (c)
+jj (τ) −V (c)
+jj (τ)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e2(ˆβ1+ˆβ2)AiXi ˆS−2
+c (Xi | Ai, Zi) {Ai −ˆπ(Zi)}2 dNji(t) −
+Z τ
+0
+{p(t)βj + qj(t)} dt
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e2(β10+β20)Ait {Sc0(Xi | Ai, Zi)}−2 {Ai −π0(Zi)}2 dMji(t)
++
+Z τ
+0
+{P(t)βj + Qj(t) −p(t)βj −qj(t)} dt
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+{Sc0(Xi | Ai, Zi)}−2 {Ai −π0(Zi)}2 n
+e2(ˆβ1+ˆβ2)t −e2(β10+β20)to
+dNji(t)
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+h
+ˆS−2
+c (Xi | Ai, Zi) {Ai −ˆπ(Zi)}2 −{Sc0(Xi | Ai, Zi)}−2 {Ai −π0(Zi)}2i
+×
+n
+e2(ˆβ1+ˆβ2)t −e2(β10+β20)to
+dNji(t)
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+h
+ˆS−2
+c (Xi | Ai, Zi) {Ai −ˆπ(Zi)}2 −{Sc0(t | Ai, Zi)}−2 {Ai −π0(Zi)}2i
+×e2(β10+β20)tdNji(t)
+=
+E1 + E2 + E3 + E4 + E5.
+For E1 we notice that, by Assumptions 2 and 7, we have:
+e2(β10+β20)AiXi {Sc0(Xi | Ai, Zi)}−2 {Ai −π0(Zi)}2 ≤C−2
+c e2(β10+β20)Aiτ < ∞,
+and so, by Lemma 9, we have E1 = op(1).
+By Assumption1, we can prove that E2 = op(1).
+Similarly to what we have done for Q3, Q4 and Q5, we can prove that E3 = op(1), E4 =
+op(1) and E5 = op(1).
+Therefore ˆVj −Vj = op(1).
+43
+
+````
+
+## PDF page 44
+
+FORMULA CHECK REQUIRED: original PDF page 44.
+
+````text
+8.4.2
+Asymptotic variance for speciﬁc working models
+Under the assumptions required for Score 1,
+(a) if S∗
+c (t|a, z) = Sc0(t|a, z) = exp
+
+−Λc0(t)eη⊤
+0 d
+where d = [a, z]′, and π∗(z) =
+π0(z) =
+
+1 + exp(−α⊤z)
+	−1, then Σ(a) = Σ(a′) where the explicit expression for Σ(a′) is
+given below under additional regularity Assumptions A*1-4, also given below;
+(b) if Λ∗(t, z) = Λ0(t, z) = G0(t)+γ⊤
+0 zt, where a quantity without subscript j indicates a
+vector of both components for j = 1, 2, and Gj(t) is estimated using (13) in the main paper,
+then Σ(b) = Σ(b′) where the explicit expression for Σ(b′) is given below under additional
+regularity Assumptions B*1 ,2, 4; if Gj(t) is estimated using (14), then Σ(b) = Σ(b′′) where
+the explicit expression for Σ(b′′) is given below under additional regularity Assumptions
+B*1 ,3, 4.
+Σ(a′)
+=
+n
+E(K(a))−1o⊤
+V ar(ψ(a′))E(K(a))−1,
+Σ(b′)
+=
+n
+E(K(b′))−1o⊤
+V ar(ψ(b′))E(K(b′))−1,
+Σ(b′′)
+=
+n
+E(K(b′′))−1o⊤
+V ar(ψ(b′′))E(K(b′′))−1,
+where K(a), K(b′), K(b′′), ψ(a′), ψ(b′), ψ(b′′) are given below.
+ψ(a′)
+=
+Z τ
+0
+e(β10+β20)At {Sc0(t|A, Z)}−1 {A −π0(Z)} dMj(t; βj0, Λ∗
+j)
++
+
+
+Z τ
+0
+
+s(2)
+d (t)
+s(0)
+d (t)
+−
+(
+s(1)
+d (t)
+s(0)
+d (t)
+)2
+s(0)
+d (t)dΛc0(t)
+
+
+−1 Z τ
+0
+(
+D −s(1)
+d (t)
+s(0)
+d (t)
+)
+dMc(t)
+×
+"Z τ
+0
+{p(a′)
+1j }⊤(t)dt −
+Z τ
+0
+p(a′)
+2j (t)
+Z t
+0
+dΛc0(u; η0)s(1)
+d (u)
+s(0)
+d (u)
+dudt
+#
++
+Z τ
+0
+p(a′)
+2j (t)
+Z t
+0
+n
+s(0)
+d (u)
+o−1
+dMc(u)dt
+−
+Z τ
+0
+{p(a′)
+3j }⊤(t)
+
+E
+h
+Z⊤Zπ0(Z) {1 −π0(Z)}
+i−1
+Z {A −π0(Z)} dt
+
+j=1,2
+.
+ψ(b′)
+=
+Z τ
+0
+e(β10+β20)At {S∗
+c (t|A, Z)}−1 {A −π∗(Z)} dMj(t)
++
+Z τ
+0
+
+
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1 Z τ
+0
+(
+Z −s(1)
+z (t)
+s(0)
+z (t)
+)
+dMj(t)
+
+
+⊤
+×
+(
+p(b′)
+1
+(t)dt −p(b′)
+0
+(t)s(1)
+z (t)
+s(0)
+z (t)
+dt
+)
++
+Z τ
+0
+p(b′)
+0
+(t)
+n
+s(0)
+z (t)
+o−1
+dMj(t)
+#
+j=1,2
+.
+44
+
+````
+
+## PDF page 45
+
+FORMULA CHECK REQUIRED: original PDF page 45.
+
+````text
+K(b′) is a 2 × 2 diagonal matrix with:
+K(b′)
+jj
+=
+E
+"Z τ
+0
+e(β10+β20)At {S∗
+c (t|A, Z)}−1 {A −π∗(Z)} Y (t)
+"
+A −s(1)
+a (t)
+s(0)(t)
+#
+dt
+#
+.
+ψ(b′′)
+=
+Z τ
+0
+e(β10+β20)At {S∗
+c (t|A, Z)}−1 {A −π∗(Z)} dMj(t)
++
+Z τ
+0
+
+
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1 Z τ
+0
+(
+Z −s(1)
+z (t)
+s(0)
+z (t)
+)
+dMj(t)
+
+
+⊤
+·
+(
+p(b′)
+1
+(t)dt −p(b′)
+0
+(t)s(1)
+wz(t; S∗
+c , π∗)
+s(0)
+wz(t; S∗c , π∗)
+dt
+)
++
+Z τ
+0
+p(b′)
+0
+(t)
+n
+s(0)
+wz(t; S∗
+c , π∗)
+o−1
+dMj(t)
+#
+j=1,2
+.
+K(b′′) is a 2 × 2 diagonal matrix with:
+K(b′′)
+jj
+= E
+ Z τ
+0
+e(β10+β20)At {S∗
+c (t|A, Z)}−1 {A −π∗(Z)} Y (t)
+"
+A −s(1)
+aw(t; S∗, π∗)
+s(0)
+aw(t; S∗, π∗)
+#
+dt
+!
+.
+Assumption A*1. For j = 1, 2 let
+P (a′)
+1j (t)
+=
+1
+n
+n
+X
+i=1
+e(β10+β20)Ait n
+Ai −expit(α⊤
+0 Zi)
+o
+exp
+
+Λc0(t)eη⊤
+0 Di
+
+Λc0(t)eη⊤
+0 DiDidMji(t; βj0, Λ∗
+j),
+P (a′)
+2j (t)
+=
+1
+n
+n
+X
+i=1
+e(β10+β20)Ait n
+Ai −expit(α⊤
+0 Zi)
+o
+exp
+
+Λc0(t)eη⊤
+0 Di
+
+eη⊤
+0 DidMji(t; βj0, Λ∗
+j),
+P (a′)
+3j (t)
+=
+−1
+n
+n
+X
+i=1
+e(β10+β20)Ait exp
+
+Λc0(t)eη⊤
+0 Di
+
+expit(α⊤
+0 Zi)eα⊤
+0 ZiZidMji(t; βj0, Λ∗
+j),
+where D = [A, Z]⊤. There exist, for l = 1, 2, 3, some bounded p(a)
+lj (t) and a neighborhood
+B of {β0, Sc0(·|·, ·), π0(·), Λ∗(·, ·)} such that:
+sup
+t∈[0,τ],{β,Sc,π,Λj}∈B
+P (a)
+lj (t) −p(a)
+lj (t)
+
+p→0,
+where we indicate with ∥· ∥the L2 norm.
+Assumption A*2. supZ∈Z |Λ∗
+j(τ, Z)| < ∞.
+Assumption A*3. For l = 0, 1, 2 let
+S(l)
+d (t) = 1
+n
+n
+X
+i=1
+Yi(t)Dl
+ieη⊤
+0 Di.
+45
+
+````
+
+## PDF page 46
+
+FORMULA CHECK REQUIRED: original PDF page 46.
+
+````text
+There exist some bounded s(l)
+d (t) such that:
+sup
+t∈[0,τ]
+S(l)
+d (t) −s(l)
+d (t)
+
+p→0.
+Assumption A*4.
+Z τ
+0
+
+
+
+s(2)
+d (t)
+s(0)
+d (t)
+−
+ 
+s(1)
+d (t)
+s(0)
+d (t)
+!2
+
+E
+n
+Y (t)eη⊤
+0 Do
+dΛc0(t)
+and E
+
+Z⊤Zπ0(Zi) {1 −π0(Zi)}
+
+are positive deﬁnite.
+Assumption B*1. For l = 0, 1 let
+P (b′)
+1
+(t) = 1
+n
+n
+X
+i=1
+e(β10+β20)Ait {S∗
+c (t|Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)Zl
+i.
+We assume that, for l = 0, 1, there exist p(b′)
+l
+(t) and a neighborhood B of
+{β0, Λ0(·, ·), S∗
+c (·|·, ·), π∗(·)} such that :
+sup
+t∈[0,τ],{β,Λ,Sc,π}∈B
+P (b′)
+l
+(t) −p(b′)
+l
+(t)
+
+p→0.
+Assumption B*2. For l = 0, 1 let
+S(1)
+d (t)
+=
+1
+n
+n
+X
+i=1
+Yi(t)Di,
+S(1)
+z (t)
+=
+1
+n
+n
+X
+i=1
+Yi(t)Zi,
+S(0)(t)
+=
+1
+n
+n
+X
+i=1
+Yi(t),
+where D = [A, Z]⊤. There exist s(1)
+d (t), s(1)
+z (t), s(0)(t) such that:
+sup
+t∈[0,τ]
+S(1)
+d (t) −s(1)
+d (t)
+
+p→
+0,
+sup
+t∈[0,τ]
+S(1)
+z (t) −s(1)
+z (t)
+
+p→
+0,
+sup
+t∈[0,τ]
+S(0)(t) −s(0)(t)
+
+p→
+0.
+Assumption B*3. Let for l = 0, 1
+S(l)
+wd(t; S∗, π∗)
+=
+1
+n
+n
+X
+i=1
+wi(S∗, π∗)Yi(t)Dl
+i,
+S(l)
+wz(t; S∗, π∗)
+=
+1
+n
+n
+X
+i=1
+wi(S∗, π∗)Yi(t)Zl
+i.
+46
+
+````
+
+## PDF page 47
+
+FORMULA CHECK REQUIRED: original PDF page 47.
+
+````text
+We assume that, there exist s(l)
+wd(t; S∗, π∗), s(l)
+wz(t; S∗, π∗) such that:
+sup
+t∈[0,τ]
+S(l)
+wd(t; S∗, π∗) −s(l)
+wd(t; S∗, π∗)
+
+p→
+0,
+sup
+t∈[0,τ]
+S(l)
+wz(t; S∗, π∗) −s(l)
+wz(t; S∗, π∗)
+
+p→
+0.
+Assumption B*4.
+R τ
+0 E
+n
+D −s(1)
+d (t)/s(0)
+d (t)
+o⊗2
+Y (t)
+
+dt is positive deﬁnite.
+The proof of the results follows directly from ﬁnding the inﬂuence functions deﬁned in
+Assumptions A2 and B2 for the speciﬁc working models Sc(t|a, z; η, Λc) = exp
+
+−Λceη⊤d
+,
+where D = [A, Z]⊤and π(z; α) =
+
+1 + exp(−α⊤z)
+	−1 for case a) and Λj(t, z; Gj, γj) =
+Gj(t) + γ⊤
+j zt for case b) respectively. We indeed remind the reader that under case a), we
+have:
+√n(ˆβ −β0) = K−1√n
+n
+S1,n(β0, S∗
+c , π∗, Λ∗) + Q(3)o
++ op(1),
+where Q(3), deﬁned in Lemma 4, directly depends on the form of the inﬂuence functions
+of estimators ˆα, ˆΛc, ˆη. Under case b), we instead have:
+√n(ˆβ −β0) = K−1√n
+n
+S1,n(β0, S∗
+c , π∗, Λ∗) + Q(21)o
++ op(1),
+where Q(21), deﬁned in Lemma 4, directly depends on the form of the inﬂuence functions
+of estimators ˆG, ˆγ.
+The next Lemma deﬁnes the speciﬁc form of Q(3) when the logistic model and the Cox
+model are assumed on the propensity score and the censoring distribution, respectively.
+Lemma 5. We assume, π(Z; α) =
+
+1 + exp(−α⊤Z)
+	−1 and Sc(t|A, Z; η, Λc) = exp
+
+−Λceη⊤D
+.
+Under Assumptions 3, 4 and Assumption A*1- A*4 we have:
+√nQ(3)
+j
+=
+
+
+Z τ
+0
+
+s(2)
+d (t)
+s(0)
+d (t)
+−
+(
+s(1)
+d (t)
+s(0)
+d (t)
+)2
+s(0)
+d (t)dΛc0(t)
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)
+dMc
+i (t)
+×
+"Z τ
+0
+n
+p(a′)
+1
+o⊤
+(t)dt −
+Z τ
+0
+p(a′)
+2
+(t)
+Z t
+0
+dΛc0(u; η0)s(1)
+d (u)
+s(0)
+d (u)
+dt
+#
++
+Z τ
+0
+p(a′)
+2
+(t) 1
+√n
+n
+X
+i=1
+Z t
+0
+n
+s(0)
+d (u)
+o−1
+dMc
+i (u)
+−
+Z τ
+0
+n
+p(a′)
+3
+o⊤
+(t)
+
+E
+h
+Z⊤Zπ0(Zi) {1 −π0(Zi)}
+i−1 1
+√n
+n
+X
+i=1
+Zi {Ai −π0(Zi)} dt
++op(1).
+47
+
+````
+
+## PDF page 48
+
+FORMULA CHECK REQUIRED: original PDF page 48.
+
+````text
+The next Lemma deﬁnes the speciﬁc form of Q(21) when the traditional additive hazard
+model is assumed on the cause-speciﬁc hazards.
+Lemma 6. Let Λj(t, Z; Gj, γj) = Gj(t)+γ⊤
+j Zt and let γj be estimated by (12) in the main
+document and Gj(t) be estimated using (13) in the main document. Under Assumptions
+3, 4 and Assumptions B*2 and B*4 it holds:
+√nQ(21)
+j
+=
+Z τ
+0
+
+
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Zi −s(1)
+z (t)
+s(0)
+z (t)
+)
+dMji(t)
+
+
+⊤
+×
+(
+p(b′)
+1
+(t)dt −p(b′)
+0
+(t)s(1)
+z (t)
+s(0)
+z (t)
+dt
+)
++
+Z τ
+0
+p(b′)
+0
+(t)
+n
+s(0)
+z (t)
+o−1 1
+√n
+n
+X
+i=1
+dMji(t) + op(1).
+Lemma 7. Let Λj(t, Z; Gj, γj) = Gj(t)+γ⊤
+j Zt and let γj be estimated by (12) in the main
+document and Gj(t) be estimated using (14) in the main document. Under Assumptions
+3, 4 and Assumptions B*3 and B*4 it holds:
+√nQ(21)
+j
+=
+Z τ
+0
+
+
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Zi −s(1)
+z (t)
+s(0)
+z (t)
+)
+dMji(t)
+
+
+⊤
+×
+(
+p(b′)
+1
+(t)dt −p(b′)
+0
+(t)s(1)
+wz(t; S∗
+c , π∗)
+s(0)
+wz(t; S∗c , π∗)
+dt
+)
++
+Z τ
+0
+p(b′)
+0
+(t)
+n
+s(0)
+wz(t; S∗
+c , π∗)
+o−1 1
+√n
+n
+X
+i=1
+dMji(t) + op(1).
+Finally, the asymptotic results for β(1) together with Lemma 5 proves part a) of the
+speciﬁc results; with Lemma 6 proves part b1) of the speciﬁc results; and with Lemma 7
+proves part b2) of the speciﬁc results.
+48
+
+````
+
+## PDF page 49
+
+FORMULA CHECK REQUIRED: original PDF page 49.
+
+````text
+8.4.3
+Asymptotic properties using Score 2
+Proofs of asymptotic properties of β(2) uses similar ideas and techniques as for β(1), under
+Assumption 2-7 and 9. We therefore report here a sketch of their proofs.
+Consistency: Under Assumptions 1, it follows that: S2,n(β, ˆSc, ˆπ, ˆΛ) = S2,n(β, S∗
+c , π∗, Λ∗)+
+Op(n−1/2).
+By Taylor expansion we have:
+S2,n(β, S∗
+c , π∗, Λ∗) = S2,n(β0, S∗
+c , π∗, Λ∗) + ∇βS2,n(β∗, S∗
+c , π∗, Λ∗) (β −β0)⊤,
+where β∗lies between β and β0.
+By double robustness of the score (Theorem 2), and by application of Hoeﬀding’s in-
+equality under Assumptions 3 and 7, we have: S2,n(β0, S∗
+c , π∗, Λ∗) = E {S2,n(β0, S∗
+c , π∗, Λ∗)}+
+Op(n−1/2) = Op(n−1/2). Therefore we have:
+S2,n(β, ˆSc, ˆπ, ˆΛ) = ∇βS2,n(β∗, S∗
+c , π∗, Λ∗) (β −β0)⊤+ Op(n−1/2).
+(46)
+We now focus on ∇:= ∇βS2,n(β∗, S∗
+c , π∗, Λ∗). We have as diagonal element, for j = 1, 2:
+∇jj
+=
+∂βj {S2,n}j (β∗, S∗
+c , π∗, Λ∗)
+=
+−1
+n
+n
+X
+i=1
+Z τ
+0
+∂βjEi(t; β∗, S∗
+c , π∗)dMji(t; β∗
+j , Λ∗
+j)
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+{Ai −Ei(t; β∗, S∗
+c , π∗)} AiYi(t)
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+{Ai −Ei(t; β∗, S∗
+c , π∗)} Yi(t)∂βdΛ∗(t, Zi; β∗)
+=
+Q1 + Q2 + Q3.
+We have:
+Q1
+=
+−1
+n
+n
+X
+i=1
+Z τ
+0
+∂βjEi(t; β∗, S∗
+c , π∗)dMji(t)
++(β∗
+j −βj0) 1
+n
+n
+X
+i=1
+Z τ
+0
+∂βjEi(t; β∗, S∗
+c , π∗)AiYi(t)dt
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+∂βjEi(t; β∗, S∗
+c , π∗)Yi(t)d
+
+Λ∗
+j(t, Zi; β∗
+j ) −Λ∗
+j(t, Zi; βj0)
+	
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+∂βjEi(t; β∗, S∗
+c , π∗)Yi(t)d
+
+Λ∗
+j(t, Zi; βj0) −Λj0(t, Zi)
+	
+=
+Q11 + Q12 + Q13 + Q14.
+Q11 is a martingale integral with bounded integrand by Assumption7. Therefore, by con-
+centration inequality of martingale integral is op(1). Under Assumption6, we have
+Q13 = (β∗
+j −βj0) 1
+n
+n
+X
+i=1
+Z τ
+0
+∂βjEi(t; β∗, S∗
+c , π∗)Yi(t)E(qj(t))dt,
+49
+
+````
+
+## PDF page 50
+
+FORMULA CHECK REQUIRED: original PDF page 50.
+
+````text
+where we call qji(t) a function, such that:
+ˆΛj(t, Z; β) −ˆΛj(t, Z; β0)
+=
+(βj −βj0) ∗1
+n
+n
+X
+i=1
+Z τ
+0
+qji(t).
+Term Q14 = 0 if Λ∗= Λ0. What about Q3? If S∗
+c = Sc0 and π∗= π0, because everything
+is bounded, by Assumption7 we have something along the following line:
+Q3
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+{Ai −Ei(t; β, Sc0, π0)} Yi(t)∂βdΛ(t, Zi; β∗)
+=
+Z τ
+0
+E
+
+
+
+
+A −
+E
+h
+Ae−PJ
+j=1 βjAtSc0(t|A, Z)|Z
+i
+E
+h
+e−PJ
+j=1 βjAtSc0(t|A, Z)|Z
+i
+
+
+Y (t)∂βdΛ(t, Z; β∗)
+
++ op(1)
+=
+Z τ
+0
+E
+
+
+
+
+A −
+E
+h
+Ae−PJ
+j=1 βjAtSc0(t|A, Z)|Z
+i
+E
+h
+e−PJ
+j=1 βjAtSc0(t|A, Z)|Z
+i
+
+
+E {Y (t)|A, Z} ∂βdΛ(t, Z; β∗)
+
++ op(1)
+=
+Z τ
+0
+E
+
+
+
+
+A −
+E
+h
+Ae−PJ
+j=1 βjAtSc0(t|A, Z)|Z
+i
+E
+h
+e−PJ
+j=1 βjAtSc0(t|A, Z)|Z
+i
+
+
+
+×e−PJ
+j=1 βjAte−PJ
+j=1 Λj(t,Z)Sc0(t|A, Z)∂βdΛ(t, Z; β∗)
+i
++ op(1)
+=
+op(1).
+Therefore we have:
+∇jj = ∂βj {S2,n}j (β∗, S∗
+c , π∗, Λ∗) = (β∗
+j −βj0)(J(1′)
+jj
++ J(2′)
+jj ) + J(1)
+jj + J(2)
+jj + J(3)
+jj ,
+where
+J(1′)
+jj
+= 1
+n
+n
+X
+i=1
+Z τ
+0
+∂βjEi(t; β∗, S∗
+c , π∗)AiYi(t)dt,
+J(2′)
+jj
+= 1
+n
+n
+X
+i=1
+Z τ
+0
+∂βjEi(t; β∗, S∗
+c , π∗)Yi(t)E(qj(t))dt,
+J(1)
+jj = 1
+n
+n
+X
+i=1
+Z τ
+0
+{Ai −Ei(t; β∗, S∗
+c , π∗)} AiYi(t),
+J(2)
+jj = 1
+n
+n
+X
+i=1
+Z τ
+0
+∂βjEi(t; β∗, S∗
+c , π∗)Yi(t)d
+
+Λ∗
+j(t, Zi; βj0) −Λj0(t, Zi)
+	
+,
+J(3)
+jj = 1
+n
+n
+X
+i=1
+Z τ
+0
+{Ai −Ei(t; β∗, S∗
+c , π∗)} Yi(t)∂βjdΛ∗
+j(t, Zi, β∗
+j ).
+50
+
+````
+
+## PDF page 51
+
+FORMULA CHECK REQUIRED: original PDF page 51.
+
+````text
+We notice that J(2)
+jj = 0 if Λ∗(·, ·) = Λ0(·, ·) and J(3)
+jj = op(1) if or S∗
+c (·|·, ·) = Sc0(·|·, ·)
+and π∗(·) = π0(·) or ˆΛ(·, ·) does not depend on the unknown β.
+On the other hand, similarly, we have:
+∇12
+=
+∂β2 {S2,n}1 (β∗, S∗
+c , π∗, Λ∗)
+=
+(β∗
+1 −β10) 1
+n
+n
+X
+i=1
+Z τ
+0
+∂β2Ei(t; β∗, S∗
+c , π∗)AiYi(t)dt
++(β∗
+1 −β10) 1
+n
+n
+X
+i=1
+Z τ
+0
+∂β2Ei(t; β∗, S∗
+c , π∗)Yi(t)E(qj(t))dt
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+∂β2Ei(t; β∗, S∗
+c , π∗)Yi(t)d {Λ∗
+1(t, Zi; β10) −Λ10(t, Zi)} + op(1)
+=
+(β∗
+1 −β10)(J(1′)
+12
++ J(2′)
+12 ) + J(1)
+12 ,
+and
+∇21
+=
+∂β1 {S2,n}2 (β∗, S∗
+c , π∗, Λ∗)
+=
+(β∗
+2 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+∂β1Ei(t; β∗, S∗
+c , π∗)AiYi(t)dt
++(β∗
+2 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+∂β1Ei(t; β∗, S∗
+c , π∗)Yi(t)E(qj(t))dt
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+∂β1Ei(t; β∗, S∗
+c , π∗)Yi(t)d {Λ∗
+2(t, Zi; β20) −Λ20(t, Zi)}
+=
+(β∗
+2 −β20)(J(1′)
+21
++ J(2′)
+21 ) + J(1)
+21 ,
+where the last terms J(1)
+12 = J(1)
+21 = 0 if Λ∗(·, ·) = Λ0(·, ·).
+Therefore we have:
+∇
+=
+J +
+β∗
+1 −β10
+β∗
+2 −β20
+
+J′
+where the above multiplication is intended componentwise and
+J =
+"
+J(1)
+11 + J(2)
+11 + J(3)
+11
+J(1)
+12
+J(1)
+21
+J(1)
+22 + J(2)
+22 + J(3)
+22
+#
+,
+and
+J′ =
+"
+J(1′)
+11
++ J(2′)
+11
+J(1′)
+12
++ J(2′)
+12
+J(1′)
+21
++ J(2′)
+21
+J(1′)
+22
++ J(2′)
+22
+#
+.
+We will prove that J is invertible. If this is the case, for any |δ| < 1/2, by (46) and the
+above we have:
+S2,n(β0 ± n−δ, ˆSc, ˆπ, ˆΛ)
+=
+n−δJ + n−2δJ′ + Op(n−1/2).
+51
+
+````
+
+## PDF page 52
+
+FORMULA CHECK REQUIRED: original PDF page 52.
+
+````text
+We can therefore conclude that either:
+S2,n(β0 −n−δ, ˆSc, ˆπ, ˆΛ) < 0 < S2,n(β0 + n−δ, ˆSc, ˆπ, ˆΛ),
+or
+S2,n(β0 + n−δ, ˆSc, ˆπ, ˆΛ) < 0 < S2,n(β0 −n−δ, ˆSc, ˆπ, ˆΛ).
+Therefore by deﬁnition of ˆβ, we can conclude that ˆβ −β0 = Op(n−δ).
+We now prove that J is invertible proving that its determinant is diﬀerent from zero.
+J simpliﬁes accordingly to which model is correct. We therefore divide the proof of its
+invertibility in two cases.
+• Case a): J is invertible if S∗
+c (·|·, ·) = Sc0(·|·, ·) and π∗(·) = π0(·).
+Noticing that ∂β1E(t; β∗, S∗
+c , π∗) = ∂β2E(t; β∗, S∗
+c , π∗) and J(1)
+11 = J(1)
+22 , after some algebra
+we have:
+|J|
+=
+(J(1)
+11 + J(2)
+11 )(J(1)
+22 + J(2)
+22 ) −J(1)
+12 J(1)
+21 + op(1)
+=
+J(1)
+11 (J(1)
+11 + J(2)
+11 + J(2)
+22 ) + op(1).
+We now prove that both J(1)
+11̸ = 0 and J(1)
+11 + J(2)
+11 + J(2)
+22̸ = 0. Those would prove that
+|J|̸ = 0 and so that J is invertible.
+Under model (1), E {Y (t)| A, Z} = Sc0c(t|A, Z)e−(β10+β20)Ate−Λ10(t,Z)−Λ20(t,Z), there-
+fore we have:
+E
+
+
+
+
+A −
+E
+h
+Ae−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+E
+h
+e−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+
+
+AY (t)dt
+
+
+=
+Z τ
+0
+E
+
+
+
+
+A −
+E
+h
+Ae−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+E
+h
+e−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+
+
+E {Y (t)|A, Z} Adt
+
+,
+and so
+=
+Z τ
+0
+E
+
+
+
+
+A −
+E
+h
+Ae−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+E
+h
+e−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+
+
+e−P2
+j=1 βj0Ate−P2
+j=1 Λj0(t,Z)Sc0(t|A, Z)Adt
+
+
+=
+Z τ
+0
+E
+
+E
+h
+Ae−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+
+
+1 −
+E
+h
+Ae−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+E
+h
+e−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+
+
+
+×e−P2
+j=1 Λj0(t,Z)dt
+i
+.
+The above is strictly diﬀerent from zero under the positivity Assumption5.
+Therefore
+applying Hoeﬀding’s inequality, for some positive ϵ: J(1)
+jj > ϵ.
+52
+
+````
+
+## PDF page 53
+
+FORMULA CHECK REQUIRED: original PDF page 53.
+
+````text
+We now focus on J(1)
+11 + J(2)
+11 + J(2)
+22 . By algebra we have:
+∂βjE(t; β∗, S∗
+c , π∗)
+=
+−t · E(t; β∗, S∗
+c , π∗) {1 −E(t; β∗, S∗
+c , π∗)} .
+We have:
+J(1)
+11 + J(2)
+11 + J(2)
+22
+=
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+{Ai −Ei(t; β∗, S∗
+c , π∗)} Yi(t)Ai
+−1
+n
+n
+X
+i=1
+Z τ
+0
+tEi(t; β∗, S∗
+c , π∗) {1 −Ei(t; β∗, S∗
+c , π∗)}
+×d {Λ∗
+1(t, Zi; βj0) −Λ10(t, Zi) + Λ∗
+2(t, Zi; βj0) −Λ20(t, Zi)} Yi(t).
+Similarly to before, if we look at the expected value, we have:
+E
+h
+J(1)
+11 + J(2)
+11 + J(2)
+22
+i
+=
+Z τ
+0
+E
+
+
+
+
+A −
+E
+h
+Ae−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+E
+h
+e−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+
+
+AE {Y (t)|A, Z}
+
+
+−
+Z τ
+0
+E
+
+
+E
+h
+Ae−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+E
+h
+e−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+
+
+1 −
+E
+h
+Ae−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+E
+h
+e−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+
+
+
+× td {Λ∗
+1(t, Z; βj0) −Λ10(t, Z) + Λ∗
+2(t, Z; βj0) −Λ20(t, Z)} E {Y (t)|A, Z}] .
+Therefore
+E
+h
+J(1)
+11 + J(2)
+11 + J(2)
+22
+i
+=
+Z τ
+0
+E
+
+
+E
+h
+Ae−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+E
+h
+e−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+
+
+1 −
+E
+h
+Ae−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+E
+h
+e−P2
+j=1 βj0AtSc0(t|A, Z)|Z
+i
+
+
+
+× e−P2
+j=1 Λj0(t,Z)
+
+A −te−P2
+j=1 βj0AtSc(t|A, Z)
+2
+X
+j=1
+d
+
+Λ∗
+j(t, Z; βj0) −Λj0(t, Z)
+	
+
+
+
+.
+Again, by Assumption5 and 9, we can conclude that E
+h
+J(1)
+11 + J(2)
+11 + J(2)
+22
+i
+> ϵ and there-
+fore, by Hoeﬀding’s inequality that J(1)
+11 + J(2)
+11 + J(2)
+22 > ϵ + op(1).
+• Case b): J is invertible if Λ∗(·, ·) = Λ0(·, ·).
+We have:
+|J(1)|
+=
+(J(1)
+11 + J(3)
+11 )(J(1)
+22 + J(3)
+22 ),
+We are now left to prove that J(1)
+jj + J(3)
+jj̸ = 0 when Λ∗(·) = Λ0(·). We have:
+J(1)
+jj + J(3)
+jj
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+{Ai −Ei(t; β∗, S∗
+c , π∗)} Yi(t)
+
+Ai + ∂βjdΛ∗
+j(t, Zi)
+	
+,
+53
+
+````
+
+## PDF page 54
+
+FORMULA CHECK REQUIRED: original PDF page 54.
+
+````text
+and similarly to before, by Assumption 9 we can prove that J(1)
+jj + J(3)
+jj > ϵ.
+Asymptotic normality: By Taylor expansion we have:
+S2,n(β, ˆSc, ˆπ, ˆΛ) = S2,n(β0, ˆSc, ˆπ, ˆΛ) + ∇βS2,n(β∗, ˆSc, ˆπ, ˆΛ) (β −β0)⊤,
+(47)
+where β∗lies between β and β0.
+Under Assumptions 1-6, it can be proved that:
+∇βS2,n(β∗, ˆSc, ˆπ, ˆΛ) = ∇βS2,n(β∗, S∗
+c , π∗, Λ∗) + op(1).
+(48)
+In the previous part of the proof we moreover proved that:
+∇βS2,n(β∗, S∗
+c , π∗, Λ∗)
+=
+J +
+β∗
+1 −β10
+β∗
+2 −β20
+
+J′,
+where the above multiplication is intended componentwise and
+J =
+"
+J(1)
+11 + J(2)
+11 + J(3)
+11
+J(1)
+12
+J(1)
+21
+J(1)
+22 + J(2)
+22 + J(3)
+22
+#
+,
+and
+J′ =
+"
+J(1′)
+11
++ J(2′)
+11
+J(1′)
+12
++ J(2′)
+12
+J(1′)
+21
++ J(2′)
+21
+J(1′)
+22
++ J(2′)
+22
+#
+.
+We now focus on term S2,n(β0, ˆSc, ˆπ, ˆΛ). We have the following decomposition:
+S2,n(β0, ˆSc, ˆπ, ˆΛ)
+=
++S2,n(β0, ˆSc, ˆπ, ˆΛ) −S2,n(β0, S∗
+c , π∗, ˆΛ)
++S2,n(β0, S∗
+c , π∗, ˆΛ) −S2,n(β0, S∗
+c , π∗, Λ∗)
++S2,n(β0, S∗
+c , π∗, Λ∗)
+=
+Q1 + Q2 + Q3.
+We remind the reader that in the previous part of the proof we proved that ˆβ(2) −β0 =
+Op(n−δ) for |δ| < 1/2.
+Putting all the above together, by deﬁnition of ˆβ we have:
+√n(ˆβ(2) −β0)
+=
+J−1√n {S2,n(β0, S∗
+c , π∗, Λ∗) + Q1 + Q2} + op(1).
+(49)
+S2,n(β0, S∗
+c , π∗, Λ∗) is by double robustness of the score (Theorem 2), a sum of i.i.d.
+mean zero terms. Similarly to the proof for β(1) we can prove that Q2 = op(n−1/2) if
+Λ∗(·, ·) = Λ0(·, ·) and Q1 = op(n−1/2) if S∗
+c (·|·, ·) = Sc0(·|·, ·) and π∗(·) = π0(·). We therefore
+now divide the proof in three diﬀerent cases according to which model is correctly speciﬁed.
+• Case a): S∗
+c (·|·, ·) = Sc0(·|·, ·), π∗(·) = π0(·) and Λ∗(·, ·)̸ = Λ0(·, ·) with an = n−1/2,
+bn = n−1/2.
+54
+
+````
+
+## PDF page 55
+
+FORMULA CHECK REQUIRED: original PDF page 55.
+
+````text
+As said before, we can prove that Q1 = op(n−1/2), therefore, by (49) and by Assumption
+A’1, we have:
+√n(ˆβ −β0)
+=
+J−1√n
+(
+S2,n(β0, S∗
+c , π∗, Λ∗) + 1
+n
+n
+X
+i=1
+σ6i
+)
++ op(1).
+√n(ˆβ −β0) can be therefore written as sum of i.i.d mean zero terms, and therefore, by
+multivariate central limit theorem, it is asymptotically normal.
+Part a) of the asymptotic normality follows directly.
+• Case b): Λ∗(·, ·) = Λ0(·, ·), S∗
+c (·|·, ·)̸ = Sc0(·|·, ·) and π∗(·)̸ = π0(·) with cn = n−1/2.
+As said before, we can prove that Q2 = op(n−1/2), therefore, by (49) and by Assumption
+B’ 1, we have:
+√n(ˆβ −β0)
+=
+J−1√n
+(
+S2,n(β0, S∗
+c , π∗, Λ∗) + 1
+n
+n
+X
+i=1
+σ7i
+)
++ op(1).
+√n(ˆβ −β0) can be therefore written as sum of i.i.d mean zero terms, and therefore, by
+multivariate central limit theorem, it is asymptotically normal.
+Part b) of the asymptotic normality follows directly.
+• Case c): S∗
+c (·|·, ·) = Sc0(·|·, ·) and π∗(·) = π0(·) and Λ∗(·, ·) = Λ0(·, ·) with ancn =
+o(n−1/2) and bncn = o(n−1/2).
+In this case we have both Q1 = op(n−1/2) and Q2 = op(n−1/2). Therefore:
+√n(ˆβ −β0)
+=
+J−1√nS2,n(β0, S∗
+c , π∗, Λ∗) + op(1).
+(50)
+Moreover, when both models are correct, J simpliﬁes to a diagonal matrix with diagonal
+element equals to J(1)
+jj = 1
+n
+Pn
+i=1
+R τ
+0 {Ai −Ei(t; β∗, S∗
+c , π∗)} AiYi(t).
+MCLT can be applied to √nS2,n(β0, Sc0, π0, Λ0) to prove asymptotic normality. Specif-
+ically we consider the following multivariate martingale Mi(t) = [M1i(t), M2i(t)]⊤with
+respect to the ﬁltration Ft = σ {Nji(s), Yi(s+), Ai, Zi : j = 1, 2, i = 1, . . . , n, 0 < s < t}.
+We consider the following two-dimensional vector:
+Mn(t) =
+1
+√n
+n
+X
+i=1
+Z t
+0
+h(u; Ai, Zi)dMi(u),
+where h(t; A, Z) = A −E(t; β, Sc0, π0). Since h(t; A, Z) is predictable with respect to the
+ﬁltration, then Mn(t) is a multivariate martingale too. We have < M1i(t), M2i(t) >=<
+M1i(t), M1j(t) >=< M2i(t), M2j(t) >=< M1i(t), M2j(t) >= 0 for each i̸ = j therefore:
+< Mn
+1 (t), Mn
+2 (t) >
+=
+<
+1
+√n
+n
+X
+i=1
+Z t
+0
+h(u; Ai, Zi)dM1i(u), 1
+√n
+n
+X
+i=1
+Z t
+0
+h(u; Ai, Zi)dM2i(u) >
+=
+1
+n
+n
+X
+i,j=1
+Z t
+0
+h2(u; Ai, Zi)d < M1i(t), M2j(t) >= 0,
+55
+
+````
+
+## PDF page 56
+
+FORMULA CHECK REQUIRED: original PDF page 56.
+
+````text
+and so the two components of the multidimensional martingale Mn(t) are orthogonal to
+each other. Therefore, we can apply the multidimensional version of the martingale central
+limit theorem of Rebolledo (Theorem 5 of Rebolledo (1978)).
+First we verify Assumption 2 about the convergence of the variance.
+We have, by
+Assumption C’1, for j = 1, 2:
+< Mn
+j (t), Mn
+j (t) >
+=
+1
+n
+n
+X
+i=1
+Z t
+0
+h2(u; Ai, Zi)dΛj0(u|Ai, Zi)Yi(u)du
+=
+1
+n
+n
+X
+i=1
+Z t
+0
+h2(u; Ai, Zi) {dΛj0(u, Zi) + βj0Adu} Yi(u)
+=
+Z t
+0
+
+P ′(u)βj0 + Q′
+j(u)
+	
+du
+p→
+Z t
+0
+
+p′(u)βj0 + q′
+j(u)
+	
+du = V ′
+j (t),
+and so Assumption 2 of the MCLT is veriﬁed.
+We now look at Assumption 1 about the jumps of each component of the martingale.
+Rebolledo (1978) at pag. 39 claims that if the Lindeberg condition is veriﬁed, then As-
+sumption 1 of its theorem holds. We therefore needs to prove that, for any ϵ and any
+j:
+Z τ
+0
+1
+n
+n
+X
+i=1
+h2(u; Ai, Zi)1
+
+|h(u; Ai, Zi)| > √nϵ
+	
+Yi(t) {dΛj0(t, Zi) + βj0Aidt}
+p→0,
+by Assumptions 2 and 5, we know that:
+|h(t; A, Z)| ≤1 +
+max{1, e−(β10+β20)τ}C3
+min{1, e−(β10+β20)τ}C1C2 + 1 −C3
+< ∞,
+so, we have:
+Z τ
+0
+1
+n
+n
+X
+i=1
+h2(u; A, Z)1
+
+|h(u; A, Z)| > √nϵ
+	
+Yi(t) {dΛj0(t, Zi) + βj0Aidt}
+≤
+Z τ
+0
+1
+n
+n
+X
+i=1
+h2(u; A, Z)1
+(
+1 +
+max{1, e−(β10+β20)τ}C3
+min{1, e−(β10+β20)τ}C1C2 + 1 −C3
+> √nϵ
+)
+Yi(t)
+× {dΛj0(t, Zi) + βj0Aidt} .
+Moreover, by Assumption 3, we also know that:
+
+Z τ
+0
+1
+n
+n
+X
+i=1
+h2(u; A, Z)1
+(
+1 +
+max{1, e−(β10+β20)τ}C3
+min{1, e−(β10+β20)τ}C1C2 + 1 −C3
+> √nϵ
+)
+· Yi(t) {dΛj0(t, Zi) + βj0Aidt}|
+≤
+(
+1 +
+max{1, e−(β10+β20)τ}C3
+min{1, e−(β10+β20)τ}C1C2 + 1 −C3
+)2
+×1
+(
+1 +
+max{1, e−(β10+β20)τ}C3
+min{1, e−(β10+β20)τ}C1C2 + 1 −C3
+> √nϵ
+)
+τ |Lj + βj0|
+p→0,
+56
+
+````
+
+## PDF page 57
+
+FORMULA CHECK REQUIRED: original PDF page 57.
+
+````text
+and so Assumption 1 of the martingale central limit theorem holds.
+Therefore, we can conclude that
+√nS2,n(β0, Sc0, π0, Λ0) = Mn(t) D
+→N(0, V ′(τ)).
+(51)
+The proof of the consistency of the variance estimator is similar to the proof of the
+consistency of the variance estimator for ˆβ(1) and we leave it to the reader.
+By the above and (50) part c) of the asymptotic normality follows.
+57
+
+````
+
+## PDF page 58
+
+FORMULA CHECK REQUIRED: original PDF page 58.
+
+````text
+8.5
+Proofs of Lemmas
+Proof. of Lemma 4. We remind the reader that:
+S1,n(β, Sc, π, Λ) =
+(
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β1+β2)AitS−1
+c (t|Ai, Zi) {Ai −π(Zi)} dMji(t; βj, Λj)
+)
+j=1,2
+.
+By algebra we have the following decomposition of the score:
+S1,n(β, ˆSc, ˆπ, ˆΛ)
+=
+S2,n(β, ˆSc, ˆπ, ˆΛ) −S2,n(β0, ˆSc, ˆπ, ˆΛ)
++S2,n(β0, ˆSc, ˆπ, ˆΛ) −S2,n(β0, ˆSc, ˆπ, Λ∗)
++S2,n(β0, ˆSc, ˆπ, Λ∗) −S2,n(β0, S∗
+c , π∗, Λ∗)
++S2,n(β0, S∗
+c , π∗, Λ∗)
+=
+Q(1) + Q(2) + Q(3) + Q(4).
+We ﬁrst of all notice that by Assumption 1 and 7, we have:
+h
+ˆS−1
+c (t|Ai, Zi) {Ai −ˆπ(Zi)} −{S∗
+c (t|Ai, Zi)}−1 {Ai −π∗(Zi)}
+i
+(52)
+≤
+sup
+t∈[0,τ],Z∈Z,A∈0,1
+ ˆS−1
+c (t|A, Z) −{S∗
+c (t|A, Z)}−1
+(53)
++
+sup
+t∈[0,τ],Z∈Z,A∈0,1
+{S∗
+c (t|A, Z)}−1 |ˆπ(Z) −π∗(Z)| = op(1).
+(54)
+Moreover, we notice that, by Assumption 2 and 7 K(1)(β0, π∗, S∗
+c ) = Op(1). By As-
+sumptions 2, 7, 6, we have: K(2)
+j (β, π∗, S∗
+c ) = Op(|βj −βj0|).
+We now work on each term separately.
+• Term Q(1):
+Algebra and the application of Lemma 8 gives us:
+Q(1)
+j
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+n
+e(β1+β2)Ait −e(β10+β20)Aito
+ˆS−1
+c (t|Ai, Zi) {Ai −ˆπ(Zi)}
+×
+n
+dNji(t) −Yi(t)βjAidt −Yi(t)dˆΛj(t, Zi; β)
+o
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait ˆS−1
+c (t|Ai, Zi) {Ai −ˆπ(Zi)}
+×
+n
+dNji(t) −Yi(t)βjAidt −Yi(t)dˆΛj(t, Zi; β)
+o
+−1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait ˆS−1
+c (t|Ai, Zi) {Ai −ˆπ(Zi)}
+×
+n
+dNji(t) −Yi(t)βj0Aidt −Yi(t)dˆΛj(t, Zi; β0)
+o
+.
+58
+
+````
+
+## PDF page 59
+
+FORMULA CHECK REQUIRED: original PDF page 59.
+
+````text
+Therefore:
+Q(1)
+j
+=
+(β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β∗
+1+β∗
+2)AitAitK(3)
+ji (t, β, ˆScˆπ)
+−(βj −βj0)K(1)(β0, ˆSc, ˆπ) −K(2)
+j (β, ˆSc, ˆπ),
+for some β∗between β0 and β.
+Moreover:
+Q(1)
+j
+=
+(β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β∗
+1+β∗
+2)AitAitK(3)
+ji (t, β, S∗
+c , π∗)
+(55)
++(β1 + β2 −β10 −β20)2 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β∗∗
+1 +β∗∗
+2 )AitAit2 n
+K(3)
+ji (t, β, ˆSc, ˆπ) −K(3)
+ji (t, β, S∗
+c , π∗)
+o
++(β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAit
+n
+K(3)
+ji (t, β, ˆSc, ˆπ) −K(3)
+ji (t, β, S∗
+c , π∗)
+o
+−(βj −βj0)K(1)(β0, S∗
+c , π∗)
+−(βj −βj0)
+n
+K(1)(β, ˆSc, ˆπ) −K(1)(β0, S∗
+c , π∗)
+o
+−K(2)
+j (β, S∗
+c , π∗)
++K(2)
+j (β, ˆSc, ˆπ) −K(2)
+j (β, S∗
+c , π∗),
+where β∗∗
+j
+is a point between β∗and β0. We remind the reader that the quantities
+K(1), K(2)
+j , K(3)
+j , K(4)
+j
+are deﬁned in equations (28)-(31).
+We work now on term 1
+n
+Pn
+i=1
+R τ
+0 e(β∗
+1+β∗
+2)AitAitK(3)
+ji (t, β, S∗
+c , π∗). By algebra and by
+Lemma 8:
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β∗
+1+β∗
+2)AitAitK(3)
+ji (t, β, S∗
+c , π∗)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAitAi −π∗(Zi)
+S∗c (t|Ai, Zi)dMji(t; β, ˆΛ)
++(β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β∗∗
+1 +β∗∗
+2 )AitAit2 Ai −π∗(Zi)
+S∗c (t|Ai, Zi)dMji(t; β, ˆΛ).
+59
+
+````
+
+## PDF page 60
+
+FORMULA CHECK REQUIRED: original PDF page 60.
+
+````text
+Therefore:
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAitAi −π∗(Zi)
+S∗c (t|Ai, Zi)dMji(t)
+−K(4)
+j (β0, π∗, S∗
+c , Λ∗) −(βj −βj0)K(1)(β0, S∗
+c , π∗)
+−1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAitAi −π∗(Zi)
+S∗c (t|Ai, Zi)d
+n
+ˆΛj(t, Zi; β) −ˆΛj(t, Zi; β0)
+o
+−1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAitAi −π∗(Zi)
+S∗c (t|Ai, Zi)d
+n
+ˆΛj(t, Zi; β0) −Λ∗
+j(t, Zi)
+o
++(β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β∗∗
+1 +β∗∗
+2 )AitAit2 Ai −π∗(Zi)
+S∗c (t|Ai, Zi)dMji(t; β, ˆΛ).
+We work now on term 1
+n
+Pn
+i=1
+R τ
+0 e(β10+β20)AitAit
+n
+K(3)
+ji (t, β, ˆSc, ˆπ) −K(3)
+ji (t, β, S∗
+c , π∗)
+o
+. By
+algebra and by Lemma 8:
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAit
+n
+K(3)
+ji (t, β, ˆSc, ˆπ) −K(3)
+ji (t, β, S∗
+c , π∗)
+o
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAit
+"
+Ai −ˆπ(Zi)
+ˆSc(t|Ai, Zi)
+−Ai −π∗(Zi)
+S∗c (t|Ai, Zi)
+#
+dMji(t; β, ˆΛ)
+Therefore
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAit
+"
+Ai −ˆπ(Zi)
+ˆSc(t|Ai, Zi)
+−Ai −π∗(Zi)
+S∗c (t|Ai, Zi)
+#
+dMji(t; β0, Λ∗)
+−(βj −βj0)
+n
+K(1)(β0, ˆSc, ˆπ) −K(1)(β0, S∗
+c , π∗)
+o
+−1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAit
+(
+Ai −ˆπ(Zi)
+ˆSc(t|Ai, Zi)
+−Ai −π∗(Zi)
+S∗c (t|Ai, Zi)
+)
+Yi(t)
+×d
+n
+ˆΛj(t, Zi; β) −Λ∗
+j(t, Zi; β0)
+o
+−1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAit
+"
+Ai −ˆπ(Zi)
+ˆSc(t|Ai, Zi)
+−Ai −π∗(Zi)
+S∗c (t|Ai, Zi)
+#
+Yi(t)
+×d
+n
+ˆΛj(t, Zi; β0) −Λ∗
+j(t, Zi)
+o
+.
+(56)
+Therefore putting together (55), (56) and (56), we get:
+Q(1)
+j
+= Q(11)
+j
++ Q(12)
+j
++ Q(13)
+j
++ Q(14)
+j
++ Q(15)
+j
++ Q(16)
+j
++ Q(17)
+j
++ Q(18)
+j
++ Q(19)
+j
++ Q(110)
+j
++ Q(111)
+j
++ Q(112)
+j
+,
+60
+
+````
+
+## PDF page 61
+
+FORMULA CHECK REQUIRED: original PDF page 61.
+
+````text
+where
+Q(11)
+j
+= (β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAit
+(
+Ai −ˆπ(Zi)
+ˆSc(t|Ai, Zi)
+−Ai −π∗(Zi)
+S∗c (t|Ai, Zi)
+)
+dMji(t),
+Q(12)
+j
+= −(β1 + β2 −β10 −β20)K(4)
+j (β0, S∗
+c , π∗, Λ∗)
+−(β1 + β2 −β10 −β20)(βj −βj0)K(1)(β0, S∗
+c , π∗),
+Q(13)
+j
+= −(β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAitAi −π∗(Zi)
+S∗c (t|Ai, Zi)
+× d
+n
+ˆΛj(t, Zi; βj) −Λ∗
+j(t, Zi; βj0)
+o
+,
+Q(14)
+j
+= −(β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAitAi −π∗(Zi)
+S∗c (t|Ai, Zi)
+× d
+n
+ˆΛj(t, Zi; βj0) −Λ∗
+j(t, Zi)
+o
+,
+Q(15)
+j
+= (β1 + β2 −β10 −β20)2 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β∗∗
+1 +β∗∗
+2 )AitAit2 Ai −π∗(Zi)
+S∗c (t|Ai, Zi)dMji(t; β, ˆΛ),
+Q(16)
+j
+= + 1
+n(β1 + β2 −β10 −β20)2
+n
+X
+i=1
+Z τ
+0
+e(β∗∗
+1 +β∗∗
+2 )AitAit2
+×
+n
+K(3)
+ji (t, β, ˆSc.ˆπ) −K(3)
+ji (t, β, S∗
+c , π∗)
+o
+,
+Q(17)
+j
+= +(β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAit
+(
+Ai −ˆπ(Zi)
+ˆSc(t|Ai, Zi)
+−Ai −π∗(Zi)
+S∗c (t|Ai, Zi)
+)
+× dMji(t; β0, Λ∗),
+Q(18)
+j
+= −(βj −βj0)(β1 + β2 −β10 −β20)
+n
+K(1)(β0, ˆSc, ˆπ) −K(1)(β0, S∗
+c , π∗)
+o
+,
+Q(19)
+j
+= −(β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAit
+(
+Ai −ˆπ(Zi)
+ˆSc(t|Ai, Zi)
+−Ai −π∗(Zi)
+S∗c (t|Ai, Zi)
+)
+× Yi(t)d
+n
+ˆΛj(t, Zi; β) −Λ∗
+j(t, Zi; β0)
+o
+,
+Q(110)
+j
+= −(β1 + β2 −β10 −β20) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)AitAit
+(
+Ai −ˆπ(Zi)
+ˆSc(t|Ai, Zi)
+−Ai −π∗(Zi)
+S∗c (t|Ai, Zi)
+)
+× Yi(t)d
+n
+ˆΛj(t, Zi; β0) −Λ∗
+j(t, Zi)
+o
+,
+Q(111)
+j
+= −(βj −βj0)K(1)(β0, S∗
+c , π∗) −(βj −βj0)
+n
+K(1)(β, ˆSc, ˆπ) −K(1)(β0, S∗
+c , π∗)
+o
+,
+Q(112)
+j
+= −K(2)
+j (β, S∗
+c , π∗) + K(2)
+j (β, ˆSc, ˆπ) −K(2)
+j (β, S∗
+c , π∗).
+Q(11)
+j
+is a martingale integral, therefore, by Lemma 9, we have Q(11)
+j
+= Op(n−1/2|β1 +
+β2 −β10 −β20|).
+61
+
+````
+
+## PDF page 62
+
+FORMULA CHECK REQUIRED: original PDF page 62.
+
+````text
+By Assumptions 2 and 7, we have Q(12)
+j
+= Op (|β1 + β2 −β10 −β20| |βj −βj0|) and
+Q(16)
+j
+= Op
+
+|β1 + β2 −β10 −β20|2
+.
+By Assumptions 2, 7 and 6 we have Q(13)
+j
+= Op (|β1 + β2 −β10 −β20| |βj −βj0|).
+By Assumptions 1, 2, 7 and (52) we have Q(14)
+j
+= op(|β1 + β2 −β10 −β20|), Q(17)
+j
+=
+op
+
+|β1 + β2 −β10 −β20|2
+and Q(18)
+j
+= op (|β1 + β2 −β10 −β20| |βj −βj0|).
+By Assumptions 2 and (52) we have Q(17)
+j
+= op (|β1 + β2 −β10 −β20|). Moreover, we
+notice that, if Λ∗(t, Z) = Λ0(t, Z), we would have Q(17)
+j
+= op
+ n−1/2 |β1 + β2 −β10 −β20|
+
+since dM(t; β0, Λ∗) would be a martingale.
+By Assumption 1 and 6, we have Q(19)
+j
+= op (|β1 + β2 −β10 −β20| |βj −βj0|). More-
+over, if ancn = op(n−1/2) and bncn = op(n−1/2) (case a), b), c) of the Lemma), by Cauchy
+Schwartz inequality, together with Assumption 6 we get
+Q(110)
+j
+= op
+ n−1/2 |β1 + β2 −β10 −β20| |βj −βj0|
+
+.
+By Assumption 1, we have Q(111)
+j
+= −(βj −βj0)K(1)(β0, S∗
+c , π∗) + op (|βj −βj0|).
+Moreover, by Assumptions 6 and S(52), we have Q(112)
+j
+= −K(2)
+j (β, S∗
+c , π∗)+op (|βj −βj0|).
+We moreover notice that, if S∗
+c (·|·, ·) = S0c(·|·, ·) and π∗(·) = π0(·), by Lemma 10, we have
+Q(112)
+j
+= −K(2)
+j (β, S∗
+c , π∗) + Op
+ n−1/2 |β −β0|
+
+.
+Therefore:
+Q(1)
+j
+=
+−(β1 + β2 −β10 −β20)K(4)
+j (β0, S∗
+c , π∗, Λ∗)
+−(βj −βj0)K(1)
+j (β0, S∗
+c , π∗) −K(2)
+j (β, S∗
+c , π∗)
++Op
+
+n−1/2 |β1 + β2 −β10 −β20| + |β1 + β2 −β10 −β20|2
++op(|β1 + β2 −β10 −β20| + n−1/2 |β1 + β2 −β10 −β20| |βj −βj0|).
+• Term Q(2):
+Adding and subtracting we have:
+Q(2)
+j
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait {S∗
+c (t|Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)d
+n
+ˆΛj(t, Zi; β0) −Λ∗
+j(t, Zi)
+o
++ 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait h
+ˆS−1
+c (t|Ai, Zi) {Ai −ˆπ(Zi)} −{S∗
+c (t|Ai, Zi)}−1 {Ai −π∗(Zi)}
+i
+×Yi(t)d
+n
+ˆΛj(t, Zi; β0) −Λ∗
+j(t, Zi)
+o
+=
+Q(21)
+j
++ Q(22)
+j
+.
+62
+
+````
+
+## PDF page 63
+
+FORMULA CHECK REQUIRED: original PDF page 63.
+
+````text
+By Assumption 1, 2, 7, we have:
+Q(21)
+j
+
+≤
+
+Z τ
+0
+"
+1
+n
+n
+X
+i=1
+e(β10+β20)Ait {S∗
+c (t|Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)
+#
+sup
+Z∈Z
+d
+n
+ˆΛj(t, Z; β0) −Λ∗
+j(t, Z)
+o
+=
+op(1).
+We moreover notice that, if S∗
+c (·|·, ·) = Sc0(·|·, ·) and π∗(·) = π0(·) (case a) and c)), by
+Lemma 10, we have Q(21)
+j
+= op(n−1/2). Otherwise, under case b), Q(21)
+j
+= Op(n−1/2).
+Moreover by Cauchy-Schwartz inequality we have:
+Q(22)
+j
+
+≤
+1
+ne(β10+β20)τ
+v
+u
+u
+t
+n
+X
+i=1
+sup
+t∈[0,τ]
+h
+ˆS−1
+c (t|Ai, Zi) {Ai −ˆπ(Zi)} −{S∗c (t|Ai, Zi)}−1 {Ai −π∗(Zi)}
+i2
+·
+v
+u
+u
+t
+n
+X
+i=1
+Z τ
+0
+d
+n
+ˆΛj(t, Zi; β0) −Λ∗
+j(t, Zi)
+o2
+.
+Therefore:
+Q(22)
+j
+
+≤
+e(β10+β20)τ
+v
+u
+u
+t 1
+n
+n
+X
+i=1
+sup
+t∈[0,τ]
+h
+ˆS−1
+c (t|Ai, Zi) {Ai −ˆπ(Zi)} −{S∗c (t|Ai, Zi)}−1 {Ai −π∗(Zi)}
+i2
+·
+(
+sup
+t∈[0,τ],Z∈Z
+ˆΛj(τ, Z; β0) −Λ∗
+j(τ, Z)
+
+)
+.
+Therefore, by Assumption 1 Q(22)
+j
+= op(1) and so Q(2)
+j
+= op(1). However since ancn =
+op(n−1/2) and bncn = op(n−1/2) (case a), b), c) of the Lemma), we have Q(22)
+j
+= op(n−1/2),
+and so Q(2)
+j
+= Op(n−1/2).
+• Term Q(3):
+If Λ∗(·, ·) = Λ0(·, ·) (case b), c)), we have Q(3) = op(n−1/2) since it would be a martingale
+integral with integrand converging to zero. Otherwise, under case a), Q(3) = Op(n−1/2).
+Putting all of these steps together we have:
+S1,n(β, ˆSc, ˆπ, ˆΛ)
+=
+S1,n(β0, S∗
+c , π∗, Λ∗)
+−(β1 + β2 −β10 −β20)K(4)(β0, S∗
+c , π∗, Λ∗)
+−(βj −βj0)K(1)(β0, S∗
+c , π∗) −K(2)(β, S∗
+c , π∗)
++Op
+
+n−1/2 |β1 + β2 −β10 −β20| + |β1 + β2 −β10 −β20|2
++ Q(21) + Q(3),
+63
+
+````
+
+## PDF page 64
+
+FORMULA CHECK REQUIRED: original PDF page 64.
+
+````text
+where Q(21) = op(n−1/2), Q(3) = op(n−1/2) under case c) of the Theorem, Q(21) = op(n−1/2), Q(3) =
+Op(n−1/2) under case a) of the Theorem, and under case c), Q(21) = Op(n−1/2), Q(3) =
+op(n−1/2).
+If ˆΛ(·, ·) depends on the unknown β, by Assumption 6, we have:
+K(2)
+j (β, S∗
+c , π∗)
+=
+(βj −βj0) 1
+n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait {S∗
+c (t|Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)
+× 1
+n
+n
+X
+l=1
+qjl(t)dt,
+where we call qji(t) a function, such that:
+ˆΛj(t, Z; β) −ˆΛj(t, Z; β0)
+=
+(βj −βj0) ∗1
+n
+n
+X
+i=1
+Z τ
+0
+qji(t).
+(57)
+Therefore, we can conclude that:
+S1,n(β, ˆSc, ˆπ, ˆΛ)
+=
+S1,n(β0, S∗
+c , π∗, Λ∗) + Q(21) + Q(3) + K(β −β0)
++Op
+
+n−1/2 |β1 + β2 −β10 −β20| + |β1 + β2 −β10 −β20|2
+,
+where K is a 2 × 2 matrix with the following components:
+Kjj
+=
+−K(1)(β0, S∗
+c , π∗) −K(2)
+j (β0, S∗
+c , π∗)/(βj −βj0) −K(4)
+j (β0, S∗
+c , π∗, Λ∗),
+and
+K12 = −K(1)
+4 (β0, S∗
+c , π∗, Λ∗),
+K21 = −K(4)
+j (β0, S∗
+c , π∗, Λ∗).
+Remark 2. If the estimator ˆΛ(·, ·) does not depend on β or it depends on some initial esti-
+mator of it the decomposition simpliﬁes. Speciﬁcally, terms K(2)
+j (β, S∗
+c , π∗), Q(12), Q(18), Q(112), Q(113)
+cancels.
+Proof. of Lemma 5. We remind the reader that
+Q(3)
+j
+= √n
+h
+Sn
+j (β0, ˆSc, ˆπ, Λ∗) −√nSn
+j (β0, Sc0, π0, Λ∗)
+i
+. Using the fact that ˆπ(z) = expit(ˆα⊤z),
+ˆSc(t|a, z) = exp
+
+−ˆΛc(t)eˆη⊤d
+we have, by Taylor expansion:
+Q(3)
+j
+=
+√n
+h
+Sn
+j (β0, ˆη, ˆΛc, ˆα, Λ∗) −√nSn
+j (β0, η0, Λc0, α0, Λ∗)
+i
+=
+1
+√n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait 
+Dn
+ij(t, η0, Λc0, α0
+	⊤∆dMji(t; βj0, Λ∗
+j) + op(1),
+where
+Dn
+ij(t, η, Λc, α) := [∂ηf(t, Ai, Zi; η, Λc, α), ∂Λcf(t, Ai, Zi; η, Λc, α), ∂αf(t, Ai, Zi; η, Λc, α)]⊤,
+64
+
+````
+
+## PDF page 65
+
+FORMULA CHECK REQUIRED: original PDF page 65.
+
+````text
+f(t, Ai, Zi; η, Λc, α) :=
+n
+Ai −expit(α⊤Z)
+o
+exp
+
+Λc(t)eη⊤D
+,
+and ∆:= [ˆη −η0, ˆΛc(t) −Λc0(t), ˆα −α0]⊤.
+Standard algebra gives us:
+Dn
+ij(t, η, Λc, α)
+=
+[
+n
+Ai −expit(α⊤Zi)
+o
+) exp
+
+Λc(t)eη⊤Di
+
+Λc(t)eη⊤DiDi,
+n
+Ai −expit(α⊤Zi)
+o
+) exp
+
+Λc(t)eη⊤Di
+
+eη⊤Di,
+, −exp
+
+Λc(t)eη⊤Di
+
+expit(α⊤Zi)eα⊤ZiZi]⊤.
+Moreover, we know by traditional theory that
+ˆα −α0 = Op(n−1/2),
+ˆη −η0 = Op(n−1/2),
+sup
+t∈[0,τ]
+n
+ˆΛc(t) −Λc0(t)
+o
+= Op(n−1/2).
+Therefore, by the above and by Assumption A*1 we have:
+Q(3)
+j
+=
+√n
+Z τ
+0
+n
+P (a′)
+1
+o⊤
+(t)(ˆη −η0) + P (a′)
+2
+(t)(ˆΛc(t; ˆη) −Λc0(t)) −
+n
+P (a′)
+3
+o⊤
+(t)(ˆα −α0)
+
+dt
+=
+√n
+Z τ
+0
+n
+p(a′)
+1
+o⊤
+(t)(ˆη −η0) + p(a′)
+2
+(t)(ˆΛc(t; ˆη) −Λc0(t)) −
+n
+p(a′)
+3
+o⊤
+(t)(ˆα −α0)
+
+dt
++op(1).
+(58)
+Lemma 11 and 12 provide the inﬂuence functions of ˆα, ˆη, ˆΛc. Therefore, plugging them
+in (58) we can conclude that:
+√nQ(3)
+j
+=
+
+
+Z τ
+0
+
+s(2)
+d (t)
+s(0)
+d (t)
+−
+(
+s(1)
+d (t)
+s(0)
+d (t)
+)2
+s(0)
+d (t)dΛc0(t)
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)
+dMc
+i (t)
+×
+"Z τ
+0
+(p(a′)
+1
+)⊤(t) −[
+Z τ
+0
+p(a′)
+2
+(t)
+Z t
+0
+dΛc0(u; η0)s(1)
+d (u)
+s(0)
+d (u)
+dt
+#
++
+Z τ
+0
+p(a′)
+2
+(t) 1
+√n
+n
+X
+i=1
+Z t
+0
+n
+s(0)
+d (u)
+o−1
+dMc
+i (u)
+−
+Z τ
+0
+(p(a′)
+3
+)⊤(t)
+
+E
+h
+Z⊤Zπ0(Zi) {1 −π0(Zi)}
+i−1 1
+√n
+n
+X
+i=1
+Zi {Ai −π0(Zi)} dt + op(1).
+Proof. of Lemma 6. We have:
+√nQ(21)
+j
+=
+−1
+√n
+n
+X
+i=1
+Z τ
+0
+e(β10+β20)Ait {S∗
+c (t|Ai, Zi)}−1 {Ai −π∗(Zi)} Yi(t)
+×
+h
+(ˆγj −γj0)⊤Zidt + d
+n
+ˆGj(t; βj0, ˆγj) −Gj0(t)
+oi
+.
+65
+
+````
+
+## PDF page 66
+
+FORMULA CHECK REQUIRED: original PDF page 66.
+
+````text
+We notice that, by Lin and Ying (1994), under regularity Assumptions, we have, for
+each t, z:
+n
+ˆΛj(t, z; βj0, ˆγj) −Λj0(t, z)
+o
+= Op(n−1/2),
+(59)
+and
+{ˆγj −γj0} = Op(n−1/2).
+(60)
+Therefore, by the above and by Assumption B*1, we have:
+Q(21)
+j
+= √n
+Z τ
+0
+h
+(ˆγj −γj0)⊤p(b′)
+1
+(t)dt + p(b′)
+0
+(t)d
+n
+ˆGj(t; βj0, ˆγj) −Gj0(t)
+oi
++ op(1).
+(61)
+Lemma 13 and 14 provide inﬂuence functions for ˆγj and ˆGj(t; βj0, ˆγj).
+Therefore, plugging them into (61) we have;
+Q(21)
+j
+=
+Z τ
+0
+
+
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Zi −s(1)
+z (t)
+s(0)
+z (t)
+)
+dMji(t)
+
+
+⊤
+·
+(
+p(b′)
+1
+(t)dt −p(b′)
+0
+(t)s(1)
+z (t)
+s(0)
+z (t)
+dt
+)
++
+Z τ
+0
+p(b′)
+0
+(t)
+n
+s(0)
+z (t)
+o−1 1
+√n
+n
+X
+i=1
+dMji(t) + op(1).
+Proof. of Lemma 7. The proof is similar to the proof of Lemma 6, using Lemma 15 instead
+of 14 and we leave it to the reader.
+8.6
+Additional Lemmas and Proofs
+Lemma 8. A simple application of the multidimensional mean value theorem gives us
+e(β1+β2)t −e(β10+β20)t = e(β∗
+1+β∗
+2)tt (β1 + β2 −β10 −β20) ,
+where β∗
+j is a point between βj and βj0 for j = 1, 2.
+Lemma 9. Let H(t) be a stochastic process such that P
+
+supt∈[0,τ] |H(t)| ≤K
+
+= 1 for
+some K < ∞. We have, for any bounded βj:
+1
+n
+n
+X
+i=1
+Z τ
+0
+Hi(t)dMji(t; βj, Λj) = E
+Z τ
+0
+H(t)dMj(t; βj, Λj)
+
++ Op(n−1/2)
+(62)
+66
+
+````
+
+## PDF page 67
+
+FORMULA CHECK REQUIRED: original PDF page 67.
+
+````text
+Proof. of Lemma 9. By deﬁnition of dMji, we have:
+1
+n
+n
+X
+i=1
+Z τ
+0
+Hi(t)dMji(t; βj, Λj)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+Hi(t) [dNji(t) −Yi(t) {βjAidt + dΛj(t, Zi)}]
+=
+1
+n
+n
+X
+i=1
+δiHi(Xi) −XiβjAi −
+Z Xi
+0
+Hi(t)dΛj(t, Zi).
+We have, by Assumptions 2 and 3
+δiHi(Xi) −XiβjAi −
+Z Xi
+0
+Hi(t)dΛj(t, Zi)
+ ≤K + τ|βj| + K|Λj(τ, Zi)| < ∞
+Therefore, by Hoeﬀding’s inequality we have (62).
+Lemma 10. It holds:
+sup
+t∈[0,τ]
+
+1
+n
+n
+X
+i=1
+{Ai −π0(Zi)} {Sc0(t|Ai, Zi)}−1 Yi(t)e(β10+β20)Ait
+ = Op
+
+n−1/2
+.
+Proof. of Lemma 10. This is a slightly modiﬁed version of Lemma A13 of Hou et al. (2021),
+adapted to include the survival of the censoring. We leave the proof to the reader.
+Lemma 11. Let π(Z; α) = expit(α⊤Z) and let ˆα be the MLE estimator for α. We have:
+√n(ˆα −α0) =
+
+E
+h
+Z⊤Zπ0(Z) {1 −π0(Z)}
+i−1 1
+√n
+n
+X
+i=1
+Zi {Ai −π0(Zi)} + op(1).
+Proof. of Lemma 11. Estimation of parameter α is done through classical MLE method.
+By classical MLE argument we have (proved in Zeng and Chen (2010)):
+√n(ˆα −α0)
+=
+(
+−1
+n
+n
+X
+i=1
+e−(α0)⊤Zi
+
+1 + e−(α0)⊤Zi	2 Z⊤
+i Zi
+)−1 1
+√n
+n
+X
+i=1
+Aie−(α0)⊤Zi −1 + Ai
+1 + e−(α0)⊤Zi
+Zi
+=
+
+E
+h
+Z⊤Zπ0(Z) {1 −π0(Z)}
+i−1 1
+√n
+n
+X
+i=1
+Zi {Ai −π0(Zi)} + op(1).
+Lemma 12. Let Sc(t|A, Z) = g(t|A, Z; η, Λc) = exp
+
+−Λceη⊤D
+and let ˆη and ˆΛc(t) be the
+Cox estimators. Under Assumptions 3, 4 and A*3 we have:
+√n {ˆη −η0}
+=
+
+
+Z τ
+0
+
+s(2)
+d (t)
+s(0)
+d (t)
+−
+(
+s(1)
+d (t)
+s(0)
+d (t)
+)2
+s(0)
+d (t)dΛc0(t)
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)
+dMc
+i (t) + op(1),
+67
+
+````
+
+## PDF page 68
+
+FORMULA CHECK REQUIRED: original PDF page 68.
+
+````text
+and
+√n
+n
+ˆΛc(t; ˆη) −Λc0(t)
+o
+(63)
+=
+
+
+
+
+
+Z τ
+0
+
+s(2)
+d (t)
+s(0)
+d (t)
+−
+(
+s(1)
+d (t)
+s(0)
+d (t)
+)2
+s(0)
+d (t)dΛc0(t)
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)
+dMc
+i (t)
+
+
+
+⊤
+·
+Z t
+0
+−dΛc0(u; η0)s(1)
+d (u)
+s(0)
+d (u)
+du + 1
+√n
+n
+X
+i=1
+Z t
+0
+n
+s(0)
+d (u)
+o−1
+dMc
+i (u) + op(1).
+Proof. of Lemma 12. Estimation of parameter η uses the following score:
+U1(η)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −
+Pn
+j=1 Yj(t)Djeη⊤Dj
+Pn
+j=1 Yj(t)eη⊤Dj
+)
+dNc
+i (t)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −
+Pn
+j=1 Yj(t)Djeη⊤Dj
+Pn
+j=1 Yj(t)eη⊤Dj
+) h
+dMc
+i (t) + Yi(t)dΛc0(t)e(η0)⊤Didt
+i
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −
+Pn
+j=1 Yj(t)Djeη⊤Dj
+Pn
+j=1 Yj(t)eη⊤Dj
+)
+dMc
+i (t),
+where Mc
+i (t) = Nc
+i (t) −Yi(t)Λc0(t)e(η0)⊤Di, and Nc(t) := 1 {X ≤t, δ = 0}.
+By Taylor
+expansion we have:
+U1(η0)
+=
+U1(η0) −U1(ˆη)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+{ˆη −η0}⊤
+
+S(2)
+d (t)
+S(0)
+d (t)
+−
+(
+S(1)
+d (t)
+S(0)
+d (t)
+)2
+dMc
+i (t)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+{ˆη −η0}⊤
+
+S(2)
+d (t)
+S(0)
+d (t)
+−
+(
+S(1)
+d (t)
+S(0)
+d (t)
+)2
+dNc
+i (t).
+Therefore, by Assumption A*2
+√n {ˆη −η0}
+(64)
+=
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+
+S(2)
+d (t)
+S(0)
+d (t)
+−
+(
+S(1)
+d (t)
+S(0)
+d (t)
+)2
+dNc
+i (t)
+
+
+−1
+× 1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Di −
+Pn
+j=1 Yj(t)Djeη⊤Dj
+Pn
+j=1 Yj(t)eη⊤Dj
+)
+dMc
+i (t)
+=
+
+1
+n
+n
+X
+i=1
+Z t
+0
+
+s(2)
+d (t)
+s(0)
+d (t)
+−
+(
+s(1)
+d (t)
+s(0)
+d (t)
+)2
+dNc
+i (t)
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)
+dMc
+i (t) + op(1)
+=
+
+
+Z τ
+0
+
+s(2)
+d (t)
+s(0)
+d (t)
+−
+(
+s(1)
+d (t)
+s(0)
+d (t)
+)2
+s(0)
+d (t)dΛc0(t)
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)
+dMc
+i (t)
++op(1)..
+68
+
+````
+
+## PDF page 69
+
+FORMULA CHECK REQUIRED: original PDF page 69.
+
+````text
+We now need to ﬁnd the inﬂuence function of ˆΛc(t; ˆη) −Λc0(t) = ˆΛc(t; ˆη) −ˆΛc(t; η0) +
+ˆΛc(t; η0) −Λc0(t). Since ˆΛc(t; η) =
+R t
+0
+Pn
+i=1 dNc
+i (u)/Pn
+i=1 Yi(u)eη⊤Di, by Taylor expansion
+and by (64) and Assumption A* 3 we have:
+√n
+n
+ˆΛc(t; ˆη) −ˆΛc(t; η0)
+o
+(65)
+= −(ˆη −η0)⊤
+Z t
+0
+dˆΛc(u; η0)S(1)
+d (u)
+S(0)
+d (u)
+du
+=
+
+
+
+
+
+Z τ
+0
+
+s(2)
+d (t)
+s(0)
+d (t)
+−
+(
+s(1)
+d (t)
+s(0)
+d (t)
+)2
+s(0)
+d (t)dΛc0(t)
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)
+dMc
+i (t)
+
+
+
+⊤
+×
+Z t
+0
+−dˆΛc(u; η0)s(1)
+d (u)
+s(0)
+d (u)
+du + op(1).
+Estimation of parameter Λc(t) uses the following score:
+U2(Λc(t); η)
+=
+1
+n
+n
+X
+i=1
+Z t
+0
+n
+dNc
+i (u) −Yi(t)dΛc(u)eη⊤Di
+o
+=
+1
+n
+n
+X
+i=1
+Z t
+0
+h
+dMc
+i (u) −Yi(u)d
+n
+Λc(u)eη⊤Di −Λc0(u)e(η0)⊤Di
+oi
+.
+Therefore, by construction of ˆΛc(t; η0) we have
+U2(Λc0(t); η0) = U2(Λc0(t); η0) −U2(ˆΛc0(t; η0); η0) =
+Z t
+0
+S(0)
+d (t)
+n
+dˆΛc0(t; η0) −dΛc0(t)
+o
+,
+and so we have:
+ˆΛc(t; η0) −Λc0(t) = 1
+n
+n
+X
+i=1
+Z t
+0
+n
+s(0)
+d (u)
+o−1
+dMc
+i (u) + op(1),
+Therefore, by putting together (65) and (66) we get:
+√n
+n
+ˆΛc(t; ˆη) −Λc0(t)
+o
+(66)
+=
+
+
+
+
+
+Z τ
+0
+
+s(2)
+d (t)
+s(0)
+d (t)
+−
+(
+s(1)
+d (t)
+s(0)
+d (t)
+)2
+s(0)
+d (t)dΛc0(t)
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)
+dMc
+i (t)
+
+
+
+⊤
+×
+Z t
+0
+−dΛc0(u; η0)s(1)
+d (u)
+s(0)
+d (u)
+du + 1
+n
+n
+X
+i=1
+Z t
+0
+n
+s(0)
+d (u)
+o−1
+dMc
+i (u) + op(1).
+69
+
+````
+
+## PDF page 70
+
+FORMULA CHECK REQUIRED: original PDF page 70.
+
+````text
+Lemma 13. Let Λj(t, Z) = Gj(t) + γ⊤
+j Zt and let γj be estimated using (12) of the paper.
+Under Assumption B*2 it holds:
+√n(ˆγj −γj0)⊤
+=
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Zi −s(1)
+z (t)
+s(0)
+z (t)
+)
+dMji(t) + op(1).
+Proof. of Lemma 13. The parameter γj is estimated through the following score:
+U1
+
+[βin
+j , γj]⊤
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −S(1)
+d (t)
+S(0)
+d (t)
+) n
+dNji(t) −Yi(t)βin
+j Aidt −Yi(t)γ⊤
+j Zidt
+o
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −S(1)
+d (t)
+S(0)
+d (t)
+)
+×
+n
+dMji(t) + Yi(t)dGj0(t) −Yi(t)(βin
+j −βj0)Aidt −Yi(t)(γj −γj0)⊤Zidt
+o
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −S(1)
+d (t)
+S(0)
+d (t)
+) n
+dMji(t) −Yi(t)(βin
+j −βj0)Aidt −Yi(t)(γj −γj0)⊤Zidt
+o
+.
+Here βin
+j
+is just some initial βj that we need for technical reason.
+Therefore, by construction, we have:
+U1
+
+[βj0, γj0]⊤
+=
+U1
+
+[βin
+j , ˆγj]⊤
+−U1
+
+[βj0, γj0]⊤
+(67)
+=
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −S(1)
+d (t)
+S(0)
+d (t)
+) n
+Yi(t)[βin
+j −βj0, ˆγj −γj0]⊤Didt
+o
+.(68)
+Therefore, by Assumption B*2, we have:
+√n(ˆγj −γj0)⊤
+(69)
+=
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −S(1)
+d (t)
+S(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Zi −S(1)
+z (t)
+S(0)
+z (t)
+)
+dMji(t)
+=
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Zi −s(1)
+z (t)
+s(0)
+z (t)
+)
+dMji(t) + op(1).
+(70)
+70
+
+````
+
+## PDF page 71
+
+FORMULA CHECK REQUIRED: original PDF page 71.
+
+````text
+Lemma 14. Let Λj(t, Z) = Gj(t) + γ⊤
+j Zt and let γj be estimated using (12) of the paper
+and Gj(t) be estimated using (13). Under Assumptions B*2 it holds:
+√n
+n
+ˆGj(t; βj0, ˆγj) −Gj0(t)
+o
+=
+Z t
+0
+n
+s(0)
+z (u)
+o−1
+
+1
+√n
+n
+X
+i=1
+dMji(u) −
+
+
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1
+× 1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Zi −s(1)
+z (t)
+s(0)
+z (t)
+)
+dMji(t)
+!⊤
+s(1)
+z (u)du
+
+.
+Proof. of Lemma 14. The nuisance parameter Gj(t) is estimated through the following
+score:
+U2(Gj(t); βj0, ˆγj)
+=
+1
+n
+n
+X
+i=1
+Z t
+0
+{dNi(t) −Yi(t)dGj(t) −Yi(t)βj0Aidt −Yi(t)ˆγjZidt}
+=
+1
+n
+n
+X
+i=1
+Z t
+0
+h
+dMji(t) −Yi(t)d {Gj(t) −Gj0(t)} −Yi(t)(ˆγj −γj0)⊤Zidt
+i
+.
+Therefore by construction we have:
+U2(Gj0(t); βj0, ˆγj)
+=
+U2(Gj0(t); βj0, γj0) −U2( ˆGj(t; βj0, ˆγj); βj0, ˆγj)
+=
+1
+n
+n
+X
+i=1
+Z t
+0
+Yi(t)d
+n
+ˆGj(t; βj0, ˆγj) −Gj0(t)
+o
+,
+and therefore, by Assumption B*2 and Lemma 13:
+√n
+n
+ˆGj(t; βj0, ˆγj) −Gj0(t)
+o
+=
+√n
+Z t
+0
+n
+S(0)
+z
+o−1 1
+n
+n
+X
+i=1
+h
+dMji(t) −Yi(t)(ˆγj −γj0)⊤Zidt
+i
+(71)
+=
+Z t
+0
+n
+s(0)
+z (t)
+o−1
+"
+1
+√n
+n
+X
+i=1
+dMji(t) −√n(ˆγj −γj0)⊤s(1)
+z (t)dt
+#
+.
+Hence, by (69), we have:
+√n
+n
+ˆGj(t; βj0, ˆγj) −Gj0(t)
+o
+(72)
+=
+√n
+Z t
+0
+n
+S(0)
+z (u)
+o−1 1
+n
+n
+X
+i=1
+h
+dMji(u) −Yi(u)(ˆγj −γj0)⊤Zidu
+i
+=
+Z t
+0
+n
+s(0)
+z (u)
+o−1
+"
+1
+√n
+n
+X
+i=1
+dMji(u)
+−
+
+
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1
+(73)
+× 1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Zi −s(1)
+z (t)
+s(0)
+z (t)
+)
+dMji(t)
+!⊤
+s(1)
+z (u)du
+
+.
+71
+
+````
+
+## PDF page 72
+
+FORMULA CHECK REQUIRED: original PDF page 72.
+
+````text
+Lemma 15. Let Λj(t, Z) = Gj(t) + γ⊤
+j Zt and let γj be estimated using (12) of the paper
+and Gj(t) be estimated using (14). Under Assumption B*3 it holds:
+√n
+n
+˜Gj(t; βj0, ˆγj) −Gj0(t)
+o
+=
+Z t
+0
+n
+s(0)
+wz(u; S∗
+c , π∗)
+o−1
+
+1
+√n
+n
+X
+i=1
+dMji(u) −
+
+
+
+1
+n
+n
+X
+i=1
+Z τ
+0
+(
+Di −s(1)
+d (t)
+s(0)
+d (t)
+)⊗2
+Yi(t)dt
+
+
+−1
+1
+√n
+n
+X
+i=1
+Z τ
+0
+(
+Zi −s(1)
+z (t)
+s(0)
+z (t)
+)
+dMji(t)
+!⊤
+s(1)
+wz(u; S∗
+c , π∗)du
+
+.
+Proof. of Lemma 15. The proof is similar to the proof of Lemma 14 and we leave it to the
+reader.
+72
+
+````
+
+## PDF page 73
+
+FORMULA CHECK REQUIRED: original PDF page 73.
+
+````text
+References
+Aalen, O. O. (1980). A model for nonparametric regression analysis of counting processes.
+In Lecture Notes in Statistics - 2: Mathematical Statistics and Probability Theory, pages
+1–25.
+Aalen, O. O. (1989). A linear regression model for the analysis of life times. Statistics in
+medicine 8, 907–925.
+Bai, X., Tsiatis, A. A., Lu, W., and Song, R. (2017).
+Optimal treatment regimes for
+survival endpoints using a locally-eﬃcient doubly-robust estimator from a classiﬁcation
+perspective. Lifetime data analysis 23, 585–604.
+Bang, H. and Robins, J. M. (2005). Doubly robust estimation in missing data and causal
+inference models. Biometrics 61, 962–973.
+Bickel, P. J., Klaassen, C. A., Bickel, P. J., Ritov, Y., Klaassen, J., Wellner, J. A., and
+Ritov, Y. (1993). Eﬃcient and adaptive estimation for semiparametric models, volume 4.
+Johns Hopkins University Press Baltimore.
+Cefalu, M., Ridgeway, G., McCaﬀrey, D., Morral, A., Griﬃn, B. A., and Burgette, L.
+(2021). twang: Toolkit for Weighting and Analysis of Nonequivalent Groups (version
+2.3). CRAN R package.
+Ding, P., Geng, Z., Yan, W., and Zhou, X.-H. (2011). Identiﬁability and estimation of
+causal eﬀects by principal stratiﬁcation with outcomes truncated by death. Journal of
+the American Statistical Association 106, 1578–1591.
+Dukes, O., Martinussen, T., Tchetgen Tchetgen, E. J., and Vansteelandt, S. (2019). On
+doubly robust estimation of the hazard diﬀerence. Biometrics 75, 100–019.
+Estes, J. P., Nguyen, D. V., Dalrymple, L. S., Mu, Y., and S¸ent¨urk, D. (2016). Time-
+varying eﬀect modeling with longitudinal data truncated by death: conditional models,
+interpretations, and inference. Statistics in medicine 35, 1834–1847.
+Holt, J. (1978). Competing risk analyses with special reference to matched pair experi-
+ments. Biometrika 65, 159–165.
+Hou, J., Bradic, J., and Xu, R. (2021). Treatment eﬀect estimation under additive haz-
+ards models with high-dimensional confounding.
+Journal of the American Statistical
+Association 116, early view.
+Ishwaran, H., Gerds, T. A., Kogalur, U. B., Moore, R. D., Gange, S. J., and Lau, B. M.
+(2014). Random survival forests for competing risks. Biostatistics 15, 757–773.
+Ishwaran, H., Kogalur, U. B., Blackstone, E. H., Lauer, M. S., et al. (2008). Random
+survival forests. Annals of Applied Statistics 2, 841–860.
+Kalbﬂeisch, J. D. and Prentice, R. L. (2011). The Statistical Analysis of Failure Time
+Data, 2nd Edition. John Wiley & Sons, New York.
+73
+
+````
+
+## PDF page 74
+
+FORMULA CHECK REQUIRED: original PDF page 74.
+
+````text
+Lange, T. and Hansen, J. V. (2011).
+Direct and indirect eﬀects in a survival context.
+Epidemiology 22, 575–581.
+Lin, D. Y. and Ying, Z. (1994).
+Semiparametric analysis of the additive risk model.
+Biometrika 81, 61–71.
+Newey, W. K. (1990). Semiparametric eﬃciency bounds. Journal of Applied Econometrics
+5, 99–135.
+Newey, W. K. (1994). The asymptotic variance of semiparametric estimators. Economet-
+rica: Journal of the Econometric Society 62, 1349–1382.
+Petersen, M., Schwab, J., Gruber, S., Blaser, N., Schomaker, M., and Van Der Laan, M.
+(2014). Targeted maximum likelihood estimation for dynamic and static longitudinal
+marginal structural working models. Journal of Causal Inference 2, 147–185.
+Rebolledo, R. (1978). Sur les applications de la th´eorie des martingales `a l’´etude statis-
+tique d’une famille de processus ponctuels.
+In Journ´ees de Statistique des Processus
+Stochastiques, pages 27–70. Springer.
+Robins, J. M. (2000). Marginal structural models versus structural nested models as tools
+for causal inference. In Statistical models in epidemiology, the environment, and clinical
+trials, pages 95–133. Springer, New York.
+Robins, J. M., Hernan, M. A., and Brumback, B. (2000). Marginal structural models and
+causal inference in epidemiology. Epidemiology 11, 550–560.
+Robins, J. M. and Ritov, Y. (1997). Towards a curse of dimensionality appropriate (CODA)
+asympototic theory for semiparametric models. Statistics in Medicine 16, 285–319.
+Robins, J. M. and Rotnitzky, A. (1995). Semiparametric eﬃciency in multivariate regression
+models with missing data. Journal of the American Statistical Association 90, 122–129.
+Robins, J. M. and Rotnitzky, A. (2001). Comment on “Inference for semiparametric models:
+Some questions and an answer”. Statistical Science 11, 920–936.
+Robins, J. M., Rotnitzky, A., and van der Laan, M. (2000). On proﬁle likelihood: comment.
+Journal of the American Statistical Association 95, 477–482.
+Robins, J. M., Rotnitzky, A., and Zhao, L. P. (1995). Analysis of semiparametric regression
+models for repeated outcomes in the presence of missing data. Journal of the American
+Statistical Association 90, 106–121.
+Scharfstein, D. O., Rotnitzky, A., and Robins, J. M. (1999). Adjusting for nonignorable
+drop-out using semiparametric nonresponse models. Journal of the American Statistical
+Association 94, 1096–1120.
+Shen, Y. and Cheng, S. (1999). Conﬁdence bands for cumulative incidence curves under
+the additive risk model. Biometrics 55, 1093–1100.
+Sj¨olander, A. and Vansteelandt, S. (2017). Doubly robust estimation of attributable frac-
+tions in survival analysis. Statistical Methods in Medical Research 26, 948–969.
+74
+
+````
+
+## PDF page 75
+
+FORMULA CHECK REQUIRED: original PDF page 75.
+
+````text
+Smucler, E., Rotnitzky, A., and Robins, J. M. (2019). A unifying approach for doubly-
+robust L1 regularized estimation of causal contrasts. arXiv preprint arXiv:1904.03737
+.
+Stensrud, M. J., Young, J. G., Didelez, V., Robins, J. M., and Hern´an, M. A. (2021).
+Separable eﬀects for causal inference in the presence of competing events. Journal of the
+American Statistical Association page DOI: 10.1080/01621459.2020.1765783.
+Tchetgen Tchetgen, E. J. (2014). Identiﬁcation and estimation of survivor average causal
+eﬀects. Statistics in medicine 33, 3601–3628.
+Tchetgen Tchetgen, E. J., Robins, J. M., and Rotnitzky, A. (2010). On doubly robust
+estimation in a semiparametric odds ratio model. Biometrika 97, 171–180.
+Tsiatis, A. (2006). Semiparametric theory and missing data. Springer, New York.
+Van Der Laan, M. J., Laan, M., and Robins, J. M. (2003). Uniﬁed methods for censored
+longitudinal data and causality. Springer Science & Business Media.
+VanderWeele, T. J. (2011). Causal mediation analysis with survival data. Epidemiology
+22, 582.
+VanderWeele, T. J. and Vansteelandt, S. (2009). Conceptual issues concerning mediation,
+interventions and composition. Statistics and Its Interface 2, 457–468.
+Yang, F. and Small, D. S. (2016).
+Using post-outcome measurement information in
+censoring-by-death problems. Journal of the Royal Statistical Society: Series B (Sta-
+tistical Methodology) 78, 299–318.
+Yang, S., Pieper, K., and Cools, F. (2020). Semiparametric estimation of structural failure
+time models in continuous-time processes. Biometrika 107, 123–136.
+Young, J. G., Stensrud, M. J., Tchetgen Tchetgen, E., and Hern´an, M. A. (2020).
+A
+causal framework for classical statistical estimands in failure-time settings with compet-
+ing events. Statistics in Medicine 39, 1199–1236.
+Zeng, D. and Chen, Q. (2010). Adjustment for missingness using auxiliary information in
+semiparametric regression. Biometrics 66, 115–122.
+Zhang, M. and Schaubel, D. E. (2012).
+Contrasting treatment-speciﬁc survival using
+double-robust estimators. Statistics in medicine 31, 4255–4268.
+Zheng, W., Petersen, M., and Van Der Laan, M. J. (2016). Doubly robust and eﬃcient
+estimation of marginal structural models for the hazard function.
+The International
+Journal of Biostatistics 12, 233–252.
+75
+
+````
+

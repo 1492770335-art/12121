@@ -1,0 +1,10664 @@
+Near-optimal Individualized Treatment Recommendations.
+
+Original PDF: [original.pdf](original.pdf). SHA256: `5918935bb87a8677d47cb37363ce4b3815bf2c047599504aa697218bbf12d654`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+FORMULA CHECK REQUIRED: original PDF page 1.
+Journal of Machine Learning Research 21 (2020) 1-28
+Submitted 4/20; Revised 8/20; Published 8/20
+Near-optimal Individualized Treatment Recommendations
+Haomiao Meng
+meng@math.binghamton.edu
+Department of Mathematical Sciences
+Binghamton University, State University of New York
+Binghamton, NY 13902, USA
+Ying-Qi Zhao
+yqzhao@fredhutch.org
+Public Health Sciences Division
+Fred Hutchinson Cancer Research Center
+Seattle, WA 98109, USA
+Haoda Fu
+fu haoda@lilly.com
+Eli Lilly and Company
+Indianapolis, IN 46285, USA
+Xingye Qiao
+qiao@math.binghamton.edu
+Department of Mathematical Sciences
+Binghamton University, State University of New York
+Binghamton, NY 13902, USA
+Editor: Xiaotong Shen
+Abstract
+The individualized treatment recommendation (ITR) is an important analytic framework
+for precision medicine. The goal of ITR is to assign the best treatments to patients based
+on their individual characteristics. From the machine learning perspective, the solution
+to the ITR problem can be formulated as a weighted classiﬁcation problem to maximize
+the mean beneﬁt from the recommended treatments given patients’ characteristics. Sev-
+eral ITR methods have been proposed in both the binary setting and the multicategory
+setting. In practice, one may prefer a more ﬂexible recommendation that includes multiple
+treatment options. This motivates us to develop methods to obtain a set of near-optimal
+individualized treatment recommendations alternative to each other, called alternative in-
+dividualized treatment recommendations (A-ITR). We propose two methods to estimate
+the optimal A-ITR within the outcome weighted learning (OWL) framework. Simulation
+studies and a real data analysis for Type 2 diabetic patients with injectable antidiabetic
+treatments are conducted to show the usefulness of the proposed A-ITR framework. We
+also show the consistency of these methods and obtain an upper bound for the risk between
+the theoretically optimal recommendation and the estimated one. An R package aitr has
+been developed, found at https://github.com/menghaomiao/aitr.
+Keywords:
+individualized treatment recommendation, set-valued classiﬁcation, angle-
+based classiﬁcation, reproducing kernel Hilbert space, statistical learning theory
+1. Introduction
+The individualized treatment recommendation (ITR) has drawn increasing attention in re-
+cent years. Because patients may respond diﬀerently to the same treatment (Lesko, 2007;
+c⃝2020 Haomiao Meng, Ying-Qi Zhao, Haoda Fu, and Xingye Qiao.
+License: CC-BY 4.0, see https://creativecommons.org/licenses/by/4.0/. Attribution requirements are provided
+at http://jmlr.org/papers/v21/20-334.html.
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+Meng, Zhao, Fu, and Qiao
+Insel, 2009), it is desirable to individualize the treatment according to patients’ characteris-
+tics. Mathematically, an ITR is a map from such characteristics (the covariates, or features)
+to a treatment. The goal is to ﬁnd the optimal treatment so that the average beneﬁt that
+patients will receive by following such a recommendation is maximized.
+In the literature, many statistical approaches have been proposed for solving the ITR
+problem.
+In indirect modeling-based methods, one ﬁrst builds a parametric or semi-
+parametric model to estimate the expected outcome conditional on the covariates, then
+recommends the single treatment that renders the optimal outcome to the given patient
+(Robins, 2004; Qian and Murphy, 2011; Schulte et al., 2014). However, these methods re-
+quire a correct model speciﬁcation and an accurate estimation to perform well in practice.
+One may also obtain the optimal ITR directly. Zhao et al. (2012) proposed a classiﬁcation-
+based method, coined as the outcome weighted learning (OWL), to estimate the optimal
+ITR. They transformed the ITR problem into a weighted classiﬁcation problem and used
+support vector machine (SVM), a classiﬁcation method, to solve it. Built on top of the
+OWL framework, there has been a rapidly growing literature on diﬀerent aspects of the
+ITR problem. Zhao et al. (2014) and Cui et al. (2017) extended the OWL framework to
+accommodate survival outcomes. Zhou et al. (2017) and Liu et al. (2018) proposed residual
+weighted learning (RWL) and augmented outcome-weighted learning (AOL) respectively to
+reduce the variability of the weights in OWL to enhance its performance. Chen et al. (2018)
+proposed generalized OWL (GOWL) to solve an ITR with ordinal treatments. Zhang et al.
+(2018a) proposed angle-based approach for the multicategory case (in which there are more
+than two treatments available to choose from). Recently, Zhao et al. (2019) and Huang
+et al. (2019) considered replacing the weights in OWL with a doubly robust estimator to
+further improve the robustness of OWL. Methods based on other learning algorithms such
+as trees (Laber and Zhao, 2015; Kallus, 2016; Doubleday et al., 2018; Zhu et al., 2017) and
+nearest neighbors (Zhou and Kosorok, 2017; Wu et al., 2019) have also been studied. An-
+other example of direct methods is the work by Zhang et al. (2012), which searched for the
+ITR among a pre-speciﬁed class of decision rules that optimized a doubly robust augmented
+inverse probability weighted estimator of the overall population mean outcome.
+Despite the success of these methods in recommending a single “optimal” treatment
+to patients, a method that can suggest multiple “near-optimal” treatment options to a
+patient is not fully studied. Such options could be desirable when several treatments have
+comparable eﬀects. Laber et al. (2014) and Lizotte and Laber (2016) proposed a set-valued
+dynamic treatment regime. In particular, if there are two treatments available (1 and −1),
+their set-valued rule may report {1}, {−1}, or {1, −1}. However, this approach is applicable
+only to cases with two competing outcomes. They would recommend the set {1, −1} if any
+treatment cannot be proven to be inferior to the other based on both outcomes. On the
+other hand, they used a regression-based method to estimate the optimal set-valued rule,
+which may suﬀer an inconsistency issue if the model is misspeciﬁed. Yuan (2015) considered
+a framework to allow a reject option in ITR estimation based on OWL. However, the method
+is restricted to the binary case with only two possible treatments.
+In this paper, we propose to study the ITR problem in the setting with only one clinical
+outcome from a new perspective. Diﬀerent from the previous ITR work, it provides a set
+of treatment options that are near the optimality and are alternative to each other, which
+we called alternative individualized treatment recommendations (A-ITR). Speciﬁcally, if
+2
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+Near-optimal Individualized Treatment Recommendations
+multiple treatments are expected to result in similar and near-optimal clinical outcomes
+for the patient, then they are all recommended to the patient (or the physician), who can
+choose any one of them to use after incorporating other considerations. There are several
+reasons this approach may be more desirable than a single treatment recommendation.
+First, since multiple treatments may yield the same or similar outcomes for some patients,
+the ranking among the near-optimal treatment options may vary randomly. If only the top
+treatment is reported, such a seemingly “random” recommendation may severely undermine
+the trust of the physicians and the patients toward the treatment recommendation system.
+Second, when the expected outcomes for multiple treatments are indistinguishable, it may
+be both legally and morally inappropriate to withhold such important information from
+the patients.
+Third, A-ITRs allow physicians and patients to incorporate other factors
+into their decision-making process regarding the treatment. These other factors include the
+healthcare expense, the painfulness of the treatment, the side-eﬀect of the treatment, the
+life quality and lifestyle, and so on. For example, when two treatments are expected to
+have similar outcomes, it is reasonable to choose an option that is covered by the insurance,
+that is less painful, that has less side-eﬀect, and that does not signiﬁcantly compromise the
+quality of life. In this sense, conventional ITR methods that only recommend one treatment
+may prevent patients from making informed decisions about their lives.
+We will propose two methods to estimate A-ITR. Parallel to the development of the
+conventional ITR methods, we ﬁrst introduce a regression-based plug-in method to estimate
+the optimal A-ITR, which will serve as the baseline.
+Within the OWL framework, we
+propose two classiﬁcation-based methods. The technical tool we will use is multicategory
+classiﬁcation with reject and reﬁne options (Zhang et al., 2018b).
+The rest of the paper is organized as follows. In Section 2, we review the background
+of the ITR and the classiﬁcation with reject and reﬁne options problems. We then intro-
+duce the proposed A-ITR framework and discuss several estimation methods in Section 3.
+Detailed algorithm and the tuning procedure can be found in Section 4. We demonstrate
+the empirical performance through simulation studies in Section 5 and a real-world applica-
+tion using Type 2 diabetes mellitus data in Section 6. Theoretical studies of the proposed
+method can be found in Section 7. Some concluding remarks are given in Section 8. All
+technical proofs are provided in the supplementary materials.
+2. Background
+In this section, we brieﬂy review the background information of both the ITR problem and
+the problem of classiﬁcation with reject and reﬁne options.
+2.1 Individualized Treatment Recommendation
+Denote the covariates of a patient by X ∈X. Each treatment is denoted by a random
+variable A, where A ∈A = {1, 2, . . . , k} (k treatments available.) After assigning treatment
+to a patient, we observe an outcome Y ∈R+.
+Here we assume Y is bounded.
+Unlike
+many other ITR methods, we assume smaller Y is preferred due to a small technicality
+that can allow some computational savings. An individualized treatment recommendation,
+previously often referred to as an individualized treatment rule, is a map d : X →A.
+3
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+Meng, Zhao, Fu, and Qiao
+Let Y ∗(j) denote the potential outcome that would have been observed when treatment
+j is assigned to the patient with covariates X. The actual observed outcome Y is related
+to the potential outcomes by Y = P
+j∈A Y ∗(j)1[A = j].
+Deﬁne p(A = j | X) as the
+conditional probability of treatment j given X. We assume the following assumption.
+Assumption 1 For any j, Y ∗(j) is independent of A given X and p(A = j | X) > 0
+almost everywhere.
+Under Assumption 1, it was shown by Qian and Murphy (2011) and Kallus (2016) that
+the expected outcome under ITR d is
+Ed(Y ) = E(Y ∗(d(X))) = E[E(Y ∗(A)|A = d(X), X))] = E
+1[A = d(X)]
+p(A|X)
+Y
+
+,
+(1)
+where Ed is the expectation under ITR d. Note that p(A|X) is usually known in a random-
+ized trial, while in an observational study it is unknown and needs to be estimated.
+Denote µj = E(Y | X, A = j), for j = 1, . . . , k. Then the optimal ITR d∗is
+d∗= argmin
+d
+Ed(Y ) = argmin
+j
+µj,
+(2)
+that is, the optimal treatment for a patient has the smallest (the best) expected outcome.
+Many methods have been proposed for estimating the optimal ITR. One method is often
+called “regression and comparison” or Q-learning (Robins, 2004; Qian and Murphy, 2011).
+One ﬁrst estimates the conditional mean µj(x) = E(Y | X = x, A = j) for each treatment
+j, then the optimal treatment is obtained by plugging the estimators in (2). However, this
+method relies on the accuracy of the regression model. If the model is mis-speciﬁed, the error
+could be fairly substantial. Another group of methods treat the problem as a classiﬁcation
+problem. One example is called outcome weighted learning (OWL) or O-learning (Zhao
+et al., 2012, 2014, 2019; Zhou et al., 2017; Zhang et al., 2018a). In the OWL framework,
+by noting (1), we rewrite the ITR solution as
+d∗= argmin
+d
+E
+
+Y
+p(A|X)1[A = d(X)]
+
+,
+(3)
+which is closely related to a weighted classiﬁcation problem with weight Y/p(A|X). To
+overcome the non-continuity and non-convexity of the 0-1 loss, we can replace 1[A = d(X)]
+by a convex surrogate loss L(A, f(X)) in the empirical counterpart of (3) and solve instead
+ˆf = argmin
+f
+En
+
+Y
+p(A|X)L(A, f(X))
+
+,
+(4)
+where En denotes the empirical expectation, and f is a vector-valued function deﬁned on
+X. The estimated ITR ˆd is then obtained from ˆf.
+The relationship between ˆd and ˆf depends on the choice of the loss function L and
+how f is deﬁned. Zhao et al. (2012) proposed to replace the 0-1 loss by hinge loss in the
+binary case (k = 2, A ∈{1, −1}), that is, L(A, f) = (1 −Af)+, where x+ = max(x, 0),
+and f is a scalar-valued function.
+In the current setting that a smaller Y is preferred,
+4
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+Near-optimal Individualized Treatment Recommendations
+they could have used L(A, f) = (1 + Af)+. They showed that the optimal ITR can be
+estimated by ˆd = sign ( ˆf). Zhang et al. (2018a) then extended to the multicategory case
+using a large-margin loss under the angle-based learning framework (Zhang and Liu, 2014).
+Speciﬁcally, deﬁne f(x) = (f1, . . . , fk−1)T (x) ∈Rk−1 and W1, . . . , Wk are vertices of a
+(k −1)-dimensional simplex with equal pair-wise distances, deﬁned as
+Wj =
+(
+(k −1)−1/21k−1,
+j = 1
+−(1 + k1/2)(k −1)−3/21k−1 + [k/(k −1)]1/2 ej−1,
+2 ≤j ≤k,
+where 1k−1 is a (k−1)-dimensional vector with all 1 and ej−1 ∈Rk−1 is a vector with the (j−
+1)th element 1 and 0 elsewhere. They let L(A, f(x)) = ℓ(⟨WA, f(x)⟩), where ℓis a typical
+large-margin surrogate loss for binary classiﬁcation (except that it is increasing instead of
+decreasing), and ⟨WA, f(x)⟩denotes the inner product of the vectors WA and f(x). From
+the geometry point of view, treatment j is represented by vertex j of the simplex, and
+the angle between f(x) and Wj, ∠(Wj, f(x)), indicates how far away f(x) is from each
+of these treatments. The resulting ITR was estimated by ˆd(x) = argminj ∠(Wj, ˆf(x)) =
+argmaxj⟨Wj, ˆf(x)⟩, that is, the best treatment is the one whose corresponding vertex is
+closest to ˆf(x) in terms of the angle.
+Remark 2 In the ITR literature, one typically assumes that larger values of the outcome
+Y are preferred, so that instead of minimization, d∗maximizes the objective (3), or equiva-
+lently, argmind E
+h
+Y
+p(A|X)1[A̸ = d(X)]
+i
+, which was indeed a weighted classiﬁcation problem.
+In this article, recall that we assume smaller values of Y are preferred. As a consequence,
+1[A̸ = d(X)] is replaced by 1[A = d(X)] in (3); additionally, the surrogate loss function is
+ﬂipped with respect to the origin so that it is an increasing function instead of a decreasing
+function.
+2.2 Classiﬁcation with Reject and Reﬁne Options
+We aim to provide set-valued recommendations that are near the optimality and are alter-
+native to each other. To this end, we borrow the idea of multicategory classiﬁcation with
+reject and reﬁne options as a technical tool. Classiﬁcation with a reject option has been
+widely studied. Herbei and Wegkamp (2006) formulated the problem as a minimization
+problem under the 0-d-1 loss. That is, the loss of a misclassiﬁed instance is 1 and the loss
+of a rejected instance is d, where 0 ≤d ≤1/2. Bartlett and Wegkamp (2008) proposed
+an estimation procedure under the hinge loss. Yuan and Wegkamp (2010) extended this
+framework to a broad class of surrogate loss functions. Zhang et al. (2018b) generalized it
+to the multicategory case.
+We ﬁrst introduce binary classiﬁcation with reject option.
+Let (X, A) be a pair of
+random variable with X ∈X and class label A ∈{1, −1}∗, and denote pj(x) = p(A =
+j | X = x) as the conditional class probability given X. The goal is to train a classiﬁer
+φ(x) that produces three possible outputs: 1, −1, and 0.
+Here 0 stands for a “reject”
+option, meaning that the classiﬁer refuses to make a prediction based on the information
+∗. Although class labels are traditionally denoted as Y in the classiﬁcation literature, the class labels are
+analogous to the treatment options in the ITR problem. Hence we denote the class label as A here.
+5
+
+
+===== ORIGINAL PDF PAGE 6 =====
+FORMULA CHECK REQUIRED: original PDF page 6.
+Meng, Zhao, Fu, and Qiao
+available. Note that the decision “0” can be viewed as a set-valued decision of {1, −1}. Chow
+(1970) proposed the 0-d0-1 loss with corresponding risk function P(φ(X)̸ = A, φ(X)̸ =
+0) + d0P(φ(X) = 0) and it was shown that the Bayes rule under this risk is
+φ∗(x) =
+
+
+
+
+
+1,
+p1(x) > 1 −d0
+−1,
+p1(x) < d0
+0,
+d0 ≤p1(x) ≤1 −d0.
+Here d0 ∈[0, 1/2] controls the cost for refusing to make a classiﬁcation. Intuitively, we
+produce the reject option “0” only when both p1(x) and p2(x) are close to 1/2. Bartlett
+and Wegkamp (2008) proposed a bent hinge loss to estimate the optimal rule φ∗. The bent
+hinge loss is deﬁned as ℓ(u) = max(0, 1 −u, 1 −(1 −d0)u/d0), i.e., the common hinge loss
+with a bent slope at 0. The eﬀect of such bent slope is to shrink f(x) to 0 when p1(x) and
+p2(x) are close. For f∗(x) = argminf(x) E(ℓ(Af) | X = x), we have φ∗= sign(f∗).
+The situation is much more complicated for multicategory classiﬁcation. Suppose there
+are 3 classes, that is, A = {1, 2, 3}, then the possible values for the classiﬁer φ(x) are {1},
+{2}, {3}, {1, 2}, {1, 3}, {2, 3}, and {1, 2, 3}. In general, assuming there are k classes, φ(x)
+can be any element in the power set of {1, . . . , k} (except the empty set). In addition to
+the reject option, which can be understood as the full set {1, . . . , k}, Zhang et al. (2018b)
+introduced the so-called reﬁne option, which is a set-valued decision with cardinality strictly
+greater than 1 and less than k. It contains all those class labels which are nearly as plausible
+as the most plausible class. Zhang et al. (2018b) proposed to use a class of loss functions
+in conjunction with the angle-based learning framework (Zhang and Liu, 2014) to train a
+set-valued classiﬁer that can render these diﬀerent options. We note that both the reject
+option and the reﬁne option are set-valued decisions, and they are analogous to the set-
+valued recommendations in this work.
+3. Methodology
+In this section, we introduce the framework of alternative individualized treatment recom-
+mendations (A-ITR) and propose two methods to estimate the optimal A-ITR.
+3.1 A-ITR Framework
+There are several situations in which ITRs with additional alternative options are desirable.
+Even with small errors, when several treatments are near the optimality, the ranking of these
+treatments based on their estimated outcomes may diﬀer from their true ranking. In this
+case, reporting only one treatment based on the estimated value is problematic. Secondly,
+when the error in the learning problem is substantially large, the so-called optimal treatment
+reported by conventional ITRs may lead to an outcome that is much worse than some of
+the other treatment options. In these situations, recommending a single treatment only
+adds to the distrust that patients may already have towards such black-box algorithms that
+they know little about. On the other hand, A-ITR provides a safety net, preventing from
+committing to a single treatment that is only one out of multiple treatments with similar
+or indistinguishable outcomes. Morally, as patients are more mindful about their ﬁnancial
+responsibility and their quality of life, it is more appropriate to present these alternative
+6
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+Near-optimal Individualized Treatment Recommendations
+options and have the patients themselves to make an informed decision, especially when
+many of these decisions are life-changing.
+An A-ITR is a set-valued map φ : X →2A\∅. Inspired by the idea of classiﬁcation with
+reject and reﬁne options, given a user-predeﬁned number c ≥1 that deﬁnes the scope of
+the near-optimal treatments, we formally deﬁne the optimal A-ITR as,
+φ∗(x) = {j | µj(x)/µ(1)(x) ≤c},
+(5)
+where µ(1) is the smallest conditional mean outcomes. This optimal A-ITR set contains all
+the treatment options with µj close enough to that of the optimal one, up to a multiplicative
+constant c. Recall that we assume smaller Y is preferred. Note that for certain c and
+x, φ∗(x) may contain only one element, that is, the treatment with the smallest mean
+outcome, which corresponds to the conventional ITR. If it includes all the treatments, it is a
+non-informative recommendation, analogous to the reject option in set-valued classiﬁcation
+problem. Here we call c the near-optimality constant.
+When c = 1, the optimal A-ITR reduces to the optimal ITR deﬁned in (2) for all x
+since φ∗= {j | µj/µ(1) ≤1} = {j | µj = µ(1)} = argminj∈{1,...,k} µj. This means that the
+proposed optimal A-ITR generalizes the conventional optimal ITR.
+Remark 3 The choice of the near-optimality constant c is made in consultation with the
+physicians by taking into account meaningful domain knowledge in the clinical context. Note
+c is not a tuning parameter and is not meant to be selected in a way to minimize some risk
+or obtain some optimal model (whatever it means). The value of c reﬂects the physician’s
+judgment about how close is “indistinguishable” and may vary a lot depending on the appli-
+cation. One value of c (say 10) may be appropriate for one clinical outcome but can be too
+big for another. In practice, c is chosen according to the physician’s experience, or by em-
+pirical data if available. A possible candidate for c is an estimate to exp[SD(log(Y ∗) | x)].
+Moreover, the physician may also try two or three diﬀerent c values which may lead to rec-
+ommendations with varying cardinalities. These recommendations may then be presented
+to the patient in the order of increasing cardinality. Caution should be exercised when com-
+municating about these new alternative options and the corresponding possible sacriﬁce to
+the outcome.
+Remark 4 The optimal A-ITR φ∗deﬁned in (5) is not invariant to addition but is invari-
+ant to multiplication. If it were invariant to addition, then the assumption of non-negativity
+of Y would be moot. In practice, many clinical outcome are positive (i.e., year of survival,
+blood count, etc.). A negative clinical outcome ˜Y (i.e., a decrease of blood pressure) may be
+transformed to be positive, for example, by Y = exp( ˜Y ). In any case, a transformation of
+the original clinical outcome may be needed to adapt the deﬁnition (5) to the speciﬁc clinical
+context. For example, in certain clinical contexts, it could make more sense to deﬁne the
+optimal treatment options as those with expected outcomes less than ˜µ(1)+b where ˜µ(1) is the
+smallest mean outcome (in the original, untransformed scale). In this case, we may deﬁne
+Y = exp( ˜Y ) so that the optimal treatment options are those with expected (transformed)
+outcome less than µ(1) × c with c = exp(b). See Section 6 for a real data example in which
+some data transformation is done.
+7
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+Meng, Zhao, Fu, and Qiao
+3.2 Estimation
+We consider two types of methods to estimate the optimal A-ITR: the regression-based
+methods and the classiﬁcation-based methods. For regression-based methods, we can use
+Q-learning to ﬁrst estimate the conditional mean µj(x) = E(Y | X = x, A = j) for each
+treatment j, then plug into (5), i.e., ˆφ(x) = {j | ˆµj(x)/ˆµ(1)(x) ≤c}. The success of this
+regression-based plug-in method relies on accurate estimation of µj.
+In contrast, the classiﬁcation-based method targets on estimating the true boundary
+between diﬀerent decision regions, bypassing the need to estimate µj directly. In the rest of
+the section, we propose two classiﬁcation-based methods within the OWL framework, both
+of which are based on the angle-based learning approach (Zhang and Liu, 2014).
+Zhang et al. (2018a) ﬁrst made use of the angle-based learning approach to solve the
+ITR problem, in which they denoted W1 . . . , Wk as the vertices of a (k −1)-dimensional
+simplex and they chose the loss L(A, f(x)) in (4) to be a function that only depends on
+the inner product ⟨WA, f(x)⟩, namely, L(A, f(x)) = ℓ(⟨WA, f(x)⟩). Deﬁne f ∗to be the
+population minimizer under such loss, that is
+f ∗=
+argmin
+f∈{X→Rk−1}
+E
+
+Y
+p(A|X)ℓ(⟨WA, f(X)⟩)
+
+.
+(6)
+The end product of Zhang et al. (2018a) was a single-treatment ITR. In the ideal case that
+f ∗can be obtained, their ITR was deﬁned as df ∗(x) = argmaxj∈{1,...,k}⟨Wj, f ∗(x)⟩, and it
+can be shown that as long as ℓis convex and strictly increasing, Fisher consistency holds,
+i.e., df ∗= d∗. In practice, given the training data set {(xi, ai, yi)}n
+i=1, ˆf, the estimate of
+f ∗, is obtained by,
+ˆf = argmin
+f∈F
+1
+n
+n
+X
+i=1
+yi
+p(ai|xi)ℓ(⟨Wai, f(xi)⟩), subject to J(f) ≤s,
+(7)
+where F ⊆{f | X →Rk−1} is a class of functions, and J(f) is a penalty term to prevent
+overﬁtting.
+Both our proposed A-ITR methods are derived from the empirical minimizer ˆf in (7)
+with an aim to estimate the population minimizer f ∗in (6). The diﬀerence lies in the loss
+function ℓthey use, and how they convert ˆf or f ∗to the ﬁnal set-valued recommendations.
+3.2.1 Two-step OWL Method
+For the two-step method, we use a convex, diﬀerentiable, and increasing loss function ℓD.
+Given any f (which may be f ∗or ˆf), to obtain the A-ITR, it is instrumental to ﬁrst order
+the vertices Wj’s, j = 1, . . . , k, which represent the k treatments, in the manner of reversed
+order statistics, ⟨W(1), f⟩> · · · > ⟨W(k), f⟩. It turns out (see Proposition 5 below) that
+when f = f ∗, the jth reversed order statistic (i.e., the jth largest) ⟨W(j), f⟩corresponds
+to the jth order statistic (the jth smallest) µ(j) where µ(1) < · · · < µ(k).
+The resultant two-step estimator of the optimal A-ITR is then deﬁned as
+φD
+f (x) =
+
+j | ℓ′
+D(⟨W(1), f(x)⟩)
+ℓ′
+D(⟨Wj, f(x)⟩) ≤c
+
+.
+(8)
+8
+
+
+===== ORIGINAL PDF PAGE 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+Near-optimal Individualized Treatment Recommendations
+Here ℓ′
+D is the ﬁrst derivative of ℓD, and the superscript “D” indicates that f is the solution
+based on a diﬀerentiable loss function. Our estimator is motivated by the following result.
+Proposition 5 (Zhang et al., 2018a) Let f ∗be the population minimizer in (6) in which
+ℓis a convex and diﬀerentiable function ℓD with ℓ′
+D(u) > 0 for all u. For any i̸ = j ∈
+{1, . . . , k}, we have
+µj
+µi
+= ℓ′
+D(⟨Wi, f ∗⟩)
+ℓ′
+D(⟨Wj, f ∗⟩).
+Proposition 5 implies the following Fisher-consistent-like result for our proposed A-ITR
+estimator (8).
+Proposition 6 Let f ∗be the population minimizer in (6) in which ℓis a convex and
+diﬀerentiable function ℓD with ℓ′
+D(u) > 0 for all u. The A-ITR φD
+f ∗deﬁned in (8) based on
+f ∗coincides with the optimal A-ITR φ∗in (5).
+This method is a two-step procedure because it ﬁrst estimates f ∗using ˆf, then esti-
+mates the ratios of conditional means µj/µi using ℓ′
+D(⟨Wi, ˆf⟩)/ℓ′
+D(⟨Wj, ˆf⟩) which is then
+plugged into (5) to obtain the A-ITR. Note that it does not estimate each conditional mean
+individually, but their ratios. The issue remains that if f ∗is not accurately estimated, then
+the ratio µj/µi cannot be accurately estimated.
+3.2.2 One-step OWL Method
+The one-step method aims to directly obtain a set-valued recommendation without calculat-
+ing ℓ′
+D(⟨Wi, ˆf⟩)/ℓ′
+D(⟨Wj, ˆf⟩). The crucial diﬀerence here is the use of a bent loss function,
+deﬁned as
+ℓB(⟨Wj, f⟩) = ℓ1(⟨Wj, f⟩) + ℓ2(⟨Wj, f⟩),
+where ℓ1 > 0 is a convex and increasing function with ℓ′
+1(u) = 1 for all u ≥0, and
+ℓ2(u) = (c −1)u+ with c ≥1. Such a loss function is bent at 0, since ℓ′
+B(0−) = 1 and
+ℓ′
+B(0+) = c. Note that the slope c is the same as the near-optimality constant as deﬁned
+in (5). An example of bent loss is the bent hinge loss, ℓB(u) = (1 + u)+ + (c −1)u+ (see
+Figure 1.) The bent loss has been a critical tool that helps to achieve reject (and reﬁne)
+options in the classiﬁcation literature (Bartlett and Wegkamp, 2008; Zhang et al., 2018b).
+The main eﬀect of the bent loss is to shrink the angle margin for class j (or treatment j
+here), deﬁned as ⟨Wj, f(x)⟩, towards 0, similar to the shrinkage eﬀect of the lasso penalty.
+Likewise, the additional slope c −1 for u > 0 is analogous to a penalty parameter in lasso
+regression, which would encourage a sparse model. Note that here such a shrinkage eﬀect is
+applied to the classes/treatments with positive angle margins only. Speciﬁcally, Proposition
+7 below, derived from Proposition 1 in Zhang et al. (2018b), gives the precise values of the
+angle margins ⟨Wj, f ∗(x)⟩’s with respect to f ∗, the population minimizer of (6) with the
+bent loss ℓB.
+Proposition 7 For the sequence µ(1) < · · · < µ(k), suppose there exists an integer r ∈
+{1, . . . , k −1} such that µ(j)/µ(1) < c for j = 1, . . . , r and µ(j)/µ(1) > c for j = r + 1, . . . , k.
+Let f ∗be the population minimizer to (6) in which ℓis a convex and increasing function
+ℓB with ℓ′
+B(0−) = 1 and ℓ′
+B(0+) = c ≥1. Then we have ⟨W(1), f ∗⟩> 0, ⟨W(2), f ∗⟩= · · · =
+9
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+Meng, Zhao, Fu, and Qiao
+⟨W(r), f ∗⟩= 0, and ⟨W(r+1), f ∗⟩= · · · = ⟨W(k), f ∗⟩< 0. If such an integer r does not
+exist, then ⟨W(j), f ∗⟩= 0 for j = 1, . . . , k.
+−2.0
+−1.5
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−0.5
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+u
+l(u)
+−2.0
+−1.5
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−0.5
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+u
+l(u)
+Figure 1: Hinge loss (left panel) and bent hinge loss with c = 1.5 (right panel). Note the additional
+slope at u = 0 for the bent hinge loss.
+A direct consequence of Proposition 7 is that all the near-optimal treatments (deﬁned as
+µ(j)/µ(1) ≤c) have non-negative angle margins, while the rest have negative angle margins.
+This naturally leads to the following set-valued recommendation,
+φB
+f (x) = {j | ⟨Wj, f(x)⟩≥0}.
+(9)
+Here f can be the population minimizer f ∗(6) or the empirical minimizer ˆf (7) and the
+superscript “B” indicates that the loss ℓis a bent loss ℓB, as opposed to a diﬀerentiable loss
+function in the two-step method.
+Proposition 7 implies that {j | µj(x)/µ(1)(x) < c} ⊆φB
+f ∗(x) ⊆{j | µj(x)/µ(1)(x) ≤c}.
+The following assumption is necessary to resolve the identiﬁable issue of (9) and to show
+its optimality.
+Assumption 8 For any positive c0, p (µj(X) = c0µi(X)) = 0 for ∀i̸ = j ∈{1, . . . , k} in
+which µj(X) = E(Y | X, A = j) is the conditional mean outcome for treatment j.
+Assumption 8 guarantees the two sets, {x ∈X | µj(x)/µi(x) = 1} and {x ∈X |
+µj(x)/µi(x) = c}, where c is the near-optimality constant in (5), have measure 0 for any
+i̸ = j so that f ∗is identiﬁable almost everywhere.
+Under Assumption 8, we have the
+following proposition, analogous to Fisher consistency in classiﬁcation.
+Proposition 9 Suppose Assumption 8 holds. Let f ∗be the population minimizer in (6) in
+which ℓis a convex and increasing function ℓB with ℓ′
+B(0−) = 1 and ℓ′
+B(0+) = c ≥1. The
+A-ITR φB
+f ∗deﬁned in (9) based on f ∗coincides with the optimal A-ITR φ∗(5) with the
+near-optimality constant c.
+10
+
+
+===== ORIGINAL PDF PAGE 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+Near-optimal Individualized Treatment Recommendations
+While Assumption 8 is useful as a technical assumption, it may not hold in certain
+practical situations. For example, when two treatments have the same conditional mean
+outcomes for a group of patients, Assumption 8 does not hold for c = 1. Another case that
+it is more likely to fail is when the outcome Y can only take ﬁnite and discrete values. Even
+if it does not hold, the proposed methods could still be useful. See Example 3 in Section 5
+in which Assumption 8 is violated.
+Note that for both classiﬁcation-based methods, a single-valued ITR can be easily
+deﬁned by recommending the treatment option with the largest angle margin, that is,
+argmaxj∈{1,...,k}⟨Wj, f(x)⟩.
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+Bayes Rule
+ITR
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+Two−step Estimator
+x2
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+One−step Estimator
+x2
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+x1
+A−ITR
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+x1
+x2
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+x1
+x2
+Figure 2: ITR (top) and A-ITR (bottom) for a toy example given by Bayes rule, the two-step
+estimator, and one-step estimator. Yellow triangles indicate recommendations with two
+options, and black squares indicate three options. Both estimators give similar results to
+the Bayes rule in terms of the single-valued ITR. The two-step method does not provide
+as good A-ITR results as the one-step method.
+Unlike the regression-based method, the two classiﬁcation-based methods do not esti-
+mate the conditional mean outcome.
+The success of the regression-based method relies
+on an accurate estimation of µj at every x of interest, while reasonable performance is
+expected for the classiﬁcation-based methods as long as the estimation is accurate around
+the “boundaries”. However, the two-step method and the one-step method seem to have
+diﬀerent focuses. Both methods start with ﬁnding a discriminant function to minimize the
+outcome-weighted misclassiﬁcation rate for the purpose of minimizing the expected out-
+come. As a consequence, both methods have “good” performances near boundaries that
+11
+
+
+===== ORIGINAL PDF PAGE 12 =====
+FORMULA CHECK REQUIRED: original PDF page 12.
+Meng, Zhao, Fu, and Qiao
+distinguish the optimal treatment from the non-optimal treatments for each patient. The
+one-step method, additionally, uses a bent loss with a shrinkage eﬀect that is capable of
+determining whether a treatment is close enough to, not whether it is equal to, the optimal
+treatment. More precisely speaking, the one-step method calibrates the boundary deﬁned
+by µj(x)/µ(1)(x) = c. This is theoretically justiﬁed by Proposition 7. Hence, the one-step
+method also has “good” performance near such new notions of boundaries.
+To illustrate the additional strength of the one-step method, we show the boundaries
+between recommendations for a toy example (the details of which will be revisited in the
+numerical studies) in Figure 2, in which the top row shows the single-valued ITR and the
+second row the set-valued A-ITR, by the Bayes rule, the two-step method, and the one-step
+method respectively. Both classiﬁcation-based methods give good approximations to the
+Bayes ITR boundaries, shown in the top row. However, the two-step method seems to
+include more treatments into the near-optimal set when compared to the Bayes rule (shown
+in the bottom row), than the one-step method does. For example, the two-step estimator
+displays much more recommendations with 2 or 3 treatment options. This is probably due
+to the fact that the optimization for the two-step method is not designed to capture this
+subtle pattern, at least not with a ﬁnite sample.
+4. Implementations
+In this section, we discuss various aspects of the implementations for the proposed methods,
+including the optimization, the normalization of the predictive function, and the parameter
+tuning.
+4.1 Algorithm
+In this section, we introduce the optimization procedure to estimate f ∗deﬁned in (6).
+Instead of the constrained problem (7), we solve the regularized problem:
+min
+f∈F
+1
+n
+n
+X
+i=1
+yi
+p(ai|xi)ℓ(⟨Wai, f(xi)⟩) + λJ(f),
+(10)
+where λ is a tuning parameter. It is a weighted classiﬁcation problem with weight wi =
+yi/p(ai|xi).
+In terms of the function class F, there are linear learning and kernel learning (Steinwart
+et al., 2007; Hofmann et al., 2008; Hastie et al., 2009). Let f = (f1, . . . , fk−1)T ∈F, and for
+simplicity, we add a constant term to x. Then for linear learning, we have fj(x) = xT βj,
+and the corresponding penalty J(f) = Pk−1
+j=1 ∥βj∥2 = Pk−1
+j=1 βT
+j βj. For kernel learning,
+fj(x) = Pn
+i=1 K(xi, x)αij + α0j, where K(·, ·) is a kernel function.
+The penalty term
+becomes J(f) = Pk−1
+j=1 αT
+j Kαj + Pk−1
+j=1 α2
+0j, where K is the gram matrix. Note that we
+include the intercept term into J(f) and a beneﬁt by doing this is the reduction of the
+complexity of the algorithm. Zhang et al. (2016) shows theoretically that it can achieve the
+same convergence rate as the case without the intercept term.
+We proposed the two-step method and the one-step method.
+The two-step method
+is based on a diﬀerentiable loss ℓD, while the one-step method is based on a bent loss
+ℓB(u) = ℓ1(u) + ℓ2(u), where ℓ1 is convex and ℓ2(u) = (c −1)u+. Since ℓD is similar to
+12
+
+
+===== ORIGINAL PDF PAGE 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+Near-optimal Individualized Treatment Recommendations
+a special case of ℓB with c = 1, here we only need to focus on the algorithm for the bent
+loss ℓB. In the rest of this section, we use linear learning to demonstrate our algorithm and
+have deferred the details about kernel learning to the supplementary materials.
+We ﬁrst consider the case when ℓ1 is diﬀerentiable. In this case, we use the ADMM (Boyd
+et al., 2011) algorithm to solve (10). The ADMM algorithm is used when the objective
+function can be written as a sum of two convex functions, which, in our case, are ℓ1 and ℓ2.
+We denote the coeﬃcient matrix as Bp×(k−1) = [β1, . . . , βk−1]. Then we create another
+copy of the coeﬃcients Gp×(k−1) = [γ1, . . . , γk−1], and let Zp×(k−1) = [z1, . . . , zk−1]. Recall
+that wi = yi/p(ai|xi), then we minimize the augmented Lagrangian
+Lρ(B, G, Z) =
+n
+X
+i=1
+wiℓ1(⟨Wai, BT xi⟩) +
+n
+X
+i=1
+wiℓ2(⟨Wai, GT xi⟩) + nλ
+2
+k−1
+X
+j=1
+βT
+j βj
++
+k−1
+X
+j=1
+zT
+j (βj −γj) + ρ
+2
+k−1
+X
+j=1
+(βj −γj)T (βj −γj),
+where ρ > 0 controls the step size.
+At step t, for each j = 1, . . . , k −1 we can update Bt, Gt and Zt as
+βt
+j = argmin
+βj
+Lρ([βt
+1, . . . , βj, . . . , βt−1
+k−1], Gt−1, Zt−1),
+γt
+j = argmin
+γj
+Lρ(Bt, [γt
+1, . . . , γj, . . . , γt−1
+k−1], Zt−1),
+zt
+j = zt−1
+j
++ ρ(βt
+j −γt
+j)
+until matrix B converges. Note that in the two-step method where c = 1, we have ℓ2(u) = 0.
+In this case, we can force B = G and only update βt
+j’s until they converge.
+Next we consider the case when ℓ1 is not diﬀerentiable. In the literature of classiﬁcation,
+a non-diﬀerentiable loss that has been commonly used is hinge loss. Note that in our case,
+since we prefer smaller outcomes, we deﬁne the hinge loss as ℓ1(u) = (1 + u)+ (see Figure
+1).
+That is, we ﬂip the traditional hinge loss with respect to the y-axis to make it an
+increasing function. A typical approach to an optimization problem with the hinge loss
+is to transform it into a quadratic programming (QP) problem in its duality (Fung and
+Mangasarian, 2005; Hastie et al., 2009; Zhang et al., 2018b). Speciﬁcally, the dual problem
+of (10) can be written as
+min
+αj,γj
+nλ
+2
+k−1
+X
+j=1
+βT
+j βj −
+n
+X
+i=1
+αi
+s.t. 0 ≤αi ≤wi, 0 ≤γi ≤wi, i = 1, . . . , n,
+where βj = −1
+nλ
+Pn
+i=1(αi + (c −1)γi)Wai,jxi, and Wai,j is the jth component of Wai. Note
+that the weight wi = yi/p(ai|xi) serves as the upper bound of the box constraints. Because
+the objective function is quadratic in αi and γi, it has explicit solution at each iteration.
+Thus it converges very fast by using algorithms such as coordinate decent (Zhang et al.,
+2018b).
+13
+
+
+===== ORIGINAL PDF PAGE 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+Meng, Zhao, Fu, and Qiao
+In practice, there may be numerical errors to the solution. Moreover, due to diﬀerent
+choices of the tuning parameter λ, the scale of the resulting angle margins may vary much
+between diﬀerent tuning trials. We propose the following normalization procedure for the
+one-step A-ITR φB
+f (9) to boost the empirical performance. The idea is that instead of
+recommending all treatments with angle margins greater than or equal to 0, we change
+the threshold to a small number varying around 0. Such a threshold is a ﬁxed constant
+δ multiplied by a measure of the scale, chosen to be the magnitude of the smallest angle
+margin. The normalized one-step A-ITR is then
+φB
+ˆ
+f (x) = {j | ⟨Wj, ˆf(x)⟩≥δM(x)},
+(11)
+where δ is a tuning parameter around 0 and M(x) = |⟨W(k), ˆf(x)⟩| is the magnitude of the
+smallest angle margin (note that ⟨W(k), ˆf(x)⟩is negative).
+4.2 Tuning Procedure
+In this paper, the estimation procedure involves two tuning parameters. The ﬁrst one is
+the regularization parameter λ in (10) which appears in both the two-step and one-step
+methods. The second one is the normalization parameter δ in (11) for the one-step method
+only. We will tune these two parameters diﬀerently in two steps.
+The ﬁrst step is to tune λ. For each λ, the estimated solution is ˆf. Then we deﬁne the
+corresponding single-treatment ITR as d ˆ
+f = argmaxj⟨Wj, ˆf⟩and calculate its empirical
+average of the expected outcome (1), which is given by
+Pn
+i=1
+
+1
+h
+ai = d ˆ
+f(xi)
+i
+yi/p(ai|xi)
+
+Pn
+i=1
+
+1
+h
+ai = d ˆ
+f(xi)
+i
+/p(ai|xi)
+
+(Zhao et al., 2012; Zhang et al., 2018a). We choose the λ that yields the smallest empirical
+risk for the resulting ITR, even if our ultimate goal is to obtain a set-valued A-ITR. This
+can substantially simplify the tuning process. We found that other more complicated tuning
+procedures have led to a similar performance.
+For the one-step method, we need to continue to tune δ. For the same λ (same resulting
+ITR), because diﬀerent δ’s may lead to slightly diﬀerent set-valued A-ITRs and recommen-
+dations with diﬀerent carnalities, we must actually compare the resulting A-ITRs to choose
+the best δ, instead of using the ITR as a proxy. However, there are some diﬃculties in eval-
+uating the performance of the estimated A-ITR. Compared to the conventional ITR, the
+challenge here is that when the recommendation includes two or more treatment options,
+there are multiple potential outcomes and it is diﬃcult to quantify the “overall” beneﬁt for
+such a recommendation.
+Although the proposed optimal A-ITR φ∗deﬁned in (5) is not a Bayes rule under any
+loss function, we can consider a closely related loss function, whose risk function is given by
+E
+
+Y 1[A ∈φ(X)]
+p(A|X)(1 + (|φ(X)| −1)c)
+
+,
+(12)
+where φ : X →2A\∅is a set-valued predictor and | · | denotes the cardinality of a set.
+Compared to the expected outcome Ed(Y ) deﬁned in (1), this quantity is a weighted outcome
+14
+
+
+===== ORIGINAL PDF PAGE 15 =====
+FORMULA CHECK REQUIRED: original PDF page 15.
+Near-optimal Individualized Treatment Recommendations
+with weight 1/(1 + (|φ| −1)c) under φ. If we force |φ| ≡1, it reduces to Ed(Y ). More
+importantly, it can be shown that the minimizer of (12), denoted by φ+, is
+φ+(x) = argmin
+φ(x)∈2A µφ(x),
+where µφ(x) ≜
+1
+1 + (|φ(x)| −1)c
+X
+j∈φ(x)
+µj(x).
+Here µφ deﬁnes a new criterion that generalizes the expected outcomes under a set-valued
+treatment recommendation φ.
+To see that, note that for φ(x) = {1}, µφ(x) = µ1(x),
+while for φ(x) = {1, 2}, µφ(x) = (µ1(x) + µ2(x))/(1 + c), which is smaller than the simple
+average (µ1(x) + µ2(x))/2 when c > 1. Suppose treatment 1 is better than treatment 2
+(µ1(x) < µ2(x)). We can show that φ2(x) ≜{1, 2} is as good as φ1(x) ≜{1} under this new
+criterion if and only if µ2(x)/µ1(x) ≤c, which is exactly the near-optimal recommendation
+set deﬁned in (5).
+Intuitively, φ+(x) is an optimal set of treatments selected to minimize the “average”
+clinical outcome with a penalty on the cardinality of the recommendation set. Note that
+when c = 1, φ+ is the same as the optimal ITR d∗. Moreover, when k = 2, φ+ is the same
+as the optimal A-ITR φ∗, as shown above. When k ≥3, φ+ and φ∗are diﬀerent but are
+nested within each other in the following way: if we let S∗
+t = {x ∈X | |φ∗(x)| ≤t} and
+S+
+t = {x ∈X | |φ+(x)| ≤t}, then we have S∗
+1 = S+
+1 , and S∗
+t ⊆S+
+t
+for t = 2, . . . , k −1.
+Figure 3 demonstrates their relationship when k = 3.
+Figure 3: Comparison between φ∗and φ+ (left: φ∗or φ+ with c = 1; middle: φ∗with c = 1.2; right:
+φ+ with c = 1.2). Any point in the plot represents (µ1, µ2, µ3) (suppose Y ∗(j) ∈(0, 1))
+with the recommendation illustrated by colors. Points in the red, green, and blue regions
+contain only one treatment; the yellow region contains two treatments; and the purple
+region includes all three treatments. S∗
+1 = S+
+1 (unions of red, blue and green regions),
+and S∗
+2 ⊆S+
+2 (all but the purple regions).
+From Figure 3, we observe that the regions with only one treatment are the same
+(S∗
+1 = S+
+1 ), while the regions containing two or three treatments are slightly diﬀerent. In
+general, the boundaries between the size-1 decisions and their complements are the same
+for the two rules φ+ and φ∗. They only diﬀer in the boundaries between recommendations
+with diﬀerent cardinalities (for example, the boundary between size-2 decisions and size-3
+decisions). Although φ∗does not directly minimize the weighted outcome deﬁned in (12),
+the similarity between φ+ and φ∗justiﬁes the use of the weighted outcome (12) as a new
+criterion for the tuning parameter selection. Speciﬁcally, we choose the δ value that can
+15
+
+
+===== ORIGINAL PDF PAGE 16 =====
+FORMULA CHECK REQUIRED: original PDF page 16.
+Meng, Zhao, Fu, and Qiao
+yield the smallest value of the following empirical counterpart of (12),
+Pn
+i=1
+
+1
+h
+ai ∈φ ˆ
+f(xi)
+i
+yi/
+h
+p(ai|xi)(1 + (|φ ˆ
+f(xi)| −1)c)
+i
+Pn
+i=1
+
+1
+h
+ai ∈φ ˆ
+f(xi)
+i
+/
+h
+p(ai|xi)|φ ˆ
+f(xi)|
+i
+.
+(13)
+In addition to the tuning parameter selection, we may also use this criterion to select
+diﬀerent methods for conducting A-ITRs. In the real data analysis, we will use this criterion
+to select between the two proposed classiﬁcation-based methods.
+5. Simulation Studies
+In this section, we study the numerical performance of the proposed methods.
+5.1 Comparing Set-valued Recommendations
+For two ITRs d1 and d2, we can compare them by evaluating the expected outcome deﬁned
+in (1). However, for two A-ITRs φ1 and φ2, it is diﬃcult to quantify which one is better
+due to the fact that a measure for the overall beneﬁt is not well deﬁned when multiple
+treatments are recommended.
+Although in Section 4.2 we have proposed the weighted
+expected outcome (12) for evaluating two A-ITRs, the optimal A-ITR φ+ under this new
+criterion is still diﬀerent from the desired near-optimal recommendation set φ∗.
+So in
+the simulation studies, in addition to the empirical weighted outcome (13), we consider
+another means to compare diﬀerent A-ITRs, using the expected outcome of the best and
+the worst treatments among the treatments that are recommended, averaged over a set
+of observations. We conduct such an evaluation for diﬀerent types of recommendations
+separately to see how the A-ITR performs diﬀerently on them. Based on the size of the
+true optimal A-ITR φ∗, we split the covariate space X into three regions corresponding to
+three kinds of recommendations:
+R1 = {only one treatment is suggested} = {x ∈X | |φ∗(x)| = 1},
+R2 = {more than one treatment but not all of them are suggested}
+= {x ∈X | 1 < |φ∗(x)| < k},
+R3 = {all treatments are suggested} = {x ∈X | |φ∗(x)| = k}.
+Note that R1, R2 and R3 are disjoint and X = R1 ∪R2 ∪R3. When c = 1, φ∗is the optimal
+ITR d∗and X = R1. When c > 1, we may have non-empty regions R2 and R3.
+For two A-ITRs φ1 and φ2, we will compare them separately on R1, R2 and R3. In
+each region, since multiple treatments may be suggested, we can compare the expected
+minimal outcome and the expected maximal outcome that they may lead to. Recall Y ∗(j)
+is the potential outcome by taking treatment j. Mathematically, we consider a performance
+interval,
+
+E
+
+E
+
+min
+j∈φ(X) Y ∗(j)
+ X
+
+, E
+
+E
+
+max
+j∈φ(X) Y ∗(j)
+ X
+
+,
+where the ﬁrst quantity indicates the expected outcome if one can always use the best
+treatment within the recommended set φ(x) and the second quantity represents the worst
+16
+
+
+===== ORIGINAL PDF PAGE 17 =====
+FORMULA CHECK REQUIRED: original PDF page 17.
+Near-optimal Individualized Treatment Recommendations
+situation, i.e., how bad it can be if one always chooses the worst treatment among the
+recommended options. Note that on R1, the two quantities are the same under φ∗since
+only one treatment is recommended. As we increase c, we expect that this interval becomes
+wider on R2 and R3 since the diversity of the recommended options increases. From the
+deﬁnition of this interval, we claim that φ1 is better than φ2 if both the lower and the upper
+limits of this interval under φ1 are smaller than their counterparts under φ2, on each region.
+5.2 Results
+We consider three simulation examples. For each example, we let X be uniformly sampled
+from X = [0, 1]5 and X = [0, 1]10 respectively.
+For simplicity, we assume A ⊥X and
+p(A|X) = 1/k, and let Y = µA(X)+ϵ where ϵ ∼N(0, 1/2). In each case, we let the training
+sample size to be n = 500, 1000, 2000, and use a test set with sample size 1000 to evaluate
+the performance. We compare three methods, namely, the regression-based method, the
+two-step classiﬁcation-based method with squared loss, and the one-step classiﬁcation-based
+method with the bent hinge loss. For each method, we output both ITR and A-ITR with
+c = 1.2. Finally, we repeat each simulation 100 times and report the averages.
+Example 1: This is an example with three treatments, where two conditional mean
+outcome functions are polynomial and the other is linear. Speciﬁcally, we have µ1(X) =
+1 + 3X2
+1 + 3X2
+2, µ2(X) = 3 −0.5X2
+1 + 0.5X2
+2, and µ3(X) = 3 + X1 + X2. The upper panel
+in Figure 4 shows the true boundaries for the three treatments. We use polynomial kernel
+for both the two-step and one-step methods. The tuning parameter λ is chosen from 5−6
+to 52.
+Example 2: This is an example with four treatments, where all the conditional mean
+outcome functions are non-linear, µA(X) = 2 + sign(A −2.5) cos
+ 0.5π(X1 + (−1)AX2)
+
+.
+Speciﬁcally, treatment 2 and 4 are dominated by treatments 1 and 3 and the optimal ITR
+should only output either 1 or 3. However, in certain regions treatment 2 and 4 still produce
+fairly good outcomes which can only be captured by A-ITR. The lower panel in Figure 4
+shows the true boundaries. For the two-step method, we report the results using Gaussian
+kernel. For the one-step method, we report the results with polynomial kernel. The tuning
+parameter λ is chosen from 5−9 to 5−1.
+Example 3: This is an example where Assumption 8 is violated. Speciﬁcally, µ1(X) =
+max(2.5, 2.3 + X2
+1 + X2
+2), µ2(X) = 2.7 −2 ∗X1 + exp(X2
+3) −X3
+4, and µ3(X) = min(3, 3.2 −
+X2
+1 −X2
+2). Note that when c = 1.2, p(µ3(X) = cµ1(X)) > 0 so Assumption 8 is violated.
+Similar to Example 1, we report the results using polynomial kernel for both the two-step
+and one-step methods. The tuning parameter λ is chosen from 5−7 to 1.
+Table 1 collects the results of the three examples with n = 1000 with dimension p = 5
+and 10. The results with n = 500 and 2000 are provided in the supplementary material.
+In Table 1, the results of A-ITR are in the form of intervals while the results of ITR are
+single numbers. We also compute the empirical weighted outcome (“All” column in Table
+1) deﬁned in (13) as an indicator for the overall performance for each method.
+We note that the performance intervals for A-ITR always cover the expected outcomes
+of the single-valued ITR. This implies that by applying our proposed A-ITR framework,
+patients will potentially get a much better outcome as long as they are willing to consider
+other equally eﬀective options identiﬁed by the A-ITR. Even if the patient does not choose
+17
+
+
+===== ORIGINAL PDF PAGE 18 =====
+FORMULA CHECK REQUIRED: original PDF page 18.
+Meng, Zhao, Fu, and Qiao
+the best option within the recommendation set, the worst case is not too bad and the ratio
+of its outcome to that of the best option is about c if the A-ITR is accurately estimated.
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+GG
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+x1
+x2
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+GG
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+x1
+x2
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+x1
+x2
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+−1.0
+−0.5
+0.0
+0.5
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+x1
+x2
+Figure 4: The true ITR and A-ITR for observations in Examples 1 and 2 with recommendation
+types shown in colors. The orange, blue and green dots indicate that only one single
+treatment is suggested, which by deﬁnition is R1, while the yellow triangles indicate
+R2, and the black squares indicate R3. The upper panel is Example 1, the lower panel
+Example 2. The left panel is ITR, and the right panel is A-ITR (c = 1.2).
+We compare diﬀerent methods by inspecting the length and location of the A-ITR
+performance interval. Recall that the A-ITR with the shortest interval, the smallest lower
+limit, and the smallest upper limit on each region is the best A-ITR. However, since R3
+is the region where all treatments are near the optimality, diﬀerent recommendations are
+expected to perform similarly. Hence we focus on regions R1 and R2 for the purpose of
+comparison.
+18
+
+
+===== ORIGINAL PDF PAGE 19 =====
+FORMULA CHECK REQUIRED: original PDF page 19.
+Near-optimal Individualized Treatment Recommendations
+From Table 1, we note that the regression-based A-ITR, though has the smallest lower
+limit in some cases, also has a longer interval in most cases, suggesting that the treatment
+could either go really well or really badly. This implies that the regression-based A-ITR
+method tends to include ineﬀective treatments into the near-optimal set. Part of the reason
+may be that the regression-based method has not accurately estimated each of the three or
+four potential outcome functions.
+Example 1
+p = 5
+p = 10
+R1(70.02%) R2(24.71%) R3(5.27%)
+All
+R1(70.02%) R2(24.71%) R3(5.27%)
+All
+Reg.
+ITR
+2.49
+2.55
+2.61
+2.51
+2.49
+2.55
+2.61
+2.51
+A-ITR
+(1.99, 3.07)
+(2.42, 3.00)
+(2.47, 2.95) 2.37
+(2.03, 3.00)
+(2.42, 2.97)
+(2.48, 2.94) 2.37
+2-step ITR
+2.34
+2.70
+2.69
+2.45
+2.74
+2.86
+2.71
+2.77
+A-ITR
+(2.17, 2.66)
+(2.58, 2.87)
+(2.6, 2.79)
+2.41
+(2.47, 3.11)
+(2.69, 3.07)
+(2.64, 2.79) 2.69
+1-step ITR
+2.15
+2.62
+2.68
+2.30
+2.43
+2.72
+2.70
+2.51
+A-ITR
+(2.04, 2.36)
+(2.53, 2.73)
+(2.61, 2.75) 2.26
+(2.21, 2.74)
+(2.6, 2.88)
+(2.62, 2.78) 2.45
+Bayes ITR
+1.92
+2.44
+2.55
+2.08
+A-ITR
+1.92
+(2.38, 2.75)
+(2.45, 2.99) 2.05
+Example 2
+p = 5
+p = 10
+R1(56.78%) R2(41.84%) R3(1.38%)
+All
+R1(56.78%) R2(41.84%) R3(1.38%)
+All
+Reg.
+ITR
+1.56
+1.61
+1.93
+1.59
+1.57
+1.62
+1.94
+1.59
+A-ITR
+(1.15, 1.99)
+(1.24, 2.02)
+(1.80, 2.07) 1.46
+(1.19, 1.95)
+(1.27, 1.98)
+(1.81, 2.08) 1.47
+2-step ITR
+1.29
+1.32
+1.93
+1.32
+1.47
+1.45
+1.95
+1.47
+A-ITR
+(1.18, 1.52)
+(1.23, 1.50)
+(1.85, 2.04) 1.30
+(1.29, 1.79)
+(1.31, 1.75)
+(1.86, 2.06) 1.46
+1-step ITR
+1.29
+1.32
+1.93
+1.31
+1.42
+1.42
+1.95
+1.43
+A-ITR
+(1.18, 1.48)
+(1.24, 1.44)
+(1.85, 2.00) 1.28
+(1.25, 1.67)
+(1.29, 1.62)
+(1.86, 2.03) 1.39
+Bayes ITR
+1.13
+1.25
+1.87
+1.19
+A-ITR
+1.13
+(1.15, 1.45)
+(1.71, 2.28) 1.16
+Example 3
+p = 5
+p = 10
+R1(38.63%) R2(54.13%) R3(7.24%)
+All
+R1(38.63%) R2(54.13%) R3(7.24%)
+All
+Reg.
+ITR
+2.17
+2.74
+2.78
+2.52
+2.17
+2.75
+2.76
+2.53
+A-ITR
+(2.12, 2.92)
+(2.54, 2.89)
+(2.58, 2.92) 2.46
+(2.12, 2.87)
+(2.57, 2.89)
+(2.59, 2.91) 2.47
+2-step ITR
+2.37
+2.72
+2.75
+2.59
+2.70
+2.87
+2.76
+2.80
+A-ITR
+(2.21, 2.87)
+(2.53, 3.12)
+(2.55, 2.95) 2.51
+(2.42, 3.23)
+(2.66, 3.24)
+(2.62, 2.90) 2.71
+1-step ITR
+2.31
+2.67
+2.73
+2.54
+2.46
+2.74
+2.74
+2.63
+A-ITR
+(2.18, 2.67)
+(2.54, 2.84)
+(2.62, 2.83) 2.45
+(2.24, 2.93)
+(2.58, 2.95)
+(2.64, 2.86) 2.54
+Bayes ITR
+2.11
+2.51
+2.60
+2.36
+A-ITR
+2.11
+(2.46, 2.88)
+(2.50, 3.04) 2.30
+Table 1: Results of the simulation studies with n = 1000. In each region, the expected outcome for
+ITR and the outcome interval for A-ITR (c = 1.2) are reported. The empirical weighted
+outcome deﬁned in (13) is shown in the “All” column. Each number is averaged over 100
+replications. In each case, the best performing method is marked in bold.
+For the classiﬁcation-based A-ITRs, the lower limits are roughly the same between the
+one-step method and the two-step method; however, the one-step method has shorter inter-
+vals in most cases. This means that the one-step method is better at excluding ineﬀective
+treatment options from the recommendation than the two-step method. This is true even
+when Assumption 8 is violated (Example 3). In addition, the one-step method also has the
+smallest expected weighted outcome (shown in the “All” column). However, the perfor-
+mance of both the one-step method and the two-step method becomes worse as the sample
+19
+
+
+===== ORIGINAL PDF PAGE 20 =====
+FORMULA CHECK REQUIRED: original PDF page 20.
+Meng, Zhao, Fu, and Qiao
+size decreases (see supplementary material), or the number of covariates increases. This may
+be due to the ineﬃciency of using the inverse probability weighting in the OWL framework.
+6. Real Data Analysis
+In this section, we apply our proposed A-ITR framework to a Type 2 diabetes mellitus
+(T2DM) observational study.
+The data set contains 1139 patients.
+Every patient was
+assigned one out of four diabetes treatments, which are GLP-1 receptor agonists alone,
+long-acting insulin alone, intermediate-acting insulin alone, and insulin regimens including
+short-acting insulin. The endpoint is the change of hemoglobin A1c level before and after
+the treatment, which is denoted by ∆HbA1c.
+In practice, if the treatment works, this
+value is usually negative (meaning that the hemoglobin A1c level decreases). The smaller
+∆HbA1c is, the more eﬀective the treatment is.
+We ﬁrst preprocess the original data set. Among the 19 covariates, we exclude those
+with a large proportion of missing values and with extremely imbalanced categories. We
+then impute the rest of them using the predictive mean matching method (Van Buuren,
+2018). There are 10 covariates left after the preprocessing: gender, diabetic retinopathy,
+diabetic neuropathy, age, weight, body mass index (BMI), baseline hemoglobin A1c level,
+baseline high-density lipoprotein cholesterol (HDL), baseline low-density lipoprotein choles-
+terol (LDL), and heart disease.
+ITR
+A-ITR
+Regression
+1.071
+0.988
+(0.010)
+(0.006)
+Two-step: Linear
+0.995
+0.975
+(0.007)
+(0.006)
+Two-step: Gaussian
+0.959
+0.947
+(0.006)
+(0.005)
+One-step: Linear
+1.150
+1.033
+(0.008)
+(0.006)
+One-step: Gaussian
+0.939
+0.935
+(0.006)
+(0.007)
+Table 2: The mean 5-fold cross validated weighted outcome and its standard error (in the paren-
+thesis) over 100 replications for T2DM data. The method that yields the best result is
+marked in bold.
+For the outcome variable ∆HbA1c, we can reduce its variability by subtracting an
+estimate of its conditional mean E(∆HbA1c|x) to make the estimation of ˆf more robust (Liu
+et al., 2018; Zhou et al., 2017). Here we use the ordinary least square regression to estimate
+E(∆HbA1c|x). Denote the estimated mean function ﬁtted by regression as ˆm(x), we then
+observe that ∆HbA1c −ˆm(x) can be positive or negative.
+We perform an exponential
+transformation to make it positive, which also justiﬁes the use of ratio µj/µ(1) to determine
+the near-optimal recommendation set. Speciﬁcally, we let Y = exp ((∆HbA1c −ˆm(x))/5).
+If we further assume conditional normality for ∆HbA1c given X and treatment j, with
+mean νj(x) ≡E(∆HbA1c | X = x, A = j) and equal variance across treatments, then
+Y | (x, j) follows a log-normal distribution with mean proportional to exp(νj(x)/5). Then
+20
+
+
+===== ORIGINAL PDF PAGE 21 =====
+FORMULA CHECK REQUIRED: original PDF page 21.
+Near-optimal Individualized Treatment Recommendations
+the optimal A-ITR is,
+φ∗(x) =
+
+j | µj(x)
+µ(1)(x) =
+E (Y | X = x, A = j)
+mini E (Y | X = x, A = i) = exp(νj(x)/5)
+exp(ν(1)(x)/5) ≤c
+
+= {j | νj(x) −ν(1)(x) ≤5 log c}.
+In this study, we choose the near-optimality constant c = 1.2, so that 5 log c ≈0.9. This
+implies that the near-optimal recommendation set is constructed by including all treatments
+with conditional means ∆HbA1c within 0.9 of the optimal treatment.
+We compare the performance of the regression-based method, the two-step method, and
+the one-step method. For both classiﬁcation-based methods, we estimate the propensity
+score p(A|X) using logistic regression. Each method leads to a single-valued ITR and a
+set-valued A-ITR. In Table 2, we compare the diﬀerent recommendations using the 5-fold
+cross-validated empirical weighted outcome deﬁned in (13).
+−2
+0
+2
+4
+−4
+−3
+−2
+−1
+0
+1
+2
+3
+PC1
+PC2
+G
+G
+G
+G
+G
+G
+G
+GG
+G
+G
+G
+G
+G
+G
+G
+GG
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+GG
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+GG
+G
+G
+G
+G
+G
+G
+GG
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+GG
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+GG
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+Treatment
+GLP−1
+long
+intermediate
+short
+20
+30
+40
+50
+30
+40
+50
+60
+70
+80
+90
+BMI
+Age
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G G
+G
+G
+G
+G
+G
+G
+G
+G
+GG
+G
+G
+G
+GGG
+G
+G
+GG
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+Treatment
+GLP−1
+long
+intermediate
+short
+Figure 5: Predicted treatment(s) for patients with recommendations given by diﬀerent colors. The
+data set is projected on the ﬁrst two principal components (left panel), and two particular
+covariates, age and BMI (right panel). Concentric circles indicate multiple treatments
+recommended to the same patient.
+From Table 2, we observe that the one-step method with Gaussian kernel has the best
+weighted outcome.
+To illustrate the resultant A-ITR, we split the data into a training
+set (70%) and a test set (30%). We ﬁt the training set using the one-step method with
+Gaussian kernel and then construct the recommendation set for patients in the test set.
+In our analysis, no patient is recommended to take the intermediate-acting insulin and
+the majority of patients are recommended to choose between the short-acting insulin and
+GLP-1. Speciﬁcally, 55% of patients are recommended the short-acting insulin only, 8% are
+recommended GLP-1 only, and 24% are recommended to take either one of the two. For
+the remaining 13% of patients, they are all recommended to take the long-acting insulin,
+including 1% who are suggested to take either the long-acting insulin or GLP-1, 5% who are
+21
+
+
+===== ORIGINAL PDF PAGE 22 =====
+FORMULA CHECK REQUIRED: original PDF page 22.
+Meng, Zhao, Fu, and Qiao
+suggested to take either the long-acting insulin or the short-acting insulin, and 7% whose
+only option is the long-acting insulin. We visualize the predicted treatments in Figure 5.
+From Figure 5, we can see that age and BMI are two useful biomarkers in constructing
+the near-optimal recommendation set. In fact, by comparing the left panel and the right
+panel of Figure 5, we observe that BMI behaves like the ﬁrst principal component (PC1)
+while age behaves like the second principal component (PC2). Figure 5 suggests that for
+patients without obesity (BMI less than 30), younger patients should take the long-acting
+insulin while older patients should take GLP-1. The short-acting insulin, on the other hand,
+serves as an “universal” treatment that many patients can take as an alternative, and is
+especially eﬀective for overweighted patients.
+7. Statistical Learning Theory
+In this section, we study the convergence rate of the excess ℓ-risk in both linear learning
+and kernel learning settings. We assume the random vector Z = (X, A, Y ) follows a certain
+distribution P that satisﬁes Assumption 1. Furthermore, we make an additional assumption.
+Assumption 10 There is a constant C > 0 such that |Y/p(A|X)| ≤C holds. For simplic-
+ity, we set C = 1 through out this section.
+For f and f ′, two (k −1)-dimensional functions, and ℓ, an increasing, convex and
+Lipchitz loss function, denote
+eℓ(f, f ′) = E
+
+Y
+p(A|X)ℓ(⟨WA, f⟩)
+
+−E
+
+Y
+p(A|X)ℓ(⟨WA, f ′⟩)
+
+.
+We call eℓ(f, f ∗) the excess ℓ-risk of f if f ∗is optimal within a certain function space F.
+7.1 Linear Learning
+We ﬁrst consider the linear function space, that is, we assume f = (f1, . . . , fk−1)T with
+fj(x) = xT βj for j = 1, . . . , k −1. For simplicity, we assume each covariate is bounded by
+[0, 1].
+Assumption 11 X ∈X = [0, 1]p.
+Now consider the following function space,
+F(p, s) = {f = (f1, . . . , fk−1)T ; fj(x) = xT βj, j = 1, . . . , k −1, J(f) ≤s},
+where J(f) = Pk−1
+j=1 ∥βj∥2
+2 = Pk−1
+j=1
+Pp
+l=1 β2
+lj. Let F(p) = ∪0≤s<∞F(p, s). Deﬁne
+f (p) = argmin
+f∈F(p)
+E
+
+Y
+p(A|X)ℓ(⟨WA, f(X)⟩)
+
+,
+f (p,s) = argmin
+f∈F(p,s)
+E
+
+Y
+p(A|X)ℓ(⟨WA, f(X)⟩)
+
+,
+and
+ˆf = argmin
+f∈F(p,s)
+1
+n
+n
+X
+i=1
+yi
+p(ai|xi)ℓ(⟨Wai, f(xi)⟩).
+22
+
+
+===== ORIGINAL PDF PAGE 23 =====
+FORMULA CHECK REQUIRED: original PDF page 23.
+Near-optimal Individualized Treatment Recommendations
+Theorem 12 gives the convergence rate for the excess ℓ-risk eℓ( ˆf, f (p)), where p = pn, s = sn
+can grow with n as n →∞.
+Theorem 12 Let τn = (n−1 log pn)1/2 →0 as n →∞.
+For linear learning, suppose
+Assumptions 1, 8, 10, and 11 hold. We have
+eℓ( ˆf, f (pn)) = O
+
+max(c(pnsn)1/2τn log τ −1
+n , δn)
+
+,
+almost surely under P, where δn = eℓ(f (pn,sn), f (pn)).
+In Theorem 12, δn stands for the approximation error between the optimal f in F(pn, sn)
+and the optimal f in F(pn). So if sn →∞, δn converges to 0. On the other hand, the
+ﬁrst term O
+ c(pnsn)1/2τn log τ −1
+n
+
+is the estimation error between ˆf and f (pn,sn), and as
+we increase sn, it becomes larger. The optimal tuning parameter sn is then chosen such
+that c(pnsn)1/2τn log τ −1
+n
+∼δn.
+In Theorem 12 we may allow sn →∞with an appropriately chosen rate. The reason
+is that when we include diverging number of covariates, i.e., p →∞, f (p) can become
+more complicated, and thus we need a larger sn to accommodate this change. However, in
+practice it may not be necessary since the true model usually depends on a ﬁnite number of
+covariates. So we could simplify Theorem 12 if we make the assumption that there is a ﬁnite
+s∗such that f (p) ∈F(p, s∗) for all p. For example, suppose f∗
+j (x) = f(p)
+j
+(x) = Pm
+l=1 xlβ∗
+lj
+for j = 1, . . . , k −1 and all p = m, . . . , ∞. Then we can choose s∗= Pk−1
+j=1
+Pm
+l=1 |β∗
+lj|2.
+Corollary 13 Suppose f ∗deﬁned in (6) only depends on ﬁnite many covariates, and that
+Assumptions 1, 8, 10, and 11 hold. We have
+eℓ( ˆf, f ∗) = O
+
+cp1/2
+n τn log τ −1
+n
+
+= O
+
+c(n−1pn log pn)1/2 log(n(log pn)−1)
+
+,
+almost surely under P.
+The convergence of excess ℓ-risk eℓ( ˆf, f ∗) in Corollary 13 requires that pn = o(n).
+Particularly, when pn grows no faster than n1−r, where 0 < r < 1, it can be veriﬁed that
+the error rate is at an order of no greater than n−r/2(log n)3/2. This result is consistent
+with most of the classical asymptotic theory that the dimension of covariates should not be
+greater than the number of observations. Furthermore, we observe that if pn = O(1), then
+eℓ( ˆf, f ∗) = O(n−1/2 log n), which is almost O(n−1/2).
+7.2 Kernel Learning
+Next we discuss the convergence rate of excess ℓ-risk for kernel learning. We denote f =
+(f1, . . . , fk−1)T to be a function in a reproducing kernel Hilbert space (RKHS) H with kernel
+function K(·, ·). Then by the RKHS theory, we can write fj(x) = Pn
+i=1 K(xi, x)αij + α0j
+for j = 1, . . . , k −1. To develop the theory for the proposed methods, we still need one
+more assumption.
+Assumption 14 Suppose H is a separable RKHS equipped with kernel function K(·, ·).
+There exists a positive number B, such that K(x, x′) ≤B for any x, x′ ∈X.
+23
+
+
+===== ORIGINAL PDF PAGE 24 =====
+FORMULA CHECK REQUIRED: original PDF page 24.
+Meng, Zhao, Fu, and Qiao
+Assumption 14 states that the RKHS is separable and the kernel function is bounded.
+This is true for many commonly used kernel functions.
+For example, for the Gaussian
+kernel, we may take B = 1. We deﬁne the function space as
+F(n, s) = {f = (f1, . . . , fk−1)T | fj(x) =
+n
+X
+i=1
+K(xi, x)αij + α0j, j = 1, . . . , k −1, J(f) ≤s},
+where J(f) = Pk−1
+j=1 αT
+j Kαj +Pk−1
+j=1 α2
+0j and K is the gram matrix. Recall we have included
+intercepts in the penalty for simplicity. Let F(∞) = limn→∞∪0≤s<∞F(n, s), and deﬁne
+f (∞) = argmin
+f∈F(∞)
+E
+
+Y
+p(A|X)ℓ(⟨WA, f(X)⟩)
+
+,
+f (n,s) = argmin
+f∈F(n,s)
+E
+
+Y
+p(A|X)ℓ(⟨WA, f(X)⟩)
+
+,
+and
+ˆf = argmin
+f∈F(n,s)
+1
+n
+n
+X
+i=1
+yi
+p(ai|xi)ℓ(⟨Wai, f(xi)⟩),
+The following theorem gives the convergence rate of eℓ( ˆf, f (∞)) when s = sn grows with n.
+Theorem 15 For RKHS learning, suppose Assumptions 1, 8, 10, and 14 hold. We have
+eℓ( ˆf, f (∞)) = O
+
+max(cB(sn/n)1/2 log n, δn)
+
+,
+almost surely under P, where δn = eℓ(f (n,sn), f (∞)).
+Similar to the linear case, there is a trade-oﬀbetween the approximation error δn and
+the estimation error O(cB(sn/n)1/2 log n) in Theorem 15, and the optimal tuning parameter
+sn is determined roughly when cB(sn/n)1/2 log n ∼δn.
+Compared to Theorem 12, the excess ℓ-risk for RKHS learning seems to yield a faster
+rate.
+However, this is not always truly the case due to Assumption 14, which requires
+a bounded kernel function, and implies a restriction on the number of covariates p. For
+example, for linear kernel we have K(x, x′) = xT x′ ≤p under Assumption 11. For As-
+sumption 14 to be true, we have to let p = O(1). In this case both convergence rates are
+eℓ( ˆf, f (p)) = O((sn/n)1/2 log n); that of the kernel learning is no faster than that of the
+linear learning. In general, to obtain a faster rate than that of the linear learning, we need
+a kernel function that does not increase in p, such as the Gaussian kernel.
+Note that the approximation error δn converges to 0 as n increases, and both the con-
+vergence rate of δn and that of the resulting eℓ( ˆf, f ∗) depend on the choice of the ker-
+nel. To illustrate the magnitude of δn and its impact on the excess risk, consider a bi-
+nary example where X ∼Unif(0, 1) and f∗(x) = (1 + x)2. With the polynomial kernel
+of degree 2 we have f(∞) = f∗and B = maxx,x′(1 + xx′)2 = 2.
+Given a training set
+{x1, . . . , xn}, let x(n) be the largest order statistic and deﬁne f(n)(x) =
+ 1 + xx(n)
+2. It can
+be shown that for any sn ≥1, f(n) ⊆F(n, sn) thus δn = eℓ(f(n,sn), f(∞)) ≤eℓ(f(n), f(∞)) ≤
+cE∥f(n) −f(∞)∥2. Note that the diﬀerence between f(n) and f(∞) is maximized at 1, so
+24
+
+
+===== ORIGINAL PDF PAGE 25 =====
+FORMULA CHECK REQUIRED: original PDF page 25.
+Near-optimal Individualized Treatment Recommendations
+δn ≤cE|f(n)(1) −f(∞)(1)| = cE
+
+3 −2x(n) −x2
+(n)
+
+. Because the density function of x(n) is
+nxn−11(0,1), we have δn ≤c
+R 1
+0 (3 −2x −x2)nxn−1dx =
+2c(2n+3)
+(n+1)(n+2). Hence in this example,
+the order of δn is at most O(n−1), thus eℓ( ˆf, f∗) = eℓ( ˆf, f(∞)) = O(n−1/2 log n).
+8. Conclusion and Discussions
+In this work, we propose a new individualized treatment recommendation framework, named
+A-ITR, that has the capacity to recommend to patients near-optimal treatment options in
+terms of their clinical outcomes. By adopting the A-ITR, patients have the opportunity to
+choose the treatment options tailored for their diﬀerent ﬁnancial situations, personal prefer-
+ences, and lifestyle choices. To estimate the optimal A-ITR, we proposed two classiﬁcation-
+based methods based on the OWL framework. We also provide a new evaluation criterion
+suitable for A-ITRs, namely the weighted expected outcome, deﬁned in (12). The sim-
+ulation study shows the usefulness of this new criterion in parameter tuning and model
+selection.
+The proposed methods may be subject to misuse when caution is not exercised with
+regard to the choice of the near-optimality constant c. Typically, c is chosen based on the
+physicians’ experience on what deﬁnes near optimality for a particular outcome. When
+possible, the choice could be made more objective by using a measure of the variability of
+the outcomes for the top treatments. Lastly, recommendations from a variety of c values
+could be presented to the patients for a ﬁnal selection, as long as any possible sacriﬁce of
+the outcome can be clearly explained to the patients.
+There are several possible directions for future works. Firstly, the current A-ITR estima-
+tion is based on the OWL framework, which may be sensitive to the estimated propensity
+score. In particular, the OWL estimator is known to suﬀer a large variance in practice
+(Zhou et al., 2017). To address this issue, one may consider applying the recently proposed
+augmented OWL framework (Zhao et al., 2019; Huang et al., 2019) to improve the ﬁnite
+sample performance. These methods typically have a double robustness property so that
+the eﬃciency of the estimator can be further improved. Secondly, when applying the A-ITR
+framework in practice, it may be desirable to adjust c for diﬀerent needs or preferences. A
+natural generalization of the method is to incorporate the patients’ preferences on multiple
+outcomes into the framework. For example, we can consider A-ITRs with an additional
+competing outcome as a secondary endpoint (Laber et al., 2014), or A-ITR with additional
+safety endpoints formulated as constraints (Wang et al., 2018). Thirdly, besides the kernel
+method, we can consider other learning algorithms to estimate ˆf within the A-ITR frame-
+work. Finally, the current method assumes the outcome Y is continuous. We can consider
+nontrivial extensions to other types of outcome such as count outcomes, survival outcomes
+(Zhao et al., 2014; Qi et al., 2019) or dichotomous outcomes (Qi et al., 2019; Klausch et al.,
+2018).
+Acknowledgments
+The authors would like to thank the action editor Professor Xiaotong Shen and two reviewers
+for their thoughtful and constructive comments, which greatly improve the quality and
+25
+
+
+===== ORIGINAL PDF PAGE 26 =====
+FORMULA CHECK REQUIRED: original PDF page 26.
+Meng, Zhao, Fu, and Qiao
+the readability of this paper. Ying-Qi Zhao’s work was partially supported by National
+Institutes of Health (R01DK108073).
+References
+Peter L Bartlett and Marten H Wegkamp. Classiﬁcation with a reject option using a hinge
+loss. Journal of Machine Learning Research, 9(Aug):1823–1840, 2008.
+Stephen Boyd, Neal Parikh, Eric Chu, Borja Peleato, Jonathan Eckstein, et al. Distributed
+optimization and statistical learning via the alternating direction method of multipliers.
+Foundations and Trends R⃝in Machine learning, 3(1):1–122, 2011.
+Jingxiang Chen, Haoda Fu, Xuanyao He, Michael R Kosorok, and Yufeng Liu. Estimating
+individualized treatment rules for ordinal treatments. Biometrics, 74(3):924–933, 2018.
+C Chow. On optimum recognition error and reject tradeoﬀ. IEEE Transactions on infor-
+mation theory, 16(1):41–46, 1970.
+Yifan Cui, Ruoqing Zhu, Michael Kosorok, et al. Tree based weighted learning for estimating
+individualized treatment rules with censored data. Electronic journal of statistics, 11(2):
+3927–3953, 2017.
+Kevin Doubleday, Hua Zhou, Haoda Fu, and Jin Zhou. An algorithm for generating indi-
+vidualized treatment decision trees and random forests. Journal of Computational and
+Graphical Statistics, 27(4):849–860, 2018.
+Glenn M Fung and Olvi L Mangasarian. Multicategory proximal support vector machine
+classiﬁers. Machine learning, 59(1-2):77–97, 2005.
+T. Hastie, R. Tibshirani, and J.H. Friedman. The Elements of Statistical Learning: Data
+Mining, Inference, and Prediction. Springer series in statistics. Springer, 2009. ISBN
+9780387848846. URL https://books.google.com/books?id=eBSgoAEACAAJ.
+Radu Herbei and Marten H Wegkamp. Classiﬁcation with reject option. Canadian Journal
+of Statistics, 34(4):709–721, 2006.
+Thomas Hofmann, Bernhard Sch¨olkopf, and Alexander J Smola. Kernel methods in machine
+learning. The annals of statistics, pages 1171–1220, 2008.
+Xinyang Huang, Yair Goldberg, and Jin Xu. Multicategory individualized treatment regime
+using outcome weighted learning. Biometrics, 75(4):1216–1227, 2019.
+Thomas R Insel. Translating scientiﬁc opportunity into public health impact: a strategic
+plan for research on mental illness. Archives of general psychiatry, 66(2):128–133, 2009.
+Nathan Kallus.
+Learning to personalize from observational data.
+arXiv preprint
+arXiv:1608.08925, 2016.
+Thomas Klausch, Peter van de Ven, Tim van de Brug, Ruud H Brakenhoﬀ, Mark A van de
+Wiel, and Johannes Berkhof. Estimating bayesian optimal treatment regimes for dichoto-
+mous outcomes using observational data. arXiv preprint arXiv:1809.06679, 2018.
+26
+
+
+===== ORIGINAL PDF PAGE 27 =====
+FORMULA CHECK REQUIRED: original PDF page 27.
+Near-optimal Individualized Treatment Recommendations
+EB Laber and YQ Zhao.
+Tree-based methods for individualized treatment regimes.
+Biometrika, 102(3):501–514, 2015.
+Eric B Laber, Daniel J Lizotte, and Bradley Ferguson.
+Set-valued dynamic treatment
+regimes for competing outcomes. Biometrics, 70(1):53–61, 2014.
+LJ Lesko. Personalized medicine: elusive dream or imminent reality? Clinical Pharmacology
+& Therapeutics, 81(6):807–816, 2007.
+Ying Liu, Yuanjia Wang, Michael R Kosorok, Yingqi Zhao, and Donglin Zeng. Augmented
+outcome-weighted learning for estimating optimal dynamic treatment regimens. Statistics
+in medicine, 37(26):3776–3788, 2018.
+Daniel J Lizotte and Eric B Laber. Multi-objective markov decision processes for data-
+driven decision support. The Journal of Machine Learning Research, 17(1):7378–7405,
+2016.
+Zhengling Qi, Dacheng Liu, Haoda Fu, and Yufeng Liu. Multi-armed angle-based direct
+learning for estimating optimal individualized treatment rules with various outcomes.
+Journal of the American Statistical Association, pages 1–33, 2019.
+Min Qian and Susan A Murphy. Performance guarantees for individualized treatment rules.
+Annals of statistics, 39(2):1180, 2011.
+James M Robins. Optimal structural nested models for optimal sequential decisions. In
+Proceedings of the second seattle Symposium in Biostatistics, pages 189–326. Springer,
+2004.
+Phillip J Schulte, Anastasios A Tsiatis, Eric B Laber, and Marie Davidian. Q-and a-learning
+methods for estimating optimal dynamic treatment regimes. Statistical science: a review
+journal of the Institute of Mathematical Statistics, 29(4):640, 2014.
+Ingo Steinwart, Clint Scovel, et al. Fast rates for support vector machines using gaussian
+kernels. The Annals of Statistics, 35(2):575–607, 2007.
+Stef Van Buuren. Flexible imputation of missing data. Chapman and Hall/CRC, 2018.
+Yuanjia Wang, Haoda Fu, and Donglin Zeng. Learning optimal personalized treatment
+rules in consideration of beneﬁt and risk: with an application to treating type 2 diabetes
+patients with insulin therapies. Journal of the American Statistical Association, 113(521):
+1–13, 2018.
+Peng Wu, Donglin Zeng, and Yuanjia Wang. Matched learning for optimizing individualized
+treatment strategies using electronic health records. Journal of the American Statistical
+Association, pages 1–23, 2019.
+Ming Yuan. Outcome weighted learning with a reject option. In Adaptive Treatment Strate-
+gies in Practice: Planning Trials and Analyzing Data for Personalized Medicine, chap-
+ter 14, pages 239–248. SIAM, 2015.
+27
+
+
+===== ORIGINAL PDF PAGE 28 =====
+FORMULA CHECK REQUIRED: original PDF page 28.
+Meng, Zhao, Fu, and Qiao
+Ming Yuan and Marten Wegkamp.
+Classiﬁcation methods with reject option based on
+convex risk minimization. Journal of Machine Learning Research, 11(Jan):111–130, 2010.
+Baqun Zhang, Anastasios A Tsiatis, Eric B Laber, and Marie Davidian. A robust method
+for estimating optimal treatment regimes. Biometrics, 68(4):1010–1018, 2012.
+C. Zhang, J. Chen, H. Fu, X. He, Y. Zhao, and Y. Liu. Multicategory outcome weighted
+margin-based learning for estimating individualized treatment rules. Statistica sinica,
+2018a.
+Chong Zhang and Yufeng Liu.
+Multicategory angle-based large-margin classiﬁcation.
+Biometrika, 101(3):625–640, 2014.
+Chong Zhang, Yufeng Liu, and Yichao Wu. On quantile regression in reproducing ker-
+nel hilbert spaces with the data sparsity constraint. The Journal of Machine Learning
+Research, 17(1):1374–1418, 2016.
+Chong Zhang, Wenbo Wang, and Xingye Qiao. On reject and reﬁne options in multicategory
+classiﬁcation. Journal of the American Statistical Association, 113(522):730–745, 2018b.
+Ying-Qi Zhao, Donglin Zeng, Eric B Laber, Rui Song, Ming Yuan, and Michael Rene
+Kosorok. Doubly robust learning for estimating individualized treatment with censored
+data. Biometrika, 102(1):151–168, 2014.
+Ying-Qi Zhao, Eric B Laber, Yang Ning, Sumona Saha, and Bruce E Sands. Eﬃcient aug-
+mentation and relaxation learning for individualized treatment rules using observational
+data. Journal of Machine Learning Research, 20(48):1–23, 2019.
+Yingqi Zhao, Donglin Zeng, A John Rush, and Michael R Kosorok. Estimating individual-
+ized treatment rules using outcome weighted learning. Journal of the American Statistical
+Association, 107(499):1106–1118, 2012.
+Xin Zhou and Michael R Kosorok. Causal nearest neighbor rules for optimal treatment
+regimes. arXiv preprint arXiv:1711.08451, 2017.
+Xin Zhou, Nicole Mayer-Hamblett, Umer Khan, and Michael R Kosorok. Residual weighted
+learning for estimating individualized treatment rules. Journal of the American Statistical
+Association, 112(517):169–187, 2017.
+Ruoqing Zhu, Ying-Qi Zhao, Guanhua Chen, Shuangge Ma, and Hongyu Zhao. Greedy
+outcome weighted tree learning of optimal personalized treatment rules. Biometrics, 73
+(2):391–400, 2017.
+28
+

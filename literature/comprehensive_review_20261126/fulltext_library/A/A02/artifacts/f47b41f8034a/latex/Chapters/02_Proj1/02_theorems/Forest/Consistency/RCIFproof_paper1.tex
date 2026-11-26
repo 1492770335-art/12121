@@ -1,0 +1,230 @@
+\begin{comment}
+\documentclass[12pt]{article}
+\input{header} % Include the header file
+\input{header2}
+%\begin{document}
+\textbf{Single Stage Random Cumulative Incidence Forest}
+\end{comment}
+
+{ %temporary command space
+\newcommand{\shat}{\survnhat\argtleft}
+\newcommand{\strue}{\truehsurv\argtleft}
+\newcommand{\kdnj}{\kernel\argH d\Nj\argt}
+\newcommand{\knj}{\kernel\argH \Nj\argt}
+\newcommand{\ky}{\kernel\argH \atrisk \argt}
+\newcommand{\tmpone}{\strue
+\frac{\PnP \kdnj}{\Pn \ky}}
+
+%("next" part)
+\newcommand{\rn}{r_n}
+%\newcommand{\sqrtn}{\sqrt{n}}
+\newcommand{\thetanHAT}{\widehat{\theta}_n}
+\newcommand{\truetheta}{\theta_0}
+\newcommand{\fthat}{f(\thetanHAT)}
+\newcommand{\fttrue}{f(\truetheta)}
+\newcommand{\thetadiff}{(\thetanHAT - \truetheta)}
+\newcommand{\fdot}{\dot{f}_{\truetheta}}
+\newcommand{\fdotlong}{\dot{f}_{\truetheta + t(\thetanHAT-\truetheta)}}
+\begin{proof}[Proof of Theorem \ifnum\jasa=1 3\else \ref{rcif_consistency}\fi]
+
+\newcommand{\fracPn}{\frac{\PnkH d\Nj\argu}{\PnkH \atrisk\argu}}
+\newcommand{\frachPn}{\frac{\PnkH d\Nj^\histlower\argu}{\PnkH \atrisk\argu}}
+
+Our estimator is 
+\begin{align*}
+\AJhat\argtgh=\intzerotot \survnhhat\arguleft \frachPn.
+\end{align*}
+
+For simplicity, we drop the $\histlower$ superscript for any survival function when it does not cause confusion (i.e., $\survnhhat \equiv \Snhat$), but keep in mind that the survival functions in this proof use both arguments $t$ and $\histlower$, since the RCIF is built based on $\{\hist_{i}, \delta_{i}, \delta_{ji}\}_{i=1}^n$. We do the same for $\Nj\argt$ such that $\Nj^\histlower\argt \equiv \Nj\argt$ where $\Nj^\histlower\argt$ are the events due to cause-$j$ at time $t$ with history $\histlower$. 
+\begin{align}
+\label{eq:rcif_est}
+\implies&\AJhat\argtgh\equiv\intzerotot \Snhat\arguleft \fracPn \notag \eqnspace
+&=\intzerotot \Snhat\arguleft \fracPn 
+- \intzerotot \truesurv\arguleft \fracPn \notag
+\eqnspace
+&\quad \quad + \intzerotot \truesurv\arguleft \fracPn \notag 
+\eqnspace
+&=\intzerotot \bigg\{ \Snhat\arguleft -\truesurv\arguleft \bigg\} \fracPn
++ \intzerotot \truesurv\arguleft \fracPn.
+\end{align}
+Let $\dLamnhHat\argt = \frac{\dLamnHATnum}{\dLamnHATdenom}$ and
+$\dLamnhTilde\argt = \frac{\dLamnTILDEnum}{\dLamnTILDEdenom}$. First, we obtain a bound for $\bigg| \intzerotot \bigg\{ \Snhat\arguleft -\truesurv\arguleft \bigg\} \dLamnhHat\argt \bigg| $ for $t \in (0,\tau]$ and $\histlower \in \history$:
+\begin{align*}
+\left| \intzerotot \bigg\{ \survnhat\arguleft - \intzerotot \truesurv\arguleft \bigg\} d\LamnhHat\argu \right| 
+\leq \bigg\{ \suptzerototauh
+\left| \survnhat\argt -\truesurv\argt \right|  \bigg\}\intzerotot d\LamnhHat\argu,
+%\arguleft is incorporated by \supzerototau
+\end{align*}
+where $\suptzerototau
+\left| \survnhat\argt -\truesurv\argt \right|$ (with $t^{-}$ incorporated into $\suptzerototau$) has the rate for Kaplan-Meier for the single-stage generalized random survival forest, and $\intzerotot d\LamnhHat\args \leq \LamnhHat(\tau)$ is uniformly bounded over $\histlower$. Then, the first term of \cref{eq:rcif_est} converges to $0$.
+
+\newcommand{\covrcif}{I\{s \ge t\} [N_0(s) - N_0(t^-)] - N_0(s)Y_0(t)}
+\newcommand{\fracPnDivided}{\frac{\PnkH d\Nj\argu/\PnkH}{\PnkH \atrisk\argu/\PnkH}}
+
+We next examine the second term of \cref{eq:rcif_est}. We can re-write it by dividing both the numerator and denominator by $\PnkH$ to get $\intzerotot \truesurv\arguleft \fracPnDivided$. We will use Lemma 12.3 from \cite{kosorok_introduction_2008}. %first verify $\{\delta_j I(X\leq t), t\ge0\}$ and $\{I(X\ge t), t\ge0\}$ are both Donsker, so that each component is Donsker. 
+Since $\{\delta_j I(X\leq t), t\ge0\}$ and $\{I(X\ge t), t\ge0\}$ are indicators and $dN_j$ is at most $1$, they are bounded Donsker. Since $\Nj$ and $\atrisk$ are bounded Donsker, $\kernel$ is bounded Donsker, and the product of bounded Donsker is Donsker, then
+\begin{align}
+\label{eq:rcif_distr_0}
+\sqrtn \, \bigmatlabel\arght \equiv 
+    \bigmatlong
+\rightsquigarrow
+\begin{pmatrix}
+    \Gone\arght\\
+    \Gtwo\arght\\
+    \Gthree\arght
+\end{pmatrix},
+\end{align}
+where $\Gone$, $\Gtwo$, and $\Gthree$ are tight Gaussian processes. 
+%We do this because we assume $\atrisk\argt$ is bounded away from $0$ but we need to show this is the case for $\kernel\argH$ in order to avoid $\Ah\argt \to 0$. 
+Thus, $\sqrtn \, \bigmatlabel\arght 
+= \Opht$, %uniform over \histlower and t
+where $\Opht$ is a quantity $R_n\arght$ such that $\suptzerototauh \abs{R_n\arght} = \Op(1)$, which implies $\bigmatlabel\arght = \Ophtsqrtn$.
+
+\begin{comment}
+$$\sqrtn 
+\begin{pmatrix}
+\Pn \kernel\argH \Nj\argt - \PkH \Nj\argt\\
+\Pn \kernel\argH \atrisk\argt - \PkH \atrisk \argt
+\end{pmatrix} 
+\rightsquigarrow
+\begin{pmatrix}
+    \Gone\arght\\
+    \Gtwo\arght
+\end{pmatrix},$$
+\end{comment}
+
+\newcommand{\invtruesurv}{\frac{1}{\truesurv\argtleft}}
+
+Since $\truesurv\argtleft$ is bounded away from $0$, we have from \cref{eq:rcif_distr_0},
+\begin{align}
+\label{eq:rcif_distr}
+    \sqrtn 
+\begin{pmatrix}
+\Pn \kernel\argH \Nj\argt - \PkH \Nj\argt\\
+ \invtruesurv \Pn \kernel\argH \atrisk\argt - \invtruesurv \PkH \atrisk \argt\\
+ \PnkH - \PkH
+\end{pmatrix} 
+\rightsquigarrow
+\begin{pmatrix}
+    \Gone\arght\\
+   \invtruesurv \Gtwo\arght \\
+   \Gthree\arght
+\end{pmatrix}.
+\end{align}
+
+\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/21May2024MeetingNotes}
+
+\begin{comment}
+%General Idea
+Then, we can use Lemma 12.3 with continuous mapping theorem. Since $\Ah\argt$ is bounded below by $0$ and the map $\frac{1}{\Ah\argt}$ is smooth, we get $\frac{\truesurv\argtleft}{\atrisk
+\argt}$. Because we have Hadamard differentiable functions, the map is continuous. We then want to use continuous mapping theorem, since each term is consistent so the continuous map is also consistent. With our assumptions, the continuous function of $\Bh\argt$ and $\Ah\argt$ gives the consistency of the random cumulative incidence forest.
+\end{comment}
+
+Let $\Ah\argu = \frac{1}{\truesurv\arguleft}\frac{\PnkH\atrisk\argu}{\PnkH}$ and $\Bh\argu = \frac{\PnkH\Nj\argu}{\PnkH}$. Let $\Bh_0\argt= \frac{\PkH \Nj\argt}{\PkH}$ and $\Ah_0\argt = \invtruesurv \frac{\PkH \atrisk \argt}{\PkH}$. Then our point of interest is $(B,A) = (\Bh_0\argt,\Ah_0\argt)$. The components of the second term of our estimator $\AJhat\argtgh$ in \cref{eq:rcif_est} can be mapped twice:
+\begin{align*}
+    (B,A) \mapsto (B,\frac{1}{A}) \mapsto \int_{[0,t]} \frac{1}{\Ah\argu}\,d\Bh \argu.
+\end{align*}
+
+Using Lemma 12.3 and Lemma 6.19 from \cite{kosorok_introduction_2008}, this composition map is Hadamard differentiable on a domain of type 
+$\{ (B,A) :
+\suph\int_{[0,\tau]} \lvert d\Bh\argt \rvert \leq M,\\
+\inf_{\substack{t \in [0, \tau] \\ \histlower \in \history}} \lvert \Ah\argt \rvert \geq \epsilon \}$ 
+for all $\histlower \in \history$ and for a given \( M < \infty \) and \( \epsilon > 0 \), at every point \((B,A)\) such that \( \frac{1}{\Ah\argt} \) has bounded variation. Thus, the map is continuous. Using Assumption \ifnum\jasa=1 9\else \ref{khbddtv}\fi, the total variation of the kernels is bounded. Since we have shown that $\Ah\argt$ and $\Bh\argt$ are consistent, and $\Ah\argt$ is bounded below by $0$ and the map $\frac{1}{\Ah\argt}$ is smooth, we apply the continuous mapping theorem so that the continuous map is also consistent.
+
+Thus,
+\begin{equation*}
+\suptzerototauh \abs{\AJhat \argtgh - \cuminc_j \argtgh} \to 0
+\end{equation*}
+in probability as $n \to \infty$.
+
+\begin{comment}
+Then by Lemma 12.3, the derivative of the composition map is given by $$ (\alpha,\beta) \mapsto (\alpha, \frac{-\beta\truesurv^2}{\atrisk_0^2}) \mapsto \int_{[0,t]} \frac{\truesurv d\alpha}{\atrisk_0} - \int_{[0,t]} \frac{\beta \truesurv dN_0}{\atrisk_0^2}$$.
+
+Then, from \cref{eq:rcif_distr} and using Theorem 2.8 in \cite{kosorok_introduction_2008}, we obtain \begin{align*}
+    \sqrtn (\AJhat - \cuminc_j) \rightsquigarrow \int_{[0,(\cdot)]} \frac{\truesurv d\Gone}{\atrisk_0} - \int_{[0,(\cdot)]} \frac{\truesurv\Gtwo dN_0}{\atrisk_0^2}
+\end{align*}
+\end{comment}
+\begin{comment}
+Next, we obtain a bound for $\dLamnhHat$ vs. $\dLamnhTilde$ for $t \in (0,\tau]$. Using Riemann-Stieltjes integration by parts, we have
+\begin{align*}
+\intzerotot \truesurv\argsleft &\left[ \dLamnhHat\args - \dLamnhTilde\args \right] \eqnspace
+&= \truesurv\argtleft \left[\LamnhHat\argt - \LamnhTilde\argt\right] - \truesurv(0) \left[ \LamnhHat(0) - \LamnhTilde(0)
+\right] 
+-\intzerotot \left[ \LamnhHat\args - \LamnhTilde\args \right] d\truesurv\args
+\eqnspace
+&= \truesurv\argtleft \left[\LamnhHat\argt - \LamnhTilde\argt\right] 
+-\intzerotot \left[ \LamnhHat\args - \LamnhTilde\args \right] d\truesurv\args
+\eqnspace
+&\leq 2 \suptzerototauh \left| \LamnhHat\argt - \LamnhTilde\argt \right|
+%this has the rate from the derivation from Lemma 12.3?
+\end{align*}
+
+For Lemma 12.3 and bounded kernels (also verifying that total variance is bounded), we have:
+\begin{align*}
+    \sqrt{n}
+\begin{pmatrix}
+\survnhhat\argt - \truehsurv\argt \\
+\Pn \kernel\argH \Nj\argt - \PkH \Nj\argt\\
+\Pn \kernel\argH \atrisk\argt - \PkH \atrisk \argt
+\end{pmatrix}
+= \sqrt{n}
+\begin{pmatrix}
+\survnhhat\argt - \truehsurv\argt \\
+\PnP \knj\\
+\PnP \ky
+\end{pmatrix}
+= \Opht %uniform over \histlower and t
+\end{align*}
+
+ Then,
+\begin{align}
+&\intzerotou \shat \dLamnHAT - \intzerotou \strue \dLamnTILDE = \intzerotou \shat\frac{\dLamnHATnum}{\dLamnHATdenom} - \intzerotou \strue \frac{\dLamnTILDEnum}{\dLamnTILDEdenom} \notag \eqnspace
+&= \intzerotou \shat \dLamnHAT - \strue \dLamnTILDE + \left[ \strue \dLamnHAT - \strue \dLamnHAT \right] \notag \eqnspace
+&= \intzerotou \left[ \shat - \strue \right] \dLamnHAT \\
+&\quad \quad \quad + \intzerotou \tmpone - \intzerotou \strue 
+\left\{\frac{\PnP \ky}{\dLamnHATdenom}\right\}\dLamnTILDE, \notag
+\end{align}
+because $\strue\dLamnHAT - \strue\dLamnTILDE$
+\begin{align*}
+%\strue\dLamnHAT &- \strue\dLamnTILDE \eqnspace
+&= \strue\left[\frac{\dLamnHATnum-\dLamnTILDEnum+\dLamnTILDEnum}{\dLamnHATdenom} - \frac{\dLamnTILDEnum}{\dLamnTILDEdenom}\right] \eqnspace 
+&= \strue\left[ 
+\frac{\PnP \kdnj}{\Pn \ky} + \frac{\dLamnTILDEnum}{\dLamnHATdenom} - \frac{\dLamnTILDEnum}{\dLamnTILDEdenom}
+\right]\eqnspace
+&= \strue\left[ 
+\frac{\PnP \kdnj}{\Pn \ky} - \frac{\dLamnTILDEnum}{\dLamnTILDEdenom} + \frac{\dLamnTILDEnum}{\dLamnHATdenom} 
+\right]\eqnspace
+&= \tmpone - \strue \left\{\frac{\dLamnTILDEnum}{\dLamnTILDEdenom} - \frac{\dLamnTILDEnum}{\dLamnHATdenom} 
+\right\}\eqnspace
+&= \tmpone - \strue 
+\dLamnTILDEnum
+\left\{\frac{\dLamnHATnum - \dLamnTILDEnum}{\dLamnTILDEdenom\dLamnHATdenom} 
+\right\}\eqnspace
+&= \tmpone - \strue 
+\left\{\frac{\PnP \ky}{\dLamnHATdenom}\right\}\frac{\dLamnTILDEnum}{\dLamnTILDEdenom} \eqnspace
+&= \tmpone - \strue 
+\left\{\frac{\PnP \ky}{\dLamnHATdenom}\right\}\dLamnTILDE
+\end{align*}
+
+%next part
+We know $\sqrtn \thetadiff = \widetilde{O}_p(1)$. Let $\fthat - \fttrue$ be a Hadamard differentiable function. We note that $\thetanHAT$ could be infinite dimensional.
+
+Using Lemma 12.3 from Kosorok 2008 Springer, we can show that
+\begin{align*}
+\sqrtn \left(\fthat - \fttrue\right) &= \fdot \left( \sqrtn \thetadiff \right) + \op \eqnspace
+&= \int^1_0 \fdotlong \left(\sqrtn \thetadiff\right)dt \eqnspace
+&=\fdot \left( \sqrtn \thetadiff \right) + \int^1_0 \left[ \fdotlong - \fdot \right]dt \sqrtn \thetadiff
+\end{align*}
+
+In other words, $\fdotlong - \fdot \to 0$ within the bounded set $\thetadiff$ when $0<t<1$. We have convergence as $\sqrtn \thetadiff = \widetilde{O}_p(1) \implies \rn \norm{\thetanHAT-\truetheta} = \Opht$.
+\end{comment}
+
+\end{proof}
+} %end command space
+
+\begin{comment}
+% Bibliography
+\bibliographystyle{apalike}
+\bibliography{00_references/Overview, 00_references/00_references_manual}
+\end{document}
+\end{comment}

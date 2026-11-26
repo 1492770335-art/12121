@@ -1,0 +1,28 @@
+In this section, we briefly review precision analytic survival and CR methods. We conclude this section with foundational survival and CR ideas that we will use through the remainder of the manuscript. 
+
+\subsection{PM methods for survival and CR outcomes}
+Our work uses tree-based estimators to construct ITRs that simultaneously account for survival outcomes and CRs. Although a variety of innovative methods have been developed for estimating ITRs with survival outcomes \citep{zhao_doubly_2015, hager_optimal_2018, wu_matched_2020, zhong_survival_2021,  schrod_bites_2022, choi_accountable_2023, bakoyannis_estimating_2023}, only a few have employed tree-based methods or accounted for multiple outcomes. 
+% tree based methods
+Forest-based methods include \cite{cui_tree_2017, zhu_tree-based_2018, doubleday_risk_2022, devaux_random_2023}.
+%\textcolor{red}{[TO DO: add a sentence of what they did. Estimate survival?]}
+Recently, \cite{cho_multi-stage_2023} introduced the generalized random survival forest, a tree-based approach to predict individualized survival curves. The predicted survival curves are then used to estimate optimal multi-stage ITRs that maximize the survival curve. Our proposed method extends the work of \cite{cho_multi-stage_2023} by incorporating multiple outcomes, i.e., OS and PC cumulative incidence. 
+
+Current precision medicine methods for CR is limited. \cite{yavuz_estimating_2018} proposed a nonparametric CIF estimator that was then used to construct optimal ITRs that minimize the CIF using SMART data. \cite{zhou_restricted_2021} focused on minimizing side effects in a CR setting by estimating the optimal ITR at a specific time point, with side effects constrained below a set threshold. In \cite{he_optimal_2021}, 
+the authors minimize the CIF to identify the optimal ITR using a doubly robust method to guard against model misspecification, which ensures consistency if either model component is correctly specified. 
+
+In terms of multiple outcomes, \cite{liu_estimation_2023} introduced a multi-stage cumulative benefit-risk framework for sequential multiple assignment randomized trials (SMARTs). By incorporating a trade-off framework, \cite{liu_estimation_2023} maximized the expected benefit while simultaneously keeping the expected cumulative risk below a pre-defined threshold. This framework is not designed to address the complexities of the CR setting, where multiple failure types may occur. 
+
+Standard practices for multiple endpoints include developing composite outcomes \\\citep{Neuhauser2006, Jetsupphasuk2023} 
+or using multivariate models \citep{TeixeiraPinto2009, Wu2024}. However, composite outcomes can be difficult to interpret, especially if one component drives the overall result. An alternative approach is maximizing an utility function, a fixed summary measure of outcomes \citep{hayes2022}. Utility functions for multiple outcomes, which we call multi-utility, have been used for developing PM algorithms \citep{Butler2018, jiang_precision_2021, zitovsky2023}. However, existing methods are not designed for survival data, where censoring may occur. To our knowledge, there are no existing precision medicine methods for survival outcomes with CRs that simultaneously account for both outcomes, and there are no existing precision medicine methods for survival data that utilize a multi-utility value function.
+
+\subsection{Foundational Survival and CR ideas}
+We briefly review key concepts for survival analysis and CRs.
+%% BELOW IS ABOUT OS and CIF basic equations
+Let $T$ represent failure time and $Z$ represent the associated covariates. The survival function is the probability of not experiencing an event over time, while the hazard rate is the instantaneous risk of an event occurring at a specific time, given that the event has not occurred up to that point. The OS function is $\survfunc(t;Z) = Pr(T>t|Z) = \exp{\bigg[-\intzerotot \lambda(u;Z)du\bigg]}$, where $\lambda(t;Z)$ is the hazard function at time $t$.
+
+The CIF, or subdistribution, is the probability that a specific event has occurred by a certain time, while considering the overall risk set of individuals, including the potential occurrence of other competing events. The CIF differs from the traditional survival function, which focuses on time to first event regardless of type. Let $f_j(t)$ be the (sub)density function for the time to a cause $j$ failure, then the cause-$j$ specific hazard is defined as
+$\lambda_j(t;Z) =  d\Lambda_j(t;Z) = \frac{f_j(t;Z)}{S(t;Z)}$ \citep{kalbfleisch1980statistical}.
+A jump point exists when an individual experiences an event of interest, and the probability of this event occurring at the jump point is $d\Lambda_j(t;Z) = Pr(T=t, \epsilon = j|T \ge t; Z)$. If $t$ is a continuity point of $\Lambda_j(t;Z)$, then $d\Lambda_j(t;Z) = \lambda_j(t;Z)dt$, indicating a smooth and consistent risk over a very small time interval around $t$. 
+The CIF for cause $j$ corresponding to the external covariate as $F_j(t;Z) = Pr(T\leq t, J = j| Z) = \intzerotot \survfunc(u-|Z)d\Lambda_j(u;Z),$ where $\survfunc(t-)$ is the left-hand limit of the OS function at time $t$ and $\Lambda_j(t)$ is the (left continuous) cumulative cause $j$ specific hazard function \citep{kalbfleisch1980statistical}. 
+
+ 

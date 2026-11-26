@@ -1,0 +1,200 @@
+\begin{comment}
+\documentclass[12pt]{article}
+\input{header}
+\input{header2}
+%\begin{document}
+\end{comment}
+
+\begin{proof}[Proof of Proposition \ref{prop:ChoProp5}.] 
+
+We first show that the class of functions $\{ \estfunclabel : \survfunc \in \Theta_n, t \in [0, \tau]\}$ is Donsker. Since the components of $\estfunclabel$ are uniformly bounded Donsker classes, by Lemma 9.10 of \cite{kosorok_introduction_2008}, the class of functions is Donsker. 
+
+With Proposition \ref{prop:ChoProp6} and the class of products of bounded Donsker classes being Donsker, all of $\{ \estfunclabel \unnormdirac : \survfunc \in \Theta_n, t \in [0, \tau], \histlower \in \history \}$ and $\{ \estfunclabel \kernel : \survfunc \in \Theta_n, t \in [0, \tau], \histlower \in \history \}$ are Donsker. By Assumption \ifnum\jasa=1 5\else \ref{assump:Cho1}\fi, $\sup_{\histlower} \Pn \kernel \bowtie n^{\beta-1}$. 
+Then,
+\begin{align}
+\supStheta \norm{\esteqdiff}_\mathbb{L} &= \supStheta \norm{
+\Pn\estfunclabel\kernel - \PopP\estfunclabel\unnormdirac
+}_\mathbb{L} \notag \eqnspace
+&= \supStheta \norm{
+\Pndot \estfunclabel
+-\PopP_{\cdot\mid\kernel} \estfunclabel
++\PopP_{\cdot\mid\kernel} \estfunclabel
+- \Pd\estfunclabel
+}_\mathbb{L} \notag \eqnspace
+& \leq \bigsup \left| 
+\esteqnlong - \frac{\PopP\{\estfunclabel\kernel\}}{\PopP\{\kernel\}}
+\right| \label{A} \\
+& + \bigsup \left| 
+\frac{\PopP\{\estfunclabel\kernel\}}{\PopP\{\kernel\}} - \esteqlong
+\right| \label{B} \\
+& = o_P(1) \notag.
+\end{align}
+To see this, we show each component \cref{A} and \cref{B} are $o_P(1)$.
+
+We can break \cref{A} down further.
+\begin{align}
+\cref{A} &= \bigsup \left| \frac{\Pn\{\estfunclabel\kernel\} - \PopP\{\estfunclabel\kernel\}}{\Pn\{\kernel\}} \right| \label{A1} \tag{\ref{A}.1} \\
+&+ \bigsup \left| \PopP\{\estfunclabel\kernel\} \bigg[ \frac{1}{\Pn\kernel} - \frac{1}{\PopP\kernel}\bigg] \right|. \label{A2}  \tag{\ref{A}.2}
+\end{align}
+Because $\cref{A1} \leq \frac{O_p(n^{-1/2})}{n^{\beta-1}}$ and $\cref{A2} = \frac{\PopP\{\estfunclabel\kernel\}}{\PopP\kernel} \frac{\PnP\kernel}{\Pn\kernel} \leq \frac{O_P(n^{-1/2})}{n^{\beta-1}}$, we obtain $\ref{A} = o_P(1)$.
+
+We now show \cref{B} $= o_P(1)$. We denote $\survfunc\argtgkh$ as shorthand for $\survfunc(t\mid H \in \mathbb{L}(\histlower))$ and note that $\survfunc\argtgkh = \survfunc \argtgh$ for all $\survfunc \in \Theta_n$. Then for all $\survfunc \in \Theta_n$, $t \in [0, \tau]$ and $\histlower \in \history$,
+\begin{align*}
+&\abs{\Pdotkh-\Pdot} \eqnspace
+&=\bigg| \truesurv\argtgkh(1-G\argtgkh) -\survfunc\argtgkh + \survfunc\argtgkh \intzerotot \frac{\truesurv\argugkh
+}{\survfunc\argugkh}dG\argugkh \eqnspace
+&\quad\quad\quad -\truesurv\argtgh(1-G\argtgh) + \survfunc\argtgh - \survfunc\argtgh \intzerotot \frac{\truesurv\argugh}{\survfunc\argugh}dG\argugh\bigg| \eqnspace
+&=\bigg| \truesurv\argtgkh(1-G\argtgkh) 
+-\truesurv\argtgh(1-G\argtgh) \eqnspace
+&\quad \quad \quad + \survfunc\argtgh \intzerotot \bigg[ \frac{\truesurv\argugkh
+}{\survfunc\argugh}dG\argugkh -\frac{\truesurv\argugh}{\survfunc\argugh}dG\argugh \bigg] \bigg| \eqnspace
+&\leq \abs{\truesurv\argtgkh(1-G\argtgkh) 
+-\truesurv\argtgh(1-G\argtgh)}\eqnspace
+&\quad \quad \quad + \bigg| \survfunc\argtgh \intzerotot \bigg[ \frac{\truesurv\argugkh
+}{\survfunc\argugh}dG\argugkh -\frac{\truesurv\argugh}{\survfunc\argugh}dG\argugh \eqnspace
+&\quad\quad\quad+ \frac{\truesurv\argugkh}{\survfunc\argugh}dG\argugh - \frac{\truesurv\argugkh}{\survfunc\argugh}dG\argugh 
+\bigg] \bigg| \eqnspace
+&\leq \abs{\truesurv\argtgkh(1-G\argtgkh) 
+-\truesurv\argtgh(1-G\argtgh)}\eqnspace
+&\quad \quad \quad + \bigg| \survfunc\argtgh \intzerotot \bigg\{ \frac{\truesurv\argugkh
+}{\survfunc\argugh} 
+\bigg[dG\argugkh -dG\argugh \bigg] \eqnspace
+&\quad \quad \quad 
++ \bigg[ \frac{\truesurv\argugkh - \truesurv\argugh}{\survfunc\argugh} \bigg] dG\argugh
+\bigg\} \bigg| \eqnspace
+&\leq \bigg|\truesurv\argtgkh(1-G\argtgkh)
+-\truesurv\argtgh(1-G\argtgh)\bigg| \label{B1}\tag{\ref{B}.1} \eqnspace
+&\quad \quad \quad + \bigg| \survfunc\argtgh \intzerotot  \frac{\truesurv\argugkh
+}{\survfunc\argugh} 
+\bigg[dG\argugkh -dG\argugh \bigg] \bigg| \label{B2}\tag{\ref{B}.2}\eqnspace
+&\quad \quad \quad + \bigg| \survfunc\argtgh \intzerotot \bigg[ \frac{\truesurv\argugkh - \truesurv\argugh}{\survfunc\argugh} \bigg] dG\argugh
+\bigg|. \label{B3}\tag{\ref{B}.3}
+\end{align*}
+
+$\cref{B1}$, $\cref{B2}$, and $\cref{B3}$ can be further bounded by using Assumption \ifnum\jasa=1 7\else \ref{assump:Cho3}\fi.
+
+\begin{align*}
+\cref{B1}
+&=\bigg|\truesurv\argtgkh(1-G\argtgkh)
+- \truesurv\argtgh(1-G\argtgh)
+\bigg| \eqnspace
+&= \bigg|\truesurv\argtgkh(1-G\argtgkh)
+- \truesurv\argtgh(1-G\argtgh) \eqnspace
+&\quad \quad \quad + \truesurv\argtgkh(1-G\argtgh)
+- \truesurv\argtgkh(1-G\argtgh)
+\bigg| \eqnspace
+&= \bigg|
+\truesurv\argtgkh \{(1-G\argtgkh) - (1-G\argtgh) \}
++ (1-G\argtgh) \{ \truesurv\argtgkh - \truesurv\argtgh \}
+\bigg| \eqnspace
+&= 
+\truesurv\argtgkh \bigg| (G\argtgh - G\argtgkh) \bigg|
++ (1-G\argtgh) \bigg| \truesurv\argtgkh - \truesurv\argtgh
+\bigg| \eqnspace
+&\leq \lipG \suphprimekernel \normh_\infty + \lipS \suphprimekernel \normh_\infty,
+\end{align*}
+where the last inequality holds because $\truesurv\argtgkh \leq 1$ and $1-G\argtgh \leq 1$.
+
+To bound \cref{B2} further, we use $dG\argu \equiv dF_C\argu = f_C\argu du$.
+\begin{align*}
+\cref{B2} 
+&=\bigg|\, \survfunc\argtgh \intzerotot  \frac{\truesurv\argugkh
+}{\survfunc\argugh} 
+\bigg[dG\argugkh -dG\argugh \bigg] \bigg| \eqnspace
+%bring absoluate value inside integral
+&\leq \intzerotot  \truesurv\argugkh \, \frac{\survfunc\argtgh
+}{\survfunc\argugh} \,
+\bigg| \, dG\argugkh -dG\argugh \, \bigg| \eqnspace
+%u\leq t so \survfunc\argu \leq \survfunc\argt so \frac{\survfunc\argtgh}{\survfunc\argugh}\leq 1 and \trusurv\argugkh \leq 1
+&\leq \intzerotot \, \bigg| \, 
+dG\argugkh - dG\argugh \bigg| = \intzerotot \bigg| \, 
+f_C\argugkh - f_C\argugh
+\bigg| \, du \eqnspace
+%by derivative of lipschitz function
+&\leq \intzerotot 2 \lipG \suphprimekernel \normh_\infty \, du \eqnspace
+&\leq 2t \, \lipG \suphprimekernel \normh_\infty,
+\end{align*}
+where the second inequality holds by bringing in the absolute value inside the integral, the third inequality holds because $\truesurv\argugkh \leq 1$ and $u\leq t \implies \survfunc\argu \leq \survfunc\argt \implies \frac{\survfunc\argtgh}{\survfunc\argugh}\leq 1$, and the fourth inequality holds by derivative of Lipschitz function.
+
+We now further bound \cref{B3}.
+\begin{align*}
+\cref{B3} &= \bigg|  \intzerotot \frac{\survfunc\argtgh}{\survfunc\argugh} 
+\bigg[ \truesurv\argugkh - \truesurv\argugh \bigg] dG\argugh
+\bigg| \eqnspace
+&\leq \sup_t \sup_\histlower \bigg| \truesurv\argtgkh - \truesurv\argtgh \bigg| \intzerotot \, dG\argugh \eqnspace
+&\leq \lipS \suphprimekernel \normh_\infty,
+\end{align*}
+where the first inequality is obtained because $\frac{\survfunc\argtgh}{\survfunc\argugh}\leq 1$ and the double supremum comes from maximizing $\truesurv - \survfunc$ to obtain a constant that can be take outside of the integral, and the second inequality is due to $\intzerotot dG\argugh = G\argtgh - G(0\mid\histlower) = G\argtgh \leq 1$. The last line drops $\sup_t$ because $\normh_\infty$ is no longer a function of $t$.
+
+As a result, we have
+$$\cref{B} = \bigsup \abs{\Pdotkh-\Pdot} \leq \{(2\tau + 1) \lipG + 2\lipS \} \suphprimekernel \normh_\infty.$$
+%Hence, the remainder of the proof is to show \begin{align} \suphprimekernel \normh_\infty = o_P(1). \end{align}
+Following similar arguments as in 
+\cite{meinshausen_quantile_2006} and \cite{cho_multi-stage_2023}, with Assumptions \ifnum\jasa=1 5, 6, 8\else \ref{assump:Cho1}, \ref{assump:Cho2}, \ref{assump:CuiAssump2}\fi, it can be shown that $\suphprimekernel \normh_\infty = o_P(1)$.
+
+\begin{comment}
+We use the arguments of Meinshausen (2006) leveraging Assumptions 1 and 2.
+
+Again, we suppress the stage index $k$ for the rest of the proof. Recall that subscripts $i$ and $j$ denote the subject and coordinate index. We often drop the subject index when the context is clear by the symbols $i$, $j$, and $k$. E.g., $H_j$ the $j$th coordinate value of historical information, a generic random variable $H$.
+
+Regarding Assumption 4, we first show that the result holds under a stronger condition than Assumption 4 and then gradually relax the condition keeping the validity of the result. Assume for a while that $H \sim U([0, 1]^d)$ where $U$ is the uniform distribution followed by its support. Under this somehow more restrictive assumption that replaces Assumption 4, Lemma 2 of Meinshausen (2006) ascertains that $||L(\histlower)||_\infty = o_P(1)$ for each $\histlower \in [0, 1]^d$, where $||L(\histlower)||_\infty = \sup_{\histlower',\histlower'' \in L(\histlower)} \sup_{j=1}^{d} |\histlower'_j - \histlower''_j|$, and $\histlower = (h_1, h_2, ..., h_d)^\top$. Bounding this supremum norm is enough to bound the Euclidean norms in (C1)-(C3) by the relation, $\sup_{\histlower',\histlower'' \in L(\histlower)} \sup_{j=1}^{d} |\histlower'_j - \histlower''_j| \leq \frac{1}{d} \sup_{\histlower',\histlower'' \in L(\histlower)} ||\histlower' - \histlower''||_1$.
+
+The lemma implies that given a fixed point $\histlower$ in a unit hypercube, the dimensions of the terminal node containing $\histlower$ shrink to an arbitrarily small size in all directions. However, as pointed out by Wager & Walther (2015) in the proof of their Theorem 3, the same argument could be reused to obtain a stronger result—without additional assumptions, the dimensions of all terminal nodes shrink uniformly over $H \in [0, 1]^d$, or $\sup_{\histlower} ||L(\histlower)||_\infty = o_P(1)$.
+
+We further argue that weakening the uniformity of $H$ to some weakly dependent distribution with bounded density $f_H(\histlower) \in [\zeta^{-1}, \zeta]$ for all $\histlower \in H$ does not change the previous results. This assumption is weaker than the uniformity assumption but is yet stronger than Assumption 4, as Assumption 4 additionally allows a reduced support and discontinuity points. The bounded density guarantees that, for each coordinate $j$, the marginal distribution of $H$ is a smooth function with a slope bounded from below $\zeta^{-1}$ and from above $\zeta$. These bounds imply that as long as the probability measure of a node shrinks to zero at a certain rate, the Lebesgue measure of the node shrinks to zero at the same rate up to a constant factor ($\zeta$). The idea is described in more detail in the next paragraph.
+
+Let $c_j(\histlower)$ be the number of splits made along the $j$th coordinate for the node $L(\histlower)$, $c_0(\histlower) = \prod_{j=1}^{d} c_j(\histlower)$, $L_j(\histlower)$ be the interval of the leaf $L(\histlower)$ along the $j$th coordinate, and $\text{diam}_j(L(\histlower))$ be the Lebesgue measure of $L_j(\histlower)$. The maximum number of observations in any leaf, $\# \sup_{\histlower} L(\histlower)$, is bounded from below by $n\alpha \inf_{\histlower} c_0(\histlower)$ by the first component of Assumption 2 but should be at most $O(n\beta)$ by Assumption 1. Here, the fact that the maximum terminal node size is at best 2 times as large but is no smaller than the minimum terminal node size ($n_{\text{min}}$) was used. Thus, $\alpha \inf_{\histlower} c_0(\histlower) = O(n\beta^{-1})$. 
+
+The second component of Assumption 2 further implies the existence of a sequence $g_n$ with $g_n \to 1$ for $n \to 1$ such that
+
+\[ \text{pr} \left( \inf_{\histlower} \min_{j} c_j(\histlower) > g_n \right) \to 1 \quad \text{as} \quad n \to 1. \tag{10} \]
+
+Then we obtain
+
+\[ \sup_{\histlower} \max_{j} \frac{1}{n} \# \{ i \in 1, 2, ..., n : H_{i,j} \in L_j(\histlower) \} \leq (1 - \alpha) g_n, \tag{11} \]
+
+for some sequence $g_n$ that tends to infinity as $n \to 1$. With the fact that
+
+\[ \sup_{\histlower} \max_{j} | \hat{F}_n,j(h_j) - F_j(h_j) | = o_P(1), \]
+
+We have
+\[
+\sup_h\lVert L(\histlower) \rVert_{\infty} \leq \zeta \sup_{\histlower',\histlower'' \in L(\histlower)} \left( \sum_{j} \lvert F_j(h_j') - F_j(h_j'') \rvert \right) + 2\zeta \sup_h \max_j \lvert \hat{F}_n,j(h_j) - F_j(h_j) \rvert = o_P(1),
+\]
+where $F_j(\histlower)$ and $\hat{F}_n,j(\histlower)$ are the true and empirical distribution functions of the $j$th margin of the feature, respectively. Then the desired result (8) holds.
+
+We argue that the same argument holds if the support is a subset $H$ of $[0, 1]^d$. Under this assumption, (10), (11), and (12) remain the same except that the infimums and supremums are taken over $H$, not over $[0, 1]^d$. However, the Lebesgue measures $\lVert L(\histlower) \rVert_{\infty}$ of the terminal nodes may need some attention. While the Lebesgue measures shrink arbitrarily small uniformly for all points $\histlower$ in the interior of $H$, they may not for some points lying at the boundary of $H$. For example, if $H = [0, 0.2] \cup [0.8, 1]$, then the left bound of $L(0.2)$ may become arbitrarily close to $\histlower = 0.2$, but its upper bound does not shrink below 0.5, which is the midpoint of 0.2 and 0.8. However, this large but non-support area ($L(\histlower) \cap H^C$) can be ignored as all the points in that area are not considered in the calculation of $\sup_{\histlower',\histlower'' \in H \cap L(\histlower)} \lVert \histlower' - \histlower'' \rVert_{\infty}$. Thus, result (8) still holds.
+
+We further establish the result under the existence of finitely many unbounded density points or probability mass points. First, we note that when the support along one of the coordinates has only a finite number of elements, it could be that at least one of the random-split and regular-split assumptions must be violated. For instance, when splitting is fully mature, i.e., there are already $l_j - 1$ splits along the $j$th covariate with $l_j$ many levels, no cut point is available for further splitting to achieve the $\alpha$-regularity. This lack of further splitting, in turn, violates the random-split assumption. Although in practice splitting would not be made any further after saturation, to facilitate theoretical convenience, we pretend that splits could be made further along such saturated coordinates, which is a violation of $\alpha$-regularity, but we exceptionally allow the violation of $\alpha$-regularity when inevitable. This allows $c_j$ to grow indefinitely as in the previous settings. However, despite the unbounded $c_j$, result (11) is not available due to the violation of $\alpha$-regularity. Next, we overcome this issue by using a modified empirical measure. We focus on a modified empirical measure of terminal nodes that disregards the possible probability mass point $\histlower$ residing in the node. This modified empirical measure can be easily related to Lebesgue measure because all the finitely many point masses being disregarded have zero Lebesgue measure. Since almost surely we can find $n_0$ such that for all $n \geq n_0$, there is no terminal node that contains more than one probability mass point, we assume so without loss of generality. Let $\text{HPM}_j = \{ h_j : \text{pr}(h_j) > 0, \histlower \in H \}$ denote the set of probability mass points along the $j$th coordinate. Now, by observing that, given $c_j(\histlower)$,
+\[
+\frac{1}{n} \sum_{i=1}^{n} \mathbb{I}\left( H_{i,j} \in L_j(\histlower) \right) \geq \frac{1}{n} \sum_{i=1}^{n} \mathbb{I}\left( H_{i,j} \in L_j(\histlower) \setminus H_{PM,j} \right) + (1 - \alpha) c_j (\histlower)
+\]
+we have
+\[
+\frac{1}{n} \sum_{i=1}^{n} \mathbb{I}\left( H_{i,j} \in L_j(\histlower) \right) \geq \frac{1}{n} \sum_{i=1}^{n} \mathbb{I}\left( H_{i,j} \in L_j(\histlower) \setminus H_{PM,j} \right) + (1 - \alpha) c_j(\histlower).
+\]
+Since regular splitting is fulfilled in a small neighborhood of $\histlower$, with (10), we have
+\[
+\sup_h \max_j \frac{1}{n} \sum_{i=1}^{n} \mathbb{I}\left( H_{i,j} \in L_j(\histlower) \cap H^{\text{PM}}_j \right) \geq (1 - \alpha)^{g_n}.
+\]
+for some $g_n(\histlower) \to 1$ as $n \to \infty$. Observing that, for all $\histlower$ and $j$,
+\[ \text{pr}\left( H_j \in L_j(\histlower) \cap H_{PM,j} \right) - \frac{1}{n} \sum_{i=1}^{n} \mathbb{I}\left( H_{i,j} \in L_j(\histlower) \cap H_{PM,j} \right) \geq \epsilon, \]
+
+where $\epsilon = 4 \sup_h \max_j |F_n,j(h_j) - F_j(h_j)|$, we have
+\[
+\max_j \sup_h \Pr \left( H_j \in L_j(\histlower) \cap H_{PM,j} \right) - \max_j \sup_h \frac{1}{n} \sum_{i=1}^{n} \mathbb{I} \left( H_{i,j} \in L_j(\histlower), H_{i,j} \neq h_j \right) \leq 2\epsilon,
+\]
+
+and thus we have,
+\begin{align*}
+&\sup_{\histlower',\histlower'' \in H \cap L(\histlower)} \norm{\histlower' - \histlower''}_{\infty} \\
+&\quad \leq \zeta \max_j \sup_h \Pr(H_j \in L_j(\histlower) \cap H_{PM,j}) \\
+&\qquad + \zeta \max_j \sup_h \frac{1}{n} \sum_{i=1}^{n} \mathbb{I} \left( H_{i,j} \in L_j(\histlower) \cap H_{PM,j} \right) \\
+&\qquad + 2\zeta\epsilon
+\end{align*}
+Note that the first inequality is due to the lower bound $(\zeta^{-1})$ of the density, the second inequality is from (15), and the third inequality is from (13).
+\end{comment}
+
+\end{proof}
+
+%\end{document}

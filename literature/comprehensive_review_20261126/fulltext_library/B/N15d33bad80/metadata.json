@@ -1,0 +1,28 @@
+{
+  "paper_id": "N15d33bad80",
+  "category": "B",
+  "title": "Policy Learning with Α-Expected Welfare",
+  "authors": "Yanqin Fan and Yuan Qi and Gaoqian Xu",
+  "doi": "10.2139/ssrn.5263638",
+  "year": "2025",
+  "original_url": "https://doi.org/10.2139/ssrn.5263638",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "d3d5c3c2aaab1feeeea3736bcb53bdb60c8c95978cbc5256490b91908ec4d86c",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2505.00256"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/N15d33bad80/README.md",
+  "status": "local_only"
+}

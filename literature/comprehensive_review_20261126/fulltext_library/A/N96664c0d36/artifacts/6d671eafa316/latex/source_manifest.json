@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2510.07501v1",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2510.07501v1",
+  "archive_sha256": "5cd1607fc0f1861bf64a6d50da6d1e47bf5159d98d7574811fdec13aabab0ca2",
+  "files": [
+    {
+      "path": "neurips_2025.tex",
+      "bytes": 115913,
+      "sha256": "bdd736678c8a834915dfff8d15ccc6f3a4570d56ad1d4e07033610f68354098f"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

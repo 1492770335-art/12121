@@ -1,0 +1,17320 @@
+# Regret-Optimal Q-Learning with Low Cost for Single-Agent and Federated Reinforcement Learning
+
+Original PDF: [original.pdf](original.pdf). SHA256: `d76af8e426eb4796f760883bdae16d7393ac8298dcd25daa851d1c4686e87b2b`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+FORMULA CHECK REQUIRED: original PDF page 1.
+
+````text
+Regret-Optimal Q-Learning with Low Cost for
+Single-Agent and Federated Reinforcement Learning
+Haochen Zhang1,∗, Zhong Zheng1,∗, Lingzhou Xue1,†
+1Department of Statistics, The Pennsylvania State University
+{hqz5340,zvz5337,lzxue}@psu.edu
+Abstract
+Motivated by real-world settings where data collection and policy deployment—
+whether for a single agent or across multiple agents—are costly, we study the
+problem of on-policy single-agent reinforcement learning (RL) and federated RL
+(FRL) with a focus on minimizing burn-in costs (the sample sizes needed to reach
+near-optimal regret) and policy switching or communication costs. In parallel
+finite-horizon episodic Markov Decision Processes (MDPs) with S states and A
+actions, existing methods either require superlinear burn-in costs in S and A or
+fail to achieve logarithmic switching or communication costs. We propose two
+novel model-free RL algorithms—Q-EarlySettled-LowCost and FedQ-EarlySettled-
+LowCost—that are the first in the literature to simultaneously achieve: (i) the best
+near-optimal regret among all known model-free RL or FRL algorithms, (ii) low
+burn-in cost that scales linearly with S and A, and (iii) logarithmic policy switching
+cost for single-agent RL or communication cost for FRL. Additionally, we establish
+gap-dependent theoretical guarantees for both regret and switching/communication
+costs, improving or matching the best-known gap-dependent bounds.
+1
+Introduction
+Reinforcement Learning (RL) [78] is a subfield of machine learning focused on sequential decision-
+making. Often modeled as a Markov Decision Process (MDP), RL tries to obtain an optimal policy
+through sequential interactions with the environment. It finds applications in various fields, such as
+games [73, 74, 75, 82], robotics [32, 45], and autonomous driving [101]. We assume the presence
+of a central server and M local agents in the system. Each agent interacts independently with an
+episodic MDP consisting of S states, A actions, and H steps per episode.
+In this paper, we focus on model-free online RL and federated RL for tabular episodic Markov
+Decision Processes (MDPs) with inhomogeneous transition kernels, consisting of S states, A actions,
+and H steps per episode. It is known that the regret information-theoretic lower bound for any
+tabular MDP and any learning algorithm is Ω(
+√
+H2SAT), where T denotes the total number of
+steps [37]. The model-based algorithm UCBVI [9] first reaches this lower bound up to a logarithmic
+factor. Model-free algorithms—commonly called Q-learning—are widely used in practice due to
+their simplicity of implementation and lower memory requirements [37]. Specifically, model-based
+methods typically require memory that scales quadratically with the number of states S for storing
+the estimated transition kernel. Model-free methods require memory that only scales linearly with S
+but generally face greater challenges in achieving comparable regret.
+[37] proposed the first two model-free algorithms with theoretical guarantees: both attaining subopti-
+mal regrets compared with the information-theoretic lower bound. [10] modified their algorithms
+∗Equal Contribution.
+†Corresponding Author.
+39th Conference on Neural Information Processing Systems (NeurIPS 2025).
+arXiv:2506.04626v2  [stat.ML]  10 Mar 2026
+
+````
+
+## PDF page 2
+
+FORMULA CHECK REQUIRED: original PDF page 2.
+
+````text
+and further reduced the number of policy updates, also known as the switching cost, to a logarithmic
+dependency on T. Later, [111] proposed UCB-Advantage that reaches the near-optimal regret of
+˜O(
+√
+H2SAT) and a logarithmic switching cost, but it comes with a large burn-in cost: the regret
+upper bound is valid only when T ≥˜O(S6A4H28). Here, ˜O hides logarithmic factors. To mitigate
+this, [50] introduced the near-optimal Q-EarlySettled-Advantage algorithm, which significantly re-
+duces the burn-in cost to ˜O(SAH10), scaling linearly with S and A. However, this improvement
+comes at the expense of a high switching cost that scales linearly with T. Thus, UCB-Advantage and
+Q-EarlySettled-Advantage suffer notable limitations: the former requires a large burn-in cost, and the
+latter fails to achieve logarithmic switching cost. This raises the following open question:
+Is it possible that a model-free RL algorithm achieves the near-optimal regret ˜O(
+√
+H2SAT) with a
+burn-in cost that scales linearly with S, A and a logarithmic switching cost simultaneously?
+In many real-world scenarios, an individual agent faces significant limitations in data collection,
+and agents can jointly learn an optimal policy, thereby improving the sample efficiency. This
+naturally motivates the framework of Federated Reinforcement Learning (FRL) that leverages parallel
+explorations across multiple agents coordinated by a central server. FRL enables faster learning
+while preserving data privacy and maintaining low communication costs, defined as the total number
+of scalars shared among the central server and the local agents. The regret information-theoretic
+lower bound for any tabular MDP and any FRL algorithm with M agents naturally extends to
+Ω(
+√
+MH2SAT), where T denotes the average number of steps per agent. Among existing methods,
+the only model-based FRL algorithm that matches this lower bound (up to logarithmic factors) is
+Fed-UCBVI [46]. In the following, we review model-free algorithms for which the communication
+cost scales logarithmically with T. [113] proposed the first two model-free FRL algorithms with
+suboptimal regrets. [114] introduced FedQ-Advantage that attains the near-optimal regret bound of
+˜O(
+√
+MH2SAT) with a high burn-in cost of ˜O(MS3A2H12). Thus, it is natural to ask the following
+question for the federated setting:
+Is it possible that a model-free FRL algorithm attains the near-optimal regret ˜O(
+√
+MH2SAT) with
+a burn-in cost that scales linearly with S, A and a logarithmic communication cost simultaneously?
+These two questions are challenging due to several non-trivial difficulties. First, the Q-EarlySettled-
+Advantage algorithm [50] updates its policy after each episode, incurring a switching cost that scales
+linearly with T. While this algorithm demonstrates low burn-in cost in single-agent scenarios, its
+effectiveness in federated learning settings remains unknown in the literature. Second, while UCB-
+Advantage [111] and its federated extension FedQ-Advantage [114] leverage reference-advantage
+decomposition to reach near-optimal regrets, neither incorporates Lower Confidence Bounds (LCB)
+to settle the reference function like Q-EarlySettled-Advantage. Thus, their burn-in costs exhibit a
+superlinear dependence on S and A.
+To simultaneously achieve logarithmic switching/communication costs while maintaining low burn-in
+costs, an algorithm must satisfy two requirements: (1) infrequent policy updates rather than per-
+episode updates, and (2) proper incorporation of LCB methods. This creates a fundamental trade-off:
+while delayed updates reduce switching and communication costs, their combination with LCB
+methods inevitably introduces additional regret and reference function settling errors. Bounding
+them with the reference functions introduced in [50, 111] involves controlling a weighted sum of a
+sequence of random variables, where neither the weights nor the random variables adapt to the data
+generation process. As a result, standard concentration inequalities cannot be directly applied to this
+type of non-martingale sum, presenting a key challenge in extending the framework to simultaneously
+achieve low burn-in costs and logarithmic switching/communication costs. Prior techniques, such
+as the empirical process [50] that accommodates non-adaptive random variables and round-wise
+approximation methods [105, 113, 114] that handle non-adaptive weights, are insufficient when both
+forms of non-adaptiveness coexist.
+Summary of Our Contributions. We answer the two open questions affirmatively by proposing
+the FRL algorithm FedQ-EarlySettled-LowCost and its single-agent counterpart Q-EarlySettled-
+LowCost for the case when M = 1. Our main contributions are summarized as follows:
+(i) Algorithm Design: We propose the first round-based algorithm for single-agent RL that achieves
+logarithmic switching cost, advancing beyond traditional per-episode updates. For FRL, we in-
+troduce the LCB technique for the first time to attain a low burn-in cost. While the logarithmic
+2
+
+````
+
+## PDF page 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+switching/communication cost entails a trade-off that slightly increases regret, our use of a refined
+bonus term—while maintaining optimism—yields improved regret performance over Q-EarlySettled-
+Advantage [50] and FedQ-Advantage [114], the current state-of-the-art algorithms for provable
+model-free single-agent RL and FRL, respectively.
+(ii) Best Regret Performance: In both single-agent RL and FRL scenarios, our algorithms achieve
+the best-known regret bounds among existing model-free approaches. In the single-agent RL set-
+ting, Q-EarlySettled-LowCost improves upon Q-EarlySettled-Advantage—the best method in the
+literature—by a factor of log(SAT). This is a significant advancement, as logarithmic factors in
+T are known to be crucial for practical performance [68, 109]. For the FRL setting, compared
+with the existing state-of-the-art algorithm FedQ-Advantage, FedQ-EarlySettled-LowCost eliminates
+superlinear dependence on S and A. It is significant for large-scale applications such as text-based
+games [13] and recommender systems [19]. Numerical results in Section B demonstrate that our
+algorithms consistently achieve the lowest regret.
+(iii) Simultaneous Low Burn-in Costs and Logarithmic Switching/Communication Costs: Our
+algorithms achieve low burn-in costs that scale linearly with S and A, while maintaining logarithmic
+switching/communication costs. In single-agent RL, Q-EarlySettled-LowCost simultaneously (1)
+reduces the burn-in cost to ˜O(SAH10), which linearly depends on S and A, representing a significant
+improvement over the burn-in cost ˜O(S6A3H28) of UCB-Advantage; and (2) maintains a logarithmic
+switching cost that outperforms the linearly scaling cost of Q-EarlySettled-Advantage. Similarly, in
+the FRL setting, FedQ-EarlySettled-LowCost (1) reduces the burn-in cost to O(MSAH10) compared
+with O(MS3A2H12) for FedQ-Advantage; and (2) maintains a logarithmic communication cost.
+In Table 1 and Table 2, we compare Q-EarlySettled-LowCost with existing model-free single-agent
+RL algorithms, and FedQ-EarlySettled-LowCost with other model-free FRL approaches. The results
+further demonstrate that our algorithms are the first to simultaneously achieve the near-optimal regret,
+low burn-in costs, and logarithmic switching/communication costs in both single-agent RL and FRL.
+Table 1: Comparison of model-free single-agent RL algorithms.
+Algorithm (Reference)
+Near-optimal
+regret
+Logarithmic
+switching cost
+Low burn-in cost
+UCB-Hoeffding [37]
+%
+%
+%
+UCB-Bernstein [37]
+%
+%
+%
+UCB2-Hoeffding [10]
+%
+!
+%
+UCB2-Bernstein [10]
+%
+!
+%
+UCB-Advantage [111]
+!
+!
+%
+Q-EarlySettled-Advantage [50]
+!
+%
+!
+Q-EarlySettled-LowCost (this work)
+!
+!
+!
+Table 2: Comparison of model-free FRL algorithms.
+Algorithm (Reference)
+Near-optimal
+regret
+Logarithmic
+communication cost
+Low burn-in
+cost
+FedQ-Hoeffding [113]
+%
+!
+%
+FedQ-Bernstein [113]
+%
+!
+%
+FedQ-Advantage [114]
+!
+!
+%
+FedQ-EarlySettled-LowCost (this work)
+!
+!
+!
+(iv) Gap-Dependent Results: We present gap-dependent analyses in both single-agent RL and FRL
+settings for MDPs with positive suboptimality gaps [84, 102]. For the single-agent RL setting, we
+establish the first gap-dependent switching cost bound for algorithms employing LCB techniques,
+while simultaneously achieving the best gap-dependent regret matching that of Q-EarlySettled-
+Advantage [115]. In the FRL setting, our algorithm not only matches the best known communication
+cost bound of FedQ-Hoeffding [105], but also provides improved gap-dependent regret guarantees,
+advancing beyond the only existing results in [105].
+3
+
+````
+
+## PDF page 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+(v) Technical Novelty: To integrate the LCB technique with the round-based design for achieving
+simultaneous low burn-in costs and logarithmic switching/communication costs, we address the
+challenge of non-adaptiveness in controlling the weighted sum through the surrogate reference
+function used in Lemma I.3 when approximating the non-adaptive random variables. It simplifies the
+problem to the case that only the weights show non-adaptiveness, allowing us to apply round-wise
+approximations to bound the weighted sum. It facilitates the proof of the regret theoretical guarantees
+while yielding strictly improved regret bounds. Details can be found in Section C.
+2
+Background and Problem Formulation
+2.1
+Preliminaries
+Tabular Episodic Markov Decision Process (MDP). A tabular episodic MDP is denoted as M :=
+(S, A, H, P, r), where S is the set of states with |S| = S, A is the set of actions with |A| = A, H is
+the number of steps in each episode, P := {Ph}H
+h=1 is the heterogeneous transition kernel so that
+Ph(· | s, a) characterizes the distribution over the next state given the state action pair (s, a) at step h
+and r := {rh}H
+h=1 collects deterministic reward functions on S × A with each bounded by [0, 1].
+In each episode, an initial state s1 is selected arbitrarily by an adversary. At each step h ∈[H] =
+{1, 2, ..., H}, an agent observes a state sh ∈S, picks an action ah ∈A, receives the reward
+rh = rh(sh, ah) and then transits to the next state sh+1. The episode ends when an absorbing state
+sH+1 is reached. For convenience, we denote Ps,a,hf = Esh+1∼Ph(·|s,a)(f(sh+1)|sh = s, ah = a),
+1sf = f(s) and Vs,a,h(f) = Ps,a,hf 2 −(Ps,a,hf)2 for any function f : S →R and triple (s, a, h).
+Policies and Value Functions. A policy π is a collection of H functions
+
+πh : S →∆A	
+h∈[H],
+where ∆A is the set of probability distributions over A. A policy is deterministic if for any s ∈S,
+πh(s) concentrates all the probability mass on an action a ∈A. In this case, we denote πh(s) = a.
+Denote state value functions V π
+h : S →R by
+V π
+h (s) :=
+H
+X
+h′=h
+E(sh′,ah′)∼(P,π) [rh′(sh′, ah′) | sh = s]
+and state-action value functions Qπ
+h : S × A →R by
+Qπ
+h(s, a) := rh(s, a) +
+H
+X
+h′=h+1
+E(sh′,ah′)∼(P,π) [rh′(sh′, ah′) | sh = s, ah = a] .
+For tabular episodic MDP, there exists an optimal policy π⋆such that V ⋆
+h (s) := supπ V π
+h (s) =
+V π⋆
+h (s) for all (s, h) ∈S × [H] [9]. Then for any (s, a, h) ∈S × A × [H], the Bellman Equation
+and the Bellman Optimality Equation can be expressed as:
+
+
+
+V π
+h (s) = Ea′∼πh(s)[Qπ
+h(s, a′)]
+Qπ
+h(s, a) := rh(s, a) + Ps,a,hV π
+h+1
+V π
+H+1(s) = 0, ∀(s, a, h)
+and
+
+
+
+V ⋆
+h (s) = maxa′∈A Q⋆
+h(s, a′)
+Q⋆
+h(s, a) := rh(s, a) + Ps,a,hV ⋆
+h+1
+V ⋆
+H+1(s) = 0, ∀(s, a, h).
+(1)
+Suboptimality Gap. For any given MDP, we can formally define the suboptimality gap as follows.
+Definition 2.1. For any (s, a, h), the suboptimality gap is defined as ∆h(s, a) := V ⋆
+h (s) −Q⋆
+h(s, a).
+Equation (1) implies that for any (s, a, h), ∆h(s, a) ≥0. We then define the minimum gap:
+Definition 2.2. We define the minimum gap as ∆min := inf{∆h(s, a) | ∆h(s, a) > 0, ∀(s, a, h)}.
+We remark that if {∆h(s, a) | ∆h(s, a) > 0, ∀(s, a, h)} = ∅, then all actions are optimal, leading
+to a degenerate MDP. Therefore, we assume that the set is nonempty and ∆min > 0. Theorems 2.1
+and 2.2 and the non-degeneration are standard in the literature on gap-dependent analysis [76, 96, 98].
+Switching Cost. Similar to [68], the switching cost3 is defined as follows:
+Definition 2.3. The switching cost for an algorithm with U episodes is Nswitch := PU−1
+k=1 I[πu+1̸ =
+πu]. Here, πu is the implemented policy for generating the u−th episode.
+3Some works name it global switching cost and also analyzes the local switching cost defined as ˜
+Nswitch :=
+PU−1
+u=1
+P
+s,h I[πu+1
+h
+(s)̸ = πu
+h(s)]. [10, 111] proved the same cost upper bound under both definitions.
+4
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+2.2
+The Federated Reinforcement Learning (FRL) Framework
+We consider an FRL setting similar to [113, 114], where a central server coordinates M agents, each
+interacting with an independent MDP. For agent m, let Um be the number of episodes, πm,u the
+policy used in episode u, and sm,u
+1
+the initial state. The regret over ˆT = H PM
+m=1 Um total steps is
+Regret(T) =
+M
+X
+m=1
+Um
+X
+u=1
+
+V ⋆
+1 (sm,u
+1
+) −V πm,u
+1
+(sm,u
+1
+)
+
+.
+(2)
+Here, T := ˆT/M is the average total steps for M agents. When M = 1, Equation (2) also defines
+the regret for single-agent RL, where T represents the total number of steps in the learning process.
+The communication cost of an FRL algorithm is defined as the number of scalars (integers or real
+numbers) communicated between the server and agents.
+3
+Algorithm Design
+3.1
+Algorithm Details
+Now we present FedQ-EarlySettled-LowCost, our model-free FRL algorithm with M agents, along
+with its single-agent variant (when M = 1), Q-EarlySettled-LowCost. FedQ-EarlySettled-LowCost
+runs in rounds indexed by k ∈{1, 2, ..., K}, where each agent m performs nm,k episodes in
+round k (to be defined later). This formulation naturally accommodates a common form of system
+heterogeneity [52], referred to as heterogeneous exploration speed. It allows agents to explore the
+environment at different rates and generate varying numbers of episodes in each round. This type of
+heterogeneity is commonly considered in model-free FRL studies [113, 114], which is distinct from
+the environment heterogeneity considered in [46].
+For episode j in round k, define the trajectory collected by agent m as {(sm,k,j
+h
+, am,k,j
+h
+, rm,k,j
+h
+)}H
+h=1.
+Let nm,k
+h
+(s, a) denote the number of times that agent m visits (s, a) at step h in round k, nk
+h(s, a) =
+PM
+m=1 nm,k
+h
+(s, a) and N k
+h(s, a) = Pk−1
+k′=1 nk′
+h (s, a). We omit (s, a) when there is no ambiguity.
+Define V k
+h , Qk
+h, V L.k
+h
+and V R,k
+h
+as the estimated V −function, the estimated Q−function, the lower
+bound function and the reference function at step h at the beginning of round k. Specifically,
+Qk
+H+1, V k
+H+1, V L,k
+H+1, V R,k
+H+1 = 0. We also define the advantage function as V A,k
+h
+= V k
+h −V R,k
+h
+. At
+the beginning of round k, the central server maintains N k
+h, policy πk = {πk
+h}H
+h=1, and four other
+quantities for any (s, a, h): µR,k
+h (s, a), σR,k
+h (s, a), µA,k
+h (s, a) and σA,k
+h
+(s, a) (all zero-initialized when
+k = 1), which will be explained later. We then specify each component of the algorithms as follows.
+Coordinated Exploration. At the beginning of round k, the server broadcasts πk, along with
+{N k
+h(s, πk
+h(s)), V k
+h (s), V L,k
+h
+(s), V R,k
+h
+(s)}s,h to all agents. Here, Q1
+h = V 1
+h = V R,1
+h
+= H, V L,1
+h
+=
+N 1
+h = 0 for any (s, a, h) and π1 is an arbitrary deterministic policy. Each agent m will then collect
+nm,k trajectories under the policy πk.
+Event-Triggered Termination of Exploration. Similar to [113], in round k, for any agent m, at the
+end of each episode, if any (s, a, h) has been visited by ck
+h(s, a) times, then the exploration for all
+agents will be terminated. This trigger condition guarantees
+nm,k
+h
+(s, a) ≤ck
+h(s, a) := max
+
+1,
+
+N k
+h(s, a)
+MH(H + 1)
+
+, ∀(s, a, h, m)
+(3)
+and there exists at least one tuple (s, a, h, m) such that the equality holds.
+Local Aggregation. For any visited (s, a, h) with a = πk
+h(s), agent m computes the follow-
+ing six local sums over all next states of visits to (s, a, h) and send these local sums along with
+{rh(s, πk
+h(s)), nm,k
+h
+(s, πk
+h(s))}s,h to the central server at the end of round k.
+
+vm,k
+h
+, vm,k
+h,l , µm,k
+h,r , σm,k
+h,r , µm,k
+h,a , σm,k
+h,a
+
+(s, a)
+=
+nm,k
+X
+j=1
+h
+V k
+h+1, V L,k
+h+1, V R,k
+h+1, (V R,k
+h+1)2, V A,k
+h+1, (V A,k
+h+1)2i
+(sm,k,j
+h+1 ) · I
+h
+(sm,k,j
+h
+, am,k,j
+h
+) = (s, a)
+i
+. (4)
+5
+
+````
+
+## PDF page 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+Central Aggregation. After receiving the information, for any visited (s, a, h) with a = πk
+h(s), the
+central server computes nk
+h = PM
+m=1 nm,k
+h
+, N k+1
+h
+= N k
+h + nk
+h and six round-wise means:
+h
+vk
+h, vl,k
+h , µr,k
+h , σr,k
+h , µa,k
+h , σa,k
+h
+i
+(s, a) =
+M
+X
+m=1
+h
+vm,k
+h
+, vm,k
+h,l , µm,k
+h,r , σm,k
+h,r , µm,k
+h,a , σm,k
+h,a
+i
+/nk
+h(s, a). (5)
+It also updates two global means, µR,k+1
+h
+(s, a) and σR,k+1
+h
+(s, a), as
+ µR,k+1
+h
+, σR,k+1
+h
+
+(s, a) =
+h
+N k
+h ·
+ µR,k
+h , σR,k
+h
+
+(s, a) + nk
+h ·
+ µr,k
+h , σr,k
+h
+
+(s, a)
+i
+/N k+1
+h
+(s, a),
+(6)
+which is the historical mean of the reference function and the squared reference function over all next
+states of visits to (s, a, h) in the first k rounds.
+Define ηt =
+H+1
+H+t and ηt
+i = ηi
+Qt
+j=i+1(1 −ηj) for any 1 ≤i ≤t ∈N+, with η0
+0 = 1 and
+ηt
+0 = 0. We also define ηc(n1, n2) = Qn2
+t=n1(1 −ηt) for any n1 ≤n2 ∈N+ and the learning rate
+ηα = 1 −ηc(N k
+h + 1, N k+1
+h
+). Here, ηα is a simplified notation depending on (s, a, h, k). Then, for
+any visited (s, a, h) with a = πk
+h(s), the central server updates the estimated Q−function as follows:
+Qk+1
+h
+(s, a) = min
+n
+QU,k+1
+h
+(s, a), QR,k+1
+h
+(s, a), Qk
+h(s, a)
+o
+.
+(7)
+Here, for each (s, a, h), the Hoeffding-type Q−estimate QU,k+1
+h
+[37, 113] and the Reference-
+Advantage-type Q−estimate QR,k+1
+h
+[50, 111] are updated according to the following two cases:
+Case 1: N k
+h(s, a) < 2MH(H + 1) =: i0. In this case, Equation (3) implies that each agent can visit
+(s, a, h) at most once. Denote 1 ≤m1 < . . . < mnk
+h ≤M as the agent indices with nm,k
+h
+(s, a) = 1.
+The central server first updates the two global weighted means of the advantage function V A,k
+h+1 and
+the squared advantage function (V A,k
+h+1)2 over all next states of visits to (s, a, h) as:
+ µA,k+1
+h
+, σA,k+1
+h
+
+(s, a) = (1 −ηα)
+ µA,k
+h , σA,k
+h
+
+(s, a) +
+nk
+h
+X
+t=1
+η
+Nk+1
+h
+Nk
+h+t
+ µmt,k
+h,a , σmt,k
+h,a
+
+(s, a).
+(8)
+The UCB-type, LCB-type [50] and the reference-advantage-type Q−estimates are updated as follows:
+QU,k+1
+h
+(s, a) = (1 −ηα)QU,k
+h (s, a) + ηαrh(s, a) +
+nk
+h
+X
+t=1
+η
+Nk+1
+h
+Nk
+h+tvmt,k
+h
+(s, a) + Bk+1
+h
+(s, a).
+(9)
+QL,k+1
+h
+(s, a) = (1 −ηα)QL,k
+h (s, a) + ηαrh(s, a) +
+nk
+h
+X
+t=1
+η
+N k+1
+h
+Nk
+h+tvmt,k
+h,l
+(s, a) −Bk+1
+h
+(s, a).
+(10)
+QR,k+1
+h
+(s, a) = (1−ηα)QR,k
+h +ηα
+ rh+µR,k+1
+h
+
++
+nk
+h
+X
+t=1
+η
+Nk+1
+h
+N k
+h+t
+ vmt,k
+h
+−µmt,k
+h,r
+
++BR,k+1
+h
+(s, a). (11)
+Case 2: N k
+h(s, a) ≥i0. In this case, the server updates the two global weighted means as
+ µA,k+1
+h
+, σA,k+1
+h
+
+(s, a) = (1 −ηα)
+ µA,k
+h , σA,k
+h
+
+(s, a) + ηα
+ µa,k
+h , σa,k
+h
+
+(s, a).
+(12)
+Now the three Q−estimates are updated as follows:
+QU,k+1
+h
+(s, a) = (1 −ηα)QU,k
+h (s, a) + ηα
+ rh(s, a) + vk
+h(s, a)
+
++ Bk+1
+h
+(s, a).
+(13)
+QL,k+1
+h
+(s, a) = (1 −ηα)QL,k
+h (s, a) + ηα
+ rh(s, a) + vl,k
+h (s, a)
+
+−Bk+1
+h
+(s, a).
+(14)
+QR,k+1
+h
+(s, a) = (1 −ηα)QR,k
+h (s, a) + ηα
+
+rh + µR,k+1
+h
++ vk
+h −µr,k
+h
+
+(s, a) + BR,k+1
+h
+(s, a). (15)
+In both cases, the cumulative bonuses are given as:
+Bk+1
+h
+(s, a) =
+N k+1
+hX
+t=Nk
+h+1
+η
+Nk+1
+h
+t
+bt, BR,k+1
+h
+(s, a) =
+Nk+1
+hX
+t=Nk
+h+1
+η
+Nk+1
+h
+t
+bR
+h,t(s, a),
+(16)
+6
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+where bt = cb
+p
+H3ι/t for a sufficiently large constant cb and a positive constant ι determined later,
+and bR
+h,t(s, a) is computed as follows. For a sufficiently large constant cR
+b , the central server calculates
+βR,k+1
+h
+(s, a) = cR
+b
+s
+ι
+N k+1
+h
+q
+σR,k+1
+h
+−
+ µR,k+1
+h
+2 +
+r
+H
+
+σA,k+1
+h
+−
+ µA,k+1
+h
+2
+.
+Then for a sufficiently large constant cR,2
+b
+> 0 and t ∈(N k
+h, N k+1
+h
+), let bR
+h,t = βR,k
+h
++ cR,2
+b
+H2ι/t and
+bR
+h,N k+1
+h
+=
+ 1 −1/ηNk+1
+h
+
+βR,k
+h
++ βR,k+1
+h
+/ηN k+1
+h
++ cR,2
+b
+H2ι/N k+1
+h
+.
+After updating the estimated Q−function, the central server proceeds to update V k+1
+h
+(s), V L,k+1
+h
+(s),
+and πk+1
+h
+(s) for each (s, h) ∈S × [H] as follows:
+V k+1
+h
+(s) = max
+a′∈A Qk+1
+h
+(s, a′) , V L,k+1
+h
+(s) = max
+n
+max
+a′∈A QL,k+1
+h
+(s, a′) , V L,k
+h
+(s)
+o
+,
+(17)
+πk+1
+h
+(s) = arg max
+a′∈A Qk+1
+h
+(s, a′) .
+(18)
+Finally, for any state-step pair (s, h), the central server updates the reference function as V R,k+1
+h
+(s) =
+V k+1
+h
+(s) if either: (1) V k+1
+h
+(s) −V L,k+1
+h
+(s) > β, or (2) it is the first round where V k+1
+h
+(s) −
+V L,k+1
+h
+(s) ≤β for predefined β ∈(0, H]. Otherwise, the server settles the reference function
+by V R,k+1
+h
+(s) = V R,k
+h
+(s). In this case, the settlement is triggered after the condition V k+1
+h
+(s) −
+V L,k+1
+h
+(s) ≤β first holds for some round k, as guaranteed by the monotonically non-increasing
+property of V k+1
+h
+(s) −V L,k+1
+h
+(s) established in Equation (7) and Equation (17). The algorithm then
+proceeds to round k + 1. Algorithm 1 and Algorithm 2 formally present the algorithms. For reader’s
+convenience, we provide graphical illustrations and two notation tables in Section D.
+Algorithm 1 FedQ-EarlySettled-LowCost (Central Server)
+1: Input: T0 ∈N+.
+2: Initialize k = 1, QU,1
+h (s, a) = QR,1
+h (s, a) = Q1
+h(s, a) = V 1
+h (s) = V R,1
+h
+(s) = H, QL,1
+h (s, a) =
+V L,1
+h
+(s) = N 1
+h(s, a) = 0, uR,1
+h (s) = True, ∀(s, a, h) ∈S × A × [H] and an arbitrary policy π1.
+3: while PH
+h=1
+P
+s,a N k
+h(s, a) < T0 do
+4:
+Broadcast πk, {N k
+h(s, πk
+h(s))}s,h, {V k
+h (s)}s,h, {V L,k
+h
+(s)}s,h and {V R,k
+h
+(s)}s,h to all agents.
+5:
+Wait until receiving a termination signal and send the signal to all agents.
+6:
+Receive the information from clients and compute round-wise means in Equation (5).
+7:
+for any (s, a, h) ∈S × A × [H] do
+8:
+if nk
+h(s, a) = 0, then Qk+1
+h
+(s, a) ←Qk
+h(s, a)
+else Update Qk+1
+h
+(s, a) via Equation (7)
+9:
+end for
+10:
+for any (s, h) ∈S × [H] do
+11:
+Update V k+1
+h
+(s), V L,k+1
+h
+(s) and πk+1
+h
+(s) via Equation (17) and Equation (18).
+12:
+if V k+1
+h
+(s) −V L,k+1
+h
+(s) > β, then V R,k+1
+h
+(s) = V k+1
+h
+(s).
+else if uR,k
+h (s) = True, then V R,k+1
+h
+(s) = V k+1
+h
+(s), uR,k+1
+h
+(s) = False.
+end if
+13:
+end for
+14:
+k ←k + 1.
+15: end while
+3.2
+Intuition behind the Algorithm Design
+UCB and Reference-Advantage Decomposition with Refined Bonus. Similar to [50, 114], we
+adopt two techniques—upper confidence bound (UCB) exploration with the bonuses in the esti-
+mated Q−function and reference-advantage decomposition—to attain the near-optimal regret bound.
+To further improve regret performance, we refine the bonus term BR,k
+h
+used to update the esti-
+mated Q−function by removing its dependence on (N k
+h)3/4 [50, 114]. This refinement enables
+7
+
+````
+
+## PDF page 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+Algorithm 2 FedQ-EarlySettled-LowCost (Agent m in Round k)
+1: Initialize nm
+h = vm
+h = vm
+h,l = µm
+h,r = σm
+h,r = µm
+h,a = σm
+h,a = 0, ∀(s, a, h) ∈S × A × [H].
+2: Receive πk, {N k
+h(s, πk
+h(s))}s,h, {V k
+h (s)}s,h, {V L,k
+h
+(s)}s,h and {V R,k
+h
+(s)}s,h.
+3: while no termination signal from the central server do
+4:
+while nm
+h (s, a) < max
+n
+1,
+j
+N k
+h(s,a)
+MH(H+1)
+ko
+, ∀(s, a, h) ∈S × A × [H] do
+5:
+Collect a new trajectory {(sh, ah, rh)}H
+h=1 with ah = πk
+h(sh).
+6:
+For any h
+∈
+[H], nm
+h (sh, ah)
++=
+1 and (vm
+h , vm
+h,l, µm
+h,r, σm
+h,r, µm
+h,a, σm
+h,a)(sh, ah)
++=
+(V k
+h+1, V L,k
+h+1, V R,k
+h+1, (V R,k
+h+1)2, V A,k
+h+1, (V A,k
+h+1)2)(sh+1)
+7:
+end while
+8:
+Send a termination signal to the central server.
+9: end while
+10: For any (s, h) ∈S × [H] with a = πk
+h(s),
+(nm,k
+h
+, vm,k
+h
+, vm,k
+h,l , µm,k
+h,r , σm,k
+h,r , µm,k
+h,a , σm,k
+h,a )(s, a) ←(nm
+h , vm
+h , vm
+h,l, µm
+h,r, σm
+h,r, µm
+h,a, σm
+h,a)(s, a).
+11: For any (s, h) ∈S × [H], send
+
+(rh, nm,k
+h
+, vm,k
+h
+, vm,k
+h,l , µm,k
+h,r , σm,k
+h,r , µm,k
+h,a , σm,k
+h,a )(s, πk
+h(s))
+	
+.
+our algorithms to outperform both Q-EarlySettled-Advantage in the single-agent RL setting and
+FedQ-Advantage in the FRL setting.
+LCB for Early Settlement of the Reference Function. Compared with UCB-Advantage and
+FedQ-Advantage, our algorithms incorporate a Lower Confidence Bound (LCB)-type estimate QL,k
+h .
+V L,k
+h
+derived accordingly serves as a lower bound of V ⋆
+h , while V k
+h is an upper bound for V ⋆
+h since
+Qk
+h ≥Q⋆
+h by the UCB-design. To obtain an accurate reference function V R
+h , we aim to settle the
+reference function V R,k
+h
+by V k
+h when V k
+h −V ⋆
+h ≤β for the first time. Both UCB-Advantage and
+FedQ-Advantage settle the reference function at a given (s, h) after it has been visited sufficiently
+often—when the number of visits reaches a threshold N0(β). This is a rather conservative condition,
+resulting in a large burn-in cost. In contrast, the LCB technique guarantees that V ⋆
+h ∈[V L,k
+h
+, V k
+h ],
+enabling an early settlement when V k
+h −V L,k
+h
+≤β, which consequently achieves a low burn-in cost.
+Event-Triggered Termination and Infrequent Policy Updates. Our algorithms switch policies
+infrequently, as estimated Q−function and policies are updated only after each round ends due to
+condition (3). This design ensures that visits to each (s, a, h) grow at a controlled exponential rate
+across rounds, enabling logarithmic bounds on switching/communication costs.
+4
+Theoretical Guarantees
+When M = 1, the FedQ-EarlySettled-LowCost algorithm reduces to its single-agent variant, Q-
+EarlySettled-LowCost, by eliminating the central server and the agent-server communication process.
+In this section, we present the theoretical performance of our algorithms in both single-agent RL and
+FRL settings. We first set the constant ι = log(28SAT1/p), where p ∈(0, 1) is the failure rate and
+T1 is a known upper bound of the total steps ˆT as defined in (b) of Lemma F.1.
+4.1
+Worst-Case Guarantees of Q-EarlySettled-LowCost
+We now present the worst-case results for Q-EarlySettled-LowCost. It achieves the best regret among
+all model-free single-agent RL algorithms with a low burn-in cost and a logarithmic switching cost.
+Theorem 4.1. For any p ∈(0, 1), let ι0 = log(SAT/p). Then for Q-EarlySettled-LowCost
+(Algorithms 1 and 2 with M = 1 and β ∈(0, H]), with probability at least 1 −p, we have
+Regret(T) ≤O
+
+(1 + β)
+q
+H2SATι2
+0 + H6SAι2
+0/β
+
+.
+Setting β = Θ(1), when T > ˜O(SAH10), the regret bound matches the lower bound O(
+√
+H2SAT)
+up to logarithmic factors. Next, we compare our algorithm’s performance with two near-optimal
+algorithms: UCB-Advantage [111] and Q-EarlySettled-Advantage [50]. UCB-Advantage has a
+8
+
+````
+
+## PDF page 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+regret of ˜O(
+√
+H2SAT + H8S2A3/2T 1/4) and a burn-in cost of ˜O(S6A3H28), while our algorithm
+achieves a lower regret with only linear dependence on S, A and a better dependence on H, and a
+much smaller burn-in cost with only linear dependence on S, A. Compared with Q-EarlySettled-
+Advantage, our algorithm further improves the regret bound by a factor of log(SAT/p) and shows
+better regret in the numerical experiments in Section B.1 due to the refinement of the cumulative
+bonus BR,k+1
+h
+in Equation (16), and the use of the surrogate reference function in the proof.
+Theorem 4.2. Let ˜C = H2(H + 1)SA. For Q-EarlySettled-LowCost (Algorithms 1 and 2 with
+M = 1 and β ∈(0, H]), the switching cost is bounded by max{2 ˜C + 4 ˜C log(T/ ˜C), 3 ˜C}.
+When T > e
+1
+4 ˜C, our algorithm achieves a logarithmic switching cost of O(H3SA log(T/(HSA)).
+4.2
+Worst-Case Guarantees of FedQ-EarlySettled-LowCost
+We now discuss the worst-case results for FedQ-EarlySettled-LowCost. It achieves the best regret
+among all model-free FRL algorithms with a low burn-in cost and a logarithmic communication cost.
+Theorem 4.3. For any p ∈(0, 1), let ι1 = log(MSAT/p). Then for FedQ-EarlySettled-LowCost
+(Algorithms 1 and 2 with β ∈(0, H]), with probability at least 1 −p, we have
+Regret(T) ≤O
+
+(1 + β)
+q
+MH2SATι2
+1 + H6SAι2
+1
+β
++ MH5SAι2
+1
+
+.
+Section I provides a unified proof for Theorem 4.1 and Theorem 4.3. Setting β = Θ(1), when T >
+˜O(MSAH10), the result becomes ˜O(
+√
+MH2SAT), matching the lower bound with a total of MT
+steps. Compared with FedQ-Advantage [114] with a near-optimal regret bound ˜O(
+√
+MH2SAT +
+M
+1
+4 H
+11
+4 SAT
+1
+4 + MH7S2A
+3
+2 ), our method achieves lower regret with milder dependence on
+H, S, A. Furthermore, FedQ-Advantage requires ˜O(MS3A2H12) samples to reach near-optimality,
+while our method only needs ˜O(MSAH10), with a burn-in cost scaling linearly in S, A. Numerical
+experiments in Section B.2 also demonstrate that FedQ-EarlySettled-LowCost achieves the best regret
+performance among all model-free FRL algorithms.
+Proving the worst-case regret bounds in Theorems 4.1 and 4.3 is challenging due to the technical
+difficulty of double non-adaptiveness, and we overcome it by the novel use of a technical tool,
+the surrogate reference function. Please refer to Section C for more details. Next, we discuss the
+worst-case communication cost results of FedQ-EarlySettled-Advantage.
+Theorem 4.4. For FedQ-EarlySettled-LowCost (Algorithm 1 and Algorithm 2 with β ∈(0, H]), the
+number of rounds K is bounded by max{2M ˜C + 4M ˜C log(T/ ˜C), 3M ˜C}.
+Section J presents a unified proof for Theorem 4.2 and Theorem 4.4. When T > e
+1
+4 ˜C, we have
+K ≤O(MH3SA log(T)). As each round incurs O(MHS) communication cost, the total cost is
+O(M 2H4S2A log(T)), growing logarithmically with T. If agent waiting is permitted, synchroniza-
+tion in each round can be delayed until all agents satisfy the trigger condition in Equation (3), similar
+to the setting in [114] when the optimal forced synchronization is disabled. In this case, the number
+of rounds K can be bounded by max{2 ˜C + 4 ˜C log(T/ ˜C), 3M ˜C}. which is independent of M.
+4.3
+Gap-Dependent Guarantees
+This section provides gap-dependent results under both single-agent and federated settings. We define
+the maximal conditional variance Q⋆:= maxs,a,h
+
+Vs,a,h(V ⋆
+h+1)
+	
+∈[0, H2] [102]. Theorem 4.5
+establishes the best-known gap-dependent regret for model-free RL, matching that of Q-EarlySettled-
+Advantage in [115], while maintaining a logarithmic switching cost.
+Theorem 4.5. For Q-EarlySettled-LowCost (Algorithms 1 and 2 with M = 1 and β ∈(0, H]),
+E (Regret(T)) ≤O
+(Q⋆+ β2H)H3SA log(SAT)
+∆min
++ H7SA log2(SAT)
+β
+
+.
+Next, we present the gap-dependent switching cost results under the same assumptions as [105]: full
+synchronization, random initialization, and G-MDPs. We first review the initial two assumptions:
+9
+
+````
+
+## PDF page 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+(I) Full synchronization. Similar to [113], we assume that there is no latency during communications,
+and the agents and server are fully synchronized [60]. This means nm,k = nk for each agent m.
+(II) Random initializations. We assume that the initial states {sk,j,m
+1
+}k,j,m are randomly generated
+with some distribution on S, and the generation is not affected by any result in the learning process.
+Assumption (I) implies that all agents have the same exploration speed. We now introduce G-MDPs.
+Definition 4.6. A G-MDP satisfies the following two conditions:
+(a) The stationary visiting probabilities under optimal policies are unique: if both π∗,1 and π∗,2 are
+optimal policies, then we have P
+ sh = s|π∗,1
+= P
+ sh = s|π∗,2
+=: P⋆
+s,h.
+(b) Let A⋆
+h(s) = {a | a = arg maxa′ Q⋆
+h(s, a′)}. For any (s, h) ∈S × [H], if P⋆
+s,h > 0, then
+|A⋆
+h(s)| = 1, which means that the optimal action is unique.
+G-MDPs represent MDPs with generally unique optimal policies. Compared to requiring a unique
+optimal policy, G-MDPs allow the optimal actions to vary outside the support under optimal policies,
+i.e., the state-step pairs with P⋆
+s,h = 0.
+For any G-MDP, we define Cst = min{P⋆
+s,h | s ∈S, h ∈[H], P⋆
+s,h > 0}, which reflects the
+minimum visiting probability over the support of the optimal policy.
+With these assumptions, we now present a gap-dependent switching cost bound for the Q-EarlySettled-
+LowCost algorithm. This result fills a notable gap by providing the first such bound for LCB-based
+algorithms, and it matches the best-known gap-dependent switching cost guarantee of the single-agent
+FedQ-Hoeffding algorithm [105], which, however, suffers from a higher and suboptimal regret.
+Theorem 4.7. For any p ∈(0, 1), let ι0 = log( SAT
+p ). Then for Q-EarlySettled-LowCost (Algo-
+rithms 1 and 2 with M = 1 and β ∈(0, H]), under the random initialization assumption and a
+G-MDP, with probability at least 1 −p, the switching cost is bounded by
+O
+
+H3SA log
+H4SAι0
+β∆2
+min
+
++ H3S log
+ 1
+Cst
+
++ H2 log
+
+T
+HSA
+ 
+.
+Theorem 4.8 and Theorem 4.9 present gap-dependent results for FedQ-EarlySettled-LowCost.
+Theorem 4.8. For FedQ-EarlySettled-LowCost (Algorithms 1 and 2 with β ∈(0, H]), let ι2 =
+log(MSAT), then we have
+E (Regret(T)) ≤O
+(Q⋆+ β2H)H3SAι2
+∆min
++ H7SAι2
+2
+β
++ MH6SAι2
+2
+
+.
+Section K gives a unified proof for Theorem 4.5 and Theorem 4.8. Compared with the only federated
+gap-dependent regret bound O(H6SAι1/∆min + MH5SA√ι) established for FedQ-Hoeffding in
+[105], Theorem 4.8 improves the dependence on ∆min by a factor of H for the worst scenario, where
+Q⋆= Θ(H2). Furthermore, in the best scenario when the MDP is deterministic and Q⋆= 0, our
+bound scales as ˜O(∆
+−1
+3
+min ) for specific β, improving upon the linear dependency.
+Theorem 4.9. For any p ∈(0, 1), let ι1 = log( MSAT
+p
+). Then for FedQ-EarlySettled-LowCost
+(Algorithms 1 and 2 with β ∈(0, H]), under a G-MDP and the assumptions of full synchronization
+and random initialization, with probability at least 1 −p, the number of rounds K is bounded by:
+O
+
+MH3SA log (MHι1) + H3SA log
+H4SA
+β∆2
+min
+
++ H3S log
+ 1
+Cst
+
++ H2 log
+
+T
+HSA
+
+.
+Section L gives a unified proof for Theorem 4.7 and Theorem 4.9. This result matches the only
+gap-dependent upper bound on the number of communication rounds, established for FedQ-Hoeffding
+[105], while our algorithm simultaneously achieves a better and near-optimal regret.
+5
+Conclusion
+We propose two novel model-free algorithms, Q-EarlySettled-LowCost and FedQ-EarlySettled-
+LowCost, that simultaneously achieves the near-optimal regret, a low burn-in cost that scales linearly
+with S and A, and a logarithmic switching/communication cost. Technically, we combine LCB and
+UCB with reference-advantage decomposition for more efficient reference function learning.
+10
+
+````
+
+## PDF page 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+Acknowledgment
+The work of H. Zhang, Z. Zheng, and L. Xue was supported by the U.S. National Science Foundation
+under the grants DMS-1953189 and CCF-2007823 and by the U.S. National Institutes of Health
+under the grant 1R01GM152812.
+References
+[1] Alekh Agarwal, Sham Kakade, and Lin F Yang. Model-based reinforcement learning with
+a generative model is minimax optimal. In Conference on Learning Theory, pages 67–83.
+PMLR, 2020.
+[2] Mridul Agarwal, Bhargav Ganguly, and Vaneet Aggarwal. Communication efficient parallel
+reinforcement learning. In Uncertainty in Artificial Intelligence, pages 247–256. PMLR, 2021.
+[3] Shipra Agrawal and Randy Jia. Optimistic posterior sampling for reinforcement learning:
+worst-case regret bounds. Advances in Neural Information Processing Systems, 30, 2017.
+[4] Aymen Al Marjani, Aurélien Garivier, and Alexandre Proutiere. Navigating to the best policy
+in markov decision processes. In Advances in Neural Information Processing Systems, pages
+25852–25864, 2021.
+[5] Aqeel Anwar and Arijit Raychowdhury. Multi-task federated reinforcement learning with
+adversaries. arXiv preprint arXiv:2103.06473, 2021.
+[6] Mahmoud Assran, Joshua Romoff, Nicolas Ballas, Joelle Pineau, and Michael Rabbat. Gossip-
+based actor-learner architectures for deep reinforcement learning. Advances in Neural Infor-
+mation Processing Systems, 32, 2019.
+[7] Peter Auer, Thomas Jaksch, and Ronald Ortner. Near-optimal regret bounds for reinforcement
+learning. Advances in Neural Information Processing Systems, 21, 2008.
+[8] Peter Auer and Ronald Ortner. Logarithmic online regret bounds for undiscounted reinforce-
+ment learning. In Advances in Neural Information Processing Systems, pages 49–56. MIT
+Press, 2007.
+[9] Mohammad Gheshlaghi Azar, Ian Osband, and Rémi Munos. Minimax regret bounds for
+reinforcement learning. In International Conference on Machine Learning, pages 263–272.
+PMLR, 2017.
+[10] Yu Bai, Tengyang Xie, Nan Jiang, and Yu-Xiang Wang. Provably efficient q-learning with low
+switching cost. Advances in Neural Information Processing Systems, 32, 2019.
+[11] Soumya Banerjee, Samia Bouzefrane, and Amar Abane. Identity management with hybrid
+blockchain approach: A deliberate extension with federated-inverse-reinforcement learning.
+In 2021 IEEE 22nd International Conference on High Performance Switching and Routing
+(HPSR), pages 1–6. IEEE, 2021.
+[12] Ali Beikmohammadi, Sarit Khirirat, and Sindri Magnússon. Compressed federated reinforce-
+ment learning with a generative model. arXiv preprint arXiv:2404.10635, 2024.
+[13] Marc G Bellemare, Yavar Naddaf, Joel Veness, and Michael Bowling. The arcade learning
+environment: An evaluation platform for general agents. Journal of Artificial Intelligence
+Research, 47:253–279, 2013.
+[14] Shulun Chen, Runlong Zhou, Zihan Zhang, Maryam Fazel, and Simon S Du. Sharp gap-
+dependent variance-aware regret bounds for tabular mdps. arXiv preprint arXiv:2506.06521,
+2025.
+[15] Tianyi Chen, Kaiqing Zhang, Georgios B Giannakis, and Tamer Ba¸sar. Communication-
+efficient policy gradient methods for distributed reinforcement learning. IEEE Transactions on
+Control of Network Systems, 9(2):917–929, 2021.
+11
+
+````
+
+## PDF page 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+[16] Yiding Chen, Xuezhou Zhang, Kaiqing Zhang, Mengdi Wang, and Xiaojin Zhu. Byzantine-
+robust online and offline distributed reinforcement learning. In International Conference on
+Artificial Intelligence and Statistics, pages 3230–3269. PMLR, 2023.
+[17] Ziyi Chen, Yi Zhou, Rong-Rong Chen, and Shaofeng Zou. Sample and communication-
+efficient decentralized actor-critic algorithms with finite-time analysis. In International Con-
+ference on Machine Learning, pages 3794–3834. PMLR, 2022.
+[18] Ziyi Chen, Yi Zhou, and Rongrong Chen. Multi-agent off-policy tdc with near-optimal sample
+and communication complexity. In 2021 55th Asilomar Conference on Signals, Systems, and
+Computers, pages 504–508. IEEE, 2021.
+[19] Paul Covington, Jay Adams, and Emre Sargin. Deep neural networks for youtube recom-
+mendations. In Proceedings of the 10th ACM Conference on Recommender Systems, pages
+191–198, 2016.
+[20] Christoph Dann, Lihong Li, Wei Wei, and Emma Brunskill. Policy certificates: Towards
+accountable reinforcement learning. In International Conference on Machine Learning, pages
+1507–1516. PMLR, 2019.
+[21] Thinh Doan, Siva Maguluri, and Justin Romberg. Finite-time analysis of distributed td (0)
+with linear function approximation on multi-agent reinforcement learning. In International
+Conference on Machine Learning, pages 1626–1635. PMLR, 2019.
+[22] Thinh T Doan, Siva Theja Maguluri, and Justin Romberg. Finite-time performance of dis-
+tributed temporal-difference learning with linear function approximation. SIAM Journal on
+Mathematics of Data Science, 3(1):298–320, 2021.
+[23] Simon S Du, Jianshu Chen, Lihong Li, Lin Xiao, and Dengyong Zhou. Stochastic variance
+reduction methods for policy evaluation. In International Conference on Machine Learning,
+pages 1049–1058. PMLR, 2017.
+[24] Abhimanyu Dubey and Alex Pentland. Provably efficient cooperative multi-agent reinforce-
+ment learning with function approximation. arXiv preprint arXiv:2103.04972, 2021.
+[25] Lasse Espeholt, Hubert Soyer, Remi Munos, Karen Simonyan, Vlad Mnih, Tom Ward, Yotam
+Doron, Vlad Firoiu, Tim Harley, Iain Dunning, et al. Impala: Scalable distributed deep-rl
+with importance weighted actor-learner architectures. In International Conference on Machine
+Learning, pages 1407–1416. PMLR, 2018.
+[26] Flint Xiaofeng Fan, Yining Ma, Zhongxiang Dai, Wei Jing, Cheston Tan, and Bryan
+Kian Hsiang Low. Fault-tolerant federated reinforcement learning with theoretical guarantee.
+Advances in Neural Information Processing Systems, 34:1007–1021, 2021.
+[27] Flint Xiaofeng Fan, Yining Ma, Zhongxiang Dai, Cheston Tan, and Bryan Kian Hsiang
+Low. Fedhql: Federated heterogeneous q-learning. In Proceedings of the 2023 International
+Conference on Autonomous Agents and Multiagent Systems, pages 2810–2812, 2023.
+[28] Swetha Ganesh, Jiayu Chen, Gugan Thoppe, and Vaneet Aggarwal. Global convergence guaran-
+tees for federated policy gradient methods with adversaries. arXiv preprint arXiv:2403.09940,
+2024.
+[29] Zijun Gao, Yanjun Han, Zhimei Ren, and Zhengqing Zhou. Batched multi-armed bandits
+problem. Advances in Neural Information Processing Systems, 32, 2019.
+[30] Wei Gong, Linxiao Cao, Yifei Zhu, Fang Zuo, Xin He, and Haoquan Zhou. Federated inverse
+reinforcement learning for smart icus with differential privacy. IEEE Internet of Things Journal,
+10(21):19117–19124, 2023.
+[31] Robert M Gower, Mark Schmidt, Francis Bach, and Peter Richtárik. Variance-reduced methods
+for machine learning. Proceedings of the IEEE, 108(11):1968–1983, 2020.
+[32] Shixiang Gu, Ethan Holly, Timothy Lillicrap, and Sergey Levine. Deep reinforcement learning
+for robotic manipulation with asynchronous off-policy updates. In 2017 IEEE International
+Conference on Robotics and Automation (ICRA), pages 3389–3396. IEEE, 2017.
+12
+
+````
+
+## PDF page 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+[33] Zhaohan Guo and Emma Brunskill. Concurrent pac rl. In Proceedings of the AAAI Conference
+on Artificial Intelligence, volume 29, pages 2624–2630, 2015.
+[34] Jiafan He, Dongruo Zhou, and Quanquan Gu. Logarithmic regret for reinforcement learning
+with linear function approximation. In International Conference on Machine Learning, pages
+4171–4180. PMLR, 2021.
+[35] Hao-Lun Hsu, Weixin Wang, Miroslav Pajic, and Pan Xu. Randomized exploration in cooper-
+ative multi-agent reinforcement learning. arXiv preprint arXiv:2404.10728, 2024.
+[36] Thomas Jaksch, Ronald Ortner, and Peter Auer. Near-optimal regret bounds for reinforcement
+learning. Journal of Machine Learning Research, 11:1563–1600, 2010.
+[37] Chi Jin, Zeyuan Allen-Zhu, Sebastien Bubeck, and Michael I Jordan. Is q-learning provably
+efficient? Advances in Neural Information Processing Systems, 31, 2018.
+[38] Chi Jin, Zhuoran Yang, Zhaoran Wang, and Michael I Jordan. Provably efficient reinforcement
+learning with linear function approximation. In Conference on Learning Theory, pages
+2137–2143. PMLR, 2020.
+[39] Hao Jin, Yang Peng, Wenhao Yang, Shusen Wang, and Zhihua Zhang. Federated reinforcement
+learning with environment heterogeneity. In International Conference on Artificial Intelligence
+and Statistics, pages 18–37. PMLR, 2022.
+[40] Rie Johnson and Tong Zhang. Accelerating stochastic gradient descent using predictive
+variance reduction. Advances in Neural Information Processing Systems, 26, 2013.
+[41] Anders Jonsson, Emilie Kaufmann, Pierre Ménard, Omar Darwiche Domingues, Edouard
+Leurent, and Michal Valko. Planning in markov decision processes with gap-dependent sample
+complexity. In Advances in Neural Information Processing Systems, pages 1253–1263, 2020.
+[42] Sham Kakade, Mengdi Wang, and Lin F Yang. Variance reduction methods for sublinear
+reinforcement learning. arXiv preprint arXiv:1802.09184, 2018.
+[43] Koulik Khamaru, Ashwin Pananjady, Feng Ruan, Martin J Wainwright, and Michael I Jordan.
+Is temporal difference learning optimal? an instance-dependent analysis. SIAM Journal on
+Mathematics of Data Science, 3(4):1013–1040, 2021.
+[44] Sajad Khodadadian, Pranay Sharma, Gauri Joshi, and Siva Theja Maguluri. Federated rein-
+forcement learning: Linear speedup under markovian sampling. In International Conference
+on Machine Learning, pages 10997–11057. PMLR, 2022.
+[45] Jens Kober, J Andrew Bagnell, and Jan Peters. Reinforcement learning in robotics: A survey.
+The International Journal of Robotics Research, 32(11):1238–1274, 2013.
+[46] Safwan Labbi, Daniil Tiapkin, Lorenzo Mancini, Paul Mangold, and Eric Moulines. Federated
+ucbvi: Communication-efficient federated regret minimization with heterogeneous agents. In
+The 28th International Conference on Artificial Intelligence and Statistics, 2025.
+[47] Guangchen Lan, Dong-Jun Han, Abolfazl Hashemi, Vaneet Aggarwal, and Christopher G Brin-
+ton. Asynchronous federated reinforcement learning with policy gradient updates: Algorithm
+design and convergence analysis. arXiv preprint arXiv:2404.08003, 2024.
+[48] Guangchen Lan, Han Wang, James Anderson, Christopher Brinton, and Vaneet Aggarwal.
+Improved communication efficiency in federated natural policy gradient via admm-based
+gradient updates. arXiv preprint arXiv:2310.19807, 2023.
+[49] Gen Li, Changxiao Cai, Yuxin Chen, Yuting Wei, and Yuejie Chi. Is q-learning minimax
+optimal? a tight sample complexity analysis. Operations Research, 72(1):222–236, 2024.
+[50] Gen Li, Laixi Shi, Yuxin Chen, and Yuejie Chi. Breaking the sample complexity barrier to
+regret-optimal model-free reinforcement learning. Information and Inference: A Journal of
+the IMA, 12(2):969–1043, 2023.
+13
+
+````
+
+## PDF page 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+[51] Gen Li, Yuting Wei, Yuejie Chi, Yuantao Gu, and Yuxin Chen.
+Sample complexity of
+asynchronous q-learning: Sharper analysis and variance reduction. Advances in Neural
+Information Processing Systems, 33:7031–7043, 2020.
+[52] Tian Li, Anit Kumar Sahu, Ameet Talwalkar, and Virginia Smith. Federated learning: Chal-
+lenges, methods, and future directions. IEEE signal processing magazine, 37(3):50–60, 2020.
+[53] Rui Liu and Alex Olshevsky. Distributed td (0) with almost no communication. IEEE Control
+Systems Letters, 2023.
+[54] Shicheng Liu and Minghui Zhu. Distributed inverse constrained reinforcement learning for
+multi-agent systems. Advances in Neural Information Processing Systems, 35:33444–33456,
+2022.
+[55] Shicheng Liu and Minghui Zhu. Meta inverse constrained reinforcement learning: Convergence
+guarantee and generalization analysis. In The Twelfth International Conference on Learning
+Representations, 2023.
+[56] Shicheng Liu and Minghui Zhu. Learning multi-agent behaviors from distributed and streaming
+demonstrations. Advances in Neural Information Processing Systems, 36, 2024.
+[57] Shicheng Liu and Minghui Zhu. In-trajectory inverse reinforcement learning: Learn incre-
+mentally before an ongoing trajectory terminates. In The Thirty-eighth Annual Conference on
+Neural Information Processing Systems, 2025.
+[58] Shicheng Liu and Minghui Zhu. Utility: Utilizing explainable reinforcement learning to
+improve reinforcement learning. In The Thirteenth International Conference on Learning
+Representations, 2025.
+[59] AA Marjani and Alexandre Proutiere. Best policy identification in discounted mdps: Problem-
+specific sample complexity. arXiv preprint arXiv:2009.13405, 2020.
+[60] Brendan McMahan, Eider Moore, Daniel Ramage, Seth Hampson, and Blaise Aguera y Arcas.
+Communication-efficient learning of deep networks from decentralized data. In Proceedings
+of the 20th International Conference on Artificial Intelligence and Statistics, volume 54, pages
+1273–1282. PMLR, 2017.
+[61] Pierre Ménard, Omar Darwiche Domingues, Xuedong Shang, and Michal Valko. Ucb mo-
+mentum q-learning: Correcting the bias without forgetting. In International Conference on
+Machine Learning, pages 7609–7618. PMLR, 2021.
+[62] Yifei Min, Jiafan He, Tianhao Wang, and Quanquan Gu. Cooperative multi-agent reinforcement
+learning: Asynchronous communication and linear function approximation. In International
+Conference on Machine Learning, pages 24785–24811. PMLR, 2023.
+[63] Volodymyr Mnih, Adria Puigdomenech Badia, Mehdi Mirza, Alex Graves, Timothy Lillicrap,
+Tim Harley, David Silver, and Koray Kavukcuoglu. Asynchronous methods for deep reinforce-
+ment learning. In International Conference on Machine Learning, pages 1928–1937. PMLR,
+2016.
+[64] Lam M Nguyen, Jie Liu, Katya Scheinberg, and Martin Takáˇc. Sarah: A novel method for
+machine learning problems using stochastic recursive gradient. In International Conference
+on Machine Learning, pages 2613–2621. PMLR, 2017.
+[65] Thanh Nguyen-Tang, Ming Yin, Sunil Gupta, Svetha Venkatesh, and Raman Arora. On
+instance-dependent bounds for offline reinforcement learning with linear function approxi-
+mation. In Proceedings of the AAAI Conference on Artificial Intelligence, pages 9310–9318,
+2023.
+[66] Jungseul Ok, Alexandre Proutiere, and Damianos Tranos. Exploration in structured reinforce-
+ment learning. Advances in Neural Information Processing Systems, 31, 2018.
+[67] Vianney Perchet, Philippe Rigollet, Sylvain Chassang, and Erik Snowberg. Batched bandit
+problems. The Annals of Statistics, 44(2):660 – 681, 2016.
+14
+
+````
+
+## PDF page 15
+
+FORMULA CHECK REQUIRED: original PDF page 15.
+
+````text
+[68] Dan Qiao, Ming Yin, Ming Min, and Yu-Xiang Wang. Sample-efficient reinforcement learning
+with loglog (t) switching cost. In International Conference on Machine Learning, pages
+18031–18061. PMLR, 2022.
+[69] Han Shen, Kaiqing Zhang, Mingyi Hong, and Tianyi Chen. Towards understanding asyn-
+chronous advantage actor-critic: Convergence and linear speedup. IEEE Transactions on
+Signal Processing, 2023.
+[70] Laixi Shi, Gen Li, Yuting Wei, Yuxin Chen, and Yuejie Chi. Pessimistic q-learning for offline
+reinforcement learning: Towards optimal sample complexity. In International Conference on
+Machine Learning, pages 19967–20025. PMLR, 2022.
+[71] Aaron Sidford, Mengdi Wang, Xian Wu, Lin Yang, and Yinyu Ye. Near-optimal time and
+sample complexities for solving markov decision processes with a generative model. Advances
+in Neural Information Processing Systems, 31, 2018.
+[72] Aaron Sidford, Mengdi Wang, Xian Wu, and Yinyu Ye. Variance reduced value iteration and
+faster algorithms for solving markov decision processes. Naval Research Logistics (NRL),
+70(5):423–442, 2023.
+[73] David Silver, Aja Huang, Chris J Maddison, Arthur Guez, Laurent Sifre, George Van
+Den Driessche, Julian Schrittwieser, Ioannis Antonoglou, Veda Panneershelvam, Marc Lanc-
+tot, et al. Mastering the game of go with deep neural networks and tree search. Nature,
+529(7587):484–489, 2016.
+[74] David Silver, Thomas Hubert, Julian Schrittwieser, Ioannis Antonoglou, Matthew Lai, Arthur
+Guez, Marc Lanctot, Laurent Sifre, Dharshan Kumaran, Thore Graepel, et al. Mastering
+chess and shogi by self-play with a general reinforcement learning algorithm. arXiv preprint
+arXiv:1712.01815, 2017.
+[75] David Silver, Thomas Hubert, Julian Schrittwieser, Ioannis Antonoglou, Matthew Lai, Arthur
+Guez, Marc Lanctot, Laurent Sifre, Dharshan Kumaran, Thore Graepel, et al. A general
+reinforcement learning algorithm that masters chess, shogi, and go through self-play. Science,
+362(6419):1140–1144, 2018.
+[76] Max Simchowitz and Kevin G Jamieson. Non-asymptotic gap-dependent regret bounds for
+tabular mdps. In Advances in Neural Information Processing Systems, 2019.
+[77] Jun Sun, Gang Wang, Georgios B Giannakis, Qinmin Yang, and Zaiyue Yang. Finite-time
+analysis of decentralized temporal-difference learning with linear function approximation. In
+International Conference on Artificial Intelligence and Statistics, pages 4485–4495. PMLR,
+2020.
+[78] R Sutton and A Barto. Reinforcement Learning: An Introduction. MIT Press, 2018.
+[79] Ambuj Tewari and Peter Bartlett. Optimistic linear programming gives logarithmic regret for
+irreducible mdps. In Advances in Neural Information Processing Systems, pages 1505–1512,
+2008.
+[80] Andrea Tirinzoni, Aymen Al Marjani, and Emilie Kaufmann. Near instance-optimal pac
+reinforcement learning for deterministic mdps. In Advances in Neural Information Processing
+Systems, pages 8785–8798, 2022.
+[81] Andrea Tirinzoni, Aymen Al-Marjani, and Emilie Kaufmann. Optimistic pac reinforcement
+learning: the instance-dependent view. In International Conference on Algorithmic Learning
+Theory, pages 1460–1480. PMLR, 2023.
+[82] Oriol Vinyals, Igor Babuschkin, Wojciech M Czarnecki, Michaël Mathieu, Andrew Dudzik,
+Junyoung Chung, David H Choi, Richard Powell, Timo Ewalds, Petko Georgiev, et al. Grand-
+master level in starcraft ii using multi-agent reinforcement learning. Nature, 575(7782):350–
+354, 2019.
+15
+
+````
+
+## PDF page 16
+
+FORMULA CHECK REQUIRED: original PDF page 16.
+
+````text
+[83] Andrew Wagenmaker and Kevin G Jamieson. Instance-dependent near-optimal policy identifi-
+cation in linear mdps via online experiment design. Advances in Neural Information Processing
+Systems, 35:5968–5981, 2022.
+[84] Andrew J Wagenmaker, Yifang Chen, Max Simchowitz, Simon Du, and Kevin Jamieson.
+First-order regret in reinforcement learning with linear function approximation: A robust
+estimation approach. In International Conference on Machine Learning, pages 22384–22429.
+PMLR, 2022.
+[85] Andrew J Wagenmaker, Max Simchowitz, and Kevin Jamieson. Beyond no regret: Instance-
+dependent pac reinforcement learning. In Conference on Learning Theory, pages 358–418.
+PMLR, 2022.
+[86] Hoi-To Wai. On the convergence of consensus algorithms with markovian noise and gradient
+bias. In 2020 59th IEEE Conference on Decision and Control (CDC), pages 4897–4902. IEEE,
+2020.
+[87] Hoi-To Wai, Mingyi Hong, Zhuoran Yang, Zhaoran Wang, and Kexin Tang. Variance reduced
+policy evaluation with smooth function approximation. Advances in Neural Information
+Processing Systems, 32, 2019.
+[88] Martin J Wainwright. Variance-reduced q-learning is minimax optimal. arXiv preprint
+arXiv:1906.04697, 2019.
+[89] Gang Wang, Songtao Lu, Georgios Giannakis, Gerald Tesauro, and Jian Sun. Decentralized td
+tracking with linear function approximation and its finite-time analysis. Advances in Neural
+Information Processing Systems, 33:13762–13772, 2020.
+[90] Tianhao Wang, Dongruo Zhou, and Quanquan Gu. Provably efficient reinforcement learn-
+ing with linear function approximation under adaptivity constraints. Advances in Neural
+Information Processing Systems, 34:13524–13536, 2021.
+[91] Xinqi Wang, Qiwen Cui, and Simon S Du. On gap-dependent bounds for offline reinforcement
+learning. Advances in Neural Information Processing Systems, 35:14865–14877, 2022.
+[92] Jiin Woo, Gauri Joshi, and Yuejie Chi. The blessing of heterogeneity in federated q-learning:
+Linear speedup and beyond. In International Conference on Machine Learning, pages 37157–
+37216, 2023.
+[93] Jiin Woo, Laixi Shi, Gauri Joshi, and Yuejie Chi. Federated offline reinforcement learning: Col-
+laborative single-policy coverage suffices. In International Conference on Machine Learning,
+pages 53165–53201, 2024.
+[94] Zhaoxian Wu, Han Shen, Tianyi Chen, and Qing Ling. Byzantine-resilient decentralized
+policy evaluation with linear function approximation. IEEE Transactions on Signal Processing,
+69:3839–3853, 2021.
+[95] Haike Xu, Tengyu Ma, and Simon Du. Fine-grained gap-dependent bounds for tabular mdps
+via adaptive multi-step bootstrap. In Conference on Learning Theory, pages 4438–4472.
+PMLR, 2021.
+[96] Tengyu Xu, Zhe Wang, Yi Zhou, and Yingbin Liang. Reanalysis of variance reduced temporal
+difference learning. In International Conference on Learning Representations, 2020.
+[97] Yuling Yan, Gen Li, Yuxin Chen, and Jianqing Fan. The efficacy of pessimism in asynchronous
+q-learning. IEEE Transactions on Information Theory, 2023.
+[98] Kunhe Yang, Lin Yang, and Simon Du. Q-learning with logarithmic regret. In International
+Conference on Artificial Intelligence and Statistics, pages 1576–1584. PMLR, 2021.
+[99] Tong Yang, Shicong Cen, Yuting Wei, Yuxin Chen, and Yuejie Chi. Federated natural policy
+gradient methods for multi-task reinforcement learning. arXiv preprint arXiv:2311.00201,
+2023.
+16
+
+````
+
+## PDF page 17
+
+Technical extraction; compare with original PDF page 17.
+
+````text
+[100] Ming Yin, Yu Bai, and Yu-Xiang Wang. Near-optimal offline reinforcement learning via
+double variance reduction. In Advances in Neural Information Processing Systems, pages
+7677–7688, 2021.
+[101] Ekim Yurtsever, Jacob Lambert, Alexander Carballo, and Kazuya Takeda. A survey of
+autonomous driving: Common practices and emerging technologies. IEEE Access, 8:58443–
+58469, 2020.
+[102] Andrea Zanette and Emma Brunskill. Tighter problem-dependent regret bounds in reinforce-
+ment learning without domain knowledge using value function bounds. In International
+Conference on Machine Learning, pages 7304–7312. PMLR, 2019.
+[103] Sihan Zeng, Thinh T Doan, and Justin Romberg.
+Finite-time analysis of decentralized
+stochastic approximation with applications in multi-agent and multi-task learning. In 2021
+60th IEEE Conference on Decision and Control (CDC), pages 2641–2646. IEEE, 2021.
+[104] Chenyu Zhang, Han Wang, Aritra Mitra, and James Anderson. Finite-time analysis of on-
+policy heterogeneous federated reinforcement learning. arXiv preprint arXiv:2401.15273,
+2024.
+[105] Haochen Zhang, Zhong Zheng, and Lingzhou Xue. Gap-dependent bounds for federated
+$q$-learning. In Forty-second International Conference on Machine Learning, 2025.
+[106] Haochen Zhang, Zhong Zheng, and Lingzhou Xue. Q-learning with fine-grained gap-dependent
+regret. arXiv preprint arXiv:2510.06647, 2025.
+[107] Zihan Zhang, Yuxin Chen, Jason D Lee, and Simon S Du. Settling the sample complexity of
+online reinforcement learning. In Conference on Learning Theory, pages 5213–5219. PMLR,
+2024.
+[108] Zihan Zhang, Xiangyang Ji, and Simon Du. Is reinforcement learning more difficult than
+bandits? a near-optimal algorithm escaping the curse of horizon. In Conference on Learning
+Theory, pages 4528–4531. PMLR, 2021.
+[109] Zihan Zhang, Xiangyang Ji, and Simon Du. Horizon-free reinforcement learning in polynomial
+time: the power of stationary policies. In Conference on Learning Theory, pages 3858–3904.
+PMLR, 2022.
+[110] Zihan Zhang, Yuhang Jiang, Yuan Zhou, and Xiangyang Ji. Near-optimal regret bounds for
+multi-batch reinforcement learning. Advances in Neural Information Processing Systems,
+35:24586–24596, 2022.
+[111] Zihan Zhang, Yuan Zhou, and Xiangyang Ji. Almost optimal model-free reinforcement
+learning via reference-advantage decomposition. Advances in Neural Information Processing
+Systems, 33:15198–15207, 2020.
+[112] Fangyuan Zhao, Xuebin Ren, Shusen Yang, Peng Zhao, Rui Zhang, and Xinxin Xu. Federated
+multi-objective reinforcement learning. Information Sciences, 624:811–832, 2023.
+[113] Zhong Zheng, Fengyu Gao, Lingzhou Xue, and Jing Yang. Federated q-learning: Linear regret
+speedup with low communication cost. In The Twelfth International Conference on Learning
+Representations, 2024.
+[114] Zhong Zheng, Haochen Zhang, and Lingzhou Xue. Federated q-learning with reference-
+advantage decomposition: Almost optimal regret and logarithmic communication cost. In The
+Thirteenth International Conference on Learning Representations, 2025.
+[115] Zhong Zheng, Haochen Zhang, and Lingzhou Xue. Gap-dependent bounds for q-learning
+using reference-advantage decomposition. In The Thirteenth International Conference on
+Learning Representations, 2025.
+[116] Runlong Zhou, Zhang Zihan, and Simon Shaolei Du. Sharp variance-dependent bounds in
+reinforcement learning: Best of both worlds in stochastic and deterministic environments. In
+International Conference on Machine Learning, pages 42878–42914. PMLR, 2023.
+17
+
+````
+
+## PDF page 18
+
+FORMULA CHECK REQUIRED: original PDF page 18.
+
+````text
+Organization of the appendix. Section A reviews related works. Section B presents the results of
+our numerical experiments, demonstrating the best regret performance and showing the log T−type
+switching/communication cost. Section C analyzes our technical novelty that leads to the regret
+improvement. Section D provides graphical illustrations and two notation tables for our algorithms.
+Section E and Section F include some useful theorems and lemmas. Section G proves some probability
+events and Section H explores the properties of estimated value functions. Section I contains the
+proof of the worst-case regret bounds (Theorem 4.1 and Theorem 4.3). Section J contains the proof
+of the worst-case switching/communication cost bounds (Theorem 4.2 and Theorem 4.4). Section K
+provides the proof of the gap-dependent regret bounds (Theorem 4.5 and Theorem 4.8). Section L
+presents the proof of the gap-dependent switching/communication cost bounds (Theorem 4.7 and
+Theorem 4.9).
+A
+Related Work
+On-Policy RL for Finite-Horizon Tabular MDPs with Worst-Case Regret. There are mainly two
+types of algorithms for reinforcement learning: model-based and model-free learning. Model-based
+algorithms learn a model from past experience and make decisions based on this model, while
+model-free algorithms only maintain a group of value functions and take the induced optimal actions.
+Due to these differences, model-free algorithms are usually more space-efficient and time-efficient
+compared with model-based algorithms. However, model-based algorithms may achieve better
+learning performance by leveraging the learned model.
+Next, we discuss the literature on model-based and model-free algorithms for finite-horizon tabular
+MDPs with worst-case regret. [1, 3, 7, 9, 20, 42, 102, 107, 108, 116] focus on model-based algorithms.
+Notably, [107] provide an algorithm that achieves a regret of ˜O(min{
+√
+SAH2T, T}), which matches
+the information-theoretic lower bound. [37, 50, 61, 98, 111] focus on model-free algorithms. Three
+of them [50, 61, 111] achieve the near-optimal regret of ˜O(
+√
+SAH2T).
+Suboptimality Gap. When there is a strictly positive suboptimality gap, it is possible to achieve
+logarithmic regret bounds. In RL, earlier work obtains asymptotic logarithmic regret bounds [8, 79].
+Recently, non-asymptotic logarithmic regret bounds are obtained [34, 36, 66, 76]. Specifically, [36]
+develops a model-based algorithm, and their bound depends on the policy gap instead of the action
+gap studied in this paper. [66] derives problem-specific logarithmic type lower bounds for both
+structured and unstructured MDPs. [76] extends the model-based algorithm proposed by [102] and
+obtains logarithmic regret bounds. More recently, [14] further improves model-based gap-dependent
+results. Logarithmic regret bounds are also established in the linear function approximation setting
+[34], and [65] provides gap-dependent guarantees for offline RL with linear function approximation.
+Specifically, for model-free algorithms, [98] shows that the optimistic Q-learning algorithm in
+[37] enjoys a logarithmic regret O( H6SAT
+∆min
+), which is subsequently refined by [95]. In their work,
+[95] introduces the Adaptive Multi-step Bootstrap (AMB) algorithm. [115] further improves the
+logarithmic regret bound by leveraging the analysis of the UCB-Advantage algorithm [111] and the
+Q-EarlySettled-Advantage algorithm [50]. [106] provides the first fine-grained, gap-dependent regret
+upper bound for a UCB-based algorithm, specifically UCB-Hoeffding. In the federated setting, [105]
+further establishes the first gap-dependent bounds for both regret and communication cost.
+Several other studies also investigate gap-dependent sample complexity bounds [4, 41, 59, 80, 81, 83,
+85, 91].
+Variance Reduction in RL. The reference-advantage decomposition used in [50] and [111] is a
+technique of variance reduction that is originally proposed for finite-sum stochastic optimization
+[31, 40, 64]. Later, model-free RL algorithms also use variance reduction to improve sample
+efficiency. For example, it is used in learning with generative models [71, 72, 88], policy evaluation
+[23, 43, 87, 96], offline RL [70, 100], and Q-learning [50, 51, 97, 111].
+RL with Low Switching Costs and Batched RL. Research in RL with low switching costs aims to
+minimize the number of policy switches while maintaining comparable regret bounds to fully adaptive
+counterparts, and it applies to federated RL. In batched RL [29, 67], the agent sets the number of
+batches and the length of each batch upfront, implementing an unchanged policy in a batch and
+aiming for fewer batches and lower regret. [10] first introduces the problem of RL with low switching
+cost and proposes a Q-learning algorithm with lazy updates, achieving ˜O(H3SA log T) switching
+18
+
+````
+
+## PDF page 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+cost. This work is advanced by [111], which improves the regret upper bound and the switching
+cost simultaneously. Additionally, [90] studies RL under the adaptivity constraint. Recently, [68]
+proposes a model-based algorithm with ˜O(log log T) switching cost. [110] proposes a batched RL
+algorithm that is well-suited for the federated setting.
+Multi-Agent RL (MARL) with Event-Triggered Communications. We review a few recent
+works on on-policy MARL with linear function approximations. [24] introduces Coop-LSVI for
+cooperative MARL. [62] proposes an asynchronous version of LSVI-UCB that originates from
+[38], matching the same regret bound with improved communication complexity compared with
+[24]. [35] develops two algorithms that incorporate randomized exploration, achieving the same
+regret and communication complexity as [62]. [24, 35, 62] employ event-triggered communication
+conditions based on determinants of certain quantities. Different from our federated algorithm, during
+the synchronization in [24] and [62], local agents share original rewards or trajectories with the
+server. On the other hand, [35] reduces communication cost by sharing compressed statistics in the
+non-tabular setting with linear function approximation.
+Federated and Distributed RL. Existing literature on federated and distributed RL algorithms
+highlights various aspects. For value-based algorithms, [33], [92], and [113] focus on linear speedup.
+[2] proposes a parallel RL algorithm with low communication cost. [92] and [93] discuss the
+improved covering power of heterogeneity. [16] and [94] work on robustness. Particularly, [16]
+proposes algorithms in both offline and online settings, obtaining near-optimal sample complexities
+and achieving superior robustness guarantees. In addition, several works investigate value-based
+algorithms such as Q-learning in different settings, including [5, 12, 27, 39, 44, 92, 93, 99, 104, 112].
+The convergence of decentralized temporal difference algorithms is analyzed by [18, 21, 22, 53, 77,
+86, 89, 103].
+Some other works focus on policy gradient-based algorithms. Communication-efficient policy
+gradient algorithms are studied by [15] and [26]. [48] further reduces the communication complexity
+and also demonstrates a linear speedup in the synchronous setting. Optimal sample complexity for
+global convergence in federated RL, even in the presence of adversaries, is studied in [28]. [47]
+proposes an algorithm to address the challenge of lagged policies in asynchronous settings.
+The convergence of distributed actor-critic algorithms is analyzed by [17, 69]. Federated actor-learner
+architectures are explored by [6, 25, 63]. Distributed inverse reinforcement learning is examined by
+[11, 30, 54, 55, 56, 57, 58].
+B
+Numerical Experiments
+In this section, we present experiments conducted in a synthetic environment to demonstrate the
+following two conclusions:
+• When M = 1, Q-EarlySettled-LowCost achieves better regret compared with all other
+single-agent model-free algorithms: UCB-Hoeffding and UCB-Bernstein [37], UCB2-
+Hoeffding and UCB2B [10], UCB-Advantage [111] and Q-EarlySettled-Advantage [50],
+while maintaining logarithmic switching cost.
+• FedQ-EarlySettled-LowCost achieves the best regret performance compared with other
+federated model-free algorithms, including FedQ-Hoeffding and FedQ-Bernstein[113] and
+FedQ-Advantage [114], while also maintaining logarithmic communication cost.
+To evaluate the proposed algorithms, we simulate a synthetic tabular episodic Markov Decision
+Process. Specifically, we consider two cases with (H, S, A) = (5, 3, 2) and (7, 10, 5). The reward
+rh(s, a) for each (s, a, h) is generated independently and uniformly at random from [0, 1]. Ph(· | s, a)
+is generated on the S-dimensional simplex independently and uniformly at random for (s, a, h). Then
+we will discuss the experiment results for each conclusion separately.
+B.1
+Comparison of Single-Agent RL Algorithms
+Under the given MDP, we set M = 1 and generate 3 ∗105 episodes for (H, S, A) = (5, 3, 2) and
+2 ∗106 episodes for (H, S, A) = (7, 10, 5). For each episode, we randomly choose the initial state
+19
+
+````
+
+## PDF page 20
+
+FORMULA CHECK REQUIRED: original PDF page 20.
+
+````text
+uniformly from the S states4. For the other six single-agent algorithms, we use their hyperparameter
+settings based on the publicly available code5 in [115]. For FedQ-EarlySettled-LowCost algorithm,
+we similarly set ι = 1, the hyper-parameter cb =
+√
+2 in the bonus bt, cR
+b = 2 in the cumulative bonus
+βR,k
+h , cR,2
+b
+= 1 in the bonus bR
+h,t and β = 0.05.
+To show error bars, we collect 10 sample paths for all algorithms under the same MDP environment
+and show the relationship between Regret(T)/ log(T/H + 1) and the total number of episodes for
+each agent T/H in Figure 1. For both panels, the solid line represents the median of the 10 sample
+paths, while the shaded area shows the 10th and 90th percentiles.
+(a) Regret results for (H, S, A) = (5, 3, 2)
+(b) Regret results for (H, S, A) = (7, 10, 5)
+Figure 1: Numerical comparison of regrets for single-agent model-free algorithms
+From the two figures, we observe that when M = 1, our Q-EarlySettled-LowCost algorithm enjoy
+the best regret compared with the other six single-agent model-free algorithms. We also note that the
+red curves for the Q-EarlySettled-LowCost algorithm approach horizontal lines as the total number
+of episodes T/H becomes sufficiently large. Since the y-axis is Regret(T)/ log(T/H + 1), this
+suggests that the regret grows logarithmically with T, which matches our gap-dependent regret bound
+result in Theorem 4.5. We also show the logarithmic switching cost results in the following Figure 2.
+(a) Switching cost for (H, S, A) = (5, 3, 2)
+(b) Switching cost for (H, S, A) = (7, 10, 5)
+Figure 2: Switching cost results for Q-EarlySettled-LowCost when M = 1
+From Figure 2, we note that the red curves for Q-EarlySettled-LowCost algorithm also approach
+horizontal lines as the total number of episodes T/H becomes sufficiently large. This suggests that
+the switching cost grows logarithmically with T, which matches our logarithmic switching cost
+bound result in Theorem 4.2 and Theorem 4.7.
+4All the experiments in this subsection are run on a server with Intel Xeon E5-2650v4 (2.2GHz) and 100
+cores. Each replication is limited to a single core and 8GB of RAM. The total execution time is about 5 hours.
+The code for the numerical experiments is included in the supplementary materials along with the submission.
+5https://openreview.net/attachment?id=6tyPSkshtF&name=supplementary_material
+20
+
+````
+
+## PDF page 21
+
+FORMULA CHECK REQUIRED: original PDF page 21.
+
+````text
+B.2
+Comparison of FRL Algorithms
+Under the given MDP, we set M = 10 and generate 3 ∗105 episodes for (H, S, A) = (5, 3, 2)
+and 2 ∗106 episodes for (H, S, A) = (7, 10, 5)6. For each episode, we randomly choose the initial
+state uniformly from the S states. For the other three federated model-free algorithms, FedQ-
+Hoeffding, FedQ-Bernstein, and FedQ-Advantage, we use their hyperparameter settings based on the
+publicly available code7 in [114]. For the FedQ-EarlySettled-LowCost algorithm, we use the same
+hyperparameter setting as specified in Section B.1.
+To show error bars, we also collect 10 sample paths for all algorithms under the same MDP environ-
+ment and show the relationship between Regret(T)/ log(T/H + 1) and the total number of episodes
+for each agent T/H in Figure 3. For both panels, the solid line represents the median of the 10
+sample paths, while the shaded area shows the 10th and 90th percentiles.
+(a) Regret results for (H, S, A) = (5, 3, 2)
+(b) Regret results for (H, S, A) = (7, 10, 5)
+Figure 3: Numerical comparison of regrets for federated model-free algorithms
+From the two figures, we observe that our proposed FedQ-EarlySettled-LowCost algorithm enjoy the
+best regret compared with the other three federated model-free algorithms. We also note that the red
+curves for the FedQ-EarlySettled-LowCost algorithm approach horizontal lines as the total number
+of episodes T/H becomes sufficiently large. This suggests that the regret grows logarithmically with
+T, which matches our gap-dependent regret bound result in Theorem 4.8.
+(a) Communication cost for (H, S, A) = (5, 3, 2)
+(b) Communication cost for (H, S, A) = (7, 10, 5)
+Figure 4: Number of communication rounds for FedQ-EarlySettled-LowCost
+6All the experiments in this subsection are run on a server with Intel Xeon E5-2650v4 (2.2GHz) and 100
+cores. Each replication is limited to five cores and 15GB of RAM. The total execution time is about 15 hours.
+The code for the numerical experiments is included in the supplementary materials along with the submission.
+7https://openreview.net/attachment?id=FoUpv84hMw&name=supplementary_material
+21
+
+````
+
+## PDF page 22
+
+FORMULA CHECK REQUIRED: original PDF page 22.
+
+````text
+From Figure 4, we find that the number of communication rounds curves for the FedQ-EarlySettled-
+LowCost algorithm approach horizontal lines as the total number of episodes T/H becomes suffi-
+ciently large. This suggests that the number of communication rounds grows logarithmically with T,
+which matches our logarithmic gap-dependent communication cost bound result in Theorem 4.4 and
+Theorem 4.9.
+C
+Technical Novelty in Depth
+In this section, we highlight our technical novelty for proving the worst-case regrets for both
+Q-EarlySettled-LowCost and FedQ-EarlySettled-LowCost, where we overcome the challenge of
+simultaneous non-adaptiveness by using the surrogate reference function.
+We prove the worst-case regret bounds in Theorem 4.1 and Theorem 4.3 by relating the regret to the
+estimation error of the optimal Q−functions that takes the form
+X
+k,j,m
+(Qk
+h −Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+).
+It is common in the literature to bound the summation by recursions on h in model-free algorithms
+[50, 98, 111, 113]. In more detail, for each individual error (Qk
+h −Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+), by the update
+rule in Equation (7), it can be upper bounded by (QR
+h −Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+). Furthermore, based
+on the reference-advantage-type update given in Equation (11) and Equation (15), Equation (77) in
+Section I shows that with high probability, (QR,k
+h
+−Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+) ≤G0, where
+G0 =
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −V R,kn
+h+1
+
+(skn,jn,mn
+h+1
+) + µR,kn+1
+h
+−Psk,j,m
+h
+,ak,j,m
+h
+,hV ⋆
+h+1
+
++ CB.
+Here, kn represents the round index that the n−th visit to (sk,j,m
+h
+, ak,j,m
+h
+, h) happens. ˜ηNk
+h
+n
+denotes
+the cumulative weight for the n−th visit to this state-action-step triple under our delayed-policy-
+switching scheme (see Equation (19) in Section F for the definition), which approximates ηNk
+h
+n
+(the
+exact weight in high burn-in cost algorithms requiring frequent policy updates [37, 50]). CB collects
+some constants and the cumulative bonuses. All three notations hide their dependency on (k, j, m, h).
+We start from the decomposition of G0, following the design in [50] for Q-EarlySettled-Advantage
+with frequent policy switching, and then explain the challenges of non-adaptiveness therein and our
+solution of surrogate reference function.
+Decomposition. We use V R,K+1
+h
+to denote the settled reference function. By applying the inequality
+V kn
+h+1 −V R,kn
+h+1 ≤V kn
+h+1 −V R,K+1
+h+1
+, which follows directly from the monotonically non-increasing
+property of V R,k
+h+1 as guaranteed by the reference function settling rule in line 12 of Algorithm 1, G0
+can be further upper bounded by the summation of CB and the following terms:
+G1 :=
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+),
+G2 :=
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+
+1skn,jn,mn
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+ 
+V ⋆
+h+1 −V R,K+1
+h+1
+
+,
+G3 :=
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+V R,ki
+h+1 (ski,ji,mi
+h+1
+) −V R,K+1
+h+1
+(ski,ji,mi
+h+1
+)
+
+,
+G4 :=
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+V R,K+1
+h+1
+(ski,ji,mi
+h+1
+) −Psk,j,m
+h
+,ak,j,m
+h
+,hV R,K+1
+h+1
+
+.
+This decomposition follows the structure of the reference-advantage decomposition, where G1 reflects
+the V -value function estimation error, G2 and G4 reflect the empirical estimation error for the settled
+22
+
+````
+
+## PDF page 23
+
+FORMULA CHECK REQUIRED: original PDF page 23.
+
+````text
+advantage function and reference function respectively, and G3 reflects the reference settling error.
+Thus, the estimation error P
+k,j,m(Qk
+h −Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+) can be upper bounded by the sum of
+five corresponding summations with regard to CB, G1, G2, G3, G4.
+Challenges: Simultaneous Non-Adaptiveness. However, the summations involving G2 and G4
+cannot be directly bounded using standard concentration inequalities. This limitation arises from the
+non-adaptive nature of both the weights {˜ηN k
+h
+n } and the settled reference function V R,K+1
+h+1
+at the
+next steps of historical visits to (sk,j,m
+h
+, ak,j,m
+h
+, h).
+The weights {˜ηNk
+h
+n } exhibit non-adaptiveness due to our special aggregation scheme used in Case
+2 of the estimated Q−function updates (Equation (7)), which assigns identical weights to all visits
+within a given round. Each weight depends on the total number of visits to the corresponding state-
+action-step triple in that round, a quantity that is unknown during visitation due to our event-triggered
+termination condition specified in Equation (3). This uncertainty results in the non-adaptiveness of
+the weights. The non-adaptiveness of V R,K+1
+h+1
+is because the reference settling depends on all the
+historical information in the learning process (see line 12 in Algorithm 1 for the reference function’s
+update rule).
+[113] addresses the non-adaptiveness of the weights through round-wise approximations, and [50]
+tackles the non-adaptiveness related to the settled reference function via the empirical process.
+However, neither approach simultaneously resolves both forms of non-adaptiveness, and their
+direct combination presents significant technical challenges. The empirical process employed in [50]
+introduces an additional logarithmic factor of T in the error bound when constructing ϵ−nets to
+cover the function space induced by V R,K+1
+h+1
+.
+Our Solution: Surrogate Reference Functions. To combine the round-based design (with equal
+weight assignments in each round) and the LCB technique (used in the reference-advantage decompo-
+sition) for simultaneous low burn-in costs and logarithmic switching/communication costs, we adapt
+the surrogate reference function technique from [115]—originally developed for gap-dependent
+analysis—and successfully incorporate it into our worst-case regret framework. There are two
+benefits of this adaptation: (i) It resolves the fundamental challenge of simultaneous non-adaptiveness
+in the learning process. (ii) By replacing the empirical process technique from [50], it eliminates the
+additional logarithmic factor in the error bound, yielding tighter regret guarantees.
+The surrogate reference function ˆV R,k
+h
+in our framework is defined as:
+ˆV R,k
+h
+(s) := max
+n
+V ⋆
+h (s), min
+n
+V ⋆
+h (s) + β, V R,k
+h
+(s)
+oo
+, ∀(s, h, k).
+It naturally adapts to the learning process. In addition, building on the optimistic property demon-
+strated in Lemma H.1, we can show that
+ˆV R,k
+h
+(s) = min
+n
+V ⋆
+h (s) + β, V R,k
+h
+(s)
+o
+with high probability. Thus, it maintains the same monotonically non-increasing property as the
+reference function V R,k
+h
+(s) and coincides with the settled reference function V R,K+1
+h
+once the
+reference function is settled (see line 12 in Algorithm 1 for the update rule of reference functions). By
+applying the inequality V kn
+h+1 −V R,kn
+h+1 ≤V kn
+h+1 −ˆV R,kn
+h+1 , G0 can be upper bounded by the summation
+of CB, G1, G2, G3, G4, where all the V R,K+1
+h+1
+s are replaced by the surrogate reference function ˆV R,kn
+h+1 .
+In the new decomposition, the summation over CB is well-controlled in Lemma I.1, following a
+similar approach to [50, Appendix E.2]. The summation over G1 can be bounded by
+exp
+ 3
+H
+ X
+k,j,m
+ Qk
+h+1 −Q⋆
+h+1
+
+(sk,j,m
+h+1 , ak,j,m
+h+1 )
+and an additional constant term as shown in Equation (82) of Section I, establishing the error recursion
+for step h. This step relies on a double-sum rearrangement, a standard technique in model-free RL
+analysis [37, 50, 113]. The summation for G3 can be bounded in the term R3,3 of Lemma I.3, using
+the technique from [50, Lemma 3] for controlling the reference settling error. Furthermore, the revised
+G2 and G4 introduce non-adaptiveness only through their weights, allowing us to apply round-wise
+23
+
+````
+
+## PDF page 24
+
+FORMULA CHECK REQUIRED: original PDF page 24.
+
+````text
+approximation methods [113] to bound them. For the revised G2, we approximate it with
+N k
+h
+X
+n=1
+ηNk
+h
+n
+
+1skn,jn,mn
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+ 
+V ⋆
+h+1 −ˆV R,kn
+h+1
+
+,
+where all elements adapt to the data generation process. The approximation error can be controlled
+via round-wise concentration inequalities (see Lemma F.5). The summation with regard to the revised
+G4 can be bounded through decomposition into four terms R3,1, R3,2, R3,4 and R3,5 in Lemma I.3
+following the same idea. For more technical details, we refer readers to Lemma I.2 for the analysis of
+the summation of G2 and to Lemma I.3 for the detailed treatment of the summation of G4.
+Using the surrogate reference functions not only solves the challenge of simultaneous non-
+adaptiveness but also yields a log(SAT/p) improvement over the current state-of-the-art Q-
+EarlySettled-Advantage [50] in single-agent RL by avoiding using the empirical process.
+To our knowledge, this work represents the first successful integration of the surrogate reference
+functions and round-wise approximation to handle both forms of non-adaptiveness of the weights and
+the settled reference function. This methodological advancement significantly expands the analytical
+tools available for federated reinforcement learning and overcomes limitations present in previous
+approaches.
+D
+Graphical Illustrations and Notation Tables
+In this section, we provide graphical illustrations and notational reference tables to enhance compre-
+hension of our algorithms.
+D.1
+Graphical Illustrations
+In this subsection, we present some graphical illustrations of our FRL framework and round-based
+design. Figure 5 presents the central server’s initialization phase, where the central server broadcast
+key parameters to all agents at the start of each training round.
+Figure 5: Central server broadcast protocol. At the beginning of round k, for any state-step pair
+(s, h) ∈S × [H], the central server broadcasts the current policy πk, the total number of visits before
+round k N k
+h(s, πk
+h(s)), the V −estimates V k
+h (s, πk
+h(s)), the lower bound function V L,k
+h
+(s, πk
+h(s)) and
+the reference function V R,k
+h
+(s, πk
+h(s)) to each agent.
+The following Figure 6 illustrates the agent-to-server data transmission phase. After exploration
+terminates in round k (when condition (3) is met), each agent transmits the rewards and some local
+summary statistics to the central server.
+24
+
+````
+
+## PDF page 25
+
+FORMULA CHECK REQUIRED: original PDF page 25.
+
+````text
+Figure 6: Agent-to-server data transmission.
+At the end of each round k, for any state-step
+pair (s, h) ∈S × [H], agent m sends the reward rh(s, πk
+h(s)), the number of visits in round k
+nm,k
+h
+(s, πk
+h(s)) and six local sums in Equation (4) to the central server.
+The following Figure 7 explains our round-based design for infrequent policy and value function
+estimate updates. Unlike conventional per-episode updates, our algorithms accumulate trajectory data
+across multiple episodes within each round, updating both the value function estimates and policy
+only at the end of each round.
+Figure 7: Round-based design. At the beginning of the learning process, the central server initializes
+Q1
+h = V 1
+h = V R,1
+h
+= H and V L,1
+h
+= 0 and chooses an arbitrary policy π1. At the end of round
+k, the central server updates the policy πk+1 and (Qk+1
+h
+, V k+1
+h
+, V L,k+1
+h
+, V R,k+1
+h
+) for any visited
+state-action-step triple (s, a, h) ∈S × A × [H].
+25
+
+````
+
+## PDF page 26
+
+FORMULA CHECK REQUIRED: original PDF page 26.
+
+````text
+D.2
+Notation Tables
+In this subsection, we provide two notation tables of FedQ-EarlySettled-LowCost to enhance the
+readability of the paper. One of the table consists of global variables utilized for central server
+aggregation, while the other table presents local variables employed for agent local training.
+Table 3: Global Variables
+Variable
+Definition
+Qk
+h
+the estimated Q−value function of step h at the beginning of round k
+QU,k
+h
+the UCB-type Q−estimates of step h at the beginning of round k
+QL,k
+h
+the LCB-type Q−estimates of step h at the beginning of round k
+QR,k
+h
+the reference-advantage-type Q−estimates of step h at the beginning of round k
+V k
+h
+the estimated V −value function of step h at the beginning of round k
+V L,k
+h
+the lower bound function of step h at the beginning of round k
+V R,k
+h
+the reference function of step h at the beginning of round k
+V A,k
+h
+the advantage function V k
+h −V R,k
+h
+of step h at the beginning of round k
+Bk
+h
+the Hoeffding-type cumulative bonus in round k
+BR,k
+h
+the reference-advantage-type cumulative bonus in round k
+N k
+h(s, a)
+the total number of visits to (s, a, h) before round k
+nk
+h(s, a)
+the total number of visits to (s, a, h) in round k
+µR,k
+h (s, a)
+the mean of the reference function at all next states of the visits to (s, a, h) before
+round k
+σR,k
+h (s, a)
+the mean of the squared reference function at all next states of the visits to (s, a, h)
+before round k
+µA,k
+h (s, a)
+the weighted sum of the advantage function at all next states of the visits to (s, a, h)
+before round k
+σA,k
+h
+(s, a)
+the weighted sum of the squared advantage function at all next states of the visits to
+(s, a, h) before round k
+vk
+h(s, a)
+the mean of V k
+h at all next states of the visits to (s, a, h) in round k
+vl,k
+h (s, a)
+the mean of V L,k
+h
+at all next states of the visits to (s, a, h) in round k
+µr,k
+h (s, a)
+the mean of V R,k
+h
+at all next states of the visits to (s, a, h) in round k
+σr,k
+h (s, a)
+the mean of (V R,k
+h
+)2 at all next states of the visits to (s, a, h) in round k
+µa,k
+h (s, a)
+the mean of V A,k
+h
+at all next states of the visits to (s, a, h) in round k
+σa,k
+h (s, a)
+the mean of (V A,k
+h
+)2 at all next states of the visits to (s, a, h) in round k
+uR
+h
+the indicator used to terminate the reference function update.
+Table 4: Local Variables
+Variable
+Definition
+nm,k
+h
+(s, a)
+the total number of visits to (s, a, h) of agent m in round k
+vm,k
+h
+(s, a)
+the mean of V k
+h at all next states of the visits to (s, a, h) of agent m in round k
+vm,k
+h,l (s, a)
+the mean of V L,k
+h
+at all next states of the visits to (s, a, h) of agent m in round k
+µm,k
+h,r (s, a)
+the mean of V R,k
+h
+at all next states of the visits to (s, a, h) of agent m in round k
+σm,k
+h,r (s, a)
+the mean of (V R,k
+h
+)2 at all next states of the visits to (s, a, h) of agent m in round k
+µm,k
+h,a (s, a)
+the mean of V A,k
+h
+at all next states of the visits to (s, a, h) of agent m in round k
+σm,k
+h,a (s, a)
+the mean of (V A,k
+h
+)2 at all next states of the visits to (s, a, h) of agent m in round k
+26
+
+````
+
+## PDF page 27
+
+FORMULA CHECK REQUIRED: original PDF page 27.
+
+````text
+E
+General Theorems
+Theorem E.1. (Azuma-Hoeffding Inequality). Suppose {Xk}∞
+k=0 is a martingale and |Xk−Xk−1| ≤
+ck, ∀k ∈N+, almost surely. Then for any N ∈N+ and ϵ > 0, it holds that:
+P (|XN −X0| ≥ϵ) ≤2 exp
+ 
+−
+ϵ2
+2 PN
+k=1 c2
+k
+!
+.
+Theorem E.2. (Freedman’s inequality, [49, Theorem EC.1]). Consider a filtration F0 ⊂F1 ⊂F2 ⊂
+· · ·, and let Ek stand for the expectation conditioned on Fk. Suppose that Yn = Pn
+k=1 Xk ∈R,
+where {Xk} is a real-valued scalar sequence obeying
+|Xk| ≤R
+and
+Ek−1[Xk] = 0
+for all k ≥1
+for some quantity R < ∞. We also define Wn := Pn
+k=1 Ek−1[X2
+k]. In addition, suppose that
+Wn ≤σ2 holds deterministically for some given quantity σ2 < ∞. Then for any positive integer
+m ≥1, with probability at least 1 −δ, one has
+|Yn| ≤
+s
+8 max
+
+Wn, σ2
+2m
+
+log 2m
+δ
++ 4
+3R log 2m
+δ .
+Theorem E.3. ([109, Lemma 10]). Let X1, X2, . . . be a sequence of random variables taking value
+in [0, l]. Define Fk = σ(X1, X2, . . . , Xk) and Yk = E[Xk|Fk−1] for k ≥1. For any δ > 0, we
+have that
+P
+"
+∃n,
+n
+X
+k=1
+Xk ≥3
+n
+X
+k=1
+Yk + l log(1/δ)
+#
+≤δ
+and
+P
+"
+∃n,
+n
+X
+k=1
+Yk ≥3
+n
+X
+k=1
+Xk + l log(1/δ)
+#
+≤δ.
+F
+Key Lemmas
+In this section, we introduce some useful lemmas. Before starting, we rank the visits to any given
+triple (s, a, h) based on the “round first, episode second, step third, agent fourth” rule (time order)
+and use ki(s, a, h), ji(s, a, h), mi(s, a, h) to denote the the round, episode and agent index for the
+i−th visit, respectively. When there is no ambiguity, we use ki, mi, and ji for short.
+Let X = (S, A, H, T, ι). The notation f(X) ≲g(X) means that there exists a universal constant
+C1 > 0 such that f(X) ≤C1g(X). In the following sections, we assume that 0/0 = 0. For any
+C ∈N+, we use [C] to denote the set {1, 2, ..., C}. We also use I[x] to denote the indicator function,
+which equals 1 when the event x is true and 0 otherwise.
+We now begin to introduce lemmas. Lemma F.1 establishes key relationships between certain
+quantities used in Algorithm 1 and Algorithm 2.
+Lemma F.1. The following relationships hold for Algorithm 1 and Algorithm 2.
+(a) For any (s, a, h, k) ∈S × A × [H] × [K], we have
+nm,k
+h
+(s, a) ≤max
+
+1,
+N k
+h(s, a)
+MH(H + 1)
+
+, ∀m ∈[M].
+and
+nk
+h(s, a) ≤max
+
+M, N k
+h(s, a)
+H(H + 1)
+
+.
+If N k
+h(s, a) ≥i0,
+nk
+h(s, a) ≤N k
+h(s, a)
+H(H + 1).
+(b) Let T1 =
+
+1 +
+1
+H(H+1)
+
+T0 + MSAH, then ˆT ≤T1 ≤2 ˆT + MSAH.
+27
+
+````
+
+## PDF page 28
+
+FORMULA CHECK REQUIRED: original PDF page 28.
+
+````text
+(c) K ≤T1
+H .
+(d) For any (s, a, h) ∈S × A × [H], N K+1
+h
+(s, a) ≤T1
+H .
+Proof. (a) is obvious given Equation (3).
+(b) According to (a) and the definition of T0 in Algorithm 2, we have:
+ˆT =
+X
+s,a,h
+N K+1
+h
+(s, a) ≤
+X
+s,a,h
+N K
+h (s, a) +
+X
+s,a,h
+nK
+h (s, a)
+≤T0 +
+X
+s,a,h
+
+1
+H(H + 1)N K
+h (s, a) + M
+
+= T1.
+The right side is obvious by noting that T0 < ˆT given the Algorithm 1.
+(c) It is proved by K ≤
+ˆT
+H ≤T1
+H .
+(d) It is because N K+1
+h
+(s, a) ≤P
+s,a N K+1
+h
+(s, a) =
+ˆT
+H ≤T1
+H .
+In the following Lemma F.2, we will present some properties of the weight ηt
+i.
+Lemma F.2. The following properties hold for all t ∈N+:
+(a) For 1
+2 ≤α ≤1, 1/tα ≤Pt
+i=1 ηt
+i/iα ≤2/tα.
+(b) maxi∈[t] ηt
+i ≤2H/t.
+(c) P∞
+t=i ηt
+i = 1 + 1/H.
+(d) For any t ∈N+ and i ∈[t −1], ηt
+i+1/ηt
+i = 1 + H/i > 1.
+(e) For any t ∈N+ and any (s, a, h) ∈S×A×[H], if t < i, ki(s, a, h) = k and N k
+h(s, a) ≥i0,
+we have that ηNk
+h
+t
+/ηi
+t ≤exp(1/H).
+Proof. Here (a) is proved in [50, Lemma 1]. (b), (c) and (d) are directly from [113, Lemma B.2], so
+here we need to prove property (e). Note that
+ηNk
+h
+t
+ηi
+t
+=
+iY
+q=Nk
+h+1
+(1 −ηq)−1 (I)
+≤
+
+1 −ηNk
+h+1
+−(i−N k
+h) (II)
+≤
+
+1 −ηNk
+h+1
+−
+Nk
+h
+H(H+1) ≤exp(1/H).
+Here (I) is because ηq is monotonically decreasing. (II) is because i −N k
+h(s, a) ≤nk
+h(s, a) ≤
+Nk
+h(s,a)
+H(H+1) for N k
+h(s, a) ≥i0 by (a) of Lemma F.1. The last inequality uses the definition of ηNk
+h+1.
+Next, we define the new weights ˜ηt
+i(s, a, h) for any n1 < i ≤n2 ≤t ∈N+ and any (s, a, h) ∈
+S × A × [H], where n1 = N ki
+h (s, a) and n2 = N ki+1
+h
+(s, a):
+˜ηt
+i(s, a, h) = ηt
+iI[n1 < i0] + 1 −ηc(n1 + 1, n2)
+n2 −n1
+ηc(n2 + 1, t)I[n1 ≥i0].
+(19)
+We will use the simplified notation ˜ηt
+i when there is no ambiguity. In Lemma F.3, we present some
+key properties of the new weights ˜ηt
+i and their relationship with the original weights ηt
+i.
+Lemma F.3. The following relationships hold for any (s, a, h, k) ∈S × A × [H] × [K] with
+t = N k
+h(s, a).
+(a) For any i1, i2 ∈[t], if ki1(s, a, h) = ki2(s, a, h) and N ki1(s,a,h)
+h
+(s, a) ≥i0, we have that
+˜ηt
+i1(s, a, h) = ˜ηt
+i2(s, a, h).
+28
+
+````
+
+## PDF page 29
+
+FORMULA CHECK REQUIRED: original PDF page 29.
+
+````text
+(b) For any k′ < k and k′ ∈[k], we have that
+Nk′+1
+hX
+i′=Nk′
+h +1
+˜ηt
+i′(s, a, h) =
+N k′+1
+hX
+i′=Nk′
+h +1
+ηt
+i′,
+which indicates that Pt
+i=1 ˜ηt
+i = I[t > 0].
+(c) For any i ∈[t], we have that
+˜ηt
+i/ηt
+i ≤exp(1/H).
+(d) For t1 = N k+1
+h
+(s, a),
+v
+u
+u
+t
+t1
+X
+i=t+1
+(˜ηt1
+i −ηt1
+i )2 ≲
+t1
+X
+i=t+1
+ηt1
+i /
+√
+i.
+Proof. Here, (a) and (b) are directly from [113, Lemma B.3] and (d) is from [113, Equation
+(19)], so we only prove (c) here. (d) of [113, Lemma B.3] proves that ˜ηt
+i ≤exp(1/H)ηt
+i when
+N ki(s,a,h)
+h
+(s, a) ≥i0. Additionally, by the definition of ˜ηt
+i (see Equation (19)), we have ˜ηt
+i = ηt
+i
+when N ki(s,a,h)
+h
+(s, a) < i0. Combining both cases, the proof is complete.
+Next, we develop an immediate corollary of Freedman’s inequality.
+Lemma F.4. Let ι = log( 2SAT1
+δ
+) for any δ ∈(0, 1). For any (s, a, h, k) ∈S × A × [H] × [K],
+let {W ki
+h+1 ∈RS | 1 ≤i ≤N k
+h(s, a)} and {ui
+h(s, a, N k
+h(s, a)) ∈R | 1 ≤i ≤N k
+h(s, a)} be
+collections of vectors and scalars, which obey the following properties:
+• W ki
+h+1 is fully determined by the samples collected up to h−th step of ji−th episode of agent
+mi in round ki, where the samples is ordered based on the “round first, episode second,
+step third, agent fourth” rule (time order).
+• ∥W ki
+h+1∥∞≤Cw;
+• ui
+h(s, a, N k
+h) is fully determined by the episodes collected up to the h−th step of ji−th
+episode of agent mi in round ki, and a positive integer N k
+h ∈[T1/H]. The samples is
+ordered based on the “round first, episode second, step third, agent fourth” rule.
+• 0 ≤ui
+h(s, a, N k
+h) ≤Cu(N k
+h).
+• 0 ≤PN k
+h(s,a)
+i=1
+ui
+h(s, a, N k
+h) ≤2.
+With probability at least 1 −δ, the following inequality hold simultaneously for all (s, a, h, k) ∈
+S × A × [H] × [K].
+
+Nk
+h
+X
+i=1
+ui
+h(s, a, N k
+h)
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+W ki
+h+1
+
+≤5
+v
+u
+u
+tCu(N k
+h)ι
+Nk
+h
+X
+i=1
+ui
+h(s, a, N k
+h)Vs,a,h(W ki
+h+1) + 8
+ s
+Cu(N k
+h)C2w
+N k
+h
++ Cu(N k
+h)Cw
+!
+ι.
+Proof. For any N k
+h = N ∈[T1/H], it holds that
+Nk
+h
+X
+i=1
+ui
+h(s, a, N k
+h)
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+W ki
+h+1 =
+N
+X
+i=1
+ui
+h(s, a, N)
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+W ki
+h+1
+=
+X
+(k′,j′,h,m′)≤(kN,jN,h,mN)
+Xk′,j′,m′
+h
+,
+29
+
+````
+
+## PDF page 30
+
+FORMULA CHECK REQUIRED: original PDF page 30.
+
+````text
+where
+Xk′,j′,m′
+h
+= uik′,j′,m′
+h
+(s, a, N)
+
+1sk′,j′,m′
+h+1
+−Ps,a,h
+
+W k′
+h+1(s, a)I
+h
+(sk′,j′,m′
+h
+, ak′,j′,m′
+h
+) = (s, a)
+i
+.
+Here, (k′, j′, h, m′) ≤(kN, jN, h, mN) means the sample at (k′, j′, h, m′) is collected before the
+sample collected at (kN, jN, h, mN) with the order “round first, episode second, step third, agent
+fourth”. ik′,j′,m′ is the number of visits to (s, a) at step h before the sample (k′, j′, h, m′). We order
+Xk′,j′,m′
+h
+to be {Y1, Y2, ..., Yn}. Then given (s, a, h, k, N) ∈S × A × [H] × [T1/H] × [T1/H], we
+have Er−1[Yr] = 0. It also holds that:
+|Yr| ≤∥ui
+h+1∥∞· 2∥W ki
+h+1∥∞≤2CwCu(N),
+and
+N
+X
+r=1
+Er−1Y 2
+r =
+N
+X
+i=1
+(ui
+h(s, a, N))2Vs,a,h(W ki
+h+1) ≤2Cu(N)C2
+w.
+Using Theorem E.2, with R = 2Cu(N)Cw, m = log2(N), σ2 = 2Cu(N)C2
+w, we have, with
+probability at least 1 −δ/SAT 2
+1 :
+
+N
+X
+i=1
+ui
+h(s, a, N)
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+W ki
+h+1
+
+≤
+s
+24 max
+
+(ui
+h(s, a, N))2Vs,a,h(W ki
+h+1), 2Cu(N)C2w
+N
+
+ι + 8Cu(N)Cwι
+≤5
+v
+u
+u
+tCu(N)ι
+N
+X
+i=1
+ui
+h(s, a, N)Vs,a,h(W ki
+h+1) + 8
+ r
+Cu(N)C2w
+N
++ Cu(N)Cw
+!
+ι.
+Consider all combinations of (s, a, h, k, N) ∈S × A × [H] × [ T1
+H ] × [ T1
+H ], we finish the proof.
+Using Lemma F.4, we derive an upper bound for the summation of non-martingale differences
+weighted by ˜ηt
+i. The results are presented in the following Lemma F.5.
+Lemma F.5. For any (s, a, h, k) ∈S × A × [H] × [K], let {W ki
+h+1 ∈RS | 1 ≤i ≤N k
+h(s, a)} be
+collections of vectors, which obey the following properties:
+• W ki
+h+1 is fully determined by the samples collected up to h−th step of ji−th episode of agent
+mi in round ki, where the samples is ordered based on the “round first, episode second,
+step third, agent fourth” rule.
+• ∥W ki
+h+1∥∞≤Cw.
+Then with probability at least 1 −δ, the following inequality holds:
+
+Nk
+h
+X
+i=1
+˜ηNk
+h
+i
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+W ki
+h+1
+
+≲
+v
+u
+u
+t Hι
+N k
+h
+Nk
+h
+X
+i=1
+η
+N k
+h
+i
+Vs,a,h(W ki
+h+1) + HCwι
+N k
+h
+=
+v
+u
+u
+t Hι
+N k
+h
+Nk
+h
+X
+i=1
+˜η
+N k
+h
+i
+Vs,a,h(W ki
+h+1) + HCwι
+N k
+h
+.
+Proof.
+Nk
+h
+X
+i=1
+˜ηNk
+h
+i
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+W ki
+h+1 =
+Nk
+h
+X
+i=1
+h
+ηNk
+h
+i
++
+
+˜ηNk
+h
+i
+−ηNk
+h
+i
+i 
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+W ki
+h+1.
+30
+
+````
+
+## PDF page 31
+
+FORMULA CHECK REQUIRED: original PDF page 31.
+
+````text
+We know maxi∈[N k
+h] ηNk
+h
+i
+≤2H/N k
+h and PN k
+h
+i=1 ηNk
+h
+i
+≤1 from (b) in Lemma F.2. Using Lemma F.4
+with Cu(N k
+h) = 2H/N k
+h, with probability at least 1 −δ/2, it holds that:
+
+Nk
+h
+X
+i=1
+ηNk
+h
+i
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+W ki
+h+1
+
+≲
+v
+u
+u
+t Hι
+N k
+h
+Nk
+h
+X
+i=1
+η
+N k
+h
+i
+Vs,a,h(W ki
+h+1) + HCwι
+N k
+h
+.
+(20)
+For the second term, let {k1 < k2 < ... < kt ≤K} be the collection of round indices that
+nki
+h (s, a) > 0 for any i ∈[t]. Then we have:
+N k
+h
+X
+i=1
+
+˜ηNk
+h
+i
+−ηNk
+h
+i
+ 
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+W ki
+h+1
+=
+t
+X
+n=1
+ηc(N kn+1
+h
++ 1, N k
+h)
+Nkn+1
+hX
+i=N kn
+h
++1
+
+˜η
+N kn+1
+h
+i
+−η
+Nkn+1
+h
+i
+ 
+1skn,ji,mi
+h+1
+−Ps,a,h
+
+W kn
+h+1.
+(21)
+For N kn+1
+h
+< i0, since ˜η
+Nkn+1
+h
+i
+= η
+Nkn+1
+h
+i
+,
+N kn+1
+hX
+i=N kn
+h
++1
+
+˜η
+Nkn+1
+h
+i
+−η
+Nkn+1
+h
+i
+ 
+1skn,ji,mi
+h+1
+−Ps,a,h
+
+W kn
+h+1 = 0.
+For N kn+1
+h
+≥i0 and i ∈[N kn
+h
++ 1, N kn+1
+h
+], by (d) of Lemma F.2 and (a) and (b) in Lemma F.3, we
+know
+˜η
+Nkn+1
+h
+i
+, η
+Nkn+1
+h
+i
+∈
+
+η
+N kn+1
+h
+Nkn
+h
++1, η
+Nkn+1
+h
+Nkn+1
+h
+
+and thus
+˜η
+Nkn+1
+h
+i
+−η
+Nkn+1
+h
+i
+ ≤η
+Nkn+1
+h
+N kn+1
+h
+−η
+Nkn+1
+h
+N kn
+h
++1.
+Then for given N kn+1
+h
+= N2 ∈[i0, T1/H], N kn
+h
+= N1 ∈[0, N2], and (s, a, h, kn, n) ∈S × A ×
+[H] × [T1/H] × [T1/H], using Theorem E.2 with R = 2Cw(ηN2
+N2 −ηN2
+N1+1), m = ⌈log2(N2)⌉,
+σ2 = 4N2(ηN2
+N2 −ηN2
+N1+1)2C2
+w, with probability at least 1 −δ/2SAT 4
+1 , it holds that:
+
+Nkn+1
+hX
+i=N kn
+h
++1
+
+˜η
+Nkn+1
+h
+i
+−η
+Nkn+1
+h
+i
+ 
+1skn,ji,mi
+h+1
+−Ps,a,h
+
+W kn
+h+1
+
+≲
+v
+u
+u
+t
+N2
+X
+i=N1+1
+
+˜ηN2
+i
+−ηN2
+i
+2
+Vs,a,h(W kn
+h+1)ι +
+
+ηN2
+N2 −ηN2
+N1+1
+
+Cwι
+Consider all the possible combinations of N kn
+h
+= N1 ∈[T1/H], N kn+1
+h
+= N2 ∈[T1/H] and
+(s, a, h, kn) ∈S × A × [H] × [T1/H], with probability at least 1 −δ/2, it simultaneously hold for
+all (s, a, h, kn, n) ∈S × A × [H] × [T1/H] × [T1/H] that
+
+Nkn+1
+hX
+i=N kn
+h
++1
+
+˜η
+Nkn+1
+h
+i
+−η
+Nkn+1
+h
+i
+ 1skn,ji,mi
+h+1
+−Ps,a,h
+
+W kn
+h+1
+
+≲
+v
+u
+u
+u
+t
+N kn+1
+hX
+i=N kn
+h
++1
+
+˜η
+Nkn+1
+h
+i
+−η
+Nkn+1
+h
+i
+2
+Vs,a,h(W kn
+h+1)ι +
+
+η
+Nkn+1
+h
+Nkn+1
+h
+−η
+Nkn+1
+h
+N kn
+h
++1
+
+Cwι
+≲
+N kn+1
+hX
+i=N kn
+h
++1
+η
+Nkn+1
+h
+i √
+i
+q
+Vs,a,h(W kn
+h+1)ι +
+
+η
+Nkn+1
+h
+Nkn+1
+h
+−η
+N kn+1
+h
+Nkn
+h
++1
+
+Cwι.
+31
+
+````
+
+## PDF page 32
+
+FORMULA CHECK REQUIRED: original PDF page 32.
+
+````text
+Here, the last inequality is by (d) of Lemma F.3. Applying this inequality to Equation (21), then
+
+Nk
+h
+X
+i=1
+
+˜ηNk
+h
+i
+−ηNk
+h
+i
+ 
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+W ki
+h+1
+
+≲
+t
+X
+n=1
+ηc(N kn+1
+h
++ 1, N k
+h)
+
+
+Nkn+1
+hX
+i=N kn
+h
++1
+η
+N kn+1
+h
+i √
+i
+·
+q
+Vs,a,h(W kn
+h+1)ι +
+
+η
+Nkn+1
+h
+Nkn+1
+h
+−η
+Nkn+1
+h
+Nkn
+h
++1
+
+Cwι
+
+
+=
+t
+X
+n=1
+N kn+1
+hX
+i=N kn
+h
++1
+ηNk
+h
+i√
+i
+·
+q
+Vs,a,h(W kn
+h+1)ι +
+t
+X
+n=2
+
+ηNk
+h
+N
+kn−1+1
+h
+−ηNk
+h
+Nkn
+h
++1
+
+Cwι
++
+
+ηNk
+h
+Nkt+1
+h
+−ηNk
+h
+Nk1
+h +1
+
+Cwι
+≤
+v
+u
+u
+u
+t
+
+
+Nk
+h
+X
+i=1
+η
+Nk
+h
+i
+i
+
+
+
+
+Nk
+h
+X
+i=1
+η
+Nk
+h
+i
+Vs,a,h(W ki
+h+1)
+
+ι + ηN k
+h
+Nk
+h Cwι
+≲
+v
+u
+u
+u
+t ι
+N k
+h
+
+
+Nk
+h
+X
+i=1
+η
+N k
+h
+i
+Vs,a,h(W ki
+h+1)
+
++ HCwι
+N k
+h
+.
+(22)
+In the second last inequality, we use the Cauchy-Schwarz inequality and the monotonicity of ηN k
+h
+i
+.
+We also use N kt+1
+h
+= N k
+h because there is no visit to (s, a, h) from round kt + 1 to round k −1. The
+last inequality is by (a) and (b) in Lemma F.2. Combining Equation (20) and Equation (22), we prove
+the first conclusion. Moreover, note that:
+Nk
+h
+X
+i=1
+ηNk
+h
+i
+Vs,a,h(W ki
+h+1) =
+t
+X
+n=1
+
+
+N kn+1
+hX
+i=N kn
+h
++1
+ηN k
+h
+i
+
+Vs,a,h(W kn
+h+1)
+=
+t
+X
+n=1
+
+
+Nkn+1
+hX
+i=N kn
+h
++1
+˜ηNk
+h
+i
+
+Vs,a,h(W kn
+h+1) =
+Nk
+h
+X
+i=1
+˜ηN k
+h
+i
+Vs,a,h(W ki
+h+1).
+The second equality is because of (b) in Lemma F.3. Then we finish the proof.
+Lemma F.6. For any non-negative weight sequence {ωk,j,m
+h
+|k ∈[K], m ∈[M], j ∈[nm,k]} and
+α ∈[0, 1), it holds for any h ∈[H] that:
+X
+k,j,m,N k
+h>0
+ωk,j,m
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)α
+≤
+X
+k,j,m,N k
+h>0
+ωk,j,m
+h
+I
+h
+0 < N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) < M
+i
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)α
++
+2α
+1 −α(SA∥ω∥∞,h)α∥ω∥1−α
+1,h
+≤2MSA∥ω∥∞,h +
+2α
+1 −α(SA∥ω∥∞,h)α∥ω∥1−α
+1,h .
+Here, ∥ω∥∞,h = max
+k,j,m{ωk,j,m
+h
+} and ∥ω∥1,h = P
+k,j,m ωk,j,m
+h
+.
+For α = 1, for any h ∈[H], we have the following conclusion:
+X
+k,j,m,N k
+h>0
+1
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≤2MSA + 2SAι.
+32
+
+````
+
+## PDF page 33
+
+FORMULA CHECK REQUIRED: original PDF page 33.
+
+````text
+Proof.
+X
+k,j,m,N k
+h>0
+ωk,j,m
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)α =
+X
+s,a
+X
+k,j,m,N k
+h>0
+ωk,j,m
+h
+(N k
+h(s, a))α I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)].
+We decompose the summation into two terms
+X
+s,a
+X
+k,j,m
+ωk,j,m
+h
+(N k
+h(s, a))α I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)]
+ I
+
+0 < N k
+h < M
+
++ I
+
+N k
+h ≥M
+
+.
+Let k0(s, a) = max{k | 1 ≤k ≤K, N k
+h(s, a) < M}. Then for the first term, it holds that
+X
+k,j,m
+ωk,j,m
+h
+(N k
+h(s, a))α I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)]I
+
+0 < N k
+h(s, a) < M
+
+≤∥ω∥∞,h
+X
+k,j,m
+I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)]I
+
+0 < N k
+h(s, a) < M
+
+= ∥ω∥∞,h
+k0
+X
+k=1
+X
+j,m
+I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)]
+= ∥ω∥∞,hN k0+1
+h
+(s, a) ≤2M∥ω∥∞,h,
+(23)
+and thus
+X
+s,a
+X
+k,j,m
+ωk,j,m
+h
+(N k
+h(s, a))α I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)]I
+
+0 < N k
+h < M
+
+≤2MSA∥ω∥∞,h.
+(24)
+For the second term, let
+ch(s, a) =
+X
+k,j,m
+ωk,j,m
+h
+I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)]I
+
+N k
+h(s, a) ≥M
+
+=
+K
+X
+k=k0+1
+X
+j,m
+ωk,j,m
+h
+I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)].
+Then we have P
+s,a ch(s, a) ≤P
+k,j,m ωk,j,m
+h
+= ∥ω∥1,h. Given the term
+X
+k,j,m
+ωk,j,m
+h
+(N k
+h(s, a))α I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)],
+when the weights ωk,j,m
+h
+concentrates on smallest round indices with largest values of
+1
+(N k
+h(s,a))α , we
+can obtain the largest value. Let k0(s, a) < k1 < k2 < ... < kt ≤K be all round indices that satisfy
+nki
+h (s, a) > 0. Then we have:
+ch(s, a) ≤∥ω∥∞,h
+K
+X
+k=k0+1
+X
+j,m
+I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)] = ∥ω∥∞,h
+t
+X
+i=1
+nki
+h (s, a).
+Let
+q = max
+(
+q | 0 ≤q ≤t, ∥ω∥∞,h
+q
+X
+i=1
+nki
+h (s, a) ≤ch(s, a)
+)
+,
+and
+d = ch(s, a) −∥ω∥∞,h
+q
+X
+i=1
+nki
+h (s, a).
+33
+
+````
+
+## PDF page 34
+
+FORMULA CHECK REQUIRED: original PDF page 34.
+
+````text
+Then for q < t, we have the following inequality:
+X
+k,j,m
+ωk,j,m
+h
+(N k
+h(s, a))α I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)]I
+
+N k
+h(s, a) ≥M
+
+≤
+q
+X
+i=1
+∥ω∥∞,h
+nki
+h (s, a)
+(N ki
+h (s, a))α +
+d
+(N kq+1
+h
+(s, a))α .
+(25)
+Note that for any 0 < y < x and α ∈[0, 1), we have:
+x −y
+xα
+≤
+1
+1 −α(x1−α −y1−α).
+(26)
+Then, for any i ∈[t], let x = N ki
+h (s, a) and y = N ki+1
+h
+(s, a), it holds that:
+nki
+h (s, a)
+(N ki
+h (s, a))α ≤2α
+nki
+h (s, a)
+(N ki+1
+h
+(s, a))α ≤2α
+ 
+(N ki+1
+h
+(s, a))1−α −(N ki
+h (s, a))1−α
+1 −α
+!
+.
+(27)
+Here the first inequality is because N ki+1
+h
+(s, a) = N ki
+h (s, a) + nki
+h (s, a) ≤2N ki
+h (s, a) by (a) of
+Lemma F.1. Summing up Equation (27) from 1 to q, we know
+q
+X
+i=1
+nki
+h (s, a)
+(N ki
+h (s, a))α ≤2α
+q
+X
+i=1
+(N ki+1
+h
+(s, a))1−α −(N ki
+h (s, a))1−α
+1 −α
+≤2α
+q
+X
+i=1
+(N ki+1
+h
+(s, a))1−α −(N ki
+h (s, a))1−α
+1 −α
+= 2α
+ 
+(N kq+1
+h
+(s, a))1−α
+1 −α
+−(N k1
+h (s, a))1−α
+1 −α
+!
+≤2α
+Pq
+i=1 nki
+h (s, a)
+1−α
+1 −α
+.
+(28)
+The second inequality is because ki + 1 ≤ki+1 and thus N ki+1
+h
+(s, a) ≤N ki+1
+h
+(s, a). The last
+inequality is because for any x > 1 and 0 ≤α < 1, we have the following inequality
+x1−α ≤(x −1)1−α + 1,
+and we can let x = N kq+1
+h
+(s, a)/N k1
+h (s, a). Applying Equation (28) to Equation (25), for q < t, we
+have
+X
+k,j,m
+ωk,j,m
+h
+(N k
+h(s, a))α I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)]I
+
+N k
+h(s, a) ≥M
+
+≤2α∥ω∥∞,h
+Pq
+i=1 nki
+h (s, a)
+1−α
+1 −α
++
+d
+(N kq+1
+h
+(s, a))α
+≤(2∥ω∥∞,h)α
+
+
+
+
+∥ω∥∞,h
+Pq
+i=1 nki
+h (s, a)
+1−α
+1 −α
++
+d
+(N kq+1+1
+h
+(s, a)∥ω∥∞,h)α
+
+
+
+≤(2∥ω∥∞,h)α
+
+
+
+
+∥ω∥∞,h
+Pq
+i=1 nki
+h (s, a)
+1−α
+1 −α
++
+d
+(ch(s, a))α
+
+
+
+≤(2∥ω∥∞,h)α (ch(s, a))1−α
+1 −α
+.
+(29)
+34
+
+````
+
+## PDF page 35
+
+FORMULA CHECK REQUIRED: original PDF page 35.
+
+````text
+Here the second inequality is because N kq+1+1
+h
+(s, a) ≤2N kq+1
+h
+(s, a) for q < t and N kq+1
+h
+(s, a) ≥
+M. the second last inequality is because ch(s, a) ≤N kq+1+1
+h
+(s, a)∥ω∥∞,h by the definition of q.
+The last inequality is by Equation (26) with x = ch(s, a) and y = ∥ω∥∞,h
+Pq
+i=1 nki
+h (s, a).
+We can also prove the Equation (29) directly by Equation (28) for q = t with d = 0. Therefore, with
+Equation (29), we can conclude that
+X
+s,a
+X
+k,j,m
+ωk,j,m
+h
+(N k
+h(s, a))α I[(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)]I
+
+N k
+h(s, a) ≥M
+
+≤
+2α∥ω∥α
+∞,h
+1 −α
+X
+s,a
+(ch(s, a))1−α ≤
+2α
+1 −α(SA)α∥ω∥α
+∞,h∥ω∥1−α
+1,h .
+(30)
+The last inequality is by Hölder’s inequality, as P
+s,a ch(s, a)1−α ≤(SA)α∥ω∥1−α
+1,h . Combining the
+results of Equation (23) and Equation (30), we prove the following conclusion:
+X
+k,j,m,N k
+h>0
+ωk,j,m
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)α ≤2MSA∥ω∥∞,h +
+2α
+1 −α(SA)α∥ω∥α
+∞,h∥ω∥1−α
+1,h .
+For α = 1, it holds that:
+X
+k,j,m
+1
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+=
+X
+s,a
+K
+X
+k=1
+nk
+h(s, a)
+N k
+h(s, a) =
+X
+s,a
+k0
+X
+k=1
+nk
+h(s, a)
+N k
+h(s, a) +
+X
+s,a
+K
+X
+k=k0+1
+nk
+h(s, a)
+N k
+h(s, a).
+Let ωk,j,m
+h
+= 1. By Equation (23), we know
+k0
+X
+k=1
+nk
+h(s, a)
+N k
+h(s, a) ≤2M,
+X
+s,a
+k0
+X
+k=1
+nk
+h(s, a)
+N k
+h(s, a) ≤2MSA.
+(31)
+We also have
+K
+X
+k=k0+1
+nk
+h(s, a)
+N k
+h(s, a) ≤2
+K
+X
+k=k0+1
+nk
+h(s, a)
+N k+1
+h
+(s, a)
+≤2
+K
+X
+k=k0+1
+ log(N k+1
+h
+(s, a)) −log(N k
+h(s, a))
+
+≤2 log(T1).
+(32)
+Here the first inequality is because for k > k0(s, a), N k
+h(s, a) ≥M, we have N k+1
+h
+(s, a) ≤
+2N k
+h(s, a). The second inequality is because for 0 < y < x,
+x −y
+x
+≤log(x) −log(y).
+The last inequality is because N K+1
+h
+(s, a) ≤T1. To summarize, combining the results of Equa-
+tion (31) and Equation (32), we then prove that
+X
+k,j,m
+1
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≤MSA + 2SA log(T1) ≤MSA + 2SAι.
+G
+Probability Events
+In this section, we provide some probability events for FedQ-EarlySettled-LowCost.
+Lemma G.1. Define ˆV R,k
+h
+(s) := max
+
+V ⋆
+h (s), min{V ⋆
+h (s) + β, V R,k
+h
+(s)}
+	
+for any (s, h, k) ∈
+S × [H] × [K]. Using ∀(s, a, h, k) as the simplified notation for ∀(s, a, h, k) ∈S × A × [H] × [K].
+Then we have the following conclusions.
+35
+
+````
+
+## PDF page 36
+
+FORMULA CHECK REQUIRED: original PDF page 36.
+
+````text
+(a) ([113, Lemma C.1]) With probability at least 1 −δ, the following event holds:
+E1 =
+n
+QU,k
+h (s, a) ≥Q⋆
+h(s, a), ∀(s, a, h, k)
+o
+.
+(b) With probability at least 1 −δ, the following event holds:
+E2 =
+( 
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+ 
+V kn
+h+1 −V R,kn
+h+1
+
+
+≲
+s
+Hι
+N k
+h
+
+σA,k
+h
+−
+
+µA,k
+h
+2
++ H2ι
+N k
+h
+, ∀(s, a, h, k)
+)
+.
+(c) With probability at least 1 −δ, the following event holds:
+E3 =
+( 
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V R,ki
+h+1
+
+≲
+s
+ι
+N k
+h
+
+σR,k
+h
+−
+
+µR,k
+h
+2
++ H2ι
+N k
+h
+, ∀(s, a, h, k)
+)
+.
+(d) ([113, Lemma C.3]) With probability at least 1 −δ, the following event holds:
+E4 =
+
+
+
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+
+V ⋆
+h+1 ≲
+s
+H3ι
+N k
+h
+, ∀(s, a, h, k)
+
+
+.
+(e) With probability at least 1 −δ, the following event holds:
+E5 =
+
+
+
+H
+X
+h=1
+(e
+3
+H )h−1 X
+k,j,m
+
+Psk,j,m
+h
+,ak,j,m
+h
+,h −1sk,j,m
+h+1
+
+(V ⋆
+h+1 −V πk
+h+1) ≤27
+p
+2H2T1ι
+
+
+.
+(f) With probability at least 1 −δ, the following event holds:
+E6 =
+
+
+
+
+
+PNk
+h
+n=1
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+
+V ⋆
+h+1
+N k
+h(s, a)
+≤H
+s
+2ι
+N k
+h(s, a), ∀(s, a, h, k)
+
+
+
+
+
+.
+(g) With probability at least 1 −δ, the following event holds:
+E7 =
+
+
+
+
+
+PNk
+h
+n=1
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+  V ⋆
+h+1
+2
+N k
+h(s, a)
+≤H2
+s
+2ι
+N k
+h(s, a), ∀(s, a, h, k)
+
+
+
+
+
+.
+(h) ([113, Lemma E.6])With probability at least 1 −δ, the following event holds:
+E8 =
+
+
+
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V πk
+h+1) ≲HT1 + H3ι
+
+
+.
+(i) With probability at least 1 −δ, the following event holds:
+E9 =
+
+
+
+H
+X
+h=1
+X
+k,j,m
+
+Psk,j,m
+h
+,ak,j,m
+h
+,h −1sk,j,m
+h+1
+ 
+V ⋆
+h+1 −V πk
+h+1
+
+≤
+p
+2H2T1ι
+
+
+.
+36
+
+````
+
+## PDF page 37
+
+FORMULA CHECK REQUIRED: original PDF page 37.
+
+````text
+(j) With probability at least 1 −δ, the following event holds:
+E10 =
+
+
+
+H
+X
+h=1
+X
+k,j,m
+
+V U,k
+h+1 −V πk
+h+1
+
+(sk,j,m
+h+1 ) ≤H3p
+SAT1ι + MH5SA√ι
+
+
+.
+(k) With probability at least 1 −δ, the following event holds:
+E11 =
+( X
+h,k,j,m
+Psk,j,m
+h
+,ak,j,m
+h
+,h
+n
+(V k
+h+1 −V L,k
+h+1)(sk,j,m
+h+1 )I[(V k
+h+1 −V L,k
+h+1)(sk,j,m
+h+1 ) > β]
+o
+≤3
+H
+X
+h=1
+X
+k,j,m
+ V k
+h+1 −V L,k
+h+1
+
+(sk,j,m
+h+1 )I
+h V k
+h+1 −V L,k
+h+1
+
+(sk,j,m
+h+1 ) > β
+i
++ Hι
+)
+.
+(l) With probability at least 1 −δ, the following event holds:
+E12 =
+( 
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+ 
+ˆV R,ki
+h+1 −V ⋆
+h+1
+
+
+≤β
+s
+2ι
+N kn+1
+h
+, ∀(s, a, h, k, n)
+)
+.
+(m) With probability at least 1 −δ, the following event holds:
+E13 =
+( 
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V ⋆
+h+1
+
+≤4
+s
+Vs,a,h(V ⋆
+h+1)ι
+N kn+1
+h
++
+7Hι
+N kn+1
+h
+, ∀(s, a, h, k, n)
+)
+.
+(n) With probability at least 1 −δ, the following event holds:
+E14 =
+( 
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+1skn,jn,mn
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+ 
+V ⋆
+h+1 −ˆV R,kn
+h+1
+
+
+≲β
+s
+Hι
+N k
+h
++ βHι
+N k
+h
+, ∀(s, a, h, k)
+)
+.
+Proof. (b) Using the Lemma F.5, with probability at least 1 −δ/2, we know that for ∀(s, a, h, k):
+
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+ 
+V kn
+h+1 −V R,kn
+h+1
+
+
+≲
+v
+u
+u
+t Hι
+N k
+h
+N k
+h
+X
+n=1
+˜η
+Nk
+h
+n Vs,a,h
+
+V kn
+h+1 −V R,kn
+h+1
+
++ H2ι
+N k
+h
+.
+(33)
+Next we will bound the difference
+I1 =
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n Vs,a,h
+
+V kn
+h+1 −V R,kn
+h+1
+
+−
+
+σA,k
+h
+−(µA,k
+h )2 △= XA −
+
+σA,k
+h
+−(µA,k
+h )2
+,
+where
+XA =
+N k
+h
+X
+n=1
+˜ηNk
+h
+n Vs,a,h
+
+V kn
+h+1 −V R,kn
+h+1
+
+.
+37
+
+````
+
+## PDF page 38
+
+FORMULA CHECK REQUIRED: original PDF page 38.
+
+````text
+Based on the update rule of Equation (8) and Equation (12), by recursion, we have:
+µA,k
+h
+=
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+V kn
+h+1 −V R,kn
+h+1
+ 
+skn,jn,mn
+h+1
+
+, σA,k
+h
+=
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+V kn
+h+1 −V R,kn
+h+1
+2 
+skn,jn,mn
+h+1
+
+.
+(34)
+According to the definition of Vs,a,h, we also have
+Vs,a,h
+
+V kn
+h+1 −V R,kn
+h+1
+
+= Ps,a,h
+
+V kn
+h+1 −V R,kn
+h+1
+2
+−
+
+Ps,a,h
+
+V kn
+h+1 −V R,kn
+h+1
+2
+.
+(35)
+Combining the results of Equation (34) and Equation (35), we can decompose the difference I1:
+I1 =
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+
+Ps,a,h −1skn,jn,mn
+h+1
+ 
+V kn
+h+1 −V R,kn
+h+1
+2
++
+
+
+
+
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −V R,kn
+h+1
+ 
+skn,jn,mn
+h+1
+
+
+
+2
+−
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+
+Ps,a,h(V kn
+h+1 −V R,kn
+h+1 )
+2
+
+. (36)
+For the first term of Equation (36), with Lemma F.5, with probability at least 1 −δ/4, it holds for
+∀(s, a, h, k) that:
+
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+
+Ps,a,h −1skn,jn,mn
+h+1
+ 
+V kn
+h+1 −V R,kn
+h+1
+2
+
+≲
+v
+u
+u
+t Hι
+N k
+h
+Nk
+h
+X
+n=1
+˜η
+Nk
+h
+n Vs,a,h
+
+V kn
+h+1 −V R,kn
+h+1
+2
++ H3ι
+N k
+h
+≲
+v
+u
+u
+tH3ι
+N k
+h
+N k
+h
+X
+n=1
+˜η
+Nk
+h
+n Vs,a,h
+
+V kn
+h+1 −V R,kn
+h+1
+
++ H3ι
+N k
+h
+=
+s
+H3ι
+N k
+h
+XA + H3ι
+N k
+h
+.
+(37)
+The last inequality is by Vs,a,h(X2) ≤4C2Vs,a,h(X) for |X| ≤C. For the second term of
+Equation (36), since V kn
+h+1 ≤V R,kn
+h+1 , by Cauchy-Schwarz inequality, we reach
+
+
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+V kn
+h+1 −V R,kn
+h+1
+ 
+skn,jn,mn
+h+1
+
+
+
+2
+−
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+Ps,a,h(V kn
+h+1 −V R,kn
+h+1 )
+2
+≤
+
+
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+V kn
+h+1 −V R,kn
+h+1
+ 
+skn,jn,mn
+h+1
+
+
+
+2
+−
+
+
+N k
+h
+X
+n=1
+˜ηNk
+h
+n Ps,a,h
+
+V kn
+h+1 −V R,kn
+h+1
+
+
+
+2
+≤2H
+
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+ 
+V kn
+h+1 −V R,kn
+h+1
+
+
+≲
+s
+H3ι
+N k
+h
+XA + H3ι
+N k
+h
+.
+(38)
+The last inequality holds for ∀(s, a, h, k) with probability at least 1 −δ/4 by Lemma F.5. Combining
+Equation (37) and Equation (38), back to Equation (36), with probability at least 1 −δ/2, we know
+I1 = XA −
+
+σA,k
+h
+−(µA,k
+h )2
+≲
+s
+H3ι
+N k
+h
+XA + H3ι
+N k
+h
+.
+38
+
+````
+
+## PDF page 39
+
+FORMULA CHECK REQUIRED: original PDF page 39.
+
+````text
+Solving the inequality, with probability at least 1 −δ/2, we have
+XA ≲
+
+σA,k
+h
+−(µA,k
+h )2
++ H3ι
+N k
+h
+.
+Applying this inequality to Equation (33), with probability at least 1 −δ, the following relationship
+holds for ∀(s, a, h, k):
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+ 
+V kn
+h+1 −V R,kn
+h+1
+
+≲
+s
+Hι
+N k
+h
+
+σA,k
+h
+−
+
+µA,k
+h
+2
++ H2ι
+N k
+h
+.
+(c) To begin, note that
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V R,ki
+h+1
+=
+k−1
+X
+k′=1
+
+
+
+Nk′+1
+hX
+n=N k′
+h +1
+˜ηNk
+h
+i
+
+
+
+1
+N k′+1
+h
+N k′+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V R,ki
+h+1
+=
+k−1
+X
+k′=1
+
+
+
+Nk′+1
+hX
+n=N k′
+h +1
+ηNk
+h
+i
+
+
+
+1
+N k′+1
+h
+N k′+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V R,ki
+h+1
+=
+Nk
+h
+X
+n=1
+ηNk
+h
+n
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V R,ki
+h+1 .
+(39)
+For any given (s, a, h) and N kn+1
+h
+= N ∈[T1/H], using Lemma F.4 with Cu(N kn
+h ) = 1/N kn+1
+h
+and Cw = 2H, with probability at least 1 −δ/2SAT1, it holds that:
+
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V R,ki
+h+1
+
+≲
+v
+u
+u
+u
+t
+ι
+N kn+1
+h
+N kn+1
+hX
+i=1
+Vs,a,h(V R,ki
+h+1 )
+N kn+1
+h
++
+Hι
+N kn+1
+h
+. (40)
+Consider all the possible combinations (s, a, h, N) ∈S×A×[H]×[ T1
+H ], we know with probability at
+least 1−δ/2, Equation (40) holds simultaneously for any (n, s, a, h, kn) and N kn+1
+h
+= N ∈[T1/H].
+Therefore, applying this inequality to Equation (39), with probability at least 1 −δ/2, we then have:
+
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V R,ki
+h+1
+
+≲
+N k
+h
+X
+n=1
+ηNk
+h
+n
+
+
+
+
+v
+u
+u
+u
+t
+ι
+N kn+1
+h
+N kn+1
+hX
+i=1
+Vs,a,h(V R,ki
+h+1 )
+N kn+1
+h
++
+Hι
+N kn+1
+h
+
+
+
+.
+(41)
+For the first term of Equation (41), by Cauchy-Schwarz inequality, it holds that:
+Nk
+h
+X
+n=1
+ηNk
+h
+n
+v
+u
+u
+u
+t
+ι
+N kn+1
+h
+Nkn+1
+hX
+i=1
+Vs,a,h(V R,ki
+h+1 )
+N kn+1
+h
+≤
+v
+u
+u
+u
+t
+
+
+Nk
+h
+X
+n=1
+η
+N k
+h
+n ι
+N kn+1
+h
+
+
+
+
+Nk
+h
+X
+n=1
+η
+Nk
+h
+n
+Nkn+1
+hX
+i=1
+Vs,a,h(V R,ki
+h+1 )
+N kn+1
+h
+
+.
+(42)
+By the definition of kn, we know N kn+1
+h
+≥n and then by (a) of Lemma F.2 with α = 1, we have
+Nk
+h
+X
+n=1
+ηNk
+h
+n ι
+N kn+1
+h
+≤
+Nk
+h
+X
+n=1
+ηN k
+h
+n ι
+n
+≲
+ι
+N k
+h
+,
+(43)
+39
+
+````
+
+## PDF page 40
+
+FORMULA CHECK REQUIRED: original PDF page 40.
+
+````text
+and
+Nk
+h
+X
+n=1
+ηNk
+h
+n
+Nkn+1
+hX
+i=1
+Vs,a,h(V R,ki
+h+1 )
+N kn+1
+h
+=
+Nk
+h
+X
+i=1
+X
+Cn
+ηN k
+h
+n
+N kn+1
+h
+Vs,a,h(V R,ki
+h+1 ) ≲
+Nk
+h
+X
+i=1
+1
+N k
+h
+Vs,a,h(V R,ki
+h+1 ).
+(44)
+Here, Cn = {n : N kn+1
+h
+≥i, n ≤N k
+h}. Applying Equation (43) and Equation (44) to Equation (42),
+then we can bound the first term of Equation (41):
+N k
+h
+X
+n=1
+ηNk
+h
+n
+v
+u
+u
+u
+t
+ι
+N kn+1
+h
+N kn+1
+hX
+i=1
+Vs,a,h(V R,ki
+h+1 )
+N kn+1
+h
+≲
+v
+u
+u
+t ι
+N k
+h
+N k
+h
+X
+i=1
+1
+N k
+h
+Vs,a,h(V R,ki
+h+1 ).
+For the second term of Equation (41), same to Equation (43), we have:
+Nk
+h
+X
+n=1
+ηNk
+h
+n
+Hι
+N kn+1
+h
+≲Hι
+N k
+h
+.
+Applying these two upper bounds to Equation (41), with probability at least 1 −δ/2, we know that
+
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+N kn+1
+h
+N kn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V R,ki
+h+1
+
+≲
+v
+u
+u
+t ι
+N k
+h
+N k
+h
+X
+n=1
+1
+N k
+h
+Vs,a,h(V R,kn
+h+1 ) + Hι
+N k
+h
+.
+(45)
+Next we will bound the difference
+I2 =
+Nk
+h
+X
+n=1
+1
+N k
+h
+Vs,a,h(V R,kn
+h+1 ) −
+
+σR,k
+h
+−(µR,k
+h )2 △= XR −
+
+σR,k
+h
+−(µR,k
+h )2
+,
+where
+XR =
+N k
+h
+X
+n=1
+1
+N k
+h
+Vs,a,h(V R,kn
+h+1 ).
+Based on the update rule of Equation (6), by recursion, we have:
+µR,k
+h
+=
+N k
+h
+X
+n=1
+1
+N k
+h
+V R,kn
+h+1
+
+skn,jn,mn
+h+1
+
+, σR,k
+h
+=
+N k
+h
+X
+n=1
+1
+N k
+h
+
+V R,kn
+h+1
+2 
+skn,jn,mn
+h+1
+
+.
+(46)
+According to the definition of Vs,a,h, we also have
+Vs,a,h
+
+V R,kn
+h+1
+
+= Ps,a,h
+
+V R,kn
+h+1
+2
+−
+
+Ps,a,hV R,kn
+h+1
+2
+.
+(47)
+Combining the results of Equation (46) and Equation (47), we can decompose the difference I2:
+I2 =
+N k
+h
+X
+n=1
+1
+N k
+h
+
+Ps,a,h −1skn,jn,mn
+h+1
+ 
+V R,kn
+h+1
+2
++
+
+
+
+
+N k
+h
+X
+n=1
+1
+N k
+h
+V R,kn
+h+1
+
+skn,jn,mn
+h+1
+
+
+
+2
+−
+Nk
+h
+X
+n=1
+1
+N k
+h
+
+Ps,a,hV R,kn
+h+1
+2
+
+.
+(48)
+For the first term of Equation (48), with Lemma F.4, with probability at least 1 −δ/4, it holds for
+∀(s, a, h, k) that:
+
+Nk
+h
+X
+n=1
+1
+N k
+h
+
+Ps,a,h −1skn,jn,mn
+h+1
+ 
+V R,kn
+h+1
+2
+
+≲
+v
+u
+u
+t ι
+N k
+h
+N k
+h
+X
+n=1
+1
+N k
+h
+Vs,a,h
+
+V R,kn
+h+1
+2
++ H2ι
+N k
+h
+≲
+v
+u
+u
+tH2ι
+N k
+h
+Nk
+h
+X
+n=1
+1
+N k
+h
+Vs,a,h
+
+V R,kn
+h+1
+
++ H2ι
+N k
+h
+=
+s
+H2ι
+N k
+h
+XR + H2ι
+N k
+h
+.
+(49)
+40
+
+````
+
+## PDF page 41
+
+FORMULA CHECK REQUIRED: original PDF page 41.
+
+````text
+The last inequality is by Vs,a,h(X2) ≤4C2Vs,a,h(X) for |X| ≤C. For the second term of
+Equation (48), by Cauchy-Schwarz inequality, we reach
+
+
+Nk
+h
+X
+n=1
+1
+N k
+h
+V R,kn
+h+1
+
+skn,jn,mn
+h+1
+
+
+
+2
+−
+Nk
+h
+X
+n=1
+1
+N k
+h
+
+Ps,a,hV R,kn
+h+1
+2
+≤
+
+
+Nk
+h
+X
+n=1
+1
+N k
+h
+V R,kn
+h+1
+
+skn,jn,mn
+h+1
+
+
+
+2
+−
+
+
+Nk
+h
+X
+n=1
+1
+N k
+h
+Ps,a,hV R,kn
+h+1
+
+
+2
+≤2H
+
+Nk
+h
+X
+n=1
+1
+N k
+h
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+
+V R,kn
+h+1
+
+≲
+s
+H2ι
+N k
+h
+XR + H2ι
+N k
+h
+.
+(50)
+The last inequality holds for ∀(s, a, h, k) with probability at least 1 −δ/4 by Lemma F.4. Combining
+Equation (49) and Equation (50), back to Equation (48), with probability at least 1 −δ/2, we know
+I1 = XR −
+
+σR,k
+h
+−(µR,k
+h )2
+≲
+s
+H2ι
+N k
+h
+XA + H2ι
+N k
+h
+.
+Solving the inequality, with probability at least 1 −δ/2, we have
+XR ≲
+
+σR,k
+h
+−(µR,k
+h )2
++ H2ι
+N k
+h
+.
+Applying this inequality to Equation (45), with probability at least 1 −δ, the following relationship
+holds for ∀(s, a, h, k):
+
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V R,ki
+h+1
+
+≲
+s
+Hι
+N k
+h
+
+σR,k
+h
+−
+
+µR,k
+h
+2
++ H2ι
+N k
+h
+.
+(e) For E5, the sequence
+n
+(e
+3
+H )h−1 
+Psk,j,m
+h
+,ak,j,m
+h
+,h −1sk,j,m
+h+1
+ 
+V ⋆
+h+1 −V πk
+h+1
+o
+k,j,h,m
+can be reordered to a martingale sequence based on the “round first, episode second, step third, agent
+fourth” rule. The absolute values of the sequence are bounded by 27H. After appending multiple
+0s to the summation such that there are T1 terms, the sequence is still a martingale. According to
+Azuma-Hoeffding inequality, for any δ ∈(0, 1), with probability at least 1 −δ, it holds that:
+H
+X
+h=1
+(e
+3
+H )h−1 X
+k,j,m
+
+Psk,j,m
+h
+,ak,j,m
+h
+,h −1sk,j,m
+h+1
+ 
+V ⋆
+h+1 −V πk
+h+1
+
+≤27
+p
+2H2T1ι.
+(f)
+n
+1skn,jn,mn
+h+1
+−Ps,a,h
+
+V ⋆
+h+1
+o
+n∈N+
+is a martingale sequence bounded by H. Then according to Azuma-Hoeffding inequality, for any
+δ ∈(0, 1), with probability at least 1 −δ/SAT1, it holds for a given N k
+h(s, a) = N ∈N+ that:
+1
+N
+
+N
+X
+i=1
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+
+V ⋆
+h+1
+ ≤H
+r
+2ι
+N .
+For any k ∈[K], we have N k
+h(s, a) ∈[ T1
+H ]. Considering all the possible combinations (s, a, h, N) ∈
+S × A × [H] × [ T1
+H ], with probability at least 1 −δ, it holds simultaneously for all (s, a, h, k) ∈
+S × A × [H] × [K] that:
+1
+N k
+h
+
+Nk
+h
+X
+i=1
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+
+V ⋆
+h+1
+
+≤H
+s
+2ι
+N k
+h(s, a).
+41
+
+````
+
+## PDF page 42
+
+FORMULA CHECK REQUIRED: original PDF page 42.
+
+````text
+(g) The proof is similar to (f) with
+n
+1skn,jn,mn
+h+1
+−Ps,a,h
+
+(V ⋆
+h+1)2o
+n∈N+
+being a martingale sequence bounded by H2.
+(i): The proof is similar to (e).
+(j): The proof is provided in section C.3 of [113] when bounding the term PK
+k=1 δk
+1.
+(k) It follows by Theorem E.3 with l = H.
+(l)
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+ 
+ˆV R,ki
+h+1 −V ⋆
+h+1
+
+n∈N+
+is a martingale sequence bounded by β . Then according to Azuma-Hoeffding inequality, for any
+δ ∈(0, 1), with probability at least 1 −δ/SAT1, it holds for a given N kn+1
+h
+(s, a) = N ∈N+ that:
+1
+N
+
+N
+X
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+ 
+ˆV R,ki
+h+1 −V ⋆
+h+1
+ ≤β
+r
+2ι
+N .
+For any kn ∈[K], we have N kn+1
+h
+(s, a) ∈[ T1
+H ]. Considering all the possible combinations
+(s, a, h, N) ∈S × A × [H] × [ T1
+H ], with probability at least 1 −δ, it holds simultaneously for all
+(s, a, h, kn) ∈S × A × [H] × [K] that:
+
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+ 
+ˆV R,ki
+h+1 −V ⋆
+h+1
+
+
+≤β
+s
+2ι
+N kn+1
+h
+.
+(m)
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V ⋆
+h+1
+
+n∈N+
+is a martingale sequence bounded by 2H. Then according to Freedman’s inequality Theorem E.2, for
+any δ ∈(0, 1), with probability at least 1 −δ/SAT1, it holds for a given N kn+1
+h
+(s, a) = N ∈N+
+that:
+
+1
+N
+N
+X
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V ⋆
+h+1
+ ≤4
+r
+Vs,a,h(V ⋆
+h+1)ι
+N
++ 7Hι
+N .
+Here we set WN = NVs,a,h(V ⋆
+h+1), R = H, m = log2(T1) and σ2 = T1H.
+For any kn ∈[K], we have N kn+1
+h
+(s, a) ∈[ T1
+H ]. Considering all the possible combinations
+(s, a, h, N) ∈S × A × [H] × [ T1
+H ], with probability at least 1 −δ, it holds simultaneously for all
+(s, a, h, k, n) ∈S × A × [H] × [K] × [T1] that:
+
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V ⋆
+h+1
+
+≤4
+s
+Vs,a,h(V ⋆
+h+1)ι
+N kn+1
+h
++
+7Hι
+N kn+1
+h
+.
+(n) By Lemma F.5, since 0 ≤ˆV R,kn
+h+1 (s) −V ⋆
+h+1(s) ≤β, then with probability at least 1 −δ/SAT1,
+it holds for a given N k
+h(s, a) = N ∈[T1/H] that
+N
+X
+n=1
+˜ηN
+n
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+ 
+V ⋆
+h+1 −ˆV R,kn
+h+1
+
+≲
+v
+u
+u
+tHι
+N
+N
+X
+n=1
+ηN
+n Vs,a,h(V ⋆
+h+1 −ˆV R,kn
+h+1 ) + βHι
+N
+(i)
+≤β
+r
+Hι
+N + βHι
+N .
+Here, (i) is because Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1 −ˆV R,kn
+h+1 ) ≤β2 and PNk
+h
+n=1 ηN k
+h
+n
+≤1. Considering all the
+possible combinations (s, a, h, N) ∈S × A × [H] × [ T1
+H ], we finish the proof.
+42
+
+````
+
+## PDF page 43
+
+FORMULA CHECK REQUIRED: original PDF page 43.
+
+````text
+H
+Key Properties of estimated Q−functions and V −functions
+We first prove the optimism property of the estimated Q−function Qk
+h(s, a).
+Lemma H.1. Under the event T3
+i=1 Ei in Lemma G.1, it holds that for any (s, a, h, k) ∈S × A ×
+[H] × [K]:
+Qk
+h(s, a) ≥Q⋆
+h(s, a) and V k
+h (s) ≥V ⋆
+h (s).
+Proof. We use mathematical induction on k to prove Qk
+h(s, a) ≥Q⋆
+h(s, a) and V k
+h (s) ≥V ⋆
+h (s) for
+any (s, a, h, k) ∈S × A × [H] × [K].
+For k = 1, Q1
+h(s, a) = H ≥Q⋆
+h(s, a) and V 1
+h (s) = H ≥V ⋆
+h (s) for any (s, a, h) ∈S × A × [H].
+For k ≥2, assume we already have Qk′
+h (s, a) ≥Q⋆
+h(s, a) for any (s, a, h, k′) ∈S×A×[H]×[k−1],
+then we will prove for any (s, a, h) ∈S × A × [H], Qk
+h(s, a) ≥Q⋆
+h(s, a).
+It is sufficient to show that
+min
+n
+QU,k
+h (s, a), QR,k
+h (s, a)
+o
+≥Q⋆
+h(s, a).
+The event E1 in Lemma G.1 shows that QU,k
+h (s, a) ≥Q⋆
+h(s, a). Then it is sufficient to prove that
+QR,k
+h (s, a) ≥Q⋆
+h(s, a).
+(51)
+To begin with, according to the update rule Equation (11) and Equation (15), we obtain
+QR,k
+h (s, a) = ˜ηNk
+h
+0
+H +
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+rh(s, a) +
+
+V kn
+h+1 −V R,kn
+h+1
+ 
+skn,jn,mn
+h+1
+
++ µR,kn+1
+h
+
++ BR,k+1
+h
++
+Nk
+h
+X
+n=1
+ηNk
+h
+n bR
+h,n.
+Since PN k
+h
+n=0 ˜ηN k
+h
+n
+= 1 by (b) of Lemma F.3, it leads to
+QR,k
+h (s, a) −Q⋆
+h(s, a) = ηNk
+h
+0
+
+H −Q⋆
+h(s, a)
+
++
+N k
+h
+X
+n=1
+ηNk
+h
+n bR
+h,n
++
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+rh(s, a) +
+
+V kn
+h+1 −V R,kn
+h+1
+ 
+skn,jn,mn
+h+1
+
++ µR,kn+1
+h
+−Q⋆
+h(s, a)
+
+.
+(52)
+To continue, invoking the Bellman optimality equation (1),
+Q⋆
+h(s, a) = rh(s, a) + Ps,a,hV ⋆
+h+1,
+and using the update rule of µR,k+1
+h
+in Equation (6), we reach
+rh(s, a) +
+
+V kn
+h+1 −V R,kn
+h+1
+ 
+skn,jn,mn
+h+1
+
++ µR,kn+1
+h
+−Q⋆
+h(s, a)
+= (V kn
+h+1 −V R,kn
+h+1 )
+
+skn,jn,mn
+h+1
+
++
+PNkn+1
+h
+i=1
+V R,ki
+h+1
+
+ski,ji,mi
+h+1
+
+N kn+1
+h
+−Ps,a,hV ⋆
+h+1
+= Ps,a,h
+
+V kn
+h+1 −V ⋆
+h+1 +
+PNkn+1
+h
+i=1
+(V R,ki
+h+1 −V R,kn
+h+1 )
+N kn+1
+h
+
++ ξk
+h.
+where we have introduced the following quantity
+ξk
+h :=
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+  V kn
+h+1 −V R,kn
+h+1
+
++
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Ps,a,h
+
+V R,ki
+h+1 .
+43
+
+````
+
+## PDF page 44
+
+FORMULA CHECK REQUIRED: original PDF page 44.
+
+````text
+Since kn ≤k −1, we know V kn
+h+1 −V ⋆
+h+1 ≥0. We also have V R,ki
+h+1 −V R,kn
+h+1
+≥0 for ki ≤kn
+because the reference function V R,k
+h
+(s) is monotonically non-increasing in view of the monotonicity
+of V k
+h (s). Back to Equation (52), we know that
+QR,k
+h (s, a) −Q⋆
+h(s, a) ≤
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n ξk
+h +
+Nk
+h
+X
+n=1
+ηNk
+h
+n bR
+h,n.
+Therefore, we only need to prove that
+
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n ξk
+h
+
+≤
+Nk
+h
+X
+n=1
+ηN k
+h
+n bR
+h,n.
+Let {k1, k2, ..., kt} be the collection of round indices that nki
+h (s, a) > 0 for any i ∈[t] and k1 <
+k2 < ... < kt < k. Let k0 = 0 and kt+1 = k, then for any i ∈[t + 1], we have βR,ki
+h
+(s, a) =
+βR,ki−1+1
+h
+(s, a) (k0 = 0) and N ki
+h (s, a) = N ki−1+1
+h
+(s, a) with k0 since there is no visit to (s, a, h)
+from round ki−1 + 1 to round ki −1. Then it holds that (Here, ηc(n + 1, n) = 1 for any n ∈N+):
+Nk
+h
+X
+n=1
+ηN k
+h
+n bR
+h,n =
+t
+X
+i=1
+N
+ki+1
+hX
+n=N
+ki
+h +1
+ηNk
+h
+n bR
+h,n
+=
+t
+X
+i=1
+
+
+
+
+
+
+
+
+N
+ki+1
+h
+−1
+X
+n=N
+ki
+h +1
+ηNk
+h
+n
++
+1 −ηN
+ki+1
+h
+ηN
+ki+1
+h
+ηNk
+h
+N
+ki+1
+h
+
+
+βR,ki
+h
++
+ηNk
+h
+N
+ki+1
+h
+ηN
+ki+1
+h
+βR,ki+1
+h
+
+
+
+
+
++
+Nk
+h
+X
+n=1
+cR,2
+b
+ηNk
+h
+n H2ι
+n
+=
+t
+X
+i=1
+
+−ηc(N ki
+h + 1, N k
+h)βR,ki
+h
++ ηc(N ki+1
+h
++ 1, N k
+h)βR,ki+1
+h
+
++
+Nk
+h
+X
+n=1
+cR,2
+b
+ηNk
+h
+n H2ι
+n
+=
+t
+X
+i=1
+
+−ηc(N ki−1+1
+h
++ 1, N k
+h)βR,ki−1+1
+h
++ ηc(N ki+1
+h
++ 1, N k
+h)βR,ki+1
+h
+
++
+Nk
+h
+X
+n=1
+cR,2
+b
+ηNk
+h
+n H2ι
+n
+= βR,k
+h
++
+Nk
+h
+X
+n=1
+cR,2
+b
+ηNk
+h
+n H2ι
+n
+≥βR,k
+h
++ cR,2
+b
+H2ι
+N k
+h
+.
+(53)
+The last inequality is because of the property (a) of Lemma F.2 with α = 1. Under the event T3
+i=2 Ei,
+
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n ξk
+h
+
+≲
+s
+Hι
+N k
+h
+
+σA,k
+h
+−
+
+µA,k
+h
+2
++
+s
+ι
+N k
+h
+
+σR,k
+h
+−
+
+µR,k
+h
+2
++ H2ι
+N k
+h
+.
+Then for some sufficiently large constant cR
+b , cR,2
+b
+> 0, by Equation (53):
+
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n ξk
+h
+
+≤βR,k
+h
++ cR,2
+b
+H2ι
+N k
+h
+≤
+Nk
+h
+X
+n=1
+ηN k
+h
+n bR
+h,n.
+Now we finish the proof of Equation (51) and thus Qk
+h(s, a) ≥Q⋆
+h(s, a). Then we can conclude that
+V k
+h (s) = max
+a {Qk
+h(s, a)} ≥max
+a {Q⋆
+h(s, a)} = V ⋆
+h (s).
+We have thus concluded the proof of Lemma H.1.
+Next, we will present the pessimism property of the Q−estimates QL,k
+h (s, a).
+Lemma H.2. Under the event E4 in Lemma G.1, it holds that for any (s, a, h, k) ∈S×A×[H]×[K]:
+QL,k
+h (s, a) ≤Q⋆
+h(s, a)
+and
+V L,k
+h
+(s) ≤V ⋆
+h (s).
+44
+
+````
+
+## PDF page 45
+
+FORMULA CHECK REQUIRED: original PDF page 45.
+
+````text
+Proof. We use mathematical induction on k to prove QL,k
+h (s, a) ≤Q⋆
+h(s, a) and V L,k
+h
+(s) ≤V ⋆
+h (s)
+for any (s, a, h, k) ∈S × A × [H] × [K].
+For k = 1, QL,1
+h (s, a) = 0 ≤Q⋆
+h(s, a) and V L,1
+h
+(s) = 0 ≥V ⋆
+h (s) for any (s, a, h) ∈S × A × [H].
+For k ≥2, assume we already have QL,k′
+h
+(s, a) ≤Q⋆
+h(s, a) and V L,k′
+h
+(s) ≤V ⋆
+h (s) for any
+(s, a, h, k′) ∈S × A × [H] × [k −1], then we will prove for any (s, a, h) ∈S × A × [H],
+QL,k
+h (s, a) ≤Q⋆
+h(s, a) and V L,k
+h
+(s) ≤V ⋆
+h (s). Based on the updating rules Equation (10) and
+Equation (14), by recursion, since QL,1
+h (s, a) = 0, we have:
+QL,k
+h (s, a) =
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+rh(s, a) + V L,kn
+h+1
+
+−
+N k
+h
+X
+n=1
+ηNk
+h
+n bn.
+To continue, by invoking the Bellman optimality equation Equation (1),
+Q⋆
+h(s, a) = rh(s, a) + Ps,a,hV ⋆
+h+1,
+we have
+QL,k
+h (s, a) −Q⋆
+h(s, a)
+≤
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+V L,kn
+h+1 (skn,jn,mn
+h+1
+) −Ps,a,hV ⋆
+h+1
+
+−
+N k
+h
+X
+n=1
+ηNk
+h
+n bn
+=
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+V L,kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+) +
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+
+V ⋆
+h+1 −
+Nk
+h
+X
+n=1
+ηNk
+h
+n bn
+≤
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+1skn,jn,mn
+h+1
+−Ps,a,h
+
+V ⋆
+h+1 −
+N k
+h
+X
+n=1
+ηNk
+h
+n bn ≤0.
+The last inequality is by event E4 and
+Nk
+h
+X
+n=1
+ηNk
+h
+n bn = cb
+√
+H3ι
+Nk
+h
+X
+n=1
+ηN k
+h
+n
+√n ≥cb
+s
+H3ι
+N k
+h
+by (a) of Lemma F.2 with α = 1
+2. Now we have proved that QL,k
+h (s, a) ≤Q⋆
+h(s, a) ≤V ⋆
+h (s). Then
+by definition Equation (17) of V L,k
+h
+(s), we know
+V L,k
+h
+(s) = max
+
+max
+a′∈A QL,k
+h
+(s, a′) , V L,k−1
+h
+(s)
+
+≤V ⋆
+h (s).
+In the following lemma, we will bound the error between two Q−estimates Qk
+h(s, a) and QL,k
+h (s, a).
+Lemma H.3. Under the event T4
+i=1 Ei in Lemma G.1, for FedQ-EarlySettled-LowCost algorithm
+and any non-negative weight sequence {ωk,j,m
+h
+}h,k,j,m, it holds for any h ∈[H] that:
+X
+k,j,m
+ωk,j,m
+h
+
+Qk
+h −QL,k
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+)
+≲
+q
+H5SA∥ω∥∞,h∥ω∥1,hι +
+H
+X
+h′=h
+X
+k,j,m
+ωk,j,m
+h′
+(h)Y k,j,m
+h′
+,
+where for any h ≤h′ ≤H −1
+ωk,j,m
+h
+(h) := ωk,j,m
+h
+,
+ωk,j,m
+h′+1 (h) =
+X
+k′,j′,m′
+ωk′,j′,m′
+h′
+(h)I
+h
+N k′
+h′ (s, a)k′,j′,m′
+h′
+≥i0
+i Nk′
+h′
+X
+i=1
+˜η
+Nk′
+h′
+i
+I
+
+(ki, ji, mi) = (k, j, m)
+
+,
+45
+
+````
+
+## PDF page 46
+
+FORMULA CHECK REQUIRED: original PDF page 46.
+
+````text
+and
+Y k,j,m
+h′
+= η
+Nk
+h′
+0
+H + HI[0 < N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+) < i0] +
+s
+H3ι
+N k
+h′
+I[0 < N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+) < M].
+Proof. To begin with, according to the update rule Equation (9) and Equation (13), we obtain
+QU,k
+h (s, a) = ηN k
+h
+0
+H +
+Nk
+h
+X
+i=1
+˜ηN k
+h
+i
+
+rh(s, a) + V ki
+h+1(ski,ji,mi
+h+1
+)
+
++
+Nk
+h
+X
+i=1
+ηN k
+h
+i
+bi.
+Similarly, according to the update rule Equation (10) and Equation (14), we obtain
+QL,k
+h (s, a) =
+Nk
+h
+X
+i=1
+˜ηNk
+h
+i
+
+rh(s, a) + V L,ki
+h+1 (ski,ji,mi
+h+1
+)
+
+−
+Nk
+h
+X
+i=1
+ηN k
+h
+i
+bi.
+and
+X
+k,j,m
+ωk,j,m
+h
+
+Qk
+h −QL,k
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+)
+≤
+X
+k,j,m
+ωk,j,m
+h
+
+QU,k
+h
+−QL,k
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+)
+≤
+X
+k,j,m
+ωk,j,m
+h
+ηNk
+h
+0
+H +
+X
+k,j,m,N k
+h>0
+ωk,j,m
+h
+Nk
+h
+X
+i=1
+˜ηN k
+h
+i
+(V ki
+h+1 −V L,ki
+h+1 )(ski,ji,mi
+h+1
+)
++ 2
+X
+k,j,m,N k
+h>0
+ωk,j,m
+h
+Nk
+h
+X
+i=1
+ηNk
+h
+i
+bi.
+(54)
+For the last term of Equation (54), by (a) of Lemma F.2, we have
+Nk
+h
+X
+i=1
+ηN k
+h
+i
+bi =
+N k
+h
+X
+i=1
+ηNk
+h
+i
+cb
+r
+H3ι
+i
+≲
+s
+H3ι
+N k
+h
+.
+Then by Lemma F.6, it holds that
+X
+k,j,m,N k
+h>0
+ωk,j,m
+h
+Nk
+h
+X
+i=1
+ηNk
+h
+i
+bi ≲
+√
+H3ι
+X
+k,j,m,N k
+h>0
+ωk,j,m
+h
+s
+1
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≲
+X
+k,j,m
+ωk,j,m
+h
+s
+H3ι
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+I
+
+0 < N k
+h < M
+
++
+q
+H3SA∥ω∥∞,h∥ω∥1,hι.
+(55)
+Next, we will bound the second term of Equation (54). We can decompose the term into two parts as
+X
+k,j,m,N k
+h>0
+ωk,j,m
+h
+N k
+h
+X
+i=1
+˜ηNk
+h
+i
+(V ki
+h+1 −V L,ki
+h+1 )(ski,ji,mi
+h+1
+)
+=
+X
+k,j,m
+ωk,j,m
+h
+Nk
+h
+X
+i=1
+˜ηN k
+h
+i
+(V ki
+h+1 −V L,ki
+h+1 )(ski,ji,mi
+h+1
+)
+ I
+
+0 < N k
+h < i0
+
++ I
+
+N k
+h ≥i0
+
+.
+For the first part of the second term in Equation (54), because PN k
+h
+i=1 ˜ηNk
+h
+i
+≤1 by (b) of Lemma F.3,
+we have
+X
+k,j,m
+ωk,j,m
+h
+Nk
+h
+X
+i=1
+˜ηNk
+h
+i
+(V ki
+h+1 −V L,ki
+h+1 )(ski,ji,mi
+h+1
+)I
+h
+0 < N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) < i0
+i
+≤H
+X
+k,j,m
+ωk,j,m
+h
+I
+h
+0 < N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) < i0
+i
+(56)
+46
+
+````
+
+## PDF page 47
+
+FORMULA CHECK REQUIRED: original PDF page 47.
+
+````text
+For the second part of the second term in Equation (54), we regroup the summations as follows:
+X
+k,j,m
+ωk,j,m
+h
+N k
+h
+X
+i=1
+˜ηNk
+h
+i
+(V ki
+h+1 −V L,ki
+h+1 )(ski,ji,mi
+h+1
+)I
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥i0
+i
+=
+X
+k′,j′,m′
+˜ωk′,j′,m′
+h
+
+V k′
+h+1 −V L,k′
+h+1
+
+(sk′,j′,m′
+h+1
+),
+(57)
+where
+˜ωk′,j′,m′
+h
+=
+X
+k,j,m
+I
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥i0
+i
+ωk,j,m
+h
+Nk
+h
+X
+i=1
+˜ηN k
+h
+i
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+.
+Let ∥˜ω∥∞,h = max
+k,j,m{˜ωk,j,m
+h
+} and ∥˜ω∥1,h = P
+k,j,m ˜ωk,j,m
+h
+. Since PNk
+h
+i=1 ˜ηNk
+h
+i
+≤1 by (b) of
+Lemma F.3, we have the following property:
+∥˜ω∥1,h =
+X
+k′,m′,j′
+˜ωk′,j′,m′
+h
+≤
+X
+k,j,m
+I
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥i0
+i
+ωk,j,m
+h
+≤∥ω∥1,h.
+If we have proved that:
+∥˜ω∥∞,h ≤exp(3/H)∥ω∥∞,h,
+(58)
+then combining the results of Equation (55), Equation (56) and Equation (57) together with
+Equation (54), we reach
+X
+k,j,m
+ωk,j,m
+h
+
+Qk
+h −QL,k
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+)
+≲
+X
+k′,j′,m′
+˜ωk′,j′,m′
+h
+ V k′
+h+1 −V L,k′
+h+1
+
+(sk′,j′,m′
+h+1
+) +
+q
+H3SA∥ω∥∞,h∥ω∥1,hι +
+X
+k,j,m
+ωk,j,m
+h
+ηNk
+h
+0
+H
++
+X
+k,j,m
+ωk,j,m
+h
+HI
+
+0 < N k
+h < i0
+
++
+X
+k,j,m
+ωk,j,m
+h
+s
+H3ι
+N k
+h
+I
+
+0 < N k
+h < M
+
+≲
+X
+k′,j′,m′
+˜ωk′,j′,m′
+h
+ Qk′
+h+1 −QL,k′
+h+1
+
+(sk′,j′,m′
+h+1
+, ak′,j′,m′
+h+1
+) +
+q
+H3SA∥ω∥∞,h∥ω∥1,hι
++
+X
+k,j,m
+ωk,j,m
+h
+Y k,j,m
+h
+.
+(59)
+with ∥˜ω∥1,h ≤∥ω∥1,h and ∥˜ω∥∞,h ≤exp(3/H)∥ω∥∞,h. Here, the last inequality is because
+V k′
+h+1(sk′,j′,m′
+h+1
+) = Qk′
+h+1(sk′,j′,m′
+h+1
+, ak′,j′,m′
+h+1
+) and V L,K′
+h+1 (sk′,j′,m′
+h+1
+) ≥QL,k′
+h+1(sk′,j′,m′
+h+1
+, ak′,j′,m′
+h+1
+).
+With Equation (59), we develop a recursive relationship for the weighted sum of Qk
+h −Q⋆
+h between
+step h and step h + 1. By recursions with regard to h, h + 1, ..., H, we finish the proof.
+Proof of Equation (58): Now we have
+˜ωk′,j′,m′
+h
+=
+X
+k,j,m
+I
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥i0
+i
+ωk,j,m
+h
+N k
+h
+X
+i=1
+˜ηNk
+h
+i
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+≤∥ω∥∞,h
+X
+k,j,m
+I
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥i0
+i Nk
+h
+X
+i=1
+˜ηN k
+h
+i
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+We only need to prove for any triple (k′, j′, m′) and any h ∈[H],
+X
+k,j,m
+I
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥i0
+i Nk
+h
+X
+i=1
+˜ηN k
+h
+i
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+≤exp(3/H).
+(60)
+47
+
+````
+
+## PDF page 48
+
+FORMULA CHECK REQUIRED: original PDF page 48.
+
+````text
+By definition of ki, ji and mi, for any given triple (k′, j′, m′),
+Nk
+h
+X
+i=1
+˜ηN k
+h
+i
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+> 0
+if and only if
+(sk,j,m
+h
+, ak,j,m
+h
+) = (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+), k′ < k and i′(k′, j′, m′) ≤N k
+h,
+where i′(k′, j′, m′) is the global visiting number for (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+) at (k′, m′, j′). When there
+is no ambiguity, we will use i′ for short. Therefore
+X
+k,j,m
+I
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥i0
+i N k
+h
+X
+i=1
+˜ηNk
+h
+i
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+=
+K
+X
+k=k′+1
+X
+j,m
+I
+h
+N k
+h(sk′,j′,m′
+h
+, ak′,j′,m′
+h
+) ≥i0, (sk,j,m
+h
+, ak,j,m
+h
+) = (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+)
+i
+˜ηNk
+h
+i′ . (61)
+Let k′ < k1 < k2 < ... < kt ≤K be all the round index such that nkq
+h (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+) > 0 and
+N kq
+h (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+) ≥i0 for any q ∈[t], then we can simplify Equation (61):
+X
+k,j,m
+I
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥i0
+i N k
+h
+X
+i=1
+˜ηNk
+h
+i
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+=
+t
+X
+q=1
+
+X
+j,m
+I
+h
+(skq,j,m
+h
+, akq,j,m
+h
+) = (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+)
+i
+
+˜η
+N
+kq
+h
+i′
+≤
+t
+X
+q=1
+nkq
+h (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+)˜η
+N
+kq
+h
+i′
+(62)
+For any q ∈[t] and p ∈[nkq
+h ], by (e) of Lemma F.2, the following relationship holds
+η
+N
+kq
+h
+i′
+η
+N
+kq
+h +p
+i′
+≤exp(1/H).
+(63)
+Combining Equation (63) with the property (c) of Lemma F.3, for any p ∈[nkq
+h ], we have
+˜η
+N
+kq
+h
+i′
+≤exp(1/H)η
+N
+kq
+h
+i′
+≤exp(2/H)η
+N
+kq
+h +p
+i′
+,
+and thus
+t
+X
+q=1
+nkq
+h (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+)˜η
+N
+kq
+h
+i′
+≤e
+2
+H
+t
+X
+q=1
+n
+kq
+h
+X
+p=1
+η
+N
+kq
+h +p
+i′
+(i)
+≤e
+2
+H
+∞
+X
+r=i′
+ηr
+i′ ≤exp(3/H).
+(64)
+Here (i) is because k1 < k2 < ... < kt ≤K and N k1
+h ≥N k′+1
+h
+≥i′. The last inequality is by (c) of
+Lemma F.2. Applying this inequality to Equation (62), we complete the proof of Equation (60), and
+consequently, Equation (58).
+Lemma H.4. Under the event T4
+i=1 Ei in Lemma G.1, for all ϵ ∈(0, H), we have the following two
+conclusions:
+H
+X
+h=1
+X
+k,j,m
+I
+h
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) −QL,k
+h (sk,j,m
+h
+, ak,j,m
+h
+) > ϵ
+i
+≲H6SAι
+ϵ2
++ MSAH5√ι
+ϵ
+,
+and
+H
+X
+h=1
+X
+k,j,m
+
+Qk
+h −QL,k
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+)I
+h
+Qk
+h −QL,k
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) > ϵ
+i
+≲H6SAι
+ϵ
++ MSAH5√ι.
+48
+
+````
+
+## PDF page 49
+
+FORMULA CHECK REQUIRED: original PDF page 49.
+
+````text
+Proof. Let N = ⌈log2(H/ϵ)⌉. For any i ∈[N −1], k ∈[K] and given h ∈[H], let:
+ωk,j,m
+h,i
+= I
+h
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) −QL,k
+h (sk,j,m
+h
+, ak,j,m
+h
+) ∈
+
+2i−1ϵ, 2iϵ
+i
+,
+and
+ωk,j,m
+h,N
+= I
+h
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) −QL,k
+h (sk,j,m
+h
+, ak,j,m
+h
+) ∈
+
+2N−1ϵ, H
+i
+.
+Then
+∥ω∥(i)
+∞,h = max
+k,j,m ωk,j,m
+h,i
+≤1, ∥ω∥(i)
+1,h =
+X
+k,j,m
+ωk,j,m
+h,i
+.
+Now for any i ∈[N], we have the following relationship:
+X
+k,j,m
+ωk,j,m
+h,i
+
+Qk
+h −QL,k
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) ≥2i−1ϵ∥ω∥(i)
+1,h.
+(65)
+Combining the results of Lemma H.3 and Equation (65), we have:
+2i−1ϵ∥ω∥(i)
+1,h ≲
+q
+H5SA∥ω∥(i)
+1,hι +
+H
+X
+h′=h
+X
+k,j,m
+ωk,j,m
+h′,i (h)Y k,j,m
+h′
+,
+(66)
+where for any h ≤h′ ≤H −1,
+ωk,j,m
+h,i
+(h) := ωk,j,m
+h,i
+,
+ωk,j,m
+h′+1,i(h) =
+X
+k′,j′,m′
+ωk′,j′,m′
+h′,i
+(h)I
+
+N k′
+h′ (s, a)k′,j′,m′
+h′
+≥i0
+
+Nk′
+h′
+X
+i=1
+˜η
+Nk′
+h′
+i
+I
+
+(ki, ji, mi) = (k, j, m)
+
+,
+Therefore, for any triple (k, j, m) and h ≤h′ ≤H −1, we have
+N
+X
+i=1
+ωk,j,m
+h′+1,i(h) =
+X
+k′,j′,m′
+ N
+X
+i=1
+ωk′,j′,m′
+h′,i
+(h)
+!
+I
+h
+N k′
+h′ ≥i0
+i Nk′
+h′
+X
+i=1
+˜η
+Nk′
+h′
+i
+I
+
+(ki, ji, mi) = (k, j, m)
+
+Then by mathematical induction on h′ ∈[h, H], it is straightforward to prove that for any j ∈[K],
+N
+X
+i=1
+ωk,j,m
+h′,i (h) ≤(exp(3/H))h′−h < 27,
+(67)
+given Equation (60) and the base case PN
+i=1 ωk,j,m
+h,i
+(h) = PN
+i=1 ωk,j,m
+h,i
+≤1. Solving Equation (66),
+we can derive the following relationship:
+∥ω∥(i)
+1,h ≲H5SAι
+4iϵ2
++
+PH
+h′=h
+P
+k,j,m ωk,j,m
+h′,i (h)Y k,j,m
+h′
+2iϵ
+.
+(68)
+We claim that
+H
+X
+h′=1
+X
+k,j,m
+Y k,j,m
+h′
+≲MH4SA√ι,
+(69)
+which will be proved later. Therefore, by
+I
+h
+Qk
+h −QL,k
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) ≥ϵ
+i
+=
+N
+X
+i=1
+ωk,j,m
+h,i
+,
+we have
+H
+X
+h=1
+X
+k,j,m
+I
+h
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) −QL,k
+h (sk,j,m
+h
+, ak,j,m
+h
+) ≥ϵ
+i
+=
+H
+X
+h=1
+N
+X
+i=1
+∥ω∥(i)
+1,h.
+(70)
+49
+
+````
+
+## PDF page 50
+
+FORMULA CHECK REQUIRED: original PDF page 50.
+
+````text
+By Equation (68), it holds that
+N
+X
+i=1
+∥ω∥(i)
+1,h ≲
+N
+X
+i=1
+H5SAι
+4iϵ2
++
+N
+X
+i=1
+PH
+h′=h
+P
+k,j,m ωk,j,m
+h′,i (h)Y k,j,m
+h′
+2iϵ
+≲H5SAι
+ϵ2
++
+N
+X
+i=1
+PH
+h′=1
+P
+k,j,m Y k,j,m
+h′
+2iϵ
+≲H5SAι
+ϵ2
++ MH4SA√ι
+ϵ
+.
+(71)
+Here, the second inequality is because 0 ≤ωk,j,m
+h′,i (h) < 27 by Equation (67). The last inequality is
+because of Equation (69). Combing the results of Equation (70) and Equation (71), we reach
+H
+X
+h=1
+X
+k,j,m
+I
+h
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) −QL,k
+h (sk,j,m
+h
+, ak,j,m
+h
+) ≥ϵ
+i
+≲H6SAι
+ϵ2
++ MH5SA√ι
+ϵ
+.
+Now we finish the proof of the first conclusion. Further, noting that
+H
+X
+h=1
+X
+k,j,m
+
+Qk
+h −QL,k
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+)I
+h
+Qk
+h −QL,k
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) ≥ϵ
+i
+≤
+H
+X
+h=1
+N
+X
+i=1
+2iϵ∥ω∥(i)
+1,h
+≲
+H
+X
+h=1
+N
+X
+i=1
+H5SAι
+2iϵ
++
+H
+X
+h=1
+H
+X
+h′=h
+X
+k,j,m
+ N
+X
+i=1
+ωk,j,m
+h′,i (h)
+!
+Y k,j,m
+h′
+≲H6SAι
+ϵ
++
+H
+X
+h=1
+H
+X
+h′=h
+X
+k,j,m
+Y k,j,m
+h′
+≲H6SAι
+ϵ
++ MH5SA√ι.
+Here, the second inequality is by Equation (68). The second last inequality is by Equation (67), and
+the last inequality is because of Equation (69). Next, we only need to prove Equation (69).
+Proof of Equation (69): By definition of Y k,m,j
+h′
+, we have the following equation
+X
+k,j,m
+Y k,j,m
+h′
+=
+X
+k,j,m
+η
+N k
+h′
+0
+H + H
+X
+k,j,m
+I
+
+0 < N k
+h′ < i0
+
++
+X
+k,j,m
+s
+H3ι
+N k
+h′
+I
+
+0 < N k
+h′ < M
+
+. (72)
+For the first term of Equation (72), we have
+X
+k,j,m
+η
+Nk
+h′
+0
+H ≤H
+X
+s,a
+X
+k,j,m
+I[N k
+h′(s, a) = 0, (sk,j,m
+h′
+, ak,j,m
+h′
+) = (s, a)] ≤MHSA.
+(73)
+The last inequality is because if we let k0(s, a) be the round index such that N k0
+h′ (s, a) = 0 and
+N k0+1
+h′
+(s, a) > 0, then by (a) of Lemma F.1, it holds that
+X
+k,j,m
+I[N k
+h′(s, a) = 0, (sk,j,m
+h′
+, ak,j,m
+h′
+) = (s, a)] = nk0
+h′ (s, a) ≤M.
+Let k1(s, a) = max{k | 1 ≤k ≤K, N k
+h′(s, a) < i0}. Then for the second term of Equation (72)
+X
+k,j,m
+HI
+h
+0 < N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+) < i0
+i
+= H
+X
+s,a
+X
+k,j,m
+I
+h
+0 < N k
+h′(s, a) < i0, (sk,j,m
+h′
+, ak,j,m
+h′
+) = (s, a)
+i
+≤H
+X
+s,a
+k1
+X
+k=1
+X
+j,m
+I
+h
+(sk,j,m
+h′
+, ak,j,m
+h′
+) = (s, a)
+i
+= H
+X
+s,a
+N k1+1
+h′
+(s, a) ≲MH3SA.
+(74)
+50
+
+````
+
+## PDF page 51
+
+FORMULA CHECK REQUIRED: original PDF page 51.
+
+````text
+Here, the last inequality is because N k1
+h′ (s, a) < i0 and thus nk1
+h′ (s, a) ≤2M by (a) of Lemma F.1.
+Finally, for the last term of Equation (72), by Equation (24) with α = 1/2 and ωk,j,m
+h
+= 1, we have
+X
+k,j,m
+s
+H3ι
+N k
+h′
+I
+h
+0 < N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+) < M
+i
+≤2M
+√
+H3SA√ι.
+(75)
+By applying Equation (73), Equation (74) and Equation (75) to Equation (72), we finish the proof.
+In the next lemma, we will bound the difference between V R,k
+h
+(s) and V k
+h (s).
+Lemma H.5. Under T4
+i=1 Ei in Lemma G.1, it holds for any (s, h, k) ∈S × [H] × [K] that:
+0 ≤V R,k
+h
+(s) −V k
+h (s) ≤β.
+Proof. If for any k ∈[K + 1], V k
+h (s) −V L,k
+h
+(s) > β, then according to the update rule of the
+reference function in Algorithm 1, we know V R,k
+h
+−V k
+h (s) = 0.
+Otherwise we can assume that there exists k ∈[K + 1] such that V k
+h (s) −V L,k
+h
+(s) ≤β. Define
+k1 = min{k | V k
+h (s) −V L,k
+h
+(s) ≤β}.
+Then for any k < k1, it holds that V k
+h (s) −V L,k
+h
+(s) > β and thus V R,k
+h
+−V k
+h (s) = 0.
+We claim that uR,k1−1
+h
+(s) = True. If uR,k1−1
+h
+(s) = False, then there exists k0 ≤k1 −1 such that
+uR,k0−1
+h
+(s) = True and uR,k0
+h
+(s) = False. Based on the update rule of the reference function, in this
+case, we have V k0
+h (s) −V L,k0
+h
+(s) ≤β, which is contradictory to the minimality of k1.
+Since V k1
+h (s) −V L,k1
+h
+(s) ≤β and uR,k1−1
+h
+(s) = True, we know for any k ≥k1,
+V R,k
+h
+(s) = V R,k1
+h
+(s) = V k1
+h (s) ≤V L,k1
+h
+(s) + β ≤V ⋆
+h (s) + β ≤V k
+h (s) + β.
+The last two inequalities are because V L,k1
+h
+(s) ≤V ⋆
+h (s) ≤V k
+h (s) by Lemma H.2 and Lemma H.1.
+For any k ≥k1, we also have V R,k
+h
+(s) = V R,k1
+h
+(s) = V k1
+h (s) ≥V k
+h (s) and thus finish the proof.
+Lemma H.6. Under the event T4
+i=1 Ei in Lemma G.1, for any (s, h, k) ∈S × [H] × [K], we have
+the following two conclusions:
+• If V k
+h+1(s) −V L,k
+h+1(s) ≤β, then V R,K+1
+h+1
+(s) = V R,k
+h+1(s) = ˆV R,k
+h+1(s).
+• If V k
+h+1(s) −V L,k
+h+1(s) > β, then we have:
+0 ≤V R,k
+h+1(s) −ˆV R,k
+h+1(s), | ˆV R,k
+h+1(s) −V R,K+1
+h+1
+(s)| ≤V k
+h+1(s) −V L,k
+h+1(s).
+Proof.
+• If for given k ∈[K], V k
+h+1(s) −V L,k
+h+1(s) ≤β, then there exists k1 ∈[K] such that:
+k1 = min
+n
+k : V k
+h+1(s) −V L,k
+h+1(s) ≤β
+o
+.
+Then according the analysis in Lemma H.5, we have uR,k1−1
+h+1
+(s) = True, or it is contradictory
+to the minimality of k1. Therefore, in this case, we have:
+V R,K+1
+h+1
+(s) = V R,k
+h+1(s) = V R,k1
+h+1 (s) = V k1
+h+1(s) ≤V L,k1
+h+1 (s) + β ≤V ⋆
+h+1(s) + β,
+and
+V R,k
+h+1(s) = V R,k1
+h+1 (s) = V k1
+h+1(s) ≥V ⋆
+h+1(s).
+According to the definition of ˆV R,k
+h+1(s), we have ˆV R,k
+h+1(s) = V R,k
+h+1(s) = V R,K+1
+h+1
+(s).
+• Moreover, if V k
+h+1(s) −V L,k
+h+1(s) > β, according to the algorithm, we have V R,k
+h+1(s) =
+V k
+h+1(s) and then 0 ≤V R,k
+h+1(s) −ˆV R,k
+h+1(s) ≤V k
+h+1(s) −V L,k
+h+1(s).
+In this case, we also have V L,k
+h+1(s) ≤V ⋆
+h+1(s) ≤V R,K+1
+h+1
+(s) ≤V R,k
+h+1(s) = V k
+h+1(s) and
+then V L,k
+h+1(s) ≤V ⋆
+h+1(s) ≤ˆV R,k
+h+1(s) ≤V R,k
+h+1(s) = V k
+h+1(s). These two inequalities imply
+that | ˆV R,k
+h+1(s) −V R,K+1
+h+1
+(s)| ≤V k
+h+1(s) −V L,k
+h+1(s).
+51
+
+````
+
+## PDF page 52
+
+FORMULA CHECK REQUIRED: original PDF page 52.
+
+````text
+I
+Proof of the Worst-Case Regret (Theorem 4.1 and Theorem 4.3)
+I.1
+Proof Sketch
+In this section, we bound the worst-case regret under the event T14
+i=1 Ei in Lemma G.1.
+For h ∈[H + 1], denote:
+δk
+h =
+nm,k
+X
+j=1
+M
+X
+m=1
+ V k
+h −V ⋆
+h
+
+(sk,j,m
+h
+), ζk
+h =
+nm,k
+X
+j=1
+M
+X
+m=1
+
+V k
+h −V πk
+h
+
+(sk,j,m
+h
+).
+Here, δk
+H+1 = ζk
+H+1 = 0. Because V ⋆
+h (s) = supπ V π
+h (s), we have δk
+h ≤ζk
+h for any h ∈[H + 1]. In
+addition, as V k
+h (s) ≥V ⋆
+h (s) for all (s, h, k) ∈S × [H] × [K], according to Lemma H.1, we have:
+Regret(T) =
+X
+k,j,m
+
+V ⋆
+1 (sk,j,m
+1
+) −V πk
+1
+(sk,j,m
+1
+)
+
+≤
+X
+k,j,m
+
+V k
+1 (sk,j,m
+1
+) −V πk
+1
+(sk,j,m
+1
+)
+
+=
+K
+X
+k=1
+ζk
+1 .
+Thus, we only need to bound PK
+k=1 ζk
+1 .
+K
+X
+k=1
+ζk
+h =
+X
+k,j,m
+(Qk
+h −Qπk
+h )(sk,j,m
+h
+, ak,j,m
+h
+)
+=
+X
+k,j,m
+(Qk
+h −Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+) +
+X
+k,j,m
+(Q⋆
+h −Qπk
+h )(sk,j,m
+h
+, ak,j,m
+h
+)
+≤
+X
+k,j,m
+(QR,k
+h
+−Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+) +
+X
+k,j,m
+Psk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1 −V πk
+h+1).
+(76)
+In the last inequality, we use Qk
+h(s, a) ≤QR,k
+h (s, a) and Equation (1):
+Q⋆
+h(s, a) = rh(s, a) + Ps,a,hV ⋆
+h+1, Qπk
+h (s, a) = rh(s, a) + Ps,a,hV πk
+h+1.
+Next, we will bound the first term of Equation (76). Back to Equation (52), since ˆV R,kn
+h+1 ≤V R,kn
+h+1 ,
+we have the following relationship (Here we use the shorthand P = Psk,j,m
+h
+,ak,j,m
+h
+,h):
+(QR,k
+h
+−Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+)
+≤ηNk
+h
+0
+H +
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −V R,kn
+h+1
+
+(skn,jn,mn
+h+1
+) + µR,kn+1
+h
+−PV ⋆
+h+1
+
++
+Nk
+h
+X
+n=1
+ηNk
+h
+n bR
+h,n
+≤ηNk
+h
+0
+H +
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −ˆV R,kn
+h+1
+
+(skn,jn,mn
+h+1
+) + µR,kn+1
+h
+−PV ⋆
+h+1
+
++
+Nk
+h
+X
+n=1
+ηNk
+h
+n bR
+h,n, (77)
+and thus
+X
+k,j,m
+(QR,k
+h
+−Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+)
+≤
+X
+k,j,m
+n
+ηNk
+h
+0
+H +
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −ˆV R,kn
+h+1
+
+(skn,jn,mn
+h+1
+) + µR,kn+1
+h
+−PV ⋆
+h+1
+
++
+Nk
+h
+X
+n=1
+ηNk
+h
+n bR
+h,n
+o
+≤
+X
+k,j,m
+ηN k
+h
+0
+H +
+X
+k,j,m,N k
+h>0
+
+βR,k
+h (sk,j,m
+h
+, ak,j,m
+h
+) + 2cR,2
+b
+H2ι
+N k
+h
+
++
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+)
++
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+  V ⋆
+h+1 −ˆV R,kn
+h+1
+
+(skn,jn,mn
+h+1
+) + µR,kn+1
+h
+−Psk,j,m
+h
+,ak,j,m
+h
+,hV ⋆
+h+1
+
+. (78)
+52
+
+````
+
+## PDF page 53
+
+FORMULA CHECK REQUIRED: original PDF page 53.
+
+````text
+The last inequality is because
+Nk
+h
+X
+n=1
+ηN k
+h
+n bR
+h,n = βR,k
+h
++
+Nk
+h
+X
+n=1
+cR,2
+b
+ηNk
+h
+n H2ι
+n
+≤βR,k
+h
++ 2cR,2
+b
+H2ι
+N k
+h
+.
+(79)
+by Equation (53) and (a) of Lemma F.2. For the first term of Equation (78), similar to Equation (73),
+we have
+X
+k,j,m
+ηNk
+h
+0
+H = H
+X
+s,a
+X
+k,j,m
+I[N k
+h = 0, (sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)] ≤MHSA.
+(80)
+For the second term of Equation (78), by Lemma F.6, it holds that
+X
+k,j,m,N k
+h>0
+2cR,2
+b
+H2ι
+N k
+h
+≤2cR,2
+b
+MH2SAι + 2cR,2
+b
+H2SAι2.
+(81)
+For the third term of Equation (78), similar to the proof of [113, Equation (25)], it holds that
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+) ≤exp
+ 3
+H
+ K
+X
+k=1
+δk
+h+1 + 2MH3SA.
+(82)
+Taking the above results Equation (80), Equation (81) and Equation (82) together with Equation (78),
+we can rearrange terms of Equation (76) to reach
+K
+X
+k=1
+ζk
+h ≤exp
+ 3
+H
+ K
+X
+k=1
+δk
+h+1 + (2cR,2
+b
++ 3)MH3SAι + 2cR,2
+b
+H2SAι2
++
+X
+k,j,m,N k
+h>0
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+ V ⋆
+h+1 −ˆV R,kn
+h+1
+
+(skn,jn,mn
+h+1
+) + µR,kn+1
+h
+−Psk,j,m
+h
+,ak,j,m
+h
+,hV ⋆
+h+1
+
++
+X
+k,j,m
+Psk,j,m
+h
+,ak,j,m
+h
+,h
+
+V ⋆
+h+1 −V πk
+h+1
+
++
+X
+k,j,m,N k
+h>0
+βR,k
+h (sk,j,m
+h
+, ak,j,m
+h
+)
+≤exp
+ 3
+H
+ K
+X
+k=1
+ζk
+h+1 + (2cR,2
+b
++ 3)MH3SAι + 2cR,2
+b
+H2SAι2
++
+X
+k,j,m,N k
+h>0
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+
+1skn,jn,mn
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+ 
+V ⋆
+h+1 −ˆV R,kn
+h+1
+
++
+X
+k,j,m,N k
+h>0
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+N kn+1
+hX
+i=1
+
+V R,ki
+h
+(ski,ji,mi
+h+1
+) −Psk,j,m
+h
+,ak,j,m
+h
+,h ˆV R,kn
+h+1
+
++
+X
+k,j,m
+
+Psk,j,m
+h
+,ak,j,m
+h
+,h −1sk,j,m
+h+1
+ 
+V ⋆
+h+1 −V πk
+h+1
+
++
+X
+k,j,m,N k
+h>0
+βR,k
+h (sk,j,m
+h
+, ak,j,m
+h
+).
+By recursion on h, since ζk
+H+1 = 0, we can get the following conclusion:
+Regret(T) ≤
+K
+X
+k=1
+ζk
+1 ≲MH4SAι2 + R1 + R2 + R3 + R4,
+where
+R1 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+βR,k
+h (sk,j,m
+h
+, ak,j,m
+h
+).
+R2 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+1skn,jn,mn
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+ 
+V ⋆
+h+1 −ˆV R,kn
+h+1
+
+.
+53
+
+````
+
+## PDF page 54
+
+FORMULA CHECK REQUIRED: original PDF page 54.
+
+````text
+R3 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+V R,ki
+h
+(ski,ji,mi
+h+1
+) −Psk,j,m
+h
+,ak,j,m
+h
+,h ˆV R,kn
+h+1
+
+.
+R4 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+
+Psk,j,m
+h
+,ak,j,m
+h
+,h −1sk,j,m
+h+1
+ 
+V ⋆
+h+1 −V πk
+h+1
+
+.
+and cH = exp(3/H). Under the event E5 in Lemma G.1, we can bound R4 by 27√2H2T1ι. Then,
+we reach
+Regret(T) ≲
+p
+H2T1ι + MH4SAι2 + R1 + R2 + R3.
+By Lemma I.1, Lemma I.2 and Lemma I.3, we have:
+Regret(T) ≲(1 + β)
+p
+H2SAT1ι2 + 1
+β H6SAι2 + MH5SAι2.
+By (b) of Lemma F.1, we have
+ι = log
+2SAT1
+δ
+
+≤O
+ 
+log
+ 
+2SA ˆT
+δ
+!
++ log
+2MHSA
+δ
+!
+= O
+
+log
+MSAT
+δ
+
+.
+Let p = δ/14 and ι1 = log
+
+MSAT
+p
+
+, then with probability at least 1 −p, we have
+Regret(T) ≤O
+
+(1 + β)
+q
+MH2SATι2
+1 + 1
+β H6SAι2
+1 + MH5SAι2
+1
+
+.
+The proof also holds for M = 1.
+I.2
+Upper bounds of R1, R2, R3
+Lemma I.1. Under the event T14
+i=1 Ei in Lemma G.1, we have
+R1 ≲(1 + β)
+p
+H2SAT1ι +
+r 1
+β H4SAι2 + MH4SAι2.
+Proof. Since βR,k
+h (sk,j,m
+h
+, ak,j,m
+h
+) ≥0, we have
+R1 ≲
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+βR,k
+h (sk,j,m
+h
+, ak,j,m
+h
+)
+≲
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+r ι
+N k
+h
+ q
+(σR,k
+h
+−(µR,k
+h )2) +
+r
+H
+
+σA,k
+h
+−(µA,k
+h )2
+!
+(83)
+For the second term, we make the observation that
+v
+u
+u
+t
+σA,k
+h
+−(µA,k
+h )2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≤
+s
+σA,k
+h
+N k
+h
+=
+v
+u
+u
+t
+PNk
+h
+n=1 ˜η
+Nk
+h
+n (V kn
+h+1 −V R,kn
+h+1 )2(skn,jn,mn
+h+1
+)
+N k
+h
+≤β
+s
+1
+N k
+h
+. (84)
+The last inequality is because 0 ≤V R,kn
+h+1 −V kn
+h+1 ≤β by Lemma H.5 and PN k
+h
+n=1 ˜ηN k
+h
+n
+≤1 by (b) of
+Lemma F.3. Therefore, we can bound the second term by Lemma F.6 with ωk,m,j
+h
+= 1 and α = 1
+2:
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+r ι
+N k
+h
+r
+H
+
+σA,k
+h
+−(µA,k
+h )2
+
+≤
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+β
+s
+Hι
+N k
+h
+≲βMH
+3
+2 SA√ι + β
+p
+H2SAT1ι.
+(85)
+54
+
+````
+
+## PDF page 55
+
+FORMULA CHECK REQUIRED: original PDF page 55.
+
+````text
+Next, we will bound the first term of Equation (83). Since V R,k
+h+1(s) ≥ˆV R,k
+h+1(s), we have
+v
+u
+u
+u
+t σR,k
+h
+−
+
+µR,k
+h
+2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≤
+v
+u
+u
+t Jk,j,m
+1,h
++ Jk,j,m
+2,h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+,
+(86)
+where:
+Jk,j,m
+1,h
+=
+PNk
+h
+n=1
+
+V R,kn
+h+1 (skn,jn,mn
+h+1
+)
+2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+−
+PNk
+h
+n=1
+
+ˆV R,kn
+h+1 (skn,jn,mn
+h+1
+)
+2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+and
+Jk,j,m
+2,h
+=
+PNk
+h
+n=1
+
+ˆV R,kn
+h+1 (skn,jn,mn
+h+1
+)
+2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+−
+
+
+PNk
+h
+n=1 ˆV R,kn
+h+1 (skn,jn,mn
+h+1
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+
+
+2
+.
+Now we want to bound both Jk,j,m
+1,h
+and Jk,j,m
+2,h
+. Note that
+Jk,j,m
+1,h
+=
+PN k
+h
+n=1
+ V R,kn
+h+1 + ˆV R,kn
+h+1
+ V R,kn
+h+1 −ˆV R,kn
+h+1
+
+(skn,jn,mn
+h+1
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≤2HΨk
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+.
+(87)
+where
+Ψk
+h(sk,j,m
+h
+, ak,j,m
+h
+) =
+N k
+h
+X
+n=1
+
+V R,kn
+h+1 (skn,jn,mn
+h+1
+) −ˆV R,kn
+h+1 (skn,jn,mn
+h+1
+)
+
+.
+(88)
+For the second term Jk,j,m
+2,h
+, because of Cauchy’s Inequality, we have:
+Jk,j,m
+2,h
+=
+PN k
+h
+n=1
+ 
+ˆV R,kn
+h+1 (skn,jn,mn
+h+1
+) −
+PNk
+h
+i=1 ˆV R,ki
+h+1 (ski,ji,mi
+h+1
+)
+N k
+h(sk,j,m
+h
+,ak,j,m
+h
+)
+!2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≤2
+
+Jk,j,m
+2,h,1 + Jk,j,m
+2,h,2
+
+,
+where:
+Jk,j,m
+2,h,1 =
+PNk
+h
+n=1
+ 
+ˆV R,kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+) +
+PNk
+h
+i=1
+
+V ⋆
+h+1−ˆV R,ki
+h+1
+
+(ski,ji,mi
+h+1
+)
+Nk
+h(sk,j,m
+h
+,ak,j,m
+h
+)
+!2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+,
+and
+Jk,j,m
+2,h,2 =
+PNk
+h
+n=1
+ 
+V ⋆
+h+1(skn,jn,mn
+h+1
+) −
+PNk
+h
+i=1 V ⋆
+h+1(ski,ji,mi
+h+1
+)
+Nk
+h(sk,j,m
+h
+,ak,j,m
+h
+)
+!2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+=
+PNk
+h
+n=1
+
+V ⋆
+h+1(skn,jn,mn
+h+1
+)
+2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+−
+
+
+PNk
+h
+n=1 V ⋆
+h+1(skn,jn,mn
+h+1
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+
+
+2
+.
+Since V ⋆
+h+1(s) ≤ˆV R,kn
+h+1 (s) ≤V ⋆
+h+1(s) + β, it holds that:
+
+
+ˆV R,kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+) +
+PNk
+h
+i=1
+
+V ⋆
+h+1 −ˆV R,ki
+h+1
+
+(ski,ji,mi
+h+1
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+
+≤
+
+
+ˆV R,kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+)
+ +
+
+PNk
+h
+i=1
+
+V ⋆
+h+1 −ˆV R,ki
+h+1
+
+(ski,ji,mi
+h+1
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+
+≤2β.
+55
+
+````
+
+## PDF page 56
+
+FORMULA CHECK REQUIRED: original PDF page 56.
+
+````text
+Therefore, applying this inequality to Jk,j,m
+2,h,1 , we have Jk,j,m
+2,h,1 ≤4β2.
+Moreover, we claim that:
+Jk,j,m
+2,h,2 ≲Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1) + H2
+s
+ι
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+.
+(89)
+This is because (Here we use the shorthand P = Psk,j,m
+h
+,ak,j,m
+h
+,h)
+Jk,j,m
+2,h,2 −Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)
+=
+PNk
+h
+n=1
+
+1skn,jn,mn
+h+1
+−P
+  V ⋆
+h+1
+2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
++
+ PV ⋆
+h+1
+2 −
+
+
+PNk
+h
+n=1 V ⋆
+h+1(skn,jn,mn
+h+1
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+
+
+2
+≤
+PNk
+h
+n=1
+
+1skn,jn,mn
+h+1
+−P
+  V ⋆
+h+1
+2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
++ 2H
+
+PNk
+h
+n=1
+
+1skn,jn,mn
+h+1
+−P
+
+V ⋆
+h+1
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+
+≲H2
+s
+ι
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+.
+The last inequality is because of the events E6 and E7 in Lemma G.1. Applying results of Equation (87)
+and Equation (89) with Jk,j,m
+2,h,1 ≤4β2 to Equation (86), we reach
+v
+u
+u
+u
+t σR,k
+h
+−
+
+µR,k
+h
+2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≲
+q
+HΨk
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
++
+v
+u
+u
+tVsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
++
+s
+β2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
++
+Hι
+1
+4
+(N k
+h(sk,j,m
+h
+, ak,j,m
+h
+))
+3
+4 .
+(90)
+Note that by Lemma F.6 with α = 1
+2 and 3
+4, we have
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+s
+β2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≲βMHSA + β
+p
+HSAT1,
+and
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+Hι
+1
+4
+(N k
+h(sk,j,m
+h
+, ak,j,m
+h
+))
+3
+4 ≲MH2SAι
+1
+4 + H2(SA)
+3
+4 (T1ι)
+1
+4 .
+Applying these two inequalities to Equation (90), it holds that
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+v
+u
+u
+u
+t σR,k
+h
+−
+
+µR,k
+h
+2
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≲
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+q
+HΨk
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
++
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+v
+u
+u
+tVsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
++ MH2SAι
+1
+4 + H2(SA)
+3
+4 (T1ι)
+1
+4 + β
+p
+HSAT1.
+(91)
+Now we claim the following two conclusions
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+v
+u
+u
+tVsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≤
+p
+H2SAT1 + MH4SA√ι,
+(92)
+56
+
+````
+
+## PDF page 57
+
+FORMULA CHECK REQUIRED: original PDF page 57.
+
+````text
+and
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+q
+HΨk
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≤
+r 1
+β H4SAι
+3
+2 + MH
+7
+2 SAι
+5
+4 ,
+(93)
+which will be proved later. Combining the results of Equation (85), Equation (91), Equation (92) and
+Equation (93), we have
+R1 ≲(1 + β)
+p
+H2SAT1ι + H2(SAι)
+3
+4 (T1)
+1
+4 +
+r 1
+β H4SAι2 + MH4SAι
+7
+4
+≲(1 + β)
+p
+H2SAT1ι +
+r 1
+β H4SAι2 + MH4SAι2.
+The last inequality is because H2(SAι)
+3
+4 (T1)
+1
+4 ≤
+√
+H2SAT1ι + H3SAι by AM-GM inequality.
+Next, we will prove Equation (92) and Equation (93).
+Proof of Equation (92):
+Because of Equation (23) and Equation (29) with ωk,j,m
+h
+= 1, α = 1
+2, we know
+X
+k,j,m,N k
+h>0
+I
+h
+(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)
+i
+q
+N k
+h(s, a)
+≲M +
+q
+N K+1
+h
+(s, a).
+(94)
+Then we can derive the following relationship
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+v
+u
+u
+tVsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+=
+H
+X
+h=1
+X
+s,a
+X
+k,j,m,N k
+h>0
+s
+Vs,a,h(V ⋆
+h+1)
+N k
+h(s, a)
+I
+h
+(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)
+i
+≲
+H
+X
+h=1
+X
+s,a
+q
+Vs,a,h(V ⋆
+h+1)
+
+M +
+q
+N K+1
+h
+(s, a)
+
+≲MH2SA +
+H
+X
+h=1
+X
+s,a
+q
+N K+1
+h
+(s, a)Vs,a,h(V ⋆
+h+1)
+≤MH2SA +
+√
+HSA
+v
+u
+u
+t
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1).
+(95)
+The first inequality is because of Equation (94). The second inequality is by Vs,a,h(V ⋆
+h+1) ≤H2. The
+last inequality is by the Cauchy-Schwarz inequality. Next, we will bound the term in Equation (95).
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)
+≤
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V πk
+h+1) +
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1) −Vsk,j,m
+h
+,ak,j,m
+h
+,h(V πk
+h+1)
+
+≲HT1 + H3ι +
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1) −Vsk,j,m
+h
+,ak,j,m
+h
+,h(V πk
+h+1)
+ .
+(96)
+57
+
+````
+
+## PDF page 58
+
+FORMULA CHECK REQUIRED: original PDF page 58.
+
+````text
+The last inequality follows directly from E8 in Lemma G.1. The second term on the right-hand side
+of Equation (96) can be bounded as follows (Here we use the shorthand P = Psk,j,m
+h
+,ak,j,m
+h
+,h)
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1) −Vsk,j,m
+h
+,ak,j,m
+h
+,h(V πk
+h+1)
+
+=
+H
+X
+h=1
+X
+k,j,m
+P(V ⋆
+h+1)2 −P(V πk
+h+1)2 −(PV ⋆
+h+1)2 + (PV πk
+h+1)2
+≤
+H
+X
+h=1
+X
+k,j,m
+n
+P
+
+(V ⋆
+h+1 −V πk
+h+1)(V ⋆
+h+1 + V πk
+h+1)
+
++
+(PV ⋆
+h+1)2 −(PV πk
+h+1)2
+o
+≤4H
+H
+X
+h=1
+X
+k,j,m
+P
+
+V ⋆
+h+1 −V πk
+h+1
+
+= 4H
+H
+X
+h=1
+X
+k,j,m
+n
+V ⋆
+h+1(sk,j,m
+h+1 ) −V πk
+h+1(sk,j,m
+h+1 ) +
+
+P −1sk,j,m
+h+1
+
+(V ⋆
+h+1 −V πk
+h+1)
+o
+(i)
+≲H
+H
+X
+h=1
+X
+k,j,m
+
+V U,k
+h+1 −V πk
+h+1
+
+(sk,j,m
+h+1 ) + H2p
+T1ι
+(ii)
+≲H4p
+SAT1ι + MH6SA√ι,
+(97)
+Here, (i) is because V U,k
+h+1 ≥V k
+h+1 ≥V ⋆
+h+1 by Lemma H.1 and the event E9 in Lemma G.1. (ii)
+follows the event E10 in Lemma G.1. Therefore, applying Equation (97) to Equation (96), we reach
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1) ≲HT1 + MH7SAι.
+(98)
+Here we use H4√SAT1ι ≤HT1 + MH7SAι by AM-GM inequality. Applying Equation (98) to
+Equation (95), we finish the proof of Equation (92):
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+v
+u
+u
+tVsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+≲MH2SA +
+√
+HSA
+p
+HT1 + MH7SAι
+≤
+p
+H2SAT1 + MH4SA√ι.
+Proof of Equation (93):
+First, by Equation (24) with ωk,j,m
+h
+= 1 and α = 1
+2 and Equation (32), we know
+X
+s,a
+K
+X
+k=1
+nk
+h(s, a)
+q
+N k
+h(s, a)
+I
+
+0 < N k
+h(s, a) < M
+
+≲MSA.
+(99)
+K
+X
+k=1
+nk
+h(s, a)
+N k
+h(s, a)I
+
+N k
+h(s, a) ≥M
+
+≲log(T1).
+(100)
+Because Ψk
+h(s, a) ≤HN k
+h(s, a), it holds that
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+q
+HΨk
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+I
+h
+0 < N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) < M
+i
+≤H
+H
+X
+h=1
+X
+s,a
+K
+X
+k=1
+nk
+h(s, a)
+q
+N k
+h(s, a)
+I
+
+0 < N k
+h(s, a) < M
+
+≲MH2SA.
+(101)
+58
+
+````
+
+## PDF page 59
+
+FORMULA CHECK REQUIRED: original PDF page 59.
+
+````text
+The last inequality is because of Equation (99). By Equation (100), We also have
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+q
+HΨk
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+)
+I
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥M
+i
+=
+H
+X
+h=1
+X
+s,a
+X
+k,j,m,N k
+h>0
+q
+HΨk
+h(s, a)
+N k
+h(s, a)
+I
+h
+N k
+h(s, a) ≥M, (sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)
+i
+≤
+H
+X
+h=1
+X
+s,a
+q
+HΨK
+h (s, a)
+K
+X
+k=1
+nk
+h(s, a)
+N k
+h(s, a)I
+
+N k
+h(s, a) ≥M
+
+≲log(T1)
+H
+X
+h=1
+X
+s,a
+q
+HΨK
+h (s, a)
+≤ι
+v
+u
+u
+tSAH2
+H
+X
+h=1
+X
+s,a
+ΨK
+h (s, a).
+(102)
+Here, the first inequality is because of the monotonically increasing property of Ψk
+h(s, a) with respect
+to k (see its definition in Equation (88)) as guaranteed by V R,k
+h+1(s) ≥ˆV R,k
+h+1(s). The last inequality is
+by the Cauchy-Schwarz inequality. To continue, by Lemma H.6, we reach
+H
+X
+h=1
+X
+s,a
+ΨK
+h (s, a)
+=
+H
+X
+h=1
+X
+k,j,m
+
+V R,k
+h+1 −ˆV R,k
+h+1
+
+(sk,j,m
+h+1 )
+≤
+H
+X
+h=1
+X
+k,j,m
+
+V k
+h+1 −V L,k
+h+1
+
+(sk,j,m
+h+1 ) · I
+h
+V k
+h+1 −V L,k
+h+1
+
+(sk,j,m
+h+1 ) > β
+i
+(i)
+≲
+H
+X
+h=1
+X
+k,j,m
+
+Qk
+h+1 −QL,k
+h+1
+
+(sk,j,m
+h+1 , ak,j,m
+h+1 ) · I
+h
+Qk
+h+1 −QL,k
+h+1
+
+(sk,j,m
+h+1 , ak,j,m
+h+1 ) > β
+i
+≲H6SAι
+β
++ MH5SA√ι.
+(103)
+Here, (i) is because
+Qk
+h+1(sk,j,m
+h+1 , ak,j,m
+h+1 ) = V k
+h+1(sk,j,m
+h+1 ), QL,k
+h+1(sk,j,m
+h+1 , ak,j,m
+h+1 ) ≤V L,k
+h+1(sk,j,m
+h+1 ).
+The last inequality is by Lemma H.4.
+By applying Equation (103) to Equation (102), and combining the result of Equation (101), we
+complete the proof of Equation (93).
+Lemma I.2. Under the event T14
+i=1 Ei in Lemma G.1, we have
+R2 ≲β
+p
+H2SAT1ι + MH3SAι2.
+Proof. By event E14 in Lemma G.1, we have
+R2 ≲β
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+s
+Hι
+N k
+h
++
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+βHι
+N k
+h
+≲β
+√
+Hι(MHSA +
+p
+HSAT1) + βHι(MHSA + HSAι)
+≲β
+p
+H2SAT1ι + MH3SAι2.
+The second inequality is by Lemma F.6 with α = 1
+2 and α = 1,
+59
+
+````
+
+## PDF page 60
+
+FORMULA CHECK REQUIRED: original PDF page 60.
+
+````text
+Lemma I.3. Under the event T14
+i=1 Ei in Lemma G.1, we have
+R3 ≲(1 + β)
+p
+H2SAT1ι2 + H6SAι2
+β
++ MH5SAι2.
+Proof. We can decompose R3 into five terms:
+R3 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+V R,ki
+h
+(ski,ji,mi
+h+1
+) −Psk,j,m
+h
+,ak,j,m
+h
+,h ˆV R,kn
+h+1
+
+= R3,1 + R3,2 + R3,3 + R3,4 + R3,5,
+where
+R3,1 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+ 1ski,ji,mi
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+
+( ˆV R,ki
+h+1 −V ⋆
+h+1),
+R3,2 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+
+V ⋆
+h+1,
+R3,3 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+N kn+1
+hX
+i=1
+
+V R,ki
+h+1 (ski,ji,mi
+h+1
+) −ˆV R,ki
+h+1 (ski,ji,mi
+h+1
+)
+
+,
+R3,4 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+Psk,j,m
+h
+,ak,j,m
+h
+,h
+
+ˆV R,ki
+h+1 −V R,K+1
+h+1
+
+,
+and
+R3,5 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n Psk,j,m
+h
+,ak,j,m
+h
+,h
+
+V R,K+1
+h+1
+−ˆV R,kn
+h+1
+
+.
+Next, we will bound these five terms respectively:
+Upper bound of R3,1:
+According to the event E12 in Lemma G.1, we know
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+ 
+ˆV R,ki
+h+1 −V ⋆
+h+1
+
+≤
+Nk
+h
+X
+n=1
+β˜ηNk
+h
+n
+√
+2ι
+q
+N kn+1
+h
+(i)
+≲β√ι
+Nk
+h
+X
+n=1
+ηNk
+h
+n
+√n
+(ii)
+≲
+β√ι
+q
+N k
+h
+.
+(104)
+Here, (i) is because ˜ηN k
+h
+n
+≤exp(1/H)ηNk
+h
+n
+by (c) of Lemma F.3 and N kn+1
+h
+≥n by the definition of
+kn. (ii) directly follows (a) in Lemma F.2 with α = 1
+2. Therefore, by Lemma F.6 with α = 1
+2,
+R3,1 ≲β√ι
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+1
+q
+N k
+h
+≤βMHSA√ι + β
+p
+HSAT1ι.
+(105)
+60
+
+````
+
+## PDF page 61
+
+FORMULA CHECK REQUIRED: original PDF page 61.
+
+````text
+Upper bound of R3,2:
+According to the event E13 in Lemma G.1, we know
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+
+V ⋆
+h+1
+≤
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+4
+v
+u
+u
+tVsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)ι
+N kn+1
+h
++
+7Hι
+N kn+1
+h
+
+
+(i)
+≲
+
+
+N k
+h
+X
+n=1
+ηNk
+h
+n
+√n
+
+
+q
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)ι + Hι
+Nk
+h
+X
+n=1
+ηN k
+h
+n
+n
+(ii)
+≲
+s
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)ι
+N k
+h
++ Hι
+N k
+h
+.
+(106)
+Here, (i) is because ˜ηNk
+h
+n
+≤exp(1/H)ηNk
+h
+n
+by (c) of Lemma F.3, N kn+1
+h
+≥n by the definition of kn.
+(ii) directly follows (a) in Lemma F.2 with α = 1
+2 and α = 1. Then according to the definition of
+R3,2, we have
+R3,2 ≲
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+s
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)ι
+N k
+h
++ Hι
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+1
+N k
+h
+.
+(107)
+For the first term in Equation (112), by Cauchy-Schwarz inequality, we have
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+s
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)ι
+N k
+h
+=
+H
+X
+h=1
+X
+k,j,m
+s
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)ι
+N k
+h
+ I
+
+0 < N k
+h < M
+
++ I
+
+N k
+h ≥M
+
+≤
+v
+u
+u
+t
+H
+X
+h=1
+X
+k,j,m
+I
+
+0 < N k
+h < M
+
+N k
+h
+·
+v
+u
+u
+t
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)ιI
+
+0 < N k
+h < M
+
++
+v
+u
+u
+t
+H
+X
+h=1
+X
+k,j,m
+I
+
+N k
+h ≥M
+
+N k
+h
+·
+v
+u
+u
+t
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)ιI
+
+N k
+h ≥M
+
+≲
+√
+MHSA ·
+v
+u
+u
+tH2ι
+H
+X
+h=1
+X
+k,j,m
+I
+
+0 < N k
+h < M
+
++
+√
+HSAι ·
+p
+HT1ι + MH7SAι2.
+(108)
+Here, the last inequality is because Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1) ≤H2,
+H
+X
+h=1
+X
+k,j,m
+I
+
+0 < N k
+h < M
+
+N k
+h
+≲MHSA,
+H
+X
+h=1
+X
+k,j,m
+I
+
+N k
+h ≥M
+
+N k
+h
+≲HSAι
+by Equation (24) and Equation (32), and
+H
+X
+h=1
+X
+k,j,m
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1) ≲HT1 + MH7SAι.
+61
+
+````
+
+## PDF page 62
+
+FORMULA CHECK REQUIRED: original PDF page 62.
+
+````text
+by Equation (98). Next, we will bound the term PH
+h=1
+P
+k,j,m I
+
+0 < N k
+h < M
+
+. Let k0(s, a) =
+max{k | 1 ≤k ≤K, N k
+h(s, a) < M}. Then it holds that
+H
+X
+h=1
+X
+k,j,m
+I
+
+0 < N k
+h < M
+
+=
+H
+X
+h=1
+X
+s,a
+X
+k,j,m
+I
+h
+0 < N k
+h(s, a) < M, (sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)
+i
+=
+H
+X
+h=1
+X
+s,a
+k0(s,a)
+X
+k=1
+X
+j,m
+I
+h
+(sk,j,m
+h
+, ak,j,m
+h
+) = (s, a)
+i
+=
+H
+X
+h=1
+X
+s,a
+N k0+1
+h
+(s, a) ≲MHSA
+(109)
+The last inequality is because N k0
+h (s, a) ≤M and nk0
+h (s, a) ≤M by (a) of Lemma F.1. Applying
+this inequality to Equation (108), we can bound the first term in Equation (107):
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+s
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1)ι
+N k
+h
+≲
+p
+H2SAT1ι2 + MH4SAι2.
+(110)
+For the second term in Equation (107), according to Lemma F.6 with α = 1, we reach
+Hι
+H
+X
+h=1
+X
+k,j,m,N k
+h>0
+1
+N k
+h
+≲MH2SAι + H2SAι2 ≲MH4SAι2.
+(111)
+Applying the results of Equation (110) and Equation (111) to Equation (107), we can bound R3,2:
+R3,2 ≲
+p
+H2SAT1ι2 + MH4SAι2.
+(112)
+Upper bound of R3,3 and R3,4:
+We first substitute the terms (V R,ki
+h+1 −ˆV R,ki
+h+1 )(ski,ji,mi
+h+1
+) in R3,3 or Psk,j,m
+h
+,ak,j,m
+h
+,h
+ ˆV R,ki
+h+1 −V R,K+1
+h+1
+
+in R3,4 by W ki
+h+1(sk,j,m
+h
+, ak,j,m
+h
+) and deal with the following general structure:
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+W ki
+h+1(sk,j,m
+h
+, ak,j,m
+h
+).
+Here, 0 ≤W ki
+h+1(sk,j,m
+h
+, ak,j,m
+h
+) ≤H because H ≥V R,ki
+h+1 (ski,ji,mi
+h+1
+) ≥ˆV R,ki
+h+1 (ski,ji,mi
+h+1
+). Since
+W ki
+h+1(sk,j,m
+h
+, ak,j,m
+h
+) ≤H and PN k
+h
+n=1 ˜ηN k
+h
+n
+≤1 by (b) of Lemma F.3, we first note that when
+0 < N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) < M,
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+W ki
+h+1(sk,j,m
+h
+, ak,j,m
+h
+)I
+
+0 < N k
+h < M
+
+≤
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+HI
+
+0 < N k
+h < M
+
+≲
+H
+X
+h=1
+X
+k,j,m
+HI
+
+0 < N k
+h < M
+
+≲MH2SA.
+(113)
+62
+
+````
+
+## PDF page 63
+
+FORMULA CHECK REQUIRED: original PDF page 63.
+
+````text
+The last inequality is by Equation (109). Next, we consider the case when N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥M:
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+N kn+1
+hX
+i=1
+W ki
+h+1(sk,j,m
+h
+, ak,j,m
+h
+)I
+
+N k
+h ≥M
+
+=
+H
+X
+h=1
+X
+k′,j′,m′
+W k′
+h+1(sk,j,m
+h
+, ak,j,m
+h
+)×
+
+ch−1
+H
+X
+k,j,m
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+I
+
+N k
+h ≥M
+
+N kn+1
+h
+N kn+1
+hX
+i=1
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+
+.
+(114)
+By the definitions of ki, ji and mi, for any given triple (k′, j′, m′),
+Nkn+1
+hX
+i=1
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+= 1
+if and only if
+(sk,j,m
+h
+, ak,j,m
+h
+) = (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+) and N kn+1
+h
+≥i′(k′, j′, m′),
+where i′(k′, j′, m′) is the global visiting number for (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+, h) at (k′, j′, m′) with the
+order “round first, episode second, agent third”. When there is no ambiguity, we will use i′ for short.
+Therefore, for the coefficient of W k′
+h+1(sk,j,m
+h
+, ak,j,m
+h
+) in Equation (114), we can derive the following
+upper bound:
+ch−1
+H
+X
+k,j,m
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+I
+
+N k
+h ≥M
+
+N kn+1
+h
+Nkn+1
+hX
+i=1
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+≤ch−1
+H
+X
+k,j,m
+I
+h
+(sk,j,m
+h
+, ak,j,m
+h
+) = (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+), N k
+h ≥M
+i Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+1
+N kn+1
+h
+(i)
+≲
+X
+k,j,m
+I
+h
+(sk,j,m
+h
+, ak,j,m
+h
+) = (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+), N k
+h ≥M
+i 1
+N k
+h
+=
+K
+X
+k=1
+nk
+h(sk′,j′,m′
+h
+, ak′,j′,m′
+h
+)
+N k
+h(sk′,j′,m′
+h
+, ak′,j′,m′
+h
+)
+I
+h
+N k
+h(sk′,j′,m′
+h
+, ak′,j′,m′
+h
+) ≥M
+i
+(ii)
+≲ι.
+(115)
+Here, (i) is because
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+≲
+Nk
+h
+X
+n=1
+ηN k
+h
+n
+n
+≲
+1
+N k
+h
+,
+where the first inequality is because ˜ηN k
+h
+n
+≲ηN k
+h
+n
+by (c) of Lemma F.3 and the last inequal-
+ity is by (a) of Lemma F.2.
+(ii) is because of Equation (32).
+When the coefficient of
+W k′
+h+1(sk,j,m
+h
+, ak,j,m
+h
+) in Equation (114) is non-zero, we have (sk,j,m
+h
+, ak,j,m
+h
+) = (sk′,j′,m′
+h
+, ak′,j′,m′
+h
+)
+and thus W k′
+h+1(sk,j,m
+h
+, ak,j,m
+h
+) = W k′
+h+1(sk′,j′,m′
+h
+, ak′,j′,m′
+h
+). Therefore, by applying Equation (115)
+to Equation (114), we know that
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+W ki
+h+1(sk,j,m
+h
+, ak,j,m
+h
+)I
+
+N k
+h ≥M
+
+≲ι
+H
+X
+h=1
+X
+k′,j′,m′
+W k′
+h+1(sk′,j′,m′
+h
+, ak′,j′,m′
+h
+)
+(116)
+63
+
+````
+
+## PDF page 64
+
+FORMULA CHECK REQUIRED: original PDF page 64.
+
+````text
+Next, we will bound the term PH
+h=1
+P
+k,j,m W k
+h+1(sk,j,m
+h
+, ak,j,m
+h
+). By Lemma H.6, we have
+H
+X
+h=1
+X
+k,j,m
+
+V R,k
+h+1(sk,j,m
+h+1 ) −ˆV R,k
+h+1(sk,j,m
+h+1 )
+
+≤
+H
+X
+h=1
+X
+k,j,m
+ V k
+h+1(sk,j,m
+h+1 ) −V L,k
+h+1(sk,j,m
+h+1 )
+
+I
+h
+V k
+h+1(sk,j,m
+h+1 ) −V L,k
+h+1(sk,j,m
+h+1 ) > β
+i
+(i)
+≤
+H
+X
+h=1
+X
+k,j,m
+ Qk
+h+1 −QL,k
+h+1
+
+(sk,j,m
+h+1 , ak,j,m
+h+1 )I
+h
+(Qk
+h+1 −QL,k
+h+1)(sk,j,m
+h+1 , ak,j,m
+h+1 ) > β
+i
+≲H6SAι
+β
++ MH5SA√ι.
+(117)
+Here, (i) is because
+Qk
+h+1(sk,j,m
+h+1 , ak,j,m
+h+1 ) = V k
+h+1(sk,j,m
+h+1 ), QL,k
+h+1(sk,j,m
+h+1 , ak,j,m
+h+1 ) ≤V L,k
+h+1(sk,j,m
+h+1 ).
+The last inequality is by Lemma H.4. Similarly, by Lemma H.6, we also have
+H
+X
+h=1
+X
+k,j,m
+Psk,j,m
+h
+,ak,j,m
+h
+,h
+ ˆV R,k
+h+1 −V R,K+1
+h+1
+
+≤
+H
+X
+h=1
+X
+k,j,m
+Psk,j,m
+h
+,ak,j,m
+h
+,h
+n V k
+h+1 −V L,k
+h+1
+
+(sk,j,m
+h+1 )I
+h
+V k
+h+1(sk,j,m
+h+1 ) −V L,k
+h+1(sk,j,m
+h+1 ) > β
+io
+(i)
+≤
+H
+X
+h=1
+X
+k,j,m
+ V k
+h+1(sk,j,m
+h+1 ) −V L,k
+h+1(sk,j,m
+h+1 )
+
+I
+h
+V k
+h+1(sk,j,m
+h+1 ) −V L,k
+h+1(sk,j,m
+h+1 ) > β
+i
++ Hι
+≤
+H
+X
+h=1
+X
+k,j,m
+ Qk
+h+1 −QL,k
+h+1
+
+(sk,j,m
+h+1 , ak,j,m
+h+1 )I
+h
+(Qk
+h+1 −QL,k
+h+1)(sk,j,m
+h+1 , ak,j,m
+h+1 ) > β
+i
++ Hι
+≲H6SAι
+β
++ MH5SA√ι.
+(118)
+Here, (i) is because of the event E11 of Lemma G.1. Combining the results of Equation (117) and
+Equation (118), we conclude that
+H
+X
+h=1
+X
+k,j,m
+W k
+h+1(sk,j,m
+h
+, ak,j,m
+h
+) ≲H6SAι
+β
++ MH5SA√ι.
+Back to Equation (116), we have the following conclusion:
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+W ki
+h+1(sk,j,m
+h
+, ak,j,m
+h
+)I
+
+N k
+h ≥M
+
+≲H6SAι2
+β
++ MH5SAι2.
+Together with Equation (113), we reach that:
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+N kn+1
+h
+N kn+1
+hX
+i=1
+W ki
+h+1(sk,j,m
+h
+, ak,j,m
+h
+) ≲H6SAι2
+β
++ MH5SAι2
+(119)
+Therefore, we can bound R3,3, R3,4:
+R3,3, R3,4 ≲H6SAι2
+β
++ MH5SAι2.
+(120)
+64
+
+````
+
+## PDF page 65
+
+FORMULA CHECK REQUIRED: original PDF page 65.
+
+````text
+Upper bound of R3,5:
+R3,5 =
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+N k
+h
+X
+n=1
+˜ηNk
+h
+n Psk,j,m
+h
+,ak,j,m
+h
+,h
+
+V R,K+1
+h+1
+−ˆV R,kn
+h+1
+
+≤
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+N k
+h
+X
+n=1
+˜ηNk
+h
+n Psk,j,m
+h
+,ak,j,m
+h
+,h
+V R,K+1
+h+1
+−ˆV R,kn
+h+1
+ .
+Since
+V R,K+1
+h+1
+(s) −ˆV R,kn
+h+1 (s)
+ ≤H and PNk
+h
+n=1 ˜ηNk
+h
+n
+≤1 by (b) of Lemma F.3, we first note that
+when 0 < N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) < i0,
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n Psk,j,m
+h
+,ak,j,m
+h
+,h
+V R,K+1
+h+1
+−ˆV R,kn
+h+1
+ I
+
+0 < N k
+h < i0
+
+≲
+H
+X
+h=1
+X
+k,j,m
+HI
+
+0 < N k
+h < i0
+
+≲MH4SA.
+(121)
+The last inequality is because
+X
+k,j,m
+I
+h
+0 < N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) < i0
+i
+≲MH2SA,
+(122)
+by Equation (74). When N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥i0, we have:
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n Psk,j,m
+h
+,ak,j,m
+h
+,h
+V R,K+1
+h+1
+−ˆV R,kn
+h+1
+ I
+
+N k
+h ≥i0
+
+=
+H
+X
+h=1
+X
+k′,j′,m′
+Psk,j,m
+h
+,ak,j,m
+h
+,h
+V R,K+1
+h+1
+−ˆV R,k′
+h+1
+ ×
+
+ch−1
+H
+X
+k,j,m
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n I
+
+N k
+h ≥i0
+
+I [(kn, jn, mn) = (k′, j′, m′)]
+
+
+≲
+H
+X
+h=1
+X
+k′,j′,m′
+Psk′,j′,m′
+h
+,ak′,j′,m′
+h
+,h
+V R,K+1
+h+1
+−ˆV R,k′
+h+1
+
+≲H6SAι
+β
++ MH5SA√ι.
+(123)
+The first inequality is by Equation (60) and the last inequality is because of Equation (118). Together
+with Equation (121), we can bound R3,5:
+R3,5 ≤
+H
+X
+h=1
+ch−1
+H
+X
+k,j,m,N k
+h>0
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n Psk,j,m
+h
+,ak,j,m
+h
+,h
+V R,K+1
+h+1
+−ˆV R,kn
+h+1
+
+≲H6SAι
+β
++ MH5SA√ι.
+(124)
+Combining Equations (105), (112), (120) and (124), since β ≤H, we can bound R3:
+R3 ≲(1 + β)
+p
+H2SAT1ι2 + H6SAι2
+β
++ MH5SAι2.
+65
+
+````
+
+## PDF page 66
+
+FORMULA CHECK REQUIRED: original PDF page 66.
+
+````text
+J
+Proof of Worst-Case Switching/Communication Cost (Theorem 4.2 and
+Theorem 4.4)
+Proof. We first prove the Theorem 4.4. When T = ˆT/M ≤3H2(H + 1)SA, the number of rounds
+k is no more than ˆT ≤3MH2(H + 1)SA. Next, we consider the case when T ≥3H2(H + 1)SA.
+Since each round terminates when some triple (s, a, h) satisfies the trigger condition (see Equa-
+tion (3)), the total number of communication rounds is upper bounded by the total number of times
+the trigger condition is satisfied across all triples (s, a, h). In the following proof, we provide an
+upper bound on the total number of such trigger events.
+Let th(s, a) denote the number of times the trigger condition is satisfied by the triple (s, a, h).
+According to Equation (3), each time the trigger condition is satisfied during any round k, the number
+of visits to (s, a, h) increases by at least 1 when N k
+h < MH(H + 1)
+△= i′
+0, and increases by at least
+a factor of 1 +
+1
+2MH(H+1) when N k
+h ≥i′
+0. Define the set C = {(s, a, h) | th(s, a) ≥i′
+0} . Then for
+every (s, a, h) ∈C, after the trigger condition has been satisfied i′
+0 times, the number of visits to
+(s, a, h) is at least i′
+0. Therefore, for (s, a, h) ∈C, we have:
+
+1 +
+1
+2MH(H + 1)
+th(s,a)−i′
+0 ≤N K+1
+h
+(s, a)
+i′
+0
+.
+and thus
+th(s, a) ≤log(N K+1
+h
+(s, a)/i′
+0)
+log
+ 1 +
+1
+2MH(H+1)
+ + i′
+0.
+If C = ∅, then
+H
+X
+h=1
+X
+s,a
+th(s, a) =
+X
+(s,a,h)/∈C
+th(s, a) ≤HSAi′
+0 ≤MH2(H + 1)SA.
+Otherwise, the total number of trigger times is no more than
+H
+X
+h=1
+X
+s,a
+th(s, a) =
+X
+(s,a,h)/∈C
+th(s, a) +
+X
+(s,a,h)∈C
+th(s, a)
+≤2MH2(H + 1)SA +
+X
+(s,a,h)∈C
+log(N K+1
+h
+(s, a)/i0)
+log
+ 1 +
+1
+2MH(H+1)
+
+≤2MH2(H + 1)SA + |C|
+log(
+T
+H(H+1)|C|)
+log
+ 1 +
+1
+2MH(H+1)
+
+≤2MH2(H + 1)SA + HSA
+log
+
+T
+H2(H+1)SA
+
+log
+ 1 +
+1
+2MH(H+1)
+
+≤2MH2(H + 1)SA + 4MH2(H + 1)SA log
+
+T
+H2(H + 1)SA
+
+.
+The first inequality is because for (s, a, h) /∈C, th(s, a) ≤i′
+0. The second inequality follows from
+Jensen’s inequality. The second last inequality is because the term in the previous line increases with
+|C| when T ≥3H2(H +1)SA and 1 ≤|C| ≤HSA. The last inequality is because log(1+x) ≥x/2
+for x ∈(0, 1), which applies to x =
+1
+2MH(H+1).
+For M = 1, the switching cost is no more than the number of communication rounds. Then we also
+finish the proof of Theorem 4.2.
+K
+Proof of Gap-Dependent Regret (Theorem 4.5 and Theorem 4.8)
+K.1
+Proof Sketch
+We now prove the gap-dependent regret upper bound under the event T14
+i=1 Ei in Lemma G.1.
+66
+
+````
+
+## PDF page 67
+
+FORMULA CHECK REQUIRED: original PDF page 67.
+
+````text
+To begin, we point out that
+
+V ⋆
+1 −V πk
+1
+
+(sk,j,m
+1
+) = V ⋆
+1 (sk,j,m
+1
+) −Q⋆
+1(sk,j,m
+1
+, ak,j,m
+1
+) +
+
+Q⋆
+1 −Qπk
+1
+
+(sk,j,m
+1
+, ak,j,m
+1
+)
+(i)
+= ∆1(sk,j,m
+1
+, ak,j,m
+1
+) + E
+h
+V ⋆
+2 −V πk
+2
+
+(sk,j,m
+2
+) | sk,j,m
+2
+∼P1(· | sk,j,m
+1
+, ak,j,m
+1
+)
+i
+= E
+h
+∆1(sk,j,m
+1
+, ak,j,m
+1
+) + ∆2(sk,j,m
+2
+, ak,j,m
+2
+) | sk,j,m
+2
+∼P1(· | sk,j,m
+1
+, ak,j,m
+1
+)
+i
++ E
+h
+Q⋆
+2 −Qπk
+2
+
+(sk,j,m
+2
+, ak,j,m
+2
+) | sk,j,m
+2
+∼P1(· | sk,j,m
+1
+, ak,j,m
+1
+)
+i
+= · · · = E
+" H
+X
+h=1
+∆h
+
+sk,j,m
+h
+, ak,j,m
+h
+ sk,j,m
+h+1
+∼Ph(· | sk,j,m
+h
+, ak,j,m
+h
+), h ∈[H −1]
+#
+.
+Here (i) is by the Bellman Equation and Bellman Optimality Equation (1). Therefore, we can derive
+the following expression of the expected regret
+E (Regret(T)) = E
+ X
+k,j,m
+
+V ⋆
+1 −V πk
+1
+
+(sk,j,m
+1
+)
+
+= E
+ X
+k,j,m
+H
+X
+h=1
+∆h(sk,j,m
+h
+, ak,j,m
+h
+)
+
+.
+Note that we have
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) = max
+a {Qk
+h(sk,j,m
+h
+, a)} ≥max
+a {Q⋆
+h(sk,j,m
+h
+, a)} = V ⋆
+h (sk,j,m
+h
+).
+Thus, if we define clip[x | y] := x · I[x ≥y], then for any round-step pair (k, h),
+∆h(sk,j,m
+h
+, ak,j,m
+h
+) = clip
+h
+V ⋆
+h (sk,j,m
+h
+) −Q⋆
+h(sk,j,m
+h
+, ak,j,m
+h
+) | ∆min
+i
+≤clip
+h Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) | ∆min
+i
+.
+which further implies
+E (Regret(T)) ≤E
+ H
+X
+h=1
+X
+k,j,m
+clip
+h Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) | ∆min
+i 
+.
+Let E = T14
+i=1 Ei and δ = 1/14T1, we have:
+E (Regret(T)) ≤E
+ H
+X
+h=1
+X
+k,j,m
+clip
+ Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) | ∆min
+E
+
+P(E)
++ E
+ H
+X
+h=1
+X
+k,j,m
+clip
+ Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) | ∆min
+Ec
+
+P(Ec)
+≤O
+  Q⋆+ β2H
+
+H3SAι
+∆min
++ H7SAι2
+β
++ MH6SAι2
+!
+.
+The last inequality is because under the event E, by Lemma K.2, we have
+H
+X
+h=1
+X
+k,j,m
+clip
+h Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) | ∆min
+i
+≤O
+(Q⋆+ β2H)H3SAι
+∆min
++ H7SAι2
+β
++ MH6SAι2
+
+.
+and under the event Ec, we have
+H
+X
+h=1
+X
+k,j,m
+clip
+h
+(Qk
+h −Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+) | ∆min
+i
+≤HT1.
+Since ι = log(2SAT1/δ) = log(2SAT 2
+1 ), by (b) of Lemma F.1, we have ι ≤O (log(MSAT)).
+Therefore, let ι2 = log(MSAT), we have
+E (Regret(T)) ≤O
+  Q⋆+ β2H
+
+H3SAι2
+∆min
++ H7SAι2
+2
+β
++ MH6SAι2
+2
+!
+.
+67
+
+````
+
+## PDF page 68
+
+FORMULA CHECK REQUIRED: original PDF page 68.
+
+````text
+K.2
+Auxiliary Lemmas
+Lemma K.1. Under the event T14
+i=1 Ei in Lemma G.1, for FedQ-EarlySettled-LowCost algorithm
+and any non-negative weight sequence {ωk,j,m
+h
+}h,k,j,m, it holds for any h ∈[H] that:
+X
+k,j,m
+ωk,j,m
+h
+ Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) ≲H
+q
+(Q⋆+ β2H)SA∥ω∥∞,h∥ω∥1,hι
++ H2(SA∥ω∥∞,hι)
+3
+4 (∥ω∥1,h)
+1
+4 +
+H
+X
+h′=h
+X
+k,j,m
+ωk,j,m
+h′
+(h)Zk,j,m
+h′
+,
+where for any h ≤h′ ≤H −1
+ωk,j,m
+h
+(h) := ωk,j,m
+h
+,
+ωk,j,m
+h′+1 (h) =
+X
+k′,j′,m′
+ωk′,j′,m′
+h′
+(h)I
+h
+N k′
+h′ ≥i0
+i N k′
+h′
+X
+i=1
+˜η
+N k′
+h′
+i
+I
+
+(ki, ji, mi) = (k, j, m)
+
+,
+and
+Zk,j,m
+h′
+= η
+Nk
+h′
+0
+H +
+H2ι +
+q
+HΨk
+h′ι
+N k
+h′
++ HI
+
+0 < N k
+h′ < i0
+
++
+ s
+(Q⋆+ β2H)ι
+N k
+h′
++
+Hι
+3
+4
+(N k
+h′)
+3
+4
+!
+I
+
+0 < N k
+h′ < M
+
++
+Nk
+h′
+X
+n=1
+˜η
+Nk
+h′
+n
+N kn+1
+h′
+N kn+1
+h′X
+i=1
+ V R,ki
+h′+1 −ˆV R,ki
+h′+1
+
+(ski,ji,mi
+h′+1
+) + Psk,j,m
+h′
+,ak,j,m
+h′
+,h′
+  ˆV R,ki
+h′+1 −ˆV R,kn
+h′+1
+
+. (125)
+Here N k′
+h′ , N k
+h′ is the abbreviation for N k′
+h′ (sk′,j′,m′
+h′
+, ak′,j′,m′
+h′
+), N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+), respectively.
+Proof. To begin with, since Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≤QR,k
+h (sk,j,m
+h
+, ak,j,m
+h
+), by Equation (77), we have
+(Here we use the shorthand P = Psk,j,m
+h
+,ak,j,m
+h
+,h)
+(Qk
+h −Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+) ≤(QR,k
+h
+−Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+)
+≤ηN k
+h
+0
+H +
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −ˆV R,kn
+h+1
+
+(skn,jn,mn
+h+1
+) + µR,kn+1
+h
+−PV ⋆
+h+1
+
++
+Nk
+h
+X
+n=1
+ηN k
+h
+n bR
+h,n. (126)
+≤ηN k
+h
+0
+H +
+
+βR,k
+h
++ 2cR,2
+b
+H2ι
+N k
+h
+
++
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+)
++
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+
+1sk,j,m
+h+1
+−P
+ 
+V ⋆
+h+1 −ˆV R,kn
+h+1
+
++
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+N kn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−P
+
+V ⋆
+h+1
++
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−P
+ 
+ˆV R,ki
+h+1 −V ⋆
+h+1
+
++
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+ V R,ki
+h+1 −ˆV R,ki
+h+1
+
+(ski,ji,mi
+h+1
+) + P
+  ˆV R,ki
+h+1 −ˆV R,kn
+h+1
+
+.
+(127)
+The last inequality is by Equation (79). In the last inequality, we decompose the second term in
+Equation (126) into the last five terms in Equation (127). We then claim the following five conclusions:
+N k
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+)I
+
+0 < N k
+h < i0
+
+≤HI
+
+0 < N k
+h < i0
+
+,
+68
+
+````
+
+## PDF page 69
+
+FORMULA CHECK REQUIRED: original PDF page 69.
+
+````text
+βR,k
+h (sk,j,m
+h
+, ak,j,m
+h
+) ≲β
+s
+Hι
+N k
+h
++
+s
+(Q⋆+ β2)ι
+N k
+h
++
+Hι
+3
+4
+(N k
+h)
+3
+4 +
+q
+HΨk
+hι
+N k
+h
+,
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+
+1sk,j,m
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+ 
+V ⋆
+h+1 −ˆV R,kn
+h+1
+
+≲β
+s
+Hι
+N k
+h
++ βHι
+N k
+h
+,
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+ 
+ˆV R,ki
+h+1 −V ⋆
+h+1
+
+≲β
+r ι
+N k
+h
+,
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+1
+N kn+1
+h
+Nkn+1
+hX
+i=1
+
+1ski,ji,mi
+h+1
+−Psk,j,m
+h
+,ak,j,m
+h
+,h
+
+V ⋆
+h+1 ≲
+s
+Q⋆ι
+N k
+h
++ Hι
+N k
+h
+.
+Here, the first conclusion is because 0 ≤V kn
+h+1(s) −V ⋆
+h+1(s) ≤H and PNk
+h
+n=1 ˜ηNk
+h
+n
+≤1 by (b)
+of Lemma F.3. The second conclusion is proved by combining Equation (84) and Equation (90)
+and using Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1) ≤Q⋆. The third and fourth conclusions follow directly from E14
+in Lemma G.1 and Equation (104), respectively. The last one is proved in Equation (106) with
+Vsk,j,m
+h
+,ak,j,m
+h
+,h(V ⋆
+h+1) ≤Q⋆. Applying these five conclusions to Equation (127), we then reach:
+(Qk
+h −Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+) ≲
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+)I
+
+N k
+h ≥i0
+
++
+ s
+(Q⋆+ β2H)ι
+N k
+h
++ Hι
+3
+4
+(N k
+h)
+3
+4
+!
+I
+
+N k
+h ≥M
+
++ Zk,j,m
+h
+,
+and thus
+X
+k,j,m
+ωk,j,m
+h
+(Qk
+h −Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+)
+≲
+X
+k,j,m
+ωk,j,m
+h
+Nk
+h
+X
+n=1
+˜ηN k
+h
+n
+ V kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+)I
+
+N k
+h ≥i0
+
++
+X
+k,j,m
+ωk,j,m
+h
+ s
+(Q⋆+ β2H)ι
+N k
+h
++
+Hι
+3
+4
+(N k
+h)
+3
+4
+!
+I
+
+N k
+h ≥M
+
++
+X
+k,j,m
+ωk,j,m
+h
+Zk,j,m
+h
+.
+(128)
+Similar to Equation (57), we can prove:
+X
+k,j,m
+ωk,j,m
+h
+Nk
+h
+X
+n=1
+˜ηNk
+h
+n
+ V kn
+h+1 −V ⋆
+h+1
+
+(skn,jn,mn
+h+1
+)I
+
+N k
+h ≥i0
+
+=
+X
+k′,j′,m′
+˜ωk′,j′,m′
+h
+
+V k′
+h+1 −V ⋆
+h+1
+
+(sk′,j′,m′
+h+1
+),
+(129)
+where
+˜ωk′,j′,m′
+h
+=
+X
+k,j,m
+I
+h
+N k
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥i0
+i
+ωk,j,m
+h
+Nk
+h
+X
+i=1
+˜ηN k
+h
+i
+I
+
+(ki, ji, mi) = (k′, j′, m′)
+
+.
+By Equation (30) in Lemma F.6, it holds that:
+X
+k,j,m
+ωk,j,m
+h
+ s
+(Q⋆+ β2H)ι
+N k
+h
++ Hι
+3
+4
+(N k
+h)
+3
+4
+!
+I
+
+N k
+h ≥M
+
+≲
+q
+(Q⋆+ β2H)SA∥ω∥∞,h∥ω∥1,hι + H(SA∥ω∥∞,hι)
+3
+4 (∥ω∥1,h)
+1
+4 .
+(130)
+69
+
+````
+
+## PDF page 70
+
+FORMULA CHECK REQUIRED: original PDF page 70.
+
+````text
+Applying Equation (129) and Equation (130) to Equation (128), we reach:
+X
+k,j,m
+ωk,j,m
+h
+(Qk
+h −Q⋆
+h)(sk,j,m
+h
+, ak,j,m
+h
+)
+≲
+X
+k′,j′,m′
+˜ωk′,j′,m′
+h
+
+V k′
+h+1 −V ⋆
+h+1
+
+(sk′,j′,m′
+h+1
+) +
+q
+(Q⋆+ β2H)SA∥ω∥∞,h∥ω∥1,hι
++ H(SA∥ω∥∞,hι)
+3
+4 (∥ω∥1,h)
+1
+4 +
+X
+k,j,m
+ωk,j,m
+h
+Zk,j,m
+h
+with ∥˜ω∥1,h ≤∥ω∥1,h and ∥˜ω∥∞,h ≤exp(3/H)∥ω∥∞,h. Here, the last inequality is because
+V k′
+h+1(sk′,j′,m′
+h+1
+) = Qk′
+h+1(sk′,j′,m′
+h+1
+, ak′,j′,m′
+h+1
+) and V ⋆
+h+1(sk′,j′,m′
+h+1
+) ≥Q⋆
+h+1(sk′,j′,m′
+h+1
+, ak′,j′,m′
+h+1
+).
+Now we have developed a recursive relationship for the weighted sum of Qk
+h −Q⋆
+h between step h
+and step h + 1. By recursions with regard to h, h + 1, ..., H, we finish the proof.
+Lemma K.2. Under the event T14
+i=1 Ei in Lemma G.1, for all ϵ ∈(0, H), we have the following
+conclusion:
+H
+X
+h=1
+X
+k,j,m
+I
+h
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) −Q⋆
+h(sk,j,m
+h
+, ak,j,m
+h
+) > ϵ
+i
+≲
+ Q⋆+ β2H
+
+H3SAι
+ϵ2
++ H7SAι2
+βϵ
++ MH6SAι2
+ϵ
+,
+and
+H
+X
+h=1
+X
+k,j,m
+ Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+)I
+h Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) > ϵ
+i
+≲
+ Q⋆+ β2H
+
+H3SAι
+ϵ
++ H7SAι2
+β
++ MH6SAι2.
+Proof. Let N = ⌈log2(H/ϵ)⌉. For any i < N, k ∈[K] and given h ∈[H], let:
+ωk,j,m
+h,i
+= I
+h
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) −Q⋆
+h(sk,j,m
+h
+, ak,j,m
+h
+) ∈
+
+2i−1ϵ, 2iϵ
+i
+,
+and
+ωk,j,m
+h,N
+= I
+h
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) −Q⋆
+h(sk,j,m
+h
+, ak,j,m
+h
+) ∈
+
+2N−1ϵ, H
+i
+.
+Then
+∥ω∥(i)
+∞,h = max
+k,j,m ωk,j,m
+h,i
+≤1, ∥ω∥(i)
+1,h =
+X
+k,j,m
+ωk,j,m
+h,i
+.
+Now for any i ∈[N], we have the following relationship:
+X
+k,j,m
+ωk,j,m
+h,i
+ Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) ≥2i−1ϵ∥ω∥(i)
+1,h.
+(131)
+Combining the results of Lemma K.1 and Equation (131), we have:
+2i−1ϵ∥ω∥(i)
+1,h ≲H
+q
+(Q⋆+ β2H)SA∥ω∥(i)
+∞,h∥ω∥(i)
+1,hι + H2(SA∥ω∥(i)
+∞,hι)
+3
+4 (∥ω∥1,h)
+1
+4
++
+H
+X
+h′=h
+X
+k,j,m
+ωk,j,m
+h′,i (h)Zk,j,m
+h′
+≤H
+q
+(Q⋆+ β2H)SA∥ω∥(i)
+1,hι + H2(SAι)
+3
+4 (∥ω∥(i)
+1,h)
+1
+4 +
+H
+X
+h′=h
+X
+k,j,m
+ωk,j,m
+h′,i (h)Zk,j,m
+h′
+,
+(132)
+70
+
+````
+
+## PDF page 71
+
+FORMULA CHECK REQUIRED: original PDF page 71.
+
+````text
+where for any h ≤h′ ≤H −1
+ωk,j,m
+h,i
+(h) := ωk,j,m
+h,i
+,
+ωk,j,m
+h′+1,i(h) =
+X
+k′,j′,m′
+ωk′,j′,m′
+h′,i
+(h)I
+h
+N k′
+h′ ≥i0
+i Nk′
+h′
+X
+i=1
+˜η
+Nk′
+h′
+i
+I
+
+(ki, ji, mi) = (k, j, m)
+
+.
+The definition of these coefficients is the same as that in Lemma H.4. By Equation (132), at least one
+of the following three inequalities holds:
+2i−1ϵ∥ω∥(i)
+1,h ≲H
+q
+(Q⋆+ β2H)SA∥ω∥(i)
+1,hι
+2i−1ϵ∥ω∥(i)
+1,h ≲H2(SAι)
+3
+4 (∥ω∥(i)
+1,h)
+1
+4 ,
+2i−1ϵ∥ω∥(i)
+1,h ≲
+H
+X
+h′=h
+X
+k,j,m
+ωk,j,m
+h′,i (h)Zk,j,m
+h′
+.
+Solving these three inequalities, we know that:
+∥ω∥(i)
+1,h ≲max
+( Q⋆+ β2H
+
+H2SAι
+4i−2ϵ2
+, H3SAι
+(2i−1ϵ)
+4
+3 ,
+PH
+h′=h
+P
+k,j,m ωk,j,m
+h′,i (h)Zk,j,m
+h′
+2i−1ϵ
+)
+≲
+ Q⋆+ β2H
+
+H2SAι
+4i−2ϵ2
++ H3SAι
+(2i−1ϵ)
+4
+3 +
+PH
+h′=h
+P
+k,j,m ωk,j,m
+h′,i (h)Zk,j,m
+h′
+2i−1ϵ
+.
+(133)
+We claim that
+H
+X
+h′=1
+X
+k,j,m
+Zk,j,m
+h′
+≲H6SAι2
+β
++ MH5SAι2,
+(134)
+which will be proved later. Therefore, by
+I
+h Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) ≥ϵ
+i
+=
+N
+X
+i=1
+ωk,j,m
+h,i
+,
+we have
+H
+X
+h=1
+X
+k,j,m
+I
+h
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) −Q⋆
+h(sk,j,m
+h
+, ak,j,m
+h
+) ≥ϵ
+i
+=
+H
+X
+h=1
+N
+X
+i=1
+∥ω∥(i)
+1,h.
+(135)
+By Equation (133), it holds that
+N
+X
+i=1
+∥ω∥(i)
+1,h ≲
+N
+X
+i=1
+ Q⋆+ β2H
+
+H2SAι
+4i−2ϵ2
++
+N
+X
+i=1
+H3SAι
+(2i−1ϵ)
+4
+3 +
+N
+X
+i=1
+PH
+h′=h
+P
+k,j,m ωk,j,m
+h′,i (h)Zk,j,m
+h′
+2i−1ϵ
+(i)
+≲
+ Q⋆+ β2H
+
+H2SAι
+ϵ2
++ H3SA
+ϵ
+4
+3
++
+N
+X
+i=1
+PH
+h′=1
+P
+k,j,m Zk,j,m
+h′
+2iϵ
+(ii)
+≲
+ Q⋆+ β2H
+
+H2SAι
+ϵ2
++ H3SAι
+ϵ
+4
+3
++ H6SAι2
+βϵ
++ MH5SAι2
+ϵ
+≲
+ Q⋆+ β2H
+
+H2SAι
+ϵ2
++ H6SAι2
+βϵ
++ MH5SAι2
+ϵ
+.
+(136)
+Here, (i) is because 0 ≤ωk,j,m
+h′,i (h) < 27 by Equation (67) and Zk,j,m
+h′
+≥0. (ii) is because of
+Equation (134). The last inequality is because
+H3SAι
+ϵ
+4
+3
+≤β2H3SAι
+ϵ2
++ H3SAι
+βϵ
++ H3SAι
+βϵ
+≲β2H3SAι
+ϵ2
++ H6SAι2
+βϵ
+71
+
+````
+
+## PDF page 72
+
+FORMULA CHECK REQUIRED: original PDF page 72.
+
+````text
+by AM-GM inequality. Combing the results of Equation (135) and Equation (136), we finish the
+proof of the first conclusion. Further, we can prove the second conclusion by noting that
+H
+X
+h=1
+X
+k,j,m
+ Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+)I
+h Qk
+h −Q⋆
+h
+
+(sk,j,m
+h
+, ak,j,m
+h
+) ≥ϵ
+i
+≤
+H
+X
+h=1
+N
+X
+i=1
+2iϵ∥ω∥(i)
+1,h
+(i)
+≲
+H
+X
+h=1
+N
+X
+i=1
+ Q⋆+ β2H
+
+H2SAι
+2iϵ
++
+H
+X
+h=1
+N
+X
+i=1
+H3SAι
+(2i−1ϵ)
+1
+3 +
+H
+X
+h=1
+H
+X
+h′=h
+X
+k,j,m
+ N
+X
+i=1
+ωk,j,m
+h′,i (h)
+!
+Zk,j,m
+h′
+(ii)
+≲
+ Q⋆+ β2H
+
+H3SAι
+ϵ
++ H4SAι
+ϵ
+1
+3
++
+H
+X
+h=1
+H
+X
+h′=h
+X
+k,j,m
+Zk,j,m
+h′
+≲
+ Q⋆+ β2H
+
+H3SAι
+ϵ
++ H7SAι2
+β
++ MH6SAι2.
+Here, (i) is by Equation (133) and (ii) is by Equation (67). The last inequality is because of
+Equation (134) and
+H4SAι
+ϵ
+1
+3
+≤β2H4SAι
+ϵ
++ H4SAι
+β
++ H4SAι
+β
+≲β2H4SAι
+ϵ
++ H7SAι2
+β
+by AM-GM inequality. Next, we only need to prove Equation (134).
+Proof of Equation (134):
+By definition of Zk,m,j
+h′
+(see Equation (125) in Lemma K.1), we have the following relationship
+Zk,j,m
+h′
+= η
+Nk
+h′
+0
+H +
+H2ι +
+q
+HΨk
+h′ι
+N k
+h′
++ HI
+
+0 < N k
+h′ < i0
+
++
+ s
+(Q⋆+ β2H)ι
+N k
+h′
++
+Hι
+3
+4
+(N k
+h′)
+3
+4
+!
+I
+
+0 < N k
+h′ < M
+
++
+N k
+h′
+X
+n=1
+˜η
+Nk
+h′
+n
+N kn+1
+h′
+Nkn+1
+h′X
+i=1
+ V R,ki
+h′+1 −ˆV R,ki
+h′+1
+
+(ski,ji,mi
+h′+1
+) + Psk,j,m
+h′
+,ak,j,m
+h′
+,h′
+  ˆV R,ki
+h′+1 −ˆV R,kn
+h′+1
+
+.
+(137)
+For the first term of Equation (137), by Equation (73), we have
+H
+X
+h′=1
+X
+k,j,m
+η
+Nk
+h′
+0
+H ≲MH2SA.
+(138)
+For the second term of Equation (137), by Lemma F.6 with α = 1, we know
+H
+X
+h′=1
+X
+k,j,m,N k
+h′>0
+H2ι
+N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+)
+≲MH3SAι + H3SAι2.
+(139)
+By Equation (93), since β ≤H, it holds that:
+H
+X
+h′=1
+X
+k,j,m,N k
+h′>0
+q
+HΨk
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+)ι
+N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+)
+≲H5SAι2
+β
++ MH4SAι2.
+(140)
+Combining the results of Equation (139) and Equation (140), we can bound the second term:
+H
+X
+h′=1
+X
+k,j,m,N k
+h′>0
+H2ι +
+q
+HΨk
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+)ι
+N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+)
+≲H5SAι2
+β
++ MH4SAι2.
+(141)
+72
+
+````
+
+## PDF page 73
+
+FORMULA CHECK REQUIRED: original PDF page 73.
+
+````text
+For the third term of Equation (137), by Equation (122), we know
+H
+X
+h′=1
+X
+k,j,m
+HI
+h
+0 < N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+) < i0
+i
+≲MH4SA.
+(142)
+For the fourth term of Equation (137), by Equation (24) in Lemma F.6 with ωk,j,m
+h
+= 1 and α = 1
+2,
+we have
+H
+X
+h′=1
+X
+k,j,m
+ s
+(Q⋆+ β2H)ι
+N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+)
++
+Hι
+1
+4
+N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+)
+3
+4
+!
+I
+h
+0 < N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+) < M
+i
+≲
+H
+X
+h′=1
+X
+k,j,m
+√
+H3ιI
+h
+0 < N k
+h′(sk,j,m
+h′
+, ak,j,m
+h′
+) < M
+i
+≲MH3SAι.
+(143)
+Here the first inequality is because Q⋆≤H2 and 0 ≤β ≤H.
+For the last term of Equation (137), by the triangle inequality, we can bound it with
+H
+X
+h′=1
+X
+k,j,m,N k
+h′>0
+Nk
+h′
+X
+n=1
+˜η
+N k
+h′
+n
+1
+N kn+1
+h′
+Nkn+1
+h′X
+i=1
+(V R,ki
+h′+1 −ˆV R,ki
+h′+1)(ski,ji,mi
+h′+1
+)
++
+H
+X
+h′=1
+X
+k,j,m,N k
+h′>0
+Nk
+h′
+X
+n=1
+˜η
+Nk
+h′
+n
+1
+N kn+1
+h′
+Nkn+1
+h′X
+i=1
+Psk,j,m
+h′
+,ak,j,m
+h′
+,h′
+ ˆV R,ki
+h′+1 −V R,K+1
+h′+1
+
++
+H
+X
+h′=1
+X
+k,j,m,N k
+h′>0
+Nk
+h′
+X
+n=1
+˜η
+Nk
+h′
+n
+Psk,j,m
+h′
+,ak,j,m
+h′
+,h′
+V R,K+1
+h′+1
+−ˆV R,kn
+h′+1
+
+≲H6SAι2
+β
++ MH5SAι2.
+(144)
+The last inequality is by Equation (119) and Equation (124). Combining the results of Equation (138),
+Equation (141), Equation (142), Equation (143) and Equation (144), we completed the proof of
+Equation (134).
+L
+Proof of Gap-Dependent Switching/Communication Cost (Theorem 4.7 and
+Theorem 4.9)
+L.1
+Auxiliary Lemmas
+Lemma L.1. We have the following conclusions:
+(a) Under the event T14
+i=1 Ei, the following event holds for some sufficiently large constant c0 > 1:
+E15 =
+( H
+X
+h=1
+X
+k,j,m
+I
+h
+(Qk
+h −Q⋆
+h)(sk,m,j
+h
+, ak,m,j
+h
+) ≥∆min
+i
+≤Cmin
+△= c0
+  Q⋆+ β2H
+
+H3SAι
+∆2
+min
++ H7SAι2
+β∆min
++ MH6SAι2
+∆min
+!
+, ∀h ∈[H]
+)
+.
+(b) For any deterministic optimal policy π⋆, with probability at least 1 −δ, the following event holds:
+E16 =
+n k′
+X
+k=1
+X
+j,m
+P
+
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+≤3
+k′
+X
+k=1
+X
+j,m
+I
+h
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+)
+i
++ 2ι, ∀h ∈[H], k′ ∈[K]
+o
+.
+73
+
+````
+
+## PDF page 74
+
+FORMULA CHECK REQUIRED: original PDF page 74.
+
+````text
+(c) For any k′ ∈[K], let Rk′ = Pk′
+k=1
+P
+j,m 1, which is the total number of episodes in the first k′
+rounds. Then with probability at least 1 −δ, the following event holds:
+E17 =
+
+
+
+
+k′
+X
+k=1
+X
+j,m
+n
+I
+h
+sk,j,m
+h
+= s
+i
+−P
+
+sk,j,m
+h
+= s|πko
+
+≤
+v
+u
+u
+u
+t24
+
+
+k′
+X
+k=1
+X
+j,m
+P
+
+sk,j,m
+h
+= s|πk
+
+
+ι + 9ι, ∀s ∈S, h ∈[H], k′ ∈[K]
+
+
+
+
+
+.
+(d) With probability at least 1 −δ, the following event holds:
+E18 =
+
+
+
+
+Jk
+X
+j=1
+n
+I
+h
+sk,j,m
+h
+= s
+i
+−P
+
+sk,j,m
+h
+= s|πko
+
+≤
+v
+u
+u
+u
+t32
+
+
+Jk
+X
+j=1
+P
+
+sk,j,m
+h
+= s|πk
+
+
+ι + 11ι, ∀(s, h, k, m)
+
+
+
+
+
+.
+Here, under the full synchronization assumption, we can assume that in the k−th round, each
+agent will generate Jk episodes. Note that given the round k and the policy πk, under random
+initialization assumption, the probability P(sk,j,m
+h
+= s|πk) is independent of the index m, j. Let
+Pk
+s,h = P(sk,j,m
+h
+= s|πk), then E18 can be written as
+E18 =
+
+
+
+
+Jk
+X
+j=1
+I
+h
+sk,j,m
+h
+= s
+i
+−JkPk
+s,h
+
+≤
+q
+32JkPk
+s,hι + 11ι, ∀(s, h, k, m)
+
+
+.
+Proof. (a) It is proved by Lemma K.2.
+(b) We order all the episodes in the sequence following the rule: first by round index, second by
+episode index, and third by agent index. Let n(k, j, m) denote the position of the j−th episode of the
+m−th agent in the k−th round of the sequence. The filtration Fn(k,j,m) is the σ−field generated by
+all the random variables until the first n(k, j, m) −1 episodes. When there is no ambiguity, we will
+abbreviate n(k, j, m) as n and Fn(k,j,m) as Fn. Then we have:
+P
+
+ak,j,m
+h′̸
+= π⋆
+h′(sk,j,m
+h′
+) | πk
+= P
+
+ak,j,m
+h′̸
+= π⋆
+h′(sk,j,m
+h′
+) | Fn
+
+.
+According to Theorem E.3, with probability at least 1 −δ/T 2
+1 , the following inequality holds for any
+given h = h′ ∈[H], k′ = k′
+0 ∈[ T1
+H ] and Rk′
+0 = Pk′
+0
+k=1
+P
+j,m 1 ∈[T1] :
+k′
+0
+X
+k=1
+X
+j,m
+P
+
+ak,j,m
+h′̸
+= π⋆
+h′(sk,j,m
+h′
+) | πk
+≤3
+k′
+0
+X
+k=1
+X
+j,m
+I
+h
+ak,j,m
+h′̸
+= π⋆
+h′(sk,j,m
+h′
+)
+i
++ 2ι, ∀k′ ∈[K].
+Considering all the possible values of h = h′ ∈[H], k′ = k′
+0 ∈[ T1
+H ] and Rk′
+0 = Pk′
+0
+k=1
+P
+j,m 1 ∈
+[T1], with probability at least 1 −δ, it holds simultaneously for all h ∈[H], k′ ∈[ T1
+H ] and Rk′ =
+Pk′
+k=1
+P
+j,m 1 ∈[T1] that
+k′
+X
+k=1
+X
+j,m
+P
+
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+≤3
+k′
+X
+k=1
+X
+j,m
+I
+h
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+)
+i
++ 2ι.
+(c) According to Theorem E.2, with probability at least 1 −δ/ST 2
+1 , the following inequality holds
+for any given s′ ∈S, h = h′ ∈[H], k′ = k′
+0 ∈[ T1
+H ] and Rk′
+0 = Pk′
+0
+k=1
+P
+j,m 1 ∈[T1] :
+
+k′
+0
+X
+k=1
+X
+j,m
+n
+I
+h
+sk,j,m
+h′
+= s′i
+−P
+
+sk,j,m
+h′
+= s′|πko
+
+≤
+v
+u
+u
+u
+t24
+
+
+k′
+0
+X
+k=1
+X
+j,m
+P
+
+sk,j,m
+h′
+= s′|πk
+
+
+ι + 9ι.
+74
+
+````
+
+## PDF page 75
+
+FORMULA CHECK REQUIRED: original PDF page 75.
+
+````text
+Here, we let σ2 = T1, m = ⌈log2(T1)⌉in Theorem E.2 and
+Wn =
+k′
+0
+X
+k=1
+X
+j,m
+P
+
+sk,j,m
+h′
+= s′|πk 
+1 −P
+
+sk,j,m
+h′
+= s′|πk
+≤
+k′
+0
+X
+k=1
+X
+j,m
+P
+
+sk,j,m
+h′
+= s′|πk
+.
+Considering all the possible values of s = s′ ∈S, h = h′ ∈[H], k′ = k′
+0 ∈[ T1
+H ], ˆT = T ′ ∈[T1],
+with probability at least 1 −δ, it holds simultaneously for all s ∈S, h ∈[H], k′ ∈[ T1
+H ] and ˆT ∈[T1]
+
+k′
+X
+k=1
+X
+j,m
+n
+I
+h
+sk,j,m
+h
+= s
+i
+−P
+
+sk,j,m
+h
+= s|πko
+
+≤
+v
+u
+u
+u
+t24
+
+
+k′
+X
+k=1
+X
+j,m
+P
+
+sk,j,m
+h
+= s|πk
+
+
+ι + 9ι.
+(d) The proof is similar to (c), considering all the combinations of (s, h, m, k, Rk) ∈S × [H] ×
+[M] × [ T1
+H ] × [T1].
+Lemma L.2. Under the event T18
+i=1 Ei, for any given deterministic optimal policy π⋆, we have
+H
+X
+h=1
+X
+k,j,m
+I
+h
+ak,j,m
+h
+/∈A⋆
+h(sk,j,m
+h
+)
+i
+≤Cmin,
+X
+k,j,m
+P
+
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+≤4Cmin.
+Here Cmin is the upper bound in the right-hand side of E15 in Lemma L.1 .
+Proof. For any h ∈[H], let the set Dh be all triples of (s, a, h) such that a /∈A⋆
+h(s), that is Dh =
+{(s, a, h)|a /∈A⋆
+h(s)}. We also let the set D = SH
+h=1 Dh and the set Dopt = {(s, a, h)|a ∈A⋆
+h(s)}.
+Then we have |D| + |Dopt| = SAH.
+If for given (h, k, j, m), (sk,m,j
+h
+, ak,m,j
+h
+, h) ∈Dh, we have ∆h(sk,m,j
+h
+, ak,m,j
+h
+) ≥∆min.
+By
+Lemma H.1, we have
+Qk
+h(sk,j,m
+h
+, ak,j,m
+h
+) = max
+a {Qk
+h(sk,j,m
+h
+, a)} ≥max
+a {Q⋆
+h(sk,j,m
+h
+, a)} = V ⋆
+h (sk,j,m
+h
+).
+Therefore, it holds that
+Qk
+h(sk,m,j
+h
+, ak,m,j
+h
+) −Q⋆
+h(sk,m,j
+h
+, ak,m,j
+h
+) ≥∆h(sk,m,j
+h
+, ak,m,j
+h
+) ≥∆min.
+Then we have
+I
+h
+ak,j,m
+h
+/∈A⋆
+h(sk,j,m
+h
+)
+i
+= I
+h
+(sk,m,j
+h
+, ak,m,j
+h
+, h) ∈Dh
+i
+≤I
+h
+Qk
+h(sk,m,j
+h
+, ak,m,j
+h
+) −Q⋆
+h(sk,m,j
+h
+, ak,m,j
+h
+) ≥∆min
+i
+,
+and thus by the event E15 in Lemma L.1, it holds that
+H
+X
+h=1
+X
+k,j,m
+I
+h
+ak,j,m
+h
+/∈A⋆
+h(sk,j,m
+h
+)
+i
+≤
+H
+X
+h=1
+X
+k,j,m
+I
+h
+Qk
+h(sk,m,j
+h
+, ak,m,j
+h
+) −Q⋆
+h(sk,m,j
+h
+, ak,m,j
+h
+) ≥∆min
+i
+≤Cmin.
+(145)
+Next, we prove the second conclusion. Let S0
+h = {s | P⋆
+s,h = 0}. For any given deterministic optimal
+policy π⋆, we have
+I
+h
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+)
+i
+= I
+h
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+), sk,j,m
+h
+/∈S0
+h
+i
++ I
+h
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+), sk,j,m
+h
+∈S0
+h
+i
+.
+(146)
+75
+
+````
+
+## PDF page 76
+
+FORMULA CHECK REQUIRED: original PDF page 76.
+
+````text
+For sk,j,m
+h
+/∈S0
+h, we have P⋆
+sk,j,m
+h
+,h > 0 and |A⋆
+h(sk,j,m
+h
+)| = 1 by condition (b) of Theorem 4.6. This
+means π⋆
+h(sk,j,m
+h
+) is the only element in A⋆
+h(sk,j,m
+h
+). Therefore, we have
+I
+h
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+), sk,j,m
+h
+/∈S0
+h
+i
+≤I
+h
+ak,j,m
+h
+/∈A⋆
+h(sk,j,m
+h
+)
+i
+.
+(147)
+For the second term in Equation (146), if h = 1, because of the randomness of the selection of sk,j,m
+1
+,
+we have P(s1 = sk,j,m
+1
+|π⋆) = P(s1 = sk,j,m
+1
+) > 0 and then
+I
+h
+ak,j,m
+1̸
+= π⋆
+1(sk,j,m
+1
+), sk,j,m
+1
+∈S0
+1
+i
+= 0.
+(148)
+To bound the second term in Equation (146) for h > 1, we first prove a lemma.
+Lemma L.3. For any h ∈[H] and the trajectory {(sk,j,m
+h
+, ak,j,m
+h
+, rk,j,m
+h
+)}H
+h=1 in j−th episode of
+agent m in round k, if P⋆
+sk,j,m
+h
+,h > 0 and ak,j,m
+h
+is the unique optimal action for state sk,j,m
+h
+at step
+h, then we have P⋆
+sk,j,m
+h+1 ,h+1 > 0
+Proof. For any given optimal policy π⋆, it holds that
+P⋆
+sk,j,m
+h+1 ,h+1 = P
+
+sh+1 = sk,j,m
+h+1
+| π⋆
+≥P
+
+sh+1 = sk,j,m
+h+1
+| sh = sk,j,m
+h
+, ah = ak,j,m
+h
+, π⋆
+× P
+
+sh = sk,j,m
+h
+, ah = ak,j,m
+h
+| π⋆
+(I)
+= P
+
+sh+1 = sk,j,m
+h+1
+| sh = sk,j,m
+h
+, ah = ak,j,m
+h
+
+× P⋆
+sk,j,m
+h
+,h > 0
+The equation (I) is by Markov property and
+P(sh = sk,j,m
+h
+, ah = ak,j,m
+h
+| π⋆) = P(sh = sk,j,m
+h
+| π⋆) = P⋆
+sk,j,m
+h
+,h.
+For every initial state sk,j,m
+1
+, we know P⋆
+sk,j,m
+1
+,1 > 0. Therefore, if for h > 1, P⋆
+sk,j,m
+h
+,h = 0 and
+sk,j,m
+h
+∈S0
+h, by Lemma L.3, we know there exists h′ < h such that ak,m,j
+h′
+is not an optimal action
+for state sk,m,j
+h′
+at step h′, otherwise we have P⋆
+sk,j,m
+h
+,h > 0. Therefore, for the second term in
+Equation (146), we have
+I
+h
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+), sk,j,m
+h
+∈S0
+h
+i
+≤I
+h
+sk,j,m
+h
+∈S0
+h
+i
+≤
+h−1
+X
+h′=1
+I
+h
+ak,j,m
+h′
+/∈A⋆
+h′(sk,j,m
+h′
+)
+i
+. (149)
+By combining the results of Equation (147), Equation (148) and Equation (149), we can bound the
+Equation (146) as follows:
+I
+h
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+)
+i
+≤
+h
+X
+h′=1
+I
+h
+ak,j,m
+h′
+/∈A⋆
+h′(sk,j,m
+h′
+)
+i
+≤
+H
+X
+h′=1
+I
+h
+ak,j,m
+h′
+/∈A⋆
+h′(sk,j,m
+h′
+)
+i
+.
+Therefore, using Equation (145), we reach
+X
+k,j,m
+I
+h
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+)
+i
+≤
+X
+k,j,m
+H
+X
+h′=1
+I
+h
+ak,j,m
+h′
+/∈A⋆
+h′(sk,j,m
+h′
+)
+i
+≤Cmin.
+Combined with the event E16 in Lemma L.1, we can conclude that for any h ∈[H] and k′ ∈[K],
+k′
+X
+k=1
+X
+j,m
+P
+
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+≤4Cmin.
+76
+
+````
+
+## PDF page 77
+
+FORMULA CHECK REQUIRED: original PDF page 77.
+
+````text
+Let i1 = 300MH(H + 1)ι, i2 = 6500H3Cmin/Cst, and ˜C = 1/(H(H + 1)). For any (s, h) ∈
+S × [H] such that P⋆
+s,h > 0, we use π⋆
+h(s) to denote its unique optimal action. Before proceeding,
+we present two lemmas. Lemma L.4 shows agent-wise simultaneous sufficient increase of visits for
+the triple (s, a, h) that satisfies the trigger condition in round k when N k
+h(s, a) > i1.
+Lemma L.4. Under the event T18
+i=1 Ei, for any (s, a, h, k) ∈S×A×[H]×[K] such that N k
+h(s, a) >
+i1 and the triple (s, a, h) satisfies the trigger condition (3) in round k, it holds that
+N k+1
+h
+(s, a) ≥(1 + ˜C/3)N k
+h(s, a).
+Proof. If the trigger condition is met by the triple (s, a, h) in round k, then we have a = πk
+h(s). For
+such (s, a, h), by E18 in Lemma L.1, it holds for any s ∈S, h ∈[H], k ∈[K] and m ∈[M] that
+Jk
+X
+j=1
+I
+h
+sk,j,m
+h
+= s, ak,j,m
+h
+= a
+i
+=
+Jk
+X
+j=1
+I
+h
+sk,j,m
+h
+= s
+i
+∈
+h
+JkPk
+s,h −
+q
+32JkPk
+s,hι −11ι, JkPk
+s,h +
+q
+32JkPk
+s,hι + 11ι
+i
+.
+(150)
+Since (s, a, h) satisfies the trigger condition in round k, there exists an agent m0 such that
+nk,m0
+h
+(s, a) = ck
+h(s, a). Then we reach
+JkPk
+s,h +
+q
+32JkPk
+s,hι + 11ι
+(i)
+≥
+N k
+h(s, a)
+MH(H + 1) −1
+△= CN > 299ι.
+The last inequality is because N k
+h(s, a) > i1. Solving the inequality (i), it holds that
+q
+JkPk
+s,h ≥
+p
+CN −3ι −
+√
+8ι.
+Then by Equation (150), for any other agent m,
+Jk
+X
+j=1
+I
+h
+sk,j,m
+h
+= s, ak,j,m
+h
+= a
+i
+≥JkPk
+s,h −
+q
+32JkPk
+s,hι −11ι =
+q
+JkPk
+s,h −
+√
+8ι
+2
+−19ι
+≥
+p
+CN −3ι −2
+√
+8ι
+2
+−19ι ≥CN + 1
+3
+.
+The last inequality is because CN > 299ι. Therefore, we have
+nk
+h(s, a) =
+M
+X
+m=1
+nm,k
+h
+(s, a) =
+M
+X
+m=1
+Jk
+X
+j=1
+I
+h
+sk,j,m
+h
+= s, ak,j,m
+h
+= a
+i
+≥M(CN + 1)
+3
+=
+N k
+h(s, a)
+3H(H + 1),
+and thus
+N k+1
+h
+(s, a) = N k
+h(s, a) + nk
+h(s, a) ≥
+
+1 +
+1
+3H(H + 1)
+
+N k
+h(s, a).
+Lemma L.5 shows the state-wise simultaneous sufficient increase of visits for states with unique
+optimal action.
+Lemma L.5. Under the event T18
+i=1 Ei, if there exists (s0, a0, h0) ∈S ×A×[H], such that it satisfies
+the trigger condition in round k and N k
+h0(s0, a0) > i1 + i2, then a0 ∈A⋆
+h0(s0). Moreover, if such
+(s0, a0, h0) also satisfies that P⋆
+s0,h0 > 0, then
+N k+1
+h′
+(s′, π⋆
+h′(s′)) ≥(1 + ˜C/6)N k
+h′(s′, π⋆
+h′(s′))
+holds for any (s′, h′) ∈S × [H] such that P⋆
+s′,h′ > 0.
+77
+
+````
+
+## PDF page 78
+
+FORMULA CHECK REQUIRED: original PDF page 78.
+
+````text
+Proof. Because N k
+h(s0, a0) > i1 + i2 > Cmin, by Lemma L.2, we know a0 ∈A⋆
+h(s0). Next, we
+prove the second conclusion. Using the law of total probability, for any 0 ≤h ≤H −1, s ∈S, and
+any given deterministic optimal policy π⋆, we have the following relationship
+P
+ sk,j,m
+h+1
+= s | πk
+=
+X
+s′
+P
+
+sk,j,m
+h+1
+= s|sk,j,m
+h
+= s′, ak,j,m
+h
+= π⋆
+h(s′), πk
+P
+
+sk,j,m
+h
+= s′, ak,j,m
+h
+= π⋆
+h(s′) | πk
++ P
+
+sk,j,m
+h+1
+= s, ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+=
+X
+s′
+Pk,j,m
+s,s′,h · P
+
+sk,j,m
+h
+= s′, ak,j,m
+h
+= π⋆
+h(s′) | πk
++ P
+
+sk,j,m
+h+1
+= s, ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+,
+(151)
+where
+Pk,j,m
+s,s′,h = P
+
+sk,j,m
+h+1
+= s|sk,j,m
+h
+= s′, ak,j,m
+h
+= π⋆
+h(s′), πk
+= P
+
+sk,j,m
+h+1
+= s|sk,j,m
+h
+= s′, ak,j,m
+h
+= π⋆
+h(s′)
+
+.
+The last equality is because of the Markov property. We also have
+P
+
+sk,j,m
+h+1
+= s|π⋆
+=
+X
+s′
+P
+
+sk,j,m
+h+1
+= s|sk,j,m
+h
+= s′, π⋆
+P
+
+sk,j,m
+h
+= s′|π⋆
+=
+X
+s′
+Pk,j,m
+s,s′,h · P
+
+sk,j,m
+h
+= s′|π⋆
+,
+(152)
+where the last equation is because
+P(sk,j,m
+h+1
+= s|sk,j,m
+h
+= s′, π⋆) = P
+
+sk,j,m
+h+1
+= s|sk,j,m
+h
+= s′, ak,j,m
+h
+= π⋆
+h(s′)
+
+= Pk,j,m
+s,s′,h.
+Combining the results of Equation (151) and Equation (152), then it holds
+P
+
+sk,j,m
+h+1
+= s|πk
+−P
+
+sk,j,m
+h+1
+= s|π⋆
+=
+X
+s′
+Pk,j,m
+s,s′,h
+h
+P
+
+sk,j,m
+h
+= s′, ak,j,m
+h
+= π⋆
+h(s′)|πk
+−P
+
+sk,j,m
+h
+= s′|π⋆i
++ P
+
+sk,j,m
+h+1
+= s, ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+)|πk
+=
+X
+s′
+Pk,j,m
+s,s′,h
+h
+P
+
+sk,j,m
+h
+= s′ | πk
+−P
+
+sk,j,m
+h
+= s′|π⋆i
+−
+X
+s′
+Pk,j,m
+s,s′,hP
+
+sk,j,m
+h
+= s′, ak,j,m
+h̸
+= π⋆
+h(s′) | πk
++ P
+
+sk,j,m
+h+1
+= s, ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+.
+Therefore for any 0 ≤h ≤H −1 and s ∈S, by the triangle inequality, it holds that
+P
+
+sk,j,m
+h+1
+= s | πk
+−P
+
+sk,j,m
+h+1
+= s|π⋆
+≤
+X
+s′
+Pk,j,m
+s,s′,h
+P
+
+sk,j,m
+h
+= s′ | πk
+−P
+
+sk,j,m
+h
+= s′|π⋆
++
+X
+s′
+Pk,j,m
+s,s′,hP
+
+sk,j,m
+h
+= s′, ak,j,m
+h̸
+= π⋆
+h(s′) | πk
++ P
+
+sk,j,m
+h+1
+= s, ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+.
+Summing the above inequality for all s ∈S, since P
+s Ps,s′,h = 1, then we can derive that:
+X
+s
+P
+
+sk,j,m
+h+1
+= s | πk
+−P
+
+sk,j,m
+h+1
+= s|π⋆
+≤
+X
+s′
+P
+
+sk,j,m
+h
+= s′ | πk
+−P
+
+sk,j,m
+h
+= s′|π⋆ + 2P
+
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+.
+78
+
+````
+
+## PDF page 79
+
+FORMULA CHECK REQUIRED: original PDF page 79.
+
+````text
+Since P(sk,j,m
+1
+= s | πk) −P(sk,j,m
+1
+= s|π⋆) = 0, by recursion, for any h′ ∈[H] we have
+X
+s
+P
+
+sk,j,m
+h′
+= s | πk
+−P
+
+sk,j,m
+h′
+= s|π⋆ ≤2
+h′−1
+X
+h=1
+P
+
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+≤2
+H
+X
+h=1
+P
+
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+.
+Using Lemma L.2, then for any h ∈[H] and k′ ∈[K], it holds that:
+X
+s
+k′
+X
+k=1
+X
+j,m
+P
+
+sk,j,m
+h
+= s | πk
+−P
+
+sk,j,m
+h
+= s|π⋆
+≤2
+H
+X
+h=1
+k′
+X
+k=1
+X
+j,m
+P
+
+ak,j,m
+h̸
+= π⋆
+h(sk,j,m
+h
+) | πk
+≤8HCmin.
+Note that based on the property (b) of Theorem 4.6, we have P(sk,j,m
+h
+= s|π⋆) = P⋆
+s,h, then for any
+s ∈S, h ∈[H] and k′ ∈[K], by the triangle inequality, we also have
+k′
+X
+k=1
+X
+j,m
+P
+
+sk,j,m
+h
+= s | πk
+≤Rk′P⋆
+s,h +
+k′
+X
+k=1
+X
+j,m
+P
+
+sk,j,m
+h
+= s | πk
+−P
+
+sk,j,m
+h
+= s|π⋆ ≤Rk′P⋆
+s,h + 8HCmin.
+(153)
+Applying Equation (153) to E17 in Lemma L.1, for any s ∈S, h ∈[H] and k′ ∈[K], we have
+
+k′
+X
+k=1
+X
+j,m
+n
+I
+h
+sk,j,m
+h
+= s
+i
+−P
+
+sk,j,m
+h
+= s|πko
+
+≤
+v
+u
+u
+u
+t24
+
+
+k′
+X
+k=1
+X
+j,m
+P
+
+sk,j,m
+h
+= s|πk
+
+
+ι + 9ι
+≤
+r
+24
+
+Rk′P⋆
+s,h + 8HCmin
+
+ι + 9ι
+≤5
+q
+Rk′P⋆
+s,hι + 23HCmin.
+(154)
+Combining the results of Equation (153) and Equation (154), by triangle inequality, we can derive
+the following relationship for any s ∈S, h ∈[H], and k′ ∈[K]
+
+k′
+X
+k=1
+X
+j,m
+I
+h
+sk,j,m
+h
+= s
+i
+−Rk′P⋆
+s,h
+
+≤5
+q
+Rk′P⋆
+s,hι + 31HCmin.
+(155)
+Then by triangle inequality, it holds for any s ∈S, h ∈[H] and k′ ∈[K] that
+
+k′
+X
+k=1
+X
+j,m
+I
+h
+sk,j,m
+h
+= s, ak,j,m
+h
+∈A⋆
+h(s)
+i
+−Rk′P⋆
+s,h
+
+≤
+
+k′
+X
+k=1
+X
+j,m
+I
+h
+sk,j,m
+h
+= s
+i
+−Rk′P⋆
+s,h
+
++
+k′
+X
+k=1
+X
+j,m
+I
+h
+sk,j,m
+h
+= s, ak,j,m
+h
+/∈A⋆
+h(s)
+i
+≤5
+q
+Rk′P⋆
+s,hι + 32HCmin.
+(156)
+Here, the last inequality is by Equation (155), together with the fact from Lemma L.2 that
+k′
+X
+k=1
+X
+j,m
+I
+h
+sk,j,m
+h
+= s, ak,j,m
+h
+/∈A⋆
+h(s)
+i
+≤
+k′
+X
+k=1
+X
+j,m
+I
+h
+ak,j,m
+h
+/∈A⋆
+h(sk,j,m
+h
+)
+i
+≤Cmin.
+79
+
+````
+
+## PDF page 80
+
+FORMULA CHECK REQUIRED: original PDF page 80.
+
+````text
+For P ⋆
+s,h > 0, the optimal action is unique. Then for any (s, a, h) such that a = π⋆
+h(s) and P ⋆
+s,h > 0,
+we can simplify the results of Equation (156) as follows:
+Rk′P⋆
+s,h −5
+q
+Rk′P⋆
+s,hι −32HCmin ≤N k′+1
+h
+(s, a) ≤Rk′P⋆
+s,h + 5
+q
+Rk′P⋆
+s,hι + 32HCmin.
+(157)
+By Equation (157), for any s′ ∈S and h′ ∈[H] such that P⋆
+s′,h′ > 0, we have
+RkP⋆
+s′,h′ −5
+q
+RkP⋆
+s′,h′ι −32HCmin
+Rk−1P⋆
+s′,h′ + 5
+q
+Rk−1P⋆
+s′,h′ι + 32HCmin
+≤N k+1
+h′
+(s′, π⋆
+h′(s′))
+N k
+h′(s′, π⋆
+h′(s′)) .
+For the second conclusion, we only need to prove that, for any (s′, h′) ∈S ×[H] such that P⋆
+s′,h′ > 0,
+RkP⋆
+s′,h′ −5
+q
+RkP⋆
+s′,h′ι −32HCmin
+Rk−1P⋆
+s′,h′ + 5
+q
+Rk−1P⋆
+s′,h′ι + 32HCmin
+≥1 +
+1
+6H(H + 1).
+(158)
+Next, we will prove the Equation (158). For the triple (s0, a0, h0), by Equation (157), we know that
+6500H3Cmin
+Cst
+< N k
+h0(s0, a0) ≤Rk−1P⋆
+s0,h0 + 5
+q
+Rk−1P⋆
+s0,h0ι + 32HCmin.
+Solving the inequality, we have
+q
+RkP⋆
+s0,h0 >
+q
+Rk−1P⋆
+s0,h0 >
+s
+6500H3Cmin
+Cst
+−32HCmin + 25ι
+4 −5√ι
+2
+>
+s
+6468H3Cmin
+Cst
+−
+s
+H3Cmin
+Cst
+> 79
+s
+H3Cmin
+Cst
+.
+(159)
+Therefore, for any s′ ∈S and h′ ∈[H] such that P⋆
+s′,h′, by Equation (159), we have
+q
+RkP⋆
+s′,h′ >
+q
+Rk−1P⋆
+s′,h′ ≥
+q
+Rk−1P⋆
+s0,h0 ·
+p
+Cst > 79
+p
+H3Cmin.
+(160)
+For X > 6241H3Cmin = 792H3Cmin, note that
+5
+√
+Xι + 32HCmin ≤
+r
+CminX
+H
++ 32HCmin ≤
+X
+56H2 .
+(161)
+Here, the first inequality is because 5√ι <
+q
+Cmin
+H for H ≥2. Therefore, based on Equation (159)
+and Equation (160), we can apply Equation (161) to Rk−1P⋆
+s0,h, RkP⋆
+s0,h, Rk−1P⋆
+s′,h and RkP⋆
+s′,h:
+5
+q
+Rk−1P⋆
+s0,h0ι + 32HCmin ≤
+Rk−1P⋆
+s0,h0
+56H2
+, 5
+q
+RkP⋆
+s0,h0ι + 32HCmin ≤
+RkP⋆
+s0,h0
+56H2
+.
+(162)
+and
+5
+q
+Rk−1P⋆
+s′,h′ι + 32HCmin ≤
+Rk−1P⋆
+s′,h′
+56H2
+, 5
+q
+RkP⋆
+s′,h′ι + 32HCmin ≤
+RkP⋆
+s′,h′
+56H2
+(163)
+Since N k
+h(s0, a0) > i1 and the trigger condition is satisfied by (s, a, h) in round k, by Lemma L.4:
+N k+1
+h0
+(s0, a0)
+N k
+h0(s0, a0) ≥1 +
+1
+3H(H + 1).
+Together with Equation (157), it holds that
+RkP⋆
+s0,h0 + 5
+q
+RkP⋆
+s0,h0ι + 32HCmin
+Rk−1P⋆
+s0,h0 −5
+q
+Rk−1P⋆
+s0,h0ι −32HCmin
+≥N k+1
+h0
+(s0, a0)
+N k
+h0(s0, a0) ≥1 +
+1
+3H(H + 1).
+(164)
+80
+
+````
+
+## PDF page 81
+
+FORMULA CHECK REQUIRED: original PDF page 81.
+
+````text
+Applying Equation (162) to Equation (164), we have
+1 +
+1
+3H(H + 1) ≤
+RkP⋆
+s0,h0 + 5
+q
+RkP⋆
+s0,h0ι + 32HCmin
+Rk−1P⋆
+s0,h0 −5
+q
+Rk−1P⋆
+s0,h0ι −32HCmin
+≤
+(1 +
+1
+56H2 )Rk
+(1 −
+1
+56H2 )Rk−1
+.
+Therefore, using Equation (163), we have
+RkP⋆
+s′,h′ −5
+q
+RkP⋆
+s′,h′ι −32HCmin
+Rk−1P⋆
+s′,h′ + 5
+q
+Rk−1P⋆
+s′,h′ι + 32HCmin
+≥
+(1 −
+1
+56H2 )Rk
+(1 +
+1
+56H2 )Rk−1
+≥
+
+1 +
+1
+3H(H + 1)
+ 1 −
+1
+56H2
+1 +
+1
+56H2
+2
+.
+(165)
+Let
+c =
+1
+6H2 + 6H + 2 ·
+
+
+1
+1 +
+q
+6H2+6H+1
+6H2+6H+2
+
+
+2
+>
+1
+4(6H2 + 6H + 2) ≥
+1
+56H2 ,
+and thus
+1 +
+1
+6H(H+1)
+1 +
+1
+3H(H+1)
+= 6H2 + 6H + 1
+6H2 + 6H + 2 =
+1 −c
+1 + c
+2
+≤
+1 −
+1
+56H2
+1 +
+1
+56H2
+2
+.
+Applying this inequality to Equation (165) completes the proof of Equation (158), thereby proving
+the second conclusion.
+L.2
+Details of Final Discussion
+In this section, we will discuss the number of communication rounds in four different situations:
+Situation 1: In round k, the trigger condition is satisfied by (s, a, h) when N k
+h(s, a) ≤i1. We will
+refer to this as a Type-I trigger.
+For each time the trigger condition is met for (s, a, h), the number of visits to (s, a, h) increases by at
+least 1/(2MH(H + 1)) times by Equation (3). Therefore, the maximum number of Type-I triggers
+for each triple (s, a, h), denoted t2(s, a, h), satisfies
+
+1 +
+1
+2MH(H + 1)
+t1(s,a,h)−2
+≤i1.
+Therefore, we have t1(s, a, h) = O(MH2 log(i1)) and thus the number of rounds with Type-I
+triggers is bounded by
+X
+s,a,h
+t1(s, a, h) ≤O
+ MH3SA log (i1)
+
+.
+Situation 2: In round k, the triple (s, a, h) satisfies the trigger condition when i1 < N k
+h(s, a) <
+i1 + i2. We will refer to this as a Type-II trigger if a /∈A⋆
+h(s) or a ∈A⋆
+h(s) and P⋆
+s,h = 0, and as a
+Type-III trigger if a ∈A⋆
+h(s) and P⋆
+s,h > 0.
+By Lemma L.4, for each time the trigger condition is satisfied by (s, a, h), the number of visits to
+(s, a, h) increases by at least 1/3H(H + 1) times.
+For (s, a, h) satisfying the type-II trigger, by Lemma L.2 and Equation (156), we know that the
+maximum visit number to (s, a, h) is 32HCmin. Therefore, the maximum number of Type-II triggers
+for each triple (s, π⋆
+h(s), h), denoted t2(s, a, h), satisfies
+
+1 +
+1
+3H(H + 1)
+t2(s,a,h)−1
+≤32HCmin
+i1
+.
+81
+
+````
+
+## PDF page 82
+
+FORMULA CHECK REQUIRED: original PDF page 82.
+
+````text
+Therefore, we have t2(s, a, h) ≤O(H2 log(32HCmin/i1)) and thus the number of rounds with
+Type-II triggers is bounded by
+X
+s,a,h
+t2(s, a, h) ≤O
+
+H3SA log
+32HCmin
+i1
+
+.
+Situation 3: By (b) of Theorem 4.6, we know a = π⋆
+h(s) for a Type-III trigger. Therefore, the
+maximum number of Type-III triggers for each triple (s, π⋆
+h(s), h), denoted t3(s, π⋆
+h(s), h), satisfies
+
+1 +
+1
+3H(H + 1)
+t3(s,π⋆
+h(s),h)−1
+≤i1 + i2
+i1
+≤i2.
+Therefore, we have t3(s, π⋆
+h(s), h) ≤O(H2 log(i2)). Because we only have HS triples of
+(s, π⋆
+h(s), h) such that P⋆
+s,h > 0, the number of rounds with Type-III triggers is no more than
+X
+s,P⋆
+s,h>0
+t3(s, π⋆
+h(s), h) ≤O
+ H3S log (i2)
+
+.
+Situation 4: The trigger condition is satisfied by (s, a, h) in round k when N k
+h(s, a) > i1 + i2. We
+refer to this type of trigger as a Type-IV trigger.
+By Lemma L.4, in this case, for each time the trigger condition is satisfied by (s, a, h), we have
+a ∈A⋆
+h(s). we will first prove P⋆
+s,h = 0 in this case.
+Let S0 = {(s, a, h) | a ∈A⋆
+h(s), P⋆
+s,h = 0}. By Equation (156), we know for (s, a, h) ∈S0,
+N K+1
+h
+(s, a) ≤32HCmin < i1 + i2. However, when the trigger condition is satisfied by (s, a, h)
+in round k, we have N k
+h(s, a) > i1 + i2, which is contradicts the fact that N K+1
+h
+(s, a) < i1 + i2.
+Therefore the triple (s, a, h) satisfies that P⋆
+s,h > 0. By Lemma L.5, for any s′ ∈S and h′ ∈[H]
+such that P⋆
+s′,h′ > 0, it holds that
+N k+1
+h′
+(s′, π⋆
+h′(s′)) ≥
+
+1 +
+1
+6H(H + 1)
+
+N k
+h′(s′, π⋆
+h′(s′)),
+Therefore, the maximum number of Type-IV triggers, denoted t4, satisfies
+
+1 +
+1
+6H(H + 1)
+t4
+≤
+ˆT
+i1 + i2
+≤
+T
+HSA.
+Then the number of rounds with Type-III triggers is bounded by
+t4 ≤
+log(
+T
+HSA)
+log
+
+1 +
+1
+6H(H+1)
+ = O
+
+H2 log
+
+T
+HSA
+
+.
+Combining these four cases, the number of rounds is no more than
+X
+s,a,h
+t1(s, a, h) +
+X
+s,a,h
+t2(s, a, h) +
+X
+s,P⋆
+s,h>0
+t3(s, π⋆
+h(s), h) + t4
+≤O
+
+MH3SA log (i1) + H3SA log
+32HCmin
+i1
+
++ H3S log (i2) + H2 log
+
+T
+HSA
+
+≤O
+
+MH3SA log (MHι) + H3SA log
+H4SA
+β∆2
+min
+
++ H3S log
+ 1
+Cst
+
++ H2 log
+
+T
+HSA
+ 
+.
+When M = 1, the number of communication rounds is an upper bound for switching cost.
+82
+
+````
+

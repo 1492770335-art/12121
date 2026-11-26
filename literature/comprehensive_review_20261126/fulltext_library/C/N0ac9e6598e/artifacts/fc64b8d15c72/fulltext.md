@@ -1,0 +1,1602 @@
+# Demographic Parity-Aware Individualized Treatment Rules
+
+Original PDF: [original.pdf](original.pdf). SHA256: `fc64b8d15c72905df762fcceea54f63f73bfb2f98edcb73b7f6963301f9b5ce7`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+Technical extraction; compare with original PDF page 1.
+
+````text
+Demographic Parity-aware Individualized
+Treatment Rules
+Wenhai Cui
+Department of Applied Mathematics, The Hong Kong Polytechnic University,
+Wen Su
+Department of Biostatistics, City University of Hong Kong,
+Xiaodong Yan
+Department of Mathematics and Statistics, Xi’an Jiaotong University,
+Donglin Zeng
+Department of Biostatistics, University of Michigan,
+Xingqiu Zhao
+Department of Applied Mathematics, The Hong Kong Polytechnic University.
+April 29, 2025
+Abstract
+There has been growing interest in developing optimal individualized treatment
+rules (ITRs) in various fields, such as precision medicine, business decision-making,
+and social welfare distribution. The application of ITRs within a societal context
+raises substantial concerns regarding potential discrimination over sensitive attributes
+such as age, gender, or race. To address this concern directly, we introduce the concept
+of demographic parity in ITRs. However, estimating an optimal ITR that satisfies the
+demographic parity requires solving a non-convex constrained optimization problem.
+To overcome these computational challenges, we employ tailored fairness proxies
+inspired by demographic parity and transform it into a convex quadratic programming
+problem. Additionally, we establish the consistency of the proposed estimator and
+the risk bound. The performance of the proposed method is demonstrated through
+extensive simulation studies and real data analysis.
+Keywords: Consistency; Fair policy; Individualized treatment rules; Risk bound
+1
+arXiv:2504.19914v1  [stat.ME]  28 Apr 2025
+
+````
+
+## PDF page 2
+
+FORMULA CHECK REQUIRED: original PDF page 2.
+
+````text
+1
+Introduction
+Incorporating individual characteristics into the decision-making process offers significant
+potential for improving efficiency and precision. Such practice has become prevalent in
+various fields, such as precision medicine (Shi et al., 2018; Wang et al., 2018), social welfare
+distribution (Rosholm and Vejlin, 2010), ridesharing (Shi et al., 2022), and mobile health
+(Shi et al., 2022). The three main approaches for estimating individual treatment rules
+(ITR) include Q-learning (Dayan and Watkins, 1992; Chakraborty et al., 2010; Qian and
+Murphy, 2011; Song et al., 2015), A-learning (Robins et al., 2000; Murphy, 2003; Robins,
+2004), and model-free policy search methods such as outcome weighted learning (OWL)
+(Zhao et al., 2012) as well as its extended doubly robust version (Liu et al., 2018).
+The optimal ITR is commonly estimated by maximizing its value function. However,
+implementing such an optimal ITR directly in our society may raise concerns about fairness.
+Discrimination based on sensitive attributes such as nationality, religion, income, race, or
+gender can result in unjust treatment outcomes. Furthermore, subjective variables like
+interviewer scores can be influenced by these attributes. Estimating the optimal ITR using
+biased data can damage public trust and contradict policymakers’ original intentions. For
+instance, in social welfare distribution, eligibility paradoxes can arise, where individuals
+in genuine need may be excluded due to gender or racial biases, while those who receive
+assistance may not actually require it (Heidari et al., 2018). Similarly, in healthcare, older
+women were less likely to be admitted to the intensive care unit and more likely to die
+following critical illness than men (Fowler et al., 2007; Penner et al., 2010; Williams and
+Wyatt, 2015). Furthermore, such unfairness can also be observed in the domain of precision
+advertising recommendations, where algorithms tend to disproportionately present science
+and engineering job advertisements to male audiences, thereby unintentionally marginalizing
+qualified female candidates (Lambrecht and Tucker, 2019). Considering these concerns, it
+is crucial to develop a policy that strikes a balance between fairness and efficiency when
+considering individual characteristics for decision-making.
+Most existing approaches for estimating optimal ITR do not consider fairness (Zhao et al.,
+2012; Shi et al., 2018, 2016). While traditional methods may remove sensitive attributes
+from the training data, this does not ensure fairness. Other variables could still be correlated
+with these sensitive attributes, causing biased outcomes (Penner et al., 2010; Williams and
+Wyatt, 2015). As shown in Experiment 1 in Section 5.1, individuals with certain sensitive
+attributes may have a significantly reduced chance of receiving welfare benefits compared to
+those without these attributes, even when the optimal ITR is estimated without considering
+these sensitive attributes.
+The fairness aspect of the Individualized Treatment Regime (ITR) has been relatively
+understudied in the literature. Fang et al. (2023) introduced a fairness-oriented policy
+framework that relies on quantile constraints. Additionally, Viviano and Bradic (2023)
+utilized the Pareto principle to establish fairness rules, primarily focusing on linear policies.
+Another study by Kim and Zubizarreta (2023) examined the difference in the conditional
+average treatment effect between two observed values of a one-dimensional sensitive attribute.
+However, there is a scarcity of research focusing on the independence between the ITR and
+sensitive attributes with multiple dimensions. This independence is crucial for decision-
+makers to ensure a fair distribution of welfare benefits across various subgroups.
+In this study, we introduce the concept of “Demographic Parity-aware Individualized
+2
+
+````
+
+## PDF page 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+Treatment Rule”, which aims to achieve demographic balance in policies. To address
+the challenges of estimating Demographic Parity ITR in datasets with inherent biases,
+particularly the non-convex nature of Demographic Parity constraints, we employ a two-
+step approach. First, we identify a Demographic Parity surrogate, and then we employ
+Lagrangian dual techniques to convert the initial problem into a solvable convex quadratic
+programming problem. The main goal of our approach is to maximize the overall treatment
+benefit while adhering to the principles of Demographic Parity.
+Our main contributions are as follows:
+(i) We propose an innovative mathematical framework for fair ITR, designed to achieve
+demographic parity. Additionally, we introduce an adjustable mechanism that allows
+policymakers to set different levels of fairness for the estimated optimal ITR.
+(ii) The proposed fairness proxy effectively captures discrimination by considering the
+complex non-linear correlations between specific demographic factors and the decision
+function. This proxy significantly enhances fairness in decision-making processes.
+(iii) The algorithm developed in this study formulates the estimation of the optimal fair
+ITR as a convex quadratic programming problem, which can be solved efficiently.
+Additionally, kernel techniques are employed to handle scenarios where the data are
+not linearly separable, further improving the algorithm’s performance.
+2
+Preliminaries
+2.1
+Individualized treatment rules
+In a randomized trial, for each individual, we observe the tuple (X, S, A, R), where X =
+(X1, . . . , Xp)⊤is a p-dimensional vector of covariate, S = (S1, . . . , SK)⊤is a K-dimensional
+vector of sensitive attributes, such as gender or income, A ∈A := {1, −1} denotes treatment
+and R is reward. We assume R is bounded and higher values of R are desired. An ITR
+or policy D(X, S) is a function from feature space X × S to A. For simplicity, let (X, S)
+denote a p + K dimensional column vector (X⊤, S⊤)⊤.
+The optimal ITR can be expressed as a rule that maximizes the value function V(D)
+(Zhao et al., 2012), defined as
+V(D) = ED(R) = E
+I(A = D(X, S))
+Aπ + (1 −A)/2 R
+
+,
+(1)
+where I(·) is the indicator function and π = P(A = 1). Then, an optimal ITR, D∗is a
+rule that maximizes V(D), i.e., D∗∈arg max
+D
+V(D(X, S)). It is worth noting that S can
+influence D∗, resulting in different treatments being assigned to individuals who share
+identical characteristics but belong to different sensitive attribute groups. Without loss of
+generality, we assume that R is nonnegative.
+2.2
+A motivating example
+To illustrate the concept of unfairness, we present a toy example. In a non-profit en-
+trepreneurship training program, some applicants are admitted to participate for free. Our
+3
+
+````
+
+## PDF page 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+objective is to maximize the innovation score R that each applicant receives from a panel.
+Assume that the subjective score R is influenced by both the individual’s characteristic X
+and their gender S, modeled as:
+R = 1 + X + 0.5(5X −3S −3)(A + 1) + ε,
+(2)
+where covariate X ∼Uniform[0,1], sensitive attribute S ∼Bernoulli(0.5), noise ϵ ∼
+Normal(0, 1). A = 1 if the applicants is admitted and A = −1 otherwise. Moreover, we
+assume that S = 1 for female and S = 0 for male.
+From Equation (2), it becomes evident that for admitted individuals, the average reward
+for females E(R|X, S = 1, A = 1) = 6X −5 is lower than that for males E(R|X, S = 0, A =
+1) = 6X −2. Additionally, the optimal ITR can be calculated as follows:
+D∗(X, S) =
+(
+2I(X > 3
+5) −1,
+if S = 0,
+−1,
+if S = 1.
+The optimal ITR D∗(X, S) shown above is an unfair policy because it treats individuals
+with the same covariate value differently based on gender. Specifically, D∗(X = x, S = 1)̸ =
+D∗(X = x, S = 0) when 1 ≥x > 3/5 solely due to different gender identities. Consequently,
+according to the optimal ITR D∗(X, S), all females will not be admitted while 60% of the
+males will be admitted. Therefore, this policy is gender biased and can raise serious legal
+and ethical concerns if implemented in the welfare system.
+Figure 1a presents a causal diagram that exhibits bias, indicating two potential sources of
+unfairness in the policy. Firstly, with biased data, the sensitive attribute S can influence the
+reward R. Secondly, the correlation between the covariate X and the sensitive attribute S
+can also impact the reward R, resulting in an unfair policy. Conversely, Figure 1b illustrates
+an ideal unbiased causal diagram, where the covariate and the reward are independent of
+the sensitive attribute.
+A
+X
+R
+S
+(a) Biased Causal Diagram
+A
+X
+R
+S
+(b) Unbiased Causal Diagram.
+Figure 1: Comparison of biased causal diagram and unbiased causal diagram.
+2.3
+Demographic parity individualized treatment rules
+In our setting, we define fairness as a policy that ensures equal treatment for all individuals,
+regardless of their sensitive attributes. Therefore, we define the Demographic Parity ITR as
+follows.
+Definition 2.1. (Demographic Parity ITR). A policy D : X × S →A attains demographic
+parity under (X, S, A, R), if D(X, S) is independent of the sensitive attributes S, i.e.,
+D(X, S) ⊥S.
+4
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+A Demographic Parity ITR is equivalent to
+P[D(X, S) = a | S = s] = P[D(X, S) = a | S = s′],
+(3)
+for any s, s′ ∈S and a ∈{−1, 1}. Set the policy D(X, S) = Sgn[f(X, S)], where f(·) is a
+decision function and Sgn(u) := 2I(u > 0) −1. It follows that Equation (3) is equivalent to
+P[f(X, S) > 0 | S = s] = P[f(X, S) > 0 | S = s′].
+(4)
+Following Equation (4), we formulate the Demographic Parity ITR by maximizing the value
+function while incorporating a demographic parity constraint as follows:
+maximize
+f
+V(D(f)), subject to P[f(X, S) > 0 | S = s] = P[f(X, S) > 0 | S = s′]
+(5)
+for any s, s′ ∈S, where the constraint can be directly estimated through the empirical
+distribution of f(X, S) conditional on S.
+3
+Methodology
+To find Demographic Parity ITR, one straightforward approach is to ensure that f(X, S) ⊥
+S, satisfying Equation (4). However, solving Equation (5) becomes exceedingly challenging
+due to the non-convex and discontinuous nature of the indicator function in the empirical
+distribution.
+Thus, we propose utilizing two fairness proxies, namely a linear and a nonlinear proxy,
+as substitutes for the demographic parity constraint in Equation (4). We refer to the ITR
+that conforms to the fairness proxy as the Demographic Parity-aware ITR (DPA-ITR).
+Moreover, we will estimate DPA-ITR under the linear or nonlinear proxy constraint.
+3.1
+Linear fairness proxy
+A natural approach to represent independence is to consider the covariance between the
+sensitive attributes S and the decision function f(X, S). In this regard, we propose using
+covariance as the linear fairness constraint:
+Cov (S, f(X, S)) = E [(S −ES)f(X, S)] .
+Consider an observed data set {(Xi, Si, Ai, Ri)}n
+i=1, where Si = (Si1, . . . , SiK) and Sik
+represents the k-th sensitive attribute for the ith individual. Let S·k = Pn
+i=1 Sik/n denote
+the sample average of the kth sensitive attribute across the sample. To estimate the linear
+fairness proxy Cov (S, f(X, S)), we employ the following estimator:
+d
+Cov (S, f(X, S)) =
+Pn
+i=1(Si −S)f(Xi, Si)
+n
+,
+where S = Pn
+i=1 Si/n is the sample mean of the sensitive attributes S. Here, the k-th
+element of the estimator is
+Pn
+i=1(Sik −S·k)f(Xi, Si)
+n
+.
+5
+
+````
+
+## PDF page 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+3.2
+Nonlinear fairness proxy
+It is well-established that zero covariance between two variables does not imply their
+independence. Hence, linear fairness proxy equal to zero does not guarantee fairness in all
+cases. To illustrate this with an example, we consider the following joint distribution of S
+and f(X, S):
+Joint probability
+S = −1
+S = 0
+S = 1
+f(X, S) = 1
+0.25
+0
+0.25
+f(X, S) = −1
+0
+0.5
+0
+Evidently, the decision function varies with different values of sensitive attribute S,
+indicating an unfair policy. However, the linear fairness proxy Cov (S, f(X, S)) equals to
+zero, leading to contradictions. For this reason, we propose a more general nonlinear fairness
+proxy that can capture the nonlinear correlations. Inspired by Zhu et al. (2011), we present
+a nonlinear covariance as follows
+Ω(s, f) = E[f(X, S) {I(S < s) −EI(S < s)}],
+where s = (s1, . . . , sK), I(·) is the indicator function and I(S < s) represents (I(S1 <
+s1), I(S2 < s2), · · · , I(SK < sK))⊤. The set of indicator functions {I(S < s) | s ∈S}
+offers a more comprehensive approach to capturing nonlinear correlations compared to the
+limitations of linear covariance.
+Let Ωk(sk, f) denote the k-th element of Ω(s, f). Define
+ωk(f) = E {Ωk(Sk, f)} ,
+k = 1, . . . , K,
+where ωk(f) is the correlation measure. If f(X, S) and Sk are independent, it follows
+that Ωk(s, f) = 0 for any s ∈R, thereby resulting in ωk(f) = 0. Conversely, if f(X, S)
+and Sk are correlated, then there exists some s for which Ωk(s, f)̸ = 0. Hence, ω(f) =
+(ω1(f), . . . , ωK(f))⊤is utilized as a nonlinear fairness proxy. In the given example, the
+nonlinear fairness proxy ω1(f) is calculated as −1
+8 using the joint distribution, effectively
+capturing the correlation.
+Let bΩ(s, f) be the estimator of Ω(s, f), defined by
+bΩ(s, f) =
+Pn
+i=1(I(Si < s) −I(S < s))f(Xi, Si)
+n
+,
+where I(Si < s) = (I(Si1 < s1), I(Si2 < s2), · · · , I(SiK < sK))⊤and I(S < s) =
+1
+n
+Pn
+i=1 I(Si < s). Let bΩk(sk, f) be the k-th element of bΩ(s, f), where
+bΩk(sk, f) =
+Pn
+i=1(I(Sik < sk) −I(S·k < sk))f(Xi, Si)
+n
+and I(S·k < sk) =
+1
+n
+Pn
+i=1 I(Sik < sk). Let bω(f) be the estimator of ω(f), defined by
+bω(f) = (bω1(f), . . . , bωK(f))⊤with bωk(f) =
+Pn
+j=1 bΩk(Sjk,f)
+n
+.
+Next, we provide solutions of optimal DPA-ITR for both linear and nonlinear fairness
+proxies.
+6
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+3.3
+Estimation of DPA-ITR under the linear fairness proxy
+Since solving the optimization problem in Expression (5) can be challenging, we utilize the
+following fairness proxy,
+maximize
+f
+V(D(f)), subject to |Cov (S, f(X, S))| ≤c,
+(6)
+where c = (c1, . . . , cK)⊤denotes the fairness constraint and can be selected through empirical
+experiments.
+Motivated by Zhao et al. (2012), maximizing V(D(f)) is equivalent to minimizing the
+following function:
+E[R | A = 1] + E[R | A = −1] −V(D(f)) = E
+I(A̸ = D(f(X, S)))
+Aπ + (1 −A)/2
+R
+
+.
+(7)
+Given the observed data {(Xi, Si, Ai, Ri)}n
+i=1, we have the empirical version of (6) with
+Equation (7) as follows:
+minimize
+f
+n−1
+n
+X
+i=1
+Ri
+Aiπ + (1 −Ai) /2I (Ai̸ = Sgn (f (Xi, Si))) ,
+subject to |d
+Cov (S, f(X, S))| ≤c.
+(8)
+To address the optimization challenges posed by the non-smooth indicator function in
+Equation (8), we employ a convex hinge surrogate (Zhao et al., 2012). This surrogate
+incorporates a ridge penalty, resulting in a regularized version of the optimization problem:
+minimize
+f
+n−1
+n
+X
+i=1
+Ri
+Aiπ + (1 −Ai) /2 (1 −Aif (Xi, Si))+ + λ∥f∥2,
+subject to −d
+Cov (S, f(X, S)) ≥c, and d
+Cov (S, f(X, S)) ≤c,
+(9)
+where u+ = max(u, 0) and ∥f∥is some norm for f.
+Next, we consider linear and nonlinear forms for decision function f.
+3.4
+Linear decision function for DPA-ITR estimation
+Suppose that the decision function f(·) takes a linear form, such that f(X, S) = ⟨β, (X, S)⟩+
+β0, where ⟨·, ·⟩denotes the inner product in Euclidean space and ∥f∥=
+p
+⟨β, β⟩. Then the
+ITR will assign treatment value 1 if ⟨β, (X, S)⟩+ β0 > 0 and -1 otherwise. Moreover, we
+have (1 −Aif (Xi, Si))+ = (1 −Ai[⟨β, (Xi, Si)⟩+ β0])+.
+Let ξi = [1 −Ai{⟨β, (Xi, Si)⟩+ β0}]+. Then the optimization problem (9) becomes
+(see details in Supplementary Materials E):
+minimize
+β,β0,ξ
+1
+2∥β∥2 + κ
+n
+X
+i=1
+Ri
+πi
+ξi
+,
+subject to Ai[⟨β, (Xi, Si)⟩+ β0] ≥(1 −ξi) ,
+ξi ≥0,
+−
+Pn
+i=1(Si −S)[⟨β, (Xi, Si)⟩+ β0]
+n
+≤c,
+Pn
+i=1(Si −S)[⟨β, (Xi, Si)⟩+ β0]
+n
+≤c,
+(10)
+7
+
+````
+
+## PDF page 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+where i = 1, . . . , n and πi = πI (Ai = 1) + (1 −π)I (Ai = −1) and κ =
+1
+2λ > 0 is a tuning
+parameter. To transform the optimization problem in Expression (10), we propose the
+Lagrange function:
+1
+2∥β∥2 + κ
+n
+X
+i=1
+Ri
+πi
+ξi
+−
+n
+X
+i=1
+αi
+
+Ai
+ (Xi, Si)⊤β + β0
+
+−(1 −ξi)
+	
+−
+n
+X
+i=1
+µiξi
++
+K
+X
+k=1
+γk
+n
+n
+X
+i=1
+
+−(Sik −S·k)
+ (Xi, Si)⊤β + β0
+
+−ck
+	
++
+K
+X
+k=1
+ηk
+n
+n
+X
+i=1
+
+(Sik −S·k)
+ (Xi, Si)⊤β + β0
+
+−ck
+	
+with αi ≥0, µi ≥0, γk ≥0, ηk ≥0, i = 1, . . . , n, k = 1, . . . , K. Taking derivatives with
+respect to (β, β0) and ξi, we have
+β =
+n
+X
+i=1
+αiAi(Xi, Si) +
+K
+X
+k=1
+γk
+n
+n
+X
+i=1
+(Sik −S·k)(Xi, Si)
+−
+K
+X
+k=1
+ηk
+n
+n
+X
+i=1
+(Sik −S·k)(Xi, Si)
+=
+n
+X
+i=1
+[αiAi +
+K
+X
+k=1
+(γk −ηk)
+n
+(Sik −S·k)](Xi, Si)
+0 =
+n
+X
+i=1
+αiAi +
+K
+X
+k=1
+γk
+n
+n
+X
+i=1
+(Sik −S·k) −
+K
+X
+k=1
+ηk
+n
+n
+X
+i=1
+(Sik −S·k)
+αi = κRi/πi −µi, i = 1, . . . , n.
+Plugging these equations into the Lagrange function, we obtain
+−1
+2∥β∥2 +
+n
+X
+i=1
+αi −
+K
+X
+k=1
+ckγk −
+K
+X
+k=1
+ckηk.
+Then, the dual problem is
+maximize
+α,γ,η
+n
+X
+i=1
+αi −
+K
+X
+k=1
+ckγk −
+K
+X
+k=1
+ckηk
+−1
+2
+n
+X
+i=1
+n
+X
+j=1
+[αiAi +
+K
+X
+k=1
+(γk −ηk)
+n
+(Sik −S·k)]
+∗[αjAj +
+K
+X
+k=1
+(γk −ηk)
+n
+(Sjk −S·k)]
+∗⟨(Xi, Si), (Xj, Sj)⟩
+(11)
+8
+
+````
+
+## PDF page 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+subject to 0 ≤γk, 0 ≤ηk for k = 1, . . . , K and 0 ≤αi ≤κRi/πi for i = 1, . . . , n. This
+dual problem can be solved via quadratic programming software packages. Finally, we
+obtain that bβ = Pn
+i=1[bαiAi + PK
+k=1
+(bγk−bηk)
+n
+(Sik −S·k)](Xi, Si) and bβ0 can be solved using
+the margin point 0 < bαm, bξm = 0 subject to the Karush-Kuhn-Tucker conditions.
+3.5
+Nonlinear decision function for DPA-ITR estimation
+To overcome the challenges posed by high dimensionality and linear inseparability (Zhao
+et al., 2012), we incorporate kernel functions to introduce nonlinearity into the decision
+function. Taking a kernel function K⟨·, ·⟩that satisfies continuity, symmetry, and posi-
+tive semidefiniteness, we construct the reproducing kernel Hilbert space (RKHS) HK as
+the completion of the linear span of all functions {K⟨·, (X, S)⟩|(X, S)) ∈X × S} (see
+Moore–Aronszajn Theorem in Aronszajn (1950)). Let ∥· ∥K denote the norm in HK, which
+can be induced by the following inner product,
+⟨f, g⟩=
+n
+X
+i=1
+n
+X
+j=1
+hiβjK⟨(Xi, Si), (Xj, Sj)⟩,
+for f(·) = Pn
+i=1 hiK⟨·, (Xi, Si)⟩and g(·) = Pn
+j=1 βjK⟨·, (Xj, Sj)⟩. It follows that the
+optimal decision function is given by
+n
+X
+i=1
+[bαiAi +
+K
+X
+k=1
+(bγk −bηk)
+n
+(Sik −S·k)]K⟨·, (Xi, Si)⟩+ bb0,
+where (bα1, . . . , bαN, bγ1, bη1, . . . , bγk, bηk)⊤can be obtained by solving
+maximize
+α,γ,η
+n
+X
+i=1
+αi −
+K
+X
+k=1
+ckγk −
+K
+X
+k=1
+ckηk
+−1
+2
+n
+X
+i=1
+n
+X
+j=1
+[αiAi +
+K
+X
+k=1
+(γk −ηk)
+n
+(Sik −S·k)]
+∗[αjAj +
+K
+X
+k=1
+(γk −ηk)
+n
+(Sjk −S·k)]
+∗K⟨(Xi, Si), (Xj, Sj)⟩
+(12)
+subject to 0 ≤γk, 0 ≤ηk, 0 ≤αi ≤κRi/πi, i = 1, . . . , n, and bb0 can be solved using
+Karush-Kuhn-Tucker conditions. Specifically, for the m-th data point, if 0 < bαm, then
+bξm = 0, which means
+bb0 = Am −
+n
+X
+i=1
+"
+bαiAi +
+K
+X
+k=1
+(bγk −bηk)
+n
+ Sik −S·k
+
+#
+K⟨(Xm, Sm), (Xi, Si)⟩.
+If we choose K⟨z1, z2⟩= ⟨z1, z2⟩, then (12) reduces to (11).
+9
+
+````
+
+## PDF page 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+3.6
+Estimation of DPA-ITR under the nonlinear fairness proxy
+We employ the nonlinear fairness proxy and reformulate Expression (5) into the following
+optimization problem:
+maximize
+f
+V(D(f)), subject to |ω(f)| ≤c,
+where c = (c1, . . . , cK)⊤is the fairness constraint.
+3.7
+Linear decision function for DPA-ITR estimation
+Similar to Section 3.2.1, for a linear decision function f(x, s) = ⟨β, (x, s)⟩+ β0, we introduce
+a convex hinge surrogate with a ridge penalty and subsequently derive its corresponding
+dual problem as follows:
+maximize
+α,γ,η
+n
+X
+i=1
+αi −
+K
+X
+k=1
+ckγk −
+K
+X
+k=1
+ckηk
+−1
+2
+n
+X
+i=1
+n
+X
+j=1
+"
+αiAi +
+K
+X
+k=1
+(γk −ηk)
+n
+(
+1
+n
+n
+X
+l=1
+ I(Sik < Slk) −I(S·k < Slk)
+
+)#
+∗
+"
+αjAj +
+K
+X
+k=1
+(γk −ηk)
+n
+(
+1
+n
+n
+X
+l=1
+ I(Sik < Slk) −I(S·k < Slk)
+
+)#
+∗⟨(Xi, Si), (Xj, Sj)⟩,
+(13)
+subject to 0 ≤γk, 0 ≤ηk for k = 1, . . . , K and 0 ≤αi ≤κRi/πi for i = 1, . . . , n. Derivation
+details are provided in Supplementary Material A.
+Finally, we obtain that
+bβ =
+n
+X
+i=1
+"
+bαiAi +
+K
+X
+k=1
+(bγk −bηk)
+n
+ 
+1
+n
+n
+X
+l=1
+ I (Sik < Slk) −I (S·k < Slk)
+
+!#
+(Xi, Si) ,
+where bβ0 can be solved using the margin point 0 < bαm, bξm = 0 subject to the Karush-Kuhn-
+Tucker conditions.
+3.8
+Nonlinear decision function for DPA-ITR estimation
+For a nonlinear decision function bf(·) ∈HK, it can be shown that the optimal decision
+function is
+n
+X
+i=1
+"
+bαiAi +
+K
+X
+k=1
+(bγk −bηk)
+n
+ 
+1
+n
+n
+X
+l=1
+ I (Sik < Slk) −I (S·k < Slk)
+
+!#
+K⟨·, (Xi, Si)⟩+ bb0,
+10
+
+````
+
+## PDF page 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+where (bα1, . . . , bαN, bγ1, bη1, . . . , bγk, bηk)⊤can be obtained by solving
+maximize
+α,γ,η
+n
+X
+i=1
+αi −
+K
+X
+k=1
+ckγk −
+K
+X
+k=1
+ckηk
+−1
+2
+n
+X
+i=1
+n
+X
+j=1
+"
+αiAi +
+K
+X
+k=1
+(γk −ηk)
+n
+(
+1
+n
+n
+X
+l=1
+ I(Sik < Slk) −I(S·k < Slk)
+
+)#
+∗
+"
+αjAj +
+K
+X
+k=1
+(γk −ηk)
+n
+(
+1
+n
+n
+X
+l=1
+ I(Sik < Slk) −I(S·k < Slk)
+
+)#
+∗K⟨(Xi, Si), (Xj, Sj)⟩
+(14)
+subject to 0 ≤γk, 0 ≤ηk, 0 ≤αi ≤κRi/πi, i = 1, . . . , n, and bb0 can be solved using
+Karush-Kuhn-Tucker conditions. Specifically, for the m-th data point, if 0 < bαm, then
+bξm = 0, which yields
+bb0 = Am−
+n
+X
+i=1
+"
+bαiAi +
+K
+X
+k=1
+(bγk −bηk)
+n
+(
+1
+n
+n
+X
+l=1
+ I (Sik < Slk) −I (S·k < Slk)
+
+)#
+K⟨(Xm, Sm), (Xi, Si)⟩.
+4
+Theoretical results
+Firstly, it is essential to establish the convexity of the proposed optimization problems.
+Theorem 4.1.
+(Algorithm Convexity) Rewrite α = (α1, . . . , αn, γ1, η1, . . . , γK, ηK)⊤,
+e = (1, . . . , 1, −c1, −c1, . . . , −cK, −cK)⊤. The target functions of optimization problem in
+(13) and (14) are respectively expressed as
+maximize
+α
+α⊤e −1
+2α⊤Dα,
+maximize
+α
+α⊤e −1
+2α⊤DKα.
+Then, the matrices D and Dk are positive semidefinite.
+Theorem 4.1 imples that the optimization problems in (13) and (14) can be solved
+using convex quadratic programming. Consequently, it is possible to obtain a practical and
+desirable solution. As illustrated in Table 1, the solution ensures that the estimated fairness
+proxy is lower than the fairness constraint c.
+Let Rϕ(f) = E
+h
+Rϕ(Af(X,S))
+Aπ+(1−A)/2
+i
+denote ϕ-risk, where ϕ(x) = (1 −x)+, and let R(f) =
+E
+h
+I(A̸=D(f(X,S)))
+Aπ+(1−A)/2 R
+i
+denote risk. Here, bfn is given by
+bfn =argmin
+f∈Hk
+(
+1
+n
+n
+X
+i=1
+Ri
+πi
+{1 −Aif (Xi, Si)}+ + λn∥f∥2
+k
+)
+,
+subject to |d
+Cov (S, f(X, S))| ≤c + C/√n,
+11
+
+````
+
+## PDF page 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+where C is a positive constant. The introduction of the term C/√n is aimed at ensuring
+the feasibility of d
+Cov (S, f(X, S)) for the sake of simplicity in theoretical exposition, which
+can be dropped in practice.
+Next, we establish the consistency of the estimator bfn by demonstrating that it asymp-
+totically achieves the optimal ϕ-risk under the fairness proxy constraint. To establish
+this consistency, we utilize empirical process techniques and provide the detailed proof in
+Supplementary Materials C.
+Theorem 4.2. (Consistency) Assume that we choose a sequence λn > 0, such that λn →0
+and λnn →∞. Then for all distributions P, we have
+lim
+n→∞
+
+Rϕ
+
+bfn
+
+−inf
+f∈Fc
+Rϕ(f)
+
+= 0 in probability,
+where Fc denotes the closure of Fc = {f : | Cov (S, f(X, S)) | ≤c, f ∈HK}.
+Regarding the constraint Wc = {f : |ω(f)| ≤c, f ∈HK}, consistency can be achieved
+as well, since bω(f) converges to ω(f) in probability (as stated in Theorem 2 of Zhu et al.
+(2011)). Furthermore, under the assumption of geometric noise given by Steinwart and
+Scovel (2007), we can derive the convergence rate.
+Suppose that R∗
+ϕ = inf{Rϕ(f)|f : X × S →R} and there exits a f ∗∈HK such that
+R∗
+ϕ = Rϕ(f ∗). Based on Proposition 3.1 (Zhao et al., 2012), we have R∗= R(f ∗), where
+R∗= inf{R(f)|f : X × S →R}.
+Theorem 4.3. (Risk Bound) Suppose that a distribution P of (X, S, A, R) satisfies
+condition “geometric noise” assumption (Supplementary Materials F) with noise exponent
+q > 0 (Steinwart and Scovel, 2007; Zhao et al., 2012) and the bandwidth of Gaussian kernel
+σ = λ−1/(q+1)(p+K)
+n
+. Then for any τ > 1, δ > 0, 0 < v ≤2, bfn ∈Fc, we have
+P
+
+R( bfn) −R∗≤Cϵ + inf
+f∈Fc
+
+Rϕ(f) −R∗
+ϕ
+
+≥1 −e−τ.
+where ϵ = (λn)−
+2
+2+ν + (2−ν)(1+δ)
+(2+ν)(1+q) n−
+2
+2+ν +
+τ
+nλn + Bλn and C is a constant that depends on v, δ, K
+and π.
+We can set λn = n−
+2(1+q)
+(4+v)q+2+(2−v)(1+δ) (see Theorem 2.7 in Steinwart and Scovel (2007)
+and Theorem 3.4 in Zhao et al. (2012),) and v ≤1. Then, the risk can be expressed as
+R( bfn) −R∗= Op(n−
+2(1+q)
+(4+v)q+2+(2−v)(1+δ)) + inff∈Fc
+
+Rϕ(f) −R∗
+ϕ
+
+. When the data is distinctly
+separable, it suggests that the parameter q is sufficiently large. Moreover, assuming that
+both δ and ν are significantly small, the term ϵ becomes close to Op(n−1
+2). As a result, the
+risk is primarily influenced by the fairness constraint.
+5
+Simulation studies
+5.1
+Simulation designs
+We conduct extensive simulations to demonstrate the performance of the proposed DPA-
+ITR (fairness policy). In simulations, the treatment variable A is independently generated
+12
+
+````
+
+## PDF page 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+from {−1, 1} with equal probabilities for each value. The response variable R is assumed
+to follow a normal distribution with a mean of T(X, S, A) and a variance of 1, where
+T(X, S, A) represents the interaction between the treatment and prognostic variables. For
+all four experiments, the covariate vector X is independently generated from Uniform(−5, 5),
+with dimensions p = 3, 50. For performance comparisons, we considered the OWL policy
+introduced by Zhao et al. (2012).
+Experiment 1: We consider mean of the reward taking the form:
+T(X, S, A) = 10 + X1 + X2 + 0.25X3 + (X1 + X2 −10SI(A = 1)) A.
+Assume that the sensitive attribute S follows a Bernoulli distribution with parameter
+p = ρ(X1 + X2), where ρ(u) = eu/(1 + eu) is an increasing function. This implies that there
+exists a positive correlation between S and the sum of X1 and X2.
+Experiment 2: For mean of the reward, we consider the same form as given in Experiment
+1. Suppose that S is independent of X, following a Bernoulli distribution with p = 0.5.
+Experiment 3: We consider mean of the reward taking the form:
+T(X, S, A) = 10 +
+ 0.1X2
+1 −X2 −10SI(A = 1)
+
+A.
+Assume that S takes values in {−1, 0, 1} with probabilities 0.25, 0.5, and 0.25, respectively.
+Experiment 4: We consider mean of the reward taking the form:
+T(X, S, A) = 10 + X1 + X2 + 0.25X3 +
+ X1 + X2 + 10(S −1)2
+A.
+Assume that S takes values in {−1, 0, 1} with probabilities 0.25, 0.5, and 0.25, respectively.
+We apply a nonlinear proxy for all experiments. We consider a linear decision function
+for Experiments 1 and 2, and a nonlinear decision function with Gaussian kernels for
+Experiments 3 and 4. For the nonlinear decision function, the bandwidth parameter σ and
+regularization parameter λ are selected through a twofold cross-validation procedure, where
+a predefined finite set of (λ, σ) is searched to find the pair that maximizes the empirical
+average of V(D) in Equation (1). For tuning parameter selection and policy training, we
+generate samples of size n = 200 and 500. The value function for the testing dataset, with
+a sample size of 500, is estimated based on the empirical average of rewards obtained by
+executing the estimated DPA-ITR on the testing dataset. To assess performance, these
+experiments are repeated 200 times. We will characterize the performance of DPA ITR
+using unfairness measure (UFM). The UFM is calculated as the difference value between
+the highest and lowest rates of accepting treatment within various sensitive groups.
+5.2
+Results and conclusion
+Figure 2 provides a comparison of decision plots for the OWL policy, the naive method,
+and DPA-ITR. As depicted in Figures 2b and 2a, the DPA-ITR consistently outperforms
+the OWL approach in terms of the UFM, with decision points (red points and green points)
+appropriately aligned. This improvement in UFM can be attributed to the inherent bias
+present in the OWL policy, as evidenced by an unfairness measure of 0.178. Figures 2c
+further illustrates that when the sensitive attribute is excluded from the decision function,
+achieving fairness remains difficult due to the intrinsic correlation between X and S.
+13
+
+````
+
+## PDF page 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+Table 1: The table displays the estimated bω( bf) under different Experiments with n = 500,
+where bω(·) is derived using the the testing dataset and bf is obtained from the training
+dataset.
+bω( bf)
+c
+0.02
+0.04
+0.06
+0.08
+0.10
+0.12
+0.14
+0.16
+Experiment 1
+p = 3
+0.023
+0.042
+0.062
+0.081
+0.099
+0.115
+0.125
+0.131
+p = 50
+0.023
+0.042
+0.061
+0.078
+0.096
+0.109
+0.118
+0.126
+Experiment 2
+p = 3
+0.017
+0.036
+0.056
+0.075
+0.094
+0.109
+0.119
+0.124
+p = 50
+0.018
+0.038
+0.057
+0.077
+0.094
+0.109
+0.1193
+0.123
+Experiment 3
+p = 3
+0.020
+0.041
+0.061
+0.080
+0.093
+0.100
+0.101
+0.101
+p = 50
+0.017
+0.036
+0.053
+0.070
+0.081
+0.085
+0.085
+0.085
+Experiment 4
+p = 3
+0.020
+0.039
+0.056
+0.071
+0.081
+0.090
+0.095
+0.098
+p = 50
+0.017
+0.026
+0.035
+0.043
+0.048
+0.048
+0.048
+0.048
+Table 2: The table displays the estimate bω( bf) under different Experiments with n = 200.
+bω( bf)
+c
+0.02
+0.04
+0.06
+0.08
+0.10
+0.12
+0.14
+0.16
+Experiment 1
+p=3
+0.024
+0.041
+0.058
+0.074
+0.088
+0.099
+0.107
+0.114
+p=50
+0.023
+0.042
+0.061
+0.078
+0.096
+0.109
+0.118
+0.126
+Experiment 2
+p=3
+0.026
+0.046
+0.038
+0.074
+0.090
+0.127
+0.123
+0.137
+p=50
+0.028
+0.046
+0.071
+0.084
+0.099
+0.129
+0.137
+0.152
+Experiment 3
+p=3
+0.024
+0.043
+0.061
+0.080
+0.096
+0.109
+0.118
+0.122
+p=50
+0.014
+0.029
+0.041
+0.051
+0.057
+0.058
+0.058
+0.058
+Experiment 4
+p=3
+0.019
+0.033
+0.042
+0.047
+0.050
+0.051
+0.051
+0.051
+p=50
+0.014
+0.022
+0.028
+0.032
+0.034
+0.034
+0.034
+0.034
+14
+
+````
+
+## PDF page 15
+
+FORMULA CHECK REQUIRED: original PDF page 15.
+
+````text
+(a) The OWL decision plot with.
+(b) The DPA-ITR decision plot.
+(c) The naive method decision plot.
+Figure 2: The decision plot in Experiment 1 with p = 3 n = 500; the naive method means
+estimating the ITR without considering the sensitive attribute S via OWL; The UFM in
+Figure 2a, 2c,2b are 0.178, 0.109, 0.011, respectively.
+The estimated bω( bf) in Table 1 shows close agreement with the corresponding values of
+c, providing validation for the convex property shown in Theorem 1. Figures 2-4 plot the
+UFM across different experiments.
+Figure 3-6 demonstrates that reducing the fairness constraint c leads to a decrease in
+UFM as well as a decrease in policy value, indicating a tradeoff between fairness and policy
+value. In Experiments 3 and 4, where a nonlinear reward model is considered, the DPA-ITR
+consistently demonstrates high effectiveness, as shown in Figure 4a-4d. The DPA-ITR
+successfully achieves a UFM of less than 0.10, illustrating its capability to effectively manage
+fairness even in complex scenarios.
+5.3
+Extension to empirical selection for parameter c
+The above experiments show that decreasing the fairness constraint c leads to an improvement
+in fairness but comes at the cost of reducing the policy value. Therefore, we propose two
+methods of selecting the fairness constraint c through empirical experiments.
+Define V0(c) = V(D( bfn)) as the value achieved under the fairness constraint, and U0(c)
+as the unfairness measure of the policy D( bfn) under fairness constraint c. Using Experiment
+1 as an example, we could get empirical value of V0(c) and U0(c) for different constraint c.
+15
+
+````
+
+## PDF page 16
+
+FORMULA CHECK REQUIRED: original PDF page 16.
+
+````text
+(a) Experiment 1 with p = 3
+(b) Experiment 1 with p = 50
+(c) Experiment 2 with p = 3
+(d) Experiment 2 with p = 50
+Figure 3: The UFM and the estimated value plot for training sample size n = 500.
+Then, we utilize polynomial functions V (c) and U(c) to approximate V0(c) and U0(c) based
+on these empirical values. Figure 7 illustrates that U(c) decreases at a faster rate compared
+to V (c) as c decreases. This implies that a small sacrifice in policy value can result in a
+substantial improvement in the fairness measure. To determine an optimal point, denoted as
+c0, we identify the minimum value of c that satisfies the condition U ′(c) −V ′(c) > 0, where
+U ′(c) and V ′(c) represent the derivatives of the functions U(c) and V (c), respectively. We
+refer to this point c as the most cost-effective point. Figure 7 demonstrates the identification
+of the most cost-effective point at 0.151 by solving the inequality U ′(c) −V ′(c) > 0.
+The “four-fifths rule” (Biddle, 2017) is a widely used criterion for assessing discrimination.
+According to this rule, a policy is considered fair if the selection rate for any race, sex, or
+ethnic group is at least four-fifths (80%) of the rate for the group with the highest selection
+rate. We can also empirically select c to satisfy the “four-fifths rule”.
+6
+Application
+We use the proposed method to analyze data sourced from the Next 36 program, an
+entrepreneurship program for undergraduate students in North America (Lyons and Zhang,
+2017). The program started accepting applicants in 2011 and conducts one session per year.
+The objective of this program is to foster the next generation of innovators by providing
+16
+
+````
+
+## PDF page 17
+
+FORMULA CHECK REQUIRED: original PDF page 17.
+
+````text
+(a) Experiment 3 with p = 3
+(b) Experiment 3 with p = 50
+(c) Experiment 4 with p = 3
+(d) Experiment 4 with p = 50
+Figure 4: The UFM and the estimated value plot for training sample size n = 500.
+coursework, mentorship, financial capital, and access to the entrepreneurship community.
+Participants gain the opportunity to explore the establishment of their own ventures. Our
+goal is to develop a policy for allocating undergraduate students to the entrepreneurial
+program based on their individual characteristics while ensuring fairness with respect to
+gender. The dataset used in this analysis is derived from the Next 36 program sessions
+conducted between 2011 and 2015 and consists of 335 observations, including 179 accepted
+applicants (A = 1) and 156 applicants who were not accepted (A = −1). This quasi-
+experiment aims to optimize subsequent entrepreneurial activity, which is measured using a
+binary variable (R = 1 or −1) indicating whether participants were involved in a startup
+after the program ended.
+We consider two cases based on different covariates. In Case 1, we include the average
+score assigned by the interviewer and school rank as covariates. In Case 2, we expand the
+covariates to include the average score assigned by the interviewer, school rank, race (white
+or non-white), years to graduation, prior entrepreneurship activities, major, and other
+relevant factors. In both cases, we consider gender as the sensitive attribute S. To learn
+the nonlinear ITR, we employ a Gaussian kernel. We compare our proposed approach to
+the OWL method introduced by Zhao et al. (2012) and a naive method where we disregard
+the sensitive attribute during the learning process, thereby completely ignoring gender
+fairness. Following Lyons and Zhang (2017) and Viviano and Bradic (2023), we estimate
+the propensity score functions using penalized logistic regression.
+17
+
+````
+
+## PDF page 18
+
+FORMULA CHECK REQUIRED: original PDF page 18.
+
+````text
+(a) Experiment 1 with p = 3
+(b) Experiment 1 with p = 50
+(c) Experiment 2 with p = 3
+(d) Experiment 2 with p = 50
+Figure 5: The UFM and the estimated value plot for training sample size n = 200.
+Table 3 demonstrates that our proposed method can learn the fairest policy when
+measuring unfairness as the difference between admission rates for the female and male
+groups. It can be seen from Table 3 that the use of nonlinear fairness proxy is able to
+significantly reduce the unfairness.
+7
+Concluding remarks
+We have proposed a novel methodology for finding a fair policy that fulfills the demographic
+parity prerequisite by utilizing linear and nonlinear fairness proxies.
+To address the
+challenge associated with optimizing a nonlinear value function with fairness constraints,
+we have formulated the problem as convex quadratic programming. We have established
+the theoretical properties including the consistency of the proposed estimator and the risk
+bound. The good performance of the proposed method has been demonstrated through
+comprehensive simulation studies and application to data from the Next 36 program.
+In future research endeavors, our study paves the way for exploring the development of
+an optimal ITR that operates completely independent of the sensitive attribute, moving
+beyond the reliance on fair proxies. It is also interesting to estimate the demographic
+parity-aware ITR by adding constraints for fairness control. Furthermore, we recognize the
+delicate balance required to uphold fairness while optimizing value. This complex issue
+18
+
+````
+
+## PDF page 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+(a) Experiment 3 with p = 3
+(b) Experiment 3 with p = 50
+(c) Experiment 4 with p = 3
+(d) Experiment 4 with p = 50
+Figure 6: The UFM and the estimated value plot for training sample size n = 200.
+demands thorough exploration and consideration as we advance.
+Supplementary material
+The supplementary material includes all theoretical proofs.
+References
+Aronszajn, N. (1950).
+Theory of reproducing kernels.
+Transactions of the American
+mathematical society 68, 337–404.
+Biddle, D. (2017). Adverse impact and test validation: A practitioner’s guide to valid and
+defensible employment testing. Routledge.
+Chakraborty, B., S. Murphy, and V. Strecher (2010). Inference for non-regular parameters in
+optimal dynamic treatment regimes. Statistical methods in medical research 19, 317–343.
+Dayan, P. and C. Watkins (1992). Q-learning. Machine learning 8(3), 279–292.
+Fang, E. X., Z. Wang, and L. Wang (2023). Fairness-oriented learning for optimal individu-
+alized treatment rules. Journal of the American Statistical Association 118, 1733–1746.
+19
+
+````
+
+## PDF page 20
+
+FORMULA CHECK REQUIRED: original PDF page 20.
+
+````text
+Figure 7: The empirical UFM and value plot in Experiment 1 with p = 3.
+Table 3: The performance table with 5-fold cross-validation; “Naive” means learning the
+ITR without considering the sensitive attribute S via OWL; we used nonlinear decision
+function with linear fairness proxy and nonlinear fairness proxy for estimating DPA-ITR.
+c = 0.00001
+Method
+The estimated value
+UFM
+Case1
+OWL
+0.271
+0.137
+Naive
+0.203
+0.091
+Linear Fairness Proxy
+0.267
+0.078
+Nonlinear Fairness Proxy
+0.220
+0.066
+Case2
+OWL
+0.297
+0.079
+Naive
+0.303
+0.090
+Linear Fairness Proxy
+0.297
+0.071
+Nonlinear Fairness Proxy
+0.262
+0.052
+Fowler, R. A., N. Sabur, P. Li, D. N. Juurlink, R. Pinto, M. A. Hladunewich, N. K. Adhikari,
+W. J. Sibbald, and C. M. Martin (2007). Sex-and age-based differences in the delivery
+and outcomes of critical care. Cmaj 177(12), 1513–1519.
+Heidari, H., C. Ferrari, K. Gummadi, and A. Krause (2018). Fairness behind a veil of
+ignorance: A welfare analysis for automated decision making. 31.
+Kim, K. and J. R. Zubizarreta (2023).
+Fair and robust estimation of heterogeneous
+treatment effects for policy learning. In International Conference on Machine Learning,
+pp. 16997–17014. PMLR.
+Lambrecht, A. and C. Tucker (2019). Algorithmic bias? an empirical study of apparent
+gender-based discrimination in the display of stem career ads. Management Science 65,
+2966–2981.
+Liu, Y., Y. Wang, M. R. Kosorok, Y. Zhao, and D. Zeng (2018). Augmented outcome-
+weighted learning for estimating optimal dynamic treatment regimens. Statistics in
+medicine 37, 3776–3788.
+20
+
+````
+
+## PDF page 21
+
+FORMULA CHECK REQUIRED: original PDF page 21.
+
+````text
+Lyons, E. and L. Zhang (2017). The impact of entrepreneurship programs on minorities.
+American Economic Review 107, 303–307.
+Murphy, S. A. (2003). Optimal dynamic treatment regimes. Journal of the Royal Statistical
+Society Series B: Statistical Methodology 65(2), 331–355.
+Penner, L. A., J. F. Dovidio, T. V. West, S. L. Gaertner, T. L. Albrecht, R. K. Dailey, and
+T. Markova (2010). Aversive racism and medical interactions with black patients: A field
+study. Journal of Experimental Social Psychology 46, 436–440.
+Qian, M. and S. A. Murphy (2011). Performance guarantees for individualized treatment
+rules. Annals of statistics 39, 1180.
+Robins, J. M. (2004). Optimal structural nested models for optimal sequential decisions.
+Proceedings of the Second Seattle Symposium in Biostatistics: analysis of correlated data,
+189–326.
+Robins, J. M., M. ´Angel Hern´an, and B. Brumback (2000). Marginal structural models and
+causal inference in epidemiology. Epidemiology 11, 550–560.
+Rosholm, M. and R. Vejlin (2010). Reducing income transfers to refugee immigrants: Does
+start-help help you start? Labour Economics 17, 258–275.
+Shi, C., A. Fan, R. Song, and W. Lu (2018). High-dimensional a-learning for optimal
+dynamic treatment regimes. Annals of statistics 46, 925.
+Shi, C., S. Luo, Y. Le, H. Zhu, and R. Song (2022). Statistically efficient advantage learning
+for offline reinforcement learning in infinite horizons. Journal of the American Statistical
+Association, 1–14.
+Shi, C., R. Song, and W. Lu (2016). Robust learning for optimal treatment decision with
+np-dimensionality. Electronic journal of statistics 10, 2894.
+Shi, C., J. Zhu, S. Ye, S. Luo, H. Zhu, and R. Song (2022). Off-policy confidence interval
+estimation with confounded markov decision process. Journal of the American Statistical
+Association, 1–12.
+Song, R., W. Wang, D. Zeng, and M. R. Kosorok (2015). Penalized q-learning for dynamic
+treatment regimens. Statistica Sinica 25, 901.
+Steinwart, I. and C. Scovel (2007). Fast rates for support vector machines using Gaussian
+kernels. The Annals of Statistics 35, 575 – 607.
+Viviano, D. and J. Bradic (2023). Fair policy targeting. Journal of the American Statistical
+Association, 1–14.
+Wang, Y., H. Fu, and D. Zeng (2018). Learning optimal personalized treatment rules in
+consideration of benefit and risk: with an application to treating type 2 diabetes patients
+with insulin therapies. Journal of the American Statistical Association 113, 1–13.
+21
+
+````
+
+## PDF page 22
+
+FORMULA CHECK REQUIRED: original PDF page 22.
+
+````text
+Williams, D. R. and R. Wyatt (2015). Racial Bias in Health Care and Health: Challenges
+and Opportunities. JAMA 314, 555–556.
+Zhao, Y., D. Zeng, A. J. Rush, and M. R. Kosorok (2012). Estimating individualized
+treatment rules using outcome weighted learning. Journal of the American Statistical
+Association 107, 1106–1118.
+Zhu, L., L. Li, R. Li, and L. Zhu (2011).
+Model-free feature screening for ultrahigh-
+dimensional data. Journal of the American Statistical Association 106, 1464–1475. PMID:
+22754050.
+22
+
+````
+

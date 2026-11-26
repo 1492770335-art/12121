@@ -1,0 +1,58 @@
+# N67821c653f — Optimal individualized treatment regimes for survival data with competing risks
+
+Christina W. Zhou and Nikki L. B. Freeman and Katharine L. McGinigle and Michael R. Kosorok
+
+DOI: 10.1080/01621459.2026.2764375
+Original: https://doi.org/10.1080/01621459.2026.2764375
+Availability: **public_fulltext**
+
+- Original PDF: [original.pdf](../A02/artifacts/f47b41f8034a/original.pdf)
+- Full-text Markdown: [fulltext.md](../A02/artifacts/f47b41f8034a/fulltext.md)
+- Full-text TXT: [fulltext.txt](../A02/artifacts/f47b41f8034a/fulltext.txt)
+- Original TeX: [layout.tex](../A02/artifacts/f47b41f8034a/latex/layout.tex)
+- Original TeX: [macros.tex](../A02/artifacts/f47b41f8034a/latex/macros.tex)
+- Original TeX: [main.tex](../A02/artifacts/f47b41f8034a/latex/main.tex)
+- Original TeX: [0.abstract.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/0.abstract.tex)
+- Original TeX: [2.0frameworknotation.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/2.0frameworknotation.tex)
+- Original TeX: [2.1methods.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/2.1methods.tex)
+- Original TeX: [6.discussion.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/6.discussion.tex)
+- Original TeX: [alg1_overview.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_algorithms/alg1_overview.tex)
+- Original TeX: [alg1_rcif.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_algorithms/alg1_rcif.tex)
+- Original TeX: [alg1_rsf.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_algorithms/alg1_rsf.tex)
+- Original TeX: [CR_algorithms.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_algorithms/CR_algorithms.tex)
+- Original TeX: [CR_tables.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/03_tables/CR_tables.tex)
+- Original TeX: [Paper1_notation_table.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/03_tables/Paper1_notation_table.tex)
+- Original TeX: [CR_appendix1.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/04_supplMat/CR_appendix1.tex)
+- Original TeX: [ForestDetails_RSF.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/04_supplMat/ForestDetails_RSF.tex)
+- Original TeX: [Assumptions.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/02_assumptions/Assumptions.tex)
+- Original TeX: [Causal_assumptions.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/02_assumptions/Causal_assumptions.tex)
+- Original TeX: [Cho_assumptions1_5.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/02_assumptions/Cho_assumptions1_5.tex)
+- Original TeX: [CR_assumptions.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/02_assumptions/CR_assumptions.tex)
+- Original TeX: [Forest_Details.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Forest_Details.tex)
+- Original TeX: [Consistency_ITR.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/ITR_Estimator/Consistency/Consistency_ITR.tex)
+- Original TeX: [21May2024MeetingNotes.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/21May2024MeetingNotes.tex)
+- Original TeX: [Paper1_Consistency_Theorems.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Paper1_Consistency_Theorems.tex)
+- Original TeX: [RCIFproof_paper1.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/RCIFproof_paper1.tex)
+- Original TeX: [RSFproof_paper1.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/RSFproof_paper1.tex)
+- Original TeX: [Zest.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/Zest.tex)
+- Original TeX: [Prop1Proof.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop1Proof.tex)
+- Original TeX: [Prop2Proof.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop2Proof.tex)
+- Original TeX: [Prop3Proof.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop3Proof.tex)
+- Original TeX: [Prop4Proof.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop4Proof.tex)
+- Original TeX: [Prop5Proof.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop5Proof.tex)
+- Original TeX: [1.background.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/1.introduction/1.background.tex)
+- Original TeX: [1.introduction.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/1.introduction/1.introduction.tex)
+- Original TeX: [paper_structure.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/1.introduction/paper_structure.tex)
+- Original TeX: [chapter_theory.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/3.Theory/chapter_theory.tex)
+- Original TeX: [lambda_star.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/3.Theory/lambda_star.tex)
+- Original TeX: [prelim_proofs.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/3.Theory/prelim_proofs.tex)
+- Original TeX: [chapter_sims.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/chapter_sims.tex)
+- Original TeX: [chapter_rda.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/5.RDA/chapter_rda.tex)
+- Original TeX: [supplementary_rda.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/5.RDA/supplementary_rda.tex)
+- Original TeX: [fine_gray_sims.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/Fine_Gray_Sims/fine_gray_sims.tex)
+- Original TeX: [supplementary_fg.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/Fine_Gray_Sims/supplementary_fg.tex)
+- Original TeX: [simple_exp_results.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/simple_exp_results.tex)
+- Original TeX: [simple_exp_sims.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/simple_exp_sims.tex)
+- Original TeX: [supplementary_se.tex](../A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/supplementary_se.tex)
+
+[Original reading-location note](reading_note.md). This note is a preparation record, not a completed theorem review.

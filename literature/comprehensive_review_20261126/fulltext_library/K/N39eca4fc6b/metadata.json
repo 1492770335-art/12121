@@ -1,0 +1,45 @@
+{
+  "paper_id": "N39eca4fc6b",
+  "category": "K",
+  "title": "Clonal Cytogenetic Evolution in Relapse of Myeloid Hematological Neoplasms After Allogeneic Stem Cell Transplantation",
+  "authors": "Emin Abdullayev and Julia Pross and Lejla Caluk Klacar and Shirneshan Katayoon and Laurentiu-Doru Filip and Anna Ossami Saidy and Thomas Held and Bertram Glaß and Snjezana Janjetovic",
+  "doi": "10.3390/cancers18101665",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3390/cancers18101665",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/N39eca4fc6b/artifacts/8b6b21e7c3f4/original.pdf"
+  ],
+  "public_markdown": [
+    "K/N39eca4fc6b/artifacts/4b0c603da290/fulltext.md",
+    "K/N39eca4fc6b/artifacts/8b6b21e7c3f4/fulltext.md"
+  ],
+  "public_txt": [
+    "K/N39eca4fc6b/artifacts/4b0c603da290/fulltext.txt",
+    "K/N39eca4fc6b/artifacts/8b6b21e7c3f4/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [
+    "K/N39eca4fc6b/artifacts/4b0c603da290/original.xml"
+  ],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "4b0c603da29053a263615655655a81d14cb4590d6f32fa5f7bbacff2c553efaa",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13204579/fullTextXML",
+      "provenance": "K/N39eca4fc6b/artifacts/4b0c603da290/provenance_and_license.json"
+    },
+    {
+      "sha256": "8b6b21e7c3f461b8321c02de10776d60454a18eeb19ee3bfae380be7ceef2e43",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.mdpi.com/2072-6694/18/10/1665/pdf",
+      "provenance": "K/N39eca4fc6b/artifacts/8b6b21e7c3f4/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N39eca4fc6b/README.md",
+  "status": "public_fulltext"
+}

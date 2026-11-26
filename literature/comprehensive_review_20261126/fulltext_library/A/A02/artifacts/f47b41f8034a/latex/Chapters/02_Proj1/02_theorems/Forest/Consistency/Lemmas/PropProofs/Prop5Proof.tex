@@ -1,0 +1,15 @@
+\begin{comment}
+\begin{proof}[Proof of Proposition \ref{prop:ChoProp6}]
+
+The Vapnik-Chervonenkis (VC)-dimension of any axis-aligned rectangles in $\mathbb{R}^d$ can be shown to be $2d$. By Theorem 9.2 of Kosorok (2007), for any VC-class of sets $C$, the collection $\mathbb{1}(C)$ of all the corresponding indicator functions has a bounded covering number $N(\epsilon, \mathbb{1}(C), L_r(P)) \leq K_1 V(C)(4e)V(C)^\epsilon - r(V(C)-1)$, where $V(\cdot)$ denotes the VC-dimension, and $K_1 < 1$ is some universal constant. Thus, the collection $\mathbb{1}(C_{\text{TREE}})$ of the unnormalized tree kernels has a bounded covering number: $N(\epsilon, \mathbb{1}(C_{\text{TREE}}), L_2(P)) \leq K_2 \epsilon^{-(4d-2)}$, for some constant 
+$K_2 < 1$. This immediately implies that the class of tree kernels have bounded entropy integrals
+
+$$
+\left(\int_{0}^{1} N(\epsilon, \mathbb{1}(C_{\text{TREE}}),L_2(P)) d\epsilon = 1\right)
+$$
+
+and thus is Donsker.
+
+Next, since a forest kernel is simply a convex hull of the tree kernels, i.e., $\text{conv}(\mathbb{1}(C_{\text{TREE}})) = \left\{ \sum_{i=1}^{m} \alpha_i 1(c_i) : \sum_{i=1}^{m} \alpha_i = 1, \alpha_i \geq 0, c_i \in C_{\text{TREE}}, i = 1, 2, \ldots, m \right\}$, by Theorem 9.4 of Kosorok (2007), $N_{f}(\epsilon, \text{conv}(\mathbb{1}(C_{\text{TREE}})),L_2(P)) \leq K_3 \epsilon^{-(2 - \frac{1}{d})}$ for some constant $K_3 < 1$. This implies that the unnormalized forest kernels are also Donsker. 
+\end{proof}
+\end{comment}

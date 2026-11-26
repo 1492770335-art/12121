@@ -1,0 +1,31 @@
+We conducted an extensive simulation study to assess the finite sample performance of our proposed optimal ITR learning method. We examined two data generating mechanisms, an independent failure time simulation setting using exponential distributions and a dependent failure time simulation setting following \cite{fine_proportional_1999}. For both simulation settings, we simulated two causes of failure: priority cause 1 with failure time $T_1$ and cause 2 with failure time $T_2$. We generated $p$ covariates $Z_i$ from independent Uniform(0,1) distributions. %the first column is a row of $1$s for the intercept. 
+We assumed two treatments, $A = 0,1$. Let $\beta_1(A)$ and $\beta_2(A)$ denote the $p\times1$ vectors of cause-specific coefficients dependent on treatment assignment $A$. 
+\ifnum\prelim=1
+\ifnum\jasa=0
+The cause 1 and cause 2 failure time hazard coefficients are provided in Table \ref{tab:sim_coeff}.
+\else
+The PC and competing risk failure time hazard coefficients are provided in the supplementary material.
+\fi\fi
+The simulations varied by censoring level, treatment assignment mechanisms (independent of covariates vs conditional on covariates), training sample sizes, covariate dimensions, and (for Fine-Gray only) a low vs. high probability mass for the priority cause.  Treatment was allocated using a Bernoulli trial with propensity $\pi(H) = \left[1 + \exp\left\{-Z_i^T \beta_\pi\right\}\right]^{-1}$,
+where the propensity coefficient is
+$\beta_\pi = (0, -\frac{1}{2} 1_p)^T$ for the observational data setting and $0_{p+1}$ for the randomized trial setting.
+
+We simulated $100$ datasets and compared our method to dtrSurv which refers to the method in \cite{cho_multi-stage_2023}, AIPWE which refers to the method in \cite{he_optimal_2021}, PMCR which refers to the method in \cite{zhou_restricted_2021}, the zero-order model which is our proposed method but assumes no individual variation in treatment effects across patients, and the observed policy. We set the following forest parameters: $n_\text{tree} = 300$, $n_\text{min} = 5$ and $n_\text{minevents} = 2$. We chose $\tol = 0.07$ for the truncated integration criterion $\phi(\cdot)$.%, and $\tol = (0.12, 0.3)$ for the composite probability criterion. For this simulation study, we only include results for the truncated mean criterion. 
+%where $2$ is $\sqrt{5}$ rounded to the nearest integer. 
+We evaluated methods using a testing dataset with $N_{\text{eval}} = \numeval$ subjects,% without censoring by looking at the distribution of 
+assessing $\phi_1(a,Z)$ and $\phi_2(a,Z)$ across simulations. We calculated the OS and PC CIF value functions and averaged the criteria across all subjects per simulation.We note that our proposed method accommodates more than two treatments and causes. 
+
+\ifnum\prelim=1
+\ifnum\jasa=0
+
+\input{Chapters/02_Proj1/03_tables/CR_tables}
+\tableSimsCoeff
+\fi
+\fi
+
+\subsection{Exponential Setting}
+\input{Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/simple_exp_sims}
+
+\subsection{Fine-Gray Setting}
+\label{sec:finegray}
+\input{Chapters/02_Proj1/01_chapters/4.Simulations/Fine_Gray_Sims/fine_gray_sims}

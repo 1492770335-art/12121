@@ -1,0 +1,18 @@
+\begin{table}[!h]
+
+\caption{\label{tab:T2DM_coef}E-Learning Coefficients on the T2DM Dataset}
+\centering
+\resizebox{\linewidth}{!}{
+\fontsize{8}{10}\selectfont
+\begin{tabular}[t]{>{}l|>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}>{\raggedleft\arraybackslash}p{1cm}}
+\toprule
+\ttfamily{ } & \ttfamily{Intercept} & \ttfamily{gender (male)} & \ttfamily{ethnic (others)} & \ttfamily{ethnic (white)} & \ttfamily{smoke (former)} & \ttfamily{smoke (no)} & \ttfamily{smoke (yes)} & \ttfamily{comorbidity (yes)} & \ttfamily{HDL (low)} & \ttfamily{HDL (high)} & \ttfamily{LDL (low)} & \ttfamily{LDL (high)} & \ttfamily{baseline HbA1c} & \ttfamily{age} & \ttfamily{weight} & \ttfamily{height} & \ttfamily{BMI}\\
+\midrule
+\ttfamily{A = 1} & \textbf{-0.164} & -0.008 &  & -0.023 & -0.001 &  &  &  & 0.033 &  & 0.004 & 0.007 & \textbf{-0.492} & -0.058 &  &  & \\
+\ttfamily{A = 2} & -0.053 & -0.014 &  & 0.081 & \textbf{-0.174} &  &  &  & -0.009 &  & \textbf{0.115} & -0.002 & \textbf{0.139} & \textbf{0.169} &  &  & \\
+\ttfamily{A = 3} & \textbf{0.168} & 0.029 &  & -0.029 & \textbf{0.361} &  &  &  & -0.053 &  & \textbf{-0.122} & -0.023 & \textbf{0.168} & \textbf{0.106} &  &  & \\
+\ttfamily{A = 4} & 0.048 & -0.007 &  & -0.03 & \textbf{-0.186} &  &  &  & 0.029 &  & 0.003 & 0.018 & \textbf{0.185} & \textbf{-0.217} &  &  & \\
+\bottomrule
+\multicolumn{18}{l}{\rule{0pt}{1em}\underline{\textit{Note:}} Larger coefficients encourage better outcome. Coefficients are fitted at standardized scales of covariates. Blank coefficients are 0's. Absolute value $>$ 0.1 are bolded.}\\
+\end{tabular}}
+\end{table}

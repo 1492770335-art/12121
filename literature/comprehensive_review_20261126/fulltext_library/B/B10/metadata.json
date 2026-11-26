@@ -1,0 +1,28 @@
+{
+  "paper_id": "B10",
+  "category": "B",
+  "title": "Inference on Counterfactual Distributions",
+  "authors": "Victor Chernozhukov and Iván Fernández-Val and Blaise Melly",
+  "doi": "10.3982/ecta10582",
+  "year": "2013",
+  "original_url": "https://doi.org/10.3982/ecta10582",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "38343ae4da1d446ede520968a4713e65e1eafd3ae1d23a6e7979511091769690",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/0904.0951"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/B10/README.md",
+  "status": "local_only"
+}

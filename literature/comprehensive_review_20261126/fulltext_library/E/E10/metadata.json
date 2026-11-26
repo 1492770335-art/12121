@@ -1,0 +1,28 @@
+{
+  "paper_id": "E10",
+  "category": "E",
+  "title": "Policy Learning With Observational Data",
+  "authors": "Susan Athey and Stefan Wager",
+  "doi": "10.3982/ecta15732",
+  "year": "2021",
+  "original_url": "https://doi.org/10.3982/ecta15732",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "9def5efddb2fe0c3fdca896e0052ab4847929f28cdcaa58c5dc72186e5c72e57",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1702.02896"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/E10/README.md",
+  "status": "local_only"
+}

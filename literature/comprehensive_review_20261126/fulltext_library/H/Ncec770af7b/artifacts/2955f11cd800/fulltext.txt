@@ -1,0 +1,1428 @@
+Exploring Causal Effects of Hormone‐ and Radio‐Treatments in an Observational Study of Breast Cancer Using Copula‐Based Semi‐Competing Risks Models
+
+Original PDF: [original.pdf](original.pdf). SHA256: `2955f11cd800dc9fdc5533522e185b735b211596c36d8a19a5c0d080268229cc`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+Technical extraction; compare with original PDF page 1.
+Received: Added at production
+Revised: Added at production
+Accepted: Added at production
+DOI: xxx/xxxx
+R E S E A R C H
+A R T I C L E
+Exploring causal effects of hormone- and radio-treatments in an
+observational study of breast cancer using copula-based
+semi-competing risks models
+Tonghui Yu1
+Mengjiao Peng2
+Yifan Cui3
+Elynn Chen4
+Chixiang Chen5,6
+1School of Physical and Mathematical Sciences,
+Nanyang Technological University, Singapore
+2School of Statistics, East China Normal University,
+China
+3Center for Data Science, Zhejiang University,
+China
+4Stern School of Business, New York University,
+New York, NY, USA
+5Division of Biostatistics and Bioinformatics,
+Department of Epidemiology and Public Health,
+University of Maryland School of Medicine,
+Baltimore, MD, U.S.A
+6Department of Neurosurgery, University of
+Maryland School of Medicine, Baltimore, MD,
+USA
+Correspondence
+Corresponding author: Chixiang Chen, University
+of Maryland School of Medicine, Baltimore, MD,
+USA.
+Email: chixiang.chen@som.umaryland.edu
+Abstract
+Breast cancer patients may experience relapse or death after surgery during the follow-up period, leading to
+dependent censoring of relapse. This phenomenon, known as semi-competing risk, imposes challenges in
+analyzing treatment effects on breast cancer and necessitates advanced statistical tools for unbiased analysis.
+Despite progress in estimation and inference within semi-competing risks regression, its application to causal
+inference is still in its early stages. This article aims to propose a frequentist and semi-parametric framework
+based on copula models that can facilitate valid causal inference, net quantity estimation and interpretation,
+and sensitivity analysis for unmeasured factors under right-censored semi-competing risks data. We also
+propose novel procedures to enhance parameter estimation and its applicability in real practice. After that,
+we apply the proposed framework to a breast cancer study and detect the time-varying causal effects of
+hormone- and radio-treatments on patients’ relapse-free survival and overall survival. Moreover, extensive
+numerical evaluations demonstrate the method’s feasibility, highlighting minimal estimation bias and reliable
+statistical inference.
+K E Y W O R D S
+Semiparametric copula models, Treatment effects, Principle stratification, Semi-competing risks, Sensitivity
+analysis
+1
+INTRODUCTION
+1.1
+Semi-competing risks data
+In clinical and biomedical studies, time-to-event endpoints often play a pivotal role, offering a tangible measure of the impact
+and effectiveness of medical interventions over time (Cohen et al., 2022). However, the analysis of time-to-event endpoints
+becomes intricate in the presence of semi-competing risks, a scenario frequently observed in various observational/clinical
+studies (Mao & Kim, 2021). This paper focuses on studying the effects of hormone and radiotherapies in the treatment of breast
+cancer patients. While these two therapies are widely adopted in clinical practice to improve survival for patients with breast
+cancer, it remains unclear whether the combination of hormone and radiotherapies is more beneficial to patients after surgery
+than using hormone therapy alone (Mayer & Arteaga, 2014; McDuff & Blitzblau, 2022). To unbiasedly address this question
+while accounting for different time-to-event endpoints during breast cancer progression, we aim to investigate both relapse-free
+survival (RFS, i.e., the time from the initial diagnosis to the time of tumor loco-regional or distant relapse) and overall survival
+(OS) and develop a valid causal inference tool to assess the effects of hormone and radiotherapies on these semi-competing risks.
+Journal 2023;00:1–13
+wileyonlinelibrary.com/journal/
+© 2023 Copyright Holder Name
+1
+arXiv:2407.01770v1  [stat.ME]  1 Jul 2024
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+2
+Yu ET AL.
+Formally, semi-competing risks survival times encompass both the time to a non-terminal event (e.g., RFS) and the time to a
+terminal event (e.g., OS) from the study entry, denoted by T1 and T2, respectively. The pair (T1, T2) can be conceptualized as a
+bivariate failure time, where T2 acts as a censoring variable for T1, but the reverse is not true—T1 does not censor T2. Unlike the
+classic competing risk setting (Fine & Gray, 1999; Young et al., 2020) focusing on the first event and ignoring the information
+after the nonterminal event, the two endpoints in the semi-competing risk setting focus on both outcomes in a sequential manner
+and interplay between these outcomes (Varadhan et al., 2014). In our application, we are particularly interested in the time
+to cancer relapse and time to death, where the latter event will truncate the former event, but the reverse is not true. Both
+events are highly valued by patients and their caregivers. Understanding how factors influence both events and how two events
+interact would inform clinical decisions and promote dynamic predictions on the terminal event (Li & Cheng, 2016). The above
+motivation underscores the necessity for specialized statistical methods that appropriately account for the interplay between
+these two distinct time-to-event processes in the analysis of semi-competing risks.
+1.2
+Semi-parametric regression with semi-competing risks
+Semi-parametric regressions within the framework of semi-competing risks are of importance and can be divided into two distinct
+categories: crude quantities and net quantities (Varadhan et al., 2014). Concerning crude quantities, the sub-distribution approach
+and multi-state approach (specifically the so-called illness-death approach) are two kinds of typical means to handle survival
+data subject to dependently censored data. The sub-distribution approach (Fine & Gray, 1999; Li & Peng, 2014) evaluates the
+probability of each event occurring as the first one. Accordingly, it treats semi-competing risks akin to conventional competing
+risks. The illness-death approach (J. Xu et al., 2010) encompasses two cause-specific hazard models, quantifying the impact of
+covariates on the occurrence of either the terminal or non-terminal event, along with a Markov model that characterizes the
+progression from the non-terminal to the terminal event. However, both approaches focus on observable quantities rather than the
+marginal distributions of specific event times. According to the bounds established by Peterson (1976), the marginal distribution
+of T1 is bounded from below by the sub-distribution function of the non-terminal event and from above by the distribution of the
+first event occurring. Such wide bounds suggest that predicting the non-terminal event time based solely on cause-specific hazards
+in the illness-death model could lead to biases in the case of heavily dependent censoring. Moreover, such shared frailty models
+encounter challenges in effectively describing the negative correlation between the two event times (Varadhan et al., 2014).
+The net-quantity-based approaches concern primarily the "net" effects of potential covariates on the marginal distribution of
+non-terminal and terminal event times. The marginal distribution in the absence of external influences, that is, hypothesizing
+the removal of the terminal event, may hold more direct clinical implications (Varadhan et al., 2014). Marginal methodologies
+include joint models specified through copulas (L. Peng & Fine, 2007; Chen, 2012; M. Peng et al., 2018) or two separate marginal
+models augmented with artificial censoring techniques (L. Peng & Fine, 2006; A. A. Ding et al., 2009). The latter approaches
+concentrate on estimating regression coefficients in marginal models of T1 and T2. They, however, fail to provide insights into
+the dependence between the non-terminal and terminal events. Additionally, the marginal distribution of the non-terminal event
+time faces an issue of unidentifiability without making substantial additional assumptions. Therefore, copula-based models may
+offer a more meaningful framework, given their capacity to simultaneously explore marginal distributions and quantify the
+association between the two event times (Emura et al., 2021; Sun et al., 2024; Wei et al., 2023; Yu & Huang, 2023).
+1.3
+Causal inference under semi-competing risks
+Several efforts have been made for causal interpretation under survival data with competing risks in literature (Young et al.,
+2020; Stensrud, Hernán, et al., 2021; Stensrud et al., 2022). However, the application of semi-competing risks to causal inference
+is still in its early stages. A notable challenge arises when comparing outcomes between treated and untreated groups after
+treatment initiation, where the studied subjects may experience death before reaching the target event, and the death rates in the
+treated and control groups may provide informative insights. Consequently, the conventional average causal effect becomes
+neither well-defined nor easily interpretable in a causal context with the exception that under additional assumptions (Nevo &
+Gorfine, 2022; Axelrod & Nevo, 2022). Robins (1995) showed the identifiability of average causal effect when censoring time is
+always observed, and without distinguishing between censoring due to death or other reasons.
+Under the semi-competing risks setting, the Survivor Average Causal Effect (SACE) has gained popularity as an alternative
+and valid estimand, quantifying the causal effect within the stratum of individuals who would have survived under both treatment
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+Copula-based causal framework for semi-competing risks data
+3
+values (Frangakis & Rubin, 2002). Comment et al. (2019) and Y. Xu et al. (2022) extended SACE to semi-competing risk setup
+and estimated time-varying SACE via Bayesian methods. Nevo & Gorfine (2022) further investigated its nonparametric partial
+identifiability and proposed sensitivity analysis using frailty-based illness-death models. In addition to SACE, Huang (2021) cast
+the semi-competing risks problem in the framework of causal mediation modeling. Later, Deng et al. (2023) and Breum et al.
+(2024) studied the separable effects on transition rates between states in multi-state models. Following Huang (2021)’s idea,
+Deng et al. (2024) defined a counterfactual cumulative incidence of the terminal event based on counting process techniques. In
+this article, we provide an alternative approach to investigate treatment effects on either non-terminal or terminal event times.
+Despite advancements, the feasibility and utility of integrating copula-based models into causal inference with semi-competing
+risks, along with its sensitivity analysis, remain unclear. As outlined earlier, copula-based models offer advantages in estimating
+net quantities and contribute to clinically meaningful interpretations. Herein, this article aims to establish a frequentist framework
+based on copula models to analyze our breast cancer data, aiming to facilitate valid causal interpretation, estimate net quantities,
+and conduct sensitivity analysis for unmeasured confounding when analyzing semi-competing risks data.
+The rest of this article is organized as follows. Section 2 introduces basic notations for semi-competing risks data. Section 3
+introduces the causal framework and provides sensitivity analysis for unmeasured factors. Section 4 summarizes estimation
+methods for regression parameters. Section 5 describes the analysis for breast cancer data. Section 6 displays extensive simulation
+studies to illustrate the proposed causal framework. Section 7 provides discussions and future extensions.
+2
+COPULA-BASED MODELS FOR BIVARIATE SURVIVAL FUNCTION
+In line with Sklar’s theorem (Sklar, 1959), we establish a functional relationship between the bivariate survival function of
+(T1, T2) and their respective marginal distributions as follows:
+Pr(T1 ≥t1, T2 ≥t2|Z) = C{S1(t1|Z), S2(t2|Z); α}, 0 ≤t1 ≤t2,
+(1)
+where Sk(t|Z) is the survival functions of Tk conditional on the covariate vector Z, for k = 1, 2, and C{u, v; α} denotes a
+specified copula function modeling inter-dependence between two conditional survival distributions with an unknown association
+parameter α. This copula-based joint distribution is defined within the upper wedge where T1 ≤T2. In contrast to models simply
+based on observable quantities, i.e., whichever occurs first, these marginal models of non-terminal and terminal events, whose
+details will be described in later sections, can evaluate "net" covariate effects, purified effects on the non-terminal event T1 with
+removed effects from T2. The "net" covariate effects hold notable clinical implications from the causal perspective in biomedical
+studies (A. A. Ding et al., 2009; Chen, 2010). In this article, we consider the Archimedean copula which can be expressed as
+C{u, v; α} = ϕ–1
+α {ϕα(u) + ϕα(v)}, 0 ≤u, v ≤1,
+(2)
+where the generator function ϕα : [0, 1] →[0, ∞) is continuous and strictly decreasing from ϕα(0) > 0 to ϕα(1) = 0.
+Consequently, Kendall’s τ, a widely recognized metric for assessing the association between the two survival times, can be
+expressed as (Lakhal et al., 2008)
+τ = 4
+Z 1
+0
+ϕα(u)/ϕ′
+α(u)du + 1.
+(3)
+Upon the above models (1)-(3), we consider a sample of n individuals. Let {Ti1, Ti2, Ci, Zi}, be n independent copies of
+{T1, T2, C, Z}, where Ci is censoring time such that Ti1 and Ti2 are observed as (Xi, Yi, δi1, δi2). Here, Xi = min(Ti1, Ti2, Ci) and
+Yi = min(Ti2, Ci), δi1 = I(Xi = Ti1) and δi2 = I(Yi = Ti2).
+The implementation of copula-based estimation techniques poses challenges due to their intricate nature. These approaches
+are often perceived as sophisticated and not extensively explored, particularly in the context of semi-competing risk causal
+inference. The remainder of this article aims to fill the gap and investigate the feasibility and potential advantages of applying the
+net-quantity-based semi-parametric framework to the field of causal inference. We begin by delving into the causal parameter
+specific to the context of semi-competing risks data. The estimation of regression parameters is elaborated upon in Section 4.
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+4
+Yu ET AL.
+3
+TREATMENT EFFECTS
+3.1
+Observed data and Potential outcomes
+In clinical and biomedical research, investigators are often interested in evaluating the causal impact of treatments on both slowing
+the advancement of disease and extending overall survival following an intermediate event. To address these questions, we
+employ the potential outcomes framework (Neyman, 1923; Rubin, 1974) to define causal effects. The data is then distinguished
+as observed data and potential outcomes.
+Observed data. In addition to (Ti1, Ti2) and their observations (Xi, Yi, δi1, δi2) defined in the previous section, there exists a
+treatment variable Ai indicating whether individual i received treatment or not. It is assumed that Zi are pre-treatment covariates
+unaffected by the treatment assignment. Consequently, the observed data is denoted as Oi = {Xi, Yi, δi1, δi2, Ai, Zi}, i = 1, · · · , n.
+Potential outcomes. Before defining the potential outcomes, we first take into account the stable unit treatment value
+assumption (SUTVA) (Rubin, 1990):
+Assumption 1. There is no interference between patients, and each treatment value corresponds to a single and consistent
+outcome, without the existence of multiple variations.
+Let (Ti1(a), Ti2(a)) be the potential time-to-event outcomes when the individual i is subjected to treatment A = a and a = 0 or
+1. This establishes pairs of potential outcomes {(Ti1(0), Ti2(0)), (Ti1(1), Ti2(1))} for each individual. The causal effect pertains
+to the comparison between potential outcomes for either T1 or T2 within the same group of subjects, each under the influence
+of two competing treatments. We notice here that, within the framework of causal inference, at most one of the potential
+outcomes can be observed for each individual, while the others remain unobserved. The SUTVA suggests that the observed event
+times T1 and T2 can be represented as linear combinations of the potential outcomes under different treatments, specifically
+T1 = T1(1)A + T1(0)(1 – A) and T2 = T2(1)A + T2(0)(1 – A). Similarly, in the presence of censoring, denoted by C, the underlying
+potential outcomes (Ti1(a), Ti2(a)) could be observed in the form of (Xi(a), Yi(a)) accompanied by the corresponding censoring
+indicators (δi1(a), δi2(a)). For further defining causal estimands, we adopt the no-unmeasured confounding assumption, which is
+often imposed in literature:
+Assumption 2. (i) (Conditional randomization) A ⊥(T1(a), T2(a), C)|Z and (ii) (Non-informative censoring) C
+⊥
+(T1(a), T2(a))|Z.
+We notice here that the Assumption 2 (ii) is less restrictive as it initially appears. Given the fact that the nonterminal event time
+is subject to either terminal event time or random censoring C, as a result, informative censoring is applied to the nonterminal
+event, while noninformative censoring is applied to the terminal event.
+3.2
+Causal estimands
+An appropriate causal estimand should involve a valid causal interpretation, ensuring comparable individual profiles between
+treated and control groups throughout the time course (Nevo & Gorfine, 2022). One popular approach to achieving this is
+by employing the concept of principal stratification (Frangakis & Rubin, 2002; Rubin, 2006; P. Ding et al., 2011; Dai et al.,
+2012). Specifically, to account for censoring, the stratum-specific survivor causal effect (SCE) of treatment on the non-terminal
+event time is defined by the comparison of potential outcomes of T1 among individuals who would always experience the non-
+terminal event before death regardless of treatment exposure (Tchetgen Tchetgen, 2014). To account for dependent censoring, as
+described by Nevo & Gorfine (2022), individuals with potential outcomes having T1(0) ≤T2(0) and T1(1) ≤T2(1) fall into the
+"always-diseased" (AD) stratum. If a unit has T1(a) ≥T2(a) for both a = 0, 1, it suggests that he/she is never-diseased (ND).
+Given the considerable interest in the survival probability of non-terminal events in clinical studies, we primarily focus on the
+following causal estimand:
+AD-SCE1(t) = Pr(T1(1) ≥t|T1(0) ≤T2(0), T1(1) ≤T2(1))
+– Pr(T1(0) ≥t|T1(0) ≤T2(0), T1(1) ≤T2(1)).
+(4)
+Herein, we study the time-varying SCE estimands in Eq (4) rather than its integration version (or restricted survival mean)
+defined in Nevo & Gorfine (2022) because estimators of survival means may lead to inevitably inaccurate and unsatisfactory
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+Copula-based causal framework for semi-competing risks data
+5
+results caused by point predictions in many finite-sample numerical examples (Graf et al., 1999). The goal of this article is
+to explore varying (dynamic) treatment effects over time. In addition, since the terminal event could occur after or before the
+non-terminal event, we consider two types of stratum-specific SCE for the terminal event:
+AD-SCE2(t) = Pr(T2(1) ≥t|T1(0) ≤T2(0), T1(1) ≤T2(1))
+– Pr(T2(0) ≥t|T1(0) ≤T2(0), T1(1) ≤T2(1)),
+(5)
+ND-SCE2(t) = Pr(T2(1) ≥t|T1(0) ≥T2(0), T1(1) ≥T2(1))
+– Pr(T2(0) ≥t|T1(0) ≥T2(0), T1(1) ≥T2(1)).
+(6)
+We remark here that the estimands above are subject to the joint distribution of event times from both worlds, i.e., a = 0, 1,
+which cannot be observed simultaneously. To facilitate non-parametric identification, we introduce a combined covariate vector
+Z to describe the alterations in the occurrences of both event times, and impose the following assumption.
+Assumption 3. The cross-world dependence is captured by pre-treatment covariates Z in the sense that (T1(0), T2(0)) ⊥
+(T1(1), T2(1))|Z.
+We notice here that the cross-world conditional independence in Assumption 3 is strong and untestable in practice (Richardson
+& Robins, 2013; Robins et al., 2022; Stensrud, Young, & Martinussen, 2021). More discussion about cross-world unmeasured
+factors and a weaker assumption can be found in Section 3.3. Under Assumptions 1-3, we establish the identification of causal
+estimands of our interest in Proposition 1, with proof provided in Supplementary Section 1. The above estimands (4)-(6)
+can alternatively be defined across observable strata, such as {X(0) ≤Y(0), X(1) ≤Y(1)} instead of the "AD" stratum, and
+{X(0) ≥Y(0), X(1) ≥Y(1)} instead of the "ND" stratum, and it can be simply verified that these two types of definitions are
+equivalent under noninformative censoring in Assumption 2.
+Proposition 1. (Non-parametric identification) Under Assumptions 1-3, the stratum-specific survivor average causal effects in
+(4)-(6) are identified by
+AD-SCEk(t) = EZ
+
+(Sk|T1≤T2,A=1,Z(t) – Sk|T1≤T2,A=0,Z(t))ΠA=0,ZΠA=1,Z
+
+EZ
+
+ΠA=0,ZΠA=1,Z
+
+, k = 1, 2,
+(7)
+and
+ND-SCE2(t) =
+EZ
+h
+(S2|T1≥T2,A=1,Z(t) – S2|T1≥T2,A=0,Z(t))eΠA=0,ZeΠA=1,Z
+i
+EZ
+h
+eΠA=0,ZeΠA=1,Z
+i
+, t > 0,
+(8)
+where Sk|Q(t) = Pr(Tk ≥t|Q), Π(Q) = Pr(T1 ≤T2|Q), eΠ(Q) = Pr(T1 ≥T2|Q) for any event Q.
+The above proposition justifies the validity and identifiability of the proposed estimands. Before concluding this section, we
+provide a brief illustration of applying copula techniques to identify these estimands. A detailed estimation procedure is outlined
+in Section 4. To facilitate, we require the following assumption:
+Assumption 4. Conditional on covariates Z, the joint distribution function of (T1(a), T2(a)) follows a copula model
+D(t1, t2|a, Z) = Pr(T1 ≥t1, T2 ≥t2|A = a, Z) = C(a){S1(t1|a, Z), S2(t2|a, Z); α(a)},
+(9)
+where 0 ≤t1 ≤t2, Sk(t|a, Z) is the survival functions of Tk(a) (k = 1, 2) given treatment and covariates Z; C(a){u, v; α} is a
+pre-specified copula function with α(a) being a constant parameter describing extra association between event times under the
+treatment status a.
+It is noteworthy that Assumption 4 permits the utilization of various copula structures corresponding to different treatment
+assignments. Consequently, the proposed model exhibits greater flexibility compared to parametric frailty models found in the
+existing literature (Nevo & Gorfine, 2022). A weaker substitution of Assumption 4 will be discussed in Section 3.3.
+We will now present the identification formulas within the framework of copulas. To ease presentation, we define
+C(a)
+1 (u, v, α) = ∂C(a)(u, v; α)/∂u, C(a)
+2 (u, v, α) = ∂C(a)(u, v; α)/∂v, D{s, t|a, Z} = C(a){S1(s|a, Z), S2(t|a, Z); α(a)}, Dk{s, t|a, Z} =
+C(a)
+k {S1(s|a, Z), S2(t|a, Z); α(a)}, k = 1, 2. Then, under Assumptions 1-4, by simple derivation, the quantities in Proposition 1 can
+
+
+===== ORIGINAL PDF PAGE 6 =====
+FORMULA CHECK REQUIRED: original PDF page 6.
+6
+Yu ET AL.
+be re-written as
+S1|T1≤T2,A=a,Z(t) =
+R ∞
+t
+D1 (s, s|a, Z) dS1(s|a, Z)
+R ∞
+0
+D1 (s, s|a, Z) dS1(s|a, Z),
+(10)
+S2|T1≤T2,A=a,Z(t) = S2(t|a, Z) +
+R ∞
+t
+D2 (s, s|a, Z) dS2(s|a, Z)
+1 +
+R ∞
+0
+D2 (s, s|a, Z) dS2(s|a, Z)
+,
+(11)
+S2|T1>T2,A=a,Z(t) =
+R ∞
+t
+D2 (s, s|a, Z) dS2(s|a, Z)
+R ∞
+0
+D2 (s, s|a, Z) dS2(s|a, Z).
+(12)
+The denominators in (10)-(12) are the explicit expressions of ΠQ and eΠQ for event Q. Quantities (10)-(12) use observable data
+in the whole upper wedge of (T1, T2) and thus can be estimable. Plugging estimates of α(a),S1(·|a, Z), and S2(·|a, Z) assisted by
+methods in L. Peng & Fine (2007) and Zhu et al. (2022), estimates of causal effects (4)-(6) can be obtained from (7)-(8),(10)-(12).
+We refer readers to Section 4 for estimation details.
+3.3
+Sensitivity analysis
+Before describing the proposed estimation, this section directs the reader’s focus to Assumptions 3-4: cross-world dependence is
+fully captured by the observed covariates Z. While these assumptions may be valid in many applications, they may not hold and
+might not even be testable in a general context since cross-world data cannot be simultaneously observed for each patient. In
+practice, we recommend incorporating expert knowledge to guide the identification of crucial covariates while concurrently
+assessing the sensitivity of estimates to unmeasured factors (Axelrod & Nevo, 2022; Nevo & Gorfine, 2022). To this end, we
+propose the copula-based sensitivity analysis. To capture the remaining dependency attributed to unmeasured factors shared
+across two worlds, we introduce a frailty γ and a weaker restriction than Assumptions 3-4.
+Assumption 5. There exists an unmeasured time-unvarying frailty variable γ > 0 such that the cross-world dependence is
+captured by pre-treatment covariates Z together with γ in the sense that (T1(0), T2(0)) ⊥(T1(1), T2(1))|(γ, Z).
+Assumption 6. The time-unvarying frailty variable γ > 0, from a distribution with mean 1 and variance σ, satisfies:
+(i) The frailty variable operates multiplicatively on conditional cumulative hazard function of Tk(a), that is, Λk(t|A = a, γ, Z) =
+γeΛk(t|A = a, Z), where Λk(t|A = a, γ, Z) is the conditional cumulative hazard function of Tk(a) given treatment a and (γ, Z),
+and eΛk(t|A = a, Z) is irrelevant to γ.
+(ii) The conditional joint distribution function of (T1(a), T2(a)), given (γ, Z), follows a copula model D(t1, t2|a, γ, Z) =
+C(a){S1(t1|a, γ, Z), S2(t2|a, γ, Z); α(a)} where Sk(t|a, γ, Z) = exp[–Λk(t|a, γ, Z)] is the survival functions of Tk(a) (k = 1, 2)
+given treatment and (γ, Z), the definitions of α(a) and C(a){u, v; α} are provided in Assumption 4.
+The frailty variable in Assumption 5 is commonly used in the survival analysis literature to explain unobserved heterogeneity
+due to unmeasured covariates or other sources of natural variation. It is also widely applied in many causal inference literature
+to account for the cross-world dependence (Aalen et al., 2015; Martinussen et al., 2020; Axelrod & Nevo, 2022), a plausible
+remedy when the cross-world conditional independence in Assumption 3 is violated. This assumption also implies their marginal
+hazard ratios at time t on treatment A = 1 versus control A = 0 for the same patient population with covariates Z and unmeasured
+factor γ who would survive that time, no matter what treatment, which is related to the so-called conditional causal hazard ratio
+(Martinussen et al., 2020). We stress in Assumption 6 (ii) that the unmeasured factor has impacts on marginal distributions
+except for the global association between two event times under each counterfactual arm. We refer readers to the discussion
+section for more general identification assumptions and possible extensions.
+Based on the weaker assumptions 5-6, and coupled with Assumptions 1-2, the causal estimands in (4)-(6) are identifiable with
+detailed formulas in Supplementary Section 2. It is important to note that the distribution of frailty γ may not be estimable in
+general. As a result, we evaluate the effect of unmeasured factors by pre-specifying values of the unidentifiable parameter σ. The
+expectation with respect to frailty as Eq.(A.2)-(A.4) in the Supplementary Material can be then numerically calculated by Monte
+Carlo integration techniques.
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+Copula-based causal framework for semi-competing risks data
+7
+4
+ESTIMATION
+The estimation of copula-based semicompeting risks regression has been extensively explored by existing literature. Nevertheless,
+adapting this framework to address causal inference involves significant adjustments and remains inadequately studied, where
+the literature either exhibits bias in cases of heavily dependent censoring or encounters challenges in effectively portraying
+the negative correlation between the two event times (Peterson, 1976; Varadhan et al., 2014). Herein, we provide an improved
+procedure to estimate parameters in the copula-based causal model. To facilitate the estimation process, we limit C(a){·} to the
+Archimedean copula class, and for illustration, we use (but not limited to) the proportional hazards models to marginally fit T1
+and T2, respectively.
+4.1
+Estimation in semiparametric models without frailty
+In this subsection, we delve into the analysis of marginal semiparametric models without frailty, a prevalent approach in the
+literature on copula-based semi-competing risks models, with novel and enhanced estimation procedures. Specifically, we now
+turn to estimating parameter α(a) and each marginal distributions by employing the following marginal models
+λk(t|Z, A = a) = λ(a)
+0k (t) exp(β(a)T
+k
+Z),
+(13)
+where λk(t|Z, A = a) is the conditional hazard function of Tk(a), k = 1, 2, given the covariates Z and treatment A = a; β(a)
+k
+is a vec-
+tor of unknown regression coefficients, and λ(a)
+0k is an unspecified baseline hazard function. Let Λ(a)
+0k (t) =
+R t
+0 λ(a)
+0k (s)ds be the baseline
+cumulative hazard function. And the conditional survival functions are in the forms of Sk(t|Z, A) = exp[–Λ(a)
+0k (t) exp(β(a)T
+k
+Z)].
+We denote C21(u, v, α) = C12(u, v, α) = ∂2C(u, v; α)/∂u∂v and Djk{Xi, Yi; α(a)} = Cjk{S1(Xi|Zi, a, γi), S2(Yi|Zi, a, γi); α(a)},
+j, k = 1, 2. Under models (9) and (13), the log-likelihood function concerning the parameters to be estimated given observed data
+O = {Xi, Yi, δi1, δi2, Ai, Zi : i = 1, · · · , n} can be written as
+l(α(a), Λ(a)
+01 , Λ(a)
+02 , β(a)
+1 , β(a)
+2 )
+=
+n
+X
+i=1
+(1 – δi1)(1 – δi2)I(Ai = a) log
+
+D{Xi, Yi; α(Ai)}
+
++ δi1δi2I(Ai = a) log
+
+D12{Xi, Yi; α(Ai)}
+
++ δi1(1 – δi2)I(Ai = a) log
+
+D1{Xi, Yi; α(Ai)}
+
++ (1 – δi1)δi2I(Ai = a) log
+
+D2{Xi, Yi; α(Ai)}
+
++ δi1I(Ai = a) log
+h
+S1(Xi|Zi, Ai)λ(Ai)
+01 (Xi) exp(β(Ai)T
+1
+Zi)
+i
++ δi2I(Ai = a) log
+h
+S2(Yi|Zi, Ai)λ(Ai)
+02 (Yi) exp(β(Ai)T
+2
+Zi)
+i
+.
+These parameters can be estimated by adapting the nonparametric maximum likelihood estimation (NPMLE) (M. Peng et al.,
+2018; M. Peng & Xiang, 2019). However, the objective function of the aforementioned NPMLE method is only locally convex
+in a small neighborhood of the truth and thus sensitive to initial estimates. Poor initialization will lead to biases in the final
+estimation or even algorithm convergence issues. Accordingly, we improve the above NPMLE method by substituting initial
+values with estimates derived from M. Peng et al. (2018) and Zhu et al. (2022), which have proven effective in simulation studies.
+Such adaptation and integration can effectively reduce the number of iterations and computation time as well as estimation
+biases. It is worth noting that the proposed estimation is not limited to the time-independent Cox proportional hazards model
+aforementioned. We can easily extend it to other model forms, including the proportional odds model and varying-coefficient
+models (M. Peng et al., 2018; Zhu et al., 2022).
+4.2
+Estimation with frailty (Sensitivity analysis)
+Frailty terms are frequently introduced for sensitivity analysis or to encapsulate latent information, such as the remaining
+dependency attributed to unmeasured confounders shared across two worlds in semi-competing risks causal inference (Nevo &
+Gorfine, 2022). Consequently, we extend to study the estimation procedure under the setting described in Section 3.3. Note
+that incorporating a frailty, even with a pre-specified value of σ, is non-trivial and necessitates more intricate estimation, thus
+warranting further methodological development. Suppose that the marginal regressions of Tk(a) on Z, k = 1, 2, follow the
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+8
+Yu ET AL.
+shared-frailty Cox proportional hazards models
+λk(t|Z, A = a, γ) = γλ(a)
+0k (t) exp(β(a)T
+k
+Z),
+(14)
+where λk(t|Z, A = a, γ) is the conditional hazard function of Tk(a) given the covariates Z and treatment a; the definitions of
+β(a)
+k
+and λ(a)
+0k are same as model (13); and γ is the frailty defined in Assumption 6. The log-likelihood function regarding to the
+parameters (α(a), Λ(a)
+01 , Λ(a)
+02 , β(a)
+1 , β(a)
+2 ) given observed data O can be expressed by
+lo(α(a), Λ(a)
+01 , Λ(a)
+02 , β(a)
+1 , β(a)
+2 ; σ) =
+n
+X
+i=1
+log
+Z
+exp[li(α(a), Λ(a)
+01 , Λ(a)
+02 , β(a)
+1 , β(a)
+2 )]fγ(γi|σ)dγi
+
+,
+(15)
+where fγ(γ|σ) is the density function of γ with prespecified variance parameter σ, and
+li(α(a), Λ(a)
+01 , Λ(a)
+02 , β(a)
+1 , β(a)
+2 ) = (1 – δi1)(1 – δi2) log
+
+D{Xi, Yi; α(Ai)}
+
++ δi1δi2 log
+h
+D12{Xi, Yi; α(Ai)}S1(Xi|Zi, Ai, γi)λ(Ai)
+01 (Xi)γi exp(β(Ai)T
+1
+Zi)
+i
++ δi1δi2 log
+h
+S2(Yi|Zi, Ai, γi)λ(Ai)
+02 (Yi)γi exp(β(Ai)T
+2
+Zi)
+i
++ δi1(1 – δi2) log
+h
+D1{Xi, Yi; α(Ai)}S1(Xi|Zi, Ai, γi)λ(Ai)
+01 (Xi)γi exp(β(Ai)T
+1
+Zi)
+i
++ (1 – δi1)δi2 log
+h
+D2{Xi, Yi; α(Ai)}S2(Yi|Zi, Ai, γi)λ(Ai)
+02 (Yi)γi exp(β(Ai)T
+2
+Zi)
+i
+.
+The integral in (15) poses analytical intractability, making a direct evaluation of the likelihood function challenging. A
+prevalent approach involves approximating it and subsequently utilizing the approximated likelihood to conduct inference
+about the model parameters. We modify the MCEM algorithm proposed by M. Peng et al. (2018) to accommodate our causal
+framework. To reduce computation complexity, we start from a small MCMC sample size and increase it as computation
+progresses to approximate the likelihood above to derive estimates of (α(a), Λ(a)
+01 , Λ(a)
+02 , β(a)
+1 , β(a)
+2 ). We refer readers to Section
+3 from the Supplementary Material for more implementation details. Unlike M. Peng et al. (2018)’s regression model, frailty
+variance is not estimable and should be prespecified in our potential outcomes framework given that the two-world outcomes
+cannot be simultaneously observed. Nevertheless, it is noteworthy that their theoretical results remain applicable to our setting.
+In addition, from (15), the proposed method is based upon (but not limited to) gamma-frailty for illustration. The proposed
+method can be extended to other general survival models and frailty distributions as well.
+4.3
+Statistical inference for causal parameters
+Utilizing the estimators derived from Sections 4.1 and 4.2, we proceed to estimate the causal effects via principal strat-
+ification in the context of semi-competing risks data. If there is no unmeasured confounding, plugging estimators for
+(α(a), Λ(a)
+01 , Λ(a)
+02 , β(a)
+1 , β(a)
+2 ), a = 0, 1, obtained from Section 4.1, which are consistent and asymptotically normal (L. Peng &
+Fine, 2007; Zhu et al., 2022; M. Peng et al., 2018), into (10)-(12) and replacing Sk|T1≤T2,A=a,Z and S2|T1≥T2,A=a,Z in (4)-(6) with
+its empirical counterpart yields consistent and asymptotically normal estimators for the three SCEs including ND-SCE2(t),
+AD-SCE1(t), and AD-SCE2(t) with each time point t. The asymptotic properties for the causal parameters follow from the
+continuous mapping theorem and the delta method. The same asymptotic properties are applied to the proposed method for
+sensitivity analysis. However, in analog to Zhu et al. (2022) and M. Peng et al. (2018), asymptotic variance of estimators of
+(α(a), Λ(a)
+01 , Λ(a)
+02 , β(a)
+1 , β(a)
+2 ) have no explicit expressions. Thus, the Bootstrapping method is more preferred in practice to compute
+the standard errors of regression and causal parameters.
+5
+APPLICATION TO A BREAST CANCER STUDY
+Hormone therapy or neoadjuvant endocrine therapy is often used in clinical practice for breast cancer patients, as an adjuvant
+treatment following surgery. Despite its effectiveness, there is considerable debate surrounding the decision of whether to
+combine it with chemotherapy or radiotherapy or to pursue separate therapy after surgery (Mayer & Arteaga, 2014). Our
+
+
+===== ORIGINAL PDF PAGE 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+Copula-based causal framework for semi-competing risks data
+9
+objective was to apply our developed methods to evaluate the impact of hormone therapy and compare it with the combination
+of hormone therapy and radiotherapy in breast cancer patients who have undergone mastectomy surgery.
+Data. We applied our methods to analyze the data from the Molecular Taxonomy of Breast Cancer International Consortium
+(METABRIC) cohort (Curtis et al., 2012; Pereira et al., 2016). The response variable of our interest was the pair of relapse-free
+survival (RFS, T1) and overall survival (OS, T2) outcomes measured in months (i.e., semi-competing risks). Due to loss to
+follow-up and dependent censoring, the overall censoring rates for RFS and OS were 55% and 34%, respectively. Covariates
+used in our analysis included age at diagnosis (21-96 years old), ER status (ER, 1=positive, 0=negative), PR status (PR,
+1=positive, 0=negative), HER2 status (HER2,1=positive, 0=negative), inferred menopausal state (MENO, 1=post-menopausal,
+0=pre-menopausal), whether the number of lymph nodes examined positive bigger than 0 or not (NODE, 1= yes, 0=no),
+Nottingham prognostic index (NPI), and tumor size (SIZE). After data processing, there were 1114 patients taking mastectomies
+with complete records for covariates, RFS, and OS. In the following analyses, we used the Frank copula to describe the joint
+distribution of RFS and OS.
+Primary analysis. We conducted two primary analyses: (1) We first quantified the causal effect of hormone treatment alone
+(a = 1) in comparison to no treatment (a = 0) using the proposed causal framework. To eliminate the influence and interaction of
+other treatments, we specifically focused on a subset of patients who did not receive chemotherapy or radiotherapy, leaving
+611 patients (59.4% patients with hormone treatment alone vs 40.6% without any treatment) in this analysis. The estimation
+of regression coefficients is summarized in Table 1. We dropped the variables PR and HER2 in this analysis, considering that
+the estimated coefficients for PR and HER2 status were very small in this limited sample. Figure 1 displays the curves of
+causal parameters varying with time under two principle strata (AD, ND). (2) We continued to study the causal effect of the
+combination of hormone and radio treatment (a = 1) in comparison to the use of hormone treatment alone (a = 0). Thus, there
+were 588 patients in this subgroup (38.3% patients with hormone- and- radio treatment vs 61.7% with hormone treatment alone).
+Supplementary Table S.4 summarizes the effects of covariates on the marginal survival distribution for each outcome. Figure 2
+displays causal estimands under the AD or ND stratum. Similar to the analysis above, we dropped the variable ER status due to
+very small estimated coefficients (Supplementary Table S.4).
+Sensitivity analysis. To more comprehensively evaluate the robustness of our findings to unmeasured confounding, we
+conducted sensitivity analysis by following the strategy in Section 3.3, 4.2 and varying the pre-specified σ values. We also
+compared our method to the Kaplan-Meier analysis based upon the samples matched by propensity scores (PS) using baseline
+variables as covariates in the PS model (Austin, 2014), a widely used method in clinical studies. Figure 3 summarizes the results.
+Result interpretation. (1) Results from the Copula regression model (Table 1, Supplementary Table S.4) indicated that there
+was a strongly positive association between RFS and OS even after adjusting for covariates. This highlights the importance
+of modeling dependence between semi-parametric risks. These tables also indicated that the impacts of covariates (such as
+Her2, Node, Size) on RFS (T1) and OS (T2) varied between two scenarios (i.e., a = 1 vs a = 0). However, sensitivity analyses,
+involving variations in the pre-specified σ values, suggested that the frailty variance may primarily affect the association between
+T1 and T2 and has a lesser influence on the significance of covariates. Specifically, in the first primary analysis, only the NPI
+variable consistently showed a positive association with T1 for patients with a = 0, while the variables Node, NPI, and Size were
+positively associated with T1 for patients with a = 1. In the second primary analysis, the variables Node, NPI, and Size were
+positively associated with T1 for patients with a = 0, while HER2, Size, and Meno had an impact for patients with a = 1, where
+the first two showed a positive association and the last one showed a negative association.
+(2) Results from causal estimand estimation: by assuming no unmeasured confounding (i.e, σ = 0), using Hormone therapy
+alone compared to no treatment has a positive impact and is beneficial significantly to those patients in "ND" stratum at some
+duration after surgery. But it may not have significant effects on both RFS and OS for patients in "AD" stratum with long-time
+treatment (Figure 1). These imply that using Hormone therapy alone could be good for patients’ overall survival in "ND" stratum,
+compared to no treatment use. Sensitivity analysis with varied σ also supported the above conclusion (Figure 1). On the other
+hand, we detected a weak effect by comparing combined therapy with Hormone therapy alone (Figure 2) in "AD" stratum at
+some duration after surgery. This implies that using the combined therapy might be even better for patients’ overall survival in
+"AD" stratum, compared to using Hormone therapy alone. More discussions about AD/ND stratum are provided in Section 7.
+(3) In the Kaplan-Meier analysis under PS-matched cohorts (Figure 3), we observed that not undergoing any treatment resulted
+in a significantly higher survival rate compared to hormone treatment, and the combined treatment did not exhibit a clear effect
+on OS, contrary to expectations in clinical practice. This finding supports the necessity of the principal stratification analysis
+and demonstrates that the proposed causal framework for terminal event times provides more conservative and arguably more
+reliable results than conventional survival analysis. As for the KM survival curves of RFS, the combined treatment exhibited a
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+10
+Yu ET AL.
+significant effect on postponing the occurrence of relapse. This discrepancy could be attributed to the Kaplan-Meier analysis,
+even after PS matching, ignoring the dependence structure between RFS and OS and failing to account for potential differences
+over principal strata. Consequently, we place more emphasis on and advocate for the use of our proposed methods, which offer a
+more valid causal comparison and yield more reasonable final results.
+6
+SIMULATION STUDIES
+The data generation mechanisms are classified into two categories: the "without frailty" class (where the cross-world dependence
+is exclusively captured by all observed covariates) and the "with frailty" class (where the cross-world dependence is not only
+attributed to observed covariates but also to latent and unobservable frailty variables). We evaluated the proposed methods
+based on four simulation settings (Ex1-Ex4 cases), where case Ex2 contains more covariates than case Ex1; case Ex3 is used to
+examine the robustness of our causal framework when treatment allocation is affected by baseline covariates as indicated by
+Assumption 2; and case Ex4 is to evaluate our method in the presence of a frailty describing two-world dependency. Due to the
+page limit, we kindly refer readers to Supplementary Section 4 for more technical details.
+Under each scenario, we generated 200 Monte Carlo replicates with sample size n = 500 or 1000. In all scenarios, we first
+estimated regression coefficients, baseline cumulative hazard functions, and the association between nonterminal and terminal
+times for each arm. We provide a comprehensive evaluation of the estimation results of regression coefficients and association
+parameters in terms of mean biases, Monte Carlo standard deviations (MCSD), and asymptotic standard errors (ASE) across 200
+simulation runs. We only present the results from case Ex1. The other three cases show similar patterns, thus omitted in this paper.
+We then estimated stratum-specific survivor causal effects (4)-(6) and evaluated their performance under cases Ex1-Ex4 varying
+with time over a grid of 30 time points which is determined by the sample order statistics of observed T1. We used the bootstrap
+method with 100 replicates to estimate the standard errors of the estimators for both causal parameters and regression coefficients.
+Under Scenario Ex1 with low/high censoring setting, the biases and MCSDs of estimated regression coefficients appear to
+be negligible and diminish as the sample size increases for both Kendall’s tau values (0.3 and 0.6) (Supplementary Table S.2).
+The estimated standard errors are close to the empirical standard deviation of point estimates of regression coefficients. The
+estimated baseline cumulative hazard functions (depicted in red) for the first 50 simulated samples surround the truth in blue
+(Supplementary Figure S.1). In Figures 4-5, the mean estimated causal parameters (red curves) plus/minus 1.96 times empirical
+standard deviation (pink vertical bars) encapsulate the truth (depicted in black dashed curves), and discrepancies between ASE
+and MCSD at 20 time points seem to be negligible and fluctuate around zero. In Table 2, biases of estimated causal parameters
+at some specific time points are small and their coverage probabilities (CP) are reasonable but slightly fluctuated around the
+nominal level 0.95, which is expected regarding the complex nature of causal estimand estimation.
+In the presence of more covariates as in case Ex2, estimators of causal parameters still perform well in terms of negligible
+estimation bias (Supplementary Figure S.2). Under case Ex3, it can be seen from Figure S.3 in the supplementary material that
+the proposed estimator shows satisfactory performance except for a slight deviation shown in the ND stratum. This anomaly is
+understandable in light of the high censoring environment, where fewer than 8% of subjects belong to the ND stratum who are
+observed to have the T2 event. In case Ex4 with a frailty describing two-world dependence, the proposed MCEM algorithm in
+Section 4 yields asymptotically unbiased estimation for regression coefficients (Supplementary Table S.3) as well as causal
+parameters (Figure 6). The results presented in the manuscript are based on n = 1000, Kendall’s τ = 0.6, and σ = 0.2 or 0.4. More
+simulation evaluations based upon different combinations of sample size n, Kendall’s τ, and σ can be found in Supplementary
+Figure S.4-S.6. Similar patterns are observed over all the settings, demonstrating the validity of our new method.
+7
+DISCUSSION
+This article establishes a frequentist framework using copula models for causal interpretation, net quantity estimation, and
+sensitivity analysis for unmeasured factors under right-censored semi-competing risks data. We have demonstrated the non-
+parametric identification and justified the feasibility and utility of the proposed estimation. The advantage of the proposed
+method over existing methods, includingNevo & Gorfine (2022), is its capacity to assess net covariate effects and dependency
+between nonterminal and terminal event times under each counterfactual arm. Additionally, leveraging the copula structure and a
+cross-world frailty variable, the proposed causal framework offers enhanced flexibility for practical use.
+
+
+===== ORIGINAL PDF PAGE 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+Copula-based causal framework for semi-competing risks data
+11
+In the observational study of breast cancer, by applying our method, we detected that hormone therapy could be beneficial to
+patients with a low risk of relapse compared to no treatment use, and that the combined treatment will be beneficial to those with a
+higher risk of relapse, compared to hormone therapy alone. These findings imply a more tailored intervention strategy and suggest
+intermediate intervention after assessing the risk of relapse could be much more beneficial to patients’ overall survival, which to
+some extent aligns with previous clinical research (Sledge et al., 2014) and provides more insight into personalized medicine for
+breast cancer patients to improve their post-surgery outcomes. It is worthwhile noticing that how to appropriately identify the
+latent AD and ND sub-populations is unclear in practice. This motivates our future work on defining a proper discrimination
+measure under the semi-competing risks setting. Such an approach would serve as a useful tool for clinical audiences.
+For future method development, we introduce various extensions and pose open questions for readers to explore and enhance
+the current framework: (1) Copula model selection. Hsieh et al. (2008) provided the hypothesis test in terms of whether a copula
+model fits the data. Specifically, for each covariate group, the function Ga(t1, t2) = Pr(T1 ≥t1, T2 ≥t2|δ1 = 1, δ2 = 1, A = a) is
+identifiable non-parametrically in the upper wedge as
+eGa(t1, t2) =
+n
+X
+i=1
+I(Xi ≥t1, Yi ≥t2, δi1 = 1, δi2 = 1, Ai = a)/
+n
+X
+i=1
+I(δi1 = 1, δi2 = 1, Ai = a).
+The goodness-of-fit test can be thus constructed by comparing eGa(t1, t2) and bGa(t1, t2) based on two copula models on the basis
+of some distance measure (Hsieh et al., 2008). (2) This paper considers a simple copula model with homogeneous association
+for illustration. The extensions of such a model include time-dependent association as L. Peng & Fine (2007) and covariate-
+dependent association as in Li & Peng (2015). (3) Another extension is to study multiple treatments involving considering the
+effects of various interventions on survival outcomes subject to semi-competing risks while addressing potential confounding
+factors. This extension often requires methodologies like the generalized propensity score, instrumental variables, or causal
+mediation analysis adapted to handle multiple treatment groups. All of the above merits further investigation in future studies.
+References
+Aalen, O. O., Cook, R. J., & Røysland, K. (2015). Does cox analysis of a randomized survival study yield a causal treatment
+effect? Lifetime data analysis, 21, 579–593.
+Austin, P. C. (2014). The use of propensity score methods with survival or time-to-event outcomes: reporting measures of effect
+similar to those used in randomized experiments. Statistics in Medicine, 33(7), 1242–1258.
+Axelrod, R., & Nevo, D. (2022). A sensitivity analysis approach for the causal hazard ratio in randomized and observational
+studies. Biometrics, 79(3), 2743-2756.
+Breum, M. S., Munch, A., Gerds1, T. A., & Martinussen, T. (2024). Estimation of separable direct and indirect effects in a
+continuous-time illness-death model. Lifetime Data Analysis, 30, 143–180.
+Chen, Y.-H. (2010). Semiparametric marginal regression analysis for dependent competing risks under an assumed copula.
+Journal of the Royal Statistical Society Series B, 72(2), 235–251.
+Chen, Y.-H. (2012). Maximum likelihood analysis of semicompeting risks data with semiparametric regression models. Lifetime
+Data Analysis, 18, 36–57.
+Cohen, S., Cummings, J., Knox, S., Potashman, M., & Harrison, J.
+(2022).
+Clinical trial endpoints and their clinical
+meaningfulness in early stages of Alzheimer’s disease. The Journal of Prevention of Alzheimer’s Disease, 9(3), 507–522.
+Comment, L., Mealli, F., Haneuse, S., & Zigler, C. (2019). Survivor average causal effects for continuous time: a principal
+stratification approach to causal inference with semicompeting risks. arXiv preprint arXiv:1902.09304.
+Curtis, C., Shah, S. P., Chin, S.-F., Turashvili, G., Rueda, O. M., Dunning, M. J., ... others (2012). The genomic and
+transcriptomic architecture of 2,000 breast tumours reveals novel subgroups. Nature, 486(7403), 346–352.
+Dai, J. Y., Gilbert, P. B., & Mâsse, B. R. (2012). Partially hidden Markov model for time-varying principal stratification in HIV
+prevention trials. Journal of the American Statistical Association, 107(497), 52–65.
+Deng, Y., Wang, Y., Zhan, X., & Zhou, X.-H. (2023). Separable pathway effects of semi-competing risks via multi-state models.
+arXiv preprint arXiv:2306.15947.
+Deng, Y., Wang, Y., & Zhou, X.-H. (2024). Direct and indirect treatment effects in the presence of semi-competing risks. arXiv
+preprint arXiv:2309.01721.
+
+
+===== ORIGINAL PDF PAGE 12 =====
+FORMULA CHECK REQUIRED: original PDF page 12.
+12
+Yu ET AL.
+Ding, A. A., Shi, G., Wang, W., & Hsieh, J.-J. (2009). Marginal regression analysis for semi-competing risks data under
+dependent censoring. Scandinavian Journal of Statistics, 36(3), 481–500.
+Ding, P., Geng, Z., Yan, W., & Zhou, X.-H. (2011). Identifiability and estimation of causal effects by principal stratification with
+outcomes truncated by death. Journal of the American Statistical Association, 106(496), 1578–1591.
+Emura, T., Sofeu, C. L., & Rondeau, V. (2021). Conditional copula models for correlated survival endpoints: Individual patient
+data meta-analysis of randomized controlled trials. Statistical Methods in Medical Research, 30(12), 2634–2650.
+Fine, J. P., & Gray, R. J. (1999). A proportional hazards model for the subdistribution of a competing risk. Journal of the
+American Statistical Association, 94, 496–509.
+Frangakis, C. E., & Rubin, D. B. (2002). Principal stratification in causal inference. Biometrics, 58(1), 21–29.
+Graf, E., Schmoor, C., Sauerbrei, W., & Schumacher, M. (1999). Assessment and comparison of prognostic classification
+schemes for survival data. Statistics in Medicine, 18(17-18), 2529–2545.
+Hsieh, J.-J., Wang, W., & Ding, A. A. (2008). Regression analysis based on semicompeting risks data. Journal of the Royal
+Statistical Society Series B, 70(1), 3–20.
+Huang, Y.-T. (2021). Causal mediation of semicompeting risks. Biometrics, 77(4), 1143–1154.
+Lakhal, L., Rivest, L.-P., & Abdous, B. (2008). Estimating survival and association in a semicompeting risks model. Biometrics,
+64(1), 180-188.
+Li, R., & Cheng, Y. (2016). Flexible association modelling and prediction with semi-competing risks data. Canadian Journal of
+Statistics, 44(3), 361–374.
+Li, R., & Peng, L. (2014). Varying coefficient subdistribution regression for left-truncated semi-competing risks data. Journal of
+Multivariate Analysis, 131, 65-78.
+Li, R., & Peng, L. (2015). Quantile regression adjusting for dependent censoring from semicompeting risks. Journal of the
+Royal Statistical Society Series B, 77(1), 107–130.
+Mao, L., & Kim, K. (2021). Statistical models for composite endpoints of death and nonfatal events: a review. Statistics in
+Biopharmaceutical Research, 13(3), 260–269.
+Martinussen, T., Vansteelandt, S., & Andersen, P. K. (2020). Subtleties in the interpretation of hazard contrasts. Lifetime Data
+Analysis, 26, 833–855.
+Mayer, I. A., & Arteaga, C. L. (2014). Pik3ca activating mutations: a discordant role in early versus advanced hormone-dependent
+estrogen receptor-positive breast cancer? Journal of Clinical Oncology, 32(27), 2932–2934.
+McDuff, S. G., & Blitzblau, R. C. (2022). Optimizing adjuvant treatment recommendations for older women with biologically
+favorable breast cancer: Short-course radiation or long-course endocrine therapy? Current Oncology, 30(1), 392–400.
+Nevo, D., & Gorfine, M. (2022). Causal inference for semi-competing risks data. Biostatistics, 23(4), 1115–1132.
+Neyman, J. (1923). Sur les applications de la théorie des probabilités aux experiences agricoles: Essai des principes. Roczniki
+Nauk Rolniczych, 10(1), 1–51.
+Peng, L., & Fine, J. P. (2006). Rank estimation of accelerated lifetime models with dependent censoring. Journal of the
+American Statistical Association, 101(475), 1085–1093.
+Peng, L., & Fine, J. P. (2007). Regression modeling of semicompeting risks data. Biometrics, 63(1), 96–108.
+Peng, M., & Xiang, L. (2019). Joint regression analysis for survival data in the presence of two sets of semi-competing risks.
+Biometrical Journal, 61(6), 1402–1416.
+Peng, M., Xiang, L., & Wang, S. (2018). Semiparametric regression analysis of clustered survival data with semi-competing
+risks. Computational Statistics and Data Analysis, 124, 53–70.
+Pereira, B., Chin, S.-F., Rueda, O. M., Vollan, H.-K. M., Provenzano, E., Bardwell, H. A., et al. (2016). The somatic mutation
+profiles of 2,433 breast cancers refine their genomic and transcriptomic landscapes. Nature Communications, 7(1), 11479.
+Peterson, A. V. (1976). Bounds for a joint distribution function with fixed sub-distribution functions: Application to competing
+risks. Proceedings of the National Academy of Sciences, 73, 11-13.
+Richardson, T. S., & Robins, J. M. (2013). Single world intervention graphs (swigs): A unification of the counterfactual and
+graphical approaches to causality. Center for the Statistics and the Social Sciences, University of Washington Series. Working
+Paper, 128(30), 2013.
+Robins, J. M. (1995). An analytic method for randomized trials with informative censoring: part 1. Lifetime Data Analysis, 1,
+241–254.
+Robins, J. M., Richardson, T. S., & Shpitser, I. (2022). An interventionist approach to mediation analysis. In Probabilistic and
+causal inference: the works of judea pearl (p. 713-764).
+
+
+===== ORIGINAL PDF PAGE 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+Copula-based causal framework for semi-competing risks data
+13
+Rubin, D. B. (1974). Estimating causal effects of treatments in randomized and nonrandomized studies. Journal of Educational
+Psychology, 66(5), 688.
+Rubin, D. B. (1990). Comment: Neyman (1923) and causal inference in experiments and observational studies. Statistical
+Science, 5(4), 472–480.
+Rubin, D. B. (2006). Causal inference through potential outcomes and principal stratification: application to studies with
+“censoring" due to death. Statistical Science, 21(3), 299-309.
+Sklar, A. (1959). Fonctions de repartition a n dimensions et leurs marges. Publications de l’Institut Statistique de l’Université
+de Paris, 8, 229-231.
+Sledge, G. W., Mamounas, E. P., Hortobagyi, G. N., Burstein, H. J., Goodwin, P. J., & Wolff, A. C. (2014). Past, presentand
+future challenges in breast cancer treatment. Journal of Clinical Oncology, 32(19), 1979-1986.
+Stensrud, M. J., Hernán, M. A., Tchetgen Tchetgen, E. J., Robins, J. M., Didelez, V., & Young, J. G. (2021). A generalized
+theory of separable effects in competing event settings. Lifetime data analysis, 27(4), 588–631.
+Stensrud, M. J., Young, J. G., Didelez, V., Robins, J. M., & Hernán, M. A. (2022). Separable effects for causal inference in the
+presence of competing events. Journal of the American Statistical Association, 117(537), 175-183.
+Stensrud, M. J., Young, J. G., & Martinussen, T. (2021). Discussion on “causal mediation of semicompeting risks” by Yen-Tsung
+Huang. Biometrics, 77(4), 1160–1164.
+Sun, T., Liang, W., Zhang, G., Yi, D., Ding, Y., & Zhang, L. (2024). Penalised semi-parametric copula method for semi-competing
+risks data: application to hip fracture in elderly. Journal of the Royal Statistical Society Series C, 73(1), qlad093.
+Tchetgen Tchetgen, E. J. (2014). Identification and estimation of survivor average causal effects. Statistics in Medicine, 33(21),
+3601–3628.
+Varadhan, R., Xue, Q.-L., & Bandeen-Roche, K. (2014). Semicompeting risks in aging research: methods, issues and needs.
+Lifetime data analysis, 20(4), 538–562.
+Wei, Y., Wojty´s, M., Sorrell, L., & Rowe, P. (2023). Bivariate copula regression models for semi-competing risks. Statistical
+Methods in Medical Research, 32(10), 1902–1918.
+Xu, J., Kabfleisch, J. D., & Tai, B. (2010). Statistical analysis of illness death processes and semi-competing risks data.
+Biometrics, 66, 716 - 725.
+Xu, Y., Scharfstein, D., Müller, P., & Daniels, M. (2022). A Bayesian nonparametric approach for evaluating the causal effect of
+treatment in randomized trials with semi-competing risks. Biostatistics, 23(1), 34–49.
+Young, J. G., Stensrud, M. J., Tchetgen, E. J. T., & Hernán, M. A. (2020). A causal framework for classical statistical estimands
+in failure-time settings with competing events. Statistics in Medicine, 39, 1199–1236.
+Yu, J.-C., & Huang, Y.-T. (2023). Unified semicompeting risks analysis of hepatitis natural history through mediation modeling.
+Statistics in Medicine, 42(24), 4301–4318.
+Zhu, H., Lan, Y., Ning, J., & Shen, Y. (2022). Semiparametric copula-based regression modeling of semi-competing risks data.
+Communications in Statistics - Theory and Methods, 51(22), 7830-7845.
+SUPPORTING INFORMATION
+The supplementary material contains technical proofs of propositions referenced in Section 3, the maximum likelihood estimation
+algorithm referenced in Section 4, and additional numerical results referenced in Sections 5-6.
+
+
+===== ORIGINAL PDF PAGE 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+14
+Yu ET AL.
+TABL E 1
+Estimation of regression coefficients and Kendall’s tau τ (a) for the breast cancer study under different specified frailty variance σ, where a = 0 and 1
+represent no treatment and hormone treatment, respectively.
+σ
+τ (a)
+RFS(T1)
+OS(T2)
+Age
+ER
+Meno
+Node
+NPI
+size
+Age
+ER
+Meno
+Node
+NPI
+Size
+a=0 (no treatment)
+0
+0.574∗∗
+0.005
+0.457
+–0.057
+0.613
+0.228∗
+0.008
+0.056∗∗
+–0.021
+–0.732∗∗
+0.909∗∗
+0.175∗
+0.011
+0.5
+0.566∗∗
+0.000
+0.403
+0.033
+0.696∗
+0.248∗
+0.006
+0.055
+–0.003
+–0.705∗∗
+0.981∗∗
+0.253∗∗
+0.013
+1
+0.438∗∗
+–0.002
+0.388
+–0.025
+0.762
+0.319∗∗
+0.005
+0.054
+–0.083
+–0.730∗
+1.090∗∗
+0.283∗∗
+0.012
+1.5
+0.548∗∗
+0.000
+0.334
+–0.034
+0.678∗
+0.266∗
+0.008
+0.054
+–0.012
+–0.710∗∗
+0.927∗∗
+0.213∗
+0.011
+10
+0.498∗∗
+–0.005
+0.369
+–0.037
+0.743
+0.252∗
+0.005
+0.051
+–0.011
+–0.749∗
+0.964∗
+0.197
+0.011
+a=1 (hormone treatment)
+0
+0.675∗∗
+0.016
+0.008
+–0.081
+0.500∗∗
+0.179∗
+0.021∗∗
+0.044∗∗
+–0.071
+–0.027
+0.270
+0.188∗∗
+0.017∗∗
+0.5
+0.655∗∗
+0.010
+–0.037
+–0.134
+0.515∗∗
+0.281∗
+0.025∗
+0.045
+–0.097
+–0.005
+0.337∗
+0.236∗∗
+0.017∗∗
+1
+0.505∗∗
+0.004
+–0.082
+–0.124
+0.559∗
+0.289∗∗
+0.024∗∗
+0.042
+–0.104
+0.093
+0.312
+0.239
+0.019∗∗
+1.5
+0.652∗∗
+0.007
+–0.082
+–0.152
+0.558∗∗
+0.273∗
+0.025
+0.044
+–0.129
+0.008
+0.355∗
+0.249∗∗
+0.019∗∗
+10
+0.584∗∗
+0.004
+–0.056
+–0.151
+0.563∗∗
+0.270∗∗
+0.024
+0.041
+–0.111
+0.000
+0.329∗
+0.226∗∗
+0.016∗∗
+* and ** indicate significance computed by 100 Bootstrap replicates at levels 0.1 and 0.05, respectively.
+
+
+===== ORIGINAL PDF PAGE 15 =====
+FORMULA CHECK REQUIRED: original PDF page 15.
+Copula-based causal framework for semi-competing risks data
+15
+𝜎=
+FIGURE 1
+Causal effects of hormone treatment alone compared to no treatment use in breast cancer. The three plots in
+the top row present the estimated ND-SCE2, AD-SCE1 and AD-SCE2 with different specified frailty variance σ (sensitivity
+analysis). The three plots in the bottom row present the estimated causal parameters along with their 95% confidence interval
+under pre-specified σ = 0 (i.e., no unmeasured confounding).
+T A B L E 2
+Estimation of causal parameters (ND-SCE2,AD-SCE1 and AD-SCE2) at time points t = 3, 6 in the case Ex1 with
+low censoring. The true values of causal parameters, the mean biases, and the coverage probabilities (CP) of their estimates are
+shown in this table.
+ND-SCE2
+AD-SCE1
+AD-SCE2
+Time
+Truth
+Bias
+95%CP
+Truth
+Bias
+95%CP
+Truth
+Bias
+95%CP
+τ = 0.3, n = 500
+3
+0.32
+–0.002
+0.96
+0.38
+0.003
+1.00
+0.26
+–0.004
+0.94
+6
+0.26
+0.013
+0.96
+0.17
+0.009
+0.94
+0.27
+–0.005
+0.96
+τ = 0.3, n = 1000
+3
+0.32
+0.005
+0.94
+0.38
+–0.008
+0.92
+0.26
+–0.004
+1.00
+6
+0.26
+0.004
+0.92
+0.17
+0.002
+0.90
+0.27
+–0.006
+0.94
+τ = 0.6, n = 500
+3
+0.30
+0.018
+0.98
+0.37
+–0.026
+0.98
+0.28
+–0.010
+0.98
+6
+0.31
+–0.055
+0.94
+0.18
+–0.017
+1.00
+0.25
+0.028
+0.86
+τ = 0.6, n = 1000
+3
+0.30
+0.020
+0.96
+0.37
+–0.031
+0.98
+0.28
+–0.011
+1.00
+6
+0.31
+–0.015
+0.94
+0.18
+–0.010
+0.98
+0.25
+0.016
+0.92
+
+
+===== ORIGINAL PDF PAGE 16 =====
+FORMULA CHECK REQUIRED: original PDF page 16.
+16
+Yu ET AL.
+𝜎=
+FIGURE 2
+Causal effects of hormone-and-radio treatment compared to hormone therapy alone in breast cancer. The
+three plots in the top row present the estimated ND-SCE2, AD-SCE1 and AD-SCE2 with different specified frailty variance σ
+(sensitivity analysis). The three plots in the bottom row present the estimated causal parameters along with their 95% confidence
+interval under pre-specified σ = 0 (i.e., no unmeasured confounding).
+
+
+===== ORIGINAL PDF PAGE 17 =====
+Technical extraction; compare with original PDF page 17.
+Copula-based causal framework for semi-competing risks data
+17
+c)
+a)
+b)
+d)
+FIGURE 3
+Kaplan-Meier survival curves obtained using propensity score matching method. a) and c) are KM survival curves of RFS by ignoring dependent
+censoring. b) and d) are KM survival curves of OS for breast cancer patients.
+
+
+===== ORIGINAL PDF PAGE 18 =====
+FORMULA CHECK REQUIRED: original PDF page 18.
+18
+Yu ET AL.
+0.0
+0.1
+0.2
+0.3
+0.4
+0
+3
+6
+9
+time
+ 
+ND_SCE
+0.0
+0.1
+0.2
+0.3
+0.4
+0
+3
+6
+9
+time
+ 
+AD_SCE1
+0.0
+0.1
+0.2
+0.3
+0.4
+0
+3
+6
+9
+time
+ 
+AD_SCE2
+0
+2
+4
+6
+8
+10
+14
+−0.04
+−0.02
+0.00
+0.02
+0.04
+ND_SCE
+time
+ASE−MCSD
+0
+2
+4
+6
+8
+10
+14
+−0.04
+−0.02
+0.00
+0.02
+0.04
+AD_SCE1
+time
+ASE−MCSD
+0
+2
+4
+6
+8
+10
+14
+−0.04
+−0.02
+0.00
+0.02
+0.04
+AD_SCE2
+time
+ASE−MCSD
+FIGUR E 4
+Estimation of causal parameters under the case Ex1 with τ = 0.3 and n = 1000. The three plots in the top row
+present the mean estimated causal parameters (represented by red curves) plus/minus 1.96 times the empirical standard deviation,
+encapsulating the true values (depicted in black dashed curves). The three plots in the bottom row present the difference between
+Boostrapping-based ASE and MCSD fluctuating around zero. From left to right, these plots correspond to ND-SCE2,AD-SCE1
+and AD-SCE2, respectively.
+
+
+===== ORIGINAL PDF PAGE 19 =====
+FORMULA CHECK REQUIRED: original PDF page 19.
+Copula-based causal framework for semi-competing risks data
+19
+0.0
+0.2
+0.4
+0
+3
+6
+9
+time
+ 
+ND_SCE
+0.0
+0.1
+0.2
+0.3
+0.4
+0
+3
+6
+9
+time
+ 
+AD_SCE1
+0.0
+0.1
+0.2
+0.3
+0.4
+0
+3
+6
+9
+time
+ 
+AD_SCE2
+0
+2
+4
+6
+8
+10
+14
+−0.04
+−0.02
+0.00
+0.02
+0.04
+ND_SCE
+time
+ASE−MCSD
+0
+2
+4
+6
+8
+10
+14
+−0.04
+−0.02
+0.00
+0.02
+0.04
+AD_SCE1
+time
+ASE−MCSD
+0
+2
+4
+6
+8
+10
+14
+−0.04
+−0.02
+0.00
+0.02
+0.04
+AD_SCE2
+time
+ASE−MCSD
+FIGUR E 5
+Estimation of causal parameters under the case Ex1 with τ = 0.6 and n = 1000. The three plots in the top row
+present the mean estimated causal parameters (represented by red curves) plus/minus 1.96 times the empirical standard deviation,
+encapsulating the true values (depicted in black dashed curves). The three plots in the bottom row present the difference between
+Boostrapping-based ASE and MCSD fluctuating around zero. From left to right, these plots correspond to ND-SCE2,AD-SCE1
+and AD-SCE2, respectively.
+
+
+===== ORIGINAL PDF PAGE 20 =====
+FORMULA CHECK REQUIRED: original PDF page 20.
+20
+Yu ET AL.
+0.0
+0.2
+0.4
+0.6
+0
+2
+4
+time
+ 
+ND_SCE
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0
+2
+4
+time
+ 
+AD_SCE1
+0.0
+0.1
+0.2
+0.3
+0
+2
+4
+time
+ 
+AD_SCE2
+(a) σ = 0.2
+0.0
+0.2
+0.4
+0.6
+0
+2
+4
+time
+ 
+ND_SCE
+0.0
+0.2
+0.4
+0
+2
+4
+time
+ 
+AD_SCE1
+0.0
+0.1
+0.2
+0.3
+0
+2
+4
+time
+ 
+AD_SCE2
+(b) σ = 0.4
+FIGURE 6
+Estimation of causal parameters (ND-SCE2,AD-SCE1 and AD-SCE2) in the case Ex4 (evaluating the method
+for sensitivity analysis) with n = 1000, τ = 0.6 and σ = 0.2/0.4.
+

@@ -1,0 +1,28 @@
+{
+  "paper_id": "Na994f1a30c",
+  "category": "E",
+  "title": "Relative Contrast Estimation and Inference for Treatment Recommendation",
+  "authors": "Muxuan Liang and Menggang Yu",
+  "doi": "10.1111/biom.13826",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1111/biom.13826",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "9ea5fc28a69ad67a1c4c381de2c26631d06a1dd558d0abb92dc2372c3e680ee2",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2010.13904"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Na994f1a30c/README.md",
+  "status": "local_only"
+}

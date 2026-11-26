@@ -1,0 +1,30 @@
+{
+  "paper_id": "N9b1dd316c7",
+  "category": "I",
+  "artifact_type": "main",
+  "sha256": "2e04c3c15fea2351d3fba002dff58cb82cf1fc61f001353c44094dc8f3feb12c",
+  "source_url": "https://www.dovepress.com/article/download/118338",
+  "original_version": "publisher PDF",
+  "bytes": "1633521",
+  "pdf_pages": "14",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by-nc/4.0/",
+  "license_evidence_url": "https://www.dovepress.com/article/download/118338",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:44.033712+08:00",
+  "format": "pdf",
+  "title": "Utility of Restricted Mean Survival Time Analysis for Renal Replacement Therapy in Patients with Sepsis Associated Acute Kidney Injury: A Retrospective Study",
+  "authors": "Rong Luo and Wei Wang and Jinquan Xia and Chuanchuan Nan and Silin Liang and Jiajia Huang and Chengying Hong and Chunbo Chen and Huaisheng Chen",
+  "doi": "10.2147/ijgm.s601433",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "and incorporate the Creative Commons Attribution – Non Commercial (unported, v4.0) License (http://creativecommons.org/licenses/by-nc/4.0/). By accessing the work "
+    }
+  ]
+}

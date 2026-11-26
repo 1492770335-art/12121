@@ -1,0 +1,1136 @@
+# Distributional impact of tax and welfare policies: Budget 2026
+
+Original PDF: [original.pdf](original.pdf). SHA256: `16bd2c435338f44b973ebf103ed3b650f57a1143e4cd7912ed082322c9534afa`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1; PDF label 1
+
+Technical extraction; compare with original PDF page 1.
+
+````text
+ESRI SPECIAL ARTICLE
+Distributional Impact of Tax and Welfare Policies: Budget 2026
+Maxime Bercholz, Karina Doorley, Claire Keane, Cian Mowlds,
+Richard O’Shea, Agathe Simon
+Available to download from www.esri.ie
+https://doi.org/10.26504/QEC2025WIN_SA_Bercholz
+© 2025 The Economic and Social Research Institute
+Whitaker Square, Sir John Rogerson’s Quay, Dublin 2
+This Open Access work is licensed under a Creative Commons Attribution 4.0 International License
+(https://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and
+reproduction in any medium, provided the original work is properly credited.
+
+````
+
+## PDF page 2; PDF label 2
+
+Technical extraction; compare with original PDF page 2.
+
+````text
+THE AUTHORS
+Maxime Bercholz is a Research Analyst at the Economic and Social Research Institute (ESRI).
+Karina Doorley and Claire Keane are Associate Research Professors at the ESRI and Adjunct
+Professors at Trinity College Dublin (TCD). Cian Mowlds and Richard O’Shea are Research
+Assistants at the ESRI. Agathe Simon is a Postdoctoral Fellow at the ESRI.
+ACKNOWLEDGEMENTS
+We gratefully acknowledge funding from the ESRI’s Tax, Welfare and Pensions Research
+Programme, which is supported by the Departments of Public Expenditure, Infrastructure,
+Public service Reform and Digitalisation; Social Protection; Health; Finance; and Children,
+Disability and Equality. We are grateful to the Central Statistics Oﬃce for facilitating access to
+the Survey of Income and Living Conditions Research Microdata File used to construct the
+database for the SWITCH tax–beneﬁt model. SWITCH makes use of the EUROMOD platform.
+Originally maintained, developed and managed by the Institute for Social and Economic
+Research, since 2021 EUROMOD is maintained, developed and managed by the Joint Research
+Centre of the European Commission, in collaboration with Eurostat and national teams from
+the EU countries.
+We are indebted to the many people who have contributed to the
+development of EUROMOD.
+This Article has been accepted for publication by the Institute, which does not itself take institutional
+policy positions. Special Articles are subject to refereeing prior to publication. The author is solely
+responsible for the content and the views expressed.
+
+````
+
+## PDF page 3; PDF label 3
+
+Technical extraction; compare with original PDF page 3.
+
+````text
+ABOUT THE ESRI
+The Economic and Social Research Institute (ESRI) advances evidence-based policymaking that
+supports economic sustainability and social progress in Ireland. ESRI researchers apply the
+highest standards of academic excellence to challenges facing policymakers, focusing on ten
+areas of critical importance to 21st Century Ireland.
+The Institute was founded in 1960 by a group of senior civil servants led by Dr T.K. Whitaker, who
+identiﬁed the need for independent and in-depth research analysis. Since then, the Institute has
+remained committed to independent research, and its work is free of any expressed ideology
+or political position. The Institute publishes all research reaching the appropriate academic
+standard, irrespective of its ﬁndings or who funds the research.
+The ESRI is a company limited by guarantee, answerable to its members and governed by a
+Council comprising up to 14 representatives drawn from a cross-section of ESRI members from
+academia, civil services, state agencies, businesses and civil society. Funding for the ESRI
+comes from research programmes supported by government departments and agencies,
+public bodies,
+competitive research programmes,
+membership fees,
+and an annual
+grant-in-aid from the Department of Public Expenditure, NDP Delivery and Reform.
+Further information is available at www.esri.ie
+
+````
+
+## PDF page 4; PDF label iv
+
+Technical extraction; compare with original PDF page 4.
+
+````text
+List of Tables and Figures | iv
+LIST OF TABLES
+Table 1:
+Impact of Budget 2026 on income inequality and poverty compared to
+wage-indexed 2025 policies . . . . . . . . . . . . . . . . . . . . . . . .
+21
+Table 2:
+Change in poverty rates due to tax-welfare policy, 2020–2026 . . . . . .
+24
+Table A1: Reforms impacting on household incomes . . . . . . . . . . . . . . . . . .
+28
+LIST OF FIGURES
+Figure 1:
+Wage and price inﬂation 2009 to 2027 . . . . . . . . . . . . . . . . . .
+8
+Figure 2:
+Distributional impact of Budget 2026 compared to price indexed 2025
+policies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+Figure 3:
+Distributional impact of Budget 2026 compared to wage indexed 2025
+policies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+Figure 4:
+Distributional impact of Budget 2026 by household type compared to
+price and wage growth indexed 2025 policies . . . . . . . . . . . . . . .
+18
+Figure 5:
+Distributional impact of Budget 2026 by gender
+. . . . . . . . . . . . .
+19
+Figure 6:
+Distributional impact of Budget 2026 by disability status . . . . . . . . .
+20
+Figure 7:
+Distributional analysis 2020–2026 – Permanent measures . . . . . . . .
+23
+Figure A1: Distributional impact of indirect tax changes . . . . . . . . . . . . . . . .
+30
+Figure A2: At risk of poverty rates by age group, 2020–2024
+. . . . . . . . . . . . .
+31
+
+````
+
+## PDF page 5; PDF label v
+
+Technical extraction; compare with original PDF page 5.
+
+````text
+v | Abbreviations
+ABBREVIATIONS
+CSO
+Central Statistics Oﬃce
+CSP
+Child Support Payment
+ESRI
+Economic and Social Research Institute
+IFAC
+Irish Fiscal Advisory Council
+IQA
+Increase for a Qualiﬁed Adult
+PRSI
+Pay-Related Social Insurance
+SILC
+Survey of Income and Living Conditions
+USC
+Universal Social Charge
+
+````
+
+## PDF page 6; PDF label vi
+
+Technical extraction; compare with original PDF page 6.
+
+````text
+Abstract | vi
+ABSTRACT
+In this Special Article we analyse the distributional impact of Budget 2026. In
+2026, average household income is estimated to be 1.3% lower than it would
+be under a tax–welfare system indexed to price growth, and 1.9% lower than
+it would be under a system indexed to anticipated wage growth.
+While
+increases to welfare rates ahead of price inﬂation had a positive impact on
+lower income families, these were oﬀset by the withdrawal of temporary
+cost-of-living supports, resulting in a loss overall. Middle- and higher-income
+households were negatively aﬀected by the freezing of income tax credits
+and bands, as well as the withdrawal of these temporary cost-of-living
+supports. Overall losses are relatively ﬂat across income groups and family
+types but are slightly larger for the lowest income 10% compared to the
+highest 10%. Examining the tax–welfare changes between 2020 and 2026,
+an interesting pattern emerges. Compared to a 2025 tax–welfare system
+indexed in line with either price or wage growth over this time period,
+households, on average, experienced a slight reduction in disposable income
+due to tax–welfare policy changes since 2020,
+with middle- and
+higher-income groups seeing small losses.
+However, the lowest income
+decile saw income gains compared to price or wage growth, due partly to
+welfare for children increasing about three times faster than prices or wages.
+
+````
+
+## PDF page 7; PDF label 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+7 | Quarterly Economic Commentary: Winter 2025
+1. Introduction
+Budget 2026 set out an expenditure package of €9.4 billion. The Irish Fiscal
+Advisory Council (IFAC, 2025) was critical of the size of the expenditure
+package, while Barrett et al. (2025) warned that recurrent expenditure is
+being ﬁnanced by potentially transitory revenues. IFAC (2025) also pointed
+out
+that
+government
+spending
+is
+regularly
+surpassing
+Budget
+Day
+projections – for example, Budget 2025 projected a €3 billion increase in
+spending but the true increase is likely to be over double this, at €7.4 billion.
+Between 2020 and 2022, price inﬂation grew rapidly in Ireland, outpacing
+wage growth (see Figure 1) and creating aﬀordability issues for consumers.
+Recent budgets have been characterised by temporary cost-of-living
+packages seeking to address these inﬂationary pressures. These measures
+included credits to assist with energy bills, double payments and lump sums
+for welfare recipients, and reduced student contribution fees. Doorley et al.
+(2025) pointed to the importance of these measures in protecting vulnerable
+groups such as individuals over retirement age and those with a disability –
+these groups would have seen signiﬁcant rises in their at-risk-of-poverty
+rates in recent years were it not for these measures. Budget 2026 sees the
+withdrawal of temporary cost-of-living policies, with implications for the
+distribution of income.
+
+````
+
+## PDF page 8; PDF label 8
+
+Technical extraction; compare with original PDF page 8.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 8
+FIGURE 1: WAGE AND PRICE INFLATION 2009 TO 2027
+In this Special Article, we examine the tax and welfare measures announced
+in Budget 2026. We begin by outlining the taxation and welfare measures
+in Section 2. Section 3 presents our analysis of the distributional impact of
+the combined measures using SWITCH – the Economic and Social Research
+Institute’s (ESRI) tax and beneﬁt microsimulation model. It also estimates the
+cumulative impact of tax and welfare reforms announced since 2020. Section
+4 concludes.
+2. Taxation measures
+Table A1 in the appendix lists the main taxation measures announced in
+Budget 2026, alongside the full year cost estimated by the Department of
+Finance.1
+2.1 Income tax
+The income tax standard rate cut oﬀ– the threshold at which the higher rate
+of 40% begins to be charged on income – remained unchanged in this year’s
+budget. The cut oﬀremains at €44,000 for a single person. In the context of
+1 As our focus is on the distributional impact, we focus on the tax measures that will have an eﬀect on
+individual/household incomes.
+
+````
+
+## PDF page 9; PDF label 9
+
+Technical extraction; compare with original PDF page 9.
+
+````text
+9 | Quarterly Economic Commentary: Winter 2025
+increasing average earnings, this represents an eﬀective tax increase, as a
+higher proportion of taxpayers’ income will be subject to the higher rate.
+Consequently, even without adjustments to tax bands, Exchequer revenue
+from income tax is expected to increase. This scenario, known as ﬁscal drag,
+occurs when wage growth is accompanied by a corresponding change to
+income tax structures, causing more of an individual’s income to be taxed at
+a higher rate.
+The Universal Social Charge (USC) has seen small changes in Budget 2026.
+The 2% ceiling has been increased by €1,318 to €28,700. This change was
+enacted to ensure that the 65c increase to the minimum wage would not put
+a full-time minimum wage worker into the higher USC band. Additionally,
+the USC concession has been extended to medical card holders, ensuring
+that individuals who hold a medical card and receive an annual income of
+less than €60,000 will have their highest USC rate capped at 2%. Overall,
+these changes will result in a reduction in liability for all those who pay USC,
+as higher earners will also beneﬁt from the widening of the 2% band.
+2.2 Housing
+Budget 2026 included a number of measures aimed at addressing ongoing
+issues in the housing market. The Rent Tax Credit, which was ﬁrst introduced
+in 2023 as a relief for private renters, has been extended to 2028. Eligible
+renters living in private, non-supported rental accommodation will be
+entitled to €1,000 per person per year. This will primarily beneﬁt middle
+income households who are not eligible for housing assistance schemes and
+earn enough income to incur a tax liability to beneﬁt from the credit.
+The Mortgage Interest Tax Credit, originally introduced on a temporary basis
+in Budget 2024, is being extended by one further year to the end of 2026.
+This tax credit is available for homeowners with an outstanding mortgage
+balance of between €80,000 and €500,000 at 31 December 2022. The
+credit is only accessible to people who hold variable and tracker rate
+mortgages, and amounts to 20% of the increased interest paid in 2024
+compared to 2022. This relief is capped at €1,250. Like the Rent Tax Credit,
+this relief will mainly beneﬁt middle- and higher-income households, as
+
+````
+
+## PDF page 10; PDF label 10
+
+Technical extraction; compare with original PDF page 10.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 10
+there are very few households in the lowest two-ﬁfths of the income
+distribution with a tracker or variable rate mortgage (Byrne et al., 2023).
+To address a recent fall in the number of new apartments being built, the
+Government has introduced a reduced VAT rate of 9% (previously 13.5%) on
+the sale of new apartments. This measure is aimed at addressing viability
+issues and increasing the supply of apartments in the housing market.
+The Minister of Finance also announced that a new Derelict Property Tax is to
+be introduced, to replace the Derelict Sites Levy. This tax will be charged at 7%
+of a property’s market value, and is aimed at reducing the volume of vacant
+and derelict properties around the country. This tax will not be administered
+until 2027.
+Other housing measures announced in the budget include the exemption of
+rental proﬁts from homes in the Cost Rental Scheme from corporation tax,
+the expansion of the Living City Initiative and the extension of the Residential
+Development Stamp Duty Refund Scheme to 2030.
+2.3 Indirect tax
+The indirect tax measure in this year’s budget that has attracted most
+attention is the reduced VAT rate applied to sections of the hospitality and
+services sector. Businesses in the food, catering and hairdressing sectors will
+be subject to a 9% VAT rate from 1 July 2026. This much debated change to
+VAT rates is aimed at addressing ongoing pressures faced by these industries
+as a result of rising operating costs. Little evidence has been provided on the
+necessity or eﬀectiveness of such a cut, however. The measure is projected
+to cost €681 million on an annual basis, equivalent to 60% of the total cost
+of welfare measures enacted in Budget 2026.
+Additionally, the reduced VAT rate of 9% on the supply of gas and electricity
+will be maintained until the end of 2030. This was ﬁrst introduced as a
+temporary measure in response to the energy crisis following the Russian
+invasion of Ukraine. The continuation of the reduction is intended to ease
+the burden of energy costs borne by households, which remain at an
+elevated level.
+
+````
+
+## PDF page 11; PDF label 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+11 | Quarterly Economic Commentary: Winter 2025
+In line with commitments made under the Finance Act 2020, there was a pre-
+announced increase in carbon tax of €7.50 per tonne. This brings the carbon
+tax per tonne of CO2 emitted to €71. This is the latest of successive planned
+annual increases until 2030. The €5,000 VRT relief for electric vehicles was
+also extended to the end of 2026.
+Excise duties on tobacco increased, this year by 50c per pack of 20 cigarettes, a
+smaller increase than the previous year’s €1 increase. Excise duties on alcohol
+and other nicotine-based products remained unchanged.
+The 20% reduction in public transport fares, which was ﬁrst put in place in
+2022 as a temporary measure and as part of a broader eﬀort to increase the
+viability and accessibility of public, was extended, as was the 50% reduction
+in fares for young adults.
+3. Social welfare measures
+A deﬁning feature of this year’s budget was the rollback of temporary
+cost-of-living measures which had been a core element of Budget Day
+announcements in recent years.
+In response to rising prices of energy,
+groceries and other goods, previous budgets had focused on increasing
+incomes through double or one-oﬀlump-sum welfare payments and direct
+cost reduction mechanisms such as the energy credit. This year’s approach
+marked a shift away from such measures with no universal energy credits,
+double Child Beneﬁt payments or one-oﬀlump sum payments awarded.
+There was a €10 increase in the maximum rate of core social welfare
+payments. There will be proportional increases for people on reduced or
+partial payments.
+These include beneﬁts for jobseekers, pensioners and
+people with disabilities. The usual ‘Christmas Bonus’ double payment will be
+paid to people in receipt of the old age pension and other long term social
+welfare payments.
+For most social welfare recipients, these increases are larger than either the
+forecast price growth2 of 2.2% or the wage growth3 of 3.7% in 2025 – for
+example the €10 increase in the personal rate of working age payments
+2 Taken from Barrett et al. (2025).
+3 Taken from Central Bank (2025). ‘Compensation per employee’ series.
+
+````
+
+## PDF page 12; PDF label 12
+
+Technical extraction; compare with original PDF page 12.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 12
+represents an increase of 4.1%. However, since retirement age payments
+tend to be higher than working age payments in nominal terms, the
+undiﬀerentiated €10 rise results in a lower percentage increase for this
+group – an increase of 3.5% for the personal rate of the State Pension
+(Contributory) and 3.6% for the State Pension (Non-Contributory). Both are
+ahead of anticipated price growth but below anticipated wage growth. This
+issue is further exacerbated by the Living Alone Increase,4 mainly received
+by those over state pension age and which remains unchanged since 2022.
+The Child Support Payment (CSP, previously known as Increase for a
+Qualiﬁed Child) increases by €8 (16%) for children under the age of 12 and
+€16 (26%) for children 12 and over, signiﬁcantly ahead of price and wage
+growth forecasts. The income threshold for the Working Family Payment, an
+in-work support for low-income families, increases by €60 per week. For
+families with young children, the Back-to-School Allowance, a programme
+that assists in the expenses of schooling, was extended to include two and
+three year olds. The universal Child Beneﬁt remains unchanged, falling in
+real terms.
+Increased supports for carers were also included in this year’s budget
+package. The income disregard for the Carer’s Allowance was increased by
+€375 to €1,000 for single individuals (€2,000 for couples). A €20 monthly
+increase to the Domiciliary Care Allowance was also introduced.
+The temporary reductions in the student contribution fee for third-level
+students, introduced in Budgets 2023, 2024 and 2025, were not continued in
+2026. Instead, a permanent reduction in the student contribution fee was
+introduced, setting the maximum annual fee at €2,500.
+While this
+represents an increase relative to the temporary reductions of recent years,
+it remains below the previous level of €3,000.
+Finally, supports to mitigate against the elevated cost of home energy were
+introduced. The weekly Fuel Allowance was increased by €5 per week. This
+payment was also extended to recipients of the Working Family Payment.
+4. Distributional impact analysis
+4 The Living Alone Increase is an extra payment paid to certain welfare recipients who live alone.
+
+````
+
+## PDF page 13; PDF label 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+13 | Quarterly Economic Commentary: Winter 2025
+We use SWITCH – the ESRI’s tax beneﬁt microsimulation model – to assess
+the combined impact of taxation and welfare policy changes on household
+income.5
+The appendix details the range of policy reforms modelled.
+SWITCH is linked to data from the 2022 Survey of Income and Living
+Conditions (SILC), the primary source of information on household incomes
+collected annually by the Central Statistics Oﬃce (CSO). The data are
+reweighted to be representative of the 2022 population (in terms of
+demographics, employment, income and social welfare), and uprated to
+reﬂect price and income growth between 2022 and 2026. Thanks to the
+scale, depth and diversity of this survey, its data can be used to provide an
+overall picture of the impact of the policy changes on Irish households,
+something that cannot be gained from selected example cases. The model
+includes expenditure estimates by sub-category collected by the CSO’s
+nationally representative Household Budget Survey in 2015–2016,6 which
+also allows for the analysis of indirect taxes.7
+While not part of Budget 2026, it was announced in 2023 that Pay-Related
+Social Insurance (PRSI) rates will rise from October 2024 onwards to help
+fund the introduction of the Jobseeker’s Pay-Related Beneﬁt and tackle state
+pension funding pressures.8
+Our analysis therefore includes the planned
+0.15% PRSI rise for 2026.
+As temporary measures have been a substantial feature of recent budgets,
+some households may have depended on such measures to meet
+cost-of-living pressures.
+In addition, while price growth has slowed (see
+Figure 1) prices remain at a permanently higher level than before the large
+growth in inﬂation. It is therefore important that the analysis accounts for
+the distributional impacts of the withdrawal or reduction of such measures
+in Budget 2026. We therefore separate the impact of ‘permanent’ changes
+5 See Keane et al. (2023) for a description and validation of the SWITCH model.
+6 The SWITCH model uses the EUROMOD platform and uses EUROMOD’s consumption microdata estimates. A full
+description of the imputation and validation of expenditure microdata is available here
+7 Income rates are uprated to 2026 levels using earnings indices. Expenditures are uprated to 2026 levels using
+price growth indices.
+8 All employee PRSI rates increased by 0.1 percentage points in 2024 and 2025, and will increase 0.15 percentage
+points in 2026 and 2027, and to 0.2 percentage points in 2028. See Department of Social Protection (2023).
+’Minister Humphreys secures Cabinet approval for major Social Welfare reforms’, press release, 21 November.
+
+````
+
+## PDF page 14; PDF label 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 14
+to the tax and welfare system from the impact of the withdrawal of
+temporary measures.
+Two factors make it seem unlikely that relevant cuts will be passed on to the
+consumer: the fact that the food industry lobbied for the VAT cut, with the
+aim of ‘securing long-term viability’ for businesses in the sector; and the
+Minister for Enterprise’s statement that the measure was to ‘inject viability’
+into the hospitality sector rather than to be passed through to workers (in
+the form of higher wages) or consumers (through lower prices).9 This is
+supported by research from IFAC (Carroll, 2025), which found evidence of an
+asymmetric VAT pass-through – i.e. VAT increases tend to be passed through
+from companies to consumers more than VAT cuts. We therefore assume in
+our analysis that none of the VAT reduction in the food, catering and
+hairdressing sector is passed through to the consumer.10
+We begin by presenting results for the impact of Budget 2026 in isolation. To
+assess the medium-term picture – and to understand how the tax and welfare
+system has evolved independent of the cost-of-living crisis – we also estimate
+the impact of permanent direct tax and welfare policy changes between 2020
+and 2026.
+For both the 2025–2026 comparison and the 2020–2026 comparison, we
+compare to a scenario in which policy parameters of the direct tax and
+welfare system are indexed in line with actual and/or forecast price or wage
+growth.11 Examining whether the tax and welfare system has kept pace with
+price inﬂation allows us to see if increases allow individuals maintain their
+standard of living. As argued by Bargain and Callan (2010) and Callan et al.
+(2019), comparing to a baseline scenario pegged to wage growth provides a
+distributionally neutral benchmark against which to assess policy reforms.
+Tax and welfare adjustments in line with wage growth would prevent ﬁscal
+drag and ensure that social welfare incomes would not fall behind those of
+employment incomes. This would help prevent poverty rates and inequality
+rising.
+We then use SWITCH to calculate households’ social welfare
+9 Curran, I.(2025). ’Hospitality VAT cut about sector’s viability, Burke says’, Irish Times, 8 October.
+10 Table A1 in the appendix shows the impact of indirect tax changes in Budget 2026, including a full pass-through
+of this VAT reduction. Eﬀects are very small compared to the impact of direct tax and welfare measures.
+11 For the analysis of indirect tax changes (2025–2026 analysis), we index our baseline scenario in line with price
+growth, which is a more appropriate indexation factor for expenditure.
+
+````
+
+## PDF page 15; PDF label 15
+
+Technical extraction; compare with original PDF page 15.
+
+````text
+15 | Quarterly Economic Commentary: Winter 2025
+entitlements, tax liabilities (both direct and indirect) and net incomes under
+each system.
+Indexation of the tax and welfare system would help provide certainty to
+welfare recipients and workers but would also, of course, come at a cost. For
+Budget 2026, this cost is estimated to be €1.2 billion for price indexation and
+€2 billion for indexation in line with wage growth; signiﬁcantly ahead of the
+actual costs of the tax–welfare measures analysed here.
+4.1 The distributional eﬀect of Budget 2026
+Figure 2 shows the distributional eﬀect of tax and welfare changes
+announced as part of Budget 2026, compared to a price-indexed 2025 policy
+system. Figure 3 shows the results compared to a wage-indexed 2025 policy
+system. Households are ranked by their equivalised disposable income, from
+lowest to highest, and split into ten equally sized groups (income deciles).12
+Overall, Budget 2026 results in a small reduction in disposable income (-1.3%
+under price indexation or -1.9% under wage indexation). The ‘permanent’
+Budget 2026 measures are progressive, resulting in real increases in income
+for those at the lower end of the income distribution and losses for those on
+middle–high incomes. This result is driven by the increases in social welfare
+(discussed in Section 3) that were ahead of both price and wage inﬂation.
+For those higher up the income distribution, where social welfare makes up
+a smaller (or nil) proportion of income, the freezing of the standard rate
+income tax band and tax credits,13 along with no increase in the universal
+Child Beneﬁt payment (reﬂecting a reduction compared to price or wage
+growth), results in a fall in disposable income.
+Despite the positive impact of the permanent tax and welfare system for
+those in lower income families,
+the withdrawal of the temporary
+cost-of-living supports (along with small negative impacts of indirect tax
+reforms) results in an overall loss, right across the income distribution. These
+temporary measures were playing an important role in supporting the
+12 Equivalisation adjusts total household income to take account of the number of adults and children in the
+household.
+13 We estimate that it would have cost €521 million in 2026 to increase the standard rate band and tax credits in line
+with the 2.2% price growth forecast, or €870 million to increase the standard rate band and tax credits in line
+with the 3.7% forecast wage growth for 2026.
+
+````
+
+## PDF page 16; PDF label 16
+
+Technical extraction; compare with original PDF page 16.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 16
+income levels of lower-income families; therefore, their withdrawal is more
+strongly felt at the lower end of the income distribution. This results in a
+larger negative impact of Budget 2026 for the lowest income group
+(-1.5%/-2.6% under price/wage indexation) compared to the highest income
+group (-0.9%/-1.3% under price/wage indexation).
+FIGURE 2: DISTRIBUTIONAL IMPACT OF BUDGET 2026 COMPARED TO PRICE INDEXED 2025
+POLICIES
+Source: Authors’ calculations using SWITCH run on 2022 SILC data, uprated to 2026 income
+levels. Expenditure shares are imputed using the 2015/16 Household Budget Survey.
+Note: Deciles are based on equivalised household income, using CSO national equivalence
+scales.
+
+````
+
+## PDF page 17; PDF label 17
+
+Technical extraction; compare with original PDF page 17.
+
+````text
+17 | Quarterly Economic Commentary: Winter 2025
+FIGURE 3: DISTRIBUTIONAL IMPACT OF BUDGET 2026 COMPARED TO WAGE INDEXED 2025
+POLICIES
+Source: Authors’ calculations using SWITCH run on 2022 SILC data, uprated to 2026 income
+levels. Expenditure shares are imputed using the 2015/16 Household Budget Survey.
+Note: Deciles are based on equivalised household income, using CSO national equivalence
+scales.
+4.2 The eﬀect of Budget 2026 by household type, gender and disability
+status
+We further examine the distributional impact of Budget 2026 by family type,
+gender and disability status.14 Figure 4 displays the impact of direct tax and
+welfare measures of Budget 2026 by household type compared to both a
+price-indexed and wage-indexed 2025 tax–beneﬁt system. While lone parent
+families see some gains from the permanent Budget 2026 tax and beneﬁt
+measures (as well as families headed by those aged 65+ under price
+indexation), these revert to overall losses once the withdrawal of temporary
+measures are implemented.
+14 It is not possible to estimate the impact of indirect tax changes for these groups as expenditure data are collected
+at the household level. As can be seen from Figures 2 and 3, indirect tax changes account for a very small part
+of the overall distributional impact of Budget 2026.
+
+````
+
+## PDF page 18; PDF label 18
+
+Technical extraction; compare with original PDF page 18.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 18
+FIGURE 4: DISTRIBUTIONAL IMPACT OF BUDGET 2026 BY HOUSEHOLD TYPE COMPARED TO
+PRICE AND WAGE GROWTH INDEXED 2025 POLICIES
+Source: Authors’ calculations using SWITCH run on 2022 SILC data, uprated to 2026 income
+levels.
+Note: Excludes indirect tax changes.
+Figure 5 shows the estimated eﬀects of direct tax and welfare policy
+changes, both permanent and temporary, from Budget 2026 by gender. For
+this analysis, we assume that income is split evenly between individuals in a
+couple.
+On average, men experience sharper losses than women (-1.8%
+
+````
+
+## PDF page 19; PDF label 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+19 | Quarterly Economic Commentary: Winter 2025
+compared to -1.2% for women, under wage indexation), reﬂecting their
+higher wages and higher labour supply, which increase their exposure to
+ﬁscal drag.
+FIGURE 5: DISTRIBUTIONAL IMPACT OF BUDGET 2026 BY GENDER
+Source: Authors’ calculations using SWITCH run on 2022 SILC data, uprated to 2026 income
+levels.
+Note: Income is assumed to be fully shared between members of a couple. Quintiles are based
+on equivalised household income, using CSO national equivalence scales. Excludes
+indirect tax changes.
+Figure 6 shows the estimated eﬀects of Budget 2026’s direct tax and welfare
+policy changes, both permanent and temporary, by disability status. We
+identify households with disabilities as those in which there is at least one
+member who self-declares to have a medical condition that limits them in
+their daily activities.15 Households aﬀected by disability experience sharper
+losses in income, particularly those in lower income groups. Doorley et al.
+(2025) highlighted the importance of the temporary cost-of-living measures
+in protecting the income of vulnerable groups such as those with a disability
+15 The precise deﬁnition we employ in the SILC data is to identify as having a disability those who respond positively
+to the following two questions:
+Do you have any chronic physical or mental health problem, illness or disability?
+Are you hampered [limited] in your daily activities by this physical or mental health problem, illness or
+disability?
+
+````
+
+## PDF page 20; PDF label 20
+
+Technical extraction; compare with original PDF page 20.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 20
+– therefore, it is unsurprising that households containing a person with a
+disability are more negatively impacted by their withdrawal.
+FIGURE 6: DISTRIBUTIONAL IMPACT OF BUDGET 2026 BY DISABILITY STATUS
+Source: Authors’ calculations using SWITCH run on 2022 SILC data, uprated to 2026 income
+levels.
+Note: We identify people with a disability as those who respond positively to the following two
+questions: ‘Do you have any chronic physical or mental health problem, illness, or
+disability?’ and ‘Are you hampered [limited] in your daily activities by this physical or
+mental health problem, illness or disability?’ Quintiles are based on equivalised
+household income, using CSO national equivalence scales. Excludes indirect tax
+changes.
+4.3 The eﬀect of Budget 2026 on income inequality and at-risk-of-poverty
+rates
+Table 1 shows the impact of Budget 2026 on income inequality, as measured
+by the Gini index, and at-risk-of-poverty (AROP) rates.
+Compared to an
+indexed 2025 policy, we estimate no real change in inequality as a result of
+Budget 2026, with the Gini index hovering around 27.
+Neither are there any large changes in poverty rates attributable to Budget
+2026 compared to the poverty rates that would have prevailed if the 2025
+system had just adjusted in line with price or wage growth. These results
+
+````
+
+## PDF page 21; PDF label 21
+
+FORMULA CHECK REQUIRED: original PDF page 21.
+
+````text
+21 | Quarterly Economic Commentary: Winter 2025
+reﬂect the fact that losses relating to Budget 2026 are relatively ﬂat across
+income groups. Doorley et al. (2024) pointed to the protective eﬀect the
+temporary cost-of-living measures had on the incomes of certain groups.
+These results show that while the withdrawal of these temporary measures
+is having a stronger negative impact on lower income groups, the
+countervailing positive eﬀects of the permanent tax–welfare system
+(speciﬁcally the increases in social welfare rates) for lower income groups is
+helping ensure no signiﬁcant rises in poverty rates.
+TABLE 1: IMPACT OF BUDGET 2026 ON INCOME INEQUALITY AND POVERTY COMPARED TO
+WAGE-INDEXED 2025 POLICIES
+2025 price indexation
+2025 wage indexation
+Budget 2026
+Gini index
+27.0%
+26.9%
+27.1%
+Poverty rate
+Working age
+11.5%
+11.3%
+11.3%
+65+
+20.7%
+19.6%
+20.4%
+Child
+14.8%
+14.5%
+14.3%
+Population aﬀected by disability
+25.2%
+24.4%
+24.8%
+Source: Authors’ calculations using SWITCH run on 2022 SILC data, uprated to 2026 income
+levels.
+Note: The poverty rate is calculated based on a poverty line equal to 60% of median
+equivalised disposable income. The CSO equivalence scale is used. Working age is
+deﬁned as aged 18–65, and children as those under age 18. People with disabilities are
+identiﬁed as those who self-report to having an illness or disability that limits them in
+their daily activities.
+Although poverty rates are expected to change little, if at all, as a result of
+Budget 2026, this reﬂects the budget’s relatively even distributional impact,
+given that poverty is a relative measure.
+For example, during the Great
+Recession households saw average income losses of about 10%, yet poverty
+rates actually fell. This occurred because incomes declined across the entire
+distribution, even though deprivation rates rose sharply.16 It is therefore
+worth noting that the withdrawal of temporary measures may have
+16As shown in Callan et al. (2014) the at-risk-of-poverty rate fell for the population overall from 19.4% in 2004 to 16%
+in 2011. Meanwhile, the deprivation rate (the proportion of the population experiencing enforced deprivation
+of 2 or more items from a set of 11 basic deprivation indicators) rose from 14.1% of the population to 24.5% over
+the same time period.
+
+````
+
+## PDF page 22; PDF label 22
+
+FORMULA CHECK REQUIRED: original PDF page 22.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 22
+knock-on eﬀects on deprivation rates;17 the permanent tax–welfare changes
+are not fully compensating for their withdrawal. It is not possible to use
+SWITCH to estimate the impact on deprivation rates, as we do for poverty
+rates; this is because poverty rates depend solely on relative incomes while,
+as discussed in Maître and Alamir (2024), deprivation levels will depend not
+just on current income but also on savings and potential debt accumulation.
+Therefore, while actual reported deprivation levels should be monitored,
+they are inevitably published with a time lag.18
+4.4 The eﬀect of permanent policy reform, 2020–2026
+We next consider the distributional impact of budgetary policy since 2020.
+To do so, we compare a 2026 policy system to an indexed 2020 system,
+examining indexation in line with both price growth and wage growth. This
+shows how changes to the permanent tax and welfare system have aﬀected
+real income since the initial sharp rise in inﬂation. Direct tax and welfare
+policy parameters in the baseline are indexed by the 25% price inﬂation or
+28% wage growth that occurred over this time period.1920
+Figure 7 shows the eﬀects of policy changes in Budget 2026 compared to an
+indexed 2020 policy scenario. On average, households lost 0.2% of disposable
+income compared to price growth, or 1.2% of disposable income compared to
+a wage indexed 2020 tax–welfare system. The pattern diﬀers by income decile
+however – the middle- and higher-income deciles have all experienced a small
+income reduction due to tax–welfare policy compared to price or wage growth
+(the average reduction for deciles 5–10 is -0.8% for price indexation and -1.8%
+compared to wage indexation). The lowest income decile gained most relative
+to a system pegged to wage growth (+9% compared to price growth and +7%
+compared to wage growth). This reﬂects the fact that while welfare payments
+for those over 65 have slightly lagged behind the price and wage inﬂation seen
+since 2020 – for example, the personal rate and Increase for a Qualiﬁed Adult
+(IQA) for recipients of the State Pension (Contributory) rose by 21% between
+17 The material deprivation rate is deﬁned as a household’s inability to aﬀord at least 2 out of 11 basic items considered
+essential for a typical standard of living, such as a warm coat etc.
+18 The latest available statistics on deprivation are from SILC data for 2024.
+19 Capacity to model indirect tax changes was only incorporated into SWITCH in 2025; therefore, analysis of indirect
+tax changes between 2020 and 2026 is not currently possible.
+20Price inﬂation is taken from the CSO up to 2024 and the 2025-26 value is as in footnote 2. Wage inﬂation is taken
+from the CSO up to 2024 and the 2025-26 value is as in footnote 3.
+
+````
+
+## PDF page 23; PDF label 23
+
+Technical extraction; compare with original PDF page 23.
+
+````text
+23 | Quarterly Economic Commentary: Winter 2025
+2020 and 2026 – the personal rate and IQA for those receiving working-age
+payments kept pace with price inﬂation. The most notable change in welfare
+rates over this time period is the rise in increases paid for children (CSPs).
+These increased by 61% for children under 12, and nearly doubled (95% rise)
+for children over 12 between 2020 and 2026 – signiﬁcantly ahead of price and
+wage inﬂation over the same time period.
+FIGURE 7: DISTRIBUTIONAL ANALYSIS 2020–2026 – PERMANENT MEASURES
+Source: Authors’ calculations using SWITCH run on 2022 SILC data, uprated to 2026 income
+levels.
+Note: Deciles are based on equivalised household income, using CSO national equivalence
+scales.
+These welfare changes also help to explain the impact of tax and welfare
+policy on inequality and poverty rates between 2020 and 2026; relative to a
+2020 tax–beneﬁt system indexed either by price or wage growth, policy
+changes have had a slight downward impact on inequality as well as the
+overall poverty rate (-0.9 percentage points for price indexation or -0.1
+percentage points for wage indexation). Tax–beneﬁt policy has tended to
+
+````
+
+## PDF page 24; PDF label 24
+
+FORMULA CHECK REQUIRED: original PDF page 24.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 24
+increase poverty rates for those over 65:21 a 1.7 percentage point increase
+compared to price indexation and a 4.4 percentage point increase compared
+to wage indexation. It has reduced it slightly for adults of working age: a 1
+percentage point decrease compared to price indexation and a 0.7
+percentage point decrease compared to wage indexation. It has reduced it
+more substantially for children: a 2.4 percentage point decrease compared
+to price indexation and a 1.3 percentage point decrease compared to wage
+indexation. The latter is due, in part, to the large increases in CSPs.
+TABLE 2: CHANGE IN POVERTY RATES DUE TO TAX-WELFARE POLICY, 2020–2026
+Price indexation
+Wage indexation
+Gini index change (pp)
+-0.6
+-0.4
+Poverty change (pp)
+Whole population
+-0.9
+-0.1
+Working age
+-1.0
+-0.7
+65+
+1.7
+4.4
+Child
+-2.4
+-1.3
+Population aﬀected by disability
+0.5
+2.2
+Source: Authors’ calculations using SWITCH run on 2022 SILC data, uprated to 2026 income
+levels.
+Note: The poverty rate is calculated based on a poverty line equal to 60% of median
+equivalised disposable income. The CSO equivalence scale is used. Working age is
+deﬁned as aged 18–65; 65+ are households with at least one individual aged 65 or
+more, and children as those under age 18. People with disabilities are identiﬁed as
+those who self-report to having an illness or disability that limits them in their daily
+activities.
+5. Conclusion
+Budget 2026 saw a total expenditure package of €9.4 billion: €8.1 billion in
+spending measures and €1.3 billion in taxation measures. One key feature of
+Budget 2026 was the cessation of most of the temporary measures
+introduced in the previous budgets to assist with cost-of-living pressures.
+Only the student contribution fee reduction for third level students has
+21 This partially explains the recent rise in the 65+ poverty rate, as shown in Roantree at al. (2025). It is worth
+noting that we isolate the impact of changes to the tax–welfare system only – actual poverty rates as shown in
+Roantree at al. (2025) and from the CSO (see Figure A2 in the appendix) will depend on other factors such as
+demographic changes, changes in occupational pension coverage etc.
+
+````
+
+## PDF page 25; PDF label 25
+
+Technical extraction; compare with original PDF page 25.
+
+````text
+25 | Quarterly Economic Commentary: Winter 2025
+become a permanent measure, although the permanent reduction is lower
+than the temporary reduction in last year’s budget.
+This article focuses on the distributional impact of Budget 2026 on the
+incomes of households in Ireland. As anticipated, the withdrawal of the
+cost-of-living measures has had a negative impact on disposable income
+across all income groups, one that is larger for those at the bottom of the
+income distribution.
+Permanent changes to the tax–welfare system –
+notably increases in welfare rates ahead of price growth along with the
+freezing of the standard rate tax band and tax credits – resulted in a
+progressive pattern for permanent Budget 2026 measures, increasing
+income in lower deciles and reducing it in middle to higher deciles.
+Overall, changes to the mainstream tax–beneﬁt system were not suﬃcient
+to fully compensate for the withdrawal of temporary measures, resulting in
+average losses of between 1.3% and 1.9%. These losses are larger for the
+lowest income decile compared to the highest, but overall income losses are
+relatively ﬂat across the income distribution. Impacts of indirect tax changes
+are very small overall.
+Examining the impact of Budget 2026 by family types shows no large
+diﬀerences across diﬀerent families, though lone parents have been slightly
+more protected than other family types; this is in part due to increases in
+CSPs that are signiﬁcantly above price and wage growth. They still remain as
+one of the family types with the highest rate of income poverty and material
+deprivation however (Roantree et al., 2025).
+Households aﬀected by disability experience sharper losses in income. This
+reﬂects the fact that the temporary cost-of-living measures had a stronger
+protective eﬀect on the incomes of households containing someone with a
+disability; their withdrawal is thus more strongly felt here, particularly for
+households aﬀected by disability that are in the lowest income quintile.
+In terms of inequality and poverty risk, no signiﬁcant impacts of Budget 2026
+are found. This reﬂects the fact that poverty measures are relative and losses
+are relatively ﬂat across the income distribution. The withdrawal of temporary
+measures may well have an impact on deprivation rates, however, and these
+should be monitored closely as data become available.
+
+````
+
+## PDF page 26; PDF label 26
+
+Technical extraction; compare with original PDF page 26.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 26
+Finally, when examining the cumulative impact of budgetary tax–welfare
+policy since 2020, an interesting pattern emerges. On average, households
+experienced a slight reduction in disposable income due to tax–welfare
+policy changes since 2020, with middle- and higher-income groups seeing
+small losses. The lowest income decile gained signiﬁcantly however — with
+CSPs increasing much more sharply than either price or wage inﬂation over
+this time period. Meanwhile, increases in welfare payments to those over
+retirement age have tended to lag slightly behind price or wage growth.
+Overall, this results in tax–beneﬁt policy having an upward impact on
+poverty rates of those over 65, and a downward eﬀect on the child poverty
+rate since 2020.
+Indexation of the tax and welfare system – i.e.
+automatically increasing
+welfare rates, tax credits and bands in line with either price or wage growth
+– would help provide certainty to welfare recipients and workers. However,
+it would also, of course, come at a cost.
+For Budget 2026, this cost is
+estimated to be €1.2 billion for price indexation and €2 billion for indexation
+in line with wage growth, signiﬁcantly ahead of the actual costs of the
+tax–welfare measures analysed here.
+
+````
+
+## PDF page 27; PDF label 27
+
+FORMULA CHECK REQUIRED: original PDF page 27.
+
+````text
+27 | Quarterly Economic Commentary: Winter 2025
+References
+Bargain, O. and T. Callan (2010).
+‘Analysing the eﬀects of tax–beneﬁt reforms on income
+distribution: A decomposition approach’, The Journal of Economic Inequality, Vol. 8, pp.
+1–21.
+Barrett, A., C. O’Toole and D. O’Shea (2025). Quarterly economic commentary, summer 2025,
+ESRI Forecasting Series, Dublin: ESRI, https://doi.org/10.26504/QEC2025SUM.
+Byrne, D., F. McCann and E. Gaﬀney (2023). ‘The interest rate exposure of mortgaged Irish
+households’, Central Bank of Ireland Financial Stability Notes, Vol. 2023, No. 2.
+Callan, T., B. Nolan, C. Keane, M. Savage and J.R. Walsh (2014).
+‘Crisis, response and
+distributional impact: The case of Ireland’, IZA Journal of European Labor Studies, Vol. 3,
+No. 9, https://doi.org/10.1186/2193-9012-3-9.
+Callan, T., C. Keane and M. Regan (2019). Assessing the distributional impact of budgetary policy:
+The role of benchmarks and indexation, Budget Perspectives 2020/2, Dublin: ESRI.
+Central Bank (2025), Quarterly Bulletin No. 3 2025.
+IFAC (2025). Pre-Budget 2026 statement, Irish Fiscal Advisory Council.
+Doorley, K., S. Dunne, C. Keane, S. Sándorová and A. Simon (2024). ‘Distributional impact of
+tax
+and
+welfare
+policies:
+Budget
+2025’,
+QEC
+Special
+Article,
+Dublin:
+ESRI,https://doi.org/10.26504/qec2024win-sa-doorley.
+Keane, C., K. Doorley, T. Kakoulidou and S. O’Malley (2023). ‘SWITCH: A tax–beneﬁt model for
+Ireland Linked to survey and register data’, International Journal of Microsimulation,
+International Microsimulation Association, Vol. 16, No., 1, pp. 65–88.
+Maître, B., and A. Alamir (2024). ‘Technical paper on minimum essential standards of living,
+poverty and deprivation in Ireland’, Dublin: Department of Social Protection.
+Roantree, B., H. Russell, A. Alamir, M. Griﬃn, B. Maître and T. Mitchell (2025). Poverty, income
+inequality and living standards in Ireland: Fifth annual report, Jointly-published Reports 14,
+Dublin: ESRI and Community Foundation Ireland, https://doi.org/10.26504/jr14.
+
+````
+
+## PDF page 28; PDF label 28
+
+Technical extraction; compare with original PDF page 28.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 28
+Appendix
+TABLE A1: REFORMS IMPACTING ON HOUSEHOLD INCOMES
+Taxation
+Full year cost/yield, €m
+Modelled
+Universal Social Charge
+Increase the 2% rate ceiling by €1,318
+-26
+✓
+Extension of the USC concession for medical card
+holders
+-50
+✓
+Housing
+Extend the Rent Tax Credit to 31 December 2028
+-350
+✓
+Extend the Mortgage Interest Tax Relief to December
+2026
+-13
+Reduce the VAT rate on the sale of new apartments
+to 9% from 8 October 2025 to 31 December 2030
+-390
+Pensions
+Amend tax treatment of the Auto Enrolment
+Retirement Savings Scheme
+-56
+✓
+VAT
+Extend the 9% VAT rate on the supply of gas and
+electricity to 31 December 2030
+-254
+✓
+Reduce the VAT rate on food and catering and
+hairdressing to 9% from 1 July 2026
+-681
+✓
+Climate
+Carbon tax: +€7.50 per tonne of carbon
+121
+✓
+Extend VRT relief for electric vehicles to 31 December
+2026
+-40
+Excise duties
++50c on a packet of 20 cigarettes
+36.9
+✓
+Pay Related Social Insurance (PRSI)
+0.15 pp increase in employer and employee PRSI
+-
+✓
+
+````
+
+## PDF page 29; PDF label 29
+
+Technical extraction; compare with original PDF page 29.
+
+````text
+29 | Quarterly Economic Commentary: Winter 2025
+TABLE A1 (CONTINUED): REFORMS IMPACTING ON HOUSEHOLD INCOMES
+Welfare
+Full year cost/yield, €m
+Modelled
+General
++€10 increase to social protection payments
+-
+✓
+Double ‘Christmas Bonus’ social welfare payment
+-
+✓
+Child Support Payment
++€8 increase for qualiﬁed child <12 years old
++€6 for qualiﬁed child >12 years old
+-
+✓
+Working Family Payment
++€60 increase in weekly threshold
+-
+✓
+Fuel Allowance
++€5 per week
+-
+✓
+Extension of Fuel Allowance to Working Family
+Payment recipients
+-
+✓
+Carers
++€375 increase of the income disregard of Carer’s
+Allowance to €1,000 for single people (€2,000 for
+couples)
+-
+✓
++€20 monthly increase to Domiciliary Care Allowance
+-
+Back to School Allowance
+Back to School Clothing and Footwear Allowance
+extended to 2- and 3-year-olds
+-
+✓
+Total cost of welfare measures (above)
+-1,152
+Source: Department of Finance’s Budget 2026 expenditure report (Welfare measures) and
+Budget 2026 (Taxation measures).
+Note: Costs are in millions of euros per annum and are mostly full year costs. Some small
+schemes are excluded. No individual cost is provided, rather the total cost estimate is
+shown.
+
+````
+
+## PDF page 30; PDF label 30
+
+Technical extraction; compare with original PDF page 30.
+
+````text
+Distributional Impact of Tax and Welfare Policies: Budget 2026 | 30
+FIGURE A1: DISTRIBUTIONAL IMPACT OF INDIRECT TAX CHANGES
+Source: Authors’ calculations using SWITCH run on 2022 SILC data, uprated to 2026 income
+levels. Expenditure shares are imputed using the 2015–2016 Household Budget Survey.
+Note: Deciles are based on equivalised household income, using CSO national equivalence
+scales. The y-axis is deliberately set to the same scale as that in Figures 2 and 3 for
+comparability purposes.
+
+````
+
+## PDF page 31; PDF label 31
+
+Technical extraction; compare with original PDF page 31.
+
+````text
+31 | Quarterly Economic Commentary: Winter 2025
+FIGURE A2: AT RISK OF POVERTY RATES BY AGE GROUP, 2020–2024
+Source: CSO’s PxStat Open Data Platform; https://data.cso.ie/table/SIA101
+
+````
+

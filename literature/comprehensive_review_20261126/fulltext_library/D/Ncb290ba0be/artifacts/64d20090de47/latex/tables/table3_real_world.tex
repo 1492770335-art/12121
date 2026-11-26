@@ -1,0 +1,30 @@
+% \begin{table*}[]
+% \caption{Calibration and sharpness comparison (lower is better).}
+% \centering
+% \begin{tabular}{lcccccc}
+
+% \toprule
+%                          &                    & Excl. censor & LogNorm MLE & S-CRPS & CQRNN & DPE  \\ \hline
+% \multirow{2}{*}{Youxuan} & Ext. D-Calibration & 0.049        & 0.041       & 0.045  & 0.042 & \textbf{0.04} \\
+%                          & Sharpness          & \textbf{73.72}        & 107.96      & {\ul 74.54}  & 77.67 & 76.4 \\ \hline
+% \multirow{2}{*}{Maicai}  & Ext. D-Calibration & 0.17         & 0.14        & 0.13   & 0.07  & \textbf{0.05} \\
+%                          & Sharpness          & 7.82         & 10.8        & 11.67  & 10.45 & {\ul 10.3} \\ \bottomrule
+% \end{tabular}
+% \label{table:table3}
+% \end{table*}
+
+\begin{table*}[]
+\caption{Calibration and sharpness comparison (lower is better).}
+\centering
+\begin{tabular}{lcccc}
+\toprule
+Dataset      & \multicolumn{2}{c}{Youxuan} & \multicolumn{2}{c}{Maicai}     \\ \hline
+Metrics      & Extended D-Calibration       & Sharpness       & Extended D-Calibration & Sharpness \\ \hline
+Excl. censor & 0.049                   & {\ul 76.72}           & 0.17               & \textbf{9.82}      \\
+LogNorm  & \textbf{0.039}                    & 107.96          & 0.14               & 10.8      \\
+S-CRPS       & 0.045                    & 77.54           & 0.13               & 11.67     \\
+CQRNN        & {0.042}                    & 77.67           & {\ul 0.07}               & 10.45     \\
+DPE          & {\ul 0.040}                  & \textbf{ 76.4}            & \textbf{0.05}               & {\ul 10.3}      \\ \bottomrule
+\end{tabular}
+\label{table:table3}
+\end{table*}

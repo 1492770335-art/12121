@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nabc60b4d4b",
+  "category": "C",
+  "title": "Optimal individualized treatment rule for combination treatments under budget constraints",
+  "authors": "Qi Xu and Haoda Fu and Annie Qu",
+  "doi": "10.1093/jrsssb/qkad141",
+  "year": "2024",
+  "original_url": "https://doi.org/10.1093/jrsssb/qkad141",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "3c60680ce8e7c5fb6113a30f3b11b33d2a4d7996096f6473f5bb1982464ed2d7",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2303.11507"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "C/Nabc60b4d4b/README.md",
+  "status": "local_only"
+}

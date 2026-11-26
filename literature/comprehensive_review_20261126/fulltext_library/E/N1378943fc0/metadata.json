@@ -1,0 +1,28 @@
+{
+  "paper_id": "N1378943fc0",
+  "category": "E",
+  "title": "Estimating Individualized Treatment Rules for Ordinal Treatments",
+  "authors": "Jingxiang Chen and Haoda Fu and Xuanyao He and Michael R. Kosorok and Yufeng Liu",
+  "doi": "10.1111/biom.12865",
+  "year": "2018",
+  "original_url": "https://doi.org/10.1111/biom.12865",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "63e7a459a8789e858c05333c7abb3fd4600e6e576cb7d6c3cc2ae3d8a9c40e8d",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1702.04755"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N1378943fc0/README.md",
+  "status": "local_only"
+}

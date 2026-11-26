@@ -1,0 +1,34 @@
+{
+  "paper_id": "N982a041314",
+  "category": "K",
+  "title": "The optimal conditioning intensity of stem cell transplantation for acute myeloid leukemia in complete remission",
+  "authors": "Yoshimitsu Shimomura and Sho Komukai and Tetsuhisa Kitamura and Tomotaka Sobue and Satoshi Yamasaki and Tadakazu Kondo and Shohei Mizuno and Kaito Harada and Naoki Shingai and Masatsugu Tanaka and Ayumu Ito and Tetsuya Nishida and Hiroyuki Ohigashi and Naoyuki Uchida and Ken-ichi Matsuoka and Yoshinobu Kanda and Makoto Onizuka and Toshiro Kawakita and Nobuhiro Hiramoto and Masashi Sawa and Kentaro Fukushima and Junya Kanda and Takahiro Fukuda and Yoshiko Atsuta and Masamitsu Yanada",
+  "doi": "10.1007/s00277-026-06881-w",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1007/s00277-026-06881-w",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [
+    "K/N982a041314/artifacts/b6d573c295b8/fulltext.md"
+  ],
+  "public_txt": [
+    "K/N982a041314/artifacts/b6d573c295b8/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [
+    "K/N982a041314/artifacts/b6d573c295b8/original.xml"
+  ],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "b6d573c295b85c68d76f774ef350a95cce41e0cbdc47893c0ee9d82dcdee58b0",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12920725/fullTextXML",
+      "provenance": "K/N982a041314/artifacts/b6d573c295b8/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N982a041314/README.md",
+  "status": "public_fulltext"
+}

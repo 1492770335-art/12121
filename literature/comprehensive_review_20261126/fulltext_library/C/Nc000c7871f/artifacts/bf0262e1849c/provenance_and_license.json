@@ -1,0 +1,30 @@
+{
+  "paper_id": "Nc000c7871f",
+  "category": "C",
+  "artifact_type": "main",
+  "sha256": "bf0262e1849ceccd47c35ab0262402944660cf0be753412b5b4c8464eb182f3d",
+  "source_url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/DE085374C40752EA21CC908E9AB180FF/S2056472419000851a.pdf/div-class-title-optimising-treatment-decision-rules-through-generated-effect-modifiers-a-precision-medicine-tutorial-div.pdf",
+  "original_version": "publishedVersion",
+  "bytes": "572588",
+  "pdf_pages": "7",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "license_evidence_url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/DE085374C40752EA21CC908E9AB180FF/S2056472419000851a.pdf/div-class-title-optimising-treatment-decision-rules-through-generated-effect-modifiers-a-precision-medicine-tutorial-div.pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:52.093031+08:00",
+  "format": "pdf",
+  "title": "Optimising treatment decision rules through generated effect modifiers: a precision medicine tutorial",
+  "authors": "Eva Petkova and Hyung Park and Adam Ciarleglio and R. Todd Ogden and Thaddeus Tarpey",
+  "doi": "10.1192/bjo.2019.85",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "under the terms of the Creative Commons Attribution-"
+    }
+  ]
+}

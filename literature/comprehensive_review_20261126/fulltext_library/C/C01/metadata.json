@@ -1,0 +1,28 @@
+{
+  "paper_id": "C01",
+  "category": "C",
+  "title": "Learning Optimal Personalized Treatment Rules in Consideration of Benefit and Risk: With an Application to Treating Type 2 Diabetes Patients With Insulin Therapies",
+  "authors": "Yuanjia Wang and Haoda Fu and Donglin Zeng",
+  "doi": "10.1080/01621459.2017.1303386",
+  "year": "2018",
+  "original_url": "https://doi.org/10.1080/01621459.2017.1303386",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "93132cec7936bb10f5264ac0725695249dab9d435cccce781a7130dcb23bf2d0",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://www.columbia.edu/~yw2016/benefitriskJASA.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "C/C01/README.md",
+  "status": "local_only"
+}

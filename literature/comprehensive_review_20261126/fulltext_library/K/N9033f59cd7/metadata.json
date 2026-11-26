@@ -1,0 +1,28 @@
+{
+  "paper_id": "N9033f59cd7",
+  "category": "K",
+  "title": "Outcomes of Allogeneic Hematopoietic Stem Cell Transplantation in Adult Acute Myeloid Leukemia: A Systematic Review",
+  "authors": "Alaa Babiker Mohamed Ahmed and Ehab A Elagab and Eilaf Abuelgasim Abdalla Ahmed and Nada Eltigani Hassan Mahgoub and Fatima Suliman Dawod Faky and Nada Abdelrahman Shamina and Nagla Subahi",
+  "doi": "10.7759/cureus.92549",
+  "year": "2025",
+  "original_url": "https://doi.org/10.7759/cureus.92549",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "38e3e9e388904ba054019634d03dfdcf9725caa309f580df25a0abe398092383",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://www.cureus.com/articles/409092-outcomes-of-allogeneic-hematopoietic-stem-cell-transplantation-in-adult-acute-myeloid-leukemia-a-systematic-review.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N9033f59cd7/README.md",
+  "status": "local_only"
+}

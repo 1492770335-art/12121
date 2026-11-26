@@ -1,0 +1,28 @@
+{
+  "paper_id": "N1ac4f08798",
+  "category": "E",
+  "title": "Personalized Policy Learning Using Longitudinal Mobile Health Data",
+  "authors": "Xinyu Hu and Min Qian and Bin Cheng and Ying Kuen Cheung",
+  "doi": "10.1080/01621459.2020.1785476",
+  "year": "2021",
+  "original_url": "https://doi.org/10.1080/01621459.2020.1785476",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "5c65ee3f84a783dfed14fd3972c7e1db66e97dbf928e61697809b89579a5ebb1",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2001.03258"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N1ac4f08798/README.md",
+  "status": "local_only"
+}

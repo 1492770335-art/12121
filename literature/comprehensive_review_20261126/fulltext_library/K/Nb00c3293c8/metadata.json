@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nb00c3293c8",
+  "category": "K",
+  "title": "GVHD and GRFS in patients with acute myeloid leukemia undergoing allogeneic HCT with treosulfan- versus reduced-intensity busulfan-based conditioning: a subgroup analysis of a randomized phase 3 trial",
+  "authors": "Friedrich Stölzel and Matthias Stelljes and Dietrich Wilhelm Beelen and Miroslaw Markiewicz and Péter Reményi and Thomas Luft and Fabio Ciceri and Eva-Maria Wagner-Drouet and Christian Junghanss and Christoph Scheid and Francesca Patriarca and Gerard Socié and Inken Hilgendorf and Alessandro Rambaldi and Kerstin Schaefer-Eckart and Domenico Russo and Gerald Wulf and Bertram Glass and Hélène Labussiere-Wallet and Gernot Stuhler and Maria Bieniaszewska and Jochen Casper and Ernst Holler and Fabio Benedetti and Anna Paola Iori and Desiree Kunadt and Jelena Mihajlović and Bettina Schild and Imran Khan and Xieran Li and Wolfgang Bethge",
+  "doi": "10.3324/haematol.2025.288770",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3324/haematol.2025.288770",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "4c87910b7c8ae95456db9c1517d83c58cfbe73601c8a80991c40b73bb0bc9376",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://haematologica.org/article/download/13122/79446"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/Nb00c3293c8/README.md",
+  "status": "local_only"
+}

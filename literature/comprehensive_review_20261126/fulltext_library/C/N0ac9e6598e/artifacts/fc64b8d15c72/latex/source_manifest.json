@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2504.19914v1",
+  "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "source_url": "https://arxiv.org/src/2504.19914v1",
+  "archive_sha256": "00e1b940e1a45e251e7e4a59a588975d26b076f2d098d4a12db5137f5a247030",
+  "files": [
+    {
+      "path": "DPITR_main.tex",
+      "bytes": 74570,
+      "sha256": "4c6ba00f20706f6cad88990b86c6b8b79cc1bd95977871a23ab80dbebeb3734e"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

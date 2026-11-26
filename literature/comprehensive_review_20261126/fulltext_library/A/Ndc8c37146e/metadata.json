@@ -1,0 +1,36 @@
+{
+  "paper_id": "Ndc8c37146e",
+  "category": "A",
+  "title": "Finding the optimal dynamic treatment regimes using smooth Fisher consistent surrogate loss",
+  "authors": "Nilanjana Laha and Aaron Sonabend-W and Rajarshi Mukherjee and Tianxi Cai",
+  "doi": "10.1214/24-aos2363",
+  "year": "2024",
+  "original_url": "https://doi.org/10.1214/24-aos2363",
+  "local_fulltext": true,
+  "public_pdf": [
+    "A/Ndc8c37146e/artifacts/2b00e8abb487/original.pdf"
+  ],
+  "public_markdown": [
+    "A/Ndc8c37146e/artifacts/2b00e8abb487/fulltext.md"
+  ],
+  "public_txt": [
+    "A/Ndc8c37146e/artifacts/2b00e8abb487/fulltext.txt"
+  ],
+  "original_tex": [
+    "A/Ndc8c37146e/artifacts/2b00e8abb487/latex/main_manuscript.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "2b00e8abb4878ad695f61c97a5316989a63b5853482e811c95e473a899c186d7",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2111.02826",
+      "provenance": "A/Ndc8c37146e/artifacts/2b00e8abb487/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/Ndc8c37146e/README.md",
+  "status": "public_fulltext"
+}

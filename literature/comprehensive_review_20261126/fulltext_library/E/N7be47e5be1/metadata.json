@@ -1,0 +1,28 @@
+{
+  "paper_id": "N7be47e5be1",
+  "category": "E",
+  "title": "Bayesian safe policy learning with chance constrained optimization: application to military security assessment during the Vietnam War",
+  "authors": "Zeyang Jia and Eli Ben-Michael and Kosuke Imai",
+  "doi": "10.1093/jrsssa/qnaf122",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1093/jrsssa/qnaf122",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c8c4a19eeefaee26483ea48d9a3a1b9e294415325e0baf8842e811c9c7d727f1",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2307.08840"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N7be47e5be1/README.md",
+  "status": "local_only"
+}

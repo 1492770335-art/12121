@@ -1,0 +1,28 @@
+{
+  "paper_id": "B02",
+  "category": "B",
+  "title": "Robust regression for optimal individualized treatment rules",
+  "authors": "W. Xiao and H. H. Zhang and W. Lu",
+  "doi": "10.1002/sim.8102",
+  "year": "2019",
+  "original_url": "https://doi.org/10.1002/sim.8102",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "fcc8291b5f55a59bf45667615ecfe1e7cb706ef12f2bab2c5131bd953096271c",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1604.03648"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/B02/README.md",
+  "status": "local_only"
+}

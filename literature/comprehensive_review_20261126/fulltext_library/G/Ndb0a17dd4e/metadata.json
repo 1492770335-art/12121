@@ -1,0 +1,36 @@
+{
+  "paper_id": "Ndb0a17dd4e",
+  "category": "G",
+  "title": "Doubly robust estimation of the hazard difference for competing risks data",
+  "authors": "Denise Rava and Ronghui Xu",
+  "doi": "10.1002/sim.9644",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1002/sim.9644",
+  "local_fulltext": true,
+  "public_pdf": [
+    "G/Ndb0a17dd4e/artifacts/c3b69e919d57/original.pdf"
+  ],
+  "public_markdown": [
+    "G/Ndb0a17dd4e/artifacts/c3b69e919d57/fulltext.md"
+  ],
+  "public_txt": [
+    "G/Ndb0a17dd4e/artifacts/c3b69e919d57/fulltext.txt"
+  ],
+  "original_tex": [
+    "G/Ndb0a17dd4e/artifacts/c3b69e919d57/latex/hazard_diff.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c3b69e919d578b6ab02944129a96923d6e3d2b1ce7ba3f1f09b71b6aff2fd5d2",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2112.09535",
+      "provenance": "G/Ndb0a17dd4e/artifacts/c3b69e919d57/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/Ndb0a17dd4e/README.md",
+  "status": "public_fulltext"
+}

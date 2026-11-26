@@ -1,0 +1,69 @@
+{
+  "arxiv_id": "2302.02392v2",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2302.02392v2",
+  "archive_sha256": "2cf2f643b4c372df9e90d3d7f6767f674a70c112564d9520eb504e8fa7840b43",
+  "files": [
+    {
+      "path": "further_related.tex",
+      "bytes": 3726,
+      "sha256": "509850206962d3b417502e8b7d9204472a224364f2ea06f53c2390a7847c3abb"
+    },
+    {
+      "path": "main_arxiv.tex",
+      "bytes": 2921,
+      "sha256": "199056c3f2a2ccce2ddb7c690f24386f61c9fbca37c0b189cc862f60381df7bc"
+    },
+    {
+      "path": "main_folder/discussion.tex",
+      "bytes": 764,
+      "sha256": "cfe2cf2801d8f4029b56470c391df2a0486875102aebb233e547ed43c8c42a41"
+    },
+    {
+      "path": "main_folder/abstract.tex",
+      "bytes": 1112,
+      "sha256": "836470616db28e5ec96a07ee476de0dce8a5219b4d4726f0a76b4485a87b41ac"
+    },
+    {
+      "path": "main_folder/preliminary.tex",
+      "bytes": 2362,
+      "sha256": "e3fee01aa8571d50dc09d30f58c901784322f4d08eed00d5693cbb6d13951a26"
+    },
+    {
+      "path": "main_folder/introduction.tex",
+      "bytes": 13488,
+      "sha256": "8b8fa9a2fc385c4128b209fc2748376a334204d60881f532290a7bbde6192e53"
+    },
+    {
+      "path": "main_folder/algorithms.tex",
+      "bytes": 7411,
+      "sha256": "f8e7452e02fc6c4ac70783637880bb7fd4b0064a3140598a259f10a528f56fa3"
+    },
+    {
+      "path": "main_folder/convergence.tex",
+      "bytes": 10104,
+      "sha256": "39d83889dddb5735b89cc17591f48ea1743bf21deafd05d5e4fc28f04c065bb1"
+    },
+    {
+      "path": "main_folder/finite_sample.tex",
+      "bytes": 13326,
+      "sha256": "6eb226f0fe4a932b4bccddea3d05badc8b15a050efee4f618e5fa2ba62f831b4"
+    },
+    {
+      "path": "math_commands.tex",
+      "bytes": 10697,
+      "sha256": "1597a55933b23a7154ae0d62db45d6da0571ac3a6ef8240151eff5fe3bbabf3b"
+    },
+    {
+      "path": "notation.tex",
+      "bytes": 560,
+      "sha256": "362a6251e0cadbba43dcdfbf9371bdb27857952b4e0db0556d68fcbb21bd2fa3"
+    },
+    {
+      "path": "proof.tex",
+      "bytes": 28174,
+      "sha256": "0daa70755263eab0e3770fb171454a782061c990290033e28436744eb070fa05"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

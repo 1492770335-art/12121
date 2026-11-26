@@ -1,0 +1,106 @@
+\begin{comment}
+\documentclass[12pt]{article}
+\input{header}
+\input{header2}
+%\begin{document}
+
+Christina Zhou \& Michael Kosorok \\
+Project 1 Theory
+\section{Updates to RCIF Consistency Proof}
+\end{comment}
+
+{ %begin tmp space
+
+%Remember, $\Ah\argt = \frac{\PnkH\atrisk\argt}{\truesurv\argtleft}$ and $\Bh\argt = \PnkH\Nj\argt$ where $\truesurv\argtleft$ is a constant function of $\histlower$ and $t$, but we drop the superscript $\histlower$ when notation is not confusing.
+\begin{comment}
+\begin{align*}
+    \intzerotot \frac{d\Bh\argt}{\Ah\argt} - \intzerotot \frac{d\Bh_2\argt}{\Ah_2\argt}
+\end{align*}
+\end{comment}
+
+First, we examine $\Nj$. From \cref{eq:rcif_distr_0}, we have
+\begin{equation}
+\label{rcif_nj_0}
+    \frac{\PnkH\Nj\argt}{\PnkH} = \frac{\PkH\Nj\argt + \Ophtsqrtn}{\PkH + \Ophtsqrtn}.
+\end{equation}
+\newcommand{\tmprate}{n^{\beta-1}}
+\newcommand{\tmprateinv}{n^{1-\beta}}
+\newcommand{\tmpratetwo}{n^{\frac{1}{2}-\beta}}
+\newcommand{\knot}{k_0}
+\newcommand{\Ophtsqrtnbeta}{\Op^{\arght}(\tmpratetwo)}
+\newcommand{\ophtsqrtnbeta}{\op^{\arght}(\tmpratetwo)}
+\newcommand{\numun}{U_n}
+%We now use the size of $\PkH$, so that this vanishes at the rate $\tmprate$.
+Assumption \ifnum\jasa=1 5 \else \ref{assump:Cho1} \fi implies that $\inf_{\histlower \in \history} \PkH \ge \knot \tmprate$ for all $\histlower \in \history$ where $\knot > 0 $ is some constant. Note that $\tmprateinv \times n^{-1/2} = \tmpratetwo$. Multiplying $\tmprateinv$ to the numerator and denominator of the right-hand side of \cref{rcif_nj_0}, we obtain
+\newcommand{\denomlong}{\tmprateinv \PkH + \Ophtsqrtnbeta}
+\begin{align}
+\frac{\PnkH\Nj\argt}{\PnkH} = &\frac{\tmprateinv \PkH\Nj\argt + \Ophtsqrtnbeta}{\denomlong}. \label{rcif_nj_1.1}
+\end{align}
+The denominator of the right-hand side of \cref{rcif_nj_1.1} is greater than or equal to $\knot + \opht$ because $\tmprateinv \PkH \ge \tmprateinv\knot\tmprate =\knot$ and the residual error is going to zero since by Assumption \ifnum\jasa=1 5\else \ref{assump:Cho1}\fi, $\beta>\frac{1}{2}$. Therefore, we have
+\begin{equation}
+    \begin{split}
+\frac{\PnkH\Nj\argt}{\PnkH} = \frac{\tmprateinv\PkH\Nj\argt+\opht}{\tmprateinv\PkH+\opht}. \label{rcif_nj_1.2}
+    \end{split}
+\end{equation}
+%Let $\numun = \tmprateinv \PkH\Nj\argt + \Ophtsqrtnbeta$.
+
+We note that
+\begin{equation}
+\label{rcif_nj_2}
+%\implies \frac{\numun}{\denomlong} &= \frac{\numun}{\tmprateinv \PkH} \bigg( 1 + \opht \bigg) \eqnspace
+\frac{\tmprateinv \PkH + \opht}{\tmprateinv\PkH}
+= 1+\frac{\opht}{\tmprateinv\PkH}
+=1+\opht,
+\end{equation}
+where the last equality in \cref{rcif_nj_2} holds because $\tmprateinv\PkH \ge \knot > 0$.
+Since $(1+\opht)^{-1}=1+\opht$, we can take the inverse of \cref{rcif_nj_2}.
+\begin{align}
+\implies \frac{\tmprateinv\PkH}{\tmprateinv \PkH + \opht} &= 1+\opht \notag \eqnspace
+%divide each side by \tmprateinv\PkH
+\implies \frac{1}{\tmprateinv \PkH + \opht} &= \frac{1 + \opht}{\tmprateinv \PkH}. \label{rcif_3}
+\end{align}
+
+To continue from \cref{rcif_nj_1.2}, multiply both sides of \cref{rcif_3} by $\tmprateinv \PkH\Nj\argt + \opht$.
+\begin{align*}
+%multiple each side by \tmprateinv \PkH\Nj\argt + \opht
+&\implies \frac{\tmprateinv \PkH\Nj\argt + \opht}{\tmprateinv \PkH + \opht} = \frac{\tmprateinv \PkH\Nj\argt + \opht}{\tmprateinv \PkH} \bigg( 1 + \opht \bigg). %\notag \eqnspace
+\end{align*}
+
+We re-write the numerator as $\tmprateinv\PkH\Nj\argt=\tmpratetwo n^{\frac{1}{2}}\PkH\Nj\argt$. Since \\ $\sqrtn\PkH\Nj\argt = \Opht$ and $\tmpratetwo\to 0$, $\tmprateinv\PkH\Nj\argt$ is bounded. The denominator is bounded away from $0$ because $\tmprateinv\PkH \ge \knot>0$. This implies,
+\begin{align*}
+\frac{\PnkH\Nj\argt}{\PnkH} &=\frac{\tmprateinv \PkH\Nj\argt}{\tmprateinv \PkH} \bigg( 1 + \opht \bigg) + \opht %\label{residual}
+\eqnspace
+%can cancel out \tmprateinv now.
+&=\frac{\PkH\Nj\argt}{\PkH} \bigg( 1 + \opht \bigg) + \opht \notag \eqnspace
+%\frac{\PkH\Nj\argt}{\PkH} is bounded quantity, and little o_p times bounded quantity is still little o_p
+&=\frac{\PkH\Nj\argt}{\PkH} + \opht \quad \text{(because $\frac{\PkH\Nj\argt}{\PkH}$ is bounded%, so $\frac{\PkH\Nj\argt}{\PkH} \times \opht = \opht$
+).} 
+%\label{lastline}
+\end{align*}
+
+Hence, $$\frac{\PnkH\Nj\argt}{\PnkH} = \frac{\PkH\Nj\argt}{\PkH} + \opht.$$ %and thus we have consistency of the kernel, or convergence for $\Nj\argt$.
+
+Using similar arguments, we can show that the kernel version of $\atrisk$,  $\frac{1}{\truesurv\argtleft}\PnkH\atrisk\argt$ is consistent as well. Specifically, since $\truesurv\argt$ is bounded away from $0$, similar to \cref{rcif_nj_1.1}, we have
+\begin{align*}
+\frac{\frac{1}{\truesurv\argtleft}\PnkH\atrisk\argt}{\PnkH} = &\frac{\tmprateinv \frac{1}{\truesurv\argtleft}\PkH\atrisk\argt + \Ophtsqrtnbeta}{\denomlong}%\label{rcif_y_1.1} \eqnspace
+&=\frac{\tmprateinv\frac{1}{\truesurv\argtleft}\PkH\atrisk\argt+\opht}{\tmprateinv\PkH+\opht}. %\label{rcif_y_1.2}
+\end{align*}
+Multiplying $\tmprateinv \frac{1}{\truesurv\argtleft}\PkH\atrisk\argt + \opht$ on the both sides of \cref{rcif_3} and simplifying the expressions, we have
+\begin{align*}
+%multiple each side by \tmprateinv \frac{1}{\truesurv\argtleft}\PkH\atrisk\argt + \opht
+\implies \frac{\tmprateinv \frac{1}{\truesurv\argtleft}\PkH\atrisk\argt + \opht}{\tmprateinv \PkH + \opht} %&= \frac{\tmprateinv \frac{1}{\truesurv\argtleft}\PkH\atrisk\argt + \opht}{\tmprateinv \PkH} \bigg( 1 + \opht \bigg) \eqnspace
+%&=\frac{\tmprateinv \frac{1}{\truesurv\argtleft}\PkH\atrisk\argt}{\tmprateinv \PkH} \bigg( 1 + \opht \bigg) + \opht \eqnspace
+%%can cancel out \tmprateinv now.
+%&=\frac{\frac{1}{\truesurv\argtleft}\PkH\atrisk\argt}{\PkH} \bigg( 1 + \opht \bigg) + \opht \eqnspace
+%\frac{\frac{1}{\truesurv\argtleft}\PkH\atrisk\argt}{\PkH} is bounded quantity, and little o_p times bounded quantity is still little o_p
+&=\frac{\frac{1}{\truesurv\argtleft}\PkH\atrisk\argt}{\PkH} + \opht.
+\end{align*}
+By Assumption \ifnum\jasa=1 5\else \ref{assump:CuiAssump1}\fi, $\PkH\atrisk\argt \ge \tauUB \PkH$. Then $\frac{\frac{1}{\truesurv\argtleft}\PkH\atrisk\argt}{\PkH} \ge \frac{\frac{1}{\truesurv\argtleft}\tauUB \PkH}{\PkH} = \frac{\tauUB}{\truesurv\argtleft}$. Since $\truesurv\argtleft$ is bounded away from $0$, we have $\frac{\frac{1}{\truesurv\argtleft}\PnkH\atrisk\argt}{\PnkH}$ is bounded away from $0$.
+} % end of tmp space
+
+\begin{comment}
+% Bibliography
+\bibliographystyle{apalike}
+\bibliography{00_references/Overview, 00_references/00_references_manual}
+%\end{document}
+\end{comment}

@@ -1,0 +1,28 @@
+{
+  "paper_id": "Na799c3a418",
+  "category": "I",
+  "title": "Proper Scoring Rules, Gradients, Divergences, and Entropies for Paths and Time Series",
+  "authors": "Patric Bonnier and Harald Oberhauser",
+  "doi": "10.1214/24-ba1435",
+  "year": "2025",
+  "original_url": "https://doi.org/10.1214/24-ba1435",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "199110f1720b5331ef08da742169df9098be12503f6cf7e67e17054a7c8cf6e0",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2111.06314"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/Na799c3a418/README.md",
+  "status": "local_only"
+}

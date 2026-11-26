@@ -1,0 +1,30 @@
+{
+  "paper_id": "Nf7a912c6e6",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "9fba1aed6602356e1bc263da6e9cb205fbade8e07605529148c29e19e85c2317",
+  "source_url": "https://eprints.whiterose.ac.uk/id/eprint/242890/8/Kanellopoulos_et_al_author_accepted_version_BMT_2026.pdf",
+  "original_version": "submittedVersion",
+  "bytes": "553392",
+  "pdf_pages": "22",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://eprints.whiterose.ac.uk/id/eprint/242890/8/Kanellopoulos_et_al_author_accepted_version_BMT_2026.pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:46.351547+08:00",
+  "format": "pdf",
+  "title": "Non-myeloablative versus reduced intensity conditioning for allogeneic hematopoietic stem cell transplantation in acute myeloid leukemia patients aged ≥65: a study from the ALWP of EBMT",
+  "authors": "A. Kanellopoulos and M. Labopin and A. Spyridonidis and E. Nikolousis and U. Platzbecker and D. Blaise and H. Sengeloev and F. Kinsella and T. Schroeder and G. Choi and E. Tholouli and P. Dreger and V. Potter and G. Socie and A. E. C. Broers and J. Passweg and M. Eder and G. Olesen and J. H. Bourhis and G. Van Gorkom and M. Stelljes and J. O. Bay and J. L. Byrne and P. Ceballos and J. A. Snowden and Bipin N. Savani and E. Brissot and F. Ciceri and A. Nagler and M. Mohty",
+  "doi": "10.1038/s41409-026-02935-9",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "Creative Commons Attribution 4.0 International License (CC-BY 4.0), which permits \nhttp://creativecommons.org/licenses/by/4.0/\nThis article is distributed under the terms of the Creative Commons Attribution (CC BY) licence. This licence \nhttps://creativecommons.org/licenses/ "
+    }
+  ]
+}

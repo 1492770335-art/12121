@@ -1,0 +1,36 @@
+{
+  "paper_id": "Nea68e38ddb",
+  "category": "B",
+  "title": "Regularizing fairness in optimal policy learning with distributional targets",
+  "authors": "Anders Bredahl Kock and David Preinerstorfer",
+  "doi": "10.1016/j.jeconom.2026.106186",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1016/j.jeconom.2026.106186",
+  "local_fulltext": true,
+  "public_pdf": [
+    "B/Nea68e38ddb/artifacts/1c4a7985db96/original.pdf"
+  ],
+  "public_markdown": [
+    "B/Nea68e38ddb/artifacts/1c4a7985db96/fulltext.md"
+  ],
+  "public_txt": [
+    "B/Nea68e38ddb/artifacts/1c4a7985db96/fulltext.txt"
+  ],
+  "original_tex": [
+    "B/Nea68e38ddb/artifacts/1c4a7985db96/latex/Draft.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "1c4a7985db96748aafbfa08f9e2311277f161935063d299fa67772a7cabc1b75",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "source_url": "https://arxiv.org/pdf/2401.17909",
+      "provenance": "B/Nea68e38ddb/artifacts/1c4a7985db96/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/Nea68e38ddb/README.md",
+  "status": "public_fulltext"
+}

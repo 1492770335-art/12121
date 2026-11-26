@@ -1,0 +1,28 @@
+{
+  "paper_id": "N3824d9fed2",
+  "category": "G",
+  "title": "A review on statistical and machine learning competing risks methods",
+  "authors": "Karla Monterrubio‐Gómez and Nathan Constantine‐Cooke and Catalina A. Vallejos",
+  "doi": "10.1002/bimj.202300060",
+  "year": "2024",
+  "original_url": "https://doi.org/10.1002/bimj.202300060",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c44a68ebe36eeac7394bcc5179e9ddb49998dedb162afa29ce2e2b211c3c1d4b",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2212.05157"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/N3824d9fed2/README.md",
+  "status": "local_only"
+}

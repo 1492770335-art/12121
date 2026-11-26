@@ -1,0 +1,34 @@
+{
+  "paper_id": "Ncf8cccde6d",
+  "category": "K",
+  "title": "Outcomes and predictors of second haploidentical hematopoietic stem cell transplantation for pediatric acute leukemia relapsing after a first allograft",
+  "authors": "Kai Chen and Huifang Wang and Qing Liu and Guanhua Hu and Zhang Feng and Bing Zou and Yingxi Zuo and Lu Bai and Pan Suo and Jingbo Shao and Hui Jiang and Xiaohui Zhang and Xiaojun Huang and Jinjin Chen and Yifei Cheng",
+  "doi": "10.3389/fimmu.2026.1885224",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3389/fimmu.2026.1885224",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/Ncf8cccde6d/artifacts/1dd56584ea0c/original.pdf"
+  ],
+  "public_markdown": [
+    "K/Ncf8cccde6d/artifacts/1dd56584ea0c/fulltext.md"
+  ],
+  "public_txt": [
+    "K/Ncf8cccde6d/artifacts/1dd56584ea0c/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "1dd56584ea0cb033d493237ee1a881788a0440cf1925956837feef35682ca700",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1885224/pdf",
+      "provenance": "K/Ncf8cccde6d/artifacts/1dd56584ea0c/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/Ncf8cccde6d/README.md",
+  "status": "public_fulltext"
+}

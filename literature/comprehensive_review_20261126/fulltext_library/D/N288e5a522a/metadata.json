@@ -1,0 +1,28 @@
+{
+  "paper_id": "N288e5a522a",
+  "category": "D",
+  "title": "Strong Gaussian Approximations of Product-Limit and Quantile Processes for Strong Mixing and Censored Data",
+  "authors": "V. Fakoor and N. Nakhaei Rad",
+  "doi": "10.1080/03610920903020779",
+  "year": "2010",
+  "original_url": "https://doi.org/10.1080/03610920903020779",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "b87a0aaf8aa53a5dc117f7896d38edc77464b82e297b5f1486e1eaa50df48ce3",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/0812.3038"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/N288e5a522a/README.md",
+  "status": "local_only"
+}

@@ -1,0 +1,36 @@
+{
+  "paper_id": "Nbdd6947c84",
+  "category": "H",
+  "title": "Longitudinal mediation analysis of time-to-event endpoints in the presence of competing risks",
+  "authors": "Tat-Thang Vo and Hilary Davies-Kershaw and Ruth Hackett and Stijn Vansteelandt",
+  "doi": "10.1007/s10985-022-09555-7",
+  "year": "2022",
+  "original_url": "https://doi.org/10.1007/s10985-022-09555-7",
+  "local_fulltext": true,
+  "public_pdf": [
+    "H/Nbdd6947c84/artifacts/9108275f22f4/original.pdf"
+  ],
+  "public_markdown": [
+    "H/Nbdd6947c84/artifacts/9108275f22f4/fulltext.md"
+  ],
+  "public_txt": [
+    "H/Nbdd6947c84/artifacts/9108275f22f4/fulltext.txt"
+  ],
+  "original_tex": [
+    "H/Nbdd6947c84/artifacts/9108275f22f4/latex/longitudinal.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "9108275f22f48d2a14bc7bc81ad34bd03cdd60a94a05475ff8931cb6541bdb0a",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "source_url": "https://arxiv.org/pdf/2007.03288",
+      "provenance": "H/Nbdd6947c84/artifacts/9108275f22f4/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/Nbdd6947c84/README.md",
+  "status": "public_fulltext"
+}

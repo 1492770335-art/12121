@@ -1,0 +1,19 @@
+{
+  "arxiv_id": "2312.01735v5",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2312.01735v5",
+  "archive_sha256": "55664be2dba301da9981c6adcc8a971f4e19b2b994a00326f8f193751e7e423d",
+  "files": [
+    {
+      "path": "ms.tex",
+      "bytes": 77117,
+      "sha256": "3f405b3a1d1da17191568e11214e7303c974b0d0797b7821f0e7dbf64b0c9346"
+    },
+    {
+      "path": "supplement.tex",
+      "bytes": 136574,
+      "sha256": "a72e011f0ec971c9e9b794270a28e4fcecf2a039895736a8e21e7c153ab2a7d2"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

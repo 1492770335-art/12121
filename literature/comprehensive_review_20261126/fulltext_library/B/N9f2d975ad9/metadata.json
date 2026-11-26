@@ -1,0 +1,34 @@
+{
+  "paper_id": "N9f2d975ad9",
+  "category": "B",
+  "title": "Distributional impact of tax and welfare policies: Budget 2025",
+  "authors": "Karina Doorley and Shane Dunne and Claire Keane and Simona Sándorová and Agathe Simon",
+  "doi": "10.26504/qec2024win_sa_doorley",
+  "year": "2024",
+  "original_url": "https://doi.org/10.26504/qec2024win_sa_doorley",
+  "local_fulltext": true,
+  "public_pdf": [
+    "B/N9f2d975ad9/artifacts/cc4bb58d0e1d/original.pdf"
+  ],
+  "public_markdown": [
+    "B/N9f2d975ad9/artifacts/cc4bb58d0e1d/fulltext.md"
+  ],
+  "public_txt": [
+    "B/N9f2d975ad9/artifacts/cc4bb58d0e1d/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "cc4bb58d0e1dce155c504f10040ab52495542770efeeab37336b66ee94c9fd5d",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.esri.ie/pubs/QEC2024WIN_SA_DOORLEY.pdf",
+      "provenance": "B/N9f2d975ad9/artifacts/cc4bb58d0e1d/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/N9f2d975ad9/README.md",
+  "status": "public_fulltext"
+}

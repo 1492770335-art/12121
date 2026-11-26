@@ -1,0 +1,37 @@
+{
+  "paper_id": "N79365aacdf",
+  "category": "A",
+  "title": "Weighted Q-learning for optimal dynamic treatment regimes with nonignorable missing covariates",
+  "authors": "Jian Sun and Bo Fu and Li Su",
+  "doi": "10.1093/biomtc/ujae161",
+  "year": "2025",
+  "original_url": "https://doi.org/10.1093/biomtc/ujae161",
+  "local_fulltext": true,
+  "public_pdf": [
+    "A/N79365aacdf/artifacts/94f60369449d/original.pdf"
+  ],
+  "public_markdown": [
+    "A/N79365aacdf/artifacts/94f60369449d/fulltext.md"
+  ],
+  "public_txt": [
+    "A/N79365aacdf/artifacts/94f60369449d/fulltext.txt"
+  ],
+  "original_tex": [
+    "A/N79365aacdf/artifacts/94f60369449d/latex/ms.tex",
+    "A/N79365aacdf/artifacts/94f60369449d/latex/supplement.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "94f60369449dd937e4bb80c7d588a8886b21bb3cbcaa96e9dd8265a02c9ad688",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2312.01735",
+      "provenance": "A/N79365aacdf/artifacts/94f60369449d/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/N79365aacdf/README.md",
+  "status": "public_fulltext"
+}

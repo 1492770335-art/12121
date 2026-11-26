@@ -1,0 +1,34 @@
+{
+  "paper_id": "N2a95c580ee",
+  "category": "I",
+  "title": "Development and internal validation of a 5-year major cardiovascular and cerebrovascular events prediction model using a simplified carotid plaque score in a hospital-based primary-prevention cohort",
+  "authors": "Haitao Hu and Daoyan Li and Qian Zhang",
+  "doi": "10.3389/fcvm.2026.1966647",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3389/fcvm.2026.1966647",
+  "local_fulltext": true,
+  "public_pdf": [
+    "I/N2a95c580ee/artifacts/410a0bda1a1a/original.pdf"
+  ],
+  "public_markdown": [
+    "I/N2a95c580ee/artifacts/410a0bda1a1a/fulltext.md"
+  ],
+  "public_txt": [
+    "I/N2a95c580ee/artifacts/410a0bda1a1a/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "410a0bda1a1a0075dbdadcd8cc2e754442f2c161eb7c6032d3f5e80846229153",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.frontiersin.org/journals/cardiovascular-medicine/articles/10.3389/fcvm.2026.1966647/pdf",
+      "provenance": "I/N2a95c580ee/artifacts/410a0bda1a1a/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/N2a95c580ee/README.md",
+  "status": "public_fulltext"
+}

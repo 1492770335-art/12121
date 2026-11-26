@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nc9cc8b8a6a",
+  "category": "G",
+  "title": "Bayesian, and Non-Bayesian, Cause-Specific Competing-Risk Analysis for Parametric and Nonparametric Survival Functions: The R Package CFC",
+  "authors": "Alireza S. Mahani and Mansour T. A. Sharabiani",
+  "doi": "10.18637/jss.v089.i09",
+  "year": "2019",
+  "original_url": "https://doi.org/10.18637/jss.v089.i09",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c5d93c3c48c1ce77fff76989bee0e443802d42ca3dc60dd74329a5bf1cf13f5c",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://www.jstatsoft.org/index.php/jss/article/view/v089i09/v89i09.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/Nc9cc8b8a6a/README.md",
+  "status": "local_only"
+}

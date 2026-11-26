@@ -1,0 +1,30 @@
+{
+  "paper_id": "N0823fd9721",
+  "category": "D",
+  "artifact_type": "main",
+  "sha256": "280f115aa3a1d8cdbacc2a27e5539910809f58f6c15b482240f7a7aebfb55b1d",
+  "source_url": "https://www.mdpi.com/2227-7390/12/11/1757/pdf?version=1717653862",
+  "original_version": "publishedVersion",
+  "bytes": "777805",
+  "pdf_pages": "17",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.mdpi.com/2227-7390/12/11/1757/pdf?version=1717653862",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:41.667515+08:00",
+  "format": "pdf",
+  "title": "Parameter Estimation of Birnbaum-Saunders Distribution under Competing Risks Using the Quantile Variant of the Expectation-Maximization Algorithm",
+  "authors": "Chanseok Park and Min Wang",
+  "doi": "10.3390/math12111757",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "conditions of the Creative Commons\nAttribution (CC BY) license (https://\ncreativecommons.org/licenses/by/"
+    }
+  ]
+}

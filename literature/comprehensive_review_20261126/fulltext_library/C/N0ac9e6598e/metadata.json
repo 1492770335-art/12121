@@ -1,0 +1,36 @@
+{
+  "paper_id": "N0ac9e6598e",
+  "category": "C",
+  "title": "Demographic Parity-Aware Individualized Treatment Rules",
+  "authors": "Wenhai Cui and Wen Su and Xiaodong Yan and Donglin Zeng and Xingqiu Zhao",
+  "doi": "10.2139/ssrn.5349148",
+  "year": "2025",
+  "original_url": "https://doi.org/10.2139/ssrn.5349148",
+  "local_fulltext": true,
+  "public_pdf": [
+    "C/N0ac9e6598e/artifacts/fc64b8d15c72/original.pdf"
+  ],
+  "public_markdown": [
+    "C/N0ac9e6598e/artifacts/fc64b8d15c72/fulltext.md"
+  ],
+  "public_txt": [
+    "C/N0ac9e6598e/artifacts/fc64b8d15c72/fulltext.txt"
+  ],
+  "original_tex": [
+    "C/N0ac9e6598e/artifacts/fc64b8d15c72/latex/DPITR_main.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "fc64b8d15c72905df762fcceea54f63f73bfb2f98edcb73b7f6963301f9b5ce7",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "source_url": "https://arxiv.org/pdf/2504.19914",
+      "provenance": "C/N0ac9e6598e/artifacts/fc64b8d15c72/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "C/N0ac9e6598e/README.md",
+  "status": "public_fulltext"
+}

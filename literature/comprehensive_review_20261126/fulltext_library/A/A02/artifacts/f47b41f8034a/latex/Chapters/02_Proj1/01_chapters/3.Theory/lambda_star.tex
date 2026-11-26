@@ -1,0 +1,27 @@
+Equation \cref{eqn:AJhat_node} can be re-written in terms of distributions and hazard functions. We already know that $X_i = T_i \wedge C_i$ and $T_i = T_{1i} \wedge T_{2i}$. Let $H_i(t)$ be the CDF of $T_i$ and $G_i(t)$ be the CDF of $C_i$. 
+%We also defined $N_i(s) = I(T_i \leq s, \epsilon_i = 1)$ where we assumed cause 1 is the priority cause, and $Y_i(s) = 1-N_i(s-)$ \citep{fine_proportional_1999}. \\ Then, $dN_i(s) = I(T_i = s, \epsilon_i = 1)$.
+The counting process for cause-$j$ is given by $N_j(s) = \sum_{i=1}^{n} N_{ji}(s) = \sum_{i=1}^{n} 1(X_i \leq s, \, \delta_{ji} = 1)$, and the at-risk process is given by
+$ K(s) = \sum_{i=1}^{n} K_i(s) = \sum_{i=1}^{n} 1(X_i \geq s)$. Then, taking the expectation of the risk set, we get the denominator to be
+\begin{equation}
+\begin{split}
+\mathbb{E}(K_i(s)) &= \mathbb{E}(I(X_i \geq s)) = \Pr(X_i \geq s) = \Pr(T_i \wedge C_i \geq s) \\
+&= \Pr(T_i \geq s, C_i \geq s) = \Pr(T_i \geq s) \Pr(C_i \geq s) \\
+&=[1-\Pr(T_i < s)][1 - \Pr(C_i < s)]\\
+&= [1-H_i(s)][1-G_i(s)],
+\end{split}
+\end{equation}
+where we assume independence between overall failure and censoring times.
+Next, we take the expectation of the counts of failures from cause $j$ at time $s$ to get the numerator:
+\begin{equation}
+    \begin{split}
+\mathbb{E}(dN_{ji}(s)) &= \mathbb{E}(I(\delta_{ji} = 1, X_i = s)) \\ 
+&= \mathbb{E}(I(\delta_{ji} = 1, T_i \wedge C_i = s, \epsilon_i = j)) \\ 
+&= \Pr(\delta_{ji} = 1, T_i \wedge C_i = s, \epsilon_i = j, X_i \geq s) \\
+&= \Pr(\delta_{ji} = 1, T_i \wedge C_i = s, \epsilon_i = j | X_i \geq s) \Pr(X_i > s)\\
+&= \Pr(\delta_{ji} = 1, T_i \wedge C_i = s, \epsilon_i = j | T_i \geq s, C_i \geq s) \Pr(T_i > s, C_i > s)\\
+&= \Pr(\delta_{ji} = 1, T_i \wedge C_i = s, \epsilon_i = j | T_i \geq s) [1-\Pr(T_i \leq s)][1 - \Pr(C_i \leq s)]\\
+&= d\Lambda_{ji}(s)[1-H_i(s)][1-G_i(s)],
+\end{split}
+\end{equation}
+where $d\Lambda_j(s)$ is the cause-$j$ specific hazard function defined in Equation \cref{eqn:dLambdaj}. The third equality holds because $X_i \geq s$ is a larger set than $X_i = s$, and the sixth equality holds because we assume independent censoring (i.e., being conditional on $T_i,C_i$ is the same as being conditional on just $T_i$ because $T_i \perp C_i$).
+

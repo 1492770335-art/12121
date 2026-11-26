@@ -1,0 +1,227 @@
+
+\appendix
+
+%\captionsetup{labelformat=AppendixTables}
+\setcounter{table}{0}
+\renewcommand*\thetable{\Alph{section}\arabic{table}}
+\section{Appendix} \label{Appendix}
+
+\noindent 
+\subsection{Literature search and data extraction} \label{detailedMethodSection}
+\subsubsection{Systematic literature search and study selection}
+
+\noindent
+
+\noindent We performed a comprehensive literature search using the electronic databases MEDLINE and EMBASE to identify relevant publications. Pubmed was used to search the database MEDLINE. EMBASE searches in both databases MEDLINE and EMBASE. However, we excluded the database MEDLINE for our search in EMBASE. Table \ref{tab:Table3} provides details of the literature search. 
+The search includes two parts. One part of the search includes topic-related search terms such as “non-proportional hazards” in various spellings (part one of the search strategy (main search in MEDLINE and EMBASE), rows 1 to 9 of \ref{tab:Table3}). In addition, in a second part of the search we used broader pre-specified topic-related terms (e.g. “crossing hazard*”, “delayed effect”, “treatment switch”).
+ The part of the search with the pre-specified related search terms has been restricted to statistical journals using the Web of Science category ‘Statistics \& Probability’ (part two of the search strategy (additional search in MEDLINE), row 10 to 19 of Table 3). Reference lists of included publications and relevant reviews were checked manually to identify any additional relevant articles that were not captured by the search.
+
+\noindent We included methodological research articles, reviews, and clinical investigations with time-to-event endpoints where methods for non-proportional hazards were applied. More specifically, the inclusion and exclusion criteria specified in Table \ref{tab:Table1} have been used.
+
+\begin{table}[h]
+    \centering
+    \caption{Inclusion and exclusion criteria}
+    \begin{tabular}{p{5.5cm}|p{5.5cm}}
+         Inclusion criteria	& Exclusion criteria  \\
+         \hline
+         Methodological publications introducing methods for time-to-event analyses of clinical trials with non-proportional hazard (NPH) assumptions & 	Investigations assessing NPH assumptions without introducing new NPH methods in the analysis\\
+         Applications of new NPH methods in clinical trials with time-to-event endpoints &Applications of conventional methods for NPH such as stratified Cox regressions or the use of time-dependent covariates in proportional hazards models \cite{Klein.2003}\\
+         &	Methods for competing risk or recurrent event analyses\\
+    \end{tabular}
+    \label{tab:Table1}
+\end{table}
+
+\subsubsection{Data extraction}
+
+\noindent
+
+\noindent Two reviewers screened the search results for relevant articles independently. The reviewers screened titles and abstracts and excluded papers that clearly did not meet the inclusion criteria. During the abstract screening, an article was included for the full-text screening, if at least one of the two reviewers included the abstract. For all selected abstracts, we obtained the full texts and two reviewers reviewed these according to the pre-specified inclusion criteria (e.g. statistical methods, simulations, time-to-event endpoints, non-proportionality assumption). From the full text, data on basic characteristics of the investigation, on proposed methods, and, if applicable, on simulation studies conducted were collected by two independent reviewers. A third reviewer resolved all disagreements on the inclusion of the full texts and on the extracted data. Characteristics of the proposed methods include whether the methods use frequentist or Bayesian, parametric or non-parametric approaches and whether the methods adjust for covariates. We distinguished between articles including methods for treatment effect estimation, hypothesis testing and manuscripts covering both. We also extracted the availability of a software for the proposed method and differentiated whether the software was freely available, e.g. Github repository for code, R package or Code snippets in text, available, e.g. available upon request from the author, or not available or mentioned in the text. 
+Additionally, the proposed methods were classified into one of the predefined categories: 
+\begin{itemize}
+    \item Log-rank approaches, e.g. weighted log-rank test
+    \item Kaplan-Meier curve-based approaches; e.g. weighted Kaplan-Meier and Restricted Mean Survival Time (RMST)
+    \item Combination approaches; e.g. Breslow test, Lee’s combo test, or MaxCombo test
+    \item Regression model (parametric/semiparametric/nonparametric)
+    \item Other; if the previously mentioned classes do not fit the method.
+\end{itemize}
+
+
+\subsubsection{Quantitative and qualitative analysis}
+
+\noindent
+
+\noindent Characteristics of articles and proposed methods are described by using descriptive analyses such as bar charts. The collected categorical variables are summarized by providing absolute and relative frequencies.
+In order to enable an overview of the methods proposed in the identified articles, we differentiated between methods for treatment effect estimation (see Section \ref{estimation}) and hypothesis test for the comparison of survival between treatment groups (see Section \ref{test}). We additionally introduced new categories for publications focusing on treatment effect estimations via e.g. regression approaches. The categories are Kaplan-Meier for effect estimation (Section \ref{KM_est}), stratified Cox (Section \ref{StratCox}), time-varying coefficients for the hazard rates (Section \ref{time varying}), transformation models with time-covariate interaction (Section \ref{trans}), joint models (Section \ref{joint}), short- and long-term hazard ratio (Section \ref{shortHR}), frailty models (Section \ref{frailty}), parametric regression models (Section \ref{parametric}), machine learning approaches (Section \ref{ML}) and other modelling approaches (Section \ref{other_estimation}). The main characteristics of these categories are introduced in a common notation and examples for the categories are provided and described in more detail (Section \ref{estimation}).
+
+\noindent All statistical analyses (tables and figures) are performed in R 4.1.2 (R Core Team, 2021).
+
+
+\subsubsection{Data extraction guideline} \label{dataextraction}
+
+\noindent
+
+\noindent For the data extraction each reviewer was provided with the following instructions including the in-and exclusion criteria:
+
+\noindent \textbf{\underbar{CONFIRMS - Literature review}}
+
+\noindent 
+
+\noindent AIM:
+
+\noindent Methods and statistical software for statistical analysis and reporting of clinical trials with time-to-event endpoints with non-proportional hazards
+
+\noindent 
+
+\noindent INCLUSION:
+
+\begin{itemize}
+\item  Methodological publications introducing methods for time-to-event analyses of clinical trials with non-proportional hazard (NPH) assumptions 
+
+\item  Applications of new NPH methods in clinical trials with time-to-event endpoints
+\end{itemize}
+
+\noindent EXCLUSION:
+
+\begin{itemize}
+ 
+\item  Investigations assessing NPH assumptions without introducing new NPH methods in the analysis 
+
+\item  Applications of conventional methods for NPH such as stratified Cox regressions or the use of time-dependent covariates in proportional hazard models
+
+\item  Methods for competing risk or recurrent event analyses
+\end{itemize}
+
+\noindent 
+
+\noindent SCREENING -- 2${}^{nd}$ step - full texts AND DATA EXTRACTION:
+
+\noindent 
+
+\noindent Please fill in the columns L to O for all full texts 
+
+\begin{itemize}
+\item  Type of paper (methods/applied/review)
+
+\item  For the inclusion/exclusion of the full text, please fill the columns L to N in the excel sheet:
+
+\begin{itemize}
+
+\item  Inclusion (yes/no)
+
+\item  Please provide the reason for non-inclusion (if ``other'', please specify)
+\end{itemize}
+\end{itemize}
+
+\noindent 
+
+\noindent If the full text is included, please fill in the columns P to AH
+
+\noindent 
+
+\begin{itemize}
+\item  Simulation study conducted (yes/no)
+
+\item  Software available (not available/available/freely available)
+
+\begin{itemize}
+\item  Not available/not mentioned: No mention of code availability made in the text
+
+\item  available: Availability mentioned, but code not freely available, e.g. ``Data available upon request from the authors''
+
+\item  freely available: Code freely available (as stated in the paper, without background checks), e.g. Github repository for code, R package, Code snippets in the text,{\dots}.
+\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+\item  If software freely available, software specification (text); e.g. name of R package, link to Github repository, etc.
+
+\item  Provides program for sample size calculation (yes/no)
+
+\item  Provides program for analysis (yes/no)
+\end{itemize}
+
+\noindent 
+
+\noindent 
+
+\begin{itemize}
+\item  The following items capture information on the new method or methods. If multiple new methods are described, please classify each of them within this row. If the predefined categories (log-rank, Kaplan Meier,{\dots}) do not fit all of new methods well, please use the column ``Specification of other class'' and give some details on the new method or methods. 
+\noindent 
+
+\begin{itemize}
+\item  Classification of the method as separate items with dropdown (yes/no)
+
+\end{itemize}
+
+\noindent 
+
+\begin{itemize}
+\item  Log-rank approaches, e.g. weighted log-rank test
+
+\item  Kaplan-Meier curve-based approaches; e.g. weighted Kaplan-Meier and Restricted Mean Survival Time (RMST)
+
+\item  Combination approaches; e.g. Breslow test, Lee's combo test, or MaxCombo test
+
+\item  Regression model 
+
+\begin{itemize}
+\item  If regression model, parametric/semiparametric/nonparametric (dropdown)
+\end{itemize}
+
+\item  Other class; if the above-mentioned classes do not fit the method
+\end{itemize}
+
+\item  If other, specification of other class for the new NPH method or methods (text, if several new methods proposed, comment on them individually in this box)
+
+\item  Bayesian or frequentist approach of the method (dropdown)
+
+\item  Covariate adjustment included in the method (not discussed/ stratification for factors/ adjustment for covariates)
+
+\item  Methods for hypothesis testing (yes/no)
+
+\item  Methods for estimation (yes/no)
+
+\item  Interim analysis (yes/no)
+
+\item  Interesting case studies to inform simulation studies (yes/no); e.g. only RCTs and the data should be presented in sufficient detail to inform the simulation study, e.g. Kaplan-Meier curve with number of patients at risk
+
+\item  Comments (text); name of the methods and optionally further details
+\end{itemize}
+%\end{itemize}
+\newpage
+\subsubsection{Search term for the literature review} \label{searchterm}
+
+\noindent
+
+\begin{table}[hb!]
+\caption{Search terms for the literature review} 
+\label{tab:Table3}
+\begin{tabular}{|p{0.2in}|p{2.8in}|p{1.5in}|}
+\hline 
+& Search terms &   \\ \hline 
+1 & ``non-proportional hazard'' OR ``non-proportional hazards'' OR ``nonproportional hazard'' OR ``nonproportional hazards'' OR ``non proportional hazard'' OR ``non proportional hazards'' & Main search in MEDLINE and EMBASE without any journal restrictions \\ \hline 
+2 & non-proportionality OR nonproportionality OR ``non proportionality'' &  \\ \hline 
+3 & (NPH OR NPHs OR "non PH" OR "non PHs" OR non-PH OR non-PHs) AND (assumption OR assumptions) &  \\ \hline 
+4 & ``proportional hazard'' OR ``proportional hazards'' OR ``hazard assumption'' OR ``hazard assumptions'' &  \\ \hline 
+5 & violation OR violations OR violated OR violat* &  \\ \hline 
+6 & \#4 AND \#5 &  \\ \hline 
+7 & \#1 OR \#2 OR \#3 OR \#6 &  \\ \hline 
+8 & ``delayed treatment effect'' OR ``delayed treatment effects'' &  \\ \hline 
+9 & \#7 OR \#8 &  \\ \hline 
+%\multicolumn{3}{|p{1in}|}{ } \\ \hline 
+10 & crossing AND (hazard OR hazards) & Additional search with broader search terms in journals of the category ``Statistics \&  Probability'' \\ \hline 
+11 & crossing AND (curve OR curves) &  \\ \hline 
+12 & ``delayed effect'' OR ``delayed effects'' &  \\ \hline 
+13 & delayed AND treatment &  \\ \hline 
+14 & ``treatment switch*'' OR ``heterogeneous patient*'' OR ``heterogeneous population*'' OR ``disease progression*'' &  \\ \hline 
+15 & \#10 OR \#11 OR \#12 OR \#13 OR \#14 &  \\ \hline 
+16 & ``hazard assumption'' OR ``hazard assumptions'' OR time-to-event OR ``time to event'' &  \\ \hline 
+17 & \#15 AND \#16 &  \\ \hline 
+18 & List of journals from the Web of Science category ``Statistics \& Probability'' &  \\ \hline 
+19 & \#17 AND \#18 &  \\ \hline 
+20 & \#9 OR \#19                                            &   \\ \hline 
+%\end{longtable}
+\end{tabular}
+\end{table}
+
+%\end{landscape}

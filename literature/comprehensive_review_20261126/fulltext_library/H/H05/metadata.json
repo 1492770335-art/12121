@@ -1,0 +1,28 @@
+{
+  "paper_id": "H05",
+  "category": "H",
+  "title": "Estimating heterogeneous treatment effects with right-censored data via causal survival forests",
+  "authors": "Yifan Cui and Michael R Kosorok and Erik Sverdrup and Stefan Wager and Ruoqing Zhu",
+  "doi": "10.1093/jrsssb/qkac001",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1093/jrsssb/qkac001",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "af9793c768630e0c87642ef6c84ab94a8b78c4e9515b668884f3d4018d6f020a",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2001.09887"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/H05/README.md",
+  "status": "local_only"
+}

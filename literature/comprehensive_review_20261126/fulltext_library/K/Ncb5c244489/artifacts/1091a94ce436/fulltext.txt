@@ -1,0 +1,966 @@
+A randomized pilot trial comparing anti-thymocyte globulin with anti-thymocyte globulin plus post transplant cyclophosphamide for prophylaxis against acute and chronic graft versus host disease in matched donor hematopoietic cell transplants – a study from the Cell Therapy Transplant Canada/ Australasian Leukemia Lymphoma Group Consortium
+
+Original PDF: [original.pdf](original.pdf). SHA256: `1091a94ce43623cd4c69cb47636b35a1979980e69b7363be8892fa6bba80dbe2`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1; PDF label 1 =====
+Technical extraction; compare with original PDF page 1.
+www.nature.com/bmt
+ARTICLE
+OPEN
+A randomized pilot trial comparing anti-thymocyte globulin
+with anti-thymocyte globulin plus post transplant
+cyclophosphamide for prophylaxis against acute and chronic
+graft versus host disease in matched donor hematopoietic cell
+transplants – a study from the Cell Therapy Transplant Canada/
+Australasian Leukemia Lymphoma Group Consortium
+Irwin Walker
+1✉, Uday Deotare
+2,3, Mohamed Elemary
+4, Mahmoud Elsawy
+5, Geneviève Gallagher
+6, David Kliman
+7,
+Tony Panzarella
+8, Nada Hamad
+9,10,11, Kirk R. Schultz12,13, Jan Storek
+14 and Kristjan Paulson15,16
+© The Author(s) 2026
+In a randomized pilot trial we compared ATG (standard Arm A, 4.5 mg/kg) with ATG plus PTCy (experimental Arm BE, ATG 4.5 mg/
+kg, PTCy 100 mg/kg). The primary safety endpoint was overall survival at 100 days. We analyzed 79 patients with AML (n = 55) or
+MDS (n = 24). Median age (range) was 59 (19 to 74), 47 (59.5%) were male. Conditioning was either myeloablative (n = 49) or
+reduced intensity (n = 30). Donors were 8/8 HLA-matched. Overall survival at 100 days was 95.0% (37 of 39 patients) vs 94.9% (38 of
+40 patients) in arm A vs arm BE (p > 0.9). In arms A versus BE, serious adverse events (SAEs) occurred in 26 (65.0%) and 25 (64.1%)
+patients, graft failure occurred in 3 and 1 patients (p > 0.9), median (range) days to neutrophil engraftment were 19 (10–45) versus
+22 (15–56) days p = 0.007), cytomegalovirus and Epstein-Barr virus reactivations occurred in 11 and 7 patients (p = 0.45) and in 6
+and 5 patients (p = 0.29). Overall survival at 12 months was 72.5% versus 75.8% (p = 0.79), cumulative incidence at 6 months of
+relapse was 15.0% versus 15.7% (p = 0.88) and of non-relapse mortality (NRM) 7.5% versus 8.0 (p = 0.45). The combination of ATG
+and PTCy can safely be used in phase III trials.
+Registration: clinicaltrials.gov (NCT04202835), November 29, 2019.
+Bone Marrow Transplantation; https://doi.org/10.1038/s41409-026-03024-7
+INTRODUCTION
+Anti-thymocyte globulin (ATG) and Post-Transplant Cyclopho-
+sphamide (PTCy) are used in most hematopoietic cell transplants
+(HCT) to prevent graft-versus-host disease (GVHD). The efﬁcacy
+of both ATG [1–6] and PTCy [7, 8], each alone, in preventing GVHD
+in
+matched
+donor
+transplants,
+has
+been
+well
+established
+in randomized controlled trials. However, there have been
+no published randomized trials comparing ATG and PTCy
+with each other. As well, neither ATG nor PTCy in isolation
+completely prevents GVHD, so we became interested in combin-
+ing both together (ATG/PTCy) in an attempt to further improve
+results.
+The above cited randomized data of ATG or PTCy alone that
+inform the present study span a range of donor types, graft sources,
+conditioning intensities, and dosing of ATG and ATLG. The
+randomized trials of ATG in matched donor transplantation were
+conducted predominantly in unrelated-donor recipients of myeloa-
+blative conditioning, used peripheral blood stem cells in most cases,
+and employed rabbit ATG at total doses of 4.5–15 mg/kg or ATLG
+(Anti-T-lymphocyte immunoglobulin) at 30 or 60 mg/kg. Walker [3]
+additionally included patients who received reduced-intensity
+conditioning. For PTCy in matched donor transplantation, dosing
+of cyclophosphamide was, in contrast to that in ATG trials, uniform at
+100 mg total dose. Bolaños-Meade [7] demonstrated superior GVHD-
+1Juravinski Hospital and Cancer Centre, McMaster University, Hamilton, ON, Canada. 2Schulich School of Medicine & Dentistry, London, ON, Canada. 3University of Western
+Ontario, London, ON, Canada. 4Saskatchewan Cancer Agency, University of Saskatchewan, Saskatoon, SK, Canada. 5Dalhousie University and QEII Health Sciences Centre, Halifax,
+NS, Canada. 6CHU de Québec, Université Laval, Québec City, QC, Canada. 7Royal North Shore Hospital, Sydney, Australia and The University of Sydney, Sydney, NSW, Australia.
+8Division of Biostatistics, Dalla Lana School of Public Health, University of Toronto, Toronto, ON, Canada. 9St Vincent’s Hospital, Sydney, NSW, Australia. 10Kinghorn Cancer Centre,
+Darlinghurst, Sydney, NSW, Australia. 11The University of New South Wales, Kensington, NSW, Australia. 12University of British Columbia, Vancouver, BC, Canada. 13B.C. Children’s
+Hospital, Vancouver, BC, Canada. 14University of Calgary, Calgary, AB, Canada. 15Cancercare Manitoba, Winnipeg, MB, Canada. 16University of Manitoba, Winnipeg, MB, Canada.
+✉email: walkeri@mcmaster.ca
+Received: 23 February 2026 Revised: 22 July 2026 Accepted: 13 August 2026
+1234567890();,:
+
+
+===== ORIGINAL PDF PAGE 2; PDF label 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+free, relapse-free survival with PTCy/tacrolimus/mycophenolate
+mofetil compared with tacrolimus/methotrexate in recipients of
+reduced-intensity conditioning and predominantly peripheral blood
+grafts from HLA-matched or 7/8 mismatched donors, and Curtis [8]
+conﬁrmed superiority of PTCy/cyclosporine over cyclosporine/
+methotrexate in matched donor transplantation. By contrast, Luznik
+[9] using PTCy without a calcineurin inhibitor following myeloa-
+blative conditioning did not improve outcomes versus standard
+tacrolimus/methotrexate, supporting an inference that combination
+with a calcineurin inhibitor is required for optimal PTCy beneﬁt.
+To assess the literature on combined ATG/PTCy therapy we
+performed a Medline Search of studies up till the time of
+submission, using a broad strategy of “((controlled clinical trials OR
+comparative trials OR phase III trials) AND (antithymocyte globulin
+OR antilymphocyte globulin) AND (post-transplant cyclopho-
+sphamide OR PTCy)). This strategy yielded forty-three studies,
+and these were supplemented by ﬁve studies from personal ﬁles.
+From these we selected seven publications that were either
+reviews (2), randomized controlled trials in which ATG/PTCy was
+compared to a control group (2), or non-randomized comparative
+trials of matched donor transplants only in which ATG/PTCy was
+compared with a control group, whether center (2) or registry
+based (1). The commonest reasons for excluding studies were the
+use
+of
+haploidentical
+donors
+for
+non-randomized
+studies,
+comparisons of ATG with PTCy each alone, and uncontrolled
+series in which ATG or PTCy were used alone. The seven selected
+studies are described below.
+Two randomized controlled trials of combined ATG/PTCy
+involved matched and haplo-identical donors respectively. Zu
+[10] compared a combination of “low dose” ATG (6 mg) and PTCy
+(40 mg) with ATG 10 mg alone in matched unrelated donor
+transplants. There were statistically signiﬁcant reductions in the
+cumulative incidences of grade II–IV acute GVHD (AGVHD), and of
+chronic GVHD (CGVHD), and improved graft-versus-host disease
+free- and disease-free survival (GRFS). The second randomized trial
+was in haploidentical transplants using a low total dose of PTCy
+29 mg/kg and bone marrow grafts, that was halted at interim
+analysis for futility against the hypothesized improvement over
+the haploidentical standard [11].
+One controlled registry study [12] of combined ATG/PTCy in
+matched donor transplants was identiﬁed; 421 subjects receiving
+PTCy alone were compared with 151 subjects receiving PTCy with
+ATG. Doses of ATG were not described, CGVHD was not assessed
+by NIH criteria and one-third of subjects were 9/10 mismatched.
+There were no differences in the endpoints of AGVHD, CGVHD,
+relapse rate or survival between the groups.
+Non-randomized matched comparisons were published from
+Princess Margaret Cancer Centre (PMCC), Toronto, where com-
+bined ATG/PTCy had been adopted to replace ATG alone as
+standard prophylaxis for all transplants starting in 2015. Two
+studies describe comparisons of outcomes following combined
+ATG/PTCy (after 2015) with outcomes following ATG alone (before
+2015) in matched unrelated donors. Deotare [13] compared their
+experience of 28 patients with fully matched donors receiving
+ATG/PTCy during the years 2015 and 2016 with a matched group
+of 27 patients having received ATG during years 2011 and 2013.
+There was a statistically signiﬁcant decrease in cumulative
+incidence of severe AGVHD following ATG/PTCy compared with
+those receiving ATG and a notable decrease in CGVHD. Salas et al.
+[14], also at PMCC, published on an expanded population of
+similar patients receiving fully matched donor grafts, 84 patients
+having received ATG 2011 to 2015 and 360 patients having
+received ATG/PTCy from 2015 onward, of whom 233 patients
+received a reduced dose of the ATG component from 4.5 to 2 mg
+from 2018 onward. Like the earlier study by Deotare et al, ATG/
+PTCy resulted in statistically signiﬁcant reductions in severe grades
+of both AGVHD and CGVHD with no adverse effect on disease
+relapse, non-relapse mortality (NRM) or overall survival.
+Two recent reviews summarize current literature on combined ATG/
+PTCy therapy. Barriga [15] concluded: “Collectively, these studies
+support the potential beneﬁt of combining PTCy and ATG in reducing
+GvHD without compromising survival. However, they are limited by
+their retrospective nature, heterogeneity in ATG dosing and adminis-
+tration schedules, and differences in transplantation era and follow-up
+duration”. Chen et al. [16] point to “a lack of prospective trials” and that
+“further RCTs are warranted to optimize the dosing and scheduling of
+combination regimens across various transplant settings”.
+METHODS
+We performed a randomized, controlled, multi-centre, parallel group,
+open-label, pilot trial comparing standard ATG alone with ATG plus PTCy,
+to assess feasibility and safety, randomizing 85 available patients.
+Eligibility and conduct
+Recipients were aged ≥16 years having either acute myeloid leukemia
+(AML) in remission, or myelodysplastic syndrome (MDS), and fulﬁlling
+centre criteria for transplant eligibility. Permitted preparative regimens
+could be myeloablative or reduced intensity. Reduced intensity regimens
+were ﬂudarabine combined with either busulfan or melphalan; myeloa-
+blative regimes were busulfan combined with either ﬂudarabine or
+cyclophosphamide. Donors were either related or unrelated and were fully
+HLA-matched (8/8) at HLA-A, HLA-B, HLA-C, or HLA-DRB1 loci using high
+resolution typing. Grafts were from peripheral blood. Supportive therapies
+were according to local institutional practices. We completed the study in
+six transplantation centers in Canada and two in Australia. Trial manage-
+ment was shared by Ozmosis Research Inc, Toronto, ON, Canada, and the
+Australasian Leukemia Lymphoma Group, Richmond, VIC, Australia.
+Randomization and masking
+We used minimization [17] to assign patients to either arm A (ATG) or BE
+(ATG/PTCy). Minimization factors were a priori risk factors for cGVHD,
+relapse and mortality, these being participant age (16–30, 31–50, >50);
+female donor for male recipient; choice of donor (related vs. unrelated);
+donor age (< =30, 31–50, >50); disease type (AML or MDS); disease risk
+index (low, intermediate, high or very high); type of preparative regimen
+(myeloablative or reduced intensity), and co-morbidity by augmented HCT-
+CI [18] (0–3 or >3); transplant centre was included to balance for
+differences in support practices. A list of transplant centers and details of
+the assignment procedure are available in the Supplemental ﬁle.
+Transplant Procedures
+Patients in the standard ATG group (A) received rabbit anti-thymocyte globulin
+(Thymoglobuline, Sanoﬁ–Genzyme, Lyon, France) intravenously at a total dose
+of 4.5 mg/kg over 3 days (0.5 mg/kg on day −2, and 2.0 mg/kg on days −1 and
++1). The dose was calculated on actual body weight, and no reductions were
+speciﬁed. Dose interruptions for reactions were permitted but it was expected
+that the entire daily dose would be infused on the same day as initiated.
+Patients in the experimental group (BE) received ATG as for group A and also
+received PTCy 50 mg/kg on post-transplant days 3 and 4. All patients received
+a calcineurin inhibitor. Methotrexate 15 mg/m2 on day +1 and 10 mg/m2 on
+days +3, +6, and +11 was added for patients receiving myeloablative
+conditioning and randomized to group A, but not to those randomized to
+group BE, who received a CNI alone. Mycophenolate (3 centres) or
+methotrexate (3 centres) was added to those receiving reduced intensity
+conditioning and randomized to group A but not to those randomized to
+group BE who received a CNI alone. Study management and supportive care
+restrictions are detailed in the Supplemental ﬁle. Acute and chronic graft
+versus host disease were diagnosed and graded by standard criteria [19, 20].
+Sample Size
+As this was a pilot trial, a formal sample size calculation was not performed,
+consistent with CONSORT extension guidance for pilot and feasibility trials
+[21]. A target accrual of 80 patients was selected as the maximum available,
+and sufﬁcient to inform the safety of the experimental combination.
+Outcomes
+The primary safety outcome was mortality, the expectation being that
+survival in experimental arm BE would be at least 90% that of the standard
+I. Walker et al.
+2
+Bone Marrow Transplantation
+
+
+===== ORIGINAL PDF PAGE 3; PDF label 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+arm at 100 days post-transplant. Secondary safety endpoints were,
+incidence of serious infection, incidence of CMV reactivation, time to
+non-relapse mortality, time to all-cause mortality, incidence of graft
+rejection or failure, time to disease relapse, time to engraftment, incidence
+of EBV reactivation and post-transplant lymphoproliferative disorder.
+Additional endpoints and deﬁnitions are listed in the Supplemental File.
+Statistical analysis
+The protocol speciﬁed that the primary analysis would be conducted
+according to the intention-to-treat principle. Of 85 randomized patients,
+6 were excluded from the analysis population—5 who were retro-
+spectively found not to have met one or more eligibility criteria
+at the time of randomization, and 1 whose planned transplantation
+was cancelled—yielding the modiﬁed intention-to-treat population of 79
+patients on which the results below are based. Decisions regarding these
+exclusions were taken prospectively by the trial group in consultation
+with the study statistician. All remaining participants were analyzed
+according to their randomized treatment assignment. A complete list of
+analytic methods is included in the Supplemental File.
+Funding source and sponsorship
+This trial was sponsored by McMaster University, Hamilton, Ontario,
+Canada, registered at clinicaltrials.gov (NCT04202835) on November 29,
+2019, and funded by Sanoﬁ. This was an investigator-initiated study and
+Sanoﬁhad no role in study design, data collection, data analysis, data
+interpretation, or writing of the report.
+RESULTS
+The study database was locked after all patients had been followed
+for at least 12 months, at which time median follow up of living
+patients was 24.1 months (range 11.89–26.71) and 23.7 months
+(range 11.99–25.07) for arms A and BE respectively. Our intention was
+to transplant 80 eligible patients. Between October 26th, 2020, and
+February 7th, 2024, we randomly assigned 85 patients (Fig. 1), six of
+whom were excluded leaving 79 patients available for analysis. Of the
+six patients, ﬁve were found to be ineligible and one had his/her
+transplantation cancelled. Forty patients were analyzed from arm A
+(ATG alone) and 39 patients from experimental arm BE (ATG/PTCy).
+Baseline characteristics did not differ between the treatment groups
+(Table 1). Median age was 59 years, range 19–74 with males 59.5%.
+Outcomes at 100 days following transplantation, the primary
+endpoint
+Results, all at day 100, are summarized in Table 2. Thirty-eight (38)
+of 40 patients (95.0%) in arm A and thirty-seven (37) of 39 patients
+Assessed for eligibility
+(n = 96)
+Excluded (n = 11)
+Not meeting inclusion criteria
+(n = 10)
+Refused to participate
+(n = 1)
+Randomized (n = 85)
+Allocated to arm A (ATG)
+(n = 42)
+Received allocated intervention 
+(n = 40)
+Did not receive allocated 
+intervention (n = 2)
+Transplant cancelled = 1
+Allocated to arm BE 
+(ATG/PTCy)
+(n = 43)
+Received allocated 
+intervention (n = 39)
+Did not receive allocated 
+intervention (n = 4)
+Lost to follow up
+(n = 0)
+Lost to follow up
+(n = 0)
+Analyzed
+(n = 40)
+Analyzed
+(n = 39)
+Not eligible = 4
+Not eligible = 1
+Fig. 1
+Study proﬁle.
+Table 1.
+Patient characteristics according to minimization factors.
+Factor
+Standard Arm
+A ATG N (%)
+Experimental Arm BE
+ATG + PTCy N (%)
+40
+39
+Patient Age
+16–30
+3 (7.5)
+2 (5.1)
+31–50
+10 (25)
+12 (30.8)
+>50
+27 (67.5)
+25 (64.1)
+Female donor for male recipient
+Yes
+7 (17.5)
+6 (15.4)
+No
+33 (82.5)
+33 (84.6)
+Disease type
+MDS
+12 (30)
+12 (30.8)
+AML
+28 (70)
+27 (69.2)
+Choice of donor
+Related
+14 (35)
+14 (35.9)
+Unrelated
+26 (65)
+25 (64.1)
+Donor Age
+≤30
+19 (47.5)
+17 (43.6)
+31–50
+11 (27.5)
+12 (30.8)
+>50
+10 (25)
+10 (25.6)
+Type of preparative regimen
+Myeloablative
+27 (67.5)
+22 (56.4)
+Reduced Intensity
+13 (32.5)
+17 (43.6)
+Disease risk index
+Very high
+0 (0)
+1 (2.6)
+High
+12 (30)
+12 (30.8)
+Intermediate
+23 (57.5)
+24 (61.5)
+Low
+5 (12.5)
+2 (5.1)
+Co-morbidity by augmented HCT-Cl
+0–3
+27 (67.5)
+25 (64.1)
+>3
+13 (32.5)
+14 (35.9)
+Site
+1
+3 (7.5)
+3 (7.7)
+2
+18 (45)
+17 (43.6)
+3
+7 (17.5)
+6 (15.4)
+4
+2 (5)
+1 (2.6)
+5
+2 (5)
+3 (7.7)
+6
+1 (2.5)
+1 (2.6)
+7
+2 (5)
+2 (5.1)
+8
+5 (12.5)
+6 (15.4)
+I. Walker et al.
+3
+Bone Marrow Transplantation
+
+
+===== ORIGINAL PDF PAGE 4; PDF label 4 =====
+Technical extraction; compare with original PDF page 4.
+(94.9%) in arm BE survived to 100 days (primary endpoint; p > 0.9).
+In arm A, deaths were due to cardiac arrest (n = 1) and subdural
+hematoma (n = 1); in arm BE, deaths were due to acute respiratory
+distress syndrome (n = 1) and post-transplant lymphoproliferative
+disorder (n = 1). Acute graft-versus-host disease occurred in 15
+patients in arm A and 6 in arm BE (p = 0.041). Grades II–IV AGVHD
+were reported in 6 and 3 patients (p = 0.49), and grades III–IV in 3
+and 0 patients (p = 0.24), in arms A and BE. At day 100, two
+patients in each arm were receiving systemic corticosteroids.
+Serious adverse events were reported in 26 patients (65.0%) in
+arm A and 25 patients (64.1%) in arm BE (p > 0.9).
+Graft failure at 28 days (standard criteria), occurred in 3 patients
+in arms A and 1 patient in arm BE (p = 0.62), with all 4 patients
+achieving engraftment by 56 days. Median time to neutrophil
+engraftment was 19 days (range, 10–45) in arm A and 22 days
+(range, 15–56) in arm BE (p = 0.007). Cytomegalovirus reactivation
+requiring treatment occurred in 11 patients in arm A and 6 in arm
+BE (p = 0.45), while Epstein–Barr virus reactivation occurred in 7
+and 5 patients (p > 0.9), respectively. Median CD4 counts were 63
+cells/mm (IQR = interquartile range 40.0–125.0) in arm A and 59.5
+(IQR 28.5–137.5) in arm BE (p = 0.58). Median serum IgG levels
+were 740 mg/dL(IQR 629–850) in arm A and 620 (IQR 550–794) in
+arm BE (p = 0.16). Median CD8 levels were 190 cells/mm3 (IQR
+55–390) in arm A and 240 (IQR 70–473) in arm BE (p = 0.42).
+Complete immune marker results at 100 days, together with
+results at one year, are summarized in Table 3 and there were no
+statistically signiﬁcant differences between the arms.
+Outcomes at long-term follow-up
+After a median follow up of 23.9 months (range 11.89–26.71), 53
+patients remained alive and their data were analyzed. The major
+endpoints are summarized and illustrated in Table 4 and Fig. 2a–d.
+Overall survival (Fig. 2a) at 12-months was 72.5% (% SE 7.1) in arm
+A and 75.8% (SE 7.0) in arm BE (log rank p = 0.79). Cumulative
+incidence of NRM at 6-months (Fig. 2b) was 7.5% (SE 4.2) in arm A
+and 8.0% (SE 4.) in arm BE (Gray’s test p = 0.45). Relapses were
+seen in 8 patients in each arm. Cumulative incidence of relapse at
+6-months (Fig. 2c) was 15.0% (SE 5.7) in arm A and 15.7% (SE 6.0)
+in arm BE (Gray’s test p = 0.88). Relapse-free survival at 12-months
+was 60.0% (SE 7.8) in arm A and 65.9% (SE 7.7) in arm BE (log rank
+p = 0.66). Moderate or severe chronic GVHD- and relapse-free
+survival (CRFS; Fig. 2d) at 12-months was 56.1% (SE 7.8) in arm A
+and 60.6% (SE 7.9) in arm BE (log rank p = 0.69). GRFS (Fig. 2e) at
+12 months was 52.5% (SE 7.9) in arm A and 66.67% (SE 7.7) in arm
+BE (log-rank p = 0.27). Acute GVHD (all grades) was seen in 18
+patients in arm A and 9 patients in arm BE, and CI at 6-months was
+42.5% (SE 8.0) in arm A and 23.7% (SE 7.0) in arm BE (Gray’s test
+p = 0.04). Acute GVHD Grades II–IV were seen in 11 in arm A and 5
+patients in arm BE, and CI at 6-months was 25.0% (SE7.0) in arm A
+and 13.1% (SE 5.6) in arm BE, (Gray’s test p = 0.13), and grade III/IV
+in 5 patients in arm A and 1 patient in arm BE, CI at 6-months 10.0
+(SE 4.8) and 2.7% (SE 2.7), Gray’s test p = 0.10) in arms A and BE
+respectively. Late AGVHD (after day 100) occurred in 3 patients in
+each arm. CGVHD has been reported to date in 6 patients and 3
+patients in arms A and BE respectively with moderate or severe
+grades in 2 patients in each arm. Steroid and/or immunosuppres-
+sive agents were being administered at 12 months for 6 patients
+and 2 patients in arms A and BE respectively.
+DISCUSSION
+This randomized pilot trial, intended to assess the safety of ATG/
+PTCy when compared with standard ATG, achieved its primary
+endpoint of survival in the ATG/PTCy arm being at least 90% of
+that in the ATG arm, at 100 days. A variety of secondary safety
+endpoints showed no excess toxicity in the experimental arm
+(ATG/PTCy), nor, after minimal follow up of 24 months, adverse
+effects on survival, rate of infections or rate of disease relapse.
+Our ﬁndings are best interpreted alongside the contemporary
+randomized data on each component of the experimental
+combination. The rates of grade II–IV acute GVHD observed in
+the standard ATG arm (15.0% at day 100; cumulative incidence
+25.0% at 6 months) are consistent with those reported in our
+group’s previous matched-donor ATG trial [3] and with other
+randomized
+ATG
+trials
+in
+matched
+donor
+transplantation
+[1, 2, 4–6], supporting the internal validity of the standard arm.
+The further reduction in acute GVHD seen with the addition of
+PTCy in the experimental arm (cumulative incidence 13.1% at
+6 months for grade II–IV) is directionally consistent with the
+magnitude of acute GVHD reduction reported in randomized trials
+Table 2.
+Summary of outcomes at 100 days post transplantation.
+Arm
+Arm A ATG
+N (%)
+Arm BE ATG
++PTCy N (%)
+p-value
+Subjects
+40
+39
+Survival to 100 days
+38 (95.0)
+37 (94.9)
+>0.9
+Subjects with SAEs
+26 (65.0)
+25 (64.1)
+>0.9
+AGVHD grades I-IV
+15 (37.5)
+6 (15.4)
+0.041
+Grade II–IV
+6 (15.0)
+3 (7.7)
+0.49
+Grade III–IV
+3 (7.5)
+0 (0.0)
+0.24
+Neutrophil
+engraftment days
+(range)
+19 (10–45)
+22 (15–56)
+0.007
+Graft failure at 28
+days
+3 (7.5)
+1(2.6)
+0.62
+CMV reactivation
+11 (27.5)
+7 (17.9)
+0.45
+EBV reactivation
+6 (15.0)
+5 (12.8)
+0.29
+Steroid use at 100
+days
+2 (5.0)
+2 (5.1%)
+>0.9
+Results of all immune markers at 100 days and one year are seen in Table 3.
+Table 3.
+Immune marker (CD4, CD8, IgG) levels at Day 100 and One Year.
+Arm
+CD4 (Day
+100)
+CD8 (Day
+100)
+IgG (Day
+100)
+CD4 (1 Year)
+CD8 (1 Year)
+IgG (1 Year)
+Standard Arm ATG
+Median
+63 (n = 34)
+190 (n = 33)
+740 (n = 35)
+140 (n = 28)
+317 (n = 28)
+773 (n = 28)
+IQR
+40–125
+55–390
+629–850
+106–270
+170–731
+534–1045
+Experimental Arm ATG +
+PTCy
+Median
+59.5 (n = 28)
+240 (n = 28)
+620 (n = 29)
+190 (n = 22)
+378.5
+(n = 22)
+920 (n = 21)
+IQR
+29–138
+70–473
+550–794
+140–271
+197–890
+700–992
+P-value (Wilcoxon rank-sum
+test)
+0.58
+0.42
+0.16
+0.48
+0.76
+0.51
+Normal ranges: CD4: 500–1200 cells/mm3 CD8: 150–1000 cells/mm3 IgG: 600–1640 mg/dL
+IQR interquartile range.
+I. Walker et al.
+4
+Bone Marrow Transplantation
+
+
+===== ORIGINAL PDF PAGE 5; PDF label 5 =====
+Technical extraction; compare with original PDF page 5.
+Table 4.
+Overall results at long term follow up.
+Arm
+Arm A ATG
+Arm BE ATG+PTCy
+p-value
+Subjects living
+27
+26
+Median FU (range)
+24.1 (11.89, 26.71)
+23.7 (11.99, 25.07)
+Time to Relapse (CI%, 6 mths, SE)
+15.0 (5.7)
+15.7 (6.0)
+0.88
+Relapse-Free Survival (%,12 mths, SE)
+60.0 (7.8)
+65.9 (7.7)
+0.66
+Time to NRM (CI%, 6mths, SE)
+7.5 (4.2)
+8.0 (4.5)
+0.45
+Overall Survival (%, 12 mths, SE)
+72.5 (7.1)
+75.8 (7.0)
+0.79
+CRFS (12 mths, %)
+56.1%
+60.6%
+0.69
+1.0
+0.8
+0.6
+Survival probability
+Cumulative incidence
+0.4
+0.2
+0.0
+1.0
+0.8
+0.6
+Survival probability
+0.4
+0.2
+0.0
+1.0
+e
+c
+d
+b
+a
+0.8
+0.6
+Survival probability
+0.4
+0.2
+0.0
+1.0
+0.8
+0.6
+0.4
+0.2
+0.0
+Cumulative incidence
+1.0
+0.8
+0.6
+0.4
+0.2
+0.0
+0
+5
+10
+P = 0.79
+P = 0.88
+P = 0.27
+P = 0.69
+P = 0.45
+Time (months)
+15
+Experimental arm ATG + PTCy
+Experimental arm ATG + PTCy
+Experimental arm ATG + PTCy
+Experimental arm ATG + PTCy
+Experimental arm ATG + PTCy
+Standard arm ATG
+Standard arm ATG
+Standard arm ATG
+Standard arm ATG
+Standard arm ATG
+20
+25
+0
+5
+10
+Time (months)
+15
+20
+25
+0
+5
+10
+Time (months)
+15
+20
+25
+0
+5
+10
+Time (months)
+15
+20
+25
+0
+5
+10
+Time (months)
+15
+20
+25
+Fig. 2
+Long term outcomes. a Overall survival. b Cumulative Incidence of NRM. c Cumulative incidence of disease relapse d CRFS e GRFS.
+I. Walker et al.
+5
+Bone Marrow Transplantation
+
+
+===== ORIGINAL PDF PAGE 6; PDF label 6 =====
+Technical extraction; compare with original PDF page 6.
+with PTCy-based prophylaxis in matched donor transplantation
+[7, 8], although the present pilot trial was neither designed nor
+powered to detect efﬁcacy differences. The combination did not
+appear to compromise engraftment beyond the modest delay in
+neutrophil engraftment that has been described with PTCy-
+containing regimens, nor was there evidence of excess viral
+reactivation,
+non-relapse
+mortality,
+or
+disease
+relapse
+over
+24 months of median follow-up.
+The two randomized trials were described in the introduction.
+The trial by Zu [22], in matched donors, while showing a reduction
+in GVHD used a pragmatic rather than explanatory design, with
+atypical doses of ATG and PTCy and with doses of ATG differing in
+each arm, limiting both the conclusions to be drawn and future
+adoption into clinical practice or trial design. This contrasts with
+the present study which used validated doses and a conventional
+design. With respect to the study by Xu [11], the present pilot trial
+differs in evaluating matched donor recipients rather than haplo-
+identical donors, peripheral blood grafts rather than bone marrow
+grafts, and more typical doses of ATG and PTCy.
+There are several weaknesses to this study. One is deﬁning
+safety under a limited primary endpoint of short-term survival.
+Survival may be an insensitive measure of safety given that there
+are a wide variety of potential toxicities that would also be
+unacceptable for further use of the experimental treatment (ATG/
+PTCy). We considered, however, that a primary endpoint based on
+a variety of toxicities would be difﬁcult to deﬁne, and debatable,
+while a decrease of survival would provide an undebatable end to
+further investigation of the experimental treatment. Nevertheless,
+the concept of safety in this trial is well supported by a variety of
+secondary endpoints describing the well-known complications of
+bone marrow transplantation. The choice of 100 days relates to
+the span of time during which most transplant-related toxicities
+occur but the results at long term follow up also point to safety. A
+second weakness of this study is built into the objective, which is
+limited to safety, and therefore there is no substantial information
+on efﬁcacy. A further weakness is the lack of current knowledge of
+the optimal doses of both ATG and PTCy. While the doses of both
+ATG and PTCy used in the current study have been validated
+against controls, they may not be correct for optimal outcomes of
+efﬁcacy and toxicities.
+We consider, based on results in this trial, in particular those
+pointing to safety and the trend in the incidence of acute GVHD,
+together with the already widespread use of the combination
+[12, 23, 24], that PTCy/ATG is sufﬁciently safe to be further
+investigated for the prevention of GVHD in a large randomized
+trial sufﬁciently powered to assess incidences of acute and
+chronic GVHD.
+REFERENCES
+1. Bacigalupo A, Lamparelli T, Barisione G, Bruzzi P, Guidi S, Alessandrino PE, et al.
+Thymoglobulin prevents chronic graft-versus-host disease, chronic lung dys-
+function, and late transplant-related mortality: long-term follow-up of a rando-
+mized trial in patients undergoing unrelated donor transplantation. Biol Blood
+Marrow Transplant. 2006;12:560–5.
+2. Finke J, Schmoor C, Bethge WA, Ottinger H, Stelljes M, Volin L, et al. Long-term
+outcomes after standard graft-versus-host disease prophylaxis with or without
+anti-human-T-lymphocyte immunoglobulin in haemopoietic cell transplantation
+from matched unrelated donors: ﬁnal results of a randomised controlled trial.
+Lancet Haematol. 2017;4:e293–301.
+3. Walker I, Panzarella T, Couban S, Couture F, Devins G, Elemary M, et al. Addition of
+anti-thymocyte globulin to standard graft-versus-host disease prophylaxis versus
+standard treatment alone in patients with haematological malignancies under-
+going transplantation from unrelated donors: ﬁnal analysis of a randomised,
+open-label, multicentre, phase 3 trial. Lancet Haematol. 2020;7:e100–11.
+4. Soiffer RJ, Kim HT, McGuirk J, Horwitz ME, Johnston L, Patnaik MM, et al. Pro-
+spective, randomized, double-blind, phase III clinical trial of anti–T-lymphocyte
+globulin to assess impact on chronic graft-versus-host disease–free survival in
+patients undergoing HLA-matched unrelated myeloablative hematopoietic cell
+transplantation. J Clin Oncol. 2017;35:4003–11.
+5. Chang Y-J, Wu D-P, Lai Y-R, Liu Q-F, Sun Y-Q, Hu J, et al. Antithymocyte globulin
+for matched sibling donor transplantation in patients with hematologic malig-
+nancies: a multicenter, open-label, randomized controlled study. J Clin Oncol.
+2020;38:3367–76.
+6. Kroger N, Solano C, Wolschke C, Bandini G, Patriarca F, Pini M, et al. Antilym-
+phocyte globulin for prevention of chronic graft-versus-host disease. N Engl J
+Med. 2016;374:43–53.
+7. Bolaños-Meade J, Hamadani M, Wu J, Al Malki MM, Martens MJ, Runaas L, et al.
+Post-transplantation cyclophosphamide-based graft-versus-host disease pro-
+phylaxis. N Engl J Med. 2023;388:2338–48.
+8. Curtis DJ, Patil SS, Reynolds J, Purtill D, Lewis C, Ritchie DS, et al. Graft-versus-host
+disease prophylaxis with cyclophosphamide and cyclosporin. N Engl J Med
+2025;393:243.
+9. Luznik L, Pasquini MC, Logan B, Soiffer RJ, Wu J, Devine SM, et al. Randomized
+phase III BMT CTN trial of calcineurin inhibitor–free chronic graft-versus-host
+disease interventions in myeloablative hematopoietic cell transplantation for
+hematologic malignancies. J Clin Oncol 2021;40:356–68.
+10. Zu Y, Li Z, Gui R, Liu Y, Zhang Y, Yu F, et al. Low-dose post-transplant cyclo-
+phosphamide with low-dose antithymocyte globulin for prevention of graft-
+versus-host disease in ﬁrst complete remission undergoing 10/10 HLA-matched
+unrelated donor peripheral blood stem cell transplants: a multicentre, rando-
+mized controlled trial. Bone Marrow Transplant. 2022;57:1573–80.
+11. Xu Z-L, Han T-T, Zhu X-L, Liu J, Lv M, Sun Y-Q, et al. Randomized trial of anti-
+thymocyte globulin plus lowdose post-transplant cyclophosphamide to prevent
+graft-versus- host disease in haploidentical transplantation. Haematologica.
+2025;110:2965–73.
+12. Spyridonidis A, Labopin M, Brissot E, Moiseev I, Cornelissen J, Choi G, et al. Should
+anti-thymocyte globulin be added in post-transplant cyclophosphamide based
+matched unrelated donor peripheral blood stem cell transplantation for acute
+myeloid leukemia? A study on behalf of the Acute Leukemia Working Party of the
+EBMT. Bone Marrow Transplant. 2022;57:1774–80.
+13. Deotare U, Atenafu EG, Loach D, Michelis FV, Kim DD-H, Thyagu S, et al.
+Reduction of severe acute graft-versus-host disease using a combination of pre
+transplant anti-thymocyte globulin and post-transplant cyclophosphamide in
+matched
+unrelated
+donor
+transplantation.
+Bone
+Marrow
+Transplant.
+2018;53:361–5.
+14. Salas MQ, Alfaro-Moya T, Atenafu EG, Datt Law A, Lam W, Pasic I, et al. Outcomes
+of antithymocyte globulin-post-transplantation cyclophosphamide-cyclosporine-
+based versus antithymocyte globulin-based prophylaxis for 10/10 HLA-matched
+unrelated donor allogeneic hematopoietic cell transplantation. Transplant Cell
+Ther. 2024;30:536.e1–13.
+15. Barriga F. Antithymocyte globulin and posttransplant cyclophosphamide in graft
+vs. host disease prophylaxis: comparison or combination. Curr Opin Hematol.
+2025;32:301–7.
+16. Chen H, Zhang Y, Fan Y, Liu Q, Min W, Xia L, et al. Exploration of in vivo T-cell
+depletion protocols in allogeneic hematopoietic stem cell transplantation for
+hematological malignancies. Transplant Cell Ther. 2026;32:412–27.
+17. Scott NW, McPherson GC, Ramsay CR, Campbell MK. The method of mini-
+mization for allocation to clinical trials. a review. Control Clin Trials. 2002;23:
+662–74.
+18. Elsawy M, Storer BE, Milano F, Sandmaier BM, Delaney C, Salit RB, et al. Prognostic
+performance of the augmented hematopoietic cell transplantation-speciﬁc
+comorbidity/age index in recipients of allogeneic hematopoietic stem cell
+transplantation from alternative graft sources. Biol Blood Marrow Transplant.
+2018;25:1045–52.
+19. Harris AC, Young R, Devine S, Hogan WJ, Ayuk F, Bunworasate U, et al. Interna-
+tional, multicenter standardization of acute graft-versus-host disease clinical data
+collection: a report from the mount sinai acute GVHD International Consortium.
+Biol Blood Marrow Transplant. 2016;22:4–10.
+20. Jagasia MH, Greinix HT, Arora M, Williams KM, Wolff D, Cowen EW, et al. National
+Institutes of Health Consensus Development Project on Criteria for Clinical Trials
+in Chronic Graft-versus-Host Disease: I. The 2014 Diagnosis and Staging Working
+Group Report. Biol Blood Marrow Transplant. 2014;21:389–401.
+21. Eldridge SM, Chan CL, Campbell MJ, Bond CM, Hopewell S, Thabane L, et al.
+CONSORT 2010 statement: extension to randomised pilot and feasibility trials.
+BMJ 2016;355.
+22. Zu Y, Gui R, Li Z, Wang J, Zhang Y, Yu F, et al. Low-dose PTCy plus low-dose ATG
+as GVHD prophylaxis after UD-PBSCT for hematologic malignancies: a pro-
+spective, multicenter, randomized controlled trial. Blood. Cancer J. 2023;13:10.
+23. DeZern A, Zahurak ML, Symons HJ, Cooke KR, Huff CA, Jain T, et al. Alternative
+donor BMT with post-transplant cyclophosphamide as initial therapy for acquired
+severe aplastic anemia. Blood J Am Soc Hematol. 2023;141:3031–8.
+24. Duléry R, Brissot E, Mohty M. Combining post-transplant cyclophosphamide with
+antithymocyte globulin for graft-versus-host disease prophylaxis in hematologi-
+cal malignancies. Blood Rev. 2023;62:101080.
+I. Walker et al.
+6
+Bone Marrow Transplantation
+
+
+===== ORIGINAL PDF PAGE 7; PDF label 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+ACKNOWLEDGEMENTS
+Professor Lehana Thabane, Department of Health Research Methods, Evidence and
+Impact (HE&I), McMaster University (ON, Canada) provided advice on the protocol.
+The Desroches Bone Marrow Transplant Fund, McMaster University (ON, Canada)
+provided funding for protocol development.
+AUTHOR CONTRIBUTIONS
+IW, TP, KS and KP designed the study; TP performed the analysis; IW is the primary
+author; KS also is performing biomarker studies (to be reported separately) and
+reviewed the manuscript; JS is studying ATG blood levels (to be reported separately)
+and reviewed the manuscript; MElsawy designed the quality of life study (to be
+reported separately); authors IW, UD, MElemary, MElsawy, GG, DK, NH, KP recruited
+patients and contributed to the ﬁnal manuscript.
+FUNDING
+This study was funded by Sanoﬁas an investigator-initiated trial, being conducted at
+arm’s length, with Sanoﬁnot contributing to the design, conduct, analysis or ﬁnal
+manuscript. The Desroches Bone Marrow Transplant Fund, McMaster University,
+Hamilton, Canada, provided funding for protocol development.
+COMPETING INTERESTS
+All authors received research funds from Sanoﬁ, either directly or indirectly. There are
+no other relevant disclosures.
+ETHICAL APPROVAL
+The study was conducted in accordance with the Declaration of Helsinki and was
+approved by the following ethics committees representing all participating centres:
+St Vincent’s Hospital, Melbourne Human Research Ethics Committee[Sydney centres
+(2)HREC005/21]; Comité d'éthique de la recherche du CHU de Québec-Université
+Laval[2021-5221]; University of Manitoba Health Research Ethics Board[B2020:074];
+Nova Scotia Health Research Ethics Board[1025718]; University of Saskatchewan,
+Biomedical Research Ethics Board[2183]; Ontario Cancer Research Ethics Board
+[Hamilton and London 1852]; University of British Columbia Research Ethics
+Board[H22-03310]; Conjoint Health Research Ethics Board, University of Calgar-
+y[REB15-1143] Written informed consent was obtained from all participants prior to
+their enrollment in the study.
+ADDITIONAL INFORMATION
+Supplementary information The online version contains supplementary material
+available at https://doi.org/10.1038/s41409-026-03024-7.
+Correspondence and requests for materials should be addressed to Irwin Walker.
+Reprints and permission information is available at http://www.nature.com/
+reprints
+Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims
+in published maps and institutional afﬁliations.
+Open Access This article is licensed under a Creative Commons
+Attribution-NonCommercial-NoDerivatives 4.0 International License,
+which permits any non-commercial use, sharing, distribution and reproduction in any
+medium or format, as long as you give appropriate credit to the original author(s) and
+the source, provide a link to the Creative Commons licence, and indicate if you modiﬁed
+the licensed material. You do not have permission under this licence to share adapted
+material derived from this article or parts of it. The images or otherthird party material in
+this article are included in the article’s Creative Commons licence, unless indicated
+otherwise in a credit line to the material. If material is not included in the article’s
+Creative Commons licence and your intended use is not permitted by statutory
+regulation or exceeds the permitted use, you will need to obtain permission directly
+from the copyright holder. To view a copy of this licence, visit http://creativecommons.
+org/licenses/by-nc-nd/4.0/.
+© The Author(s) 2026
+I. Walker et al.
+7
+Bone Marrow Transplantation
+

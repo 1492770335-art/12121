@@ -1,0 +1,24 @@
+{
+  "arxiv_id": "1902.02533v1",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/1902.02533v1",
+  "archive_sha256": "7d7d52e853a4e2318c6a84b68dbe22a530f44a85417b7508610b5c45e28a4f15",
+  "files": [
+    {
+      "path": "amssym.tex",
+      "bytes": 9413,
+      "sha256": "ca662631bd2d0ad39aa35381a8e4e056b58b1cfc0839019dac1d446f97c44a4d"
+    },
+    {
+      "path": "iris-analysis.tex",
+      "bytes": 47124,
+      "sha256": "07fcabb1a2ef2474588c4cf436e606379361dbdf0a2a07877706eb6ead42b2b4"
+    },
+    {
+      "path": "supplement.tex",
+      "bytes": 12883,
+      "sha256": "f37a88848eba6275441974d5b9f86af8edf2f9d97d496083b7049cd986575441"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

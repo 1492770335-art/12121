@@ -1,0 +1,1320 @@
+Sequential conditioning in hematopoietic stem cell transplantation in elderly high-risk myeloid blood cancer patients: long-term survival, disease control, and immune recovery across donor types in a matched-pair analysis
+
+Original PDF: [original.pdf](original.pdf). SHA256: `9b7006e3ad97835ea35acf4cb4be3567bca41a6f1944bb49b32bbbdb23354824`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1; PDF label 1 =====
+FORMULA CHECK REQUIRED: original PDF page 1.
+Sequential conditioning in
+hematopoietic stem cell
+transplantation in elderly high-
+risk myeloid blood cancer
+patients: long-term survival,
+disease control, and immune
+recovery across donor types
+in a matched-pair analysis
+Sarah Haebe 1, Elena Stauffer 1, Heidrun Drolle 1,
+Dusan Prevalsek 1, Moritz Schmidt 1, Quentin Fichaux 1,
+Michael Weigand 2, Alessia Fraccaroli 1† and Johanna Tischer 1*†
+1Department of Medicine III, Ludwig Maximilian University Hospital Munich, Munich, Germany,
+2Institute of Laboratory Medicine, Ludwig Maximilian University Hospital, Munich, Germany
+Background: Sequential conditioning allogeneic hematopoietic stem cell
+transplantation (allo-HSCT) regimens might offer improved disease control in
+high-risk myeloid patients. But concerns remain regarding toxicity, infection risk
+and delayed immune reconstitution (IR), particularly in older and HLA-
+haploidentical transplant recipients. To address these concerns, we
+comprehensively compared safety, feasibility and clinical outcome across HLA-
+matched related (MRD), matched unrelated (MUD) and haploidentical donor
+(Haplo) HSCT and longitudinally characterize IR patterns and their associations
+with post-transplant outcomes.
+Methods: We conducted a retrospective matched-pair analysis comparing MRD-,
+matched MUD- and Haplo-HSCT in elderly patients matched for (1) disease
+activity: p = 1.0; (2) disease status: p = 1.0; (3) modiﬁed disease risk index (DRI):
+p = 0.9; (4) hematopoietic cell transplantation comorbidity index (HCT-CI): p =
+0.92; and (5) age: p = 0.95. Outcomes included disease-free (DFS) and overall
+survival (OS), relapse, non-relapse mortality (NRM), graft-versus-host disease
+(GvHD), toxicity, infections, and donor-speciﬁc IR dynamics and their impact on
+clinical outcomes.
+Results: With a median follow-up of more than 9 years, no signiﬁcant differences
+were observed in long-term disease control and survival among the three groups (5-y
+DFS/OS: MRD = 41%/41%, MUD = 56%/63%, Haplo = 58%/58%; p = 0.52/0.55).
+Cumulative incidences (CI) of 5-y-NRM and 1-y moderate and severe chronic GvHD
+(cGvHD) rates were comparable among the three groups (NRM/cGvHD: MRD = 19%/
+13%, MUD = 29%/6%, Haplo = 18%/19%; p = 0.3/0.57). Overall immune cell recovery
+after one year was comparable among groups, though early recovery of CD3+ T and
+NK cells was delayed after Haplo-HSCT. Subgroup analysis revealed that higher early
+CD4+ T and lower B cell counts were associated with increased CI of acute GvHD III-
+Frontiers in Immunology
+frontiersin.org
+01
+OPEN ACCESS
+EDITED BY
+Luca Castagna,
+Azienda Ospedaliera Ospedali Riuniti Villa
+Soﬁa Cervello, Italy
+REVIEWED BY
+Philippe Lewalle,
+Universite´ libre de Bruxelles, Belgium
+Miriam Sanchez Escamilla,
+Marque´ s de Valdecilla University Hospital,
+Spain
+*CORRESPONDENCE
+Johanna Tischer
+johanna.tischer@med.uni-
+muenchen.de
+†These authors have contributed equally
+to this work
+RECEIVED 03 February 2026
+REVISED 31 July 2026
+ACCEPTED 03 August 2026
+PUBLISHED 26 August 2026
+CITATION
+Haebe S, Stauffer E, Drolle H,
+Prevalsek D, Schmidt M, Fichaux Q,
+Weigand M, Fraccaroli A and Tischer J
+(2026) Sequential conditioning in
+hematopoietic stem cell transplantation
+in elderly high-risk myeloid blood cancer
+patients: long-term survival, disease
+control, and immune recovery across
+donor types in a matched-pair analysis.
+Front. Immunol. 17:1803250.
+doi: 10.3389/fimmu.2026.1803250
+COPYRIGHT
+© 2026 Haebe, Stauffer, Drolle, Prevalsek,
+Schmidt, Fichaux, Weigand, Fraccaroli and
+Tischer. This is an open-access article
+distributed under the terms of the
+Creative Commons Attribution License
+(CC BY). The use, distribution or
+reproduction in other forums is
+permitted, provided the original
+author(s) and the copyright owner(s) are
+credited and that the original publication
+in this journal is cited, in accordance
+with accepted academic practice. No
+use, distribution or reproduction is
+permitted which does not comply with
+these terms.
+TYPE Original Research
+PUBLISHED 26 August 2026
+DOI 10.3389/fimmu.2026.1803250
+
+
+===== ORIGINAL PDF PAGE 2; PDF label 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+IV° (p = 0.04/0.03). Additionally, NK recovery at one year was associated with
+improved DFS and OS as well as lower relapse incidence.
+Conclusions: Sequential therapy is safe and feasible in elderly patients with high-risk
+or active disease across all three transplant platforms. The observed associations
+between IR and clinical outcomes highlight the relevance of immune monitoring for
+anticipating post-transplant complications and guiding individualized prophylactic
+and therapeutic strategies. Prospective studies are needed to further investigate
+these ﬁndings and deﬁne the underlying mechanisms.
+KEYWORDS
+AML, GvHD, immune reconstitution, MDS, NRM, sequential conditioning, long-term
+survival, allogeneic transplantation
+Introduction
+Sequential regimens combining cytoreductive chemotherapy
+followed by reduced-intensity conditioning (RIC) have shown
+promising results in patients with high-risk myeloid disease, par-
+ticularly acute myeloid leukemia (AML) and myelodysplastic syn-
+drome (MDS) (1, 2). This sequential approach offers effective
+leukemia control and reduced relapse rates in both HLA-matched
+and HLA-haploidentical (Haplo) hematopoietic stem cell trans-
+plantation (HSCT) settings (1, 3–6). However, despite encouraging
+clinical outcomes, concerns remain regarding toxicity and infec-
+tions with sequential conditioning approaches especially in older
+patients. Similarly, prior studies suggest an elevated infection risk
+following Haplo-HSCT (7, 8).
+A crucial factor in determining clinical outcomes, and in
+particular infection rates, is immune reconstitution (IR) after
+allogeneic HSCT (allo-HSCT). IR is inﬂuenced by various factors
+including conditioning regimes, sex, age and graft-versus-host
+disease (GvHD) prophylaxis. Moreover, the type of donor is
+thought to signiﬁcantly inﬂuence the pace and quality of IR. In
+HLA-matched HSCT, rapid IR offers protection against both
+infections and relapse (9). In contrast, Haplo-HSCT is generally
+associated with delayed IR compared to HLA-matched related
+donor (MRD) transplants (10–12). However, comparative data on
+IR across different transplant modalities and donor types – and in
+particular the inﬂuence of sequential conditioning - remain rela-
+tively sparse, largely due to limited granularity of IR data in
+transplant registries (13). Thus, whether sequential conditioning
+in the Haplo-HSCT setting compromises IR and increases the risk
+of infection remains unclear. This question is especially relevant in
+older patients, where treatment decisions must balance optimal
+disease control with potential infectious complications.
+To address this question, we conducted a retrospective
+matched-pair analysis comparing sequential conditioning MRD-,
+matched unrelated donor (MUD)-, and Haplo-HSCT in elderly
+patients with high-risk myeloid diseases. For better comparison
+across the three groups, our analysis accounted for confounding
+factors such as patient age, disease status and activity as well as co-
+morbidity indices. We evaluated long-term survival and disease-free
+outcomes as well as GvHD, toxicity, and infection proﬁles, along
+with a detailed comparison of cellular IR across the different donor
+types and its potential impact on clinical outcomes.
+Methods and materials
+Study design
+Eligible were older patients (≥50 years) with high-risk AML
+deﬁned by either high-risk cytogenetics, relapsed/refractory AML or
+untreated secondary/therapy-related AML or high-risk MDS deﬁned
+by adverse cytogenetics, who underwent their ﬁrst sequential RIC
+transplantation at our center between January 2009 and June 2017
+using an MRD, MUD (fully allele-match at HLA-A, HLA-B, HLA-C,
+HLA-DRB1 and HLA-DQB1 loci) or related, haploidentical donor
+(Haplo; mismatched for ≥2 HLA loci mentioned beforehand). Older
+patients were deﬁned as ≥50 years due to their increased risk of
+toxicity with sequential conditioning regimens (14). Pre-deﬁned
+matching criteria for this study included (i) disease activity (blast
+yes/no), (ii) disease status at start of sequential conditioning (relapse,
+refractory, high-risk), (iii) modiﬁed disease risk index (DRI (15), (iv)
+hematopoietic cell transplantation speciﬁc comorbidity index (HCT-
+CI), missing closing parentheses (16), and (v) age (+/-5years).
+The study was conducted in accordance with German legisla-
+tion and the revised Helsinki declaration, and was evaluated and
+approved by the local ethics committee of the Ludwig-Maximilians
+University of Munich (#19-368). Written informed consent for
+participation in this retrospective study was obtained from all
+patients prior to transplantation.
+Conditioning and post-transplant
+management
+Sequential conditioning consisted of either FLAMSA
+(ﬂudarabine 30 mg/m2, cytarabine 1–2 g/m2, amsacrine 100 mg/m2
+IV over 4 days) or clofarabine (30 mg/m2 IV over 5 days) prior to
+RIC. HLA-typing, donor selection as well as supportive microbial
+prophylaxis were performed as previously described (1). In vivo T cell
+depletion with anti-thymocyte globulin (ATG) was used in the HLA-
+matched setting (3x10mg/kg in MRD-HSCT, 3x20 mg/kg in MUD-
+HSCT). Post-transplantation cyclophosphamide (PTCY) was applied
+in the haploidentical setting (17). Post-grafting immunosuppression
+consisted uniformly of a calcineurin inhibitor (CNI) and mycophe-
+nolate mofetil (MMF). In the HLA-matched setting, ciclosporin A
+was started on day –1 and MMF on day 0, with planned discontin-
+uation at day +100. In the haploidentical setting, tacrolimus and
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+02
+
+
+===== ORIGINAL PDF PAGE 3; PDF label 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+MMF were both initiated on day +5, with scheduled discontinuation
+starting at day +150. Post-grafting G-CSF was administered only in
+the Haplo setting. Letermovir prophylaxis was not used routinely
+because it had not yet received regulatory approval in Germany at the
+time. Donor lymphocyte infusions (DLIs) were given in the absence
+of acute GvHD (aGvHD), either prophylactically or preemptively, for
+relapse prevention. Following the strategy described by Schmid et al.
+(18), prophylactic DLIs were given four weeks after cessation of
+immunosuppression. The timing of immunosuppression withdrawal
+varied according to the donor platform used.
+Deﬁnitions
+Genetic aberrations were classiﬁed according to the European
+LeukemiaNet (ELN) (19) or per revised international prognostic
+scoring system (IPSS-R) (20). Complete remission (CR) prior to
+allo-HSCT was deﬁned according to standard morphologic criteria.
+Refractory was deﬁned as disease persistence after induction che-
+motherapy regimen. Response rate was assessed at day +30 post
+HSCT through bone marrow (BM) aspiration and chimerism
+analysis. aGvHD was classiﬁed using the established criteria (21,
+22); chronic GvHD (cGvHD) was graded following the National
+Institutes of Health consensus criteria (23, 24). GvHD-free/relapse-
+free survival (GRFS) and cGvHD-free/relapse-free survival (CRFS)
+were deﬁned as previously described (25) and considered as
+secondary endpoints. Non-hematologic toxicities were scored ac-
+cording to National Cancer Institute Common Terminology
+Criteria for Adverse Events (NCI-CTCAE; version 5.0) from start
+of sequential therapy until day +30 post allo-HSCT.
+Immune reconstitution
+To characterize immune reconstitution, fresh peripheral blood
+samples collected at predeﬁned time points prior to and after allo-
+HSCT (+30, +100, +180 and +360 days) were assessed using FACS
+Canto II ﬂow cytometry (BD). The following ﬂuorochrome-conju-
+gated monoclonal antibodies were used for the identiﬁcation of
+immune cell subsets: CD45 (clone 2D1, V500-C, BD), CD3 (clone
+SK7, APC-H7, BD), CD4 (clone SK3, PerCP-Cy5.5, BD), CD8
+(clone SK1, FITC, BD), CD16 (clone B73.1, PE, BD), CD56
+(clone MY31, PE, BD), and CD19 (clone SJ25C1, V450, BD).
+Leukocyte populations were initially gated based on CD45 expres-
+sion (CD45+). Within this population, T cells were identiﬁed as
+CD3+ cells and further subdivided into CD4+ helper T cells (CD3
++/CD4+) and CD8+ cytotoxic T cells (CD3+/CD8+). Natural killer
+(NK) cells were deﬁned as CD3-/CD16+/CD56+ cells, and B cells
+were identiﬁed as CD19+ cells. Absolute counts and relative
+frequencies of these immune cell subsets were quantiﬁed at each
+time point to assess the kinetics of immune reconstitution following
+allo-HSCT.
+Statistical analysis
+Survival probabilities were estimated using the Kaplan-Meier
+method. Death from any cause was considered an event; surviving
+patients were censored at last follow-up. Cumulative incidence
+curves accounted for competing risks (e.g. aGvHD, cGvHD, non-
+relapse mortality (NRM), relapse) and were compared using Gray’s
+test. Patient and transplant characteristics were compared using the
+x2–test or Fisher’s exact test for categorical variables and the
+Kruskal-Wallis test for continuous variables. Continuous variables
+were reported as medians with ranges, categorical variables as
+percentages. Analyses of IR and its association with clinical end-
+points were exploratory and hypothesis-generating. Reported p-
+values are descriptive and were not adjusted for multiple compar-
+isons, and the possibility of chance ﬁndings cannot be excluded;
+cut-offs for IR markers were determined based on medians and/or
+quartiles. All tests were two-sided; P<0.05 was considered statisti-
+cally signiﬁcant. Analyses were performed using R software (http://
+www.R-project.org).
+Results
+Patient, disease and transplant
+characteristics
+Out of a total of 34 patients ≥50 years with high-risk AML/
+MDS undergoing sequential conditioning Haplo-HSCT, 17 Haplo
+patients were successfully pair-matched with 17 MRD and 17 MUD
+recipients, based on the following matching criteria: (i) disease
+activity: p = 1.0, (ii) disease status: p = 1.0, (iii) modiﬁed DRI: p =
+0.9, (iv) HCT-CI score: p = 0.92 and (v) age: p = 0.95.
+Median age was 61 years (50–70 years) and the distribution of
+AML and MDS was similar across donor groups (Table 1). Most
+patients (71%) presented with active disease at the start of
+cytoreductive therapy. The transplant-related differences relevant
+for IR included the chemotherapeutic regimen used for sequential
+conditioning (p = 0.01), the use of PTCY-based GvHD prophylaxis
+(p<0.01) and a higher proportion of bone marrow grafts in the
+Haplo setting (p<0.01; Table 2). In contrast, MRD/MUD recipients
+uniformly received FLAMSA-RIC as preparative regimen, PBSCs as
+graft source, and ATG-based prophylaxis. Other baseline variables
+were well balanced across the three groups (Tables 1, 2).
+Engraftment and DLI
+No primary graft rejection occurred (Supplementary Table 1).
+Primary neutrophil engraftment was achieved in all but three
+patients – two with autologous recovery and persistence of blasts
+(MRD:1, MUD:1) and one early death in aplasia post Haplo-HSCT.
+Platelet recovery was signiﬁcantly delayed in the Haplo-HSCT
+(Haplo: 40, MRD: 13, MUD: 19 days; p<0.01). Regarding DLI
+application, four patients were able to receive DLIs (MRD: 2; MUD:
+2). All other patients were not eligible for prophylactic DLI because
+of either early death/early relapse (n = 9), history of or ongoing
+GvHD including overall grade II aGvHD requiring systemic steroid
+treatment (n = 34), or recurrent infections (n = 4).
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+03
+
+
+===== ORIGINAL PDF PAGE 4; PDF label 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+Immune reconstitution
+Pre-transplant lymphocyte subsets were comparable across
+transplantation platforms (Table 3). By day +30, absolute lympho-
+cyte counts (ALC) were signiﬁcantly lower in Haplo recipients
+receiving PTCY compared with ATG-treated MRD/MUD patients
+(p<0.01), however normalized by one year post-HSCT. Differences
+in ATG dosing between the MRD and MUD groups were not
+associated with differences in early ALC recovery.
+Focusing on day +30 on total CD3+ T cells, the counts were
+markedly reduced after PTCY (median 115/µl) compared to MUD
+(245/µl) and MRD (410/µl; Table 3). The largest divergence between
+platforms occurred at day +100, with MRD recipients showing
+robust T cell recovery (≈750/µl), while MUD and Haplo groups
+remained substantially lymphocytopenic (260/µl and 130/µl; p =
+0.01). Full T cell reconstitution was achieved by day +100 in MRD-
+HSCT, but not until day +360 in both MUD- and Haplo-HSCT.
+Subset analyses revealed that CD4+ T cells failed to reach
+normal levels in any cohort within the ﬁrst post-transplant year
+(MRD: 180/µl, MUD: 150/µl, Haplo: 170/µl), while CD8+ T cell
+counts did not differ signiﬁcantly across all platforms by day +180.
+Early NK cell recovery tended to be lower in PTCY-treated patients
+compared with ATG-treated cohorts (day +30: Haplo: 30/µl vs
+MRD/MUD: 150/160/µl; p = 0.08). In contrast, B cell reconstitution
+was delayed across all three groups but approached to normal levels
+by approximately six months (Table 3). Collectively, these data
+highlight a delay in both innate and adaptive IR following PTCY-
+based GvHD prophylaxis.
+Infections and toxicities
+Rates of CMV-reactivation were similar among patients at risk
+(MRD n = 8/13, MUD n = 4/7, Haplo n = 9/14; p = 0.95), but the time
+to reactivation was shortest in MUD recipients (26 days (20–46)) and
+TABLE 1 Patient characteristics.
+All
+MRD
+MUD
+Haplo
+P-value
+Patients
+51 (100)
+17 (100)
+17 (100)
+17 (100)
+Patient age*
+0.95
+Median (range)
+61 (50-70)
+59 (50-68)
+61 (53-70)
+61 (52-69)
+Patient sex
+0.28
+Male
+23 (45)
+9 (53)
+9 (53)
+5 (29)
+Female
+28 (55)
+8 (47)
+8 (47)
+12 (71)
+Diagnosis*
+0.90
+AML de novo
+28 (55)
+8 (47)
+9 (53)
+11 (65)
+sAML
+8 (16)
+4 (24)
+3 (18)
+1 (6)
+tAML
+6 (12)
+2 (12)
+2 (12)
+2 (12)
+MDS
+9 (18)
+3 (18)
+3 (18)
+3 (18)
+Disease stage*
+1.0
+PIF
+9 (18)
+3 (18)
+3 (18)
+3 (18)
+relapse
+15 (29)
+5 (29)
+5 (29)
+5 (29)
+high-risk cytogenetics
+24 (47)
+8 (47)
+8 (47)
+8 (47)
+untreated
+3 (6)
+1 (6)
+1(6)
+1 (6)
+Status prior to HSCT*
+1.0
+Active disease
+36 (71)
+12 (71)
+12 (71)
+12 (71)
+CR
+15 (29)
+5 (29)
+5 (29)
+5 (29)
+Modiﬁed DRI*
+0.9
+Intermediate risk
+13 (25)
+4 (24)
+4 (24)
+5 (29)
+High risk
+27 (53)
+8 (47)
+10 (59)
+9 (53)
+Very high risk
+11 (22)
+5 (29)
+3 (18)
+3 (18)
+HCT-CI score*
+0.92
+0-2
+32 (63)
+11 (65)
+10 (59)
+11 (65)
+> 2
+19 (37)
+6 (35)
+7 (41)
+6 (35)
+*Served as matching criteria.
+Values in parentheses represent percentages if not indicated otherwise.
+AML, acute myeloid leukemia; DRI, disease risk index; Haplo, haploidentical donor; HCT-CI score, hematopoietic cell transplantation-speciﬁc comorbidity index; MDS, myelodysplastic
+syndrome; MRD, matched related donor; MUD, matched unrelated donor; PIF, primary induction failure; sAML, secondary AML; tAML, therapy-related AML.
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+04
+
+
+===== ORIGINAL PDF PAGE 5; PDF label 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+longest in the Haplo cohort (48 days (10–59); MRD 41 days (27–79)).
+No CMV prophylaxis was used. One EBV reactivation was observed.
+One disseminated adenovirus disease (MRD group) was seen and
+responded to reduction of immunosuppression and cidofovir. Proven
+and possible invasive fungal infections (IFIs) occurred at moderate
+rates (aspergillus fumigatus n = 7; aspergillus terreus n = 1; geotrichum
+capitatum n = 1) and did not cluster by donor type. Toxicities were
+predominantly grades I-II and did not differ substantially across the
+three platforms (Supplementary Table 2).
+Association between GvHD and IR
+CI of aGvHD (III-IV°) did not differ among the three groups
+(MRD: 13%, MUD: 19% and Haplo 13%; p = 0.85, Figure 1A;
+TABLE 2 Donor and transplant characteristics.
+All
+MRD
+MUD
+Haplo
+P-value
+Patients
+51 (100)
+17 (100)
+17 (100)
+17 (100)
+Donor age
+< 0.01
+Median (range)
+39 (21-69)
+57 (49-69)
+34 (23-50)
+29 (21-66)
+Donor sex
+0.35
+Male
+29 (57)
+8 (47)
+12 (71)
+9 (53)
+Donor sex-match
+0.13
+Patient male/donor female
+9 (18)
+6 (35)
+1 (6)
+2 (12)
+Patient female/donor male
+15 (29)
+5 (29)
+4 (23)
+6 (35)
+Match
+27 (53)
+6 (35)
+12 (71)
+9 (53)
+No of HLA mismatches
+< 0.01
+Median (range)
+0 (0-7)
+0 (0)
+0 (0)
+5 (5-7)
+Time to allo-HSCT
+0.37
+Median months
+2 (0-8)
+2 (0-4)
+2 (0-6)
+2 (1-8)
+ABO match
+28 (55)
+12 (71)
+4 (24)
+12 (71)
+< 0.01
+CMV match
+37 (73)
+15 (88)
+11 (65)
+11 (65)
+0.30
+Cytoreduction regimen
+0.01
+FLAMSA
+47 (92)
+17 (100)
+17 (100)
+13 (76)
+Clofarabine
+4 (8)
+0 (0)
+0 (0)
+4 (24)
+Stem cell source
+< 0.01
+BM
+9 (18)
+0 (0)
+0 (0)
+9 (53)
+PBSC
+42 (82)
+17 (100)
+17 (100)
+8 (47)
+Median cell dose
+(range)
+n.a
+NCx108/kg BW
+-–
+-–
+-–
+2.7 (2-4)
+CD34x106/kg BW
+7.7(4-17)
+9 (5-14)
+8 (4-15)
+5.6 (4-17)
+Conditioning
+1.0
+RIC
+51 (100)
+17 (100)
+17 (100)
+17 (100)
+TBI-based
+19 (37)
+10 (59)
+5 (29)
+4 (24)
+0.07
+Drug-based
+32 (63)
+7 (41)
+12 (71)
+13 (76)
+GvHD prophylaxis
+< 0.01
+ATG-CsA-MMF
+33 (65)
+17 (100)
+16 (94)
+0 (0)
+ATG-Tac-MMF
+1 (2)
+0 (0)
+1 (6)
+0 (0)
+CY-Tac-MMF
+17 (33)
+0 (0)
+0 (0)
+17 (100)
+Year of transplant
+0.92
+Median
+2013
+2013
+2012
+2013
+Values in parentheses represent percentages if not indicated otherwise.
+ATG, anti-thymocyte globulin; BM, bone marrow; BW, body weight; CMV, cytomegalovirus; CsA, ciclosporin A; CY, cyclophosphamide; Haplo, haploidentical donor; HLA, human leukocyte
+antigen; kg, kilogram; MMF, mycophenolate mofetil; MRD, matched related donor; MUD, matched unrelated donor; NC, nucleated cells; PBSC, peripheral blood stem cells; RIC, reduced intensity
+conditioning; Tac, tacrolimus; TBI, total body irradiation.
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+05
+
+
+===== ORIGINAL PDF PAGE 6; PDF label 6 =====
+Technical extraction; compare with original PDF page 6.
+Supplementary Table 3). The median onset of aGvHD and of
+cGvHD was earlier in MRD- and MUD-HSCT compared to
+Haplo-HSCT (aGvHD: 17 vs. 16.5 vs. 27.5 days; cGvHD: 136 vs.
+100 vs. 216 days). The 1-y CI of moderate and severe cGvHD was
+13%, 6% and 19%, respectively, and did not show a signiﬁcant
+difference between the groups (Figure 1B, p = 0.57).
+Given the interplay between GvHD and IR, we subsequently
+analyzed potential correlations between speciﬁc immune cell sub-
+sets and the CI of acute and chronic GvHD. Patients with a higher
+CD4+ T cell count at day +30 (> 35/µl vs <35/µl) were signiﬁcantly
+more likely to develop aGvHD III-IV° (p = 0.04, Figure 1C). Low B
+cell reconstitution by day +100 (< 50/µl vs. > 50/µl) was observed in
+TABLE 3 Immune reconstitution.
+MRD
+MUD
+Haplo
+P-value
+Global
+P-value
+MRD vs MUD/
+MRD vs Haplo/
+MUD vs Haplo
+Pre-Transplantion
+CD45+
+900
+1090
+855
+0.63
+0.46/0.40/0.75
+CD3+
+810
+740
+690
+0.52
+0.37/0.31/0.88
+CD3+/CD4+
+380
+400
+285
+0.45
+0.94/0.33/0.25
+CD3+/CD8+
+360
+250
+260
+0.27
+0.12/0.29/0.72
+CD16+/CD56+
+80
+130
+130
+0.45
+1.00/0.22/0.38
+CD19+
+70
+40
+50
+0.81
+0.50/0.73/0.90
+Day +30
+CD45+
+480
+520
+195
+0.02
+1.0/<0.01/0.01
+CD3+
+410
+245
+115
+0.11
+0.76/0.04/0.15
+CD3+/CD4+
+55
+25
+50
+0.40
+0.20/0.44/0.57
+CD3+/CD8+
+200
+160
+45
+0.20
+0.44/0.08/0.37
+CD16+/CD56+
+150
+160
+30
+0.08
+0.82/0.09/0.04
+CD19+
+10
+10
+7
+0.45
+0.80/0.58/0.22
+Day +100
+CD45+
+1168
+675
+510
+0.09
+0.20/0.02/0.50
+CD3+
+750
+260
+130
+0.01
+0.07/<0.01/0.17
+CD3+/CD4+
+135
+34
+70
+0.36
+0.19/0.25/0.87
+CD3+/CD8+
+490
+181
+85
+0.07
+0.12/0.02/0.45
+CD16+/CD56+
+275
+185
+250
+0.85
+0.56/0.81/0.82
+CD19+
+50
+17
+45
+0.65
+0.54/0.96/0.37
+Day +180
+CD45+
+1650
+990
+1010
+0.13
+0.09/0.08/0.84
+CD3+
+1488
+420
+450
+0.06
+0.09/0.03/0.45
+CD3+/CD4+
+180
+190
+120
+0.41
+0.43/0.26/0.46
+CD3+/CD8+
+855
+240
+320
+0.21
+0.17/0.10/0.82
+CD16+/CD56+
+230
+200
+340
+0.50
+0.74/0.52/0.26
+CD19+
+250
+70
+160
+0.43
+0.31/0.31/0.53
+Day +360
+CD45+
+1500
+1710
+1200
+0.79
+0.44/0.75/0.95
+CD3+
+830
+750
+620
+0.92
+0.80/0.95/0.70
+CD3+/CD4+
+180
+150
+170
+0.69
+0.55/0.65/0.46
+CD3+/CD8+
+590
+300
+470
+0.71
+0.46/0.75/0.60
+CD16+/CD56+
+200
+250
+220
+0.35
+0.23/0.27/0.66
+CD19+
+165
+160
+195
+0.38
+0.66/0.17/0.50
+Haplo, haploidentical donor; MRD, matched related donor; MUD, matched unrelated donor.
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+06
+
+
+===== ORIGINAL PDF PAGE 7; PDF label 7 =====
+Technical extraction; compare with original PDF page 7.
+FIGURE 2
+Cumulative incidence of non-relapse mortality by transplantation platform (A) or by B cell count 1 year after allo-HSCT (B). Cumulative incidence of
+relapse or progression of disease (PD) by transplantation platform (C) or by NK cell count 1 year after allo-HSCT (D).
+FIGURE 1
+Cumulative incidences of acute GvHD (A) and chronic GvHD (B) by transplantation platform. (C) Stacked bar charts show that aGvHD III-IV° occurs
+more frequently in patients exhibiting high CD4+ T cell and low B cell counts.
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+07
+
+
+===== ORIGINAL PDF PAGE 8; PDF label 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+patients who more frequently developed aGvHD III-IV° (p = 0.03,
+Figure 1C). Moreover, patients with lower B cell counts six months
+after allo-HSCT tended to have higher incidences of moderate and
+severe cGvHD (p = 0.1, data not shown). Interestingly, CD8+ T cell
+recovery had no measurable effect on GvHD risk.
+Association between NRM and relapse with
+IR
+CI of NRM at day +100 was low across all groups (CI NRM: 0-
+6%; p = 0.66, Supplementary Table 4). At 1-year, CI of NRM
+remained 0% in MRD recipients and increased to 12% in MUD and
+18% in Haplo (p = 0.38). By 5-years CI of NRM converged to 19%,
+29% and 18%, respectively (Figure 2A). Whereas in the Haplo
+group, NRM events occurred early and were infection-related
+(pseudomonas putida sepsis, CMV and Enterobacter cloacae),
+NRM in MUD recipients occurred later and were mainly GvHD-
+associated. Notably, delayed B cell recovery after one year was
+associated signiﬁcantly with increased NRM (p = 0.03; Figure 2B),
+predominantly in HLA-matched transplants.
+CI of relapse at 1-and 5-years did not differ signiﬁcantly between
+transplantation platforms (MRD: 12%/18%; MUD: 35%/35%; Haplo:
+12%/24%; p = 0.31; Figure 2C; Supplementary Table 4). While relapse
+was not associated with early T or B cell abundance, higher NK cell
+levels (<0.25 vs. >0.75 quantile) at 1 year after transplantation were
+linked to lower relapse risk (p = 0.03, Figure 2D), underscoring the
+contribution of late innate reconstitution to disease control.
+Survival
+With a median follow-up of 8.4, 10.8 and 9.9 years for MRD,
+MUD and Haplo recipients, respectively, no signiﬁcant difference
+was observed in 1-, 3- and 5-year DFS (MRD: 71% (Conﬁdence
+interval (95% CI) 52-96%)/53% (95% CI 34-83%)/41% (23-73%);
+MUD 77% (95% CI 59-100%)/63% (95% CI 43-92%)/56% (36-
+87%); Haplo 71% (95% CI 52-96%)/65% (95% CI 46-92%)/58%
+(95% CI 39-87%) and 1-, 3- and 5-year OS (MRD: 77% (95% CI 59-
+100%)/53% (95% CI 34-83%)/41% (23-73%); MUD 77% (95% CI
+59-100%)/70% (95% CI 50-96%)/63% (43-92%); Haplo 77% (95%
+CI 59-100%)/65% (95% CI 46-92%)/58% (95% CI 39-87%);
+Figures 3A, B; Supplementary Table 4). Additionally, no signiﬁcant
+difference was detected in 1-, 3- and 5-year GRFS and CRFS
+(Figures 3C, D; Supplementary Table 4). At the 8-year long-term
+follow-up, we also found no signiﬁcant differences in OS and DFS.
+In the 5-year GRFS analysis, relapse, NRM, aGvHD and cGvHD
+were similarly distributed between Haplo and MUD allo-HSCT,
+with cGvHD accounting for most events in both groups
+(Supplementary Figure 1A). First CRFS events are given in
+Supplementary Figure 1B and show a similar distribution across
+transplantation platforms.
+Analysis of the impact of IR on post-transplant outcomes dem-
+onstrated a signiﬁcant survival advantage among patients with higher
+NK cell counts at 1 year, with improvements observed in both DFS and
+OS (p = 0.04/0.04, Figure 3E). Similarly, patients with higher B cell
+counts 1 year after allo-HSCT showed superior DFS (p = 0.04) and a
+trend toward improved OS (p = 0.08, Figure 3F).
+Discussion
+By performing a matched-pair analysis using age, disease status
+and activity, and co-morbidity scores as matching criteria, our study
+provides a comprehensive and detailed assessment of different
+sequential conditioning HSCT platforms in older patients with
+advanced myeloid disease. We speciﬁcally focused on IR after
+sequential regimens and its impact on clinical outcomes.
+In line with previous data in younger patient cohorts (1, 3, 26),
+our results demonstrate that sequential conditioning allo-HSCT is
+safe and feasible in heavily pretreated elderly patients with multiple
+co-morbidities and leads to durable disease control (3-year DFS:
+53% MRD-HSCT, 63% MUD-HSCT, 65% Haplo-HSCT).
+Compared to outcomes reported in elderly patients undergoing
+non-sequential matched allo-HSCT (27), our sequential approach
+improves both survival and long-term disease control (8-year OS:
+MRD 41%, MUD 46%, Haplo 43%; 8-year DFS: MRD 35%, MUD
+48%, Haplo 43%).
+Previous studies have shown that lymphocyte subset recovery at
+deﬁned time points after transplant is a strong predictor of survival
+and NRM, making effective IR an important goal in allogeneic
+transplantation (28–32). The concern that extended cytoreductive
+therapy prior to HSCT may delay overall IR was not supported by
+our ﬁndings. In our study, the sequential regimen resulted in IR
+patterns comparable to those seen with non-sequential approaches
+(33). Moreover, in line with McCurdy and Luznik (34), we did not
+observe a general impaired immune cell recovery after Haplo-
+HSCT. The immune recovery patterns were largely comparable
+across our MRD-, MUD- and Haplo-HSCT. However, early post-
+HSCT recovery was delayed in Haplo-HSCT, likely related to the
+use of PTCY and prolonged immunosuppression (35, 36). Notably,
+this delay diminished over time. Although the NRM did not differ
+across the three platforms and was comparable to rates in younger
+cohorts (1, 3, 26), higher rates of early infections were observed in
+the Haplo-HSCT. Chang et al. also reported that low ALC at day
++100 in the Haplo setting using the GIAC protocol was linked to
+earlier and higher bacterial infections (37), highlighting the impor-
+tance of timely IR in the Haplo setting. Achieving this requires
+consideration of several factors such as the use and dose of PTCY,
+the impact of prolonged immunosuppression and the choice of BM
+as a graft source. Of note, the use of DLI was limited in our cohort,
+likely reﬂecting a cautious clinical approach in the context of
+GvHD, where the risk of exacerbation often precludes DLI admin-
+istration. Whether a more reﬁned and risk-adapted use of DLI in
+the setting of sequential therapy could further improve disease and
+viral infection control without increasing GvHD remains to be
+determined. Large registry studies and CIBMTR analyses are
+ongoing to better deﬁne the risk of early bacterial, fungal, and
+viral infections under different prophylaxis regimens and graft-
+source strategies. One promising approach is PTCY dose reduction,
+aiming to limit the initial lymphocyte depletion and accelerate
+immune recovery. Recent dose de-escalation studies have shown
+feasibility, maintained GvHD control, and faster lymphocyte re-
+constitution compared with standard PTCY (38–40). Of note, our
+cohort was transplanted before letermovir became available, and
+routine CMV prophylaxis would likely mitigate the early infection-
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+08
+
+
+===== ORIGINAL PDF PAGE 9; PDF label 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+related events seen here. Together with the ongoing evolution of
+PTCY protocols and graft source strategies, this may narrow the
+early IR differences observed between platforms.
+CIs of acute and chronic GvHD were not statistically different
+between the platforms, although such differences have been de-
+scribed previously (41). Analyzing the complex bidirectional inter-
+play between immune recovery and GvHD (42), our data support
+the observation that early higher numbers of CD4+ T cells might
+aggravate aGvHD (43). We also observed that patients with aGvHD
+exhibited delayed B cell recovery, suggesting that both aGvHD and
+immunosuppressive treatments like steroids may hinder B cell
+regeneration (44, 45). However, published data on the association
+between not-antibody-mediated aGvHD and B cells are inconsis-
+tent, and the causal relationship remains unclear (46). In contrast,
+stronger and more consistent evidence links low B cell recovery to
+cGvHD. Consistent with prior research, our study shows that
+patients with cGvHD tend to have impaired or delayed B cell
+reconstitution compared to those without cGvHD (47). These
+ﬁndings support the idea that monitoring B cell subsets after
+HSCT could serve as a useful biomarker for GvHD risk.
+FIGURE 3
+Kaplan–Meier estimates of disease-free survival (A), overall survival (B), GvHD-free and relapse-free survival (GRFS) (C) and chronic GvHD-free and
+relapse-free survival (CRFS) (D) by transplantation platform. Stacked bar plots show that patients with lower NK cell (E) and B cell counts (F) are
+enriched in DFS and OS events.
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+09
+
+
+===== ORIGINAL PDF PAGE 10; PDF label 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+In contrast to major concerns regarding Haplo-HSCT, relapse
+incidence seems not to be inﬂuenced by delayed IR or prolonged use
+of immunosuppressants. Interestingly, we observed that after initial
+depletion by PTCY in the Haplo-HSCT regimen protocols, NK cells
+seem to expand robustly and ultimately reached comparable levels
+in haploidentical recipients compare to HLA-matched patients.
+Moreover, we observed that higher NK cell levels were associated
+with a signiﬁcantly lower CI of relapse and superior DFS and OS, in
+line with previous reports (31) suggesting that NK cells may serve as
+a functionally relevant component of graft-versus-leukemia activity.
+Strategies aiming to augment NK-cell recovery and function, such
+as cytokine support or adoptive NK-cell transfer, may further
+improve disease control without increasing GvHD incidences.
+We are fully aware of the shortcomings of the study including
+the retrospective design and the small size. With 17 patients per
+donor group, statistical power was limited, comparative analyses are
+exploratory, and negative ﬁndings may reﬂect limited power rather
+than true equivalence. Additionally, a more suitable comparison
+would involve using the same graft source and GvHD prophylaxis
+across all donor types. This was not feasible at our center, as
+transplantation strategies adhered to standard practices for MRD
+and MUD. Nevertheless, this study provides a detailed comparison
+of clinical outcome, GvHD, infection, treatment-related toxicities,
+and their association with IR, without the confounding inﬂuence of
+institutional expertise or local practice variations.
+In conclusion, sequential therapy proved to be a safe and
+feasible option for elderly patients with high-risk and non-remis-
+sion disease across all three transplant platforms. By examining the
+impact of IR on clinical outcomes, our study offers a comprehensive
+overview of the interplay between IR and major outcome param-
+eters. Prospective studies in larger cohorts are needed to substan-
+tiate these associations. A deeper understanding of these
+immunologic dynamics may not only improve strategies to
+reduce both GvHD and relapse but may also give important insights
+for the development of novel immune-based therapeutic ap-
+proaches for patients who experience relapse after allo-HSCT.
+Data availability statement
+The original contributions presented in the study are included
+in the article/Supplementary Material. Further inquiries can be
+directed to the corresponding author.
+Ethics statement
+The studies involving humans were approved by local ethics
+committee of the Ludwig-Maximilians University of Munich (#19-
+368). The studies were conducted in accordance with the local
+legislation and institutional requirements. The participants provided
+their written informed consent to participate in this study. Written
+informed consent was obtained from the individual(s) for the publi-
+cation of any potentially identiﬁable images or data included in
+this article.
+Author contributions
+SH: Conceptualization, Formal analysis, Supervision,
+Visualization, Writing – original draft, Writing – review & editing.
+ES: Data curation, Writing – review & editing. HD: Data curation,
+Writing – review & editing. DP: Data curation, Writing – review &
+editing. MS: Data curation, Writing – review & editing. QF: Data
+curation, Writing – review & editing. MW: Data curation, Writing –
+review & editing. AF: Conceptualization, Data curation,
+Supervision, Writing – original draft, Writing – review & editing,
+Methodology. JT: Conceptualization, Data curation, Funding ac-
+quisition, Investigation, Project administration, Resources,
+Supervision, Writing – original draft, Writing – review & editing.
+Funding
+The author(s) declared that ﬁnancial support was received for
+this work and/or its publication. SH was supported by the Max-
+Eder Program from the Deutsche Krebshilfe (70116606) and the
+Medical & Clinician Scientist Program (MCSP), LMU Munich.
+Acknowledgments
+The authors thank the physicians, nurses, and other care team
+members for their dedicated work on the transplantation units;
+Special thanks go to MR for her excellent work in data management.
+Conﬂict of interest
+The author(s) declared that this work was conducted in the
+absence of any commercial or ﬁnancial relationships that could be
+construed as a potential conﬂict of interest.
+Generative AI statement
+The author(s) declared that generative AI was used in the
+creation of this manuscript. Generative AI tools were used solely
+for language editing (grammar and sentence structure).
+Any alternative text (alt text) provided alongside ﬁgures in this
+article has been generated by Frontiers with the support of artiﬁcial
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+10
+
+
+===== ORIGINAL PDF PAGE 11; PDF label 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+intelligence and reasonable efforts have been made to ensure
+accuracy, including review by the authors wherever possible. If
+you identify any issues, please contact us.
+Publisher’s note
+All claims expressed in this article are solely those of the authors
+and do not necessarily represent those of their afﬁliated organiza-
+tions, or those of the publisher, the editors and the reviewers. Any
+product that may be evaluated in this article, or claim that may be
+made by its manufacturer, is not guaranteed or endorsed by
+the publisher.
+Supplementary material
+The Supplementary Material for this article can be found online
+at: https://www.frontiersin.org/articles/10.3389/ﬁmmu.2026.
+1803250/full#supplementary-material
+References
+1. Fraccaroli A, Prevalsek D, Fritsch S, Haebe S, Bucklein V, Schulz C, et al. Sequential
+HLA-haploidentical transplantation utilizing post-transplantation cyclophosphamide
+for GvHD prophylaxis in high-risk and relapsed/refractory AML/MDS. Am J Hematol.
+(2018) 93:1524–31. doi: 10.1002/ajh.25281
+2. Tischer J, Stemmler HJ, Engel N, Hubmann M, Fritsch S, Prevalsek D, et al.
+Feasibility of clofarabine cytoreduction followed by haploidentical hematopoietic stem
+cell transplantation in patients with relapsed or refractory advanced acute leukemia.
+Ann Hematol. (2013) 92:1379–88. doi: 10.1007/s00277-013-1862-6
+3. Doppelhammer M, Fraccaroli A, Prevalsek D, Bücklein V, Häbe S, Schulz C, et al.
+Comparable outcome after haploidentical and HLA-matched allogeneic stem cell
+transplantation for high-risk acute myeloid leukemia following sequential condition-
+ing-a matched pair analysis. Ann Hematol. (2019) 98:753–62. doi: 10.1007/s00277-019-
+03593-2
+4. Fraccaroli A, Vogt D, Rothmayer M, Spiekermann K, Pastore F, Tischer J. Impact of
+extramedullary disease in AML patients undergoing sequential RIC for HLA-matched
+transplantation: occurrence, risk factors, relapse patterns, and outcome. Ann Hematol.
+(2023) 102:2213–23. doi: 10.1007/s00277-023-05281-8
+5. Haebe S, Fraccaroli A, Stauffer E, Prevalsek D, Zoellner AK, Drolle H, et al. PTCY-
+based haploidentical donor transplantation versus HLA-matched related and unrelated
+donor transplantations in patients with refractory or relapsed lymphoma-a matched-
+pair analysis. Cancers (Basel). (2023) 15:5246. doi: 10.3390/cancers15215246
+6. Zoellner AK, Fritsch S, Prevalsek D, Engel N, Hubmann M, Reibke R, et al.
+Sequential therapy combining clofarabine and T-cell-replete HLA-haploidentical
+haematopoietic SCT is feasible and shows efﬁcacy in the treatment of refractory or
+relapsed aggressive lymphoma. Bone Marrow Transplant. (2015) 50:679–84.
+doi: 10.1038/bmt.2014.328
+7. Esquirol A, Pascual MJ, Kwon M, Pérez A, Parody R, Ferra C, et al. Severe infections
+and infection-related mortality in a large series of haploidentical hematopoietic stem
+cell transplantation with post-transplant cyclophosphamide. Bone Marrow Transplant.
+(2021) 56:2432–44. doi: 10.1038/s41409-021-01328-4
+8. Mulroney CM, Abid MB, Bashey A, Chemaly RF, Ciurea SO, Chen M, et al.
+Incidence and impact of community respiratory viral infections in post-transplant
+cyclophosphamide-based graft-versus-host disease prophylaxis and haploidentical
+stem cell transplantation. Br J Haematol. (2021) 194:145–57. doi: 10.1111/bjh.17563
+9. Le Blanc K, Barrett AJ, Schaffer M, Hägglund H, Ljungman P, Ringdén O, et al.
+Lymphocyte recovery is a major determinant of outcome after matched unrelated
+myeloablative transplantation for myelogenous Malignancies. Biol Blood Marrow
+Transplant. (2009) 15:1108–15. doi: 10.1016/j.bbmt.2009.05.015
+10. Chang YJ, Zhao XY, Huo MR, Xu LP, Liu DH, Liu KY, et al. Immune
+reconstitution following unmanipulated HLA-mismatched/haploidentical transplanta-
+tion compared with HLA-identical sibling transplantation. J ClinImmunol. (2012)
+32:268–80. doi: 10.1007/s10875-011-9630-7
+11. Nakamae H, Fujii K, Nanno S, Okamura H, Nakane T, Koh H, et al. A prospective
+observational study of immune reconstitution following transplantation with post-
+transplant reduced-dose cyclophosphamide from HLA-haploidentical donors. Transpl
+Int. (2019) 32:1322–32. doi: 10.1111/tri.13494
+12. Ma XD, Xu ZL, Huang XJ. Immune reconstitution after haploidentical hemato-
+poietic stem cell transplantation with different non-T-cell depletion protocols.
+MedComm (2020). (2025) 6:e70206. doi: 10.1002/mco2.70206
+13. Li C, Wang Q, Chen Z, Wang C, Xie Y, Gao L. Immune reconstruction after
+allogeneic hematopoietic stem cell transplantation: rules, mechanisms, and applica-
+tions. Ann Hematol. (2026) 105:162. doi: 10.1007/s00277-026-06922-4
+14. Fraccaroli A, Stauffer E, Haebe S, Prevalsek D, Weiss L, Dorman K, et al.
+Treosulfan-versus melphalan-based reduced intensity conditioning in HLA-
+haploidentical transplantation for patients ≥50 years with advanced MDS/AML.
+Cancers (Basel). (2024) 16:2859. doi: 10.3390/cancers16162859
+15. Armand P, Kim HT, Logan BR, Wang Z, Alyea EP, Kalaycio ME, et al. Validation
+and reﬁnement of the Disease Risk Index for allogeneic stem cell transplantation. Blood.
+(2014) 123:3664–71. doi: 10.1182/blood-2014-01-552984
+16. Sorror ML, Maris MB, Storb R, Baron F, Sandmaier BM, Maloney DG, et al.
+Hematopoietic cell transplantation (HCT)-speciﬁc comorbidity index: a new tool for
+risk assessment before allogeneic HCT. Blood. (2005) 106:2912–9. doi: 10.1182/blood-
+2005-05-2004
+17. Luznik L, O'Donnell PV, Symons HJ, Chen AR, Leffell MS, Zahurak M, et al. HLA-
+haploidentical bone marrow transplantation for hematologic Malignancies using
+nonmyeloablative conditioning and high-dose, posttransplantation cyclophosphamide.
+Biol Blood Marrow Transplant. (2008) 14:641–50. doi: 10.1016/j.bbmt.2008.03.005
+18. Schmid C, Schleuning M, Ledderose G, Tischer J, Kolb HJ. Sequential regimen of
+chemotherapy, reduced-intensity conditioning for allogeneic stem-cell transplantation,
+and prophylactic donor lymphocyte transfusion in high-risk acute myeloid leukemia and
+myelodysplastic syndrome. J Clin Oncol. (2005) 23:5675–87. doi: 10.1200/jco.2005.07.061
+19. Dohner H, Estey EH, Amadori S, Appelbaum FR, Buchner T, Burnett AK, et al.
+Diagnosis and management of acute myeloid leukemia in adults: recommendations
+from an international expert panel, on behalf of the European LeukemiaNet. Blood.
+(2010) 115:453–74. doi: 10.1182/blood-2009-07-235358
+20. Greenberg PL, Tuechler H, Schanz J, Sanz G, Garcia-Manero G, Sole F, et al.
+Revised international prognostic scoring system for myelodysplastic syndromes. Blood.
+(2012) 120:2454–65. doi: 10.1182/blood-2012-03-420489
+21. Przepiorka D, Weisdorf D, Martin P, Klingemann HG, Beatty P, Hows J, et al. 1994
+consensus conference on acute GVHD grading. Bone Marrow Transplant. (1995) 15:825–8.
+22. Sureda A, Corbacioglu S, Greco R, Kröger N, Carreras E eds. The EBMT Handbook:
+Hematopoietic Cell Transplantation and Cellular Therapies. Cham (CH: Springer (2024).
+23. Lee SJ, Williams KM, Sarantopoulos S, Kitko CL, Cutler C, Pidala J, et al. NIH
+chronic graft-versus-host disease consensus conference 2025 update. Transplant Cell
+Ther. (2025) 31:678.e1–.e16. doi: 10.1016/j.jtct.2025.05.016
+24. Filipovich AH, Weisdorf D, Pavletic S, Socie G, Wingard JR, Lee SJ, et al. National
+Institutes of Health consensus development project on criteria for clinical trials in
+chronic graft-versus-host disease: I. Diagnosis and staging working group report. Biol
+Blood Marrow Transplantation: J Am Soc For Blood Marrow Transplant. (2005)
+11:945–56. doi: 10.1016/j.bbmt.2005.09.004
+25. McCurdy SR, Kasamon YL, Kanakry CG, Bolanos-Meade J, Tsai HL, Showel MM,
+et al. Comparable composite endpoints after HLA-matched and HLA-haploidentical
+transplantation with post-transplantation cyclophosphamide. Haematologica. (2017)
+102:391–400. doi: 10.3324/haematol.2016.144139
+26. Fraccaroli A, Jurinovic V, Hirschbühl K, Stauffer E, Koch K, Breitkopf S, et al.
+Pretransplant MRD does not seem to affect survival in NPM1-mutated AML under-
+going allogeneic stem cell transplantation. Blood Adv. (2025) 9:1630–41. doi: 10.1182/
+bloodadvances.2024014767
+27. Pohlen M, Groth C, Sauer T, Görlich D, Mesters R, Schliemann C, et al. Outcome
+of allogeneic stem cell transplantation for AML and myelodysplastic syndrome in
+elderly patients (≧̸60 years). Bone Marrow Transplant. (2016) 51:1441–8. doi: 10.1038/
+bmt.2016.156
+28. Bondanza A, Ruggeri L, Noviello M, Eikema DJ, Bonini C, Chabannon C, et al.
+Beneﬁcial role of CD8+ T-cell reconstitution after HLA-haploidentical stem cell
+transplantation for high-risk acute leukaemias: results from a clinico-biological
+EBMT registry study mostly in the T-cell-depleted setting. Bone Marrow Transplant.
+(2019) 54:867–76. doi: 10.1038/s41409-018-0351-x
+29. Bühlmann L, Buser AS, Cantoni N, Gerull S, Tichelli A, Gratwohl A, et al.
+Lymphocyte subset recovery and outcome after T-cell replete allogeneic hematopoietic
+SCT. Bone Marrow Transplant. (2011) 46:1357–64. doi: 10.1038/bmt.2010.306
+30. Kim HT, Armand P, Frederick D, Andler E, Cutler C, Koreth J, et al. Absolute
+lymphocyte count recovery after allogeneic hematopoietic stem cell transplantation
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+11
+
+
+===== ORIGINAL PDF PAGE 12; PDF label 12 =====
+FORMULA CHECK REQUIRED: original PDF page 12.
+predicts clinical outcome. Biol Blood Marrow Transplant. (2015) 21:873–80.
+doi: 10.1016/j.bbmt.2015.01.019
+31. Savani BN, Mielke S, Adams S, Uribe M, Rezvani K, Yong AS, et al. Rapid natural
+killer cell recovery determines outcome after T-cell-depleted HLA-identical stem cell
+transplantation in patients with myeloid leukemias but not with acute lymphoblastic
+leukemia. Leukemia. (2007) 21:2145–52. doi: 10.1038/sj.leu.2404892
+32. Ishaqi MK, Afzal S, Dupuis A, Doyle J, Gassas A. Early lymphocyte recovery post-
+allogeneic hematopoietic stem cell transplantation is associated with signiﬁcant graft-
+versus-leukemia effect without increase in graft-versus-host disease in pediatric acute
+lymphoblastic leukemia. Bone Marrow Transplant. (2008) 41:245–52. doi: 10.1038/
+sj.bmt.1705891
+33. Meyer T, Maas-Bauer K, Wäsch R, Duyster J, Zeiser R, Finke J, et al.
+Immunological reconstitution and infections after alloHCT - a comparison between
+post-transplantation cyclophosphamide, ATLG and non-ATLG based GvHD prophy-
+laxis. Bone Marrow Transplant. (2025) 60:286–96. doi: 10.1038/s41409-024-02474-1
+34. McCurdy SR, Luznik L. Immune reconstitution after T-cell replete HLA-
+haploidentical transplantation. Semin Hematol. (2019) 56:221–6. doi: 10.1053/
+j.seminhematol.2019.03.005
+35. Roberto A, Castagna L, Zanon V, Bramanti S, Crocchiolo R, McLaren JE, et al. Role
+of naive-derived T memory stem cells in T-cell reconstitution following allogeneic
+transplantation. Blood. (2015) 125:2855–64. doi: 10.1182/blood-2014-11-608406
+36. Di Stasi A, Milton DR, Poon LM, Hamdi A, Rondon G, Chen J, et al. Similar
+transplantation outcomes for acute myeloid leukemia and myelodysplastic syndrome
+patients with haploidentical versus 10/10 human leukocyte antigen-matched unrelated
+and related donors. Biol Blood Marrow Transplant. (2014) 20:1975–81. doi: 10.1016/
+j.bbmt.2014.08.013
+37. Chang YJ, Zhao XY, Huo MR, Xu LP, Liu DH, Liu KY, et al. Inﬂuence of
+lymphocyte recovery on outcome of haploidentical transplantation for hematologic
+Malignancies. Med (Baltimore). (2009) 88:322–30. doi: 10.1097/md.0b013e3181c167e2
+38. Sugita J, Kamimura T, Ishikawa T, Ota S, Eto T, Kuroha T, et al. Reduced dose of
+posttransplant cyclophosphamide in HLA-haploidentical peripheral blood stem cell
+transplantation. Bone Marrow Transplant. (2021) 56:596–604. doi: 10.1038/s41409-020-
+01065-0
+39. McAdams MJ, Hyder M, Dimitrova D, Sadler JL, McKeown C, Steinberg SM, et al.
+Phase I/II study of reduced dosing of post-transplantation cyclophosphamide (PTCy)
+after HLA-haploidentical bone marrow transplantation. Blood. (2021) 138:101.
+doi: 10.1182/blood-2021-146997
+40. Hyder MA, Dimitrova D, Sabina R, DeVries A, McCune JS, McAdams MJ, et al.
+Intermediate-dose posttransplantation cyclophosphamide for myeloablative HLA-
+haploidentical bone marrow transplantation. Blood Adv. (2025) 9:2553–69.
+doi: 10.1182/bloodadvances.2024014879
+41. Bashey ZA, Zhang X, Brown S, Jackson K, Morris LE, Holland HK, et al.
+Comparison of outcomes following transplantation with T-replete HLA-haploidentical
+donors using post-transplant cyclophosphamide to matched related and unrelated
+donors for patients with AML and MDS aged 60 years or older. Bone Marrow
+Transplant. (2018) 53:756–63. doi: 10.1038/s41409-018-0126-4
+42. Yanir A, Schulz A, Lawitschka A, Nierkens S, Eyrich M. Immune reconstitution
+after allogeneic haematopoietic cell transplantation: from observational studies to
+targeted interventions. Front Pediatr. (2021) 9:786017. doi: 10.3389/fped.2021.
+786017
+43. Dekker L, de Koning C, Lindemans C, Nierkens S. Reconstitution of T cell subsets
+following allogeneic hematopoietic cell transplantation. Cancers (Basel). (2020)
+12:1974. doi: 10.3390/cancers12071974
+44. Mensen A, Jöhrens K, Anagnostopoulos I, Demski S, Ochs C, Hemmati P, et al.
+Acute bone marrow GvHD is associated with delayed B cell neogenesis and impaired
+natural antibody response after allogeneic hematopoietic stem cell transplantation.
+Blood. (2013) 122:4605. doi: 10.1182/blood.v122.21.4605.4605
+45. Mariotti J, Penack O, Castagna L. Acute graft-versus-host-disease other than
+typical targets: between myths and facts. Transplant Cell Therapy Off Publ Am Soc
+For Transplant Cell Ther. (2021) 27:115–24. doi: 10.1016/j.bbmt.2020.09.033
+46. Shimabukuro-Vornhagen A, Hallek MJ, Storb RF, von Bergwelt-Baildon MS. The
+role of B cells in the pathogenesis of graft-versus-host disease. Blood. (2009) 114:4919–
+27. doi: 10.1182/blood-2008-10-161638
+47. Allen JL, Fore MS, Wooten J, Roehrs PA, Bhuiya NS, Hoffert T, et al. B cells from
+patients with chronic GVHD are activated and primed for survival via BAFF-mediated
+pathways. Blood. (2012) 120:2529–36. doi: 10.1182/blood-2012-06-438911
+Haebe et al.
+10.3389/fimmu.2026.1803250
+Frontiers in Immunology
+frontiersin.org
+12
+

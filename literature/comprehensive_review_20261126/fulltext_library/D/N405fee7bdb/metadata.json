@@ -1,0 +1,28 @@
+{
+  "paper_id": "N405fee7bdb",
+  "category": "D",
+  "title": "Quantile regression under dependent censoring with unknown association",
+  "authors": "Myrthe D’Haen and Ingrid Van Keilegom and Anneleen Verhasselt",
+  "doi": "10.1007/s10985-025-09647-0",
+  "year": "2025",
+  "original_url": "https://doi.org/10.1007/s10985-025-09647-0",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "66fc6ffaf0c14064b8c6145be0a0df6e28f1c544a50811d158468de3ba2b3248",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2410.05069"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/N405fee7bdb/README.md",
+  "status": "local_only"
+}

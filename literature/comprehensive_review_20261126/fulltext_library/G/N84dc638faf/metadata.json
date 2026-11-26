@@ -1,0 +1,28 @@
+{
+  "paper_id": "N84dc638faf",
+  "category": "G",
+  "title": "Competing and Noncompeting Risk Models for Predicting Kidney Allograft Failure",
+  "authors": "Agathe Truchot and Marc Raynaud and Ilkka Helanterä and Olivier Aubert and Nassim Kamar and Gillian Divard and Brad Astor and Christophe Legendre and Alexandre Hertig and Matthias Buchler and Marta Crespo and Enver Akalin and Gervasio Soler Pujol and Maria Cristina Ribeiro de Castro and Arthur J. Matas and Camilo Ulloa and Stanley C. Jordan and Edmund Huang and Ivana Juric and Nikolina Basic-Jukic and Maarten Coemans and Maarten Naesens and John J. Friedewald and Helio Tedesco Silva and Carmen Lefaucheur and Dorry L. Segev and Gary S. Collins and Alexandre Loupy",
+  "doi": "10.1681/asn.0000000517",
+  "year": "2025",
+  "original_url": "https://doi.org/10.1681/asn.0000000517",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c0b7e6e579504e069b73d9e974c7d64269e632e091871ba6752793cf38b2978d",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://proceedings.neurips.cc/paper_files/paper/2017/file/861dc9bd7f4e7dd3cccd534d0ae2a2e9-Paper.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/N84dc638faf/README.md",
+  "status": "local_only"
+}

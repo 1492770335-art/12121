@@ -1,0 +1,28 @@
+{
+  "paper_id": "Na40930f34f",
+  "category": "C",
+  "title": "Constructing dynamic treatment regimes with shared parameters for censored data",
+  "authors": "Ying‐Qi Zhao and Ruoqing Zhu and Guanhua Chen and Yingye Zheng",
+  "doi": "10.1002/sim.8473",
+  "year": "2020",
+  "original_url": "https://doi.org/10.1002/sim.8473",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "3997aa6df814d331d3cd018f92318e7b6f1732cd8bd1c0130c62d912648c651b",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1808.01332"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "C/Na40930f34f/README.md",
+  "status": "local_only"
+}

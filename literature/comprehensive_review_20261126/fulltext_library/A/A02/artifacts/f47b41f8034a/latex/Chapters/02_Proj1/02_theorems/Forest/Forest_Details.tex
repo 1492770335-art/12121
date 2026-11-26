@@ -1,0 +1,18 @@
+We now provide adaptive concentration bounds for the random cumulative incidence forests. Note that the following shows consistency over time $t$ only, not over $\histlower \in \history$.
+Let $\scriptNode = \{ \Nodeu \}_{u \in U}$ be the set of terminal nodes obtained by fitting a single tree, where $U$ is a set of indices, $Z = \bigcup_{u \in U} \Nodeu$, and $\Nodeu \cap \Node_l = \emptyset$ for any $u \neq l$. Recursive partitioning is a critical component of tree-based survival models, where a $d$-dimensional feature space $Z$ is partitioned into terminal nodes. In other words, $\scriptNode$ is a partition of $Z$. Following the traditional tree-building process in \cite{breiman1984classification}, binary splitting rules are used, and all terminal nodes $\Nodeu$ are non-overlapping hyper-rectangles \citep{wager_adaptive_2016, cui_consistency_2022, cho_multi-stage_2023}. A set of $B$ trees are fitted in a traditional survival forest model \citep{ishwaran_random_2008}. 
+Hence, our tree model yields $\{ \Nodeu, \hat{\cuminc}_{\Nodeu,n}\}_{u \in U}$, and our forest constructs a collection of partitions $\{\{ \Nodeu^b, \hat{\cuminc}_{\Nodeu,n} \}_{u \in U_b}\}^B_{b=1}$.
+
+The AJ estimator for any node $\Nodeu$ is
+\begin{equation}
+\label{eqn:AJhat_node}
+\hat{\cuminc}_{\Nodeu,n}(t) = 
+\sum_{s \leq t}
+\frac{
+\survfunchatNodeu(s-)
+    \sum_{i=1}^n I{\{ \delta_{1i} = 1, X_i = s  \}}
+    I{\{ Z_i \in \Nodeu \}}}{\sum_{i=1}^n I{\{ X_i \geq s \}} I{\{ Z_i \in \Nodeu \}}},
+\end{equation} where the Kaplan-Meier estimator for overall survival in node $\Nodeu$ at time $t$ is given by 
+$\survfunchatNodeu(t)$.
+We know that the Kaplan-Meier estimator in the survival forest is consistent. To quantify within-node estimation performance, let $\cuminc_\Node(t) = \frac{1}{\mu(\Node)} \int_{z\in \Node} \cuminc(t | z) dP(z)$ be the averaged CIF within any node $\Node$, where $\cuminc(t|z)$ is defined in Equation \cref{eqn:CIF_def}, $P$ is the distribution of $Z$, and $\mu(\Node) = \int_{z\in \Node} dP(z)$ is the measure of node $\mathcal{Z}$.
+
+\input{Chapters/02_Proj1/01_chapters/3.Theory/lambda_star}

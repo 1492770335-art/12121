@@ -1,0 +1,464 @@
+
+
+
+
+\section{Intuition of Why Saddle Points Exist}\label{sec:intuition}
+
+In this section, in the tabular setting, we explain how the original optimization problem is reduced to a convex optimization problem in detail. Note proofs in our theorems do not directly use the facts in this \pref{sec:intuition}. Hence, they hold even in the non-tabular setting. 
+
+
+\subsection{$Q^{\star}$-functions }
+
+We consider the optimization problem: 
+\begin{align*}
+    \argmin_{q\in \Qcal^{\star '}}0.5\EE_{(s,a)\sim P_b}[q^2(s,a)]
+\end{align*}
+where $\Qcal^{\star '}$ is a space that consists of $q\in ([\Scal \times \Acal]\to \RR)$ that satisfies
+\begin{align*}
+    \forall (s,a)\in (\Scal \times \Acal)_b; \mathbb{E}_{s'\sim P(\cdot \mid s,a)}[\gamma \max_{a'\in \Acal} q(s',a')+r-q(s,a)\mid s,a]=0. 
+\end{align*}
+The solution (on the offline data) is clearly $q^{\star}_{0}$. However, this optimization problem is not a convex optimization problem. Hence, the associated minimax optimization might not have a saddle point. 
+
+Here, we want to claim the following:
+\begin{align}\label{eq:convex}
+    q^{\star}_{0}(s,a) = \argmin_{q\in \Qcal^{\star '}}0.5\EE_{(s,a)\sim P_b}[q^2(s,a)] (\forall (s,a)\in (\Scal\times \Acal)_b)
+\end{align}
+where $\Qcal^{\star '}$ is a space that consists of $q\in ([\Scal \times \Acal]\to \RR)$ that satisfies
+\begin{align*}
+    \forall (s,a)\in (\Scal \times \Acal)_b; \mathbb{E}_{s'\sim P(\cdot \mid s,a)}[\gamma \max_{a'\in \Acal} q(s',a')+r-q(s,a)\mid s,a]\leq 0. 
+\end{align*}
+This is a convex optimization problem. Hence, we can expect the associated minimax optimization would have a saddle point. In fact, this is proved as follows. 
+
+\begin{lemma}
+The equation \pref{eq:convex} holds. 
+\end{lemma}
+
+\begin{proof}
+Suppose $q(s,a;c)$ is a minimum $L^2$-norm solution that satisfies 
+\begin{align*}
+   \forall (s,a) \in (\Scal \times \Acal)_b; \mathbb{E}_{s'\sim P(\cdot \mid s,a)}[\gamma \max_{a'\in \Acal} q(s',a')+r-q(s,a)\mid s,a]=-c(s,a)
+\end{align*}
+ and $c(s,a)\geq 0$. 
+
+ Suppose $c(s,a)\neq 0$ on some $(s,a) \in (\Scal \times \Acal)_b$. Then, we obtain 
+ \begin{align*}
+     \forall (s,a) \in (\Scal \times \Acal)_b;   q(s,a;c) =  \EE_{\pi^{\star}(c)}[r_t + c(s_t,a_t) \mid (s_0,a_0)=(s,a)]
+ \end{align*}
+ where $ \pi^{\star}(c)$ is the optimal policy when the reward is $\tilde r(s,a)+c(s,a)$. This is derived by a contraction mapping theorem on the $L^{\infty}$-space on $(\Scal \times \Acal)_b$.  Here, recall 
+ \begin{align*}
+    \forall (s,a) \in (\Scal \times \Acal)_b;  q^{\star}(s,a) = q(s,a;0)\geq 0 
+ \end{align*}
+Furthermore, $ \forall (s,a) \in (\Scal \times \Acal)_b;q(s,a;0)\leq q(s,a;c)$ clearly holds, and, especially, the strict inequality holds on some point in $(\Scal \times \Acal)_b$. This is because if $q(s,a;0)= q(s,a;c)$, we get the contradiction:
+\begin{align*}
+      \forall (s,a) \in (\Scal \times \Acal)_b; 0 = \mathbb{E}_{s'\sim P(\cdot \mid s,a)}[\gamma \max_{a'\in \Acal} q(s',a')+r-q(s,a)\mid s,a]=c(s,a). 
+\end{align*}
+
+However, in this situation, we have 
+\begin{align*}
+    \EE_{(s,a)\sim P_b}[q^2(s,a;0) ]<   \EE_{(s,a)\sim P_b}[q^2(s,a;c) ]. 
+\end{align*}
+Thus, it contradicts $q^2(s,a;c)$ takes a least $L^2$-norm. Therefore, it is concldued $c(s,a)=0$ for any $(s,a) \in (\Scal \times \Acal)_b$. Thus, using the contraction mapping theorem, this implies the least $L^2$-norm solution is unique and $q^{\star}(s,a)$ on $(s,a) \in (\Scal \times \Acal)_b$. 
+
+
+ 
+\end{proof}
+
+
+
+
+\subsection{Soft $Q$-functions }
+
+We consider the optimization problem: 
+\begin{align}\label{eq:convex2}
+    \argmin_{q \in \Qcal'} 0.5 \EE_{(s,a)\sim P_b}[q^2(s,a)]
+\end{align} 
+ where $\Qcal'$ is a space that consists of $q\in ([\Scal \times \Acal]\to \RR)$ that satisfies
+ \begin{align}\label{eq:constraint12}
+  \forall (s,a)\in (\Scal \times \Acal)_b;  \EE_{s'\sim P(\cdot\mid s,a)}[\gamma \alpha \log \sum_{a'}\{\exp(q(s',a')/\alpha) \pi_b(a'\mid s')\}+r-q(s,a) \mid s,a ]\leq 0. 
+\end{align}
+
+\begin{lemma}
+Suppose $\alpha \log \|\pi^{\star}/\pi_b\|_{\infty} \leq R_{\min}$. Then, the solution to \pref{eq:convex2} is $q^{\star}_{\alpha}$.  
+\end{lemma}
+
+
+\begin{proof}
+Suppose $q_{\alpha}(s,a;c)$ is a minimum $L^2$-norm solution that satisfies 
+\begin{align*}
+   \forall (s,a) \in (\Scal \times \Acal)_b; \mathbb{E}_{s'\sim P(\cdot \mid s,a)}[\gamma \alpha \log(\sum_{a'} \exp(q(s',a')/\alpha)\pi_b(a'\mid s')+r-q(s,a)\mid s,a]=-c(s,a)
+\end{align*}
+ and $c(s,a)\geq 0$. 
+
+ Suppose $c(s,a)\neq 0$ on some $(s,a) \in (\Scal \times \Acal)_b$. Then, we obtain 
+ \begin{align*}
+     \forall (s,a) \in (\Scal \times \Acal)_b;   q_{\alpha}(s,a;c) =  \EE_{\pi^{\star}_{\alpha}(c)}[r_t + c(s_t,a_t) \mid (s_0,a_0)=(s,a)]
+ \end{align*}
+ where $ \pi^{\star}_{\alpha}(c)$ is the optimal policy when the reward is $\tilde r(s,a)+c(s,a)$. This is derived by a contraction mapping theorem on the $L^{\infty}$-space on $(\Scal \times \Acal)_b$ \footnote{Recall the soft Bellman operator is a contraction mapping in $L^{\infty}$-space.  }.Here, recall 
+ \begin{align*}
+    \forall (s,a) \in (\Scal \times \Acal)_b;  q^{\star}_{\alpha}(s,a) = q_{\alpha}(s,a;0)\geq 0 
+ \end{align*}
+ The proof is performed as in the first step of the proof of \pref{lem:saddle}. We use the assumption in this step. 
+ 
+ Furthermore, $ \forall (s,a) \in (\Scal \times \Acal)_b;q_{\alpha}(s,a;0)\leq q_{\alpha}(s,a;c)$ clearly holds, and, especially, the strict inequality holds on some point in $(\Scal \times \Acal)_b$. This is because if $q_{\alpha}(s,a;0)= q_{\alpha}(s,a;c)$, we get the contradiction:
+\begin{align*}
+      \forall (s,a) \in (\Scal \times \Acal)_b; 0 = \mathbb{E}_{s'\sim P(\cdot \mid s,a)}[\gamma \alpha \log(\sum_{a'} \exp(q(s',a')/\alpha)\pi_b(a'\mid s')+r-q(s,a)\mid s,a]=c(s,a). 
+\end{align*}
+
+However, in this situation, we have 
+\begin{align*}
+    \EE_{(s,a)\sim P_b}[q^2_{\alpha}(s,a;0) ]<   \EE_{(s,a)\sim P_b}[q^2_{\alpha}(s,a;c) ]. 
+\end{align*}
+Thus, it contradicts $q^2_{\alpha}(s,a;c)$ takes a least $L^2$-norm. Therefore, it is concluded $c(s,a)=0$ for any $(s,a) \in (\Scal \times \Acal)_b$. Thus, using the contraction mapping theorem, this implies the least $L^2$-norm solution is unique and $q^{\star}_{\alpha}(s,a)$ on $(s,a) \in (\Scal \times \Acal)_b$. 
+
+
+ 
+\end{proof}
+
+\section{Proof in \pref{sec:identification}}
+
+
+\subsection{Proof of \pref{lem:adjoint}}
+
+
+
+
+We define an $L^2$-space $H'$ with no weight on the support of $(\Scal \times \Acal)_b$. In other words, we define 
+\begin{align*}
+    \langle q_1, q_2 \rangle_{\Hcal'} &\coloneqq \int q_1(s,a)q_2(s,a)\mathrm{I}(P_b(s,a)>0)\mathrm{d}(s,a). 
+\end{align*}
+Then, we have 
+\begin{align*}
+   \langle  l^{\star}_{\alpha} , (I- \gamma P^{\star}_{\alpha}) q \rangle_{\Hcal}  &= \langle  P_b l^{\star}_{\alpha} , (I - \gamma P^{\star}_{\alpha}) q \rangle_{\Hcal'}  \\ 
+    &= \langle  (I-\gamma \{P^{\star}_{\alpha}\}^{\top})^{-1} (P_bq^{\star}_{\alpha}),(I - \gamma P^{\star}_{\alpha}) q \rangle_{\Hcal'} \\
+    &= \langle  (I-\gamma \{P^{\star}_{\alpha}\}^{\top})(I-\gamma \{P^{\star}_{\alpha}\}^{\top})^{-1}(P_b q^{\star}_{\alpha}), q \rangle_{\Hcal'} \\
+    &= \langle P_b q^{\star}_{\alpha} ,q \rangle_{\Hcal'}= \langle q^{\star}_{\alpha}, q \rangle_{\Hcal}. 
+\end{align*}
+Here, letting $P^{\star}_{\alpha}(s',a' \mid s,a)=P(s'\mid s,a)\pi^{\star}(a'\mid s')$ we use 
+\begin{align*}
+    &\langle g_1,  P^{\star}_{\alpha}g_2 \rangle_{\Hcal'}\\
+    &=\int g_1(s,a)g_2(s',a')P^{\star}_{\alpha}(s',a' \mid s,a)\mathrm{I}(P_b(s,a)>0)\mathrm{d}\mu(s,a,s',a') \tag{Definition} \\ 
+    &=\int g_1(s,a)g_2(s',a')P^{\star}_{\alpha}(s',a' \mid s,a)\mathrm{I}(P_b(s,a)>0)\mathrm{I}(P_b(s',a')>0)\mathrm{d}\mu(s,a,s',a') \tag{Recall we assume $\|\pi^{\star}/\pi_b\|\leq \infty$. } \\ 
+    &=\langle \{P^{\star}_{\alpha}\}^{\top}g_1, g_2 \rangle_{\Hcal'}. 
+\end{align*}
+Note $\langle g_1,  P^{\star}_{\alpha}g_2 \rangle_{\Hcal}=\langle \{P^{\star}_{\alpha}\}^{\top}g_1, g_2 \rangle_{\Hcal}$ does \emph{not} generally hold. 
+
+
+
+
+
+
+\subsection{Proof of \pref{lem:saddle} } 
+It is obvious that 
+\begin{align*}
+   \forall l\in \Hcal; L_{\alpha}(q^{\star}_{\alpha},l^{\star}_{\alpha})= L_{\alpha}(q^{\star}_{\alpha},l).
+\end{align*}
+Hence, we show 
+\begin{align*}
+     \forall q\in \Hcal; L_{\alpha}(q,l^{\star}_{\alpha}) \geq L_{\alpha}(q^{\star}_{\alpha},l^{\star}_{\alpha})
+\end{align*}
+
+To achieve this goal, we show 
+\begin{align}\label{eq:important}
+0.5\EE_{(s,a)\sim P_b}[(q-q^{\star}_{\alpha})(s,a)^2]\leq L_{\alpha}(q,l^{\star}_{\alpha})-L_{\alpha}(q^{\star}_{\alpha},l^{\star}_{\alpha}). 
+\end{align} 
+Using \pref{lem:adjoint}, a function $l^{\star}_{\alpha}$ satisfies a key adjoint property: 
+\begin{align}\label{eq:adjoint_propety}
+ \EE_{(s,a,s')\sim P_b,a'\sim \pi^{\star}_{\alpha}(s
+')}[l^{\star}_{\alpha}(s,a)\{\gamma q(s',a')-q(s,a) \} ]= -\EE_{(s,a,s')\sim P_b,a'\sim \pi^{\star}_{\alpha}(s
+')}[q^{\star}_{\alpha}(s,a)q(s,a) ]. 
+\end{align}
+for any $q \in \Hcal$. 
+
+\paragraph{First Step: Show $l^{\star}_{\alpha}(s,a)\geq 0$ and  $q^{\star}_{\alpha}(s,a)\geq 0$ for any $(s,a)\in \Scal \times \Acal$.}
+
+Recall 
+\begin{align*}
+    q^{\star}_{\alpha}(s,a)=\EE_{\pi^{\star}_{\alpha}}[r_0+\sum_{t=1}^{\infty}\{\gamma^t r_t -\alpha \gamma^t \log \pi^{\star}_{\alpha}(a_t\mid s_t)/\pi_b(a_t\mid s_t)\}\mid s_0=s,a_0=a]
+\end{align*}
+where the inside of the expectation is taken under a policy $\pi^{\star}_{\alpha}$. Hence, 
+\begin{align}
+    q^{\star}_{\alpha}(s,a)\geq \gamma(1-\gamma)^{-1}(R_{\min} - \alpha \log(\|\pi^{\star}_{\alpha}/\pi_b\|_{\infty})). 
+\end{align}
+Therefore, using Assumption~\ref{assum:scale}, we have 
+$$q^{\star}_{\alpha}(s,a)\geq 0$$ for any $(s,a)\in \Scal \times \Acal$. 
+Finally, from the definition of $l^{\star}_{\alpha}$, we obtain $$l^{\star}_{\alpha}(s,a)\geq 0$$ for any $(s,a)\in \Scal \times \Acal$. 
+
+\paragraph{Second Step: Show $0.5\EE_{(s,a)\sim P_b}[(q-q^{\star}_{\alpha})(s,a)^2]\leq L_{\alpha}(q,l^{\star}_{\alpha})-L_{\alpha}(q^{\star}_{\alpha},l^{\star}_{\alpha})$ for any $q \in \Hcal$. }
+
+Then, for any $q \in \Hcal$, we have 
+\begin{align*}
+   &L_{\alpha}(q,l^{\star}_{\alpha})- L_{\alpha}(q^{\star}_{\alpha},l^{\star}_{\alpha})\\
+   &=0.5 \EE_{(s,a) \sim P_b}[q^2(s,a)-q^{\star}_{\alpha}(s,a)^2] + \\
+   &+ \EE_{(s,a,s')\sim P_b}[l^{\star}_{\alpha}(s,a)\{\gamma \alpha \log \sum_{a'}\{\exp(q(s',a')/\alpha)\pi_b(a'\mid s')\}-q(s,a) \}  ] \\
+   &-\EE_{(s,a,s')\sim P_b}[l^{\star}_{\alpha}(s,a)\{\gamma \alpha\log \sum_{a'} \{ \exp(q^{\star}_{\alpha}(s',a')/\alpha)\pi_b(a'\mid s')\}-q^{\star}_{\alpha}(s,a) \}  ]  \\
+   &\geq 0.5 \EE_{(s,a) \sim P_b}[q^2(s,a)-q^{\star}_{\alpha}(s,a)^2]  + \\
+   &+\EE_{(s,a,s')\sim P_b}\left[l^{\star}_{\alpha}(s,a) \gamma \frac{\sum_{a'} \exp(q^{\star}_{\alpha}(s',a')/\alpha)\pi_b(a'\mid s')\{q(s',a')-q^{\star}_{\alpha}(s',a')\}}{\sum_{a'} \exp(q^{\star}_{\alpha}(s',a')/\alpha)\pi_b(a'\mid s')  } \right]  \tag{Convexity }  \\
+   &+\EE_{(s,a) \sim P_b}[-l^{\star}_{\alpha}(s,a)q(s,a) + l^{\star}_{\alpha}(s,a)q^{\star}_{\alpha}(s,a) ] \\
+   &=0.5 \EE_{(s,a) \sim P_b}[q^2(s,a)-q^{\star}_{\alpha}(s,a)^2]+  \\
+   &+ \EE_{(s,a,s')\sim P_b,a'\sim \pi^{\star}_{\alpha}(s
+')}[l^{\star}_{\alpha}(s,a)\{\gamma q(s',a')-q(s,a) - \gamma q^{\star}_{\alpha}(s',a') + q^{\star}_{\alpha}(s,a) \} ]. 
+\end{align*}
+In the convexity part, what we use is 
+\begin{align*}
+   f(x)-f(y)\geq \sum_{i=1}^{|\Acal|} \frac{\partial f}{\partial y_i}(x_i-y_i),\quad f(x)=\alpha \log(\sum_{i=1}^{|\Acal|} \exp(x_i/\alpha)). 
+\end{align*}
+and $$\forall (s,a)\in (\Scal \times \Acal)_b; l^{\star}_{\alpha}(s,a)\geq 0.$$ Finally, by using an adjoint propety of $l^{\star}_{\alpha}$ in \pref{eq:adjoint_propety}, 
+\begin{align*}
+ & L_{\alpha}(q,l^{\star}_{\alpha})- L_{\alpha}(q^{\star}_{\alpha},l^{\star}_{\alpha})  \\ 
+ & \geq 0.5 \EE_{(s,a) \sim P_b}[q^2(s,a)-q^{\star}_{\alpha}(s,a)^2]-\EE_{(s,a) \sim P_b}[q^{\star}_{\alpha}(s,a)\{q(s,a)-q^{\star}_{\alpha}(s,a)\}] \\ 
+   &=0.5 \EE_{(s,a) \sim P_b}[\{q(s,a)-q^{\star}_{\alpha}(s,a) \}^2]. 
+\end{align*}
+Then, \pref{eq:important} is concluded. 
+
+\subsection{Proof of \pref{lem:saddle2}  }   
+
+We denote the solution of $\argmin_{q \in \Qcal}\sup_{l \in \Lcal}L_{\alpha}(q,l)$ by $\hat q$. Let 
+\begin{align*}
+    \hat l(q) = \argmax_{l \in \Lcal}L_{\alpha}(q,l), \quad \hat l= \hat l(\hat q). 
+\end{align*}
+Then, we have 
+\begin{align*}
+    &L_{\alpha}(\hat q,l^{\star}_{\alpha})-L_{\alpha}( q^{\star}_{\alpha},l^{\star}_{\alpha})\\ 
+    &=  \underbrace{-L_{\alpha}( q^{\star}_{\alpha},l^{\star}_{\alpha}) + L_{\alpha}(q^{\star}_{\alpha},\hat l(q^{\star}_{\alpha}))}_{(a)}\underbrace{-  L_{\alpha}(q^{\star}_{\alpha}, \hat l(q^{\star}_{\alpha})) +  L_{\alpha}(\hat q, \hat l)}_{(c)} \underbrace{- L_{\alpha}(\hat q, \hat l)+ L_{\alpha}(\hat q, l^{\star}_{\alpha})}_{(d)} \\
+    &\leq 0. 
+\end{align*}
+In (a), we use the property of the saddle point in \pref{lem:saddle}. In (c) and (e), we use the definition of estimators. Hence, 
+\begin{align*}
+   0&\leq 0.5 \EE_{(s,a) \sim P_b}[\{q(s,a)-q^{\star}_{\alpha}(s,a) \}^2]  \\ 
+   &\leq L_{\alpha}(\hat q,l^{\star}_{\alpha})-L_{\alpha}( q^{\star}_{\alpha},l^{\star}_{\alpha}) \tag{Recall \pref{eq:important}} \\
+   &\leq 0. 
+\end{align*}
+This concludes the statement. 
+
+\subsection{Proof of \pref{thm:convergence_soft} }
+
+In this proof, the expectation is taken with respect to the offline data. We define 
+\begin{align*}
+\hat L_{\alpha}(q,w) &= \EE_n[0.5 q^2(s,a)+ l(s,a)\{r+\alpha \gamma \log(\sum_{a'} \exp(q(s',a')/\alpha)\pi_b(a'\mid s') )-q(s,a)\}], \\
+\hat l(q) &= \argmax_{l\in \Lcal}\EE_n[0.5 q^2(s,a)+ l(s,a)\{r+\alpha \gamma \log(\sum_{a'}\exp(q(s',a')/\alpha)\pi_b(a'\mid s') )-q(s,a)\}],\\
+\hat l &= \hat l(\hat q_{\alpha}). 
+\end{align*}
+We use the following decomposition:
+\begin{align*}
+    L_{\alpha}(\hat q_{\alpha},l^{\star}_{\alpha})&=  \underbrace{-L_{\alpha}( q^{\star}_{\alpha},l^{\star}_{\alpha}) + L(q^{\star}_{\alpha},\hat l(q^{\star}_{\alpha}))}_{(a)} \underbrace{-L_{\alpha}(q^{\star}_{\alpha}, \hat l(q^{\star}_{\alpha}))+\hat L_{\alpha}(q^{\star}_{\alpha}, \hat l(q^{\star}_{\alpha}))}_{(b)} \\ 
+    &\underbrace{- \hat L_{\alpha}(q^{\star}_{\alpha}, \hat l(q^{\star}_{\alpha})) + \hat L_{\alpha}(\hat q_{\alpha}, \hat l)}_{(c)} \underbrace{-\hat L_{\alpha}(\hat q_{\alpha}, \hat l)+ \hat L_{\alpha}(\hat q_{\alpha}, l^{\star}_{\alpha})}_{(d)}\underbrace{-\hat L_{\alpha}(\hat q_{\alpha}, l^{\star}_{\alpha})+ L_{\alpha}(\hat q_{\alpha},l^{\star}_{\alpha})}_{(e)}. 
+\end{align*}
+Here, terms (a) is than $0$ using the saddle point property in \pref{lem:saddle}. Term (c) and (d) are less than $0$ using the construction of estimators. Besides, using Hoeffding's inequality, with probability $1-\delta$, terms (b) and (e) are less than $$c \prns{  \Bcal^2_{\Qcal}+\Bcal_{\Qcal}\Bcal_{\Lcal} + \gamma \Bcal_{\Lcal}\{\alpha+\alpha \ln(|\Acal|)\}} \sqrt{\frac{\ln(|\Qcal||\Lcal|/\delta)}{n}}.$$ 
+Hereafter, we condition on this event. 
+Here, we use 
+\begin{align*}
+    &|0.5 q^2(s,a)+ l(s,a)\{r+\alpha \gamma \log(\sum_{a'} \exp(q(s',a')/\alpha)\pi_b(a'\mid s') )-q(s,a)\}| \\ 
+    &\leq  |\alpha l(s,a)\gamma \log(\sum_{a'} \exp(q(s',a')/\alpha)\pi_b(a'\mid s')) | + |0.5 q^2(s,a) + l(s,a)\{r-q(s,a)\}|\\
+    &\leq 0.5 \Bcal^2_{\Qcal}+\Bcal_{\Lcal}\{R_{\max}+\Bcal_{\Qcal}\}+ \gamma \Bcal_{\Lcal}\alpha \max_{a'}(\Bcal_{\Qcal}/\alpha +\pi_b(a'\mid s') )+\gamma \Bcal_{\Lcal} \ln(|\Acal|) \tag{Use \pref{lem:useful_inequality} and $l(s,a)\geq 0$ for any $(s,a)$.}\\
+    &\lesssim \Bcal^2_{\Qcal}+ \Bcal_{\Lcal}\Bcal_{\Qcal}+  \gamma \Bcal_{\Lcal}\{ \alpha+\alpha \ln(|\Acal|)\}. 
+\end{align*}
+
+
+Therefore, 
+\begin{align*}
+& 0.5\EE_{(s,a) \sim P_b}[\{\hat q_{\alpha}(s,a)-q^{\star}_{\alpha}(s,a) \}^2] \\
+&\leq L(l^{\star}_{\alpha},\hat q_{\alpha})-L(l^{\star}_{\alpha},q^{\star}_{\alpha})  \tag{Recall \pref{eq:important}}\\
+& \leq c \prns{  \Bcal^2_{\Qcal}+ \Bcal_{\Lcal}\Bcal_{\Qcal}+ \Bcal_{\Lcal}\gamma \{\alpha+\alpha  \ln(|\Acal|)\}} \sqrt{\frac{\ln(|\Qcal||\Lcal|/\delta)}{n}}. 
+\end{align*}
+In the first inequality, we use \pref{eq:important}. 
+
+\subsection{Proof of \pref{thm:convergence_q}}
+
+In this proof, the expectation is taken w.r.t. the offline data. We define 
+\begin{align*}
+    L_0(q,l) &= \EE[0.5 q^2(s,a)+ l(s,a)\{r+\gamma \max_{a'}(q(s',a')- q(s,a)\}], \\  
+\hat L_0(q,l) &= \EE_n[0.5 q^2(s,a)+ l(s,a)\{r+\gamma \max_{a'} q(s',a') -q(s,a)\}], \\
+\hat l(q) &= \argmax_{l}\EE_n[0.5 q^2(s,a)+ l(s,a)\{r+\max_{a'}q(s',a')-q(s,a)\}],\\
+\hat l &= \hat l(\hat q_0). 
+\end{align*}
+
+\paragraph{Part1: Show $l^{\star}(s,a)\geq 0$ for any $(s,a) \in \Scal \times \Acal$.}
+
+First, since $R_{\min}\geq 0$, we have $q^{\star}(s,a)\geq 0$. Then, recalling the definition:
+$$l^{\star} \coloneqq \{(I-\gamma \{P^{\star}\}^{\top})^{-1 }(q^{\star}P_{\pi_b})\}/P_{\pi_b},$$ 
+we obtain $l^{\star}(s,a)\geq 0$ for any $(s,a) \in \Scal \times \Acal$. 
+
+\paragraph{Part 2: Showing $ 0.5\EE_{(s,a)\sim P_b}[(q-q^{\star})(s,a)^2]\leq L_0(q,l^{\star})-L_0(q^{\star},l^{\star}). $ } 
+
+Note $l^{\star}(s,a)$ satisfies 
+\begin{align}\label{eq:adjoint2}
+ \EE_{(s,a,s')\sim P_b,a'\sim \pi^{\star}(s
+')}[l^{\star}(s,a)\{\gamma q(s',a')-q(s,a) \} ]= -\EE_{(s,a,s')\sim P_b,a'\sim \pi^{\star}(s
+')}[q^{\star}(s,a)q(s,a) ]. 
+\end{align}
+for any $q(s,a) \in \Qcal$. 
+
+Then, for any $q \in \Qcal$, we have 
+\begin{align*}
+   &L_0(q,l^{\star})- L_0(q^{\star},l^{\star})\\
+   &=0.5 \EE_{(s,a) \sim P_b}[q^2(s,a)-q^{\star}(s,a)^2] +\EE_{(s,a,s')\sim P_b}[l^{\star}(s,a)\{\gamma \max_{a'} q(s',a')-q(s,a) \}  ] \\
+   &-\EE_{(s,a,s')\sim P_b}[l^{\star}(s,a)\{\gamma  \max_{a'} q^{\star}(s',a')-q^{\star}(s,a) \}  ]  \\
+   &\geq 0.5 v\EE_{(s,a) \sim P_b}[q^2(s,a)-q^{\star}(s,a)^2]  +\EE_{(s,a,s')\sim P_b}[l^{\star}(s,a) \{\gamma q(s',\pi^{\star}(s))-\gamma q^{\star}(s',\pi^{\star}(s))\} ]  \tag{Convexity }  \\
+   &+\EE_{(s,a) \sim P_b}[-l^{\star}(s,a)q(s,a) + l^{\star}(s,a)q^{\star}(s,a) ] \\
+   &=0.5 \EE_{(s,a) \sim P_b}[q^2(s,a)-q^{\star}(s,a)^2]+  \\
+   &+ \EE_{(s,a,s')\sim P_b,a'\sim \pi^{\star}(s
+')}[l^{\star}(s,a)\{\gamma q(s',a')-q(s,a) - \gamma q^{\star}(s',a') + q^{\star}(s,a) \} ]. 
+\end{align*}
+In the convexity part, what we use is 
+\begin{align*}
+   \max_i \{f(x_i)\}- \max_{i} \{f(y_i)\} \geq f(x_{\argmax_{i} \{f(y_i)\} })-\max_{i} \{f(y_i)\} 
+\end{align*}
+and 
+\begin{align*}
+   \forall (s,a)\in (\Scal \times \Acal)_b; l^{*}(s,a)\geq 0.
+\end{align*}
+Finally, by using the adjoint property \pref{eq:adjoint2}, 
+\begin{align*}
+ &L_0(q,l^{\star})- L_0(q^{\star},l^{\star})\\
+  &\geq 0.5 \EE_{(s,a) \sim P_b}[q^2(s,a)-q^{\star}(s,a)^2]-\EE_{(s,a) \sim P_b}[q^{\star}(s,a)\{q(s,a)-q^{\star}(s,a)\}] \\ 
+   &=0.5 \EE_{(s,a) \sim P_b}[\{q(s,a)-q^{\star}(s,a) \}^2]. 
+\end{align*}
+
+
+\paragraph{Part 3: Showing the final bound.}
+
+We use the following decomposition: 
+\begin{align*}
+    L_0(\hat q_0,l^{\star})&=  \underbrace{-L( q^{\star},l^{\star}) + L_0(q^{\star},\hat l(q^{\star}))}_{(a)} \underbrace{-L_0(q^{\star}, \hat l(q^{\star}))+\hat L_0(q^{\star}, \hat l(q^{\star}))}_{(b)} \\ 
+    &\underbrace{- \hat L_0(q^{\star}, \hat l(q^{\star})) + \hat L_0(\hat q_0, \hat l)}_{(c)} \underbrace{-\hat L_0(\hat q_0, \hat l)+ \hat L_0(\hat q_0, l^{\star})}_{(d)}\underbrace{-\hat L_0(\hat q_0, l^{\star})+ L_0(\hat q_0,l^{\star})}_{(e)}. 
+\end{align*}
+
+Here, (a) is equal to $0$ since $q^{\star}$ satisfies the Bellman equation. Besides, using Hoeffding's inequality, with probability $1-\delta$, terms (b) and (e) are less than $$c \prns{  \Bcal^2_{\Qcal}+ \Bcal_{\Lcal}\Bcal_{\Qcal}} \sqrt{\frac{\ln(|\Qcal||\Lcal|/\delta)}{n}}.$$ Terms (c) and (d) are greater than $0$ using the construction of estimators. 
+This implies 
+\begin{align*}
+0.5\EE_{(s,a) \sim P_b}[\{\hat q_0(s,a)-q^{\star}(s,a) \}^2]
+&\leq L_0(\hat q_0,l^{\star})- L_0(q^{\star},l^{\star}) \tag{Second step.}\\
+&\leq c\prns{  \Bcal^2_{\Qcal}+  \Bcal_{\Lcal}\Bcal_{\Qcal}}\sqrt{\frac{\ln(|\Qcal||\Lcal|/\delta)}{n}}. 
+\end{align*}
+
+\section{Proof in \pref{sec:theory}}\label{sec:detail_proof}
+
+
+
+\subsection{Proof of \pref{thm:main}}
+
+Using \pref{thm:convergence_soft}, with probability $1-\delta$, the following holds 
+\begin{align}\label{eq:l2_error_softmax}
+    &\EE_{(s,a) \sim P_b}[\{\hat q_{\alpha}(s,a)-q^{\star}_{\alpha}(s,a)\}^2 ] \lesssim \mathrm{Error},  \\
+     & \mathrm{Error} =\prns{  \Bcal^2_{\Qcal}+ \Bcal_{\Qcal}\Bcal_{\Lcal}+ \Bcal_{\Lcal}\gamma \{\alpha+\alpha  \ln(|\Acal|)\}} \sqrt{\frac{\ln(|\Qcal||\Lcal|/\delta)}{n}}.  \nonumber
+\end{align}
+Hereafter, we condition on this event. Then, letting $\hat \pi_{\alpha}(a\mid s)=\mathrm{softmax}(\hat q_{\alpha}/\alpha + \log \pi_b)$, we have  
+\begin{align*}
+    J(\pi^{\star}_{\alpha})-J(\hat \pi_{\alpha})&\leq (1-\gamma)^{-1}R_{\max} \EE_{s \sim d_{\pi^{\star}_{\alpha}}}[\sum_{a} |\pi^{\star}_{\alpha}(a\mid s)-\hat \pi_{\alpha}(a \mid s)| ] \tag{Performance difference lemma in \pref{lem:performance}} \\
+     &\leq (1-\gamma)^{-1}R_{\max}\EE_{s \sim d_{\pi^{\star}_{\alpha}}}\bracks{\sqrt{|\Acal|}\prns{\sum_{a}\{\pi^{\star}_{\alpha}(a\mid s)-\hat \pi_{\alpha}(a\mid s)\}^2}^{1/2}} \tag{CS inequality} \\ 
+    &= (1-\gamma)^{-1}R_{\max}\EE_{s \sim d_{\pi^{\star}_{\alpha}}}\bracks{\sqrt{|\Acal|}\prns{\sum_{a: \pi_b(a \mid s)>0}\{\pi^{\star}_{\alpha}(a\mid s)-\hat \pi_{\alpha}(a\mid s)\}^2}^{1/2}}.
+\end{align*}
+From the second line to the third line, we use a relation that $\pi^{\star}_{\alpha},\hat \pi_{\alpha}$, and $\pi_b$ have the same support. 
+
+Now, we want to connect this bound with $L^2$-error of Q-functions. This is possible since the softmax function with Lipschitz constant $1/\alpha$ is Lipschitz continuous with constant $1/\alpha$ in \citet[Proposition 4]{gao2017properties}. Hence,  the right hand side is upper-bounded by 
+\begin{align*}
+(1-\gamma)^{-1}\sqrt{|\Acal|}/\alpha R_{\max} \EE_{s \sim d_{\pi^{\star}_{\alpha}}}\bracks{\braces{\sum_{a: \pi_b(a \mid s)>0}\{\hat q_{\alpha}(s,a)-q^{\star}_{\alpha}(s,a)\}^2}^{1/2} }. 
+\end{align*}
+From Jensen's inequality, this is further upper-bounded by 
+\begin{align*}
+  (1-\gamma)^{-1}\sqrt{|\Acal|}/\alpha R_{\max} \EE_{s \sim d_{\pi^{\star}_{\alpha}}}\bracks{\sum_{a: \pi_b(a \mid s)>0}\{\hat q_{\alpha}(s,a)-q^{\star}_{\alpha}(s,a)\}^2}^{1/2}.  
+\end{align*}
+Then, using the definition of $\pi^{\diamond}_b$, this is upper-bounded by 
+\begin{align*}
+ (1-\gamma)^{-1}|\Acal|/\alpha R_{\max} \EE_{s \sim d_{\pi^{\star}_{\alpha}},a\sim \pi^{\diamond}_b(\cdot \mid s)}\bracks{\{\hat q_{\alpha}(s,a)-q^{\star}_{\alpha}(s,a)\}^2}^{1/2} 
+\end{align*}
+Finally, by combining this result with \pref{eq:l2_error_softmax}, we get the final guarantee. 
+
+
+\subsection{Proof of Theorem~\ref{cor:main}}
+
+
+We have  
+\begin{align}\label{eq:helpful_inequality}
+    J(\pi)-J_{\alpha}(\pi)=R_{\max} \alpha (1-\gamma)^{-1}\EE_{s\sim d_{\pi},a\sim \pi(s)}[\log \pi(a\mid s)/\pi_b(a\mid s)]\geq 0
+\end{align}
+for any $\pi$. Then, 
+\begin{align*}
+    J(\pi^{\star})-J(\pi^{\star}_{\alpha}) &=J(\pi^{\star})-J_{\alpha}(\pi^{\star})+\underbrace{J_{\alpha}(\pi^{\star})-J_{\alpha}(\pi^{\star}_{\alpha})}_{(a)}+\underbrace{J_{\alpha}(\pi^{\star}_{\alpha})-  J(\pi^{\star}_{\alpha})}_{(b)}\\
+    &\leq J(\pi^{\star})-J_{\alpha}(\pi^{\star}). 
+\end{align*}
+Note the term (a) is less than $0$ since $\pi^{\star}_{\alpha}$ is the optimal softmax policy and the term (b) is less than $0$ using \pref{eq:helpful_inequality}. Furthermore, 
+\begin{align*}
+    & J(\pi^{\star})-J_{\alpha}(\pi^{\star})= (1-\gamma)^{-1}\alpha R_{\max} \EE_{s\sim d_{\pi^{\star}},a\sim \pi^{\star}(s)}[\log \pi^{\star}(a\mid s)/\pi_b(a\mid s)] \\
+    &\leq (1-\gamma)^{-1}\alpha R_{\max} \log C_0. 
+\end{align*}
+Therefore, by combining with \pref{thm:main}, we have
+\begin{align*}
+    J(\pi^{\star})-J(\hat \pi_{\alpha})&\leq c R_{\max}\frac{|\Acal| C^{1/2}_{\Qcal,d_{\pi^{\star}_{\alpha},\mu_0} }\{\Bcal_{\Qcal} + \gamma \Bcal_{\Lcal}\{\Bcal_{\Qcal} 
+ \alpha +\ln(|\Acal|)\}\}^{1/2} 
+    \{\ln(|\Qcal||\Lcal|/\delta)\}^{1/4}}{(1-\gamma)\alpha n^{1/4}}  \\
+    &+ c\frac{R_{\max} \alpha \log C_0}{1 -\gamma}. 
+\end{align*}
+The sample complexity is easily obtained from this result. 
+
+
+
+\section{ Proof in \pref{sec:margin}}
+
+
+
+From \pref{sec:detail_proof}, with probability $1-\delta$, the following holds 
+\begin{align}\label{eq:l2_error}
+    &\EE_{(s,a) \sim P_b}[\{\hat q(s,a)-q^{\star}(s,a)\}^2 ]\lesssim \mathrm{Error}, \\ 
+    &\mathrm{Error}=\prns{  \Bcal^2_{\Qcal}+ \gamma \Bcal_{\Lcal}\Bcal_{\Qcal}} \sqrt{\frac{\ln(|\Qcal||\Lcal|/\delta)}{n}}. \nonumber
+\end{align}
+Hereafter, we condition on this event. Then, letting $$\hat \pi(a\mid s)=\argmax_{a \in \Acal:\pi_b(a\mid s)>0} \hat q(s,a),$$ we have  
+\begin{align*}
+    &(1-\gamma)^2 R_{\max}^{-1}\{J(\pi^{\star})-J(\hat \pi)\} \\
+    &\leq \EE_{s \sim d_{\pi^{\star}}}[\mathrm{I}(\pi^{\star}(s)\neq \hat \pi(s)) ] \tag{Performance difference lemma in \pref{lem:performance}} \\
+     &\leq \EE_{s \sim d_{\pi^{\star}}}\bracks{\sum_{a':a'\sim \pi_b(a\mid s)>0} \mathrm{I}(\hat q(s,a')-\hat q(s,\pi^{\star}(s))\geq 0\,\&\,q^{\star}(s,a')-q^{\star}(s,\pi^{\star}(s))< 0 )  }. 
+\end{align*}
+Hence, we have 
+\begin{align*}
+    &\EE_{s \sim d_{\pi^{\star}}}\bracks{\sum_{a':a'\sim \pi_b(a\mid s)>0} \mathrm{I}(\hat q(s,a')-\hat q(s,\pi^{\star}(s))\geq 0\,\&\,q^{\star}(s,a')-q^{\star}(s,\pi^{\star}(s))< 0 )  } \\
+    &\leq \EE_{s \sim d_{\pi^{\star}}}\bracks{\sum_{a':a'\sim \pi_b(a\mid s)>0} \mathrm{I}(0> q^{\star}(s,a')-q^{\star}(s,\pi^{\star}(s))\geq -t )  } + \\
+     & + \EE_{s \sim d_{\pi^{\star}}}\bracks{\sum_{a':a'\sim \pi_b(a\mid s)>0} \mathrm{I}(\hat q(s,a')-\hat q(s,\pi^{\star}(s))-q^{\star}(s,a')+q^{\star}(s,\pi^{\star}(s))\geq t )  }
+\end{align*}
+In the first term, we can use a margin assumption:
+\begin{align*}
+    \EE_{s \sim d_{\pi^{\star}}}\bracks{\sum_{a':a'\sim \pi_b(a\mid s)>0} \mathrm{I}(0> q^{\star}(s,a')-q^{\star}(s,\pi^{\star}(s))\geq -t )  }\leq c|\Acal|(t/t_0)^{\beta}. 
+\end{align*}
+In the second term, we can use 
+\begin{align*}
+    &\EE_{s \sim d_{\pi^{\star}}}\bracks{\sum_{a':a'\sim \pi_b(a\mid s)>0} t^2 \mathrm{I}(\hat q(s,a')-\hat q(s,\pi^{\star}(s))-q^{\star}(s,a')+q^{\star}(s,\pi^{\star}(s))\geq t )  } \\
+    &\leq \EE_{s \sim d_{\pi^{\star}}}\bracks{\sum_{a':a'\sim \pi_b(a\mid s)>0} |\hat q(s,a')-\hat q(s,\pi^{\star}(s))-q^{\star}(s,a')+q^{\star}(s,\pi^{\star}(s))|^2 } \\
+  &\leq 2\EE_{s \sim d_{\pi^{\star}}}\bracks{\sum_{a':a'\sim \pi_b(a\mid s)>0} |\hat q(s,a')-q^{\star}(s,a')|^2_2 + |\hat q(s,\pi^{\star}(s))-q^{\star}(s,\pi^{\star}(s))|^2 }\\ 
+  &\leq 2|\Acal| \EE_{s \sim d_{\pi^{\star}},a\sim \pi^{\diamond}_b(s)}[|\hat q(s,a')-q^{\star}(s,a')|^2] +2|\Acal| \EE_{s \sim d_{\pi^{\star}},a\sim \pi^{\star}(s)}[|\hat q(s,a)-q^{\star}(s,a)|^2]. 
+\end{align*}
+Therefore, 
+\begin{align*}
+&(1-\gamma)^2 R_{\max}^{-1}\{J(\pi^{\star})-J(\hat \pi)\}\\
+&\leq c_2 \{ |\Acal|(t/t_0)^{\beta} +t^{-2}\{ 2 |\Acal| \EE_{s \sim d_{\pi^{\star}},a\sim \pi^{\diamond}_b(s)}[|\hat q(s,a')-q^{\star}(s,a')|^2]  \\
+& +2|\Acal| \EE_{s \sim d_{\pi^{\star}},a\sim \pi^{\star}(s)}[|\hat q(s,a)-q^{\star}(s,a)|^2]\} \}  \\
+&\leq c_3 \{ |\Acal| t^{-2\beta/(2+\beta)}_0\{\EE_{s \sim d_{\pi^{\star}},a\sim \pi^{\diamond}_b(s)}[|\hat q(s,a')-q^{\star}(s,a')|^2]^{\beta/(2+\beta)} \\ 
+&+  \EE_{s \sim d_{\pi^{\star}},a\sim \pi^{\star}(s)}[|\hat q(s,a)-q^{\star}(s,a)|^2]^{\beta/(2+\beta)}  \} \}. 
+\end{align*}
+Hence, 
+\begin{align*}
+    (1-\gamma)^2R_{\max}^{-1}\{J(\pi^{\star})- J(\hat \pi)\}\leq c|\Acal|t^{-2\beta/(2+\beta)}_0\prns{C_{\Qcal,d_{\pi^{\star}_0,\mu_0} }C_0\prns{  \Bcal^2_{\Qcal}+ \gamma \Bcal_{\Lcal}\Bcal_{\Qcal}} 
+    \{\ln(|\Qcal||\Lcal/\delta)/n\}^{1/2}    }^{\beta/(2+\beta)}. 
+\end{align*}
+This concludes the statement by some algebra. 
+    
+
+\section{Auxiliary Lemmas}
+
+We prove two auxiliary lemmas used in the proof. 
+
+\begin{lemma}[Performance Difference Lemma ]\label{lem:performance}
+\begin{align*}
+    J(\pi)-J(\pi')&=(1-\gamma)^{-1}\EE_{s \sim d_{\pi}}[\langle \pi(\cdot \mid s)-\pi'(\cdot \mid s),Q^{\pi'}(s,\cdot)\rangle  ] \\
+      &\leq (1-\gamma)^{-2}R_{\max} \EE_{s \sim d_{\pi}}[ \|\pi(\cdot \mid s)-\pi'(\cdot \mid s)\|_1 ]. 
+\end{align*}    
+\end{lemma}
+
+\begin{lemma}[LogSumExp Inequality]\label{lem:useful_inequality}
+    \begin{align*}
+        \max\{x_1,\cdots,x_{|\Acal|}\} \leq \log(\sum_{i=1}^{|\Acal|} \exp(x_i))\leq  \max\{x_1,\cdots,x_{|\Acal|}\} + \ln(|\Acal|). 
+    \end{align*}
+\end{lemma}
+
+
+
+
+

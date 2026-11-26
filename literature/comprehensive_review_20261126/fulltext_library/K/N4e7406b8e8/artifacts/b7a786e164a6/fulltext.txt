@@ -1,0 +1,912 @@
+Total Body Irradiation, Busulfan, Fludarabine Conditioning for Pediatric Acute Myeloid Leukemia Patients Treated with Hematopoietic Stem Cell Transplantation in Second Complete Remission
+
+Original PDF: [original.pdf](original.pdf). SHA256: `b7a786e164a650cd2046e28b92b98d5c71b9ee717f62e2ee0e0d63ab67cb3a86`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+Technical extraction; compare with original PDF page 1.
+Cancer Res Treat. 2026 May 20 [Epub ahead of print] 
+Introduction
+Although a significant subset of pediatric acute myeloid 
+leukemia (AML) patients are treated with a chemotherapy-
+only strategy, allogeneic hematopoietic stem cell transplan-
+tation (HSCT) is a key component of therapy for high-risk 
+patients and for those who relapse [1,2]. Past studies have 
+shown long-term leukemia-free survival (LFS) of 40%-50% 
+for pediatric AML patients who received HSCT in second 
+complete remission (CR) [3,4].
+The pre-transplant conditioning of pediatric AML patients 
+receiving HSCT is commonly myeloablative; however, the 
+optimum conditioning regimen remains unclear. Data based 
+mostly on adult HSCT patients showed better transplant 
+outcomes with chemotherapy-only based conditioning with 
+busulfan (Bu) and cyclophosphamide (Cy), compared to 
+total body irradiation (TBI) and Cy [5]. Attempts at modify-
+ing the conditioning regimen to further improve post-HSCT 
+survival include the addition of chemotherapy such as mel-
+phalan to minimize leukemic burden prior to HSCT [6], and 
+replacement of Cy with agents such as fludarabine (Flu) and 
+clofarabine to decrease transplant-related toxicity [6,7].
+At our institution, AML patients who received HSCT in 
+second CR previously received conditioning with myeloab-
+lative Bu/Flu. Since 2014, we amended the regimen to incor-
+porate 8 Gy TBI and lower the cumulative Bu dose (TBI/Bu/
+Flu) with the aim of decreasing relapse with a relatively low-
+er dose of TBI, while also decreasing non-relapse mortality 
+(NRM) through an overall lower dose of Bu. In this study, we 
+retrospectively analyzed the outcome and prognostic factors 
+https://doi.org/10.4143/crt.2026.0086
+pISSN 1598-2998, eISSN 2005-9256
+     1
+Copyright  2026­ by  the Korean Cancer Association
+  This is an Open-Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License (http://creativecommons.org/licenses/by-nc/4.0/) 
+which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.
+│ https://www.e-crt.org │
+Correspondence: Bin Cho
+Division of Pediatric Hematology and Oncology, Department of Pediatrics, Catholic Hematology Hospital, Seoul St. Mary’s Hospital, College of Medicine, The Catholic 
+University of Korea, 222 Banpo-daero, Seocho-gu, Seoul 06591, Korea
+Tel: 82-2-2258-6187  E-mail: chobinkr@catholic.ac.kr
+Received  January 25, 2026  Accepted  May 18, 2026
+Original Article
+Purpose  The optimum conditioning regimen for pediatric acute myeloid leukemia (AML) patients who receive allogeneic hematopoi-
+etic stem cell transplantation (HSCT) in second complete remission (CR) remains unclear. In this study, we reviewed the outcome of 
+AML patients treated with HSCT in second CR at our institution, focusing on the role of the conditioning regimen on post-transplant 
+survival.  
+Materials and Methods  We evaluated 43 AML patients who received myeloablative HSCT in second CR at our institution from 2009 
+to 2023. Thirteen of the patients (30.2%) received conditioning with busulfan and fludarabine (Bu/Flu), while 30 patients (69.8%) 
+were treated with total body irradiation (TBI) 8 Gy combined with Bu and Flu (TBI/Bu/Flu). 
+Results  Thirty-two of the patients received a haploidentical family donor (HFD) transplant (74.4%). Estimated 5-year event-free 
+survival (EFS) was 57.5%±7.6% (24/43), with 5-year cumulative incidence of relapse and non-relapse mortality of 30.7%±7.2% and 
+11.8%±5.0%, respectively. Among risk factors for EFS, only the conditioning regimen was important with patients treated with TBI/
+Bu/Flu having significantly higher 5-year EFS than those who received Bu/Flu (73.0%±8.2% vs. 23.1%±11.7%, p=0.004). There was 
+no significant difference in 5-year EFS between patients who received HFD transplant and those treated with transplant from other 
+donors. Estimated 5-year overall survival was 66.8%±7.3% (28/43), with all 28 surviving patients remaining disease-free at last 
+follow-up. 
+Conclusion  A myeloablative TBI/Bu/Flu regimen resulted in 5-year EFS of 73.0%±8.2%, indicating a favorable long-term outcome for 
+AML patients in second CR who receive HSCT with this conditioning regimen compared to previous studies. 
+Key words  Acute myeloid leukemia, Child, Second complete remission, Hematopoietic stem cell transplantation, Conditioning
+Jae Wook Lee  1, Suejung Jo1, Jae Won Yoo1, Seongkoo Kim2, Nack-Gyun Chung1, Bin Cho  1
+1Division of Pediatric Hematology and Oncology, Department of Pediatrics, Catholic Hematology Hospital, Seoul St. Mary’s Hospital, College of Medicine, 
+The Catholic University of Korea, Seoul, 2Division of Pediatric Hematology and Oncology, Department of Pediatrics, Incheon St. Mary’s Hospital, 
+College of Medicine, The Catholic University of Korea, Seoul, Korea
+Total Body Irradiation, Busulfan, Fludarabine Conditioning for Pediatric Acute 
+Myeloid Leukemia Patients Treated with Hematopoietic Stem Cell 
+Transplantation in Second Complete Remission
+
+
+===== ORIGINAL PDF PAGE 2 =====
+Technical extraction; compare with original PDF page 2.
+for AML patients who received HSCT in second CR, focusing 
+on comparisons of the two different conditioning regimens 
+as determinants of post-transplant survival.
+Materials and Methods
+1. Patient group
+We evaluated AML patients who consecutively received 
+allogeneic HSCT in second CR from April 1, 2009 to Decem-
+ber 31, 2023 at our institution. We excluded one acute pro-
+myelocytic leukemia (APL) patient who received allogeneic 
+HSCT in second CR to focus on the outcome of non-APL 
+AML patients. We further excluded one patient treated with 
+HSCT for relapse and clonal evolution to acute bilineage leu-
+kemia after initial treatment for AML, and one patient treat-
+ed with a conditioning regimen other than Bu/Flu or TBI/
+Bu/Flu in second CR. The final study group consisted of 43 
+patients (Table 1). Nineteen of the patients had previously 
+been reported as part of different studies [2,8,9]. 
+2. Conditioning regimen and graft-versus-host disease 
+prophylaxis
+ Donor-patient human leukocyte antigen (HLA) typ-
+ing was done for HLA-A, -B, -C and -DR at the allele level. 
+Patients who received HSCT from 2009 to 2013 were treated 
+with a conditioning regimen consisting of intravenous Bu 130 
+mg/m2/day (day –6 to day –3), and Flu 40 mg/m2/day (day 
+–6 to day –3). In contrast, the conditioning regimen for the 
+majority of patients who received HSCT from 2014 onwards 
+was the following: fractionated TBI 8 Gy total (day –8 to day 
+–7), Bu 130 mg/m2/day (day –6 to day –5), and Flu 40 mg/
+m2/day (day –6 to day –3). Bu was given intravenously as a 
+single dose each day, and Bu drug levels were not assessed.
+Patients treated with unrelated donor (UD) or haploidenti-
+cal family donor (HFD) HSCT received in vivo T-cell deple-
+tion. HSCT recipients from 2009 to 2018 were treated with 
+rabbit anti-thymocyte globulin (ATG) (thymoglobulin) at 
+total doses ranging from 3.75 mg/kg to 7.5 mg/kg for UD 
+HSCT, and 5 mg/kg to 10 mg/kg for HFD HSCT. ATG was 
+combined with cyclosporine and low-dose methotrexate for 
+overall graft-versus-host disease (GVHD) prophylaxis. The 
+majority of UD or HFD HSCT patients from 2019 onwards 
+received post-transplantation cyclophosphamide (PTCy) at 
+standard doses of 50 mg/kg/day for 2 days on days 3 and 
+4. For these patients, overall GVHD prophylaxis consisted of 
+PTCy combined with cyclosporine starting on day 5.
+3. Study outcomes and definitions
+The main study outcomes were the event-free survival 
+(EFS) and overall survival (OS) of the study group of patients 
+who received HSCT in second CR. We analyzed the follow-
+ing variables with regard to prognostic impact on EFS in 
+univariate analysis: sex, age at diagnosis, genetic risk group, 
+overall AML risk group, history of previous HSCT, time to 
+relapse, number of pre-transplant chemotherapy courses 
+after relapse, period of HSCT, donor type, conditioning 
+regimen, GVHD prophylaxis, diagnosis of acute or chronic 
+GVHD. Prognostic variables with p < 0.1 regarding EFS were 
+evaluated in the multivariate setting.
+We also determined the incidence of relapse, NRM, acute 
+GVHD (both grades 2-4 and grades 3-4), and chronic GVHD 
+(overall, as well as moderate/severe). Acute and chronic 
+GVHD were graded according to established criteria [10,11].
+The date of neutrophil engraftment was defined as the first 
+of three consecutive days with absolute neutrophil count 
+> 0.5×109/L and the date of platelet engraftment was defined 
+as the first of three consecutive days with platelet count 
+> 20×109/L without platelet transfusions in the preceding 
+week.
+4. Statistics
+Comparison of categorical and continuous variables bet-
+ween Bu/Flu and TBI/Bu/Flu subgroups was done with 
+Fisher’s exact test and Mann-Whitney U test, respectively. 
+The EFS of the patients was determined from the time of 
+HSCT to relapse, death in CR, diagnosis of secondary malig-
+nancy, or last follow-up, while OS was calculated from the 
+time of HSCT to death or last follow-up. EFS and OS were 
+estimated with the Kaplan-Meier method. Univariate and 
+multivariate analysis of risk factors for EFS were done with 
+the log-rank test and Cox proportional hazards regression, 
+respectively. Both acute GVHD and chronic GVHD were 
+considered time-dependent covariates when analyzing their 
+impact on EFS.
+Incidence of relapse, NRM, acute and chronic GVHD were 
+calculated with the cumulative incidence (CI) function, and 
+comparison according to groups was done with Gray’s test. 
+Competing risks were death in CR for relapse, AML relapse 
+for NRM, relapse or NRM without acute GVHD within 
+100 days post-HSCT for acute GVHD, and relapse or NRM 
+without chronic GVHD within 1 year post-HSCT for chronic 
+GVHD.
+p-values < 0.05 were considered significant. Patient follow-
+up was done up to December 31, 2025.
+Results
+1. Salvage therapy after first relapse
+The median time to relapse was 14.3 months from diag-
+nosis (range, 7.8 to 82.2 months). All patients received flu-
+Cancer Res Treat. 2026 May 20 [Epub ahead of print]  
+2     CANCER  RESEARCH  AND  TREATMENT
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+darabine, cytarabine, granulocyte colony-stimulating factor 
+(FLAG)±idarubicin-based reinduction chemotherapy. Pati-
+ents received a median of 2 cycles of chemotherapy (range, 1 
+to 4) after relapse and prior to HSCT. Median time to achieve-
+ment of second CR after relapse was 38 days (range, 24 to 
+104 days).
+2. Hematopoietic stem cell transplantation
+Median age at HSCT was 12.4 years (range, 2.6 to 18.0 
+years) (Table 2). Thirty-two of the patients received an HFD 
+transplant (74.4%), and all but 4 patients received peripheral 
+blood stem cell transplantation (90.7%). Overall, 13 patients 
+(30.2%) were treated with Bu/Flu conditioning, while 30 
+patients (69.8%) received TBI/Bu/Flu conditioning.
+3. Engraftment
+All but one patient who experienced primary graft failure 
+showed neutrophil engraftment at a median of 12 days post-
+HSCT (range, 9 to 20 days). Forty of 43 patients showed plate-
+let engraftment at a median of 20 days post-HSCT (range, 
+14 to 61 days). The three patients who did not show platelet 
+engraftment experienced the following: primary graft failure 
+at day 23, death from lung hemorrhage at day 92, and relapse 
+at day 108.
+4. Acute and chronic GVHD
+The 100-day CI of grades 2-4 and grades 3-4 acute GVHD 
+were 62.8%±7.5% (27/43) and 18.6%±6.0% (8/43), respective-
+ly. In addition, the 3-year CI of overall chronic GVHD and 
+Jae Wook Lee, Conditioning Regimen for Second CR Pediatric AML
+Cancer Res Treat. 2026 May 20 [Epub ahead of print]     3
+Table 1.  Key characteristics of AML patients who received HSCT in second CR, according to conditioning regimen
+	
+Bu/Flu (n=13)	
+TBI/Bu/Flu (n=30)	
+p-value
+Sex	
+	
+	
+0.742
+    Male	
+8 (61.5)	
+20 (66.7)	
+    Female	
+5 (38.5)	
+10 (33.3)	
+Age at diagnosis (yr)	
+10.7 (1.4-14.3)	
+10.4 (1.9-15.2)	
+0.764
+Genetics	
+	
+	
+    RUNX1::RUNX1T1	
+4 (30.8)	
+6 (20.0)	
+    CBFB::MYH11	
+1 (7.7)	
+2 (6.7)	
+    Biallelic CEBPA	
+0 (	
+5 (16.7)	
+    NPM1	
+1 (7.7)	
+2 (6.7)	
+    KMT2A rearrangement	
+1 (7.7)	
+4 (13.3)	
+    FLT3-ITD	
+2 (15.4)	
+0 (	
+    -7	
+1 (7.7)	
+0 (	
+    Complex karyotypea)	
+3 (23.1)	
+1 (3.3)	
+    del(5q)	
+0 (	
+1 (3.3)	
+    FUS::ERG	
+0 (	
+1 (3.3)	
+    Normal karyotype	
+0 (	
+3 (10.0)	
+    Non-complex karyotype	
+0 (	
+5 (16.7)	
+Overall risk groupb)	
+	
+	
+0.645
+    Low	
+5 (38.5)	
+9 (30.0)	
+    Intermediate	
+4 (30.8)	
+14 (46.7)	
+    High	
+4 (30.8)	
+7 (23.3)	
+Previous HSCT in first CR	
+	
+	
+0.699
+    No	
+11 (84.6)	
+23 (76.7)	
+    Yes	
+2 (15.4)	
+7 (23.3)	
+No. of pre-transplant chemotherapy courses after relapse	
+	
+	
+    One	
+3 (23.1)	
+0 (	
+    Two	
+9 (69.2)	
+27 (90.0)	
+    Three	
+1 (7.7)	
+2 (6.7)	
+    Four	
+0 (	
+1 (3.3)	
+Values are presented as number (%) or median (range). AML, acute myeloid leukemia; Bu, busulfan; CR, complete remission; Flu, fludara-
+bine; HSCT, hematopoietic stem cell transplantation; TBI, total body irradiation. a)Defined as 3 or more unrelated chromosomal abnor-
+malities in the absence of World Health Organization–designated recurrent genetic abnormalities, b)Based on genetic risk and response to 
+induction chemotherapy.
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+moderate/severe chronic GVHD were 30.2%±7.1% (13/43) 
+and 25.7%±6.8% (11/43), respectively.
+5. EFS and risk factors for EFS
+The estimated 5-year EFS was 57.5%±7.6% (24/43) (Fig. 
+1A). Events included relapse (n=13), NRM (n=5), and sec-
+ondary malignancy (n=1). Causes of NRM included chronic 
+GVHD (n=2), acute GVHD (n=1), cytomegalovirus pneumo-
+nia (n=1), and lung hemorrhage (n=1).
+Among univariate risk factors for EFS, only the conditioning 
+4     CANCER  RESEARCH  AND  TREATMENT
+Cancer Res Treat. 2026 May 20 [Epub ahead of print]  
+Table 2.  Transplantation procedure, according to conditioning regimen
+	
+Bu/Flu (n=13)	
+TBI/Bu/Flu (n=30)	
+p-value
+Age at HSCT (yr)	
+13.4 (2.6-16.1)	
+12.1 (3.0-18.0)	
+0.907
+Donor type	
+	
+	
+    MSD	
+0 (	
+4 (13.3)	
+    UD	
+3 (23.1)	
+4 (13.3)	
+    HFD	
+10 (76.9)	
+22 (73.3)	
+HLA compatibility	
+	
+	
+0.696
+    Match	
+2 (15.4)	
+8 (26.7)	
+    Mismatch	
+11 (84.6)	
+22 (73.3)	
+Cell source	
+	
+	
+    BM	
+1 (7.7)	
+2 (6.7)	
+    CB	
+1 (7.7)	
+0 (	
+    PBSC	
+11 (84.6)	
+28 (93.3)	
+GVHD prophylaxisa)	
+	
+	
+0.001
+    ATG-based	
+13 (100)	
+12 (46.2)	
+    PTCy-based	
+0 (	
+14 (53.8)	
+Infused cell doseb)	
+	
+	
+    TNC (×108/kg)	
+19.61 (0.75-41.61)	
+20.12 (1.07-42.10)	
+0.573
+    MNC (×108/kg)	
+15.16 (0.26-27.72)	
+13.84 (0.51-37.58)	
+0.984
+    CD34+ (×106/kg)	
+6.61 (1.29-11.37)	
+6.75 (1.66-20.52)	
+0.752
+    CD3+ (×107/kg)	
+70.47 (1.12-153.76)	
+46.08 (1.17-225.73)	
+0.518
+Values are presented as median (range) or number (%). ATG, anti-thymocyte globulin; BM, bone marrow; BMT, BM transplantation; 
+Bu, busulfan; CB, cord blood; CBT, CB transplantation; Flu, fludarabine; GVHD, graft-versus-host disease; HFD, haploidentical family 
+donor; HLA, human leukocyte antigen; HSCT, hematopoietic stem cell transplantation; MNC, mononuclear cells; MSD, matched sibling 
+donor; PBSC, peripheral blood stem cells; PBSCT, PBSC transplantation; PTCy, post-transplantation cyclophosphamide; TBI, total body 
+irradiation; TNC, total nucleated cells; UD, unrelated donor. a)For the 39 patients who received unrelated donor or haploidentical family 
+donor HSCT, b)For the 42 patients who received BMT or PBSCT. The cell dose for the 1 CBT patient was as follows: TNC 3.2×107/kg, MNC 
+2.0×107/kg, CD34+ 7.6×105/kg, CD3+ 3.6×106/kg. 
+p=0.004
+1.0
+0
+0
+Time (mo)
+Probability of EFS
+24
+168
+144
+72
+48
+96
+120
+0.6
+0.4
+0.2
+0.8
+A
+5-Year EFS: 57.5±7.6% (24/43)
+1.0
+0
+0
+Time (mo)
+Probability of EFS
+24
+168
+144
+72
+48
+96
+120
+0.6
+0.4
+0.2
+0.8
+B
+TBI/Bu/Flu: 73.0±8.2% (21/30)
+Bu/Flu: 23.1±11.7% (3/13)
+Fig. 1.  (A) Estimated 5-year event-free survival (EFS) of the overall study group. (B) Estimated 5-year EFS of the overall study group 
+according to the conditioning regimen. Bu, busulfan; Flu, fludarabine; TBI, total body irradiation.
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+regimen was an important factor, with patients treated with 
+TBI/Bu/Flu having significantly higher EFS than those who 
+received Bu/Flu (5-year EFS, 73.0%±8.2% vs. 23.1%±11.7%; 
+p=0.004) (Table 3, Fig. 1B). Also, patients treated with HSCT 
+in the later period (2016-2023) had higher 5-year EFS than 
+those treated in the earlier period (2009-2016), with border-
+line significance (70.8%±9.3% vs. 42.1%±11.3%, p=0.064). A 
+multivariate study of the impact of the conditioning regimen 
+Cancer Res Treat. 2026 May 20 [Epub ahead of print]     5
+Jae Wook Lee, Conditioning Regimen for Second CR Pediatric AML
+Table 3.  Univariate study of risk factors for EFS
+	
+Patients (Events)	
+5-Year EFS±SE (%)	
+p-value
+Sex	
+	
+	
+0.439
+    Male	
+28 (11)	
+63.3±9.3	
+    Female	
+15 (8)	
+46.7±12.9	
+Age at diagnosis (yr)a)	
+	
+	
+0.561
+    ≤ 11 	
+23 (9)	
+59.8±10.5	
+    > 11 	
+20 (10)	
+54.5±11.2	
+Genetic risk	
+	
+	
+0.903
+    Low	
+17 (7)	
+64.2±11.8	
+    Intermediate	
+18 (8)	
+55.0±11.9	
+    High	
+8 (4)	
+50.0±17.7	
+Overall risk groupb)	
+	
+	
+0.353
+    Low	
+14 (4)	
+70.7±12.4	
+    Intermediate	
+18 (9)	
+55.0±11.9	
+    High	
+11 (6)	
+45.5±15.0	
+Previous HSCT	
+	
+	
+0.401
+    No	
+34 (14)	
+60.8±8.5	
+    Yes	
+9 (5)	
+44.4±16.6	
+Time to relapse (mo)a)	
+	
+	
+0.152
+    ≤ 14	
+21 (11)	
+45.8±11.3	
+    > 14 	
+22 (8)	
+67.9±10.0	
+Pre-transplant chemo courses	
+	
+	
+0.930
+    ≤ 2 courses	
+39 (17)	
+58.7±7.9	
+    > 2 courses	
+4 (2)	
+37.5±28.6	
+Period of HSCT	
+	
+	
+0.064
+    2009-2016	
+19 (12)	
+42.1±11.3	
+    2016-2023	
+24 (7)	
+70.8±9.3	
+Donor type	
+	
+	
+0.237
+    Haploidentical	
+32 (16)	
+52.3±9.0	
+    Others	
+11 (3)	
+72.7±13.4	
+Conditioning regimen	
+	
+	
+0.004
+    Bu/Flu	
+13 (10)	
+23.1±11.7	
+    TBI/Bu/Flu	
+30 (9)	
+73.0±8.2	
+GVHD prophylaxis	
+	
+	
+0.304
+    Cyclosporine+MTX	
+29 (15)	
+51.3±9.4	
+    PTCy+cyclosporine	
+14 (4)	
+71.4±12.1	
+Acute GVHD (≥ grade 2)	
+	
+	
+0.164
+    No	
+16 (9)	
+43.8±12.4	
+    Yes	
+27 (10)	
+65.8±9.3	
+Chronic GVHD	
+	
+	
+0.386
+    No	
+30 (14)	
+52.9±9.2	
+    Yes	
+13 (5)	
+68.4±13.1	
+Bu, busulfan; EFS, event-free survival; Flu, fludarabine; GVHD, graft-versus-host disease; HSCT, hematopoietic stem cell transplanta-
+tion; MTX, methotrexate; PTCy, post-transplantation cyclophosphamide; SE, standard error; TBI, total body irradiation. a)Cutoff based on 
+median value, b)Based on genetic risk and response to induction chemotherapy.
+
+
+===== ORIGINAL PDF PAGE 6 =====
+Technical extraction; compare with original PDF page 6.
+6     CANCER  RESEARCH  AND  TREATMENT
+and transplant period on EFS showed that neither was a sig-
+nificant factor. To further clarify the role of transplant period 
+on outcome, we evaluated the impact of transplant period on 
+EFS in the subgroup of TBI/Bu/Flu patients; patients treated 
+in the earlier (2014-2018) and later (2018-2023) periods had 
+similar outcomes (69.2%±12.8% vs. 76.5%±10.3%, p=0.637). 
+In the overall group of patients, there was no significant dif-
+ference in 5-year EFS between patients who received HFD 
+transplant, and those treated with transplant from other 
+donors (52.3%±9.0% vs. 72.7%±13.4%, p=0.237).
+The 5-year CI of relapse and NRM were 30.7%±7.2% 
+(13/43) and 11.8%±5.0% (5/43), respectively. Patients treated 
+with TBI/Bu/Flu had significantly lower 5-year CI of relapse 
+compared with those who received Bu/Flu (20.0%±7.4% vs. 
+53.8%±15.1%, p=0.043). TBI/Bu/Flu regimen also resulted 
+in a lower 5-year CI of NRM compared to Bu/Flu, although 
+without statistical significance (7.0%±4.9% vs. 23.1%±12.4%, 
+p=0.135).
+6. Overall survival
+The estimated 5-year OS was 66.8%±7.3% (28/43), with all 
+28 surviving patients remaining disease-free at last follow-
+up (Fig. 2). Of the 19 patients who experienced an event, 3 
+patients who relapsed post-HSCT achieved CR once more 
+and remain disease-free (chemotherapy only, chemotherapy 
+and donor lymphocyte infusion, chemotherapy and second 
+HSCT, respectively), and one patient diagnosed with thyroid 
+cancer as a second malignancy underwent curative surgery.
+Discussion
+Recent studies have shown long-term OS of 30%-40% for 
+relapsed pediatric AML patients [12,13]. In contrast, patients 
+who receive allogeneic HSCT in second CR have shown 
+5-year LFS of 40%-50% [3,4], indicating improved outcome 
+for relapsed patients who are able to achieve second CR and 
+proceed to HSCT. The 5-year EFS of 57.5% for our study 
+group was comparable to the survival rates reported in these 
+past studies.
+The conditioning regimen may have a significant impact 
+on the outcome of pediatric AML patients who receive HSCT. 
+One key comparison is Bu-based chemotherapy only condi-
+tioning versus the incorporation of TBI as part of the condi-
+tioning regimen. Past studies in pediatric AML patients have 
+either shown no difference in major transplant outcomes 
+between the two conditioning types [14,15], or improved 
+survival with Bu-based chemotherapy conditioning in first 
+CR [16]. Modification of the standard Bu/Cy has also been 
+attempted, with one study reporting higher 5-year LFS with 
+the addition of melphalan (BuCyMel), or the replacement of 
+Cy with clofarabine and fludarabine (CloFluBu), compared 
+to BuCy [6].
+In our study, we found that the conditioning regimen 
+was the only significant factor for EFS, with patients who 
+received a TBI/Bu/Flu regimen having higher EFS than 
+those treated with Bu/Flu. The significantly lower relapse 
+rate in the patients who received TBI/Bu/Flu compared 
+with those treated with Bu/Flu contributed to the higher 
+EFS in these patients. An early study added 4 Gy TBI to mye-
+loablative Bu/Flu to limit potential increase in relapse rate 
+resulting from concurrent use of ATG in the study protocol 
+[17]. The study found similarly high disease-free survival for 
+both matched related donor and alternative donor HSCTs in 
+adult acute leukemia patients. Subsequent studies of 4 Gy 
+TBI/Bu/Flu conditioning focused on adult AML patients 
+showed conflicting results on whether the addition of TBI 
+improved OS compared to Bu/Flu alone [18,19]. In addition, 
+a study of adult AML patients showed that HFD transplant 
+based on a higher dose of 8 Gy TBI combined with Bu/Flu 
+and ATG resulted in outcome comparable to matched UD 
+(MUD) transplant [20]. While previous studies of TBI/Bu/
+Flu were mostly based on patients who received HSCT in 
+first CR [17-20], our study showed a high 5-year EFS of 73.0% 
+in patients treated with TBI/Bu/Flu in second CR, empha-
+sizing the efficacy of this conditioning regimen in relapsed 
+pediatric AML patients.
+Important prognostic factors in relapsed AML, such as 
+time to relapse and overall AML risk group [12,13], were not 
+significant predictors of outcome in our second CR HSCT 
+patient group. Achievement of second CR after relapse may 
+contribute towards a diminished effect of established prog-
+nostic factors in relapsed AML. The majority of our patients 
+also received HSCT from an HFD (n=32, 74.4%), indicating 
+a strategy to consolidate second CR with allogeneic HSCT, 
+regardless of the presence of a well-matched donor. We found 
+no significant difference in 5-year EFS between patients who 
+Cancer Res Treat. 2026 May 20 [Epub ahead of print]  
+1.0
+0
+0
+Time (mo)
+Probability of OS
+24
+192
+168
+144
+72
+48
+96 120
+0.6
+0.4
+0.2
+0.8
+5-Year OS: 66.8±7.3% (28/43)
+Fig. 2.  Estimated 5-year overall survival (OS) of the overall 
+study group.
+
+
+===== ORIGINAL PDF PAGE 7 =====
+Technical extraction; compare with original PDF page 7.
+Cancer Res Treat. 2026 May 20 [Epub ahead of print]     7
+received HFD HSCT and those who received transplant from 
+other donors. A previous study of 516 children with AML 
+compared MUD HSCT with ATG and HFD HSCT utilizing 
+PTCy, and found no difference in LFS and OS [21]. The 100-
+day CI of grades 2-4 acute GVHD was significant at 62.8%, 
+possibly reflecting the high number of HFD transplants, and 
+the use of varying methods of in vivo T-cell depletion, includ-
+ing both ATG and PTCy in our patients. However, the 100-
+day CI of grades 3-4 acute GVHD was 18.6%, similar to the 
+14.4% incidence found in HFD HSCT recipients of a previous 
+report [21].
+We emphasize the major limitations of our study. Patients 
+in the earlier part of our study period received Bu/Flu con-
+ditioning, while most of the patients in the later period were 
+treated with TBI/Bu/Flu. Although supportive measures 
+remained largely unchanged throughout this period, changes 
+in GVHD prophylaxis methods and improvements in over-
+all transplant procedures may have contributed to the better 
+outcome of TBI/Bu/Flu recipients, as manifest in the lower 
+NRM for these patients. Multivariate analysis of the impact 
+of both conditioning regimen and transplant period on EFS 
+did not show a significant factor for outcome, underscoring 
+the limitation of concluding upon conditioning regimen as a 
+key prognostic factor, independent of transplant period.
+Although the univariate study showed significantly higher 
+EFS for TBI/Bu/Flu compared to Bu/Flu, our small patient 
+group data derive from a single institution, and further study 
+is necessary to conclude upon the relative advantages of 
+TBI/Bu/Flu over Bu-based regimens which are commonly 
+used in the transplant of pediatric AML patients. Our main 
+aim in this paper is to emphasize the favorable outcomes of 
+our patients treated with TBI/Bu/Flu, rather than to con-
+clude upon its relative efficacy compared to other condition-
+ing regimens.
+Utilization of TBI as part of the conditioning regimen 
+allowed for a decrease in the overall Bu dose, and may have 
+contributed to lower alkylating agent-related toxicities. How-
+ever, TBI incorporation in the transplant of pediatric AML 
+patients may result in a higher incidence of late effects. One 
+registry study of 624 children with AML found a decreased 
+relapse incidence, but higher NRM in patients treated with 
+TBI as part of the conditioning regimen, resulting in similar 
+LFS and OS between the TBI and non-TBI groups. However, 
+patients who received TBI showed a significantly higher 
+3-year incidence of endocrine problems such as gonadal and 
+growth hormone deficiency [22]. In contrast, another large-
+scale study focused specifically on adolescent and young 
+adult AML patients reported that the incidence of late effects 
+depended more on the development of chronic GVHD rather 
+than the use of TBI in conditioning [23].
+In summary, we found that pediatric AML patients in sec-
+ond CR treated with a myeloablative TBI/Bu/Flu condition-
+ing regimen achieved a high 5-year EFS of 73.0%. HSCT with 
+TBI/Bu/Flu conditioning may result in favorable long-term 
+outcome for relapsed AML patients who are able to achieve 
+second CR.
+Ethical Statement
+The study received approval from the institutional data review 
+board and ethics review board of Seoul St. Mary’s Hospital (KC25RI-
+SI0400). Informed consent was waived with IRB approval.
+Author Contributions
+Conceived and designed the analysis: Lee JW, Chung NG, Cho B.
+Collected the data: Lee JW, Jo S, Yoo JW, Kim S.
+Contributed data or analysis tools: Lee JW, Jo S, Yoo JW, Kim S, 
+Chung NG, Cho B.
+Performed the analysis: Lee JW, Jo S, Yoo JW, Kim S.
+Wrote the paper: Lee JW.
+ORCID iDs
+Jae Wook Lee
+ : https://orcid.org/0000-0002-0735-0287
+Bin Cho
+ : https://orcid.org/0000-0001-6675-695X
+Conflicts of Interest
+Conflict of interest relevant to this article was not reported.
+Acknowledgments
+We express heartfelt gratitude to the nursing staff associated with 
+the Division of Pediatric Hematology and Oncology, Department of 
+Pediatrics, The Catholic University of Korea, and, above all, to the 
+patients and their families.
+Jae Wook Lee, Conditioning Regimen for Second CR Pediatric AML
+1. Burke MJ, Wagner JE, Cao Q, Ustun C, Verneris MR. Allo-
+geneic hematopoietic cell transplantation in first remission 
+abrogates poor outcomes associated with high-risk pediatric 
+acute myeloid leukemia. Biol Blood Marrow Transplant. 2013; 
+19:1021-5.
+2. Lee JW, Yoo JW, Kim S, Jang PS, Chung NG, Cho B. Outcome 
+of intensive therapy for children with relapsed acute myeloid 
+leukemia: a single institution Korean study. Cancer Res Treat. 
+2022;54:1230-9.
+3. Bunin NJ, Davies SM, Aplenc R, Camitta BM, DeSantes KB, 
+Goyal RK, et al. Unrelated donor bone marrow transplanta-
+tion for children with acute myeloid leukemia beyond first 
+References
+
+
+===== ORIGINAL PDF PAGE 8 =====
+Technical extraction; compare with original PDF page 8.
+8     CANCER  RESEARCH  AND  TREATMENT
+Cancer Res Treat. 2026 May 20 [Epub ahead of print]  
+remission or refractory to chemotherapy. J Clin Oncol. 2008; 
+26:4326-32.
+4. Fagioli F, Zecca M, Locatelli F, Lanino E, Uderzo C, Di Bartolo-
+meo P, et al. Allogeneic stem cell transplantation for children 
+with acute myeloid leukemia in second complete remission. J 
+Pediatr Hematol Oncol. 2008;30:575-83.
+5. Copelan EA, Hamilton BK, Avalos B, Ahn KW, Bolwell BJ, Zhu 
+X, et al. Better leukemia-free and overall survival in AML in 
+first remission following cyclophosphamide in combination 
+with busulfan compared with TBI. Blood. 2013;122:3863-70.
+6. Versluys AB, Boelens JJ, Pronk C, Lankester A, Bordon V, 
+Buechner J, et al. Hematopoietic cell transplant in pediatric 
+acute myeloid leukemia after similar upfront therapy: a com-
+parison of conditioning regimens. Bone Marrow Transplant. 
+2021;56:1426-32.
+7. Harris AC, Boelens JJ, Ahn KW, Fei M, Abraham A, Artz A, 
+et al. Comparison of pediatric allogeneic transplant outcomes 
+using myeloablative busulfan with cyclophosphamide or 
+fludarabine. Blood Adv. 2018;2:1198-206.
+8. Lee JW, Jang PS, Chung NG, Cho B, Kim HK. Treatment of 
+children with acute myeloid leukaemia who relapsed after 
+allogeneic haematopoietic stem cell transplantation. Br J Hae-
+matol. 2013;160:80-6.
+9. Lee JW, Kim S, Jang PS, Chung NG, Cho B, Im SA, et al. Prog-
+nostic role of postinduction minimal residual disease and 
+myeloid sarcoma type extramedullary involvement in pedi-
+atric RUNX1-RUNX1T1 (+) acute myeloid leukemia. J Pediatr 
+Hematol Oncol. 2020;42:e132-9.
+10. Przepiorka D, Weisdorf D, Martin P, Klingemann HG, Beatty 
+P, Hows J, et al. 1994 Consensus conference on acute GVHD 
+grading. Bone Marrow Transplant. 1995;15:825-8.
+11. Jagasia MH, Greinix HT, Arora M, Williams KM, Wolff D, 
+Cowen EW, et al. National Institutes of Health Consensus 
+Development Project on Criteria for Clinical Trials in Chronic 
+Graft-versus-Host Disease: I. The 2014 Diagnosis and Staging 
+Working Group report. Biol Blood Marrow Transplant. 2015; 
+21:389-401.
+12. Karlsson L, Forestier E, Hasle H, Jahnukainen K, Jonsson OG, 
+Lausen B, et al. Outcome after intensive reinduction therapy 
+and allogeneic stem cell transplant in paediatric relapsed 
+acute myeloid leukaemia. Br J Haematol. 2017;178:592-602.
+13. Rasche M, Zimmermann M, Steidel E, Alonzo T, Aplenc R, 
+Bourquin JP, et al. Survival following relapse in children with 
+acute myeloid leukemia: a report from AML-BFM and COG. 
+Cancers (Basel). 2021;13:2336.
+14. Sisler IY, Koehler E, Koyama T, Domm JA, Ryan R, Levine JE, 
+et al. Impact of conditioning regimen in allogeneic hematopo-
+etic stem cell transplantation for children with acute myelog-
+enous leukemia beyond first complete remission: a pediatric 
+blood and marrow transplant consortium (PBMTC) study. 
+Biol Blood Marrow Transplant. 2009;15:1620-7.
+15. Ishida H, Kato M, Kudo K, Taga T, Tomizawa D, Miyamura 
+T, et al. Comparison of outcomes for pediatric patients with 
+acute myeloid leukemia in remission and undergoing allo-
+geneic hematopoietic cell transplantation with myeloablative 
+conditioning regimens based on either intravenous busulfan 
+or total body irradiation: a report from the Japanese Society 
+for Hematopoietic Cell Transplantation. Biol Blood Marrow 
+Transplant. 2015;21:2141-7.
+16. de Berranger E, Cousien A, Petit A, Peffault de Latour R, 
+Galambrun C, Bertrand Y, et al. Impact on long-term OS of 
+conditioning regimen in allogeneic BMT for children with 
+AML in first CR: TBI+CY versus BU+CY: a report from the 
+Societe Francaise de Greffe de Moelle et de Therapie Cellu-
+laire. Bone Marrow Transplant. 2014;49:382-8.
+17. Russell JA, Savoie ML, Balogh A, Turner AR, Larratt L, Chaud-
+hry MA, et al. Allogeneic transplantation for adult acute leu-
+kemia in first and second remission with a novel regimen 
+incorporating daily intravenous busulfan, fludarabine, 400 
+cGy total-body irradiation, and thymoglobulin. Biol Blood 
+Marrow Transplant. 2007;13:814-21.
+18. Russell JA, Irish W, Balogh A, Chaudhry MA, Savoie ML, 
+Turner AR, et al. The addition of 400 cGY total body irradia-
+tion to a regimen incorporating once-daily intravenous busul-
+fan, fludarabine, and antithymocyte globulin reduces relapse 
+without affecting nonrelapse mortality in acute myelogenous 
+leukemia. Biol Blood Marrow Transplant. 2010;16:509-14.
+19. Suh HC, Rowley SD, Kaur S, Lukasik B, McKiernan P, Boon-
+stra M, et al. Prospective, randomized, comparative study of 
+myeloablative fludarabine/busulfan and fludarabine/busul-
+fan/total body irradiation conditioning in myeloid diseases. 
+Cancers (Basel). 2025;17:1140.
+20. Cho BS, Yoon JH, Shin SH, Yahng SA, Lee SE, Eom KS, et 
+al. Comparison of allogeneic stem cell transplantation from 
+familial-mismatched/haploidentical donors and from unre-
+lated donors in adults with high-risk acute myelogenous leu-
+kemia. Biol Blood Marrow Transplant. 2012;18:1552-63.
+21. Ruggeri A, Santoro N, Galimard JE, Kalwak K, Algeri M, 
+Zubarovskaya L, et al. Matched unrelated donor transplan-
+tation versus haploidentical transplantation with post-trans-
+plant cyclophosphamide in children with acute myeloid leu-
+kemia: a PDWP-EBMT study. Haematologica. 2024;109:2122-30.
+22. Dandoy CE, Davies SM, Ahn KW, He Y, Kolb AE, Levine J, 
+et al. Comparison of total body irradiation versus non-total 
+body irradiation containing regimens for de novo acute mye-
+loid leukemia in children. Haematologica. 2021;106:1839-45.
+23. Lee CJ, Kim S, Tecca HR, Bo-Subait S, Phelan R, Brazauskas R, 
+et al. Late effects after ablative allogeneic stem cell transplan-
+tation for adolescent and young adult acute myeloid leuke-
+mia. Blood Adv. 2020;4:983-92.
+

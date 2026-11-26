@@ -1,0 +1,30 @@
+{
+  "paper_id": "Nab85168a63",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "1c1cc730012c8fa836fbab0b439ffa0a8accace4142843118a103c973b2ff347",
+  "source_url": "https://www.dovepress.com/article/download/117696",
+  "original_version": "publisher PDF",
+  "bytes": "1832905",
+  "pdf_pages": "10",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by-nc/4.0/",
+  "license_evidence_url": "https://www.dovepress.com/article/download/117696",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:48.158163+08:00",
+  "format": "pdf",
+  "title": "Efficacy and Safety of CLAG-Based Sequential Conditioning Followed by Allogeneic Hematopoietic Stem Cell Transplantation in Non-Remission Relapsed or Refractory Acute Leukemia",
+  "authors": "Shiyu Chen and Xiaohan Zhang and Xiaoqing Li and Xin Du",
+  "doi": "10.2147/blctt.s601808",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "and incorporate the Creative Commons Attribution – Non Commercial (unported, v4.0) License (http://creativecommons.org/licenses/by-nc/4.0/). By accessing the work "
+    }
+  ]
+}

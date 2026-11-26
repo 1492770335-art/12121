@@ -1,0 +1,7392 @@
+# Methods for non-proportional hazards in clinical trials: A systematic review
+
+Original PDF: [original.pdf](original.pdf). SHA256: `9ee802ae2bd0f6de9b6a63f04431b6e9946214c922aca20e67bb38b555ef79e7`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1; PDF label 1
+
+Technical extraction; compare with original PDF page 1.
+
+````text
+Methods for non-proportional hazards in clinical trials: A
+systematic review
+Maximilian Bardo1,*, Cynthia Huber1,*, Norbert Benda1,2, Jonas Brugger3,
+Tobias Fellinger4, Vaidotas Galaune5, Judith Heinz1, Harald Heinzl6, Andrew
+C. Hooker5, Florian Klinglmüller4, Franz König3, Tim Mathes1, Martina
+Mittlböck6, Martin Posch3, Robin Ristl3, and Tim Friede1
+1University Medical Center Göttingen, Department of Medical Statistics, Göttingen, Germany
+2Federal Institute for Drugs and Medical Devices, Bonn, Germany
+3Medical University of Vienna, Center for Medical Data Science, Section of Medical Statistics, Vienna,
+Austria
+4Agentur für Gesundheit und Ernährungssicherheit (AGES), Vienna, Austria
+5Uppsala University, Department of Pharmacy, Uppsala, Sweden
+6Medical University of Vienna, Center for Medical Data Science, Section of Clinical Biometrics, Vienna,
+Austria
+*Maximilian Bardo and Cynthia Huber contributed equally to this study.
+Corresponding author: cynthia.huber@med.uni-goettingen.de
+January 30, 2024
+Abstract
+For the analysis of time-to-event data, frequently used methods such as the log-rank test
+or the Cox proportional hazards model are based on the proportional hazards assumption,
+which is often debatable. Although a wide range of parametric and non-parametric methods
+for non-proportional hazards (NPH) has been proposed, there is no consensus on the best
+approaches. To close this gap, we conducted a systematic literature search to identify sta-
+tistical methods and software appropriate under NPH. Our literature search identified 907
+abstracts, out of which we included 211 articles, mostly methodological ones. Review arti-
+cles and applications were less frequently identified. The articles discuss effect measures,
+effect estimation and regression approaches, hypothesis tests, and sample size calculation
+approaches, which are often tailored to specific NPH situations. Using a unified notation, we
+provide an overview of methods available. Furthermore, we derive some guidance from the
+identified articles.
+Keywords: Cox model, log-rank test, survival analysis, right-censored observations, non-
+proportional hazards
+1
+arXiv:2306.16858v2  [stat.ME]  29 Jan 2024
+
+````
+
+## PDF page 2; PDF label 2
+
+Technical extraction; compare with original PDF page 2.
+
+````text
+1
+Introduction
+In clinical studies with time-to-event outcomes, it is commonly assumed that the hazard func-
+tions of the treatment groups are proportional. However, several scenarios can lead to non-
+proportional hazards (NPH). Figure 1a and 1b illustrate the hazard ratio of a delayed and a
+diminishing treatment effect, respectively. A delayed treatment effect for the experimental arm
+can also lead to crossing hazards (see Figure 1c) if the comparator is an active treatment with
+an immediate response as is often the case in trials concerning immuno-oncology drugs. Other
+scenarios of crossing hazards are experiments where the treatment effect is non-homogeneous
+across subgroups, i.e. if the treatment is harmful in a subgroup but beneficial in its comple-
+ment [1]. NPH can also occur in settings with long-term survivors in one treatment arm or if
+there is treatment switching to another arm after disease progression on the original arm.
+Delayed Treatment Effect
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+survival probability
+0.0
+0.5
+1.0
+1.5
+hazard ratio
+0
+1
+2
+3
+4
+5
+time
+(a) Delayed effect.
+Diminishing Treatment Effect
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+survival probability
+0.0
+0.5
+1.0
+1.5
+hazard ratio
+0
+1
+2
+3
+4
+5
+time
+(b) Diminishing effect.
+Crossing Hazards
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+survival probability
+0.0
+0.5
+1.0
+1.5
+hazard ratio
+0
+1
+2
+3
+4
+5
+time
+(c) Crossing hazards.
+Figure 1: Stylized NPH treatment effect scenarios with hazard ratio (blue dashed line) and cor-
+responding survival curves (red and green solid lines). The green line represents the reference
+group. The dotted line with black solid points refers to the time when the hazard ratio is equal
+to 1.
+Under proportional hazards (PH), comparisons of hazard ratios or cumulative hazard ra-
+tios result in equivalent conclusions, whereas under NPH these results may vary substantially.
+Standard statistical tests for the comparison of time-to-event outcomes between groups such as
+the log-rank test or tests based on Cox regression models are not optimal for detecting relevant
+differences under NPH. Additionally, the hazard ratio estimate of the standard Cox regression
+model, a commonly used effect measure, is neither robust nor meaningful under NPH [2]. In
+contrast to PH, the interpretation of estimates of a specific effect measure, such as the hazard
+ratio or the cumulative hazard ratio, depend on the follow-up considered for evaluation in the
+presence of NPH.
+Well-established methods for time-to-event data are available when the PH assumption holds.
+However, there is no consensus on best practices under NPH. Moreover, approaches to deal
+with NPH are not globally optimal but depend on the specific NPH scenario. A variety of
+parametric and non-parametric methods for treatment effect estimation and hypothesis testing
+in NPH settings have been proposed. We aim to identify statistical methods and, if available,
+the corresponding software that is suitable for NPH. In contrast to other overview articles that
+focus on specific disease areas (e.g., oncology [1]), NPH patterns (e.g., switching treatment [3]),
+or specific methods (e.g., statistical testing [4, 5]), the scope of this literature review is broader
+and based on a systematic approach to identifying relevant literature.
+The remainder of this paper is organized as follows. In Section 2, we show the relevance of
+scenarios with NPH by investigating reconstructed data from a clinical trial. In Section 3, we
+describe the literature search, data extraction and summarize the quantitative results of the
+review. The identified approaches are presented in a common notation, which can be found in
+Section 4, where we focus on NPH for the treatment indicator. We categorize and discuss ap-
+proaches to estimate and model treatment or covariate effects under NPH in Section 5. Testing
+2
+
+````
+
+## PDF page 3; PDF label 3
+
+Technical extraction; compare with original PDF page 3.
+
+````text
+and sample size calculation approaches under NPH are discussed in Section 6. We compare
+the flexibility of the proposed methods presented in Sections 5 and 6 on theoretical grounds
+and highlight results of conducted comparison studies if available. Finally, we summarize and
+discuss the findings in Section 7. The Appendix A provides more detailed information on
+the literature search and data extraction. The Online Supplement S provides more detailed
+information on the estimation and testing approaches identified as appropriate for NPH.
+2
+Motivation
+Borghaei et al [6] report a phase 3 trial comparing the effect of nivolumab versus docetaxel in
+nonsquamous non-small lung cancer concerning overall survival. For illustration, we consider
+the study’s secondary endpoint, progression-free survival (PFS). Using the webplotdigitizer [7]
+and the method described in [8], we reconstructed the individual patient data by digitizing the
+Kaplan-Meier (KM) estimates of the survival functions.
+During follow-up, 238 of 292 patients in the nivolumab arm and 248 of 290 patients in the do-
+cetaxel arm either died or had lung cancer progression (reconstructed data). Figure 2a shows
+the re-estimated KM estimates of the PFS curve for the nivolumab and docetaxel group. The es-
+timated KM curves are crossing, indicating a non-constant, crossing-hazards treatment effect.
+This is further investigated in Figure 2b. The blue line shows the estimated (time-dependent)
+hazard ratio which is obtained by smoothing the increments of the cumulative hazard rates
+which are computed via the Nelson-Aalen estimator. Smoothening was done via kernel-based
+methods and global bandwidth as implemented in the R package muhaz. The estimated curve
+of the hazard ratio indicates an inferior treatment effect of nivolumab as compared to docetaxel
+early on. After approximately 4 months, however, the hazard ratio falls below one, favouring
+nivolumab. The crossing hazards result in crossing PFS curves, approximately two months
+after the hazard ratio crosses the threshold one, suggesting better performance of nivolumab.
+Borghaei et al [6] suspect that a delayed effect of the nivolumab treatment causes this effect
+which is typical for immunotherapy. The time-invariant estimate of the hazard ratio under the
+PH assumption is indicated by the solid black line in Figure 2b. While the estimate of the con-
+stant hazard ratio is close to 1, indicating no treatment effect, the estimates of the time-varying
+hazard ratio and the KM curves suggest otherwise and provide additional insights. A log-rank
+test (on the reconstructed data) yields a test statistic of 0.6, resulting in a p-value of 0.4.
+This type of statistical analysis is typical for clinical studies. Jachno et al [9] review 66 trials
+with time-to-event outcomes. For analysis, the majority of papers reported KM curves (98%)
+and the Cox PH model (97%) and inference was based on the log-rank test in 88% of the papers.
+Only 11% of the reviewed papers in [9] reported either testing for or visual inspection of NPH.
+Moreover, at the stage of trial planning, only 11% considered non-constant hazard rates or
+NPH, i.e. trial analysis is often restricted to PH methods.
+This could be problematic as the Cox PH model is misspecified under NPH. Consequently, its
+parameters are inappropriate to be interpreted as parameters of the time-to-event distribution,
+as it may not capture the nature of the treatment effect, as illustrated in the example above.
+Alternatively, the HR could be interpreted as a summary measure that quantifies the treatment
+effect in a single number, while the time-to-event distributions can be investigated using the
+KM estimates. However, the HR estimate under NPH depends on the censoring distribution
+and therefore lacks a clear interpretation [10]. In addition, the log-rank test loses power under
+NPH, which could lead to medical advances not being detected as such.
+Ignoring the methodology for NPH and not testing for NPH makes it challenging to understand
+the impact of the PH assumption on the analysis of a specific trial. Dormuth et al [4] re-
+examined 18 clinical trials characterized by crossing survival curves and inconclusive log-rank
+tests. They discovered significant differences in survival outcomes in 9 of these trials when
+using testing procedures appropriate for NPH.
+3
+
+````
+
+## PDF page 4; PDF label 4
+
+Technical extraction; compare with original PDF page 4.
+
+````text
+0
+5
+10
+15
+20
+25
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Progression−free Survival
+months
+estimated progression−free survival probability
+Docetaxel
+Nivolumab
+(a) Data is reconstructed from Borghaei et al [6].
+0
+5
+10
+15
+0.5
+1.0
+1.5
+Hazard Ratio
+months
+estimated hazard ratio
+(b) Nivolumab vs docetaxel
+Figure 2: Left-hand side figure shows Kaplan-Meier estimates of the survival function, and
+right-hand side figure shows estimated hazard ratio. The solid blue line is an estimate of the
+time-varying hazard ratio obtained through smoothing the increments of the Nelson-Aalen
+estimate of the cumulative hazard function, the solid black line is an estimate from the Cox PH
+model, the dotted line with a blue solid point indicates a hazard ratio of 1, i.e. the time point,
+where the estimated hazard rates are equal.
+3
+Systematic literature search and study selection
+We performed a comprehensive literature search using two electronic databases, MEDLINE
+and EMBASE, on March 15th, 2022. Details on the literature search and the data extraction
+are provided in Appendix A.1. In total 907 articles were identified, which were screened for
+eligibility. After the abstract screening and retrieval of full texts, a total of 411 articles were
+assessed for eligibility. In total, 200 articles (49%) were excluded. The most frequent reason
+for exclusion was that the articles neither developed nor applied any NPH method. The final
+analysis included 211 publications, see PRISMA flow chart in Figure 3.
+The complete list of included articles is available in Table S5 of the Online Supplement.
+Figure 4 shows the publication years of the articles included. In our review more than 70% of
+the articles were published in 2010 or later and only a few before 2000. However, it has to be
+considered that the total number of published articles grew over the last years [13].
+The vast majority of articles (>80%) introduce statistical methods for NPH; reviews and appli-
+cations were less frequent (10%).
+Concerning the methods introduced in the identified articles we distinguished whether articles
+include methods for estimation of time-varying covariate/treatment effects and/or hypothesis
+testing. To further characterize the articles, we additionally introduce categories for articles
+focusing on estimation and/or testing methods. These categories are displayed in Table 1.
+Note that these categories are non-exclusive. The categories summarize the core contribution
+of the methods discussed in the corresponding articles. The category "Kaplan-Meier based
+estimation approaches" includes articles discussing for example approaches based on Kaplan-
+Meier or Nelson-Aalen estimates, pseudo values and quantile regression. Articles grouped into
+"Time-varying coefficients for the hazard rates" discuss for example change-point approaches,
+splines and fractional polynomials. Further explanation of the categories is given below in
+Section 5 and Section 6.
+The allocation of each paper to at least one of the categories according to Table 1 can be found
+4
+
+````
+
+## PDF page 5; PDF label 5
+
+Technical extraction; compare with original PDF page 5.
+
+````text
+Figure 3: PRISMA 2020 flow diagram [11] – identified and included studies from the database
+searches (MEDLINE and EMBASE).
+*e.g. Stratified Cox PH model or use of time-dependent covariates in PH models as described
+in Klein and Moeschberger [12, Chapter 9].
+5
+
+````
+
+## PDF page 6; PDF label 6
+
+Technical extraction; compare with original PDF page 6.
+
+````text
+Figure 4: Publication year of the 211 included articles. Note that the number for 2022 is based
+on the articles published until 15th March 2022 and is therefore incomplete.
+in the Online Supplement, see Table S2. A categorization of estimation approaches into more
+detailed categories discussed in Section 5 can also be found in the supplement, see Table S3. In
+Tables S2 and S3, we attempted to identify the main NPH contribution for each paper, some-
+times ignoring possible extensions that might have been mentioned. However, papers often
+cover multiple topics resulting in papers being classified into more than one category. Table S4
+gives details regarding the null hypothesis considered in the proposed testing approaches.
+In total, 113 out of 211 (53%) articles identified in the review include estimation methods, 72
+out of 211 (24%) involve hypothesis testing methods, and 26 out of 211 (13%) involve both
+hypothesis and estimation methods.
+Log-rank test approaches are the most frequent hypothesis test methods that we identified in
+our literature review (Table 1). Methods for trials including an interim analysis are considered
+in 12% of the articles.
+The literature review identified articles covering different aspects of survival analysis in NPH
+settings. We identified articles proposing new test statistics for testing whether the survival is
+different in two treatment groups, as well as articles proposing new effect measures or regres-
+sion models for quantifying the treatment effect in settings violating the common PH assump-
+tion.
+In 72 out of 211 (34%) articles freely accessible software is provided. Another 13% of the ar-
+ticles provide the code for the methods upon request. Software was considered to be freely
+available code in form of e.g. R packages, code snippets given in the text, or freely accessible
+code (e.g. supplement of article or online repository). Additionally, publicly available code
+or code snippets for commercial software are also categorized as freely available although the
+software needed to run the code is not freely available. Code snippets published in the arti-
+cles sometimes implement only specific features or are used to deepen the understanding of
+the methods. Moreover, the code snippets are usually intended to enable users to apply the
+methods proposed.
+Simulation studies are reported in 158 (75%) articles. This is more pronounced in articles
+considering testing procedures, where 86 out of 98 (88%) papers provide simulation studies.
+For 91 out of 139 (65%) papers that focus on estimation procedures simulation studies are
+provided.
+6
+
+````
+
+## PDF page 7; PDF label 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+Table 1: Absolute and relative frequencies of publications discussing a method class. Note that publica-
+tions may discuss methods belonging to multiple classes of method categories. Therefore the classes are
+not mutually exclusive.
+Estimation approaches (n=139)
+Kaplan-Meier based estimation approaches
+18 (12.9%)
+Stratified Cox model
+3 (2.2%)
+Time-varying coefficients for the hazard rates
+47 (33.8%)
+Transformation models with time-covariate interaction
+9 (6.5%)
+Short- and long-term HR
+9 (6.5%)
+Joint Models
+3 (2.2%)
+Frailty models
+17 (12.2%)
+Parametric models
+38 (27.3%)
+Machine learning approaches
+11 (7.9%)
+Other
+8 (5.8%)
+Hypothesis testing approaches (n=98)
+Log-rank tests
+63 (64.3%)
+Kaplan-Meier-based tests
+26 (26.5%)
+Combination tests
+20 (20.4%)
+Other tests
+12 (12.2%)
+4
+Notation and summary effect measures
+Before we proceed with describing the method categories according to Table 1, we introduce
+the notation that is used throughout this paper and the supplement. We also define the identi-
+fied treatment effect measures.
+4.1
+Notation
+The number of subjects included in a trial is denoted by N. Z is a treatment indicator with
+Z = 0 indicating the control (placebo or comparator) and Z = 1 the experimental treatment
+arm. The outcome of interest is the time to event T , whereas C denotes the censoring time.
+The event indicator is denoted by δ = I(T ≤C). The maximum follow-up time of the trial is set
+to ˜t and a specific time point during the follow-up time is denoted by t∗. The distinct ordered
+event-times are indicated by t(i), i.e. 0 < t(1) < t(2) < ... where at each time t(i) at least one event
+occurred. Note that we define t(0) = 0. Covariates or factors other than the treatment indicator
+are denoted by x. The regression coefficients for the treatment indicator and covariates are
+denoted γ and β, respectively. Note that we use γ(t) to denote a time-dependent treatment
+effect.
+Additionally, we will use indexing of γ if more than one parameter is required to specify the
+treatment effect. With λ(Z)(t) we denote the hazard rate of the treatment group Z with co-
+variates x at time t, i.e. limϵ→0
+P (t≤T <t+ϵ|T ≥t,Z,x)
+ϵ
+, and with λ0(t) the baseline hazard rate re-
+spectively. The cumulative hazard rate Λ(Z)(t) equals
+R t
+0 λ(Z)(u)du. The survival function of
+treatment group Z with covariates x, P (T >t|Z,x) is indicated by S(Z) (t). Note that potential
+dependence of λ(Z),Λ(Z), S(Z) on covariates x is suppressed in the notation. The at-risk indi-
+cator Yi(t) denotes whether patient i is uncensored and event-free at time t, Yi(t) = 1, or not,
+Yi(t) = 0. The number of patients at risk at time t is denoted by Y (t) = P
+i Yi (t). In general, we
+use ‘(Z)’ in the superscript to denote group-specific quantities.
+Table S1 of the Supplement gives an overview of the used notation and the quantities defined
+in Section 4.2.
+7
+
+````
+
+## PDF page 8; PDF label 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+4.2
+Effect measures
+The treatment effect can be quantified, e.g., by the difference or ratio of the survival function
+at a chosen landmark time t∗≤˜t, i.e. S(1) (t∗) −S(0)(t∗) or S(1)(t∗)/S(0)(t∗) [14]. Equivalent conclu-
+sions can be obtained by the cumulative HR (cHR) at time t∗, cHR(t∗)= Λ(1)(t∗)/Λ(0)(t∗), with
+Λ(Z) (t∗)=
+R t∗
+0 λ(Z)(s)ds. Alternatively, the τth quantile of T (0) and T (1) may be compared, i.e.
+taking differences or ratios of t(1)
+τ
+= S(1)−1 (1 −τ) and t(0)
+τ
+= S(0)−1 (1 −τ), where S(Z)−1 denotes
+the inverse of the survival function of treatment group Z [14].
+The above treatment effect measures are cumulative in that sense that they compare survival
+functions or cumulative hazard rates. Instantaneous differences between the treatment and the
+placebo group can be investigated by the instantaneous hazard ratio at t∗, HR(t∗) = λ(1)(t∗)/λ(0)(t∗).
+However, the HR(t∗) cannot necessarily be interpreted as the current (causal) effect of the treat-
+ment, as the population of survivors in the two treatment groups may differ for unmeasured
+characteristics or unadjusted covariates.
+Furthermore, conclusions based on a single time point t∗(or quantile τ) may not be meaningful,
+because analysis at a single time point (quantile) is not informative for the time points (quan-
+tiles) before or after the chosen t∗(τ), where the treatment effect may be substantially different
+or even in the opposite direction.The dynamic of differences between survival time distribu-
+tions over the course of time may be investigated by calculating the above effect measures over
+a suitable grid of time. Given that the hazard rate is often the pivot of modeling approaches,
+the HR(t) is a common choice. However, it may be difficult to assess the overall effectiveness
+of the treatment from an examination of the effect measure over time. This is particularly rele-
+vant for the HR(t). For illustration assume a crossing hazards scenario as depicted by the blue
+dashed line in Figure 1c. The trajectory of the HR(t) alone does not provide relevant informa-
+tion if and when the survival curves cross. For that, the trajectory of the baseline hazard rate
+in the same time period is also required. This illustrates that "extreme" values of the HR(t) in
+a certain time period do not tell whether these extreme differences in treated and untreated
+individuals result in relevant differences between survival time distributions. Hence, dynamic
+effect measures such as the HR(t) may be less useful to clinicians who need to make a treatment
+decision at t = 0 and therefore need to know which treatment is superior with respect to some
+feature of the time-to-event distributions. For such binary decision-making, summary effect
+measures that summarize the treatment effect in a single number can be helpful.
+A summary effect measure considers the entire survival curve (within the interval [0,t∗],t∗≤˜t)
+and is thus usually of average nature. An attempt to summarize the treatment effect in a sin-
+gle number is the average HR aHR(t∗)=
+R t∗
+0
+λ(1)(t)
+λ(t) dG(t)/
+R t∗
+0
+λ(0)(t)
+λ(t) dG(t), with λ(t)=λ(1) (t)+ λ(0)(t)
+and G(t) is a chosen weighting function, that often consists of the time-to-event distribution,
+survival function and inverse probability of censoring weights (see, for example, [15, 16, 17]).
+Note, that competing definitions of the aHR, different weighting functions and various esti-
+mation techniques exist. A related summary effect measure utilized in survival analysis is the
+concordance probability P (T (0) < T (1)) or odds of concordance
+P (T (0)<T (1))
+1−P (T (0)<T (1)) [16, 18, 19].
+The restricted mean survival time is the mean survival time within the time period [0, t∗],
+t∗≤˜t, i.e. RMST(t∗) =
+R t∗
+0 S(t)dt. An effect measure can again be constructed from the differ-
+ence RMST(1)(t∗)−RMST(0)(t∗) or the ratio, RMST(1)(t∗)/RMST(0)(t∗) between the RMST of the
+treatment and the control group [14].
+In a NPH setting summary effect measures do not cover the dynamics of treatment efficacy and
+hence, do not necessarily deliver an adequate picture of the nature of the treatment effect over
+time. See [20] for a discussion and potential remedy that relies on calculating more than one
+summary effect measure over varying time ranges.
+For a comprehensive description of the survival distribution, the group-specific quantities
+λ(Z),Λ(Z) or S(Z) are required. These can be estimated from statistical models or stratification
+of non-parametric estimation approaches by Z. Stratification reduces the need for assump-
+tions, such as the proportional hazards (PH) assumption, across different subgroups, as the
+8
+
+````
+
+## PDF page 9; PDF label 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+estimation within each stratum relies solely on the information from that specific subgroup.
+Effect measures unconditional of covariates x might require additional steps in estimation.
+As the covariates typically enter the survival function in a non-linear fashion, it will, in gen-
+eral, not be sufficient to plug E[X|Z] into S(Z) (t) to obtain E[S(Z) (t)|Z], where the expectation
+is taken with respect to the covariates, due to Jensens’s inequality. The interested reader is
+referred to [21] and Chapter 10 of [22]. This also holds for the hazard rate λ(Z)(t). Even if
+covariates would enter the hazard rate linearly, the expected covariate values given survival
+up to t of each treatment group would be necessary to obtain the hazard rate unconditional
+of covariates other than the treatment indicator. Further, note that the above-mentioned ap-
+proaches would result in quantities that depend on the covariate distribution of the treatment
+group. To isolate the treatment effect, G-computation approaches could be used.
+5
+Estimation approaches for NPH treatment effects
+This section describes the categories of identified estimation approaches for NPH treatment/
+covariate effects. The first column of Table 2 shows the main categories as introduced in Table
+1. Some categories are divided into sub-categories given in the second column of Table 2.
+The third column of Table 2 provides a brief description of the methods. References to the
+Supplement are given in the first two columns of Table 2, where a more detailed overview can
+be found. In the corresponding section of the Supplement, references to Table S3 are given. In
+Table S3 of the Online Supplement, each paper that was considered in this literature review
+is allocated into one or more sub-categories according to Table 2, indicating the paper’s main
+contribution to address NPHs. Table S3 (column K) also provides information on whether
+the corresponding paper took a Bayesian estimation approach or not. The degree of detail
+and information given is hierarchical: Table 2 gives an overview, the referenced sections in
+the Online Supplement provide more detailed explanations including model formulas and a
+discussion of the literature, whereas Table S3 in combination with the respective papers (and
+the references therein) provide full information on the specific approaches to cope with NPH
+that we detected in the literature.
+The 4th and 5th column of Table 2 give a simplified impression of how flexible the corre-
+sponding approach is with respect to patterns of the hazard rate λ(0)(t) and time-varying NPH-
+patterns, respectively. Note that these statements focus on the treatment groups or, more gen-
+erally, on the covariates where NPH are modeled. The assumptions on remaining covariate
+effects might be strict without mentioning this in Table 2. Hence, for many approaches, the
+flexibility of λ(0)(t) is determined by the flexibility of the baseline hazard rate λ0(t). The state-
+ments on the flexibility of HR(t) can be understood as the flexibility of λ(1)(t) in contrast to
+λ(0)(t) and this determines the applicability of the method to arbitrary complex NPH scenar-
+ios. If there are no assumptions on the trajectory of λ(0)(t) and the HR(t) this is specified as
+"none" in Table 2. We define the assumptions to be "strict" if the corresponding methods tend
+to be restricted to monotonically increasing or decreasing trajectories for the HR(t) and to a
+single change in slope for λ(0)(t). The statements "few" and "medium" indicate something in
+between. This categorization is closely related to a non- ("none"), semi- ("few"), and -parametric
+("medium" to "strict") handling of λ(0)(t) and HR(t), where non-parametric approaches do not
+impose assumptions on the corresponding trajectories but parametric approaches tend to be
+limited in flexibility.
+Note that the 4th and 5th column of Table 2 is a statement about the flexibility of each method
+in accommodating varying scenarios of hazard rate functions (column 4) and time-varying HRs
+(column 5). Especially column 5 describes the capability of the methods to cope with varying
+NPH scenarios. However, this is not a statement as to whether estimates of the hazard rates and
+HR(t) are easy to obtain within the framework of the corresponding approach. The Kaplan-
+Meier approach is an example where it is not possible to compute hazard rates and hence the
+time-varying HR(t) across two strata without further smoothing approaches.
+9
+
+````
+
+## PDF page 10; PDF label 10
+
+Technical extraction; compare with original PDF page 10.
+
+````text
+The last column of Table 2 gives examples of software, including R-packages and SAS proce-
+dures, that are available for the groups of methodological approaches described.
+10
+
+````
+
+## PDF page 11; PDF label 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+Table 2: Overview of methods suitable to estimate NPH effects. More details on the categories can be found in the Online Supplement as indicated by the references
+given in brackets. ∗The assignment of papers to categories is not mutually exclusive. The symbol # refers to the number of papers in the corresponding category,
+ref. is a reference to the corresponding sections in the Supplement for the method description.
+Category
+Sub-category
+Description
+Assumptions on
+Software
+(#, ref.)∗
+(#, ref.)∗
+λ(0)(t)
+HR(t)
+Kaplan-Meier
+and
+Nelson-Aalen
+based
+approaches
+(18, S.2.1)
+Stratified
+Kaplan-Meier,
+Nelson-Aalen
+estimates
+(11,
+S.2.1)
+The Kaplan-Meier (KM) estimate of the survival function and the Nelson-
+Aalen (NA) estimate of the cumulative hazard function are non-parametric
+estimators. Both do not impose any modeling assumption on the hazard rate.
+Hence, a stratified approach across treatment groups is suitable for any tra-
+jectory of HR(t). The estimates of S(Z)(t) and Λ(Z)(t) might be processed to
+estimates of (summary) effect measures such as aHR(t∗), cHR(t∗) or differ-
+ences/ratios of the RMST(Z)(t∗).
+none
+none
+survival,
+km.ci,
+survRM2,
+AHR
+(R), LIFETEST
+(SAS)
+Pseudo values
+(5, S.2.1.1)
+Pseudo values are usually based on KM estimates of the survival function for
+the pooled data or summary measures that are computed thereof such as the
+RMST(t∗). In an iterated leave-one-out fashion (jackknife) the difference for
+each individual between N times the whole sample estimate and N −1 times
+the estimate without the individuals’ contribution are calculated for a chosen
+landmark time t∗. This difference represents a newly created metric variable
+for every observation and can be further investigated by linear or generalized
+linear regression models which include the treatment indicator as well as other
+covariates.
+none
+none
+pseudo,
+prodlim
+(R),
+RMSTREG
+(SAS)
+Quantile
+regression
+(2, S.2.1.2)
+In quantile regression, either the τth quantile or its logarithm are assumed
+to have a linear relationship with the covariates and the treatment indicator,
+e.g. ln{tτ} = xT β(τ) + Zγ(τ). Estimation procedures are either based on a gen-
+eralized KM estimator or martingale-based estimation equations. Treatment
+efficacy at the τth survival quantile can be evaluated by γ(τ). This process can
+be iterated over a grid of quantiles τ ∈(0,1), to get a complete picture of the
+potentially time-varying treatment effect over the course of time through γ(τ).
+none
+none
+quantreg (R),
+QUANT-LIFE
+(SAS)
+11
+
+````
+
+## PDF page 12; PDF label 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+Category
+Sub-category
+Description
+Assumptions on
+Software
+(#, ref.)∗
+(#, ref.)∗
+λ(0)(t)
+HR(t)
+Stratified Cox model
+(3, S.2.2)
+The stratified Cox model relaxes the PH assumption by stratifying the base-
+line hazard rate along the treatment indicator, i.e. λ(Z)(t) = exp{xT β}λ(Z)
+0 (t).
+In case of the non-parametric Breslow estimate of the baseline hazard rates,
+no structure is placed on the baseline hazards. The model is suitable for any
+trajectory of HR(t). However, the PH assumption still holds for the remaining
+covariates. An estimate of the cHR(t) may be utilized to evaluate the treatment
+effect.
+none
+none
+survival (R),
+PHREG (SAS)
+Short- and long-term HR
+(9, S.2.6)
+The models in this category differ from the models of the time-varying coef-
+ficient category in that sense that they do not formulate a non-constant HR(t)
+via a non-constant coefficient for the treatment effect γ(t). Instead, a specific
+function is imposed on the hazard rate such that NPH arise. The approaches in
+this category differ from fully parametric approaches in that they have semi-
+or non-parametric components and do not fully specify the distribution of the
+survival time by assumption. This category mainly encompasses the Yang and
+Prentice model. The hazard function in the Yang and Prentice model is set to
+λ(Z) (t) =
+exp(xT β)
+exp(−γ1Z) S(0)(t)+exp(−γ2Z)(1−S(0)(t) )λ0(t). A time-dependent weight
+function puts all the weight to the first parameter γ1 at the beginning. This
+weight is reduced over time and the weight for the second parameter γ2 is
+analogously increased. Consequently, the hazard ratio is a time-weighted av-
+erage of the short-term and the long-term hazard-ratio, exp{γ1} and exp{γ2},
+respectively.
+none
+to
+few
+strict
+YPPE, YPBP (R)
+12
+
+````
+
+## PDF page 13; PDF label 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+Category
+Sub-category
+Description
+Assumptions on
+Software
+(#, ref.)∗
+(#, ref.)∗
+λ(0)(t)
+HR(t)
+Time-varying
+coefficients
+for the
+hazard rates
+(47, S.2.3)
+Change
+point
+models
+(11, S.2.3.1)
+The hazard rate equals λ(Z)(t) = exp{xT β + Zγ(t)}λ0(t). The time-dependent
+treatment coefficient is piecewise constant, γ(t) = γ1 + γ2I{t ≥t∗}, where I is
+the indicator function which is equal to one if the statement in the brackets
+is correct and 0 else. Note that the treatment coefficient is based on a time-
+covariate interaction and is not restricted to factors. The change point t∗is
+pre-specified and more than one change point can be included, but black-box
+approaches also exist. Along with γ(t), the HR(t) is also piecewise constant
+and hence rather restricted. The model might be estimated via the partial like-
+lihood, which places no modeling assumption on the baseline hazard. Para-
+metric choices for the baseline hazard are also possible.
+depends
+medium to
+strict
+survival (R),
+PHREG (SAS)
+Smooth
+time-
+varying
+coef-
+ficients
+(26,
+S.2.3.2),
+e.g.
+fractional
+polynomials
+(6,
+S.2.3.3)
+or
+splines
+(12, S.2.3.4)
+The hazard rate equals λ(Z)(t) = exp{xT β + Zγ(t)}λ0(t). The time-dependent
+treatment coefficient differs along with the chosen complexity and so do the
+trajectories of HR(t) that can be represented by the model. A general depiction
+is γ(t) = P
+d Bd(t)γd, where the basis functions Bd(t) are smooth in t. Examples
+of basis function are, for example, fractional polynomials or B-Splines. The
+baseline hazard rate may be left unspecified by utilizing the partial likelihood
+or piecewise constant through the use of the Poisson GLM routine.
+none
+to
+few
+few
+to
+strict
+dynsurv,
+polspline,
+PenCoxFrail
+(R), ICPHREG
+(SAS)
+Weighted partial
+likelihood
+(12,
+S.2.3.5)
+The weighted partial likelihood can be utilized to estimate a representative
+value for a time-varying treatment effect. This is usually the average hazard
+ratio aHR(t∗). The weights have to be chosen and are not necessarily suitable
+for any trajectory of the HR(t). Note that other approaches to estimate the
+aHR(t∗) exist, e.g. via KM.
+none
+none
+coxphw
+(R),
+macro
+WCM
+(SAS)
+Aalen’s
+additive
+hazard model
+(4, S.2.3.6)
+The hazard rate is equal to λ(Z)(t) = λ0(t) + xT β(t) + Zγ(t).
+Estimation is
+based on the increments of the martingale process and is estimated via least
+squares at the distinct event times. In Aalen’s additive hazard model, there is
+no smoothness assumption on λ0(t) and γ(t) e.g. unlike when γ(t) is modeled
+via fractional polynomials or B-Splines.
+none
+none
+timereg (R)
+13
+
+````
+
+## PDF page 14; PDF label 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+Category
+Sub-category
+Description
+Assumptions on
+Software
+(#, ref.)∗
+(#, ref.)∗
+λ(0)(t)
+HR(t)
+Frailty models
+(17, S.2.7)
+Frailty or random effects models assume a heterogeneous population. Even if
+PH are assumed on the individual level, i.e. given the unobservable character-
+istics that make the population heterogeneous, the selection effects across the
+treatment and the placebo cause NPH on the population level in general, i.e.
+with unobservable characteristics marginalized out. In case of a diminishing
+treatment effect even crossing hazards are possible which might be caused by
+a catch-up process of the treatment group but not by a toxic treatment effect.
+This category also includes cure rate models that can be motivated by a dis-
+crete mixture distribution of a susceptible and non-susceptible population.
+model de-
+pendent
+strict
+survival,
+coxme,
+frailtyEM,
+frailty-
+pack,
+Pen-
+CoxFrail
+(R),
+PHREG,
+NLMIXED
+(SAS)
+Fully
+para-
+metric
+approaches
+(38, S.2.8)
+Piecewise
+expo-
+nential model
+(9, S.2.8.1)
+The hazard rate is piecewise constant for that kind of model, i.e. there is a
+distinct parameter for each of non-overlapping time intervals. If the hazard
+rate is stratified by treatment the HR(t) is piecewise constant. Also termed
+piecewise constant hazard model.
+few
+to
+strict
+few
+to
+strict
+pch, eha (R),
+PHREG (SAS)
+AFT & GAMLSS
+models
+(18, S.2.8.2)
+AFT’s assume a specific distribution for T which typically leads to NPH, the
+Weibull distribution being a prominent exception. AFT’s formulate a treat-
+ment and covariate-specific location parameter, GAMLSS extend this to shape
+and scale parameters.
+medium to
+strict
+medium to
+strict
+flexsurv,
+brms,
+sp-
+BayesSurv,
+mpr,
+gamlss.cen
+(R), LIFEREG
+(SAS)
+First
+hitting
+time models (4,
+S.2.8.3)
+First hitting time models formulate a health process. The event occurs once
+the health process reaches a certain threshold (typically 0). Distributional as-
+sumptions on the health process determine the distribution of the survival time
+which typically has NPH. If the health process is assumed to be a Wiener pro-
+cess the distribution of the survival time is inverse Gaussian.
+medium to
+strict
+medium to
+strict
+thregI (R)
+Other
+fully
+parametric
+ap-
+proaches
+(10,
+S.2.8.4)
+Other parametric approaches that do not fit in the former sub-categories are
+gathered in this category. This for example encompasses GLMs.
+medium to
+strict
+medium to
+strict
+E.g.
+standard
+software
+for
+GLMs.
+14
+
+````
+
+## PDF page 15; PDF label 15
+
+FORMULA CHECK REQUIRED: original PDF page 15.
+
+````text
+Category
+Sub-category
+Description
+Assumptions on
+Software
+(#, ref.)∗
+(#, ref.)∗
+λ(0)(t)
+HR(t)
+Transformation models
+with time-covariate in-
+teraction (9, S.2.4)
+This category considers the Royston-Parmar and the conditional transforma-
+tion model. Both approaches do not directly impose a model on the hazard
+rate, but formulate transformation functions as a spline function in (log) time.
+Time-varying treatment/covariates effects might be incorporated by spline by
+covariate interaction. The transformation functions are then brought into a
+parametric framework that determines their interpretation, e.g. as log cumu-
+lative hazard rates.
+few
+few
+flexsurv
+(R),
+macro
+sas_stpm2
+(SAS)
+Joint models
+(3, S.2.5)
+Joint models are typically fully parametric models, where measurements of,
+for example, drug concentrations over time per individual are modeled simul-
+taneously with the time-to-event endpoint. The predictions of the other vari-
+able (concentration) from the model, or summary measures (exposure, area
+under the concentration-time curve) are used as a covariate in the time-to-
+event model.
+depends
+depends
+JM
+(R
+and
+SAS),
+INLA-
+joint
+Machine learning
+approaches
+(11, S.2.9)
+We encountered a couple of machine learning approaches in the context of
+NPH scenarios such as trees (for example for finding the number and time
+points of a change point model) and forests, model averaging, k-nearest neigh-
+bor (in order to determine weights for weighted KM estimates), kernel smooth-
+ing based approaches and neural networks.
+none
+to
+few
+none
+to
+few
+trtf,
+BART,
+mboost,
+ipred,
+ran-
+domForest-
+SRC,
+Ranger
+(R)
+Other approaches
+(8, S.2.10)
+This is a collective category of methods that did not fit properly into one of
+the other categories. Among these methods are the rank preserving structural
+failure time model, concordance regression, the accelerated hazard model, the
+semi-parametric proportional likelihood ratio model, a Bayesian dependent
+Dirichlet process to model the time-to-event distribution, and others.
+depends
+depends
+rpsftm (R)
+15
+
+````
+
+## PDF page 16; PDF label 16
+
+FORMULA CHECK REQUIRED: original PDF page 16.
+
+````text
+Approaches with no or few assumptions on λ(0)(t) and HR(t) are suited for NPH scenarios that
+are more complex than those depicted in Figure 1a (delayed treatment effect), 1b (diminishing
+treatment effect), and 1c (crossing hazards). Such methods might also be utilized in the absence
+of knowledge of the trajectory of the HR and hazard rates or as a validity check of assumptions
+on its trajectory.
+Stratification along the treatment indicator is a general tool to relax assumptions on the un-
+derlying estimation procedure. A stratified KM estimation approach along the treatment and
+placebo (comparator) group is suitable for any two possible trajectories of S(0)(t) and S(1)(t) or
+λ(0)(t) and HR(t), respectively. If further (continuous) covariates are present the stratified Cox
+model might be utilized, where stratification along the treatment indicator is suitable for any
+trajectory of the HR(t). Time-varying coefficients offer arbitrary flexibility, depending on the
+complexity one allows for γ(t) in λ(Z)(t) = exp{xT β + Zγ(t)}. High flexibility of the treatment
+effect can in particular be achieved if γ(t) is modeled via (penalized) splines or Aalen’s additive
+model. For the Royston-Parmar and the conditional transformation model, the basis functions
+in time can interact with the treatment indicator (or other covariates) in case of unknown or
+highly variable NPH scenarios. Machine learning procedures such as trees and forests as well
+as k-nearest neighbours or kernel approaches also offer high flexibility on λ(0)(t) and HR(t).
+Procedures with limited flexibility on HR(t) could be used if the trajectory is known/assumed,
+or if more flexible procedures suggest the appropriateness of more restrictive models. Less
+flexible models will typically be easier to analyze, as relatively few model parameters suffice to
+explain the trajectory of the treatment effect. Additionally, processing of model quantities, for
+example, hazard rates, to effect measures, such as the difference in RMSTs or the aHR, might
+be more frequently analytically tractable than for the more flexible methods. Hence, results
+obtained from less flexible procedures might be easier to communicate. Further on, procedures
+with limited flexibility might avoid over-fitting the data which might result in more efficient
+estimates if the chosen procedure is well-suited for the data at hand.
+The short- and long-term HR model introduced by [23] is a suitable choice among the less
+flexible methods. The model moves the HR from an initial value HR(0) to HR(∞) in a monotone
+fashion [24]. Hence, the model is suitable if PH or monotonically increasing/decreasing HRs
+are assumed. The Yang- and Prentice-model is in particular suited for delayed (Figure 1a), and
+diminishing treatment effects (Figure 1b) as well as crossing hazard (Figure 1c) [24].
+For the change point model, a delayed or diminishing treatment effect as well as crossing haz-
+ards can be modeled by a single change point. More complex NPH scenarios might be accom-
+modated by multiple change points, where [2] provide a tree-based method to determine the
+number and position of change points.
+Furthermore, the accelerated failure time (AFT) model and its generalizations that also include
+covariates in the scale and shape parameters are a suitable choice. Note that the restrictions
+imposed on the HR(t) differ widely within the mentioned methods; for example, an AFT is way
+more restrictive than a regression model for location, scale, and shape parameters in general.
+Typically, effect parameters in a fully parametric model cannot be directly interpreted but most
+summary effect measures can be computed from the model.
+The assumption of a homogeneous population or a homogeneous treatment effect can be dropped
+by utilizing frailty models. Both scenarios will typically lead to NPH on the population level,
+i.e. irrespective of individual, unobservable characteristics [25, 26]. Individual heterogeneity
+might even lead to crossing hazards on the population level if the treatment effect is beneficial
+but diminishing on the conditional level. This is caused by a catch-up process at later times of
+high-frail individuals from the treatment group who tend to survive longer due to the benefi-
+cial treatment [27, p.252]. It also highlights that a population HR(t) above one not necessarily
+means that the treatment has a detrimental effect.
+Empirical comparisons of NPH regression and estimation methods with simulated or real data
+without introducing new methodology have been rare in our literature review. Indeed, most
+papers provided simulation studies.
+However, giving recommendations on NPH methods
+based on the simulation studies is difficult for two reasons. Firstly, the simulation scenarios
+and procedures subject to investigation differ across the papers. Hence, an aggregated result is
+16
+
+````
+
+## PDF page 17; PDF label 17
+
+FORMULA CHECK REQUIRED: original PDF page 17.
+
+````text
+hard if not impossible to obtain from the existing simulation studies. Secondly, the simulation
+scenarios could have been chosen to demonstrate superiority of the new method [28].
+Based on the frequency of the methods in our literature review, time-varying coefficients for
+the hazard rates are the most typical choice for incorporating NPH covariate/treatment effects.
+Within that category, the aHR(t∗) via the weighted partial likelihood and time-varying coeffi-
+cients via (cubic and B- ) splines, followed by change point models, are the most frequently
+studied methods. The second largest group is made up by parametric approaches. AFTs and
+generalized additive models for location scale and shape (GAMLSS) comprise the largest sub-
+group within the parametric approaches, followed by NPH approaches via the piecewise expo-
+nential model. See Table 2 for the frequencies of the sub-categories.
+A review and simulation study on the aHR(t∗) can be found in [17]. Rauch et al [17] investi-
+gated the performance of estimates of the aHR(t∗) either based on KM curves as discussed in
+Section S.2.1 or partial likelihood-based fitting procedures as discussed in Section S.2.3.5. Five
+different simulation scenarios, either with PH, strictly increasing or with strictly decreasing
+HR(t), and administrative censoring as well as an administrative- combined with a random-
+censoring scheme were subject to investigation. The authors find few differences across the
+two estimation procedures when the shape parameter of the weighting function is 1 for the
+KM-based estimate. Inappropriately chosen weights might, however, inflate standard errors
+and introduce substantial bias. Different choices of weights might even result in opposite in-
+ference. Consequently, Rauch et al [17] suggest to carefully check the estimated survival curves
+to judge the plausibility of the estimates.
+An investigation of weights in the context of weighted partial likelihood estimation of the
+aHR(t∗) can also be found in [16]. The authors note that under PH, the aHR(t∗) leads to a loss
+of efficiency. However, for higher censoring rates and small deviations from PH, the loss in
+efficiency is reduced. Furthermore, the weighted partial likelihood has higher power than the
+Cox PH estimate under diminishing effects (if the weights emphasize early effects). In addition,
+the authors also highlight that the aHR(t∗) simplifies the analysis compared to models with
+time-varying coefficients for hazard rates.
+From a theoretical point of view Rauch et al [17] also note that the partial likelihood estimate
+of the aHR(t∗) might consider further covariates what is not possible for KM-based estimates
+of the aHR(t∗) apart from a stratified analysis. The KM-based estimate of the aHR(t∗), however,
+fulfills the independent increment property and so group-sequential and adaptive designs for
+tests relating to KM-based estimates of aHR(t∗) might be formulated.
+A comparison of a (reduced rank) time-varying coefficient, gamma frailty, relaxed Burr, and a
+cure-rate model to real-world breast cancer data was conducted by [29]. The authors emphasize
+interpretational differences across those models that might highlight different features of the
+data. In this sense, the time-varying coefficient model reveals the nature of the covariate effect,
+but it is not able to shed light on individual heterogeneity as the frailty model does. They
+conclude, that the specific research question should guide the model choice. Furthermore, the
+authors observe small differences in survival curves in their application and argue that the
+choice of how to tackle NPH is less important as long as the models are flexible enough for the
+data at hand.
+6
+Hypothesis tests for equality of survival curves
+For the design and analysis of randomized controlled trials with time-to-event outcomes hy-
+pothesis tests for equality of survival curves from experimental and control treatment (H0 :
+S(0) (t) = S(1) (t) ∀t ≥0 ) are routinely applied. The equality of survival functions is also im-
+plied by the null hypothesis formulated in terms of the hazard rates H0 : λ(0) (t) = λ(1) (t) ∀t ≥0
+or in terms of the hazard ratio H0 : HR(t) = 1 ∀t ≥0. Note, that conclusions for times beyond
+the maximum follow-up time ˜t should be avoided.
+Moreover, null hypotheses based on summary effect measures, e.g., H0 : ∆(t∗) = RMST(1)(t∗)−RMST(0)(t∗) =0
+or H0 : aHR(t∗) = 1 can also be considered as valid tests of the equality hypothesis, as rejec-
+17
+
+````
+
+## PDF page 18; PDF label 18
+
+FORMULA CHECK REQUIRED: original PDF page 18.
+
+````text
+tion of a more specific null hypothesis implies rejection of equality. A “stronger” null hy-
+pothesis that survival in the experimental treatment is less or equal to the survival in the
+control arm, H0 : S(1) (t) ≤S(0) (t) ∀t ≥0, is also of interest. However, the implication of
+S(1) (t) ≤S(0) (t) ∀t ≥0 ⇒λ(1) (t) ≥λ(0) (t) only holds under the PH assumption but is not
+generally true under NPH [30].
+Table S4 gives an overview of the used null hypothesis in the articles focusing on hypothesis
+tests. We classified whether the null hypothesis was defined as equality of survival, less or
+equal survival in the experimental arm, or whether it was an average-based hypothesis.
+Under the assumption of PH the log-rank test is the standard procedure. However, if the PH
+assumption does not hold, power is reduced and the alternative hypothesis cannot necessar-
+ily be interpreted as treatment benefit. Moreover, rejecting the null hypothesis H0 : S(0) (t) =
+S(1) (t) ∀t ≥0 in settings with NPH means that there is a non-zero treatment effect at least in
+some time interval.
+For situations in which the PH assumption may not hold, alternative hypothesis tests and sam-
+ple size calculation approaches have been proposed, which we identified in the literature re-
+view.
+In our literature review, we identified three categories of hypothesis tests for the above-mentioned
+null hypotheses in NPH scenarios: Log-rank tests, Kaplan-Meier-based tests, and combination
+tests. Table 3 gives an overview of these different types of tests and provides examples for
+software, e.g. R-packages or SAS procedures.
+Additionally, Table S2 shows in which categories the identified articles fall. Table S4 provides
+an overview of whether the identified articles consider approaches for sample size calculation.
+18
+
+````
+
+## PDF page 19; PDF label 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+Table 3: Overview of hypothesis tests for NPH. More details on the categories can be found in the Online Supplement as indicated by the references given in brackets.
+Category
+(Reference1)
+Sub-category
+Description
+Examples of software
+Log-rank tests
+(S.3.1)
+Log-rank test
+Most widely used statistical test to compare the overall survival of two groups. The
+null hypothesis is H0 : λ(0)(t) = λ(1)(t),t ≥0 in case of a two-sided alternative or
+H0 : λ(0)(t) ≤λ(1)(t),t ≥0 in case of a one-sided test.
+survival, nph (R), LIFETEST
+(SAS)
+Weighted
+log-rank test
+Augments the log-rank test with weights w(t(i)) to emphasize observations based on
+their point in time. Null- and alternative hypotheses are identical to the standard
+log-rank test if the weights are positive.
+survival, nph (R), LIFETEST
+(SAS)
+Modestly
+weighted
+log-rank test
+Robust variation of the weighted Log-rank test. The weights are chosen such that in
+case of locally favorable hazards alone the test will not wrongly infer superiority of the
+treatment group. Null- and alternative hypotheses are identical to the standard
+log-rank test.
+nphRCT (R)
+Kaplan-Meier-
+based tests
+(S.3.2)
+Weighted
+Kaplan-Meier
+tests
+Tests based on the weighted sum of the differences of the KM estimates of the survival
+curves.
+RMST
+Test for differences in restricted mean survival up to t∗based on the empirical survival
+curves. H0 : ∆(t∗) = RMST(1)(t∗) −RMST(0)(t∗) = 0 in case of a two-sided test and
+H0 : ∆(t∗) = RMST(1)(t∗) −RMST(0)(t∗) ≤0 in case of a one-sided alternative. Effect
+sizes are computed using Wald statistics. A maximum test statistic can be obtained
+from a set of potential time points t∗∈{t1,...,tK}.
+nph, survRM2, survRM2adap
+(R), LIFETEST, RMSTREG
+(SAS)
+Average hazard
+ratio test
+statistic
+Test for differences in average hazard ratios of two groups. Null hypotheses for two-
+and one-sided alternatives are defined as H0 : aHR = 1 and H0 : aHR ≥1, respectively.
+nph (R)
+19
+
+````
+
+## PDF page 20; PDF label 20
+
+Technical extraction; compare with original PDF page 20.
+
+````text
+Category
+(Reference1)
+Sub-category
+Description
+Examples of
+software
+Window mean survival
+time
+Test for differences in mean survival time of two groups between two time points t∗
+1 and t∗
+2. Null-
+and alternative hypotheses are analogous to the test for difference in RMST.
+Combination
+tests (S.3.3)
+Max combo test
+Maximum test of K differently weighted log-rank test statistics. The p-value of the largest test
+statistic is obtained from the joint multivariate normal distribution of individual test statistics.
+Null- and alternative hypotheses are identical to the standard log-rank test.
+nph,
+maxcombo
+(R)
+Cox test and RMST
+difference
+Combination of Cox likelihood ratio test in a Cox regression model and test for difference in
+RMST. The global null hypothesis is the equivalence of survival curves in a two-group setting.
+Multiple direction test
+Combination of weighted log-rank statistics targeting a comprehensive range of alternatives.
+Critical values are calculated using permutation approaches. The null hypothesis is the
+equivalence of two survival distributions.
+mdir.logrank
+Other tests
+(S.3.4)
+Test by Gorfine et al
+Test for equivalence of survival functions of K groups based on sample size partitions. Under the
+null hypothesis, survival curves of all K groups are identical.
+KONPsurv
+(R)
+Modification of the
+Kolmogorov Smirnov test
+Generalization of the Kolmogorov Smirnov test for use with right-censored data. Null hypothesis
+is the equivalency of two survival curves.
+Test by Sooriyarachchi
+and Whitehead
+Test for differences in survival curves based on the log odds ratio of the probability of surviving
+past a given time point t∗. The null hypothesis is the equivalency of two survival curves.
+1 See corresponding sections in Appendix for the method description.
+20
+
+````
+
+## PDF page 21; PDF label 21
+
+Technical extraction; compare with original PDF page 21.
+
+````text
+With prior knowledge of the NPH pattern, weighted log-rank tests can consider certain time
+periods to be more relevant than others. Kaplan-Meier-based tests are especially appealing
+to practitioners due to their intuitive interpretation. Combination tests select a test statistic
+from a small set of prespecified test statistics based on the data and are therefore useful with-
+out any prior knowledge regarding the NPH pattern. Our literature review also identified
+articles reviewing and comparing hypothesis testing methods under different NPH settings.
+For instance, Yang [31] applies different tests including weighted log-rank tests, combination
+tests, and Wald tests based on estimators of the average hazard ratio or RMST to different ran-
+domized controlled trials to illustrate the virtually ignorable loss of power for reasonably PH
+situations and emphasizes the substantial gain of power using these approaches in contrast
+to the standard log-rank test in NPH situations. Many new tests are tailored to specific NPH
+situations, see Section S.3. Therefore, Yang [31] favors the adaptively weighted log-rank test
+due to its overall trade-off.
+In the comparison study of Dormuth et al [4], in which data sets of oncology trials were recon-
+structed, the proposed log-rank permutation test of Ditzhaus and Friedrich [32] detected most
+differences between treatment groups. These results align with those of other articles investi-
+gating omnibus tests, e.g. Gorfine et al [33] and Royston and Parmar [5]. If there is uncertainty
+regarding the underlying survival time distributions, a more recent article by Dormuth et al
+[34] recommends the use of omnibus tests for comparisons between groups.
+Li et al [35], Callegaro and Spiessens [36], Royston and Parmar [5] and Lin et al [37] perform
+simulation studies for comparing different test statistics for settings with NPH. Li et al [35]
+applied amongst others tests of the log-rank test family, Kaplan-Meier-based tests, and combi-
+nation tests to situations of crossing survival curves at early, middle, and late times. They con-
+cluded that the adaptive Neyman’s smooth test [38] and the two-stage procedure of Qiu and
+Sheng [39] have higher power in the considered NPH settings, provide an acceptable power
+under PH, and their type I error rate is close to the nominal level. Therefore, Li et al [35] rec-
+ommend the use of these tests as they are “the most stable and feasible approaches for a variety
+of situations and censoring rates”.
+The comparison study of Callegaro and Spiessens [36] involves, among others, the weighted
+log-rank test with weights of the Fleming-Harrington weight family, max combo tests, and the
+likelihood ratio test for testing the treatment effect in a Cox model with time-varying coeffi-
+cients. Callegaro and Spiessens [36] consider the latter to be often more powerful than the
+weighted log-rank tests.
+Lin et al [37] compare tests of the class of weighted log-rank, Kaplan-Meier, and combina-
+tion tests. The comparison study did not identify a single test outperforming the others in all
+considered scenarios; e.g. delayed treatment onset, diminishing effects, crossing hazards, pro-
+portional hazards, and delayed effects with converging tails. The comparison study suggests
+the max combo test as a robust test across different NPH patterns without prior knowledge of
+the pattern. The review of Mukhopadhyay et al [40] compared the log-rank test to the Max-
+Combo test in immo-oncology trials identified through a systematic literature review. The
+authors concluded that the MaxCombo test is a "pragmatic alternative" to the log-rank test as-
+suming NPH. The simulations of Royston and Parmar [5] suggest that the modified versatile
+weighted log-rank test, an unpublished modification of the versatile weighted log-rank test
+[41] with Stata code available on request from Royston, performs best in terms of power under
+NPH (early, late or near PH treatment effect) without the preconceived type of treatment effect.
+In the last 20 years, there have been constant publications on log-rank tests. Research on
+combination tests, Kaplan-Meier-based tests, or other approaches has been comparatively rare.
+In the last 3 years, however, more research on these testing categories including permutation
+approaches, e.g. [32, 42], was conducted.
+21
+
+````
+
+## PDF page 22; PDF label 22
+
+Technical extraction; compare with original PDF page 22.
+
+````text
+7
+Conclusions and discussion
+We conducted a systematic literature review of effect estimation and testing methods that
+are able to cope with NPH in time-to-event analysis. Review articles focusing on different
+methods for NPH have been published previously. These reviews mostly focus either on a
+quantitative comparison for specific NPH scenarios [35], or a specific method class [17], or on
+a qualitative overview of available methods for specific NPH situations or disease areas, e.g.
+oncology [1]. We conducted a systematic literature search for methodological approaches for
+any NPH scenario, any model class, and not restricted to a specific disease area. Therefore,
+our review gives a comprehensive overview of the methods proposed and applicable to NPH
+settings.
+In total, our literature review includes 211 articles for final analysis. Of those articles, 113
+focus on effect estimation, e.g. regression methods, 72 on testing, and 26 articles on both. In
+the effects estimation and testing literature, we identified categories to group articles accord-
+ing to their approach to the NPH situation. With respect to effect estimation, the categories
+are Kaplan-Meier based estimation approaches, stratified Cox model, time-varying coefficients
+for the hazard rates, transformation models with time-covariate interaction, short- and long-
+term HR, joint models, frailty models, parametric models, machine learning approaches and
+others. With respect to testing, the categories are log-rank tests, Kaplan-Meier tests, combi-
+nation tests, and other tests. We have also broken down some of the categories into smaller
+sub-categories and assigned each paper to at least one of them. An overview of the categories
+and subcategories is given in Table 2 and 3, for estimation and testing approaches respectively.
+The tables and Section 5 and 6 provide brief explanations of the categories. For a more detailed
+discussion including references to the original articles proposing specific methods, we refer to
+the Supplement S. The most common approaches to tackle NPH for effect estimation are time-
+varying coefficients for the hazard rates (47 papers), and parametric approaches that assume
+a distribution for the survival time (38 papers), such as GAMLSS models. The most common
+testing approach for NPH are variations of the log-rank test (63 papers). We extracted and
+documented the software (R and SAS) utilized in the papers under review. In addition, well-
+known software for the individual testing and estimation categories was added by the group
+of authors. For a more complete overview of available R packages for time-to-event analysis
+see the CRAN Task View homepage for Survival Analysis [43].
+For the literature review, we excluded standard methods such as the stratified Cox model, un-
+less the baseline hazards were stratified by the treatment indicator. Consequently, our review
+may have missed certain innovative proposals in this area. In addition, we have excluded meth-
+ods that utilize internal [44, p.198] time-varying covariates which might lead to NPH over time,
+e.g. PKPD Models. Further, our search terms focused on terms related to NPH, which may not
+be a common term in other areas utilizing these methods. For review articles considered in
+this review, we manually added all investigated methods to the list of articles. Nevertheless,
+some of those may have been later discarded due to our in- or exclusion criteria, see Figure 3.
+Consequently, some of the considered review articles may investigate methods which have not
+been discussed in this review.
+A broad range of different methods is available for both treatment effect estimation and hy-
+pothesis testing. However, there is no consensus on the best approaches under NPH. Most pa-
+pers reported simulation studies (158 of 211 papers). Nevertheless, the NPH scenarios and the
+methods under comparison differ making it difficult to aggregate and compare results across
+evaluations. Moreover, the NPH scenario and the competitors to newly introduced method-
+ology might have been chosen to demonstrate superiority of the newcomer [28]. Only a few
+review articles comparing different methods through simulation studies (considered to be ob-
+jective) have been identified by our review. In particular for effect estimation methodology, in-
+dependent comparison studies including neutral comparison studies covering different NPH
+scenarios and a broad range of methods are not available. Review articles of testing proce-
+dures cover a broad range of different NPH settings and provide guidance for the choice of the
+test, which, however, can be different from one comparison study to another. These reviews
+22
+
+````
+
+## PDF page 23; PDF label 23
+
+Technical extraction; compare with original PDF page 23.
+
+````text
+offer some guidance on, for example, the permutation test by Ditzhaus and Friedrich [32], and
+the adaptively weighted log-rank [24] for specific NPH scenarios. Due to the hypothesis tests
+examined not being consistent across the comparison studies, it is difficult to make a general
+recommendation for the use of a specific hypothesis test.
+The choice of an estimation method could be based on theoretical considerations. In the ab-
+sence of strong prior knowledge of the treatment/covariate effect, time-dependent treatment
+coefficients for the hazard rates could be flexibly modeled via a treatment spline interaction,
+where the corresponding basis functions are constructed on time. In the case of strong prior
+knowledge, more restrictive models might be preferred, such as a (single) change point model
+for a delayed treatment effect (Figure 1a).
+Moreover, different summary effect measures have been proposed which offer an alternative to
+the hazard ratio. The constant hazard ratio estimated by a Cox PH model is commonly used
+for time-to-event analysis but might be misleading under NPH as the hazard ratio is time-
+dependent in this case. Alternatives involve, for example, the average hazard ratio and the
+ratio of RMSTs. These depend on the choice of the pre-specified time interval which is re-
+stricted by the maximum follow-up time. Additionally, its usefulness depends on the pattern
+of the treatment effect. For instance, the difference of RMST between treatment groups is not
+useful for delayed treatment effects [45]. Summary effect measures can be calculated based on
+Kaplan-Meier curves. For more complex data, e.g. multiple continuous covariates, other meth-
+ods presented in Section 5 can be used to model the survival curves. Depending on the choice
+of the estimation approach it might be difficult if not impossible to obtain specific summary
+effect measures, however. Dynamic, i.e. time-varying, effect measures could be used instead
+and could help to communicate how survival patterns are affected by the treatment over time.
+However, dynamic effect measures are less appropriate as a primary basis for binary decisions
+such as marketing authorizations. Nevertheless, they could be used to support a decision fol-
+lowing a gatekeeping hypothesis test on any difference, hence disentangling the hypothesis
+test and estimation. As a drawback, such a decision procedure could not be clearly defined
+in advance. In contrast to this, single summarizing measures such as RMST difference can be
+used for both, hypothesis tests and estimation, and lead to an unambiguous binary decision
+procedure but require an upfront agreement on the most relevant measure.
+We identified a variety of NPH approaches for both, effect estimation and testing procedures.
+Although a variety of non-proportional hazard methods are available, they are still rarely
+applied. Statistical practice needs to change by adopting the non-proportional hazards ap-
+proaches summarized in this paper.
+Adhering to invalid assumptions, i.e. proportional haz-
+ards, might lead to less reliable conclusions than choosing a non-optimal NPH approach for
+the data at hand as illustrated in Section 2. To fill the gap in comparisons of the methods
+for NPH, our further assessment will explore the advantages and disadvantages under a wide
+range of NPH assumptions of a selection of the identified methods, see [46].
+23
+
+````
+
+## PDF page 24; PDF label 24
+
+Technical extraction; compare with original PDF page 24.
+
+````text
+8
+Funding sources/sponsors
+This work has received funding from the European Medicines Agency (Re-opening of compe-
+tition EMA/2020/46/TDA/L3.02 (Lot 3))
+“This document expresses the opinion of the authors of the paper, and may not be understood
+or quoted as being made on behalf of or reflecting the position of the European Medicines
+Agency or one of its committees or working parties.”
+9
+Acknowledgement
+The authors would like to thank Juan José Abellán and Marcia Rückbeil of the European
+Medicines Agency as well as Andreas Brandt of the Bundesinstitut für Arzneimittel und Medi-
+zinprodukte for valuable comments and insightful discussion on the report related to the lit-
+erature review performed as part of the research contract EMA/2020/46/TDA/L3.02 (Lot 3).
+This report formed the basis of our manuscript.
+24
+
+````
+
+## PDF page 25; PDF label 25
+
+Technical extraction; compare with original PDF page 25.
+
+````text
+A
+Appendix
+A.1
+Literature search and data extraction
+A.1.1
+Systematic literature search and study selection
+We performed a comprehensive literature search using the electronic databases MEDLINE and
+EMBASE to identify relevant publications. Pubmed was used to search the database MED-
+LINE. EMBASE searches in both databases MEDLINE and EMBASE. However, we excluded
+the database MEDLINE for our search in EMBASE. Table A2 provides details of the literature
+search. The search includes two parts. One part of the search includes topic-related search
+terms such as “non-proportional hazards” in various spellings (part one of the search strategy
+(main search in MEDLINE and EMBASE), rows 1 to 9 of A2). In addition, in a second part
+of the search we used broader pre-specified topic-related terms (e.g. “crossing hazard*”, “de-
+layed effect”, “treatment switch”). The part of the search with the pre-specified related search
+terms has been restricted to statistical journals using the Web of Science category ‘Statistics &
+Probability’ (part two of the search strategy (additional search in MEDLINE), row 10 to 19 of
+Table 3). Reference lists of included publications and relevant reviews were checked manually
+to identify any additional relevant articles that were not captured by the search.
+We included methodological research articles, reviews, and clinical investigations with time-
+to-event endpoints where methods for non-proportional hazards were applied. More specifi-
+cally, the inclusion and exclusion criteria specified in Table A1 have been used.
+Table A1: Inclusion and exclusion criteria
+Inclusion criteria
+Exclusion criteria
+Methodological publications intro-
+ducing methods for time-to-event
+analyses
+of
+clinical
+trials
+with
+non-proportional hazard (NPH) as-
+sumptions
+Investigations assessing NPH as-
+sumptions
+without
+introducing
+new NPH methods in the analysis
+Applications of new NPH methods
+in clinical trials with time-to-event
+endpoints
+Applications of conventional meth-
+ods for NPH such as stratified Cox
+regressions or the use of time-
+dependent covariates in propor-
+tional hazards models [12]
+Methods for competing risk or re-
+current event analyses
+A.1.2
+Data extraction
+Two reviewers screened the search results for relevant articles independently. The reviewers
+screened titles and abstracts and excluded papers that clearly did not meet the inclusion cri-
+teria. During the abstract screening, an article was included for the full-text screening, if at
+least one of the two reviewers included the abstract. For all selected abstracts, we obtained the
+full texts and two reviewers reviewed these according to the pre-specified inclusion criteria
+(e.g. statistical methods, simulations, time-to-event endpoints, non-proportionality assump-
+tion). From the full text, data on basic characteristics of the investigation, on proposed meth-
+ods, and, if applicable, on simulation studies conducted were collected by two independent
+reviewers. A third reviewer resolved all disagreements on the inclusion of the full texts and on
+the extracted data. Characteristics of the proposed methods include whether the methods use
+frequentist or Bayesian, parametric or non-parametric approaches and whether the methods
+adjust for covariates. We distinguished between articles including methods for treatment effect
+25
+
+````
+
+## PDF page 26; PDF label 26
+
+Technical extraction; compare with original PDF page 26.
+
+````text
+estimation, hypothesis testing and manuscripts covering both. We also extracted the availabil-
+ity of a software for the proposed method and differentiated whether the software was freely
+available, e.g. Github repository for code, R package or Code snippets in text, available, e.g.
+available upon request from the author, or not available or mentioned in the text. Additionally,
+the proposed methods were classified into one of the predefined categories:
+• Log-rank approaches, e.g. weighted log-rank test
+• Kaplan-Meier curve-based approaches; e.g. weighted Kaplan-Meier and Restricted Mean
+Survival Time (RMST)
+• Combination approaches; e.g. Breslow test, Lee’s combo test, or MaxCombo test
+• Regression model (parametric/semiparametric/nonparametric)
+• Other; if the previously mentioned classes do not fit the method.
+A.1.3
+Quantitative and qualitative analysis
+Characteristics of articles and proposed methods are described by using descriptive analyses
+such as bar charts. The collected categorical variables are summarized by providing absolute
+and relative frequencies. In order to enable an overview of the methods proposed in the iden-
+tified articles, we differentiated between methods for treatment effect estimation (see Section
+5) and hypothesis test for the comparison of survival between treatment groups (see Section 6).
+We additionally introduced new categories for publications focusing on treatment effect esti-
+mations via e.g. regression approaches. The categories are Kaplan-Meier for effect estimation
+(Section S.2.1), stratified Cox (Section S.2.2), time-varying coefficients for the hazard rates (Sec-
+tion S.2.3), transformation models with time-covariate interaction (Section S.2.4), joint models
+(Section S.2.5), short- and long-term hazard ratio (Section S.2.6), frailty models (Section S.2.7),
+parametric regression models (Section S.2.8), machine learning approaches (Section S.2.9) and
+other modelling approaches (Section S.2.10). The main characteristics of these categories are
+introduced in a common notation and examples for the categories are provided and described
+in more detail (Section 5).
+All statistical analyses (tables and figures) are performed in R 4.1.2 (R Core Team, 2021).
+A.1.4
+Data extraction guideline
+For the data extraction each reviewer was provided with the following instructions including
+the in-and exclusion criteria:
+CONFIRMS - Literature review
+AIM:
+Methods and statistical software for statistical analysis and reporting of clinical trials with
+time-to-event endpoints with non-proportional hazards
+INCLUSION:
+• Methodological publications introducing methods for time-to-event analyses of clinical
+trials with non-proportional hazard (NPH) assumptions
+• Applications of new NPH methods in clinical trials with time-to-event endpoints
+EXCLUSION:
+• Investigations assessing NPH assumptions without introducing new NPH methods in the
+analysis
+• Applications of conventional methods for NPH such as stratified Cox regressions or the
+use of time-dependent covariates in proportional hazard models
+26
+
+````
+
+## PDF page 27; PDF label 27
+
+Technical extraction; compare with original PDF page 27.
+
+````text
+• Methods for competing risk or recurrent event analyses
+SCREENING – 2nd step - full texts AND DATA EXTRACTION:
+Please fill in the columns L to O for all full texts
+• Type of paper (methods/applied/review)
+• For the inclusion/exclusion of the full text, please fill the columns L to N in the excel
+sheet:
+– Inclusion (yes/no)
+– Please provide the reason for non-inclusion (if “other”, please specify)
+If the full text is included, please fill in the columns P to AH
+• Simulation study conducted (yes/no)
+• Software available (not available/available/freely available)
+– Not available/not mentioned: No mention of code availability made in the text
+– available: Availability mentioned, but code not freely available, e.g. “Data available
+upon request from the authors”
+– freely available: Code freely available (as stated in the paper, without background
+checks), e.g. Github repository for code, R package, Code snippets in the text,. . . .
+• If software freely available, software specification (text); e.g. name of R package, link to
+Github repository, etc.
+• Provides program for sample size calculation (yes/no)
+• Provides program for analysis (yes/no)
+• The following items capture information on the new method or methods. If multiple new
+methods are described, please classify each of them within this row. If the predefined
+categories (log-rank, Kaplan Meier,. . . ) do not fit all of new methods well, please use
+the column “Specification of other class” and give some details on the new method or
+methods.
+– Classification of the method as separate items with dropdown (yes/no)
+– Log-rank approaches, e.g. weighted log-rank test
+– Kaplan-Meier curve-based approaches; e.g. weighted Kaplan-Meier and Restricted
+Mean Survival Time (RMST)
+– Combination approaches; e.g. Breslow test, Lee’s combo test, or MaxCombo test
+– Regression model
+∗If regression model, parametric/semiparametric/nonparametric (dropdown)
+– Other class; if the above-mentioned classes do not fit the method
+• If other, specification of other class for the new NPH method or methods (text, if several
+new methods proposed, comment on them individually in this box)
+• Bayesian or frequentist approach of the method (dropdown)
+27
+
+````
+
+## PDF page 28; PDF label 28
+
+Technical extraction; compare with original PDF page 28.
+
+````text
+• Covariate adjustment included in the method (not discussed/ stratification for factors/
+adjustment for covariates)
+• Methods for hypothesis testing (yes/no)
+• Methods for estimation (yes/no)
+• Interim analysis (yes/no)
+• Interesting case studies to inform simulation studies (yes/no); e.g. only RCTs and the
+data should be presented in sufficient detail to inform the simulation study, e.g. Kaplan-
+Meier curve with number of patients at risk
+• Comments (text); name of the methods and optionally further details
+28
+
+````
+
+## PDF page 29; PDF label 29
+
+Technical extraction; compare with original PDF page 29.
+
+````text
+A.1.5
+Search term for the literature review
+Table A2: Search terms for the literature review
+Search terms
+1
+“non-proportional
+hazard”
+OR
+“non-
+proportional hazards” OR “nonproportional
+hazard”
+OR
+“nonproportional
+hazards”
+OR “non proportional hazard” OR “non
+proportional hazards”
+Main search in MED-
+LINE
+and
+EMBASE
+without
+any
+journal
+restrictions
+2
+non-proportionality OR nonproportionality
+OR “non proportionality”
+3
+(NPH OR NPHs OR "non PH" OR "non PHs"
+OR non-PH OR non-PHs) AND (assumption
+OR assumptions)
+4
+“proportional hazard” OR “proportional haz-
+ards” OR “hazard assumption” OR “hazard
+assumptions”
+5
+violation OR violations OR violated OR vio-
+lat*
+6
+#4 AND #5
+7
+#1 OR #2 OR #3 OR #6
+8
+“delayed treatment effect” OR “delayed treat-
+ment effects”
+9
+#7 OR #8
+10
+crossing AND (hazard OR hazards)
+Additional search with
+broader search terms in
+journals of the category
+“Statistics & Probabil-
+ity”
+11
+crossing AND (curve OR curves)
+12
+“delayed effect” OR “delayed effects”
+13
+delayed AND treatment
+14
+“treatment switch*” OR “heterogeneous pa-
+tient*” OR “heterogeneous population*” OR
+“disease progression*”
+15
+#10 OR #11 OR #12 OR #13 OR #14
+16
+“hazard assumption” OR “hazard assump-
+tions” OR time-to-event OR “time to event”
+17
+#15 AND #16
+18
+List of journals from the Web of Science cate-
+gory “Statistics & Probability”
+19
+#17 AND #18
+20
+#9 OR #19
+29
+
+````
+
+## PDF page 30; PDF label 1
+
+FORMULA CHECK REQUIRED: original PDF page 30.
+
+````text
+S
+Online Supplement
+S.1
+Notation
+Table S1: Overview of notation used throughout the report
+T
+Time to event
+C
+Censoring time
+x
+Vector of covariates
+Z
+Treatment indicator, 1 if experimental, 0
+for control
+β
+Vector of regression coefficients of x
+γ
+Regression coefficient of Z
+N
+Total sample size
+δ
+Event indicator, 1 if event, 0 if censored
+λ0(t)
+Baseline hazard rate at time t
+λ(Z)(t)
+Hazard rate of treatment group Z at time t
+(given x)
+Λ(Z)(t)
+Cumulative
+hazard
+rate
+of
+treatment
+group Z
+R t
+0 λ(Z)(u)du
+S(Z)(t)
+Survival function of treatment group Z at
+time t (given x)
+Yi (t)
+At
+risk
+indicator,
+Yi (t)
+=
+1
+if
+t
+≤
+min(Ti, Ci) ,0 else
+Y (t) = P
+i Yi(t)
+Number of people at risk at time t
+Y (Z)(t)
+Number of people at risk in treatment
+group Z at time t
+HR(t)
+Hazard ratio at time t (given x)
+aHR(t)
+Average HR up to time t
+cHR(t)
+Cumulative HR up to time t
+RMST (t)
+Restricted mean survival time up to t
+t∗
+Specific time point
+˜t
+Maximum follow-up time
+t(i)
+ith ordered distinct event time, t(0) defined
+as 0
+S.2
+Estimation approaches for NPH treatment effects
+S.2.1
+Kaplan-Meier based estimation approaches
+The underlying basis of all approaches in this sub-section is the non-parametric Kaplan-Meier
+(KM) estimator of the survival function or the Nelson-Aalen (NA) estimator of the cumulative
+hazard function. The corresponding papers that fall into this category can be found in column
+A of Table S3.
+The non-parametric KM estimate of the survival curve is defined as ˆS(Z) (t) = Q
+t(i)≤t
+ 
+1 −
+d(Z)
+(i)
+Y (Z)(t(i))
+!
+,
+where d(Z)
+(i) is the number of events of treatment group Z observed at t(i) and the product iter-
+ates over the ordered distinct event times t(i). Alternatively, the NA estimate of the cumulative
+hazard function, i.e. bΛ(Z) (t) = P
+t(i)≤t d(Z)
+(i) /Y (Z) 
+t(i)
+
+, can be utilized. The treatment stratified
+KM estimates do not impose any modelling assumptions on HR(t). Thus, any trajectory of
+HR(t) can be incorporated.
+The KM (NA) estimators result in step functions and thus the estimation of HR(t) requires
+1
+
+````
+
+## PDF page 31; PDF label 2
+
+FORMULA CHECK REQUIRED: original PDF page 31.
+
+````text
+additional smoothing techniques, however. The aHR(t∗) can be re-formulated as being an ex-
+pression of the survival functions where the estimates might be obtained via KM [17].
+A doubly-weighted Nelson-Aalen estimator that accounts for dependent censoring and treament-
+specific covariate distributions was introduced by [47] via inverse probability of treatment
+weighting and inverse probability of censoring weighting. The authors suggest to process the
+treatment-specific cumulative hazard estimators to cumulative treatment effect measures such
+as the cHR, relative risk, and differences in the RMST.
+Quantiles and t-year survival rates can be obtained by standard statistical software which com-
+putes KM survival curves such as the R package survival. The R software package survRM2
+performs two-sample comparisons with the RMST and also includes a function to perform
+an ANCOVA-type covariate adjustment. The SAS procedure LIFETEST can be utilized to ob-
+tain non-parametric estimates of the survival function and to carry out tests of homogeneity
+across strata or the association of numeric covariates on survival. The R package AHR provides
+software solution for the aHR.
+S.2.1.1
+Pseudo values
+Pseudo-values are usually calculated from KM-based estimates, for example the
+[
+RMST (t∗) or
+ˆS(t∗). The basic idea of the pseudo-value approach is to compute a quantity of interest at a
+given time t∗, e.g.
+[
+RMST (t∗) or ˆS(t∗), and re-compute that measure with the ith observation
+dropped. Then, for example, N ˆS (t∗) −(N −1) ˆS(−i)(t∗), where ˆS(−i) denotes the KM estimate of
+the survival function with the ith observation dropped, is the so-called pseudo-value, and the
+ith entry of a new dependent variable. This value is an estimate of the survival function for the
+ith individual in this example. Hence, the interrelationship between the survival function and
+the cumulative hazard rate, S(Z) (t) = exp(−Λ(Z)(t)) , can be used to transform the pseudo value
+into an estimate of the log cumulative hazard rate Λ(Z)(t) by applying log-log transformation on
+the pseudo values. The pseudo value procedure reduces time-to-event data, that are usually
+defined by two variables (time, event indicator) to a single continuous variable, and allows
+modelling by common regression models, i.e. linear models with the treatment indicator being
+a covariate, with possibly transformed pseudo-values. [48]
+Application of the pseudo value procedure on ˆS(t∗), where the pseudo value N ˆS (t∗) −(N −1)×
+ˆS(−i)(t∗) is analysed by the linear regression model xT
+i β + Ziγ, i = 1,..., N, gives estimates of
+S(1) (t∗) −S(0)(t∗) through b
+γ, assuming that x is held constant.
+A weighted pseudo value approach to estimate survival probabilities at time t∗was introduced
+by [49]. They used the log-log transformation of the pseudo values and gave estimates for
+cHR(t∗). The weights were proposed to overcome missing information on group membership
+in stem cell transplantation patients, where early death stops the search for a suitable stem cell
+donor.
+Yang et al [50] utilized the pseudo-value approach for the RMST : Subject to investigation was
+the RMST given survival up to a landmark t∗with (chosen) follow up time t∗+ w, cRMST (t∗,w),
+i.e. the expected life time within (t∗,t∗+ w) given survival up to t∗. Estimates of the RMST
+were obtained via KM. Then, in a leave one out step, the cRMST without the ith observa-
+tion
+[
+cRMST (−i)(t∗,w) was computed. The individual differences N ∗
+[
+cRMST (t∗,w) −(N ∗−1)×
+[
+cRMST (−i)(t∗,w), with N ∗being the sample size conditional on survival up to t∗, were then
+used as the dependent variable in a linear regression model xT
+i β + Ziγ. If the multiple land-
+mark time points are considered in a single analysis, covariate-time interactions might be uti-
+lized to obtain time-dependent covariate effects, e.g. Ziγ(t∗), with γ(t∗) = γ1 + t∗γ2 + t∗2γ3, for
+the treatment component. The (time-dependent) treatment efficacy for such an approach can
+be evaluated via b
+γ(t∗) which estimates cRMST (1)(t∗,w) −cRMST (0)(t∗,w).
+Pseudo values were also considered by [51] and [52]. We did not encounter further effect
+measures in our literature review.
+The R packages pseudo and prodlim as well as SAS and R functions in [53] are available for
+computing pseudo-values. Pseudo-values for RMST (t) [but not for S(t)] can be calculated by
+PROC RMST in SAS.
+2
+
+````
+
+## PDF page 32; PDF label 3
+
+FORMULA CHECK REQUIRED: original PDF page 32.
+
+````text
+S.2.1.2
+Quantile regression
+Quantile regression is an approach to systematically compare the estimated quantiles t(Z)
+τ
+=
+S(Z)−1 (1 −τ), Z = 1,2, and τ ∈(0,1).
+A quantile regression approach has been established based on the generalized KM estimator
+[54] or alternatively, on martingale-based estimating equations [55]. In the latter case, the
+logarithm of the τth survival quantile ln{tτ} given covariate information is assumed to have a
+linear relationship with the covariates, i.e. ln{tτ|x,Z} = xT β(τ)+Zγ(τ). The estimated treatment
+effect exp(b
+γ(τ)) gives an expression of ˆt(1)
+τ / ˆt(0)
+τ
+in the case of equality in x. A value larger than 1
+of the above-mentioned ratio indicates a beneficial treatment effect at the respective quantile.
+See [56] for an application to evaluate the long-term benefit of immunotherapy. Xue et al [57]
+developed a leave-one-out cross-validation approach for quantile regression.
+An implementation of quantile regression including methods applicable to data with censored
+observations is available in the R package quantreg. The SAS procedure quantlife provides an
+implementation of quantile regression based on generalizations of the KM and NA estimator.
+S.2.2
+Stratified Cox model
+The stratified Cox model is a well-known model that relaxes the PH assumption for the strat-
+ification variable(s). We excluded the basic stratified Cox model, where stratification by vari-
+ables other than the treatment indicator is sufficient, from our literature review. The semi-
+parametric stratified Cox model, in particular, does not impose modelling restrictions on the
+trajectory of HR(t) along the stratified variables.
+The hazard rate is defined as λ(Z) (t) =
+exp(xT β) λ(Z)
+0
+(t). The coefficients β can be estimated via the partial likelihood while the strat-
+ified baseline hazard bλ(Z)
+0
+can subsequently be obtained via the non-parametric Breslow esti-
+mate for each stratum.
+Table S3 column B shows papers that belong to the category ‘stratified Cox model’.
+Again, estimation of HR(t) requires additional smoothing techniques due to the step function
+nature of the Breslow estimate. An estimate of cHR(t∗) was suggested by [58] and [59].
+The R package survival and the SAS procedure phreg include the stratified Cox model.
+S.2.3
+Time varying coefficients for the hazard rates
+Time-varying coefficients for the hazard rates γ(t) can be utilized to incorporate, for exam-
+ple, a late or diluting treatment effect causing NPH. The hazard rate could be of the form
+λ(Z) (t) = exp(Zγ (t) + xT β) λ0 (t). Note that the time-varying treatment effect γ (t) of those
+models can essentially be viewed as an interaction term of (some function of) time and the
+treatment indicator. The specific models differ in how those interactions are constructed.
+The approaches to time-varying coefficients, or time-covariate interaction respectively, are
+plentiful and encompass change point models, fractional polynomials, spline-based approaches,
+other functional time-covariate interactions and the additive model. The admissible trajectory
+of HR(t) = exp(γ(t)) depends on the complexity of γ (t). The aHR, or weighted Cox regression,
+which will be discussed in Section S.2.3.5 further below can be seen as less complex summary
+measure in a time-varying coefficient setting. Columns of Table S3 that belong to the broader
+category ‘time-varying coefficients’ of Table S2 start with a ‘C’.
+Common approaches to fit the models are the maximization of the partial likelihood (e.g. [60],
+[61], or [62]), the full likelihood possibly via GLM routines (e.g. [63], [64], [65], or [66]) or via
+Bayesian approaches (see Table S3 column K). We added column K to Table S3 which indicates
+whether the corresponding paper took a Bayesian or a frequentist approach, such that the
+interested reader might have a look at the corresponding papers to learn more about specific
+fitting procedures in detail.
+3
+
+````
+
+## PDF page 33; PDF label 4
+
+FORMULA CHECK REQUIRED: original PDF page 33.
+
+````text
+S.2.3.1
+Change point of the treatment coefficient
+A late treatment effect, for example, might be considered by γ (t) = γ I(t ≥t∗) where I denotes
+the indicator function, a diluting treatment effect through γ (t) = γ1 + γ2 I(t ≥t∗), with some
+(chosen) threshold value t∗
+> 0, γ2 > 0. Johannes [67] suggested a grid search to find the
+location of the change point t∗associated to the highest partial likelihood value.
+A generalized version of the single change point model, introduces a piecewise constant regres-
+sion coefficient γk for each of the chosen disjoint time-intervals, i.e. (t) = PK
+k=1 γkIk(t), where
+Ik(t) is the indicator function which is unity if t ∈kth interval and 0 else. A tree-based method
+to find multiple change points was suggested by [2]; a change point is chosen such that it max-
+imizes the score test statistic. This process is iterated over the new time partitions resulting
+from the former step. In order to avoid over-fitting [2] also considered stopping criteria and a
+pruning mechanism.
+Papers that were allocated to the category ‘change point for time-varying effect’ can be found
+in Table S3 column C.1.
+S.2.3.2
+Time varying coefficients with continuous paths
+A smooth path of γ (t) can be obtained by choosing a continuous function (in t).
+For ex-
+ample, γ (t) = γ0 + t γ1 + t2γ2 [68].
+Gustafson [69] considered an additive hazard model
+where γ (t) =
+
+1 −t
+t∗
+
+γ0 +
+t
+t∗γ1 for t < t∗and γ (t) = γ1 else.
+Sauerbrei et al [62] chose
+γ (t) = γ0 + log(t) γ1 as default and provided an algorithm for model selection: Firstly, start
+with an initial model, possibly incorporating functional forms and interactions of the covari-
+ates. Secondly, re-run the model on a restricted time interval (0, t∗) and add relevant covariates
+from this step to the model of the entire time interval if necessary. Thirdly, for each covariate
+include time-varying coefficients, on the entire time interval, and add them to the final model
+if they provide a significant improvement. More flexible functions of γ (t), obtained through
+fractional polynomials in time (see Section S.2.3.3), might be chosen if the enhanced model
+provides a significantly better fit as indicated by a deviance test.
+Papers with some functional covariate-time interaction that do not belong to one of the more
+specific time-varying coefficient categories above or below can be found in column C.2 of Table
+S3.
+S.2.3.3
+Fractional polynomials
+Fractional polynomials (FP) can be used to model a time-dependent treatment effect γ (t). A
+FP 1(p) transformation of time is defined as tp with some chosen p. By convention FP 1(0) is
+log(t). The time varying treatment coefficient with FP 1(p) transformation in t is then γ (t) =
+γ0+tpγ1. This can be extended to FP 2(p1, p2), this results in γ (t) = γ0+tp1γ1+tp2γ2. Again, by
+convention, FP 2(p,p) refers to γ (t) = γ0 + tpγ1 + tplog(t) γ2. For applications see, for example,
+[70], [71], [63], or [62].
+See Table S3, column C.3 to find papers which utilize FP to model time-varying coefficients.
+S.2.3.4
+Splines
+A non-parametric approach for time-varying coefficients can be incorporated through the use
+of splines. A popular choice are restricted cubic splines. Splines, in general, require the se-
+lection of knots that slice the time scale into disjoint intervals. In the case of restricted cubic
+splines, local cubic polynomials are fitted [72]. The term “restricted” results from handling the
+tails linearly, i.e. from 0 to the first knot and from the last knot to infinity, the function is lin-
+ear. We denote the corresponding time-varying treatment effect γ (t) = γ0 +γ1t +P
+d Bd (t)γd+1,
+where Bd denotes the corresponding basis function and the sum iterates over all basis func-
+tions. The number of basis functions depends on the number of knots. Applications can be
+found in [73] for an excess hazard model, [63] in a network meta-analysis and [71].
+The spline approach can be extended to arbitrary choices of basis function. Let γ (t) = P
+d Bd (t)γd.
+The Bd might, for example, be B-spline basis functions of arbitrary high degree and number
+4
+
+````
+
+## PDF page 34; PDF label 5
+
+FORMULA CHECK REQUIRED: original PDF page 34.
+
+````text
+of knots. The degree and the number of knots determine the number of basis functions or pa-
+rameters, respectively, for the time-varying treatment coefficient. Overfitting can be avoided
+by introducing penalties on the flexibility. See, for example, [65] who exploited Poisson Like-
+lihood regression, i.e. piecewise exponential hazards (see below), and penalized B-splines for
+survival model building. Similarly, [61] considered penalized B-splines and truncated splines.
+Argyropoulos and Unruh [64] also exploited the Poisson regression approach and include time-
+varying coefficients and multiple time scales via penalized cubic and thin plate splines. [74]
+considered time-varying coefficients via B-splines in an excess hazard model.
+A spline-based time-varying coefficient in a Cox-model setting is available via the R package
+dynsurv. The R package polspline contains the function hare which utilizes linear splines to
+model the baseline hazard and covariate effects.
+Column C.4 of Table S3 shows papers that utilized spline approaches in order to model time-
+varying coefficients.
+Note, that for none of the aforementioned models, the time-varying coefficient approach is
+restricted to the treatment effect (or binary variables) but applies to covariates more generally.
+S.2.3.5
+Average hazard ratio and summary effect measures obtained by the weighted (par-
+tial) likelihood
+The aHR can be calculated as summary measure over the follow-up period ˜t or some t∗≤˜t.
+The summary measure has already been mentioned in Section S.2.1 based on KM estimates of
+the survival function. Plentiful estimation approaches of aHR(t∗) based on the weighted partial
+likelihood are proposed in the literature. Consider the (true) model λ(Z) (t) = exp(Zγ (t)) λ0(t) .
+The idea is to estimate λ(Z) (t) = exp(Zγ) λ0(t) instead and interpret γ or exp(γ) as an average
+treatment effect by introducing weights on the partial likelihood (see, for example, [75], [76],
+or [16]). Results from standard Cox regression depend on the censoring distribution and a
+weighted Cox regression with inverse probability of censoring weights are proposed. Schemper
+[16] has accordingly recommended choosing the weighting function G(t) = S(t)/C(t), where
+S(t) defines the event time survival function of the complete sample and C(t) denotes the cor-
+responding censoring survival function. For a review of differing definitions of the aHR, and
+different weighting functions , as well as an investigation of their performance see [16].
+Such approaches are not restricted to an estimate of aHR(t∗), however. Lin and León [77]
+obtained adjustment factors based on weights from the log-rank test where exp(γ) is the max-
+imum treatment effect over the course of time.
+An aHR estimator for the Yang and Prentice model (discussed in Section S.2.6) was proposed
+by [78].
+Papers that approached the aHR or similar summary effect measures in a semi-parametric
+fashion through the weighted partial or pseudo-likelihood can be found in column C.5 (Table
+S3). Note, that we classified non-KM based estimations of the aHR, or weighted Cox regression,
+as time-varying coefficients in Table S2. Further notice, that papers which based the estimation
+of aHR(t∗) on KM estimates are not subsumed in column C.5 but column A of Table S3.
+The R package coxphw, and the SAS macro WCM provide weighted estimation of Cox regres-
+sion which might be utilized to estimate the aHR(t∗) with appropriate weights.
+S.2.3.6
+Additive models
+Aalen’s additive model also considers time-varying coefficients and NPH [27]. The additive
+model exploits the martingale representation M(t) of the counting process N(t), i.e. Mi (t) =
+Ni (t)−
+R t
+0 Yi (s)λ(Zi)(s)ds. Note that E (dMi (t)|”history”) = 0 or equivalently E (dNi (t)|”history”)
+= Yi (t)λ(Zi)(t)dt, where dt →0 and dNi (t) = 1 denotes that the event occurred in an infinites-
+imal small interval following t, and 0 refers to no event in the aforementioned interval. The
+hazard rate is assumed to be additive in the predictors, i.e. λ(Z) (t) = xT β(t) + Zγ(t). This
+leads to a twist in the interplay of covariates on absolute and relative differences of the haz-
+ard rates as compared to the multiplicative hazard model: keeping everything else constant,
+the treatment effect in an absolute sense is λ(1) (t) −λ(0) (t) = γ(t) which is independent of the
+5
+
+````
+
+## PDF page 35; PDF label 6
+
+FORMULA CHECK REQUIRED: original PDF page 35.
+
+````text
+level of the other covariates, whereas the relative treatment effect is HR(t) = λ(1)(t)/λ(0)(t) =
+1 + γ (t)/xT β which does depend on the level of the remaining covariates. If, for example,
+λ(Z) (t) = λ0(t)exp(xT β(t) + Zγ(t)) instead, this is the other way around.
+Instead of optimizing the (partial) likelihood, least squares methodology is utilized. The indi-
+vidual squared error contribution at t is equal to (dN i (t) −Yi (t)λ(Zi)(t)dt)2 , where λ(Z)(t)dt is
+subject to estimation. Note that the estimates of λ(Z)(t)dt are not restricted to the interval [0,1]
+and thus, might not be interpretable as probabilities.
+The increments λ(Z)(t)dt will typically be estimated poorly. Estimates of Λ(Z)(t) can be obtained
+through P
+i≥1:t(i)≤t bλ(Z) 
+t(i)
+
+dt, where the summation over the increments achieves stability in
+the estimates. (Chapter 4.2.1 in [27])
+Applications of the additive model can be found in [79] and [80]. Dunson and Herring [81]
+placed a model selection prior on an additive-multiplicative survival model and restrict the
+additive part to ensure non-negative hazards. Martinussen and Pipper [19] developed an odds-
+of-concordance P (T (0)>T (1))
+P (T (1)>T (0)) effect measure based on Aalen’s additive model, where T (Z) refers to
+a survival time of group Z.
+The R package timereg contains the additive model.
+Papers focusing on the additive model can be found in column C.6 of table S3.
+S.2.4
+Transformation models with time-covariate interaction
+In this section we placed the Royston-Parmar model as well as the conditional transformation
+model (CTM). Both approaches have in common that time and covariate dependent model
+quantities are modelled via splines and spline by covariate interaction. Also both approaches
+can be motivated as being generalizations of chosen parametric models. The Royston-Parmar
+and the CTM are very similar for appropriately chosen reference functions.
+The starting point of the Royston-Parmar model is a transformation of the survival function
+which is denoted by g(S(Z)(t)). Initially, the function is assumed to be linear in the covariates
+and the treatment indicator, i.e. g(S(Z)(t)) = g(S0(t))+xT β +Zγ. The point of reference is either
+the Weibull distribution and PH or the log-logisitc distribution and proportional odds. We
+focus on the Weibull case. Then, g(S(Z)(t)) = ln{−ln{S(Z)(t)}} = ln{Λ0(t)} + xT β + Zγ. Note, that
+the Weibull AFT arises if ln{Λ0(t)} is linear in ln{t}. To allow for more flexibility, ln{Λ0(t)} is
+replaced by a restricted (natural) cubic spline function of ln{t}, s(t;ω) = P
+d Bd(ln{t})ωd, where
+ω is a parameter vector, and the accelerated failure time interpretation is lost. In the log-logistic
+case, the same path is followed in analogy, except that the log-cumulative hazard function is
+replaced by the log-cumulative odds function, that is the log-odds of an event occurring in the
+interval (0,t).
+NPH (or non-proportional odds) can be incorporated by an interaction of the natural cubic
+splines and the treatment indicator, i.e. s(t;ω) + s(t,Z;γ), with s(t,Z;γ) = P
+d ZBd(ln{t})γd,
+where γ is a vector of parameters. Further covariates might be included in s(t,Z,X;ω) in the
+same fashion to allow for more non-proportional effects. For sake of comparison with the
+conditional transformation model (CTM) we call the functions s(·) transformation functions.
+For more detailed information about the Royston-Parmar model see [66]. An implementa-
+tion of the Royston-Parmar model is available through the R package flexsurv [82].
+The CTM formulates S(Z) (t) as 1 −G(P
+d hd (t,x,Z)), where G is a chosen cumulative distri-
+bution function (cdf). If G is the minimum extreme value distribution, the Cox model is a
+special case for appropriately chosen (or estimated) transformation functions hd. In general,
+the transformation functions hd consist of interactions of time and covariates as well as param-
+eters which are subject to estimation. The transformation function for the treatment indicator
+could for example be h(t,Z) = P
+d Bd(t)Zγd. Möst et al [83] suggested interactions of penalized
+B-splines in time t and B-splines or linear basis functions of covariates.
+Consider the case where the reference cdf of the CTM is that of the standard minimum extreme
+value distribution G(·) = 1 −exp{−exp{·}} and the Royston-Parmar has the Weibull model as
+reference as described above. Moreover, let all covariates be included in the NPH manner as
+6
+
+````
+
+## PDF page 36; PDF label 7
+
+FORMULA CHECK REQUIRED: original PDF page 36.
+
+````text
+illustrated above for the Royston-Parmar and the CTM. Then, the main difference between
+the Royston-Parmar and the CTM as reported here is the choice of basis functions, natural
+cubic splines vs penalized B-splines as proposed by [83], and the time scale on which the basis
+functions are computed, ln{t} vs t.
+Papers that focus on the Royston-Parmar model or the CTM can be found in column F of Table
+S3. Note that all papers in that column focus on the Royston-Parmar models except for the
+paper [83], which is about the CTM.
+S.2.5
+Joint models
+A NPH model can also be obtained by jointly modeling a longitudinal and a survival out-
+come. Certain time and treatment-dependent components of the longitudinal model might,
+for example, be the covariate input of the survival model. Let, η(t,Z) = γLg(t,Z) be the con-
+ditional expectation of the longitudinal outcome at t (in the absence of further covariates),
+with g(t,Z) being a chosen function of treatment and time and γL the corresponding coef-
+ficient vector in the longitudinal model. Then, the hazard might be modelled as λ(Z) (t) =
+exp
+
+xT β + Zγ + η(t,Z)γ2
+
+λ0(t). In this scenario, the treatment has a direct constant impact on
+the HR(t) through γ as well as an indirect time-varying impact through η(t,Z)γ2. See [84] for a
+model of that kind, that also includes further covariates and random effects in the longitudinal
+component.
+Articles focusing on joint models can be found in column D of tables S3.
+Xu et al [84] also discuss the posterior distribution of the aHR(t∗) in a Bayesian setting.
+The package and macro JM provides a software solution for joint modeling of longitudinal
+and time-to-event data in R and SAS, respectively. The SAS macro is based upon NLMIXED,
+MIXED, GLIMMIX, and LIFEREG.
+S.2.6
+Short- and long-term HR
+The methods of Section S.2.3 accounting for a time-varying treatment effect can essentially
+be considered as time-covariate interaction. Alternatively, parametric functions of the HR(t)
+can be assumed, where the time-varying effect results from interactions of parameters with
+time-dependent baseline measures such as Λ0(t), or S0(t). The models in this sub-section differ
+from fully parametric approaches in that they have non- or semi-parametric components of
+the baseline measures. We gathered those models in columns F.1 and F.2 in Table S3.
+Such a model was introduced by [23] and further studied by [85]. A potentially non-proportional
+treatment effect can be incorporated by the hazard function
+λ(Z) (t) =
+exp
+
+xT β
+
+exp(−γ1Z) S(0) (t) + exp(−γ2Z)(1 −S(0) (t))
+λ0(t).
+The model is also termed short- and long-term HR model: Here, exp{γ1} is the short-term
+and exp{γ2} is the long-term hazard ratio of the treatment variable, respectively. This model
+includes strictly increasing and decreasing HR scenarios as well as PH if γ1 = γ2. Crossing sur-
+vival curves as well as no initial treatment effect are also sub-models of the Yang and Prentice
+model [23]. The Yang and Prentice model readily delivers an estimate of HR(t). An estimator
+of aHR(t∗) has also been established [31].
+A generalization of the PH model has also been considered through
+λ(Z) (t) = λ0 (t)exp
+n
+xT (β1 + β2) + Z (γ1 + γ2) +
+
+exp(xT β2 + Z γ2) −1
+
+log[Λ0(t)]
+o
+,
+where β2 and γ2 are additional model parameters. The PH model is obtained by β2 = γ2 = 0.
+The corresponding survival function equals S(Z)(t) = exp
+n
+−exp(xT β1 + Zγ1)Λ0(t)exp(xT β2+Zγ2)o
+.
+Crossing survival curves are also possible. The baseline hazard function can, for example, be
+estimated via splines. [86]
+7
+
+````
+
+## PDF page 37; PDF label 8
+
+FORMULA CHECK REQUIRED: original PDF page 37.
+
+````text
+Papers that have the Yang and Prentice model in focus as well as the model introduced by [86]
+can be found in Table S3 column E.
+R Software packages for the Yang and Prentice model are available: YPPE which estimates
+the baseline quantities via piecewise exponential distribution [87], YPBP which estimates the
+baseline distribution via Bernstein polynomials [88] and YPmodel.
+S.2.7
+Frailty models
+Frailty can introduce NPH on the population level even if the PH assumption holds on the
+individual level given the unobservable characteristics. Frailty, or unobserved heterogeneity,
+might be induced by unmeasured or unmeasurable covariates. High frail individuals are prone
+to “early” events due to a high individual or conditional hazard and vice versa. We denote the
+population hazard as the hazard rate with the individual frailty being “integrated out” in this
+paragraph. Assume an extreme case, with lower population hazard for the treatment group
+early on but higher population hazard at later stages, as compared to the control group. This
+is not necessarily a sign of a harming long-term treatment effect. Instead, this could be an
+indicator of successful treatment as this might be caused by long-term survival of high-frail
+individuals in the treatment group. The most straightforward frailty model can be expressed as
+λ(Z) (t|U) = Uexp
+
+xT β + Z γ
+
+λ0(t) , with the frailty random variable U ≥0. The corresponding
+population hazard rate is λ(Z) (t) =
+R ∞
+0 λ(Z) (t|u)fU(u|T ≥t)du with fU(u|T ≥t) being the frailty
+density of survivors. Analytical expressions for λ(Z)(t) are available if fU(u) is, e.g., the gamma
+density or another density of the Power Variance Family (see, for example, Chapter 6.2.3 in
+[27]) among others. See Aalen et al [27] or Wienke [89] for a thorough discussion of individual
+frailty. A tutorial on frailty models that also discusses the population hazard ratio can be found
+in [90].
+We took a very broad perspective of frailty in this work and also put, for example, cure-rate
+models in this category which could be motivated by a binary frailty model [89].
+Unobserved heterogeneity has, for example, been considered through semi-parametric trans-
+formation models [91], spatially correlated frailty models [92], time-varying frailty models
+[93] and random delayed treatment effect two-point cure rate- [94], as well as responder-no-
+responder-models [95].
+Papers having a frailty perspective are marked in column G of Table S3.
+The SAS procedures phreg and nlmixed, the R packages survival, coxme, frailtyEM, and
+frailtypack provide frailty models.
+S.2.8
+Fully parametric models
+For the sake of discussion we separate parametric approaches into four classes: piecewise ex-
+ponential, accelerated failure time (AFT), first hitting time (FHT) and GLMs.
+S.2.8.1
+Piecewise exponential hazards
+The stratified piecewise exponential model assumes a constant hazard rate λ(Z) (t) =
+λ(Z)
+(k)
+within the specified interval t ∈[tk−1,tk), with k= 1,...,K, tk < tk+1, t0 = 0 and tK = ∞. Then,
+the HR(t) is piecewise constant. Further covariates might be included in the usual PH manner:
+λ(Z) (t) = exp(xT β(Z)) λ(Z)
+(k) , where (elements of) β(1) might be equal to (their counterparts in)
+β(0) and t is in the kth time interval. The stratified piecewise exponential model approaches the
+stratified semi-parametric Cox model if the borders of the time intervals are set by the distinct
+event times.
+Hagar et al [96] discussed a Bayesian non-proportional multiresolution hazard model. The
+hazard is piecewise constant and treatment specific. Across partitions, the hazard parameters
+might be correlated what can be regarded as a smoothening attempt. A second smoothening
+approach is imposed through the merging of adjacent time intervals if mortality patterns are
+8
+
+````
+
+## PDF page 38; PDF label 9
+
+FORMULA CHECK REQUIRED: original PDF page 38.
+
+````text
+statistically similar. Constant or time-varying covariate effects might also be added to the
+piecewise exponential model.
+Papers that model time variant covariate effects via the piecewise exponential model can be
+found in Table S3, column H.1.
+With respect to fitting procedures, the Poisson regression model (with an adequate offset) and
+its software implementations can be exploited (see, e.g., [97], [64] or [65]). The R packages
+eha and pch contain the piecewise exponential model. An R software implementation of the
+multi-resolution hazard model is available with the package MRH.
+S.2.8.2
+AFT and generalized additive models for location scale and shape
+The AFT model assumes a distribution π with parameter vector θ(Z) for the survival time T .
+The parameters in θ are (partially) dependent on group membership Z and maybe of further
+covariates. In particular, log(T ) = xT β + Z γ + σϵ , where the distribution assumption about
+the error term determines π. Frequent choices of π are the Weibull, Log-logistic, and Log-
+normal distribution. AFTs usually result in NPH, with the Weibull being a prominent excep-
+tion. AFTs can be extended by also modelling scale and shape parameters, σ in the above
+example, via link functions and covariates. In the generalized case, even the Weibull model
+contains NPHs [98]. An extension to interval censored data and gamma frailty can be found in
+[99].
+Umbrella distributions like the generalized gamma [100] and the generalized F distribution
+[44], which include “standard” distributions as special cases, have also been modelled in the
+AFT context and its generalizations. Extensions which consider all parameters as function of
+covariates were also discussed in [101].
+An approach to dimension reduction was introduced by [102] with a focus on genomic data,
+utilizing the continuum power regression (CPR) framework. The CPR-step is supposed to ob-
+tain a dimension reduction in the covariates and includes OLS, partial least squares, and prin-
+cipal components regression as special cases. Censoring is accounted for by adding the mean
+residual lifetime on censored observations in the CPR-step. The K “remaining” components
+are then the covariate input of a generalized F or a semiparametric AFT model.
+Delayed treatment effects [103] and cure rate models [104] were also considered for the Weibull
+model.
+Papers with a focus on the AFT model or generalizations thereof are marked in column H.2 of
+Table S3.
+A software implementation of the generalized gamma and generalized F distribution and other
+(user-defined) distributions is available via the R package flexsurv [82], where also more than
+one parameter might depend on covariates. The R package brms provides Bayesian parametric
+survival models. The R package spBayesSurv offers spatial as well as non-spatial Bayesian
+(generalized) AFTs (and others). The R package mpr can be used to fit, for example, Weibull
+models where both parameters depend on covariates. The R package gamlss.cens is an add-
+on package to GAMLSS for the purpose of fitting censored versions of an existing GAMLSS
+family distribution. The SAS procedure lifereg also offers an implementation of AFT models.
+S.2.8.3
+First hitting time
+First hitting time (FHT) models approach the survival distribution via an underlying unob-
+servable health process H(t). An observable component of the process is the event or, more
+general a transition into another state. Typically, the event is defined to happen if H (t) ≤0 for
+the first time. The Wiener process is commonly chosen for H(t). This leads to T being inverse
+Gaussian distributed. The parameters of the Health process might be a function of covariates
+and possibly of random effects [105]. Race and Pennell [106] added random effects utilizing
+the Dirichlet Process to model subject-specific initial state and drift of the Wiener process. Yu
+et al [107] modeled the drift parameter via cubic B-splines. He et al [108] considered a de-
+terministic decay path where random shocks might cause the event “prematurely” in a hip
+fracture setting.
+FHT models are marked in column H.3, Table S3.
+9
+
+````
+
+## PDF page 39; PDF label 10
+
+Technical extraction; compare with original PDF page 39.
+
+````text
+S.2.8.4
+GLMs & other parametric approaches
+If the event indicator is regarded as the target variable, a Poisson GLM with log-link and an
+adequate offset is equivalent to the piecewise exponential hazard likelihood. Hence, Poisson
+GLMs have been utilized to fit the piecewise exponential survival model or as an approxima-
+tion to a general survival likelihood by letting the time intervals for the distinct hazard pa-
+rameters become small [64]. We mentioned this already in the discussion about time-varying
+coefficients. We did not classify those papers into the GLM category as they essentially mod-
+eled the common survival likelihood via GLM routines and hence, we feel, those papers are
+more adequately categorized into other classes, time-varying coefficients for example.
+Others, however, took a more genuine GLM approach. Among them [109] who exploited the
+longitudinal nature of multiple sclerosis data-set to model transitions in the disability progres-
+sion. Motivated by oncology studies with NPH, where events are observed through periodic
+screenings, [110] considered discrete time. Consequently, GLMs at the distinct time points
+including only at-risk individuals at the corresponding follow-up time t(j), i.e. Yi
+
+t(j)
+
+= 1, are
+suggested.
+GLMs might be incorporated into other methods, trees, for example (see Section S.2.9).
+Other parametric approaches including GLMs can be found in column H.4, Table S3.
+GLM routines from standard statistical software can be used, for example, the SAS procedure
+glm.
+S.2.9
+Machine learning approaches
+Wey et al [111] suggested an average survival model which is a weighted sum of parametric,
+semi-parametric, and non-parametric models. The weights in the suggested model are ob-
+tained through the minimization of a loss function. Distinct treatment group survival curves
+are obtained by “averaging out” the remaining covariates or confounders respectively. Infer-
+ence regarding the treatment effect is then drawn from the difference in RMST of the treatment
+and the control group.
+Lowsky et al [112] discussed a K-nearest neighbor approach for estimating survival curves via
+weighted Kaplan-Meier. The K-nearest neighbors of a new observation are determined by its
+distance to the covariate vectors in the data set. Then, a weighted KM curve is estimated. The
+weights for each observation are reciprocal to the distance to the new covariate vector and
+affect the number of deaths as well as the size of the risk set at each event time. This procedure
+could, for example, be stratified by the treatment indicator in order to quantify the treatment
+effect given the remaining covariates.
+The former two approaches can be found in column I.4, Table S3.
+Alternative approaches include trees and survival forests. Papers concerning trees and forests
+are marked in column I.1, Table S3. The tree-based method by [2] to find change points for
+time-varying coefficients has already been discussed above.
+A Bayesian additive regression tree (BART) for survival data with NPH was considered by
+[113]. The Likelihood is specified via probit regression at the distinct event times. The prob-
+ability of an event, conditional on no previous events, at a given event time is derived via
+the BART. The BART is an ensemble of trees where the splitting criteria at the internal nodes
+within each tree are set by the event time and covariates. For a given covariate-time input the
+function value at the terminal node is then summed up over each tree. This estimate is used as
+the input of the standard normal cdf to obtain the probability of an event.
+Soft BART (SBART) was considered for interval-censored data by [114]. The SBART extends
+the BART with a smooth regression function and better ability to remove irrelevant predictors.
+Survival forests as well as an improved splitting criterion were discussed in [115]. A survival
+forest for a joint model was developed by [116].
+Neural networks for censored survival data were discussed by [117] and [118] . Neural net-
+works are marked in column I.2, Table S3. Kernel smoothing based approaches can be found
+in [119] regarding the hazard ratio and [120] with respect to differences in survival rates. Ker-
+nel smoothing based approaches are marked in column I.3, Table S3.
+10
+
+````
+
+## PDF page 40; PDF label 11
+
+FORMULA CHECK REQUIRED: original PDF page 40.
+
+````text
+The R package trtf contains transformation trees and forests that can be utilized for time-to-
+event analysis. The SBART for discrete time-to-event analysis is implemented in the R package
+BART. The R package mboost includes a gradient boosting algorithm for right-censored data.
+S.2.10
+Other approaches
+Some papers were difficult to categorize into one of the previous sections.
+Among the papers in this section is [3], which discussed inverse probability of censoring
+weights (IPCW) approaches, the structural nested model (SNM), and the rank preserving struc-
+tural failure time model (RPSFTM) in the context of treatment switching. Similarly to the SNM,
+the RPSFTM assumes that the treatment decreases or increases the survival time by the factor
+γ > 0. More precisely, T (1) = γT (0) and γ > 1 indicates a beneficial treatment effect. With that
+factor, counterfactual survival times are computed, i.e. ui = (time i spent in control group) +
+time i spent in treatment group
+γ
+. The parameter γ itself is found via a grid search, where the optimiza-
+tion criterion is a test statistic that compares the estimated survival curves of the placebo and
+the treatment group, where for the latter the counterfactual survival times are utilized. The
+value for γ that makes the two groups most alike in the sense of the test statistic is the point
+estimate. The R package rpsftm provides a software solution for the RPSFTM. The IPCW
+approach, where the weights might be utilized to compute KM curves or weighted partial like-
+lihood estimates, attempts to account for informative censoring.
+Further proposals are a semi-parametric proportional likelihood ratio model [121], and con-
+cordance regression, where, brought into the two-sample setting, the likelihood is based upon
+P (T (1) > T (0)) [18]. A Bayesian non-parametric dependent Dirichlet process for modeling the
+time-to-event distribution was studied by [122]. Chen and Wang [123] apply an accelerated
+hazard model, where the hazard is equal to λ(Z)(t) = λ0(t exp{Zγ +xT β}), and the baseline haz-
+ard is a smoothed non-parametric estimate. The authors suggest that the accelerated hazard
+model might be a good choice if hazard rates are similar after the start of follow-up but go
+apart due to different ageing processes.
+In column J, Table S3, we marked approaches that did not properly fit into other categories.
+11
+
+````
+
+## PDF page 41; PDF label 12
+
+FORMULA CHECK REQUIRED: original PDF page 41.
+
+````text
+S.3
+Hypothesis tests for equality of survival curves
+S.3.1
+Log-rank tests
+The standard log-rank test statistic [124, 125] is the most widely used statistical test to compare
+the overall survival of two groups. The log-rank test is defined as
+Mw =
+PD
+i=1 w(t(i))
+h
+di1 −Y (1)(t(i))
+di
+Y (t(i))
+i
+hPD
+i=1 w(t(i))2 Y (1)(t(i))
+Y (t(i)) (1 −
+Y (1)(t(i))
+Y (t(i)) )
+Y (t(i))−di
+Y (t(i))−1 di
+i 1/2 ,
+with the weight function w(t(i)) = 1. The number of distinct event times of the pooled sample
+is denoted by D, di is the number of events at t(i), and di1 refers to the number of events at t(i)
+in the experimental treatment group [12].
+As the shape of the survival curve influences the power of the test, multiple proposals for the
+weight function w(t) sensitive to particular NPH patterns are available [5].
+Royston and Parmar (2020) [5] give an overview of the weight functions used for different NPH
+patterns, e.g. the Fleming-Harrington weight function w(t(i)) = ˆS
+
+t−
+(i)
+1
+1 −ˆS
+
+t−
+(i)
+0, denoted
+G1,0, or w(t(i)) = ˆS
+
+t−
+(i)
+0
+1 −ˆS
+
+t−
+(i)
+1, denoted G0,1, for early or late effects, respectively. Note
+that t−denotes the time just before time t. For testing that survival in the treatment group
+is stochastically less than or equal to survival in the control arm (H0 : S0 (t) ≤S1 (t) ∀t ≥0 ),
+Magirr and Burman (2019) [126] propose modestly weighted log-rank tests. It is a variation of the
+weighted log-rank test which under arbitrary weights does not control the risk to conclude that
+a new treatment is more efficacious than standard care when it is uniformly inferior in terms of
+the survival function. Treatment may be uniformly inferior in terms of the survival function,
+but still, there may be time points at which the treatment has a favorable hazard. The log-
+rank test works at the level of the hazard function, so if enough weight is put on the possibly
+small time interval with a favorable hazard, the treatment is declared significantly better than
+the control, even though this local benefit does not translate into any survival benefit. The
+modestly weighted test is constructed in such a way, though, that this fallacy can never happen.
+The weights are set to w(t(i)) =
+1
+max{ ˆS
+
+t−
+(i)
+
+, ˆS(t∗)} with ˆS (t∗) denoting the KM estimate at a certain
+time t∗based on the pooled data from both treatment arms. The choice of t∗is a trade-off. A
+bigger value of t∗results in lower weights for early events, which is useful for delayed effects,
+on the other hand too large t∗will lead to unnecessarily high weights w(t(i)) for late events.
+Sample size formulas for different weighted log-rank tests are given by e.g. Yung and Liu
+(2020) [127] and their R package npsurvSS. Wei and Wu (2020) [128] and Wu and Wei (2022)
+[94], Ye and Yu (2018) [129] provide R-code for their sample size formulas derived from weighted
+log-rank tests for cancer immunotherapy trials with delayed treatment effects.
+Various authors also investigated the use of weighted log-rank tests in group-sequential trial
+designs. Group-sequential trial designs plan interim analyses at pre-specified time points.
+The interim analysis can lead to early efficacy or futility stopping because of either sufficiently
+convincing results or a further investigation not being justifiable.
+The use of weighted log-rank test statistics in group-sequential designs can lead to a misspec-
+ified covariance of the test statistic due to the incorrectly estimated information fraction. The
+information fraction is not proportional to the number of interim events for weighted log-rank
+tests in general, e.g. late events on which the weight function usually places more weight in de-
+layed treatment effect settings might be unavailable during interim analyses. Interim analyses
+are argued to be only sensible if a fixed time horizon for the final (primary) analysis is specified
+and if sufficient information up to the time horizon is available for the interim analysis [130].
+Brummel and Gillen (2014) [131] focus on monitoring the weighted log-rank test statistic in
+group-sequential designs where information growth is nonlinear and propose using a con-
+strained boundaries approach to maintain the planned operating characteristics of a group-
+sequential design. Hasegawa (2016) [104] proposes a semiparametric information fraction for
+12
+
+````
+
+## PDF page 42; PDF label 13
+
+FORMULA CHECK REQUIRED: original PDF page 42.
+
+````text
+group-sequential designs with delayed treatment effects. Kundu and Sarkar (2021) [132] fo-
+cus on the deviation of information fractions in weighted log-rank test from that of standard
+log-rank test and propose a decomposition of effects on information fractions to provide a rea-
+sonable and practically feasible range of information fractions to work with.
+Li et al (2021) [133] propose a group-sequential design based on the piecewise log-rank test,
+Zhang and Pulkstenis (2016) [134] provide closed-form solutions for the power and sample size
+calculation for group-sequential designs and Magirr and Jiménez (2022) [135] give practical
+guidance for the use of modestly weighted log-rank tests in group-sequential trials.
+S.3.2
+Kaplan-Meier based tests
+Kaplan-Meier-based tests are another class of tests for testing the null hypothesis of equal
+survival in the two treatment groups. These tests are based on KM estimates or restricted
+mean survival time (RMST).
+Weighted Kaplan-Meier tests are based on the weighted sum of the differences of the KM es-
+timates of the survival curves. Uno et al (2015) [136] proposed a weighted Kaplan-Meier test
+with weights proportional to the observed standardized difference of the estimated survival
+curves at each time point.
+The unweighted Kaplan Meier test results in the difference between two RMSTs describing the
+mean event-free survival time up to a pre-defined time point t∗[4]. Since equality of survival
+curves implies equal RMST, we can also test for the difference in RMST between treatment
+groups ∆(t∗) = RMST (1)(t∗)−RMST (0)(t∗) =
+R t∗
+0 S(1) (t)dt −
+R t∗
+0 S(0) (t)dt being zero, H0 : ∆(t∗) = 0.
+The null hypothesis can be tested using the Wald statistic MRMST (t∗) = √n b∆(t∗)/bσ(t∗), with
+bσ (t∗) denoting the variance of √n { b∆(t∗) −∆(t∗) }. Tests based on RMST do not rely on the PH
+assumption but are also not specifically designed to detect crossing survival curves [4].
+Test procedures based on RMST are proposed by e.g. Horiguchi et al (2018) [137], Lawrence et
+al (2019) [138] and Sun et al (2018) [139].
+The pre-specified time point t∗for RMST is selected data dependently in Horiguchi et al (2018).
+Therefore, a set of potential times t∗= {t∗
+1,...,t∗
+K} with a fixed number K is assumed. The
+null hypothesis that there is no difference between 2 event time distributions against a two-
+sided alternative ∆
+
+t∗
+k
+
+, 0 is tested with the test statistic MRMST 2 = maxt∈t∗|MRMST (t∗)| .
+The distribution under the null hypothesis is obtained using a wild bootstrap procedure. The
+approach of Horiguchi et al (2018) [137] is available in the R package survRM2adapt. For cure
+rate survival models Sun et al (2018) [139] compare different tests for cure rate survival data
+and showed in a simulation study that Kaplan-Meier-based tests (RMST test and weighted
+Kaplan Meier test) perform best among the considered test, e.g. log-rank, Wilcoxon rank test.
+Rauch et al [17] compared two test statistics for the average hazard ratio aHR testing the null
+hypothesis H0 : aHR ≥1 to the standard log-rank test using the hazard ratio in settings with
+different underlying event times and censoring distributions. The two test statistics used for
+testing the average hazard ratio differ in their independent increments property. The compari-
+son showed the advantage of the average hazard ratio tests in terms of power in NPH settings.
+Window mean survival time proposed by Paukner and Chappell [140] keeps the interpretabil-
+ity of RMST and unweighted log-rank tests and improves the power to detect differences in
+survival curves under NPH caused by late crossing or diverging curves. The difference in win-
+dow mean survival time of the two treatment groups is the area between the two survival
+curves from t = t∗
+1 to t = t∗
+2, with 0 ≤t∗
+1 < t∗
+2 ≤˜t. The null hypothesis is that the difference in
+window mean survival time is zero. The test statistic is calculated by the ratio of the estimated
+difference in window mean survival time and its estimated variance. The simulation study of
+Paukner and Chappell [140] showed that the test of window mean survival time has higher
+power compared to the weighted log-rank test if the PH assumption holds.
+Sample size formulas based on the RMST test are provided by e.g. Tang [141], Royston and
+Parmar [142]. Yung and Liu [127] provide a R package npsurvSS for sample size and power
+calculations based on Kaplan-Meier-based tests.
+13
+
+````
+
+## PDF page 43; PDF label 14
+
+FORMULA CHECK REQUIRED: original PDF page 43.
+
+````text
+Brückner and Brannath (2017) developed group-sequential designs for the hazard ratio and
+proved that the sequential tests based on the average hazard ratio are asymptotically multi-
+variate normal with independent increments property.
+An approach using the weighted Kaplan-Maier test for the calculation of stage-wise p-values in
+adaptive survival trials allowing to use discrete surrogate information for the interim analysis
+while controlling the type I error rate was proposed by Brückner et al [143]. Sample size re-
+estimation using Kaplan-Meier-based tests is investigated by Wang [144].
+S.3.3
+Combination tests
+Combination tests combine tests within a class or across classes of tests. The idea underlying
+the combination of tests is the difficulty to predict the existence and severity of NPH caused by
+e.g. delayed treatment effects. Combination tests allow covering various scenarios. The max-
+imum combination (max combo) test is an example of such combination tests and is defined
+as the maximum of several weighted log-rank test statistics. Using the Fleming-Harrington
+weighted log-rank test denoted ZGρ, γ the max combo test is defined as
+Zmax = maxρ,γ{ZGρ1, γ1,ZGρ2, γ2, ...,ZGρK , γK }
+where ZGρk, γk denotes one of K different weighted log-rank tests. However, the max combo
+test is not restricted to the Fleming-Harrington weight function in the log-rank tests. The
+p-value of the maximum combination test can be calculated based on the multivariate nor-
+mal distribution. Ghosh et al [145] developed group sequential designs using two (modestly)
+weighted log-rank tests for the max combo test statistic. Ristl et al [30] investigated different
+sources of non-proportionality such as e.g. delayed treatment effect, disease progression, pre-
+dictive biomarker subgroups, treatment switch after progression, and their effect on the power
+of weighted log-rank tests and maximum combination tests. Ristl et al [30] provide the R
+package nph to perform the statistical tests and to simulate survival data.
+Sample size procedure for maximum combination tests are e.g. available in Tang (2021).
+The use of combination tests specifically the max combo test in group sequential trial designs
+was investigated e.g. in Li et al [146], Wang et al [147], Prior [148]. Li et al [146] investigated
+obtaining the group sequential boundaries and the empirical power by simulation procedures
+for delayed treatment effects, whereas the approach of Wang et al [147] with an R-package GSMC
+available on GitHub is simulation free. Prior [148] investigated the use of different weighting
+functions in the maximum combination across the time points allowing flexibility to the ac-
+crued data.
+Combination tests are not only restricted to the weighted log-rank test but can also involve
+other classes of tests, e.g. Royston and Parmar [149] combine the Cox test with a test of the
+RMST difference by obtaining the p-value of the combination test via selecting the smallest p-
+value of the single tests. The Cox test is based on the difference in log partial likelihoods of the
+Cox PH model with the binary treatment indicator as only covariate. It is closely equivalent
+to the standard log-rank test [149]. León et al [150] combine weighted log-rank tests with
+the RMST test. Chi and Tsai [151] propose the combination of weighted log-rank tests with
+weighted Kaplan-Meier tests. Zhang et al [60] propose a Cauchy combination test of multiple
+single change-point (CauchyCP) regression models.
+S.3.4
+Other tests
+Besides the Kaplan-Meier-based test, the log-rank tests, and the combination approaches, we
+identified also articles that proposed hypothesis testing methods not fitting in either of these
+classes. For instance, Gorfine et al [33] proposed a test for K groups based on sample–space
+partitions, which is implemented in the R package KONPsurv.
+A modification of the Kolmogorov Smirnov test was proposed by Fleming et al [152] who
+compare their proposal to the standard log-rank test and the Wilcoxon rank test for censored
+observations [153] and showed higher power under NPH.
+14
+
+````
+
+## PDF page 44; PDF label 15
+
+FORMULA CHECK REQUIRED: original PDF page 44.
+
+````text
+Sooriyarachchi and Whitehead (1998) propose a binary method for testing whether the survival
+curves of two treatment groups are equal. This approach needs the discretization of the time.
+The time intervals underlying the discrete time should include equal numbers of events. The
+effect measuring the treatment difference is the log odds ratio of the probability surviving past
+time point t∗in the two treatment groups. The test statistic is derived from the log-likelihood
+of the log odds ratio and the nuisance parameter of the probabilities.
+Permutation procedures can be used to obtain the distribution of the test statistic under the
+null hypothesis of equal survival functions. For combinations approaches permutation ap-
+proaches were suggested by e.g. Brendel et al (2014) [154], Royston and Parmar (2016) [149],
+Ditzhaus and Friedrich (2020) [32], Ditzhaus et al (2021) [42] and Ditzhaus and Pauly (2019)
+[155]. The approaches [154, 155, 32] suggest a combination of weighted log-rank statistics tar-
+geting a comprehensive range of alternatives. These tests can be applied with the R-package
+mdir.logrank. Ditzhaus et al (2021) [42] provide the R package GFDsurv for their proposed
+approach.
+For the application of newly proposed methods providing the corresponding software is of
+advantage. In some settings, numerical aspects are important in the development of such soft-
+ware. For most existing test statistics, Riemann integration is used. However, under complex
+NPH pattern involving high dimensional numerical integration this approach might not be
+feasible. Therefore, Tang [141] proposes a sample size and power calculation method for log-
+rank tests and RMST tests via product integration and provides sample SAS code as online
+supplementary material.
+15
+
+````
+
+## PDF page 45; PDF label 16
+
+Technical extraction; compare with original PDF page 45.
+
+````text
+S.4
+Classification of methods proposed in selected articles
+Table S2: Classification of methods proposed in selected articles. A description of the methods can be found in Section 5 and Section 6. The corresponding references
+for the IDs are given in S5
+Hypothesis Tests
+Effect Estimation and Regression Models
+ID
+Log-
+rank
+tests
+Kaplan-
+Meier
+(KM)
+based
+tests
+Combi-
+nation
+tests
+Other
+tests
+KM
+based
+esti-
+ma-
+tion
+Strat-
+ified
+Cox
+Time
+vary-
+ing
+co-
+effi-
+cients
+Trans-
+for-
+mation
+mod-
+els
+Short-
+and
+long-
+term
+HR
+Joint
+mod-
+els
+Frailty
+mod-
+els
+Para-
+metric
+Mod-
+els
+Ma-
+chine
+Learn-
+ing
+Other
+1
+x
+9
+x
+x
+x
+x
+14
+x
+x
+x
+x
+16
+x
+19
+x
+20
+x
+21
+x
+22
+x
+x
+26
+x
+27
+x
+28
+x
+30
+x
+x
+x
+39
+x
+x
+40
+x
+42
+x
+46
+x
+x
+53
+x
+56
+x
+x
+67
+x
+69
+x
+x
+x
+x
+x
+x
+72
+x
+75
+x
+x
+16
+
+````
+
+## PDF page 46; PDF label 17
+
+Technical extraction; compare with original PDF page 46.
+
+````text
+76
+x
+79
+x
+x
+81
+x
+83
+x
+84
+x
+86
+x
+x
+89
+x
+91
+x
+x
+92
+x
+95
+x
+96
+x
+97
+x
+x
+103
+x
+110
+x
+x
+113
+x
+116
+x
+118
+x
+x
+x
+119
+x
+x
+122
+x
+123
+x
+x
+126
+x
+134
+x
+136
+x
+x
+142
+x
+145
+x
+x
+148
+x
+149
+x
+x
+154
+x
+157
+x
+159
+x
+162
+x
+167
+x
+x
+17
+
+````
+
+## PDF page 47; PDF label 18
+
+Technical extraction; compare with original PDF page 47.
+
+````text
+169
+x
+x
+x
+174
+x
+176
+x
+184
+x
+188
+x
+195
+x
+201
+x
+207
+x
+213
+x
+235
+x
+x
+242
+x
+244
+x
+245
+x
+247
+x
+x
+251
+x
+256
+x
+265
+x
+x
+266
+x
+267
+x
+268
+x
+x
+x
+x
+269
+x
+x
+274
+x
+284
+x
+296
+x
+x
+313
+x
+328
+x
+335
+x
+343
+x
+347
+x
+359
+x
+x
+x
+x
+360
+x
+365
+x
+18
+
+````
+
+## PDF page 48; PDF label 19
+
+Technical extraction; compare with original PDF page 48.
+
+````text
+367
+x
+x
+376
+x
+x
+378
+x
+382
+x
+383
+x
+384
+x
+392
+x
+396
+x
+397
+x
+x
+402
+x
+404
+x
+413
+x
+417
+x
+422
+x
+424
+x
+425
+x
+427
+x
+x
+433
+x
+435
+x
+444
+x
+x
+445
+x
+446
+x
+x
+452
+x
+453
+x
+456
+x
+464
+x
+465
+x
+467
+x
+469
+x
+470
+x
+x
+482
+x
+501
+x
+x
+19
+
+````
+
+## PDF page 49; PDF label 20
+
+Technical extraction; compare with original PDF page 49.
+
+````text
+510
+x
+511
+x
+513
+x
+514
+x
+518
+x
+520
+x
+524
+x
+525
+x
+528
+x
+529
+x
+531
+x
+x
+535
+x
+539
+x
+542
+x
+550
+x
+553
+x
+568
+x
+x
+571
+x
+573
+x
+x
+575
+x
+586
+x
+588
+x
+x
+594
+x
+596
+x
+607
+x
+609
+x
+611
+x
+x
+613
+x
+614
+x
+x
+618
+x
+622
+x
+626
+x
+20
+
+````
+
+## PDF page 50; PDF label 21
+
+Technical extraction; compare with original PDF page 50.
+
+````text
+630
+x
+645
+x
+655
+x
+656
+x
+658
+x
+664
+x
+665
+x
+666
+x
+667
+x
+x
+676
+x
+677
+x
+681
+x
+682
+x
+689
+x
+x
+x
+694
+x
+699
+x
+700
+x
+701
+x
+711
+x
+716
+x
+x
+717
+x
+719
+x
+720
+x
+722
+x
+723
+x
+732
+x
+739
+x
+740
+x
+x
+745
+x
+751
+x
+755
+x
+773
+x
+x
+21
+
+````
+
+## PDF page 51; PDF label 22
+
+Technical extraction; compare with original PDF page 51.
+
+````text
+776
+x
+777
+x
+778
+x
+781
+x
+791
+x
+796
+x
+x
+797
+x
+804
+x
+813
+x
+821
+x
+834
+x
+M3
+x
+M5
+x
+x
+M6
+x
+M8
+x
+M9
+x
+M10
+x
+M11
+x
+M13
+x
+E2
+x
+E3
+x
+E11
+x
+x
+x
+x
+E15
+x
+x
+x
+E24
+x
+E31
+x
+x
+E33
+x
+x
+E37
+x
+E61
+x
+E65
+x
+S.5
+Classification of estimation methods
+22
+
+````
+
+## PDF page 52; PDF label 23
+
+Technical extraction; compare with original PDF page 52.
+
+````text
+Table S3: Classification of estimation methods (according to Section 5).
+A: KM based estimation approaches (S.2.1); B: stratified Cox (S.2.2); C.1: change point for time varying effect (S.2.3.1); C.2: other time covariate interaction for
+time-varying coefficients (S.2.3.2); C.3 fractional polynomials (S.2.3.3); C.4 splines (S.2.3.4); C.5: aHR and summary effect measures obtained through weighted
+partial likelihood (S.2.3.5); C.6: additive model (S.2.3.6); D: joint models (S.2.5); E: Short- and long-term HR (S.2.6); F: transformation models with time-covariate
+interaction (S.2.4); G: frailty models (S.2.7); H.1: piecewise exponential hazard (S.2.8.1); H.2: AFT and GAMLSS (S.2.8.2); H.3: FHT (S.2.8.3); H.4: GLMs and other
+parametric approaches (S.2.8.4); I.1 trees and forests (S.2.9); I.2 neural networks (S.2.9); I.3 kernel smoothing (S.2.9); I.4 other machine learning (S.2.9); J: other
+modelling approaches (S.2.10); K: Bayesian fitting approach
+ID
+A
+B
+C.1
+C.2
+C.3
+C.4
+C.5
+C.6
+D
+E
+F
+G
+H.1 H.2 H.3 H.4 I.1
+I.2
+I.3
+I.4
+J
+K
+14
+x
+x
+x
+x
+x
+16
+x
+20
+x
+x
+21
+x
+26
+x
+27
+x
+x
+x
+30
+x
+x
+42
+x
+46
+x
+x
+56
+x
+67
+x
+69
+x
+x
+x
+75
+x
+x
+x
+76
+x
+86
+x
+91
+x
+92
+x
+x
+97
+x
+103
+x
+x
+x
+110
+x
+x
+118
+x
+x
+122
+x
+x
+123
+x
+x
+126
+x
+142
+x
+23
+
+````
+
+## PDF page 53; PDF label 24
+
+Technical extraction; compare with original PDF page 53.
+
+````text
+149
+x
+157
+x
+169
+x
+x
+176
+x
+184
+x
+188
+x
+195
+x
+207
+x
+235
+x
+247
+x
+265
+x
+266
+x
+268
+x
+x
+269
+x
+274
+x
+284
+x
+313
+x
+328
+x
+335
+x
+x
+343
+x
+359
+x
+x
+x
+360
+x
+x
+365
+x
+367
+x
+x
+376
+x
+378
+x
+383
+x
+x
+396
+x
+397
+x
+404
+x
+417
+x
+422
+x
+24
+
+````
+
+## PDF page 54; PDF label 25
+
+Technical extraction; compare with original PDF page 54.
+
+````text
+424
+x
+425
+x
+433
+x
+435
+x
+445
+x
+446
+x
+452
+x
+453
+x
+456
+x
+464
+x
+469
+x
+470
+x
+482
+x
+501
+x
+x
+510
+x
+513
+x
+514
+x
+518
+x
+x
+524
+x
+525
+x
+528
+x
+529
+x
+531
+x
+535
+x
+539
+x
+542
+x
+550
+x
+553
+x
+568
+x
+x
+571
+x
+573
+x
+x
+x
+575
+x
+25
+
+````
+
+## PDF page 55; PDF label 26
+
+Technical extraction; compare with original PDF page 55.
+
+````text
+586
+x
+588
+x
+x
+594
+x
+596
+x
+607
+x
+609
+x
+611
+x
+x
+613
+x
+614
+x
+x
+x
+618
+x
+622
+x
+626
+x
+x
+645
+x
+655
+x
+656
+x
+658
+x
+x
+664
+x
+x
+665
+x
+666
+x
+667
+x
+x
+x
+x
+677
+x
+689
+x
+694
+x
+x
+699
+x
+700
+x
+711
+x
+716
+x
+x
+717
+x
+x
+719
+x
+720
+x
+722
+x
+723
+x
+26
+
+````
+
+## PDF page 56; PDF label 27
+
+Technical extraction; compare with original PDF page 56.
+
+````text
+732
+x
+739
+x
+740
+x
+x
+745
+x
+751
+x
+755
+x
+x
+773
+x
+777
+x
+x
+791
+x
+796
+x
+813
+x
+821
+x
+834
+x
+M13
+x
+x
+E3
+x
+E11
+x
+E31
+x
+E61
+x
+27
+
+````
+
+## PDF page 57; PDF label 28
+
+FORMULA CHECK REQUIRED: original PDF page 57.
+
+````text
+S.6
+Classification of articles including hypothesis tests
+Table S4: Classification of articles including hypothesis tests including the definition of the null hypothesis.
+Hypothesis Tests
+ID
+Log-
+rank
+tests
+Kaplan-
+Meier
+based
+tests
+Combi-
+nation
+tests
+Other
+tests
+S1(t) =
+S2(t)
+S1 (t) ≤
+S2(t)
+Other
+aver-
+age based null
+hypothesis
+Other/Not
+explicitly
+men-
+tioned
+Approach
+for
+sam-
+ple
+size
+calculation
+1
+x
+x
+x
+9
+x
+x
+x
+x
+x
+x (RMST)
+19
+x
+x
+22
+x
+x
+x
+x(milestone sur-
+vival)
+x
+28
+x
+x
+x
+30
+x
+x
+x
+39
+x
+x
+x
+40
+x
+x
+46
+x
+x(regression co-
+efficient)
+53
+x
+x(relative time)
+x
+56
+x
+x(window mean
+survival time)
+69
+x
+x
+x
+x
+x(RMST)
+x
+72
+x
+x
+x
+79
+x
+x
+x(HR)
+x
+81
+x
+x(HR)
+x
+83
+x
+x(HR)
+x
+84
+x
+x(HR)
+86
+x
+x
+89
+x
+x
+x
+91
+x
+x(HR)
+95
+x
+x(HR)
+x
+96
+x
+x
+x
+28
+
+````
+
+## PDF page 58; PDF label 29
+
+Technical extraction; compare with original PDF page 58.
+
+````text
+97
+x
+x(Survival
+median)
+113
+x
+x(HR non inferi-
+ority)
+x
+116
+x
+x
+x
+118
+x
+x(RMST)
+119
+x
+x
+x
+134
+x
+x
+136
+x
+x
+x
+145
+x
+x
+x
+148
+x
+x
+149
+x
+x
+154
+x
+x
+x
+159
+x
+x
+x
+162
+x
+x
+167
+x
+x
+x
+x
+169
+x
+x
+x
+174
+x
+x
+x
+201
+x
+x
+213
+x
+x
+x(RMST)
+235
+x
+x
+242
+x
+x
+244
+x
+x
+245
+x
+x(HR)
+247
+x
+x
+251
+x
+x
+x
+256
+x
+x
+x
+265
+x
+x(aHR non infe-
+riority)
+267
+x
+x(RMST)
+268
+x
+x
+x
+269
+x
+x
+29
+
+````
+
+## PDF page 59; PDF label 30
+
+Technical extraction; compare with original PDF page 59.
+
+````text
+296
+x
+x
+x(HR)
+x
+347
+x
+x
+359
+x
+x
+376
+x
+x(aHR)
+382
+x
+x
+384
+x
+x
+x
+392
+x
+x
+397
+x
+x
+402
+x
+x
+413
+x
+x(parameter)
+427
+x
+x
+x
+444
+x
+x
+x(HR)
+446
+x
+x(RMST)
+465
+x
+x
+x
+467
+x
+x
+470
+x
+x(RMST)
+x
+511
+x
+x
+520
+x
+x
+531
+x
+x
+630
+x
+x
+x
+676
+x
+x(HR non inferi-
+ority)
+681
+x
+x
+x
+682
+x
+x
+689
+x
+x
+x
+701
+x
+x
+x
+773
+x
+x
+x
+776
+x
+x
+x
+778
+x
+x(regression
+coefficient
+and
+HR)
+781
+x
+x
+30
+
+````
+
+## PDF page 60; PDF label 31
+
+Technical extraction; compare with original PDF page 60.
+
+````text
+796
+x
+x(RMST)
+797
+x
+x
+804
+x
+x
+M3
+x
+x
+M5
+x
+x
+x
+M6
+x
+x
+M8
+x
+x
+M9
+x
+x
+M10
+x
+x
+M11
+x
+x
+E2
+x
+x
+x
+E11
+x
+x
+x
+x
+x(RMST)
+E15
+x
+x
+x
+x
+x(RMST)
+E24
+x
+x(RMST)
+E31
+x
+x(HR)
+E33
+x
+x
+x
+E37
+x
+x(HR)
+x
+E65
+x
+x
+31
+
+````
+
+## PDF page 61; PDF label 32
+
+Technical extraction; compare with original PDF page 61.
+
+````text
+S.7
+Bibliographic information for all articles included in our systematic review
+Table S5: Bibliographic information for all articles included in our systematic review. IDs correspond to the original set of 907 articles screened during the review.
+IDs without any letters are the articles identified by the PUBMED search. The letter “M” indicates the results of the manual search and “E” the identified articles of
+the EMBASE search.
+ID
+DOI
+Title
+First
+Au-
+thor
+Source
+Year
+1
+10.1177/17407745211072848
+Design
+and
+analysis
+of
+group-
+sequential
+clinical
+trials
+based
+on
+a modestly weighted log-rank test in
+anticipation of a delayed separation of
+survival curves: A practical guidance
+Magirr D
+Clin Trials
+2022
+9
+10.1186/s12874-022-01520-
+0
+Which test for crossing survival curves?
+A user’s guideline
+Dormuth I
+BMC Med Res
+Methodol
+2022
+14
+10.1177/09622802211070253
+Challenges of modelling approaches
+for network meta-analysis of time-to-
+event outcomes in the presence of non-
+proportional hazards to aid decision
+making:
+Application to a melanoma
+network
+Freeman
+SC
+Stat
+Methods
+Med Res
+2022
+16
+10.1200/PO.20.00164
+Insights for Quantifying the Long-
+Term Benefit of Immunotherapy Using
+Quantile Regression
+Mboup B
+JCO
+Precis
+Oncol
+2021
+19
+10.1002/bimj.202000169
+Robust group sequential designs for tri-
+als with survival endpoints and delayed
+response
+Ghosh P
+Biom J
+2022
+20
+10.1016/j .ejca.2021.11.002
+Bayesian
+interpretation
+of
+im-
+munotherapy
+trials
+with
+dynamic
+treatment effects
+Castañon
+E
+Eur J Cancer
+2022
+32
+
+````
+
+## PDF page 62; PDF label 33
+
+Technical extraction; compare with original PDF page 62.
+
+````text
+21
+10.1001/-
+jamanetworkopen.2021.39573
+Assessment of Treatment Effects and
+Long-term Benefits in Immune Check-
+point Inhibitor Trials Using the Flexible
+Parametric Cure Model: A Systematic
+Review
+Filleron T
+JAMA
+Netw
+Open
+2021
+22
+10.1002/sim.9256
+Complex survival trial design by the
+product integration method
+Tang Y
+Stat Med
+2022
+26
+10.1177/09622802211041756
+Weighted pseudo-values for partly un-
+observed group membership in paedi-
+atric stem cell transplantation studies
+Mittlböck
+M
+Stat
+Methods
+Med Res
+2022
+27
+10.1002/sim.9259
+Using fractional polynomials and re-
+stricted cubic splines to model non-
+proportional hazards or time-varying
+covariate effects in the Cox regression
+model
+Austin PC
+Stat Med
+2022
+28
+10.1002/sim.9251
+M&M: A maximum duration design
+with the Maxcombo test for a group
+sequential trial of an immunotherapy
+with a random delayed treatment effect
+Li B
+Stat Med
+2022
+30
+10.1002/sim.9258
+Cancer immunotherapy trial design
+with random delayed treatment effect
+and cure rate
+Wu J
+Stat Med
+2022
+39
+10.1111/biom.13575
+CASANOVA: Permutation inference in
+factorial survival designs
+Ditzhaus
+M
+Biometrics
+2021
+40
+10.1080/10543406.2021
+.1979575
+Multi-arm multi-stage clinical trials for
+time-to-event outcomes
+Dixit V
+J
+Biopharm
+Stat
+2021
+42
+10.1002/bimj.202000292
+Nonproportional hazards model with
+a frailty term for modeling subgroups
+with evidence of long-term survivors:
+Application to a lung cancer dataset
+Gazon AB
+Biom J
+2022
+33
+
+````
+
+## PDF page 63; PDF label 34
+
+Technical extraction; compare with original PDF page 63.
+
+````text
+46
+10.1177/09622802211037076
+CauchyCP: A powerful test under non-
+proportional
+hazards
+using
+Cauchy
+combination of change-point Cox re-
+gressions
+Zhang H
+Stat
+Methods
+Med Res
+2021
+53
+10.1002/bimj.202000043
+Sample size calculation for two-arm
+trials with time-to-event endpoint for
+nonproportional
+hazards
+using
+the
+concept of Relative Time when infer-
+ence is built on comparing Weibull dis-
+tributions
+Phadnis
+MA
+Biom J
+2021
+56
+10.1002/sim.9138
+Window mean survival time
+Paukner M
+Stat Med
+2021
+67
+10.1016/j
+.cmpb.2021.106155
+Dynamic prediction and analysis based
+on restricted mean survival time in
+survival analysis with nonproportional
+hazards
+Yang Z
+Comput
+Methods Pro-
+grams Biomed
+2021
+69
+10.1016/j
+.critrevonc.2021.-
+103350
+Critical review of oncology clinical trial
+design under non-proportional hazards
+Anantha-
+krishnan
+R
+Crit Rev On-
+col Hematol
+2021
+72
+10.1186/s12874-021-01286-
+x
+Using the geometric average hazard ra-
+tio in sample size calculation for time-
+to-event data with composite endpoints
+Cortés
+Martínez J
+BMC Med Res
+Methodol
+2021
+75
+10.1111/biom.13478
+Semiparametric analysis of clustered
+interval-censored survival data using
+soft Bayesian additive regression trees
+(SBART)
+Basak P
+Biometrics
+2021
+76
+10.1001/jamaoncol.2021.0289
+Development
+and
+Evaluation
+of
+a
+Method to Correct Misinterpretation of
+Clinical Trial Results With Long-term
+Survival
+Hsu CY
+JAMA Oncol
+2021
+79
+10.1177/0962280220988570
+A unified approach to power and sam-
+ple size determination for log-rank
+tests under proportional and nonpro-
+portional hazards
+Tang Y
+Stat
+Methods
+Med Res
+2021
+34
+
+````
+
+## PDF page 64; PDF label 35
+
+Technical extraction; compare with original PDF page 64.
+
+````text
+81
+10.1002/pst.2116
+A simulation-free group sequential de-
+sign with max-combo tests in the pres-
+ence of non-proportional hazards
+Wang L
+Pharm Stat
+2021
+83
+10.1080/10543406.2020
+.1815035
+Statistical and practical considerations
+in designing of immuno-oncology trials
+Mukho-
+padhyay
+P
+J
+Biopharm
+Stat
+2020
+84
+10.1002/sim.8905
+On information fraction for Fleming-
+Harrington
+type
+weighted
+log-rank
+tests in a group-sequential clinical trial
+design
+Kundu MG
+Stat Med
+2021
+86
+10.1016/j
+.esmoop.2020
+.100043
+Cediranib in addition to chemother-
+apy for women with relapsed platinum-
+sensitive ovarian cancer (ICON6): over-
+all survival results of a phase III ran-
+domised trial
+Ledermann
+JA
+ESMO Open
+2021
+89
+10.1007/s10985-021-09517-
+5
+Testing equivalence of survival before
+but not after end of follow-up
+Furberg JK
+Lifetime Data
+Anal
+2021
+91
+10.1002/pst.2092
+A weighted log-rank test and associated
+effect estimator for cancer trials with
+delayed treatment effect
+Yu C
+Pharm Stat
+2021
+92
+10.1007/s10985-020-09514-
+0
+Semi-parametric survival analysis via
+Dirichlet process mixtures of the First
+Hitting Time model
+Race JA
+Lifetime Data
+Anal
+2021
+95
+10.1177/0962280220980780
+A group sequential design and sample
+size estimation for an immunotherapy
+trial with a delayed treatment effect
+Li B
+Stat
+Methods
+Med Res
+2021
+96
+10.1002/pst.2091
+Non-proportional hazards in immuno-
+oncology: Is an old perspective needed?
+Magirr D
+Pharm Stat
+2021
+97
+10.1177/0962280220980784
+Inferring median survival differences
+in general factorial designs via permu-
+tation tests
+Ditzhaus
+M
+Stat
+Methods
+Med Res
+2021
+35
+
+````
+
+## PDF page 65; PDF label 36
+
+Technical extraction; compare with original PDF page 65.
+
+````text
+103
+10.1093/biostatistics/kxaa044
+Bayesian design of clinical trials using
+joint models for longitudinal and time-
+to-event data
+Xu J
+Biostatistics
+2020
+110
+10.1002/sim.8694
+Design for immuno-oncology clinical
+trials enrolling both responders and
+nonresponders
+Xu Z
+Stat Med
+2020
+113
+10.1002/pst.2069
+Sample size calculation for log-rank
+test and prediction of number of events
+over time
+Lu K
+Pharm Stat
+2021
+116
+10.1002/pst.2060
+Cancer immunotherapy trial design
+with long-term survivors
+Ding X
+Pharm Stat
+2021
+118
+10.1186/s12874-020-01098-
+5
+Dynamic RMST curves for survival
+analysis in clinical trials
+Liao JJZ
+BMC Med Res
+Methodol
+2020
+119
+10.1002/pst.2062
+Delayed treatment effects, treatment
+switching and heterogeneous patient
+populations: How to design and ana-
+lyze RCTs in oncology
+Ristl R
+Pharm Stat
+2021
+122
+10.1016/j .jval.2020.03.010
+Nonproportional Hazards in Network
+Meta-Analysis: Efficient Strategies for
+Model Building and Analysis
+Wiksten A
+Value Health
+2020
+123
+10.1177/0962280220941532
+Functional survival forests for mul-
+tivariate longitudinal outcomes:
+Dy-
+namic prediction of Alzheimer’s dis-
+ease progression
+Lin J
+Stat
+Methods
+Med Res
+2021
+126
+10.1136/bmjopen-2019-
+033965
+Moving beyond the Cox proportional
+hazards model in survival data analy-
+sis: a cervical cancer study
+Li L
+BMJ Open
+2020
+134
+10.1111/biom.13315
+Optimality of testing procedures for
+survival data in the nonproportional
+hazards setting
+Arfè A
+Biometrics
+2021
+36
+
+````
+
+## PDF page 66; PDF label 37
+
+Technical extraction; compare with original PDF page 66.
+
+````text
+136
+10.1177/0962280220931560
+Group sequential monitoring based on
+the maximum of weighted log-rank
+statistics with the Fleming-Harrington
+class of weights in oncology clinical tri-
+als
+Prior TJ
+Stat
+Methods
+Med Res
+2020
+142
+10.1002/sim.8508
+A multiparameter regression model for
+interval-censored survival data
+Peng D
+Stat Med
+2020
+145
+10.1186/s13063-020-4153-2
+A simulation
+study
+comparing
+the
+power of nine tests of the treatment
+effect in randomized controlled trials
+with a time-to-event outcome
+Royston P
+Trials
+2020
+148
+10.1177/0962280220907355
+K-sample
+omnibus
+non-proportional
+hazards tests based on right-censored
+data
+Gorfine M
+Stat
+Methods
+Med Res
+2020
+149
+10.1186/s13045-020-0847-x
+Treating non-responders: pitfalls and
+implications for cancer immunother-
+apy trial design
+Xu Z
+J Hematol On-
+col
+2020
+154
+10.1002/pst.2003
+Designing cancer immunotherapy tri-
+als with delayed treatment effect using
+maximin efficiency robust statistics
+Ding X
+Pharm Stat
+2020
+157
+10.1109/TCBB.2020.2965934
+"Supervised Dimension Reduction for
+Large-Scale ""Omics"" Data With Cen-
+sored Survival Outcomes Under Possi-
+ble Non-Proportional Hazards"
+Spirko-
+Burns
+L
+IEEE/ACM
+Trans Comput
+Biol
+Bioin-
+form
+2021
+159
+10.1002/pst.1976
+Study design of single-arm phase II im-
+munotherapy trials with long-term sur-
+vivors and random delayed treatment
+effect
+Chu C
+Pharm Stat
+2020
+162
+10.1002/pst.2000
+A resampling-based test for two cross-
+ing survival curves
+Liu T
+Pharm Stat
+2020
+37
+
+````
+
+## PDF page 67; PDF label 38
+
+Technical extraction; compare with original PDF page 67.
+
+````text
+167
+10.1111/biom.13196
+Sample size and power for the weighted
+log-rank test and Kaplan-Meier based
+tests with allowance for nonpropor-
+tional hazards
+Yung G
+Biometrics
+2020
+169
+10.1002/sim.8440
+Cancer immunotherapy trial design
+with cure rate and delayed treatment
+effect
+Wei J
+Stat Med
+2020
+174
+10.1002/pst.1982
+Cancer immunotherapy trial design
+with delayed treatment effect
+Wu J
+Pharm Stat
+2020
+176
+10.1177/0962280219883905
+Long-term frailty modeling using a
+non-proportional hazards model: Ap-
+plication with a melanoma dataset
+Calsavara
+VF
+Stat
+Methods
+Med Res
+2020
+184
+10.1002/sim.8363
+Quantifying treatment effects using the
+personalized chance of longer survival
+Zhao YQ
+Stat Med
+2019
+188
+10.3389/fpubh.2019.00201
+Modeling Long-Term Graft Survival
+With Time-Varying Covariate Effects:
+An Application to a Single Kidney
+Transplant Centre in Johannesburg,
+South Africa
+Achilonu
+OJ
+Front
+Public
+Health
+2019
+195
+10.1177/0962280219862586
+Survival forests under test: Impact of
+the proportional hazards assumption
+on prognostic and predictive forests for
+amyotrophic lateral sclerosis survival
+Korepanova
+N
+Stat
+Methods
+Med Res
+2020
+201
+10.1002/sim.8186
+Modestly weighted log-rank tests
+Magirr D
+Stat Med
+2019
+207
+10.1016/j.jamcollsurg.2019 .-
+04.019
+A Tale of Two Kidneys: Differences in
+Graft Survival for Kidneys Allocated to
+Simultaneous Liver Kidney Transplant
+Compared with Contralateral Kidney
+from the Same Donor
+Cannon
+RM
+J
+Am
+Coll
+Surg
+2019
+213
+10.1186/s13063-019-3251-5
+Combined test versus log-rank/Cox
+test in 50 randomised trials
+Royston P
+Trials
+2019
+38
+
+````
+
+## PDF page 68; PDF label 39
+
+Technical extraction; compare with original PDF page 68.
+
+````text
+235
+10.1111/biom.13007
+Nonparametric group sequential meth-
+ods for evaluating survival benefit from
+multiple
+short-term
+follow-up
+win-
+dows
+Xia M
+Biometrics
+2019
+242
+10.1002/sim.7975
+Design and monitoring of survival tri-
+als in complex scenarios
+Luo X
+Stat Med
+2019
+244
+10.1002/sim.7958
+Interim monitoring using the adap-
+tively weighted log-rank test in clinical
+trials for survival outcomes
+Yang S
+Stat Med
+2019
+245
+10.1002/sim.7937
+Designing cancer immunotherapy tri-
+als with random treatment time-lag ef-
+fect
+Xu Z
+Stat Med
+2018
+247
+10.1002/sim.7936
+Nonparametric
+adaptive
+enrichment
+designs
+using
+categorical
+surrogate
+data
+Brückner
+M
+Stat Med
+2018
+251
+10.1002/pst.1878
+Weighted log-rank test for time-to-
+event data in immunotherapy trials
+with random delayed treatment effect
+and cure rate
+Liu S
+Pharm Stat
+2018
+256
+10.1111/biom.12916
+A robust approach to sample size calcu-
+lation in cancer immunotherapy trials
+with delayed treatment effect
+Ye T
+Biometrics
+2018
+265
+10.3414/ME17-01-0058
+The Average Hazard Ratio - A Good
+Effect Measure for Time-to-event End-
+points when the Proportional Hazard
+Assumption is Violated?
+Rauch G
+Methods
+Inf
+Med
+2018
+266
+10.1016/j
+.conctc.2017.09.004
+Estimation
+of
+treatment
+effects
+in
+weighted log-rank tests
+Lin RS
+Contemp
+Clin
+Trials
+Commun
+2017
+267
+10.1002/sim.7661
+A flexible and coherent test/estimation
+procedure based on restricted mean
+survival times for censored time-to-
+event data in randomized clinical trials
+Horiguchi
+M
+Stat Med
+2018
+39
+
+````
+
+## PDF page 69; PDF label 40
+
+Technical extraction; compare with original PDF page 69.
+
+````text
+268
+10.1002/sim.7676
+Improving testing and description of
+treatment effect in clinical trials with
+survival outcomes
+Yang S
+Stat Med
+2019
+269
+10.1177/1740774518769865
+A new modeling and inference ap-
+proach for the Systolic Blood Pressure
+Intervention Trial outcomes
+Yang S
+Clin Trials
+2018
+274
+10.1007/s10985-018-9428-5
+Improved precision in the analysis of
+randomized trials with survival out-
+comes, without assuming proportional
+hazards
+Díaz I
+Lifetime Data
+Anal
+2019
+284
+10.1186/s12874-017-0430-5
+Assessing the effect of a partly un-
+observed,
+exogenous,
+binary
+time-
+dependent
+covariate
+on
+survival
+probabilities using generalised pseudo-
+values
+Pötschger
+U
+BMC Med Res
+Methodol
+2018
+296
+10.1002/pst.1840
+Design considerations in clinical trials
+with cure rate survival data:
+A case
+study in oncology
+Sun S
+Pharm Stat
+2018
+313
+10.1002/sim.7421
+A clinical trial design using the concept
+of proportional time using the general-
+ized gamma ratio distribution
+Phadnis
+MA
+Stat Med
+2017
+328
+10.1136/bmj.j2250
+Life expectancy difference and life ex-
+pectancy ratio: two measures of treat-
+ment effects in randomised trials with
+non-proportional hazards
+Dehbi HM
+BMJ
+2017
+335
+10.1177/0962280216688034
+Flexible modeling of the hazard rate
+and treatment effects in long-term sur-
+vival studies
+Hagar Y
+Stat
+Methods
+Med Res
+2017
+343
+10.1111/biom.12625
+Multi-parameter
+regression
+survival
+modeling:
+An alternative to propor-
+tional hazards
+Burke K
+Biometrics
+2017
+347
+10.1002/sim.7157
+Designing therapeutic cancer vaccine
+trials with delayed treatment effect
+Xu Z
+Stat Med
+2017
+40
+
+````
+
+## PDF page 70; PDF label 41
+
+Technical extraction; compare with original PDF page 70.
+
+````text
+359
+10.1002/pst.1760
+Group sequential monitoring based on
+the weighted log-rank test statistic
+with the Fleming-Harrington class of
+weights in cancer vaccine studies
+Hasegawa
+T
+Pharm Stat
+2016
+360
+10.1186/s40064-016-2210-9
+Bayesian test for hazard ratio in sur-
+vival analysis
+Kim G
+Springerplus
+2016
+365
+10.1177/0962280216648724
+A censored quantile regression ap-
+proach for the analysis of time to event
+data
+Xue X
+Stat
+Methods
+Med Res
+2018
+367
+10.1177/0962280216642264
+Assessing methods for dealing with
+treatment switching in clinical trials: A
+follow-up simulation study
+Latimer
+NR
+Stat
+Methods
+Med Res
+2018
+376
+10.1007/s10985-016-9360-5
+Sequential tests for non-proportional
+hazards data
+Brückner
+M
+Lifetime Data
+Anal
+2017
+378
+10.1002/sim.6929
+Estimating restricted mean treatment
+effects with stacked survival models
+Wey A
+Stat Med
+2016
+382
+10.1186/s12874-016-0110-x
+Augmenting the logrank test in the de-
+sign of clinical trials in which non-
+proportional hazards of the treatment
+effect may be anticipated
+Royston P
+BMC Med Res
+Methodol
+2016
+383
+10.1002/sim.6893
+Nonparametric survival analysis us-
+ing Bayesian Additive Regression Trees
+(BART)
+Sparapani
+RA
+Stat Med
+2016
+384
+10.1002/sim.6889
+Design and analysis of clinical trials in
+the presence of delayed treatment effect
+Sit T
+Stat Med
+2016
+392
+10.1002/sim.6801
+Gaining power and precision by using
+model-based weights in the analysis of
+late stage cancer trials with substantial
+treatment switching
+Bowden J
+Stat Med
+2016
+396
+10.1177/0962280215605107
+An ensemble survival model for esti-
+mating relative residual longevity fol-
+lowing stroke: Application to mortality
+data in the chronic dialysis population
+Phadnis
+MA
+Stat
+Methods
+Med Res
+2017
+41
+
+````
+
+## PDF page 71; PDF label 42
+
+FORMULA CHECK REQUIRED: original PDF page 71.
+
+````text
+397
+10.1080/10543406.2015.-
+1094809
+Interim analysis based on the weighted
+log-rank test for delayed treatment ef-
+fects under staggered patient entry
+Yoshida M
+J
+Biopharm
+Stat
+2016
+402
+10.1002/sim.6591
+A versatile test for equality of two sur-
+vival functions based on weighted dif-
+ferences of Kaplan-Meier curves
+Uno H
+Stat Med
+2015
+404
+10.1016/S1470-
+2045(15)00086-8
+Standard chemotherapy with or with-
+out
+bevacizumab
+for
+women
+with
+newly
+diagnosed
+ovarian
+cancer
+(ICON7): overall survival results of a
+phase 3 randomised trial
+Oza AM
+Lancet Oncol
+2015
+413
+10.1016/j .cct.2015.05.018
+Design of clinical trials with failure-
+time endpoints and interim analyses:
+An update after fifteen years
+He P
+Contemp Clin
+Trials
+2015
+417
+10.1371/journal.-
+pone.0123784
+Analysis of time to event outcomes in
+randomized controlled trials by gener-
+alized additive models
+Argyro-
+poulos
+C
+PLoS One
+2015
+422
+10.1111/tri.12568
+Post-transplant survival is improved
+for hepatitis C recipients who are RNA
+negative at time of liver transplantation
+Fortune
+BE
+Transpl Int
+2015
+424
+10.1515/ijb-2014-0006
+Conditional transformation models for
+survivor function estimation
+Möst L
+Int J Biostat
+2015
+425
+10.1002/sim.6453
+Assessing potentially time-dependent
+treatment effect from clinical trials
+and observational studies for survival
+data, with applications to the Women’s
+Health Initiative combined hormone
+therapy trial
+Yang S
+Stat Med
+2015
+427
+10.1371/journal.pone
+.-
+0116774
+Statistical inference methods for two
+crossing survival curves: a comparison
+of methods
+Li H
+PLoS One
+2015
+42
+
+````
+
+## PDF page 72; PDF label 43
+
+FORMULA CHECK REQUIRED: original PDF page 72.
+
+````text
+433
+10.1177/0962280214557578
+Adjusting for treatment switching in
+randomised controlled trials - A simu-
+lation study and a simplified two-stage
+method
+Latimer
+NR
+Stat
+Methods
+Med Res
+2017
+435
+10.1002/sim.6356
+A model for time to fracture with a
+shock stream superimposed on pro-
+gressive degradation: the Study of Os-
+teoporotic Fractures
+He X
+Stat Med
+2015
+444
+10.1186/1745-6215-15-314
+An approach to trial design and analy-
+sis in the era of non-proportional haz-
+ards of the treatment effect
+Royston P
+Trials
+2014
+445
+10.1007/s10985-014-9301-0
+Quantifying the average of the time-
+varying hazard ratio via a class of trans-
+formations
+Chen Q
+Lifetime Data
+Anal
+2015
+446
+10.1200/JCO.2014.55.2208
+Moving beyond the hazard ratio in
+quantifying the between-group differ-
+ence in survival analysis
+Uno H
+J Clin Oncol
+2014
+452
+10.1016/S1470-
+2045(14)70189-5
+Ipilimumab versus placebo after ra-
+diotherapy in patients with metastatic
+castration-resistant
+prostate
+cancer
+that had progressed after docetaxel
+chemotherapy (CA184-043):
+a mul-
+ticentre,
+randomised,
+double-blind,
+phase 3 trial
+Kwon ED
+Lancet Oncol
+2014
+453
+10.1016/j .spl.2013.03.007
+On penalized likelihood estimation for
+a non-proportional hazards regression
+model
+Devarajan
+K
+Stat
+Probab
+Lett
+2013
+456
+10.1002/sim.6178
+Impact of the model-building strategy
+on inference about nonlinear and time-
+dependent covariate effects in survival
+analysis
+Wynant W
+Stat Med
+2014
+43
+
+````
+
+## PDF page 73; PDF label 44
+
+Technical extraction; compare with original PDF page 73.
+
+````text
+464
+10.1002/sim.6105
+Likelihood approaches for proportional
+likelihood
+ratio
+model
+with
+right-
+censored data
+Zhu H
+Stat Med
+2014
+465
+10.1002/pst.1609
+Sample
+size
+determination
+for
+the
+weighted
+log-rank
+test
+with
+the
+Fleming-Harrington class of weights in
+cancer vaccine studies
+Hasegawa
+T
+Pharm Stat
+2014
+467
+10.1080/07474946.2014
+.856635
+Flexibly Monitoring Group Sequential
+Survival Trials When Testing is Based
+Upon a Weighted Log-Rank Statistic
+Brummel
+SS
+Seq Anal
+2014
+469
+10.1111/biom.12097
+Efficient semiparametric estimation of
+short-term and long-term hazard ratios
+with right-censored data
+Diao G
+Biometrics
+2013
+470
+10.1186/1471-2288-13-152
+Restricted mean survival time: an alter-
+native to the hazard ratio for the design
+and analysis of randomized trials with
+a time-to-event outcome
+Royston P
+BMC Med Res
+Methodol
+2013
+482
+10.1002/sim.5961
+Model
+building
+in
+nonproportional
+hazard regression
+Rodríguez-
+Girondo
+M
+Stat Med
+2013
+501
+10.1002/sim.5673
+A K-nearest neighbors survival proba-
+bility prediction method
+Lowsky DJ
+Stat Med
+2013
+510
+10.1080/10543406.2011
+.616973
+A threshold hazard model for esti-
+mating serious infection risk following
+anti-tumor necrosis factor therapy in
+rheumatoid arthritis patients
+Fu B
+J
+Biopharm
+Stat
+2013
+511
+10.1080/10543406.2011.-
+616975
+Power comparisons for group sequen-
+tial tests with nonparametric statistics
+in case of nonproportional hazards
+Demirhan
+H
+J
+Biopharm
+Stat
+2013
+513
+10.1155/2013/796270
+Additive hazard regression models: an
+application to the natural history of hu-
+man papillomavirus
+Xie X
+Comput Math
+Methods Med
+2013
+44
+
+````
+
+## PDF page 74; PDF label 45
+
+Technical extraction; compare with original PDF page 74.
+
+````text
+514
+10.1111/biom.12002
+Estimating time to disease progression
+comparing transition models and sur-
+vival methods–an analysis of multiple
+sclerosis data
+Mandel M
+Biometrics
+2013
+518
+10.1177/0962280212473348
+Estimating efficacy in the presence of
+non-ignorable non-trial interventions
+in the Helsinki Psychotherapy Study
+Härkänen
+T
+Stat
+Methods
+Med Res
+2016
+520
+10.1186/2051-1426-1-18
+Statistical issues
+and challenges
+in
+immuno-oncology
+Chen TT
+J Immunother
+Cancer
+2013
+524
+10.1007/s10985-012-9234-4
+Estimation of odds of concordance
+based on the Aalen additive model
+Martinussen
+T
+Lifetime Data
+Anal
+2013
+525
+10.1371/journal.pone
+.-
+0047804
+A flexible alternative to the Cox propor-
+tional hazards model for assessing the
+prognostic accuracy of hospice patient
+survival
+Miladinovic
+B
+PLoS One
+2012
+528
+10.1186/1471-2369-13-130
+All-cause and cause-specific mortality
+associated with diabetes in prevalent
+hemodialysis patients
+Sattar A
+BMC Nephrol
+2012
+529
+10.1111/j.1541-
+0420.2012.01784.x
+A
+general
+class
+of
+semiparametric
+transformation frailty models for non-
+proportional hazards survival data
+Choi S
+Biometrics
+2012
+531
+10.1177/1740774512455464
+Utilizing the integrated difference of
+two survival functions to quantify the
+treatment contrast for designing, mon-
+itoring, and analyzing a comparative
+clinical study
+Zhao L
+Clin Trials
+2012
+535
+10.1007/s10985-012-9224-6
+Robust inference in discrete hazard
+models for randomized clinical trials
+Nguyen
+VQ
+Lifetime Data
+Anal
+2012
+539
+10.1002/sim.5440
+Estimation of treatment effect under
+non-proportional hazards and condi-
+tionally independent censoring
+Boyd AP
+Stat Med
+2012
+45
+
+````
+
+## PDF page 75; PDF label 46
+
+Technical extraction; compare with original PDF page 75.
+
+````text
+542
+10.1007/s10985-012-9222-8
+Estimation of treatment effects based
+on possibly misspecified Cox regres-
+sion
+Hattori S
+Lifetime Data
+Anal
+2012
+550
+10.1056/NEJMoa1103799
+A phase 3 trial of bevacizumab in ovar-
+ian cancer
+Perren TJ
+N Engl J Med
+2011
+553
+10.1111/j.1541-
+0420.2011.01696.x
+Empirical likelihood for cumulative
+hazard ratio estimation with covariate
+adjustment
+Dong B
+Biometrics
+2012
+568
+10.1002/sim.4274
+The use of restricted mean survival
+time to estimate the treatment effect
+in randomized clinical trials when the
+proportional hazards assumption is in
+doubt
+Royston P
+Stat Med
+2011
+571
+10.1007/s00405-011-1601-3
+A critical appraisal of different survival
+techniques in oral cancer patients
+Köhler HF
+Eur
+Arch
+Otorhino-
+laryngol
+2012
+573
+10.1080/02664760903521476
+Bayesian Parametric Accelerated Fail-
+ure Time Spatial Model and its Appli-
+cation to Prostate Cancer
+Zhang J
+J Appl Stat
+2011
+575
+10.1007/s10985-011-9195-z
+Efficiency improvement in a class of
+survival models through model-free co-
+variate incorporation
+Garcia TP
+Lifetime Data
+Anal
+2011
+586
+10.1001/archinternmed.2010
+.352
+Similar outcomes with hemodialysis
+and peritoneal dialysis in patients with
+end-stage renal disease
+Mehrotra
+R
+Arch
+Intern
+Med
+2011
+588
+10.1093/biostatistics/kxq061
+Estimation of the 2-sample hazard ratio
+function using a semiparametric model
+Yang S
+Biostatistics
+2011
+594
+10.1111/j.1541-
+0420.2010.01449.x
+Double inverse-weighted estimation of
+cumulative
+treatment
+effects
+under
+nonproportional hazards and depen-
+dent censoring
+Schaubel
+DE
+Biometrics
+2011
+46
+
+````
+
+## PDF page 76; PDF label 47
+
+Technical extraction; compare with original PDF page 76.
+
+````text
+596
+10.1111/j.1365-
+2753.2009.01190.x
+SAS macros for point and interval esti-
+mation of area under the receiver op-
+erating characteristic curve for non-
+proportional and proportional hazards
+Weibull models
+Mannan H
+J
+Eval
+Clin
+Pract
+2010
+607
+10.1093/bioinformatics/
+btq035
+Gene
+selection
+in
+microarray
+sur-
+vival
+studies
+under
+possibly
+non-
+proportional hazards
+Dunkler D
+Bioinformatics
+2010
+609
+Estimating a scale-change effect for
+time-varying phenotypes in genome-
+wide association studies
+Chen YQ
+J Appl Statist
+Sci
+2010
+611
+10.1002/bimj.200800244
+An accelerated failure time mixture
+cure model with masked event
+Zhang JJ
+Biom J
+2009
+613
+10.1007/s10985-009-9132-6
+Confidence intervals for the first cross-
+ing point of two hazard functions
+Cheng MY
+Lifetime Data
+Anal
+2009
+614
+10.1093/biostatistics/kxp041
+Bayesian random-effects threshold re-
+gression with application to survival
+data with nonproportional hazards
+Pennell
+ML
+Biostatistics
+2010
+618
+10.1002/sim.3686
+A semi-parametric threshold regres-
+sion analysis of sexually transmitted in-
+fections in adolescent women
+Yu Z
+Stat Med
+2009
+622
+10.1002/sim.3623
+The estimation of average hazard ratios
+by weighted Cox regression
+Schemper
+M
+Stat Med
+2009
+626
+10.1111/j.1541-
+0420.2008.01166.x
+Bayesian
+nonparametric
+nonpropor-
+tional hazards survival modeling
+De Iorio M
+Biometrics
+2009
+630
+10.1002/sim.3501
+Power and sample size calculation for
+log-rank test with a time lag in treat-
+ment effect
+Zhang D
+Stat Med
+2009
+645
+10.1111/j.1541-
+0420.2007.00947.x
+Estimating cumulative treatment ef-
+fects in the presence of nonpropor-
+tional hazards
+Wei G
+Biometrics
+2008
+47
+
+````
+
+## PDF page 77; PDF label 48
+
+Technical extraction; compare with original PDF page 77.
+
+````text
+655
+10.1002/bimj.200610328
+A new proposal for multivariable mod-
+elling of time-varying effects in sur-
+vival data based on fractional polyno-
+mial time-transformation
+Sauerbrei
+W
+Biom J
+2007
+656
+10.1002/bimj.200510325
+A
+partial
+likelihood
+approach
+to
+smooth estimation of dynamic covari-
+ate effects using penalised splines
+Brown D
+Biom J
+2007
+658
+10.1007/s10985-007-9035-3
+Bayesian analysis of generalized odds-
+rate hazards models for survival data
+Banerjee T
+Lifetime Data
+Anal
+2007
+664
+10.1111/j.1541-
+0420.2006.00571.x
+Bayesian
+semiparametric
+dynamic
+frailty models for multiple event time
+data
+Pennell
+ML
+Biometrics
+2006
+665
+10.1534/genetics.106.059808
+Mapping temporally varying quantita-
+tive trait loci in time-to-failure experi-
+ments
+Johannes F
+Genetics
+2007
+666
+10.1002/pst .213
+Comparing proportional hazards and
+accelerated failure time models: an ap-
+plication in influenza
+Patel K
+Pharm Stat
+2006
+667
+10.1002/sim.2729
+Approaches in modelling long-term
+survival: an application to breast can-
+cer
+Perperoglou
+A
+Stat Med
+2007
+676
+10.1080/10543400600614791
+Testing
+for
+crossover
+of
+two
+haz-
+ard functions using Gail and Simon’s
+method
+Chen YH
+J
+Biopharm
+Stat
+2006
+677
+10.1007/s10549-006-9231-y
+Effects of estrogen receptor expression
+and histopathology on annual hazard
+rates of death from breast cancer
+Anderson
+WF
+Breast Cancer
+Res Treat
+2006
+681
+10.1002/sim.2517
+Evaluation of sample size and power
+for multi-arm survival trials allow-
+ing
+for
+non-uniform
+accrual,
+non-
+proportional hazards, loss to follow-up
+and cross-over
+Barthel
+FM
+Stat Med
+2006
+48
+
+````
+
+## PDF page 78; PDF label 49
+
+Technical extraction; compare with original PDF page 78.
+
+````text
+682
+10.1002/gepi.20132
+Family-based association test for time-
+to-onset data with time-dependent dif-
+ferences between the hazard functions
+Jiang H
+Genet
+Epi-
+demiol
+2006
+689
+10.1002/sim.2248
+Interim analysis on survival data: its
+potential bias and how to repair it
+van
+Houwelin-
+gen HC
+Stat Med
+2005
+694
+10.1007/s10985-004-0384-x
+Bayesian model selection and averag-
+ing in additive and proportional haz-
+ards models
+Dunson
+DB
+Lifetime Data
+Anal
+2005
+699
+10.1016/j
+.compbiolchem.-
+2005.02.001
+Survival analysis of microarray expres-
+sion data by transformation models
+Xu J
+Comput
+Biol
+Chem
+2005
+700
+10.1111/j.0006-
+341X.2005.030814.x
+Survival model predictive accuracy and
+ROC curves
+Heagerty
+PJ
+Biometrics
+2005
+701
+10.1111/j.0006-
+341X.2005.031206.x
+A sample size formula for the supre-
+mum log-rank statistic
+Eng KH
+Biometrics
+2005
+711
+10.1023/b:
+lida.0000019255.21735.9b
+Incorporating follow-up time in M-
+estimation for survival data
+Heller G
+Lifetime Data
+Anal
+2004
+716
+10.1002/sim.1618
+Parametric
+randomization-based
+methods for correcting for treatment
+changes in the assessment of the causal
+effect of treatment
+Walker AS
+Stat Med
+2004
+717
+The effect of sample size and MLP ar-
+chitecture on Bayesian learning for can-
+cer prognosis–a case study
+Trinh QA
+Stud
+Health
+Technol
+In-
+form
+2003
+719
+10.1002/sim.1484
+A relative survival regression model us-
+ing B-spline functions to model non-
+proportional hazards
+Giorgi R
+Stat Med
+2003
+720
+10.1093/biostatistics/1.4.423
+Estimating average regression effect
+under non-proportional hazards
+Xu R
+Biostatistics
+2000
+722
+Assessing
+time-by-covariate
+interac-
+tions in relative survival models using
+restrictive cubic spline functions
+Bolard P
+J Cancer Epi-
+demiol Prev
+2002
+49
+
+````
+
+## PDF page 79; PDF label 50
+
+FORMULA CHECK REQUIRED: original PDF page 79.
+
+````text
+723
+10.1002/sim.1411
+Dynamic Cox modelling based on frac-
+tional polynomials: time-variations in
+gastric cancer prognosis
+Berger U
+Stat Med
+2003
+732
+10.1002/sim.1203
+Flexible
+parametric
+proportional-
+hazards and proportional-odds models
+for censored survival data, with ap-
+plication to prognostic modelling and
+estimation of treatment effects
+Royston P
+Stat Med
+2002
+739
+10.1111/j.0006-
+341x.2002.00443.x
+Generalized
+additive
+models
+with
+interval-censored
+data
+and
+time-
+varying
+covariates:
+application
+to
+human immunodeficiency virus infec-
+tion in hemophiliacs
+Bacchetti P
+Biometrics
+2002
+740
+10.1111/j.0006-
+341x.2002.00305.x
+Survival analysis with time-varying re-
+gression effects using a tree-based ap-
+proach
+Xu R
+Biometrics
+2002
+745
+10.1002/sim.1061
+Estimation of the survival function for
+Gray’s piecewise-constant time-varying
+coefficients model
+Valenta Z
+Stat Med
+2002
+751
+10.1016/s0895-
+4356(01)00363-8
+Modelling time-dependent hazard ra-
+tios in relative survival: application to
+colon cancer
+Bolard P
+J
+Clin
+Epi-
+demiol
+2001
+755
+10.1111/j.0006-
+341x.1999.00585.x
+Bayesian analysis and model selection
+for interval-censored survival data
+Sinha D
+Biometrics
+1999
+773
+10.1002/(
+sici)1097-
+0258(19991015)18:19 <2617-
+::aid-sim187>3.0.co;2-e"
+Randomization-based methods for cor-
+recting for treatment changes: exam-
+ples from the Concorde trial
+White IR
+Stat Med
+1999
+776
+10.1002/(
+sici)1097-
+0258(19981115)17:21<2525-
+::aid-sim936>3.0.co;2-e"
+Sample size determination in complex
+clinical trials comparing more than two
+groups for survival endpoints
+Ahnn S
+Stat Med
+1998
+777
+10.1023/a:1009673932333
+Flexible Bayesian modelling for sur-
+vival data
+Gustafson
+P
+Lifetime Data
+Anal
+1998
+50
+
+````
+
+## PDF page 80; PDF label 51
+
+FORMULA CHECK REQUIRED: original PDF page 80.
+
+````text
+778
+10.1023/a:1009689630516
+Frailty models and rank tests
+Oakes D
+Lifetime Data
+Anal
+1998
+781
+A method for sequential analysis of sur-
+vival data with nonproportional haz-
+ards
+Soori-
+yarachchi
+MR
+Biometrics
+1998
+791
+10.1002/(sici)1097-
+0258(19970830)16:16<1831-
+::aid-sim617>3.0.co;2-m
+On a non-proportional hazards regres-
+sion model for repeated medical ran-
+dom counts
+Mackenzie
+G
+Stat Med
+1997
+796
+10.1016/s0197-
+2456(96)00089-x
+Use of Irwin’s restricted mean as an
+index for comparing survival in dif-
+ferent treatment groups–interpretation
+and power considerations
+Karrison
+TG
+Control
+Clin
+Trials
+1997
+797
+10.1002/(sici)1097-
+0258(19970330)16:6<695-
+::aid-sim436>3.0.co;2-c
+A partially grouped log-rank test
+Sposto R
+Stat Med
+1997
+804
+Some permutation tests for survival
+data
+Sun Y
+Biometrics
+1996
+813
+10.1016/0304-
+3835(94)90095-7
+A technique for using neural network
+analysis to perform survival analysis of
+censored data
+De
+Lau-
+rentiis
+M
+Cancer Lett
+1994
+821
+A nonproportional hazards Weibull ac-
+celerated failure time regression model
+Anderson
+KM
+Biometrics
+1991
+834
+Survival analysis of drug combina-
+tions using a hazards model with time-
+dependent covariates
+Stablein
+DM
+Biometrics
+1980
+M3
+10.1111/j.0006-
+341X.2001.00837.x
+Maximum of the Weighted Kaplan-
+Meier Tests with Application to Cancer
+Prevention and Screening Trials
+Shen Y
+Biometrics
+2001
+M5
+10.1093/biomet/64.1.156
+On distribution-free tests for equality
+of survival distributions
+Tarone RE
+Biometrika
+1977
+M6
+10.1002/bimj.200310053
+A new testing approach for compar-
+ing the overall homogeneity of survival
+curves
+Lin X
+Biometrical
+2004
+51
+
+````
+
+## PDF page 81; PDF label 52
+
+FORMULA CHECK REQUIRED: original PDF page 81.
+
+````text
+M8
+10.2307/2556114
+Modified
+Kolmogorov-Smirnov
+test
+procedures with application to arbi-
+trarily right-censored data
+Fleming
+TR
+Biometrics
+1980
+M9
+10.1002/pst.376
+A new method for the comparison of
+survival distributions
+Lin X
+Pharm
+Stat
+9(1): 67–76
+2010
+M10
+A two-stage procedure for comparing
+hazard rate functions
+Qiu P
+J R Statist Soc
+B 70(1): 191–
+208
+2008
+M11
+10.1081/SAC-100107779
+Some versatile tests based on the simul-
+taneous use of weighted log-rank and
+weighted kaplan-meier statistics
+Chi Y
+Commun Stat
+30(4):743–759
+2001
+M13
+10.1093/biomet/92.1.1
+Semiparametric analysis of short-term
+and long-term hazard ratios with two-
+sample survival data
+Yang S
+Biometrika
+2005;
+92:
+1–17
+2005
+E2
+10.1007/s12561-0 21-09316-
+4
+Sample Size Re-estimation with the
+Com-Nougue
+Method
+to
+Evaluate
+Treatment Effect
+Wang J.
+Statistics
+in
+Biosciences
+(2022)
+14:1
+(90-103). Date
+of
+Publica-
+tion:
+1 Apr
+2022
+2022
+E3
+10.1080/19466315.2020.-
+1801496
+An Assessment of the Treatment Effect
+in Treatment of Physician Choice Trials
+Mpofu
+P.,
+Karuri
+S.W.
+Statistics
+in
+Biopharma-
+ceutical
+Re-
+search (2022)
+14:1
+(103-
+113).
+Date of
+Publication:
+2022
+2022
+52
+
+````
+
+## PDF page 82; PDF label 53
+
+FORMULA CHECK REQUIRED: original PDF page 82.
+
+````text
+E11
+10.1007/s12561-020-09276-
+1
+On Weighted Log-Rank Combination
+Tests and Companion Cox Model Esti-
+mators
+León
+L.F.,
+Lin
+R.,
+Anderson
+K.M.
+Statistics
+in
+Biosciences
+(2020)
+12:2
+(225-245).
+Date of Pub-
+lication: 1 Jul
+2020
+2020
+E15
+10.1080/19466315.2019
+.1697738
+Alternative Analysis Methods for Time
+to Event Endpoints Under Nonpropor-
+tional Hazards: A Comparative Analy-
+sis
+Lin
+R.S.,
+Lin
+J.,
+Roychoud-
+hury
+S.,
+Anderson
+K.M.,
+Hu
+T.,
+Huang
+B.,
+Leon
+L.F.,
+Liao
+J.J.Z.,
+Liu
+R., Luo X.,
+Mukhopad-
+hyay
+P.,
+Qin
+R.,
+Tatsuoka
+K.,
+Wang
+X.,
+Wang
+Y., Zhu J.,
+Chen T.-T.,
+Iacona R.
+Statistics
+in
+Biophar-
+maceutical
+Research
+(2020)
+12:2
+(187-198).
+Date of Publi-
+cation: 2 Apr
+2020
+2020
+53
+
+````
+
+## PDF page 83; PDF label 54
+
+FORMULA CHECK REQUIRED: original PDF page 83.
+
+````text
+E24
+10.1080/19466315.2018
+.1527249
+Difference in Restricted Mean Survival
+Time: Small Sample Distribution and
+Asymptotic Relative Efficiency
+Lawrence
+J.,
+Qiu
+J.,
+Bai
+S.,
+Hung
+H.M.J.
+Statistics
+in
+Biophar-
+maceutical
+Research
+(2019)
+11:1
+(61-66).
+Date
+of
+Publica-
+tion:
+2
+Jan
+2019
+2019
+E31
+10.1016/j.conctc.2017.09.004
+Estimation
+of
+treatment
+effects
+in
+weighted log-rank tests
+Lin
+R.S.,
+León L.F.
+Contemporary
+Clinical Trials
+Communica-
+tions
+(2017)
+8
+(147-155).
+Date of Publi-
+cation: 1 Dec
+2017
+2017
+E33
+10.1080/19466315.2016
+.1257436
+Testing Treatment Effect in Random-
+ized Clinical Trials With Possible Non-
+proportional Hazards
+Callegaro
+A.,
+Spiessens
+B.
+Statistics
+in
+Biophar-
+maceutical
+Research
+(2017)
+9:2
+(204-211).
+Date of Publi-
+cation: 3 Apr
+2017
+2017
+54
+
+````
+
+## PDF page 84; PDF label 55
+
+FORMULA CHECK REQUIRED: original PDF page 84.
+
+````text
+E37
+10.1080/19466315.2016.-
+1207560
+Sample Size and Power of Survival Tri-
+als in Group Sequential Design With
+Delayed Treatment Effect
+Zhang
+J.,
+Pulkstenis
+E.
+Statistics
+in
+Biophar-
+maceutical
+Research
+(2016)
+8:3
+(268-275).
+Date of Pub-
+lication: 2 Jul
+2016
+2016
+E61
+10.2202/1557-4679.1125
+Fitting smooth-in-time prognostic risk
+functions via logistic regression
+Hanley
+J.A.,
+Mi-
+ettinen
+O.S.
+International
+Journal
+of
+Biostatistics
+(2009) 5:1 Ar-
+ticle Number:
+3.
+Date of
+Publication:
+2009
+2009
+E65
+10.1177/009286150-
+704100412
+Consequences of delayed treatment ef-
+fects on analysis of time-to-event end-
+points
+Fine G.D.
+Drug
+In-
+formation
+Journal (2007)
+41:4
+(535-
+539).
+Date of
+Publication:
+2007
+2007
+55
+
+````
+
+## PDF page 85; PDF label 56
+
+FORMULA CHECK REQUIRED: original PDF page 85.
+
+````text
+References
+[1] Ananthakrishnan R, Green S, Previtali A et al. Critical review of oncology clinical trial
+design under non-proportional hazards. Critical reviews in oncology/hematology 2021;
+162: 103350. DOI:10.1016/j.critrevonc.2021.103350.
+[2] Xu R and Adak S. Survival analysis with time-varying regression effects using a tree-
+based approach.
+Biometrics 2002; 58(2): 305–315.
+DOI:10.1111/j.0006-341x.2002.
+00305.x.
+[3] Latimer NR, Abrams KR, Lambert PC et al. Assessing methods for dealing with treat-
+ment switching in clinical trials: A follow-up simulation study.
+Statistical Methods
+in Medical Research 2018; 27(3): 765–784.
+DOI:10.1177/0962280216642264.
+URL
+https://doi.org/10.1177/0962280216642264. PMID: 27114326.
+[4] Dormuth I, Liu T, Xu J et al. Which test for crossing survival curves? a user’s guideline.
+BMC medical research methodology 2022; 22(1): 34. DOI:10.1186/s12874-022-01520-0.
+[5] Royston P and Parmar MKB. A simulation study comparing the power of nine tests of
+the treatment effect in randomized controlled trials with a time-to-event outcome. Trials
+2020; 21(1): 315. DOI:10.1186/s13063-020-4153-2.
+[6] Borghaei H, Paz-Ares L, Horn L et al. Nivolumab versus docetaxel in advanced nonsqua-
+mous non-small-cell lung cancer. The New England journal of medicine 2015; 373(17):
+1627–1639. DOI:10.1056/NEJMoa1507643. URL https://pubmed.ncbi.nlm.nih.gov/
+26412456/.
+[7] Rohatgi A.
+Webplotdigitizer:
+Version 4.6, 2022.
+URL https://automeris.io/
+WebPlotDigitizer.
+[8] Guyot P, Ades AE, Ouwens MJNM et al.
+Enhanced secondary analysis of survival
+data: reconstructing the data from published kaplan-meier survival curves. BMC Med-
+ical Research Methodology 2012; 12(1): 9. DOI:10.1186/1471-2288-12-9. URL https:
+//bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-12-9.
+[9] Jachno K, Heritier S and Wolfe R. Are non-constant rates and non-proportional treat-
+ment effects accounted for in the design and analysis of randomised controlled trials? a
+review of current practice. BMC Medical Research Methodology 2019; 19(1): 103. DOI:
+10.1186/s12874-019-0749-1. URL https://pubmed.ncbi.nlm.nih.gov/31096924/.
+[10] Xu R and O’Quigley J.
+Estimating average regression effect under non-proportional
+hazards. Biostatistics (Oxford, England) 2000; 1(4): 423–439. DOI:10.1093/biostatistics/
+1.4.423.
+[11] Page MJ, McKenzie JE, Bossuyt PM et al. The prisma 2020 statement: An updated guide-
+line for reporting systematic reviews. PLOS Medicine 2021; 18(3): 1–15. DOI:10.1371/
+journal.pmed.1003583. URL https://doi.org/10.1371/journal.pmed.1003583.
+[12] Klein JP and Moeschberger ML. Survival Analysis: Techniques for Censored and Truncated
+Data. Second edition ed. Statistics for Biology and Health, New York, NY: Springer New
+York, 2003. ISBN 978-0-387-21645-4.
+[13] Fortunato S, Bergstrom CT, Börner K et al. Science of science. Science 2018; 359(6379):
+eaao0185. DOI:10.1126/science.aao0185. URL https://www.science.org/doi/abs/
+10.1126/science.aao0185.
+[14] Uno H, Claggett B, Tian L et al. Moving beyond the hazard ratio in quantifying the
+between-group difference in survival analysis. Journal of clinical oncology : official journal
+of the American Society of Clinical Oncology 2014; 32(22): 2380–2385. DOI:10.1200/JCO.
+2014.55.2208. URL https://pubmed.ncbi.nlm.nih.gov/24982461/.
+56
+
+````
+
+## PDF page 86; PDF label 57
+
+FORMULA CHECK REQUIRED: original PDF page 86.
+
+````text
+[15] Chen Q, Zeng D, Ibrahim JG et al. Quantifying the average of the time-varying hazard
+ratio via a class of transformations. Lifetime Data Analysis 2015; 21(2): 259–279. DOI:
+10.1007/s10985-014-9301-0.
+[16] Schemper M, Wakounig S and Heinze G. The estimation of average hazard ratios by
+weighted cox regression. Statistics in medicine 2009; 28(19): 2473–2489. DOI:10.1002/
+sim.3623.
+[17] Rauch G, Brannath W, Brückner M et al. The average hazard ratio - a good effect mea-
+sure for time-to-event endpoints when the proportional hazard assumption is violated?
+Methods of information in medicine 2018; 57(3): 89–100. DOI:10.3414/ME17-01-0058.
+[18] Dunkler D, Schemper M and Heinze G. Gene selection in microarray survival studies
+under possibly non-proportional hazards. Bioinformatics (Oxford, England) 2010; 26(6):
+784–790. DOI:10.1093/bioinformatics/btq035. URL https://pubmed.ncbi.nlm.nih.
+gov/20118118/.
+[19] Martinussen T and Pipper CB.
+Estimation of odds of concordance based on the
+aalen additive model.
+Lifetime Data Analysis 2013; 19(1): 100–116.
+DOI:10.1007/
+s10985-012-9234-4.
+[20] Dehbi HM, Royston P and Hackshaw A. Life expectancy difference and life expectancy
+ratio: two measures of treatment effects in randomised trials with non-proportional haz-
+ards. BMJ (Clinical research ed) 2017; 357: j2250. DOI:10.1136/bmj.j2250.
+[21] Keiding N. Expected Survival Curve. Encyclopedia of Biostatistics, John Wiley & Sons,
+Ltd, 2005. DOI:10.1002/0470011815.b2a11022.
+[22] Therneau TM and Grambsch PM. Modeling Survival Data. Statistics for Biology and
+Health Ser, New York, NY: Springer, 2013.
+ISBN 9781475732948.
+URL https://
+ebookcentral.proquest.com/lib/kxp/detail.action?docID=6303122.
+[23] Yang S and Prentice R. Semiparametric analysis of short-term and long-term hazard
+ratios with two-sample survival data. Biometrika 2005; 92(1): 1–17. URL http://www.
+jstor.org/stable/20441162.
+[24] Yang S and Prentice R. Improved logrank-type tests for survival data using adaptive
+weights. Biometrics 2010; 66(1): 30–38. DOI:10.1111/j.1541-0420.2009.01243.x.
+[25] Hernán MA. The hazards of hazard ratios. Epidemiology (Cambridge, Mass) 2010; 21(1):
+13–15. DOI:10.1097/EDE.0b013e3181c1ea43. URL https://www.ncbi.nlm.nih.gov/
+pmc/articles/PMC3653612/.
+[26] Martinussen T, Vansteelandt S and Andersen PK.
+Subtleties in the interpretation
+of hazard contrasts.
+Lifetime data analysis 2020; 26(4):
+833–855.
+DOI:10.1007/
+s10985-020-09501-5. URL https://pubmed.ncbi.nlm.nih.gov/32654089/.
+[27] Aalen O, Borgan O and Gjessing H. Survival and Event History Analysis: A Process Point
+of View. New york: Springer, 2008.
+[28] Boulesteix AL, Hoffmann S, Charlton A et al. A replication crisis in methodological
+research? Significance 2020; 17(5): 18–21. DOI:10.1111/1740-9713.01444.
+[29] Perperoglou A, Keramopoullos A and van Houwelingen HC. Approaches in modelling
+long-term survival: an application to breast cancer. Statistics in medicine 2007; 26(13):
+2666–2685. DOI:10.1002/sim.2729.
+[30] Ristl R, Ballarini NM, Götte H et al. Delayed treatment effects, treatment switching
+and heterogeneous patient populations: How to design and analyze rcts in oncology.
+Pharmaceutical statistics 2021; 20(1): 129–145. DOI:10.1002/pst.2062.
+57
+
+````
+
+## PDF page 87; PDF label 58
+
+FORMULA CHECK REQUIRED: original PDF page 87.
+
+````text
+[31] Yang S. Improving testing and description of treatment effect in clinical trials with sur-
+vival outcomes. Statistics in medicine 2019; 38(4): 530–544. DOI:10.1002/sim.7676.
+[32] Ditzhaus M and Friedrich S. More powerful logrank permutation tests for two-sample
+survival data. Journal of Statistical Computation and Simulation 2020; 90(12): 2209–2227.
+DOI:10.1080/00949655.2020.1773463.
+[33] Gorfine M, Schlesinger M and Hsu L. K-sample omnibus non-proportional hazards tests
+based on right-censored data. Statistical methods in medical research 2020; 29(10): 2830–
+2850. DOI:10.1177/0962280220907355.
+[34] Dormuth I, Liu T, Xu J et al. A comparative study to alternatives to the log-rank test. Con-
+temporary Clinical Trials 2023; : 107165DOI:https://doi.org/10.1016/j.cct.2023.107165.
+URL https://www.sciencedirect.com/science/article/pii/S1551714423000885.
+[35] Li H, Han D, Hou Y et al. Statistical inference methods for two crossing survival curves:
+a comparison of methods. PloS one 2015; 10(1): e0116774. DOI:10.1371/journal.pone.
+0116774.
+[36] Callegaro A and Spiessens B. Testing treatment effect in randomized clinical trials with
+possible nonproportional hazards. Statistics in Biopharmaceutical Research 2017; 9(2):
+204–211. DOI:10.1080/19466315.2016.1257436.
+[37] Lin RS, Lin J, Roychoudhury S et al. Alternative analysis methods for time to event
+endpoints under nonproportional hazards: A comparative analysis. Statistics in Biophar-
+maceutical Research 2020; 12(2): 187–198. DOI:10.1080/19466315.2019.1697738.
+[38] Kraus D. Adaptive neyman’s smooth tests of homogeneity of two samples of survival
+data. Journal of Statistical Planning and Inference 2009; 139(10): 3559–3569. DOI:10.
+1016/j.jspi.2009.04.009.
+[39] Qiu P and Sheng J. A two-stage procedure for comparing hazard rate functions. Journal
+of the Royal Statistical Society: Series B (Statistical Methodology) 2008; 70(1): 191–208.
+DOI:10.1111/j.1467-9868.2007.00622.x.
+[40] Mukhopadhyay P, Ye J, Anderson KM et al. Log-Rank Test vs MaxCombo and Difference
+in Restricted Mean Survival Time Tests for Comparing Survival Under Nonproportional
+Hazards in Immuno-oncology Trials: A Systematic Review and Meta-analysis. JAMA
+Oncology 2022; 8(9): 1294–1300. DOI:10.1001/jamaoncol.2022.2666. URL https://
+doi.org/10.1001/jamaoncol.2022.2666.
+[41] Lee SH. On the versatility of the combination of the weighted log-rank statistics. Com-
+putational Statistics & Data Analysis 2007; 51(12): 6557–6564. DOI:10.1016/j.csda.2007.
+03.006.
+[42] Ditzhaus M, Genuneit J, Janssen A et al. Casanova: Permutation inference in factorial
+survival designs. Biometrics 2021; DOI:10.1111/biom.13575.
+[43] Allignol A and Latouche A.
+CRAN Task View: Survival Analysis.
+Comprehensive
+R Archive Network (CRAN), 2022.
+URL https://cran.r-project.org/web/views/
+Survival.html.
+[44] Kalbfleisch JD and Prentice RL. The statistical analysis of failure time data. 2 ed. New
+York: EdWiley, 2002.
+[45] Gregson J, Sharples L, Stone GW et al. Nonproportional hazards for time-to-event out-
+comes in clinical trials: Jacc review topic of the week. Journal of the American College of
+Cardiology 2019; 74(16): 2102–2112. DOI:10.1016/j.jacc.2019.08.1034.
+58
+
+````
+
+## PDF page 88; PDF label 59
+
+FORMULA CHECK REQUIRED: original PDF page 88.
+
+````text
+[46] Klinglmüller F, Fellinger T, König F et al. A neutral comparison of statistical methods
+for time-to-event analyses under non-proportional hazards, 2023. 2310.05622.
+[47] Schaubel DE and Wei G. Double inverse-weighted estimation of cumulative treatment
+effects under nonproportional hazards and dependent censoring. Biometrics 2011; 67(1):
+29–38. DOI:10.1111/j.1541-0420.2010.01449.x. URL https://pubmed.ncbi.nlm.nih.
+gov/20560935/.
+[48] Andersen PK, Hansen MG and Klein JP. Regression analysis of restricted mean survival
+time based on pseudo-observations. Lifetime Data Analysis 2004; 10(4): 335–350. DOI:
+10.1007/s10985-004-4771-0. URL https://pubmed.ncbi.nlm.nih.gov/15690989/.
+[49] Mittlböck M, Pötschger U and Heinzl H. Weighted pseudo-values for partly unobserved
+group membership in paediatric stem cell transplantation studies. Statistical methods in
+medical research 2022; 31(1): 76–86. DOI:10.1177/09622802211041756.
+[50] Yang Z, Wu H, Hou Y et al.
+Dynamic prediction and analysis based on restricted
+mean survival time in survival analysis with nonproportional hazards. Comput Meth-
+ods Programs Biomed 2021; 207: 106155.
+DOI:10.1016/j.cmpb.2021.106155.
+URL
+https://www.sciencedirect.com/science/article/pii/S0169260721002297.
+[51] Pötschger U, Heinzl H, Valsecchi MG et al.
+Assessing the effect of a partly unob-
+served, exogenous, binary time-dependent covariate on survival probabilities using
+generalised pseudo-values. BMC medical research methodology 2018; 18(1): 14. DOI:
+10.1186/s12874-017-0430-5.
+[52] Li L, Yang Z, Hou Y et al. Moving beyond the cox proportional hazards model in survival
+data analysis: a cervical cancer study. BMJ open 2020; 10(7): e033965. DOI:10.1136/
+bmjopen-2019-033965.
+[53] Klein JP, Gerster M, Andersen PK et al. Sas and r functions to compute pseudo-values
+for censored data regression. Computer Methods and Programs in Biomedicine 2008; 89(3):
+289–300. DOI:10.1016/j.cmpb.2007.11.017.
+[54] Portnoy S. Censored regression quantiles. Journal of the American Statistical Association
+2003; 98(464): 1001–1012. URL http://www.jstor.org/stable/30045346.
+[55] Peng L and Huang Y.
+Survival analysis with quantile regression models.
+Jour-
+nal of the American Statistical Association 2008; 103(482): 637–649.
+DOI:10.1198/
+016214508000000355.
+[56] Mboup B, Le Tourneau C and Latouche A. Insights for quantifying the long-term benefit
+of immunotherapy using quantile regression. JCO precision oncology 2021; 5: 173–176.
+DOI:10.1200/PO.20.00164.
+[57] Xue X, Xie X and Strickler HD. A censored quantile regression approach for the analysis
+of time to event data. Statistical methods in medical research 2018; 27(3): 955–965. DOI:
+10.1177/0962280216648724.
+[58] Dong B and Matthews DE. Empirical likelihood for cumulative hazard ratio estimation
+with covariate adjustment. Biometrics 2012; 68(2): 408–418. DOI:10.1111/j.1541-0420.
+2011.01696.x.
+[59] Wei G and Schaubel DE. Estimating cumulative treatment effects in the presence of
+nonproportional hazards. Biometrics 2008; 64(3): 724–732. DOI:10.1111/j.1541-0420.
+2007.00947.x.
+[60] Zhang H, Li Q, Mehrotra DV et al. Cauchycp: A powerful test under non-proportional
+hazards using cauchy combination of change-point cox regressions. Statistical methods
+in medical research 2021; 30(11): 2447–2458. DOI:10.1177/09622802211037076.
+59
+
+````
+
+## PDF page 89; PDF label 60
+
+FORMULA CHECK REQUIRED: original PDF page 89.
+
+````text
+[61] Brown D, Kauermann G and Ford I. A partial likelihood approach to smooth estimation
+of dynamic covariate effects using penalised splines. Biometrical journal Biometrische
+Zeitschrift 2007; 49(3): 441–452. DOI:10.1002/bimj.200510325.
+[62] Sauerbrei W, Royston P and Look M.
+A new proposal for multivariable mod-
+elling of time-varying effects in survival data based on fractional polynomial time-
+transformation. Biometrical journal Biometrische Zeitschrift 2007; 49(3): 453–473. DOI:
+10.1002/bimj.200610328.
+[63] Freeman SC, Cooper NJ, Sutton AJ et al. Challenges of modelling approaches for network
+meta-analysis of time-to-event outcomes in the presence of non-proportional hazards to
+aid decision making: Application to a melanoma network. Statistical methods in medical
+research 2022; 31(5): 839–861. DOI:10.1177/09622802211070253.
+[64] Argyropoulos C and Unruh ML.
+Analysis of time to event outcomes in randomized
+controlled trials by generalized additive models. PloS one 2015; 10(4): e0123784. DOI:
+10.1371/journal.pone.0123784.
+[65] Rodríguez-Girondo M, Kneib T, Cadarso-Suárez C et al.
+Model building in nonpro-
+portional hazard regression.
+Statistics in medicine 2013; 32(30): 5301–5314.
+DOI:
+10.1002/sim.5961.
+[66] Royston P and Parmar MKB.
+Flexible parametric proportional-hazards and
+proportional-odds models for censored survival data, with application to prognostic
+modelling and estimation of treatment effects. Statistics in medicine 2002; 21(15): 2175–
+2197. DOI:10.1002/sim.1203. URL https://pubmed.ncbi.nlm.nih.gov/12210632/.
+[67] Johannes F. Mapping temporally varying quantitative trait loci in time-to-failure exper-
+iments. Genetics 2007; 175(2): 855–865. DOI:10.1534/genetics.106.059808.
+[68] Stablein DM, Carter WH and Wampler GL. Survival analysis of drug combinations using
+a hazards model with time-dependent covariates. Biometrics 1980; 36(3): 537. DOI:
+10.2307/2530223. URL http://www.jstor.org/stable/2530223.
+[69] Gustafson P. Flexible bayesian modelling for survival data. Lifetime Data Analysis 1998;
+4(3): 281–299. DOI:10.1023/a:1009673932333.
+[70] Berger U, Schäfer J and Ulm K. Dynamic cox modelling based on fractional polynomials:
+time-variations in gastric cancer prognosis. Statistics in medicine 2003; 22(7): 1163–1180.
+DOI:10.1002/sim.1411.
+[71] Austin PC, Fang J and Lee DS. Using fractional polynomials and restricted cubic splines
+to model non-proportional hazards or time-varying covariate effects in the cox regression
+model. Statistics in medicine 2022; 41(3): 612–624. DOI:10.1002/sim.9259.
+[72] Hess
+KR.
+Assessing
+time-by-covariate
+interactions
+in
+proportional
+haz-
+ards
+regression
+models
+using
+cubic
+spline
+functions.
+Statistics
+in
+Medicine
+1994;
+13(10):
+1045–1062.
+DOI:10.1002/sim.4780131007.
+URL
+https://mdanderson.elsevierpure.com/en/publications/
+assessing-timebycovariate-interactions-in-proportional-hazards-re.
+[73] Bolard P, Quantin C, Abrahamowicz M et al. Assessing time-by-covariate interactions
+in relative survival models using restrictive cubic spline functions.
+Journal of cancer
+epidemiology and prevention 2002; 7(3): 113–122. URL https://pubmed.ncbi.nlm.nih.
+gov/12665210/.
+[74] Giorgi R, Abrahamowicz M, Quantin C et al. A relative survival regression model us-
+ing b-spline functions to model non-proportional hazards. Statistics in medicine 2003;
+22(17): 2767–2784. DOI:10.1002/sim.1484.
+60
+
+````
+
+## PDF page 90; PDF label 61
+
+FORMULA CHECK REQUIRED: original PDF page 90.
+
+````text
+[75] Boyd AP, Kittelson JM and Gillen DL.
+Estimation of treatment effect under non-
+proportional hazards and conditionally independent censoring.
+Statistics in medicine
+2012; 31(28): 3504–3515. DOI:10.1002/sim.5440.
+[76] Hattori S and Henmi M. Estimation of treatment effects based on possibly misspec-
+ified cox regression.
+Lifetime Data Analysis 2012; 18(4): 408–433.
+DOI:10.1007/
+s10985-012-9222-8.
+[77] Lin RS and León LF. Estimation of treatment effects in weighted log-rank tests. Con-
+temporary clinical trials communications 2017; 8: 147–155. DOI:10.1016/j.conctc.2017.
+09.004.
+[78] Yang S and Prentice RL.
+Estimation of the 2-sample hazard ratio function using a
+semiparametric model.
+Biostatistics (Oxford, England) 2011; 12(2): 354–368.
+DOI:
+10.1093/biostatistics/kxq061.
+[79] Achilonu OJ, Fabian J and Musenge E. Modeling long-term graft survival with time-
+varying covariate effects: An application to a single kidney transplant centre in johan-
+nesburg, south africa. Frontiers in public health 2019; 7: 201. DOI:10.3389/fpubh.2019.
+00201.
+[80] Xie X, Strickler HD and Xue X. Additive hazard regression models: an application to
+the natural history of human papillomavirus. Computational and mathematical methods
+in medicine 2013; 2013: 796270. DOI:10.1155/2013/796270.
+[81] Dunson DB and Herring AH. Bayesian model selection and averaging in additive and
+proportional hazards models. Lifetime Data Analysis 2005; 11(2): 213–232. DOI:10.
+1007/s10985-004-0384-x.
+[82] Jackson C. Flexible Parametric Survival and Multi-State Models [R package flexsurv ver-
+sion 2.1].
+Comprehensive R Archive Network (CRAN), 2021.
+URL https://mran.
+microsoft.com/web/packages/flexsurv/index.html.
+[83] Möst L and Hothorn T. Conditional transformation models for survivor function es-
+timation.
+The international journal of biostatistics 2015; 11(1): 23–50.
+DOI:10.1515/
+ijb-2014-0006.
+[84] Xu J, Psioda MA and Ibrahim JG. Bayesian design of clinical trials using joint models
+for longitudinal and time-to-event data. Biostatistics (Oxford, England) 2022; 23(2): 591–
+608. DOI:10.1093/biostatistics/kxaa044.
+[85] Yang S and Prentice RL. Assessing potentially time-dependent treatment effect from
+clinical trials and observational studies for survival data, with applications to the
+women’s health initiative combined hormone therapy trial. Statistics in medicine 2015;
+34(11): 1801–1817. DOI:10.1002/sim.6453.
+[86] Devarajan K and Ebrahimi N. On penalized likelihood estimation for a non-proportional
+hazards regression model. Statistics & probability letters 2013; 83(7): 1703–1710. DOI:
+10.1016/j.spl.2013.03.007.
+[87] Demarqui F. Yang and Prentice Model with Piecewise Exponential Baseline Distribution [R
+package YPPE version 1.0.1]. Comprehensive R Archive Network (CRAN), 2020. URL
+https://cran.r-project.org/web/packages/YPPE/index.html.
+[88] Demarqui F.
+Yang and Prentice Model with Baseline Distribution Modeled by Bern-
+stein Polynomials [R package YPBP version 0.0.1].
+Comprehensive R Archive Net-
+work (CRAN), 2020. URL https://cran.microsoft.com/snapshot/2022-05-21/web/
+packages/YPBP/index.html.
+61
+
+````
+
+## PDF page 91; PDF label 62
+
+FORMULA CHECK REQUIRED: original PDF page 91.
+
+````text
+[89] Wienke A. Frailty Models in Survival Analysis. 1 ed. New York: Chapman and Hall/CRC,
+2010.
+[90] Balan TA and Putter H. A tutorial on frailty models. Statistical methods in medical research
+2020; 29(11): 3424–3454. DOI:10.1177/0962280220921889. URL https://pubmed.
+ncbi.nlm.nih.gov/32466712/.
+[91] Choi S and Huang X. A general class of semiparametric transformation frailty models
+for nonproportional hazards survival data. Biometrics 2012; 68(4): 1126–1135. DOI:
+10.1111/j.1541-0420.2012.01784.x.
+[92] Zhang J and Lawson AB. Bayesian parametric accelerated failure time spatial model
+and its application to prostate cancer. Journal of applied statistics 2011; 38(2): 591–603.
+DOI:10.1080/02664760903521476.
+[93] Pennell ML and Dunson DB. Bayesian semiparametric dynamic frailty models for multi-
+ple event time data. Biometrics 2006; 62(4): 1044–1052. DOI:10.1111/j.1541-0420.2006.
+00571.x.
+[94] Wu J and Wei J. Cancer immunotherapy trial design with random delayed treatment
+effect and cure rate. Statistics in medicine 2022; 41(4): 786–797. DOI:10.1002/sim.9258.
+[95] Xu Z, Zhu B and Park Y.
+Design for immuno-oncology clinical trials enrolling both
+responders and nonresponders. Statistics in medicine 2020; 39(27): 3914–3936. DOI:
+10.1002/sim.8694.
+[96] Hagar Y, Dignam JJ and Dukic V. Flexible modeling of the hazard rate and treatment
+effects in long-term survival studies. Statistical methods in medical research 2017; 26(5):
+2455–2480. DOI:10.1177/0962280216688034.
+[97] Holford TR. The analysis of rates and of survivorship using log-linear models. Biomet-
+rics 1980; 36(2): 299. DOI:10.2307/2529982. URL http://www.jstor.org/stable/
+2529982.
+[98] Burke K and MacKenzie G. Multi-parameter regression survival modeling: An alter-
+native to proportional hazards. Biometrics 2017; 73(2): 678–686. DOI:10.1111/biom.
+12625.
+[99] Peng D, MacKenzie G and Burke K. A multiparameter regression model for interval-
+censored survival data. Statistics in medicine 2020; 39(14): 1903–1918. DOI:10.1002/
+sim.8508.
+[100] Cox C, Chu H, Schneider MF et al. Parametric survival analysis and taxonomy of hazard
+functions for the generalized gamma distribution. Statistics in medicine 2007; 26(23):
+4352–4374.
+DOI:10.1002/sim.2836.
+URL https://onlinelibrary.wiley.com/doi/
+10.1002/sim.2836.
+[101] Phadnis MA, Wetmore JB and Mayo MS. A clinical trial design using the concept of
+proportional time using the generalized gamma ratio distribution. Statistics in medicine
+2017; 36(26): 4121–4140. DOI:10.1002/sim.7421.
+[102] Spirko-Burns L and Devarajan K.
+Supervised dimension reduction for large-scale
+"omics" data with censored survival outcomes under possible non-proportional hazards.
+IEEE/ACM transactions on computational biology and bioinformatics 2021; 18(5): 2032–
+2044. DOI:10.1109/TCBB.2020.2965934.
+[103] Yoshida M and Matsuyama Y. Interim analysis based on the weighted log-rank test for
+delayed treatment effects under staggered patient entry.
+Journal of biopharmaceutical
+statistics 2016; 26(5): 842–858. DOI:10.1080/10543406.2015.1094809.
+62
+
+````
+
+## PDF page 92; PDF label 63
+
+FORMULA CHECK REQUIRED: original PDF page 92.
+
+````text
+[104] Hasegawa T. Group sequential monitoring based on the weighted log-rank test statistic
+with the fleming-harrington class of weights in cancer vaccine studies. Pharmaceutical
+statistics 2016; 15(5): 412–419. DOI:10.1002/pst.1760.
+[105] Pennell ML, Whitmore GA and Ting Lee ML. Bayesian random-effects threshold re-
+gression with application to survival data with nonproportional hazards. Biostatistics
+(Oxford, England) 2010; 11(1): 111–126. DOI:10.1093/biostatistics/kxp041.
+[106] Race JA and Pennell ML. Semi-parametric survival analysis via dirichlet process mix-
+tures of the first hitting time model. Lifetime Data Analysis 2021; 27(1): 177–194. DOI:
+10.1007/s10985-020-09514-0.
+[107] Yu Z, Tu W and Lee MLT. A semi-parametric threshold regression analysis of sexually
+transmitted infections in adolescent women. Statistics in medicine 2009; 28(24): 3029–
+3042. DOI:10.1002/sim.3686.
+[108] He X, Whitmore GA, Loo GY et al. A model for time to fracture with a shock stream
+superimposed on progressive degradation: the study of osteoporotic fractures. Statistics
+in medicine 2015; 34(4): 652–663. DOI:10.1002/sim.6356.
+[109] Mandel M, Mercier F, Eckert B et al. Estimating time to disease progression comparing
+transition models and survival methods–an analysis of multiple sclerosis data. Biometrics
+2013; 69(1): 225–234. DOI:10.1111/biom.12002.
+[110] Nguyen VQ and Gillen DL.
+Robust inference in discrete hazard models for ran-
+domized clinical trials.
+Lifetime Data Analysis 2012; 18(4): 446–469.
+DOI:10.1007/
+s10985-012-9224-6.
+[111] Wey A, Vock DM, Connett J et al. Estimating restricted mean treatment effects with
+stacked survival models. Statistics in medicine 2016; 35(19): 3319–3332. DOI:10.1002/
+sim.6929.
+[112] Lowsky DJ, Ding Y, Lee DKK et al. A k-nearest neighbors survival probability prediction
+method. Statistics in medicine 2013; 32(12): 2062–2069. DOI:10.1002/sim.5673.
+[113] Sparapani RA, Logan BR, McCulloch RE et al. Nonparametric survival analysis using
+bayesian additive regression trees (bart). Statistics in medicine 2016; 35(16): 2741–2753.
+DOI:10.1002/sim.6893.
+[114] Basak P, Linero A, Sinha D et al. Semiparametric analysis of clustered interval-censored
+survival data using soft bayesian additive regression trees (sbart). Biometrics 2021; DOI:
+10.1111/biom.13478.
+[115] Korepanova N, Seibold H, Steffen V et al. Survival forests under test: Impact of the
+proportional hazards assumption on prognostic and predictive forests for amyotrophic
+lateral sclerosis survival. Statistical methods in medical research 2020; 29(5): 1403–1419.
+DOI:10.1177/0962280219862586.
+[116] Lin J, Li K and Luo S. Functional survival forests for multivariate longitudinal outcomes:
+Dynamic prediction of alzheimer’s disease progression. Statistical methods in medical
+research 2021; 30(1): 99–111. DOI:10.1177/0962280220941532.
+[117] Trinh QA, Hoàng T, Dorizzi B et al. The effect of sample size and mlp architecture on
+bayesian learning for cancer prognosis–a case study.
+Studies in health technology and
+informatics 2003; 95: 504–509. URL https://pubmed.ncbi.nlm.nih.gov/14664037/.
+[118] de Laurentiis M and Ravdin PM. A technique for using neural network analysis to per-
+form survival analysis of censored data. Cancer Letters 1994; 77(2-3): 127–138. DOI:
+10.1016/0304-3835(94)90095-7.
+63
+
+````
+
+## PDF page 93; PDF label 64
+
+FORMULA CHECK REQUIRED: original PDF page 93.
+
+````text
+[119] Cheng MY, Qiu P, Tan X et al.
+Confidence intervals for the first crossing point of
+two hazard functions.
+Lifetime Data Analysis 2009; 15(4): 441–454.
+DOI:10.1007/
+s10985-009-9132-6.
+[120] Zhao YQ, Redman MW and LeBlanc ML. Quantifying treatment effects using the per-
+sonalized chance of longer survival. Statistics in medicine 2019; 38(28): 5317–5331. DOI:
+10.1002/sim.8363.
+[121] Zhu H.
+Likelihood approaches for proportional likelihood ratio model with right-
+censored data. Statistics in Medicine 2014; 33(14): 2467–2479. DOI:10.1002/sim.6105.
+[122] de Iorio M, Johnson WO, Müller P et al.
+Bayesian nonparametric nonpropor-
+tional hazards survival modeling.
+Biometrics 2009; 65(3): 762–771.
+DOI:10.1111/
+j.1541-0420.2008.01166.x.
+URL https://onlinelibrary.wiley.com/doi/full/10.
+1111/j.1541-0420.2008.01166.x.
+[123] Chen YQ, Zhang X and Zhao LP. Estimating a scale-change effect for time-varying phe-
+notypes in genome-wide association studies. Journal of applied statistical science 2010;
+18(4): 477–493.
+[124] Peto R and Peto J. Asymptotically efficient rank invariant test procedures. Journal of the
+Royal Statistical Society Series A (General) 1972; 135(2): 185. DOI:10.2307/2344317.
+[125] Mantel N. Evaluation of survival data and two new rank order statistics arising in its
+consideration. Cancer chemotherapy reports 1966; 50(3): 163–170.
+[126] Magirr D and Burman CF. Modestly weighted logrank tests. Statistics in medicine 2019;
+38(20): 3782–3790. DOI:10.1002/sim.8186.
+[127] Yung G and Liu Y. Sample size and power for the weighted log-rank test and kaplan-
+meier based tests with allowance for nonproportional hazards. Biometrics 2020; 76(3):
+939–950. DOI:10.1111/biom.13196.
+[128] Wei J and Wu J. Cancer immunotherapy trial design with cure rate and delayed treat-
+ment effect. Statistics in medicine 2020; 39(6): 698–708. DOI:10.1002/sim.8440.
+[129] Ye T and Yu M. A robust approach to sample size calculation in cancer immunotherapy
+trials with delayed treatment effect. Biometrics 2018; 74(4): 1292–1300. DOI:10.1111/
+biom.12916.
+[130] van Houwelingen HC, van de Velde CJH and Stijnen T. Interim analysis on survival data:
+its potential bias and how to repair it. Statistics in medicine 2005; 24(18): 2823–2835.
+DOI:10.1002/sim.2248.
+[131] Brummel SS and Gillen DL. Flexibly monitoring group sequential survival trials when
+testing is based upon a weighted log-rank statistic. Sequential analysis 2014; 33(1): 39–
+59. DOI:10.1080/07474946.2014.856635.
+[132] Kundu MG and Sarkar J. On information fraction for fleming-harrington type weighted
+log-rank tests in a group-sequential clinical trial design.
+Statistics in medicine 2021;
+40(10): 2321–2338. DOI:10.1002/sim.8905.
+[133] Li B, Su L, Gao J et al. A group sequential design and sample size estimation for an im-
+munotherapy trial with a delayed treatment effect. Statistical methods in medical research
+2021; 30(3): 904–915. DOI:10.1177/0962280220980780.
+[134] Zhang J and Pulkstenis E. Sample size and power of survival trials in group sequential
+design with delayed treatment effect. Statistics in Biopharmaceutical Research 2016; 8(3):
+268–275. DOI:10.1080/19466315.2016.1207560.
+64
+
+````
+
+## PDF page 94; PDF label 65
+
+FORMULA CHECK REQUIRED: original PDF page 94.
+
+````text
+[135] Magirr D and Jiménez JL. Design and analysis of group-sequential clinical trials based
+on a modestly weighted log-rank test in anticipation of a delayed separation of survival
+curves: A practical guidance. Clinical trials (London, England) 2022; 19(2): 201–210.
+DOI:10.1177/17407745211072848.
+[136] Uno H, Tian L, Claggett B et al. A versatile test for equality of two survival functions
+based on weighted differences of kaplan-meier curves. Statistics in medicine 2015; 34(28):
+3680–3695. DOI:10.1002/sim.6591.
+[137] Horiguchi M, Cronin AM, Takeuchi M et al. A flexible and coherent test/estimation
+procedure based on restricted mean survival times for censored time-to-event data in
+randomized clinical trials. Statistics in medicine 2018; 37(15): 2307–2320. DOI:10.1002/
+sim.7661.
+[138] Lawrence J, Qiu J, Bai S et al. Difference in restricted mean survival time: Small sample
+distribution and asymptotic relative efficiency. Statistics in Biopharmaceutical Research
+2019; 11(1): 61–66. DOI:10.1080/19466315.2018.1527249.
+[139] Sun S, Liu G, Lyu T et al. Design considerations in clinical trials with cure rate survival
+data: A case study in oncology.
+Pharmaceutical statistics 2018; 17(2): 94–104.
+DOI:
+10.1002/pst.1840.
+[140] Paukner M and Chappell R. Window mean survival time. Statistics in medicine 2021;
+40(25): 5521–5533. DOI:10.1002/sim.9138.
+[141] Tang Y. Complex survival trial design by the product integration method. Statistics in
+medicine 2022; 41(4): 798–814. DOI:10.1002/sim.9256.
+[142] Royston P and Parmar MKB. Restricted mean survival time: an alternative to the hazard
+ratio for the design and analysis of randomized trials with a time-to-event outcome.
+BMC medical research methodology 2013; 13: 152. DOI:10.1186/1471-2288-13-152.
+[143] Brückner M, Burger HU and Brannath W. Nonparametric adaptive enrichment designs
+using categorical surrogate data. Statistics in medicine 2018; 37(29): 4507–4524. DOI:
+10.1002/sim.7936.
+[144] Wang J. Sample size re-estimation with the com-nougue method to evaluate treatment
+effect. Statistics in Biosciences 2022; 14(1): 90–103. DOI:10.1007/s12561-021-09316-4.
+[145] Ghosh P, Ristl R, König F et al. Robust group sequential designs for trials with survival
+endpoints and delayed response. Biometrical journal Biometrische Zeitschrift 2022; 64(2):
+343–360. DOI:10.1002/bimj.202000169.
+[146] Li B, Su L, Ye Y et al. M&m: A maximum duration design with the maxcombo test for
+a group sequential trial of an immunotherapy with a random delayed treatment effect.
+Statistics in medicine 2022; 41(4): 815–830. DOI:10.1002/sim.9251.
+[147] Wang L, Luo X and Zheng C. A simulation-free group sequential design with max-combo
+tests in the presence of non-proportional hazards. Pharmaceutical statistics 2021; 20(4):
+879–897. DOI:10.1002/pst.2116.
+[148] Prior TJ.
+Group sequential monitoring based on the maximum of weighted log-
+rank statistics with the fleming-harrington class of weights in oncology clinical tri-
+als.
+Statistical methods in medical research 2020; 29(12): 3525–3532.
+DOI:10.1177/
+0962280220931560.
+[149] Royston P and Parmar MKB. Augmenting the logrank test in the design of clinical trials
+in which non-proportional hazards of the treatment effect may be anticipated. BMC
+medical research methodology 2016; 16: 16. DOI:10.1186/s12874-016-0110-x.
+65
+
+````
+
+## PDF page 95; PDF label 66
+
+FORMULA CHECK REQUIRED: original PDF page 95.
+
+````text
+[150] León LF, Lin R and Anderson KM. On weighted log-rank combination tests and com-
+panion cox model estimators.
+Statistics in Biosciences 2020; 12(2): 225–245.
+DOI:
+10.1007/s12561-020-09276-1.
+[151] Chi Y and Tsai MH. Some versatile tests based on the simultaneous use of weighted
+logrank and weighted kaplan-meier statistics. Communications in Statistics: Simulation
+and Computation 2001; 30(4): 743–759. DOI:10.1081/SAC-100107779.
+[152] Fleming TR, O’Fallon JR, O’Brien PC et al. Modified kolmogorov-smirnov test proce-
+dures with application to arbitrarily right-censored data. Biometrics 1980; 36(4): 607.
+DOI:10.2307/2556114.
+[153] Gehan EA. A generalized wilcoxon test for comparing arbitrarily singly-censored sam-
+ples. Biometrika 1965; 52(1-2): 203–224. DOI:10.1093/biomet/52.1-2.203.
+[154] Brendel M, Janssen A, Mayer CD et al. Weighted logrank permutation tests for randomly
+right censored life science data. Scandinavian Journal of Statistics 2014; 41(3): 742–761.
+DOI:10.1111/sjos.12059.
+[155] Ditzhaus M and Pauly M. Wild bootstrap logrank tests with broader power functions
+for testing superiority. Computational Statistics & Data Analysis 2019; 136: 1–11. DOI:
+10.1016/j.csda.2019.02.001.
+66
+
+````
+

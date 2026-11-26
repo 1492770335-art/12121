@@ -1,0 +1,73 @@
+\begin{landscape}
+\begin{table}[H]
+\caption{Dynamic Heterogeneity among Observables in the Second Period}
+\label{tab:ate_two}
+%\centering
+\begin{threeparttable}
+
+\begin{center}
+\scalebox{1.38}{
+{\tiny
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} cccccccccc}
+\toprule
+ &  & \multicolumn{4}{c}{In pre-experiment, 2020 summer} & \multicolumn{4}{c}{In pre-experiment, 2020 winter} \\
+&  & \multicolumn{2}{c}{Peak hour usage} & \multicolumn{2}{c}{Peak hour usage} & \multicolumn{2}{c}{Peak hour usage} & \multicolumn{2}{c}{Peak hour usage} \\
+ &  & \multicolumn{2}{c}{- Pre-peak hour usage} & \multicolumn{2}{c}{- Post-peak hour usage} & \multicolumn{2}{c}{- Pre-peak hour usage} & \multicolumn{2}{c}{- Post-peak hour usage} \\
+\cmidrule{2-10}
+ & All & Low & High & Low & High & Low & High & Low & High \\
+\midrule
+$(D_1, D_2) = (U, T)$ & -0.046 & -0.069 & -0.029 & -0.027 & -0.070 & -0.084 & -0.020 & -0.047 & -0.045 \\
+ & (0.019) & (0.027) & (0.026) & (0.026) & (0.028) & (0.029) & (0.024) & (0.028) & (0.026) \\
+\addlinespace
+$(D_1, D_2) = (T, U)$ & -0.011 & -0.006 & -0.017 & -0.022 & 0.002 & -0.001 & -0.016 & -0.022 & 0.000 \\
+ & (0.019) & (0.026) & (0.028) & (0.026) & (0.028) & (0.028) & (0.025) & (0.028) & (0.026) \\
+\addlinespace
+$(D_1, D_2) = (T, T)$ & -0.029 & -0.036 & -0.027 & -0.044 & -0.013 & -0.033 & -0.022 & -0.015 & -0.042 \\
+ & (0.019) & (0.028) & (0.026) & (0.025) & (0.028) & (0.029) & (0.024) & (0.028) & (0.026) \\
+\midrule
+Number of customers & 2400  & 1201  & 1199  & 1200  & 1200  & 1200  & 1200  & 1200  & 1200 \\
+Number of observations & 669212  & 326214  & 342998  & 348751  & 320461  & 318280  & 350932  & 321540  & 347672 \\
+p-value ($(T, U) = 0$) & 0.569  & 0.830  & 0.545  & 0.392  & 0.933  & 0.962  & 0.541  & 0.436  & 0.992 \\
+p-value ($(U, T) = (T, T)$) & 0.351  & 0.245  & 0.930  & 0.496  & 0.037  & 0.062  & 0.928  & 0.238  & 0.905 \\
+\bottomrule
+\end{tabular*}
+}}
+\end{center}
+
+\vspace{.025cm}
+
+\begin{center}
+\scalebox{1.38}{
+{\tiny
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} ccccccccc}
+\toprule
+ & \multicolumn{2}{c}{Number of people at home} & \multicolumn{2}{c}{Number of people at home} & \multicolumn{2}{c}{Self-efficacy} & \multicolumn{2}{c}{Household income} \\
+ & \multicolumn{2}{c}{(1 PM - 5 PM)} & \multicolumn{2}{c}{(5 PM - 9 PM)} & & & & \\
+\cmidrule{2-9}
+ & Low & High & Low & High & Low & High & Low & High \\
+\midrule
+$(D_1, D_2) = (U, T)$ & -0.037 & -0.060 & -0.062 & -0.027 & -0.006 & -0.091 & -0.071 & -0.021 \\
+ & (0.025) & (0.029) & (0.026) & (0.027) & (0.026) & (0.027) & (0.028) & (0.026) \\
+\addlinespace
+$(D_1, D_2) = (T, U)$ & -0.004 & -0.022 & -0.015 & 0.002 & -0.022 & 0.001 & -0.026 & 0.009 \\
+ & (0.025) & (0.029) & (0.026) & (0.028) & (0.027) & (0.027) & (0.027) & (0.028) \\
+\addlinespace
+$(D_1, D_2) = (T, T)$ & -0.048 & -0.005 & -0.032 & -0.027 & -0.053 & -0.004 & -0.027 & -0.031 \\
+ & (0.025) & (0.029) & (0.026) & (0.027) & (0.026) & (0.027) & (0.027) & (0.027) \\
+\midrule
+Number of customers & 1425  & 975  & 1370  & 1030  & 1236  & 1164  & 1264  & 1136 \\
+Number of observations & 387296  & 281916  & 371509  & 297703  & 347489  & 321723  & 348331  & 320881 \\
+p-value ($(T, U) = 0$) & 0.878  & 0.463  & 0.555  & 0.935  & 0.412  & 0.966  & 0.327  & 0.736 \\
+p-value ($(U, T) = (T, T)$) & 0.664  & 0.042  & 0.232  & 0.990  & 0.064  & 0.001  & 0.087  & 0.716 \\
+\bottomrule
+\end{tabular*}
+}}
+\end{center}
+
+\vspace{.1cm}
+
+\footnotesize{} {\ Notes: This table shows the estimation results for equation \ref{eq:reg_hte} using the full-sample (the first column of the upper panel) or sub-samples (the remaining columns). The dependent variable is the log of household-level electricity consumption over 30-minute intervals in winter 2020. We include household fixed effects and time fixed effects for each 30-minute interval. The standard errors are clustered at the household level to adjust for serial correlation. To investigate the heterogeneity of the treatment effects, we focused on the variables selected for estimating the optimal policy in Section \ref{sec:EWM_tree} and divided the sample into eight sets of two sub-groups. For the eight different variables, the first subgroup includes households who are below the median of this variable and the second includes those who are above the median. The monetary unit is given as 1 ¢=1 JPY in the summer of 2020.}
+
+\end{threeparttable}
+\end{table}
+\end{landscape}

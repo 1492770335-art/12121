@@ -1,0 +1,34 @@
+{
+  "paper_id": "N80c05fe96e",
+  "category": "K",
+  "title": "Peripheral blood stem cells versus bone marrow graft for non-T-depleted haploidentical transplantation with post-transplant cyclophosphamide in patients with secondary acute myeloid leukemia in first complete remission: A study from the ALWP/EBMT",
+  "authors": "Arnon Nagler and Ryszard Swoboda and Allain-Thibeault Ferhat and Didier Blaise and Mariya Koc and Anna Maria Raiola and Alessandro Busca and Jiri Pavlu and Stefania Bramanti and Maija Itälä-Remes and Mercedes Colorado and Jan Vydra and Alexander Kulagin and Ali Bazarbachi and Jaime Sanz and Mohamad Mohty and Fabio Ciceri",
+  "doi": "10.1038/s41409-026-02823-2",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1038/s41409-026-02823-2",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/N80c05fe96e/artifacts/623df5d61e8a/original.pdf"
+  ],
+  "public_markdown": [
+    "K/N80c05fe96e/artifacts/623df5d61e8a/fulltext.md"
+  ],
+  "public_txt": [
+    "K/N80c05fe96e/artifacts/623df5d61e8a/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "623df5d61e8af80a994b4011b341486fa6e3d7fa0b7386a9e6e0740559026d6e",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://iris.unisr.it/bitstream/20.500.11768/203634/3/unpaywall-bitstream-733638945.pdf",
+      "provenance": "K/N80c05fe96e/artifacts/623df5d61e8a/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N80c05fe96e/README.md",
+  "status": "public_fulltext"
+}

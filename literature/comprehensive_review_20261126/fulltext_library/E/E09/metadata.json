@@ -1,0 +1,28 @@
+{
+  "paper_id": "E09",
+  "category": "E",
+  "title": "Who Should Be Treated? Empirical Welfare Maximization Methods for Treatment Choice",
+  "authors": "Toru Kitagawa and Aleksey Tetenov",
+  "doi": "10.3982/ecta13288",
+  "year": "2018",
+  "original_url": "https://doi.org/10.3982/ecta13288",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "8648a465e279c643113efb535cfa3f53b572591ebad8c18a608923c24633bef0",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://discovery.ucl.ac.uk/id/eprint/1522145/1/Kitagawa_Who_should_be_treated_Working-paper_May17.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/E09/README.md",
+  "status": "local_only"
+}

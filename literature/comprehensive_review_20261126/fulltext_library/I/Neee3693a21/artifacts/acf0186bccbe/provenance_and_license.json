@@ -1,0 +1,30 @@
+{
+  "paper_id": "Neee3693a21",
+  "category": "I",
+  "artifact_type": "main",
+  "sha256": "acf0186bccbe419cc5ee23df95f8811cb7aad5cdc47f21d58baae5cf648c03d9",
+  "source_url": "https://www.mdpi.com/1424-8220/26/7/2249/pdf?version=1775387604",
+  "original_version": "publishedVersion",
+  "bytes": "2390371",
+  "pdf_pages": "22",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.mdpi.com/1424-8220/26/7/2249/pdf?version=1775387604",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:45.575989+08:00",
+  "format": "pdf",
+  "title": "Turbofan Engine Remaining Useful Life Prediction with Reliable Prediction Intervals via LSTM-Based Quantile Regression and Conformal Calibration",
+  "authors": "Runsheng Diao and Mingzhe Zhou and Guanglei Meng and Shanze Wang",
+  "doi": "10.3390/s26072249",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "conditions of the Creative Commons\nAttribution (CC BY) license."
+    }
+  ]
+}

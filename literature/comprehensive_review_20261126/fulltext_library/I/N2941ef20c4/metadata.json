@@ -1,0 +1,34 @@
+{
+  "paper_id": "N2941ef20c4",
+  "category": "I",
+  "title": "Power Load Probabilistic Prediction Based on Multi-Value Quantile Regression and Timing Fusion Ensemble Learning Model",
+  "authors": "Yuhang Liu and Fei Mei and Jun Zhang and Xiang Dai and Wen Li",
+  "doi": "10.3390/e28030329",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3390/e28030329",
+  "local_fulltext": true,
+  "public_pdf": [
+    "I/N2941ef20c4/artifacts/f41c1ad3eb34/original.pdf"
+  ],
+  "public_markdown": [
+    "I/N2941ef20c4/artifacts/f41c1ad3eb34/fulltext.md"
+  ],
+  "public_txt": [
+    "I/N2941ef20c4/artifacts/f41c1ad3eb34/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "f41c1ad3eb34d2079e9a989ff621dd0f476c76ff3a2b363379d30e31edc7f0df",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.mdpi.com/1099-4300/28/3/329/pdf",
+      "provenance": "I/N2941ef20c4/artifacts/f41c1ad3eb34/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/N2941ef20c4/README.md",
+  "status": "public_fulltext"
+}

@@ -1,0 +1,28 @@
+{
+  "paper_id": "N2a302256fd",
+  "category": "D",
+  "title": "An Adapted Loss Function for Censored Quantile Regression",
+  "authors": "Mickaël De Backer and Anouar El Ghouch and Ingrid Van Keilegom",
+  "doi": "10.1080/01621459.2018.1469996",
+  "year": "2019",
+  "original_url": "https://doi.org/10.1080/01621459.2018.1469996",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "f94fa76c5f6fdc3e6ded9d0bcdae2fe33d982a5c594db72a157724189371d873",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1703.07975"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/N2a302256fd/README.md",
+  "status": "local_only"
+}

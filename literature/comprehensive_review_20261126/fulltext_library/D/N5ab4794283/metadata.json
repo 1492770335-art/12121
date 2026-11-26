@@ -1,0 +1,28 @@
+{
+  "paper_id": "N5ab4794283",
+  "category": "D",
+  "title": "Censored Quantile Regression Neural Networks for Distribution-Free Survival Analysis",
+  "authors": "Tim Pearce and Jong-Hyeon Jeong and Yichen Jia and Jun Zhu",
+  "doi": "10.52202/068431-0541",
+  "year": "2022",
+  "original_url": "https://doi.org/10.52202/068431-0541",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "3ef4a3e354468465252c90c2b59687f89728e9e097df51092c85a725f0d201fb",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2205.13496"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/N5ab4794283/README.md",
+  "status": "local_only"
+}

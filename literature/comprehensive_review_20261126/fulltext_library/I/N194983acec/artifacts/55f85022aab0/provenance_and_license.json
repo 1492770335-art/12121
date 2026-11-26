@@ -1,0 +1,30 @@
+{
+  "paper_id": "N194983acec",
+  "category": "I",
+  "artifact_type": "main",
+  "sha256": "55f85022aab0a5383b2f8eae145b3e8e395a9384bb3639c8a9517abc91e988a5",
+  "source_url": "https://www.mdpi.com/2227-9091/13/12/246/pdf",
+  "original_version": "publishedVersion",
+  "bytes": "6357722",
+  "pdf_pages": "27",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.mdpi.com/2227-9091/13/12/246/pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:42.891436+08:00",
+  "format": "pdf",
+  "title": "Asymmetric and Time-Varying Connectedness of FinTech with Equities, Bonds, and Cryptocurrencies: A Quantile-on-Quantile Perspective",
+  "authors": "Mohammad Sharif Karimi and Omar Esqueda and Naveen Mahasen Weerasinghe",
+  "doi": "10.3390/risks13120246",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "conditions of the Creative Commons\nAttribution (CC BY) license\n(https://creativecommons.org/"
+    }
+  ]
+}

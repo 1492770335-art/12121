@@ -1,0 +1,1687 @@
+\documentclass{article}
+
+
+% if you need to pass options to natbib, use, e.g.:
+     \PassOptionsToPackage{round, compress}{natbib}
+% before loading neurips_2025
+
+
+% ready for submission
+\usepackage[preprint]{neurips_2025}
+
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2025}
+
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2025}
+
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2025}
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+%\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+
+
+%\documentclass{article}
+%
+%
+%% if you need to pass options to natbib, use, e.g.:
+%%     \PassOptionsToPackage{numbers, compress}{natbib}
+%% before loading neurips_2024
+%
+%
+%% ready for submission
+%\usepackage[round]{natbib}
+%\usepackage{neurips_2024}
+%
+%
+%% to compile a preprint version, e.g., for submission to arXiv, add add the
+%% [preprint] option:
+%%     \usepackage[preprint]{neurips_2024}
+%
+%
+%% to compile a camera-ready version, add the [final] option, e.g.:
+%%     \usepackage[final]{neurips_2024}
+%
+%
+%% to avoid loading the natbib package, add option nonatbib:
+%%    \usepackage[nonatbib]{neurips_2024}
+%
+%
+%\usepackage[utf8]{inputenc} % allow utf-8 input
+%\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+%\usepackage{hyperref}       % hyperlinks
+%\usepackage{url}            % simple URL typesetting
+%\usepackage{booktabs}       % professional-quality tables
+%\usepackage{amsfonts}       % blackboard math symbols
+%\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+%%\usepackage{microtype}      % microtypography  % uncomment before final version
+%\usepackage{xcolor}         % colors
+%
+%
+%
+%% My packages
+\usepackage{caption}
+\setlength\tabcolsep{2.4pt}
+\usepackage{lipsum} 
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{bbm}
+\usepackage{cancel}
+\newcommand{\wh}{\widehat}
+\newcommand{\wt}{\widetilde}
+\newcommand{\pk}{{\varphi}}
+\newcommand{\mpt}{{m_{p_2}}}
+\newcommand{\mmu}{{m_{\mu,\pi}}}
+
+\newcommand{\pr}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\tbl}[1]{\caption{#1}}
+
+%\newcommand{\tblue}{\textcolor{blue}}
+\newcommand{\tblue}{{}}   % make all \tblue{} black
+%\newcommand{\tred}{\textcolor{red}}
+\newcommand{\tred}{{}}   % make all \tred{} black
+ \newcommand{\indep}{{\perp\!\!\!\!\perp}} 
+
+\newcommand{\XX}{\textsf{X}}
+
+\newcommand{\supp}{\textrm{Appendix}}
+%
+%\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{prop}{Proposition}
+
+
+
+\title{Evaluating and Learning Optimal Dynamic Treatment Regimes under Truncation by Death}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+
+\author{%
+  Sihyung Park \\
+%  \thanks{Use footnote for providing further information
+%    about author (webpage, alternative address)---\emph{not} for acknowledging
+%    funding agencies.} \\
+  Department of Statistics\\
+  North Carolina State University\\
+  Raleigh, NC 27695 \\
+  \texttt{spark52@ncsu.edu} \\
+  % examples of more authors
+  \And
+   Wenbin Lu \\
+   Department of Statistics\\
+   North Carolina State University\\
+   Raleigh, NC 27695 \\
+   \texttt{wlu4@ncsu.edu} \\
+  \AND
+   Shu Yang \\
+   Department of Statistics\\
+   North Carolina State University\\
+   Raleigh, NC 27695 \\
+   \texttt{syang24@ncsu.edu} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{abstract}
+Truncation by death, a prevalent challenge in critical care, renders traditional dynamic treatment regime (DTR) evaluation inapplicable due to ill-defined potential outcomes. 
+We introduce a principal stratification-based method, focusing on the always-survivor value function. We derive a semiparametrically efficient, multiply robust estimator for multi-stage DTRs, demonstrating its robustness and efficiency. 
+Empirical validation and an application to electronic health records showcase its utility for personalized treatment optimization.
+\end{abstract}
+
+
+%
+%
+\section{Introduction}
+
+The implementation of evidence-based treatment strategies has grown in importance in healthcare, with dynamic treatment regimes (DTRs; \citealp{dtrrobins1997}) being a key component. 
+DTRs can identify optimal treatment strategies even when data is collected from suboptimal policies. Extending beyond traditional static decision rules, DTRs offer personalized, multi-stage treatment sequences that adapt to evolving patient characteristics and treatment histories. Crucially, they facilitate individualized care by determining the right interventions at the right time, tailored to each patient's needs. This personalized approach is essential, particularly in chronic conditions, e.g., alcohol and drug abuse \citep{chronicmurphy2007}, AIDS (\citealp{dtrrobins1989aids}), cancer (\citealp{cancerzhao2009}), diabetes (\citealp{DTRchakraborty2014}), that are characterized by their prolonged duration, often involving repeated cycles of remission and exacerbation and necessitating ongoing medical intervention. Early works proposed g-computation \citep{dtrrobins1997}, inverse probability weighting (IPW; \citealp{robins2000marginal}), Q-learning (\citealp{watkins1992q}) and A-learning (\citealp{dtrmurphy2003}) to evaluate average clinical benefits -- value functions -- of treatment policies, while more recent literature employs doubly robust forms of value search methods (\citealp{zhang2013robust}) and outcome weighted learning (\citealp{owlliu2018}) to mitigate error due to potential model misspecification.
+
+While statistical methods for estimating optimal DTRs have proliferated, their applicability is often limited by the requirement of well-defined potential outcomes. 
+In studies, truncation by death is a common challenge, which arises when death precludes subsequent data collection thereby leaving outcomes of interest undefined. 
+For example, 15\% of sepsis patients in the Medical Information Mart for Intensive Care III (MIMIC-III) database experience death, causing the outcomes at the final 48-hour time point undefined (\citealp{relive}). 
+\tred{For individuals underwent truncation by death, the counterfactual outcomes are not simply missing but ill-defined. This distinguishes such cases from conventional missingness, as it is generally not appropriate to impute an outcome value when it is inherently tethered to a mortality event. }
+Moreover, truncation by death creates non-comparable treatment groups because individuals who survived with treatment may have died without it, thus rendering the population-level value function ill-defined (\citealp{rubin2006causal}). 
+
+Despite its fundamental difference, estimators designed for censoring, such as inverse probability of censoring weighting (\citealp{ipcwrobins2000}), are misapplied in practice to address truncation by death.
+While utilizing time-to-death as the primary endpoint and constructing optimal DTRs to maximize survival-related value functions, e.g., $t$-year survival probability (\citealp{tyeardtr}) or restricted mean survival time (\citealp{relive}), is another prevalent strategy, there are situations where improving quality of life, functional status, or disease-specific symptoms takes precedence.
+In these cases, existing approach may potentially neglect patient well-being.
+Therefore, specialized methods designed to capture treatment effects beyond survival that explicitly account for truncation by death are essential for obtaining desired treatment strategies.
+
+To overcome the difficulties, principal stratification (\citealp{ps1}, \citealp{ps2}) provides a valuable approach. Instead of estimating treatment effects across the entire population, this method concentrates on the always-survivor stratum, a latent subgroup characterized by survival under all treatment assignments. 
+By focusing on the always-survivor stratum, which is not affected by truncation, we ensure that the potential outcomes and consequently the associated value function are well-defined. 
+Techniques for identifying the always-survivor value function are presented in single-decision contexts (\citealp{chu23c}, \citealp{GROSSI2025}); however, extending these methods to multi-stage DTRs presents significant challenges, as they require navigating complex decision sequences, managing time-varying confounding, and modeling delayed or cumulative treatment effects under possibly correlated variables across time points.
+
+	
+\paragraph{Contributions}
+This research introduces a methodology for estimating the always-survivor value function for optimal multiple-decision DTRs. 
+	As a foundational step, we introduce a theoretical framework for applying principal stratification to multi-stage decision problems.
+	Based on this framework, our methodology defines a well-defined estimand under truncation by death and proposes an efficient and robust method to estimate it. 
+	Our contributions are as follows.
+	\begin{enumerate}
+		\item We define the always-survivor value function, which is well-defined and identifiable from the observed data (Section 3).
+		\item We derive the efficient influence function and semiparametric efficiency bound of the estimand. Based on these results, we propose a multiply robust (MR), locally efficient estimator for always-survivor value function (Section 4). 
+		    Section 5 demonstrates multiply robust off-policy learning using the proposed estimator.
+		\item We empirically validate the theoretical properties of MR estimator in various nuisance model specification scenarios (Section 6). Across settings, the MR estimator consistently demonstrates robustness to nuisance model misspecification. We show MR estimator can facilitate decision-making for high-risk patients group by applying it to MIMIC-III database (Section 7).
+	\end{enumerate}
+
+Finally, we refer the reader to the \supp\text{ }for more details on proof of theorecial results (Section \ref{App:A1}) and technical description (Section \ref{App:A2}).
+
+	
+
+%
+%
+\section{Background and related work}
+%
+\paragraph{Notation}
+Let $k = 1, \dots, K$ denote the sequence of decision points, and let $Z_k$ represent the generic observed variable of interest in our setting at time point $k$.
+Following standard notation in dynamic treatment regimes, let $X_k$ be the pre-treatment covariates observed at time $k$, and $A_k$ be the treatment assignment at time $k$, made after observing $X_k$. 
+Let $C_k$ and $S_k$ denote the censoring and survival indicators at time $k$, respectively. If a trajectory experiences dropout after observing $X_k$, we set $C_k = 1$ and consider $S_k$ and all variables at time points $(k+1)$ and beyond as unobserved. Otherwise, we set $C_k = 0$, and $S_k$ is observable. If a trajectory experiences death at time $k$, we set $S_k = 0$, and all variables at time points greater than $k$ are unobserved. Otherwise, we set $S_k = 1$, and the variables at the next stage are observed. These definitions ensure that the data are subject to monotone censoring and truncation by death. After $K$ treatments, we observe the outcome $Y$ if no censoring or death event occurred. Without loss of generality, we assume that larger values of $Y$ indicate better outcomes.
+
+We utilize the potential outcome framework to define counterfactuals. Bar notation is used to denote a vector of variables up to a certain time. For instance, the sequence of treatment assignments up to time $k$ is represented as $\bar a_k = (a_1, \dots, a_k)$. We omit the subscript when $k = K$. We denote $Z_k^{\bar a_k} = Z_k^{a_1 \cdots a_k}$ as the potential outcome of $Z_k$ had it received treatments $a_1$ through $a_k$. Define $H_k = \{\bar X_k, \bar A_{k-1}\}$, and let ${\bf0}_k$ and ${\bf1}_k$ be zero and one-vector of dimension $k$, respectively.
+
+To simplify the methodological development, we focus on the case with $K = 2$ decision points, noting that the results generalize readily to multiple decision points. The observed data are then represented as:
+$
+O = \{ X_1, A_1, C_1, (1-C_1)S_1, (1-C_1)S_1X_2, (1-C_1)S_1A_2, (1-C_1)S_1C_2, (1-C_1)(1-C_2)S_1S_2, (1-C_1)(1-C_2)S_1S_2Y \}.
+$
+We assume causal consistency, a standard assumption in causal inference, which implies consistent treatment effects on each unit and no interference between units. \tred{For example, since the severity of Sepsis is unlikely to be transmitted or influenced between patients, causal consistency is expected to hold in this case.}
+	\begin{assumption}[Causal consistency] \label{A1} \
+		$Z_1 = Z_1^{A_1}$ and $Z_2 = Z_2^{A_1A_2}.$ 
+	\end{assumption}
+
+For the value function to be identifiable, sequential randomization is typically assumed. Assumption \ref{AA} states this by ensuring the absence of unobserved confounding at each time point in treatment assignments.
+	
+	\begin{assumption}[Sequential randomization] \label{AA}
+			$\{Y^{a_1a_2}, X_2^{a_1}\} \indep A_k \mid H_{k}$ for all $a_k$, $k=1,2$.
+	\end{assumption}
+
+Define the deterministic two-stage treatment policy $\pi = (\pi_1, \pi_2)$, where $\pi_1: \mathcal{X}_1 \rightarrow \mathcal{A} = \{0, 1\}$ maps the space of baseline covariates to the treatment space, and $\pi_2: \mathcal{H} \rightarrow \mathcal{A}$ maps the space of variables $\{X_1, A_1, X_2\}$ available at the second stage to the treatment space. For simplicity, let $\pi(\bar{x}) =  (\pi_1(X_1), \pi_2(H_2^{\pi}))$ denote the treatment assignments consistent with the policy, where $Z_1^\pi = Z_1^{\pi_1(X_1)}$ and $Z_2^\pi = Z_2^{\pi(\bar{X})}$ are the potential outcomes of $Z$ consistent with $\pi$.
+	
+Dynamic treatment regimes traditionally aim to find the optimal policy $\pi^*$ that maximizes $V(\pi) = \mathbb{E}[Y^\pi]$, the expected outcome under $\pi$, subject to Assumptions \ref{A1}, \ref{AA}, and treatment assignment positivity.
+
+
+\paragraph{Principal stratification}	
+Principal stratification classifies data into distinct latent strata defined by a principal stratification variable $U$, which is a combination of post-treatment counterfactuals. 
+Among these strata, the always-survivor stratum is characterized by survival under all treatment assignments. Since this stratum is not affected by death, potential outcomes and, consequently, the value function are well-defined within it.
+
+While principal stratification is a popular method for addressing treatment compliance and truncation by death (\citealp{ps3}), its traditional framework is limited to single-decision point problems. 
+\cite{chu23c} proposed a multiply robust estimator for the always-survivor value under censoring and truncation by death; yet, their approach is inherently designed for single-decision scenarios and does not account for the complex time-varying correlation structure inherent in DTRs.
+\cite{GROSSI2025} introduced principal stratification approaches that incorporate longitudinal survival indicators. However, their frameworks remain restricted to a single decision point immediately following the baseline.  
+	
+We extend principal stratification to multiple decision points, classifying data into latent groups based on the final-stage survival indicator $S_2$. Let $U = (S_2^{00}, S_2^{01}, S_2^{10}, S_2^{11})$ %be the principal stratification variable, 
+that results in sixteen latent strata, with notable groups described in Table \ref{table:strata}. Our focus is on evaluating and optimizing policies using the always-survivor value function
+	$
+	V_{\text{AS}}(\pi) = \E\left[ Y^\pi | U = 1111 \right]
+	$,
+	rather than the traditional value function $\E[ Y^\pi ]$ that is ill-defined in the presence of death events.
+	
+\begin{table}
+	\tbl{Description of Selected Principal Strata.}
+{\footnotesize	\begin{tabular}{crrrcrrr}
+	$U$  & Stratum type    & Description \\ 
+	\hline
+	1111 & Always-survivor & Patients who would survive regardless of the treatment assignments \\
+	0111 & Protectable     & Patients who would survive if treated in either decision points, die otherwise. \\
+	\vdots & \vdots & \vdots \\
+	1000 & Defier          & Patients who would die if treated in either decision points, survive otherwise. \\
+	0000 & Never-survivor  & Patients who would die regardless of the treatment assignments.   
+	\end{tabular} }
+	\label{table:strata}
+\end{table}
+
+Since principal strata are defined using counterfactuals, they are inherently latent. Therefore, it is essential to identify the always-survivor value function from observed data. We adopt monotonicity and principal ignorability assumptions, following \cite{ps3}.
+\begin{assumption}[Monotonicity] \label{A2} \
+	$S_2^{11} \ge S_2^{10}, S_2^{11} \ge S_2^{01}, S_2^{10} \ge S_2^{00}, S_2^{01} \ge S_2^{00}, S_1^1 \ge S_1^0, S_1^{a_1} \ge S_2^{a_1a_2}$, 
+	and $C_2^{a_1a_2} \ge C_1^{a_1}$ 
+	almost surely.
+\end{assumption}
+\begin{assumption} \label{A:S2} 
+	$\E[g(X_2^{a_1})|X_1,\bar S^{a_1a_2}={\bf 1}_2]=\E[g(X_2^{a_1})|X_1,S_1^{a_1}=1]$ for an integrable $g$.
+\end{assumption}
+\begin{assumption}[Principal ignorability] \ \label{A4} \ 
+	For $u_1,u_2,u_3 \in \{0, 1\}$,
+	
+	(i) $\E[Y^{01} \mid \bar X^0, U=1111] = \E[Y^{01} \mid \bar X^0, U=u_11u_31]$, 
+		$\E[Y^{10} \mid \bar X^1, U=1111] = \E[Y^{10} \mid \bar X^1, U=u_1u_211]$, and 
+		$\E[Y^{11} \mid \bar X^1, U=1111] = \E[Y^{11} \mid \bar X^1, U=u_1u_2u_31]$.
+			  
+    (ii) $\E[g(X_2^1) \mid X_1, U=1111] = \E[g(X_2^1) \mid X_1, U=u_1u_2u_31]$ and
+		 $\E[g(X_2^0) \mid X_1, U=1111] = \E[g(X_2^0) \mid X_1, U=u_11u_31]$ for an integrable $g$.
+\end{assumption}
+\tred{Monotonicity is a standard assumption which states that for any given patient, their survival status under treatment would be no worse than their survival status had they not received the treatment \citep{sommer1991estimating, follmann2006augmented}. It is often plausible in studies where providers cannot assign inferior treatments, and it automatically holds when only the fully treated units survive.}
+Assumption \ref{A:S2} implies that the mean of a function of $X_2$ given past data does not depend on future survival.
+Principal ignorability (Assumption \ref{A4}) allows us to identify the distribution of outcomes within a principal stratum using an observed stratum, given covariates and treatment assignments; 
+\tred{an obvious example of principal ignorability occurs when the characteristics of the always-survivor stratum align with those of the observed survivor population.} 
+In our specific case, mean ignorability is sufficient, representing a significantly less stringent condition. 
+Under Assumptions \ref{A1}, \ref{A2}, and \ref{A:S2}, Assumption \ref{A4} simplifies to $\mathbb{E}[Y \mid \bar{X}, \bar{A}, U = 1111] = \mathbb{E}[Y \mid \bar{X}, \bar{A}, S_2 = 1]$ and $\E[g(X_2) \mid X_1, A_1, U = 1111] = \E[g(X_2) \mid X_1, A_1, S_2 = 1]$; the conditional means of always-survivors match those of observed survivors.
+
+
+\begin{table}[]
+\tbl{List of notation.}
+{\footnotesize
+\begin{tabular}{ll}
+%\hline
+Symbol                       & Description                                                                                                                                                       \\ \hline
+$\pi$                        & A deterministic treatment policy.                                                                                                                                 \\
+$X_k$                        & Baseline (if $k=1$) or intermediate covariates (if $k=2,\dots,K$).                                                                                                 \\
+$A_k$                        & Treatment indicator at $k$. $1$ for treatment, $0$ for control.                                                                                                   \\
+$C_k$                        & Censorship indicator at $k$. $1$ for missing, $0$ for observed.                                                                                                   \\
+$S_k$                        & Survival indicator at $k$. $1$ for survival, $0$ for death.                                                                                                       \\
+$Y$                          & Outcome of interest.                                                                                                                                              \\
+$H_k$                        & History up to $k$. i.e., $\{\bar X_k, \bar A_{k-1}\}$.                                                                                                            \\
+$U$                          & Principal stratification variable. i.e., $S_2^{00}S_2^{01}S_2^{10}S_2^{10}$.                                                                                      \\
+$e_k^{\bar a_k}(\bar x_k)$   & Propensity score at $k$ defined as $\pr(A_k=a_k \mid \bar x_k, \bar a_{k-1} \bar C_{k-1}={\bf0}_{k-1}, \bar S_{k-1}={\bf1}_{k-1})$.                               \\
+$c_k^{\bar a_k}(\bar x_k)$   & Censoring probability at $k$ defined as $\pr(C_k=0 \mid \bar x_k, \bar a_k, \bar C_{k-1}={\bf0}_{k-1}, \bar S_{k-1}={\bf1}_{k-1})$.                               \\
+$p_k^{\bar a_k}(\bar x_k)$   & Survival probability at $k$ defined as $\pr(S_k=1 \mid \bar x_k, \bar a_k, \bar C_k={\bf0}_k, \bar S_{k-1}={\bf1}_{k-1})$.                                        \\
+${\pk}_k^{\bar a_k}(\bar x_k)$ & Joint propensity-censoring probability at $k$ defined as $e_k^{\bar a_k}(\bar x_k)c_k^{\bar a_k}(\bar x_k)$. \\
+$\mu_2^{a_1a_2}(\bar X)$     & Outcome regression model defined as $\E[ Y | \bar X, (a_1,a_2), \bar C = (0,0), \bar S = (1,1) ]$.                                                                \\
+$m_{\mu_2}^{a_1a_2}(X_1)$    & Outcome regression model at $k=1$ defined as $\E[ \mu_2^{a_1a_2}(\bar X){\bf1}\{A_2=a_2\} | X_1, a_1, C_1=0, S_1=1 ]$.                           \\
+$m_{p_2}^{a_1a_2}(X_1)$      & Eventual survival probability at $k=1$ defined as $\E[ p_2^{a_1a_2}(\bar X) | X_1, a_1, C_1=0, S_1=1 ]$.                                                          \\ %\hline
+\end{tabular}}
+\label{table:notation}
+\end{table}
+
+
+
+%
+%
+\section{Nonparamteric identification}
+We define propensity score $e^{\bar a_k}_k(\bar x_k) = \pr(A_k=a_k \mid \bar x_k, \bar a_{k-1} \bar C_{k-1}={\bf0}_{k-1}, \bar S_{k-1}={\bf1}_{k-1})$, censoring probability $c^{\bar a_k}_k(\bar x_k) = \pr(C_k=0 \mid \bar x_k, \bar a_k, \bar C_{k-1}={\bf0}_{k-1}, \bar S_{k-1}={\bf1}_{k-1})$, and survival probability $p_k^{\bar a_k}(\bar x_k) = \pr(S_k=1 \mid \bar x_k, \bar a_k, \bar C_k={\bf0}_k, \bar S_{k-1}={\bf1}_{k-1})$ for $k=1,\dots,K$.
+Often, it is more convenient to jointly model $e_k$ and $c_k$. We denote this combined model as ${\pk}_k^{\bar a_k}(\bar x_k) = e_k^{\bar a_k}(\bar x_k) c_k^{\bar a_k}(\bar x_k)$.
+Additionally, we define nuisance models: 
+$\mu_2^{a_1a_2}(\bar X) = \E[ Y | \bar X, \bar A = (a_1,a_2), \bar C = (0,0), \bar S = (1,1) ], ~
+m_{p_2}^{a_1a_2}(X_1) = \E[ p_2^{a_1a_2}(\bar X) | X_1, A_1=a_1, C_1=0, S_1=1 ], ~
+m_{\mu_2}^{a_1a_2}(X_1) = \E[ \mu_2^{a_1a_2}{\bf1}\{A_2=a_2\}(\bar X) 
+    | X_1, A_1=a_1, C_1=0, S_1=1 ].$
+For a fixed policy \(\pi\), the outcome model under $\pi$ is given by $\mu_2^\pi(\bar{X}) = \mu_2^{\pi(\bar X)}(\bar{X})$. Similarly, we define $e_k^{\pi}$, $c_k^{\pi}$, $p_k^{\pi}$, $m_{p_2}^\pi$, and $m_{\mu_2}^\pi$ for $k = 1, 2$. Table \ref{table:notation} summarizes the notation.
+
+A modified sequential randomization is introduced.		
+
+\begin{assumption}[Sequential randomization] \label{A3}
+	For $k=1,2$, 
+	(i) $\{S_1^{a_1}, S_2^{a_1a_2}, C_1^{a_1}, C_2^{a_1a_2}\} \indep A_k \mid H_{k}$, 
+	(ii) $Y^{a_1a_2} \indep A_k \mid \{H_{k}, S_2^{a_1a_2}=1\}$, 
+	$X_2^{a_1} \indep A_k \mid \{H_{k}, S_1^{a_1}=1\}$.
+\end{assumption}
+Assumption \ref{A3}(i) indicates that counterfactual indicators are independent of treatment assignment, conditional on the history. Assumption \ref{A3}(ii) implies that, among potential survivors, treatment assignment depends on counterfactual (intermediate) outcomes only through the history. 
+This holds by design in Sequential, Multiple Assignment, Randomized Trials (SMARTs). In observational studies, it holds when all confounders of outcomes and missingness indicators are observed.
+
+In addition, we assume positivity and bounded outcome models.
+%
+\begin{assumption} \  \label{A8}
+	For some $\epsilon > 0$ and $L<\infty$, we have, for almost all $\bar x$, $\bar a$, 
+	\;\textnormal{(i)} (Positivity)
+			$e_k^{\bar a_k}(\bar x), c_k^{\bar a_k}(\bar x), p_k^{\bar a_k}(\bar x) \ge \epsilon$, $k=1,2$, and 
+	\;\textnormal{(ii)} (Bounded mean)
+			$|\mu_2^{a_1a_2}(\bar x)|, |m_{\mu_2}^{a_1a_2}(x_1)| < L$.
+\end{assumption}
+Positivity ensures that propensity scores, censoring and survival probabilities are strictly positive.  
+In practice, both assumptions are generally expected to hold, as typically the outcome of interest, for example, the sequential organ failure score in the MIMIC-III dataset, is inherently bounded.
+
+We further assume that censoring occurs according to the missing at random (MAR) mechanism.
+\begin{assumption} \ \label{A5}
+	For $k=1,2$ and $a_1, a_2, a_1', a_2' \in \{0,1\}$,  
+	\;\textnormal{(i)} $S_2^{a_1a_2} \indep C_2^{a_1'a_2'} \mid H_2,$~ $\bar S^{a_1a_2} \indep \bar C^{a_1'a_2'} \mid X_1$,
+	\;\textnormal{(ii)} $Y^{a_1a_2} \indep \bar C_k^{\bar a_k} | \{H_{k}^{\bar a_{k}}, S_k^{\bar a_k}=1\}$,
+				$X_2^{a_1} \indep C_1^{a_1} | \{X_1, S_1^{a_1}=1\}$.
+\end{assumption}
+Assumption \ref{A5} states that, conditional on the history, censoring is non-informative when estimating survival probabilities, and when estimating outcomes among potential survivors. 
+With the addition of Assumption \ref{A5}, Assumption \ref{A4} simplifies to $\mathbb{E}[Y \mid \bar{X}, \bar{A}, U = 1111] = \mathbb{E}[Y \mid \bar{X}, \bar{A}, C_2 = 0, S_2 = 1]$ and $\E[g(X_2) \mid X_1, A_1, U = 1111] = \E[g(X_2) \mid X_1, A_1, C_2 = 0, S_2 = 1]$, respectively, thereby identifying the always-survivor distributions of outcomes via observed data.
+	
+In the first theorem, we identify the always-survivor value function with no restriction imposed on the distribution of the variables other than principal ignorability.
+	\begin{theorem} \label{thm:1}
+		For a fixed policy $\pi = (\pi_1, \pi_2)$, under assumptions \ref{A1} and \ref{A2}-\ref{A5}, the always-survivor value is identified as
+	\begin{align}
+		&V_\textnormal{AS}(\pi) =  
+			\frac{\E[p_1^0(X_1) m_{p_2}^{00}(X_1) m_{\mu_2}^{\pi}(X_1) ]}
+			{ \E[p_1^0(X_1) m_{p_2}^{00}(X_1)] }  \label{Vid} \\
+		&= \tred{
+		  \E\bigg[ p_1^0(X_1) m_{p_2}^{00}(X_1) \frac{\mathbf{1}\{\bar A=\pi(\bar X)\}(1-C_1)(1-C_2)S_1S_2}{\pk_1^\pi(X_1)\pk_2^\pi(\bar X)p_1^\pi(X_1)p_2^\pi(\bar X)} Y \bigg]  
+		  \Big/  \E[ p_1^0(X_1) m_{p_2}^{00}(X_1) ]. 
+		  }  \label{Vipw}
+	\end{align}
+	\end{theorem}
+	
+Identification \eqref{Vid} expresses the always-survivor value as a weighted mean of the outcome model for observed survivors, where the weight is given by the principal score
+$\omega(X_1) = {\Pr(U = 1111 \mid X_1)}/{\Pr(U = 1111)} = {p_1^0(X_1) m_{p_2}^{00}(X_1)}/{\mathbb{E}[p_1^0(X_1) m_{p_2}^{00}(X_1)]}$. If all trajectories are always-survivors and no censoring occurs, then $\omega(X_1) = 1$, and \eqref{Vid} reduces to the complete-case Q-learning, or outcome regression (OR), methodology. 
+\tred{Similarly, identification \eqref{Vipw} is analogous to the inverse probability weighting (IPW) identification when all units are always-survivors.}
+
+A straightforward estimator based on this observation is \textit{principal Q-learning}, which models the always-survivor value using survivor Q-functions and the principal score. 
+Consider the estimator $\wh{V}_{Q}(\pi) = \mathbb{E}_n[\wh{\omega}(X_1) \wh{m}_{\mu_2}^\pi(X_1)]$, where $\mathbb{E}_n$ denotes the empirical mean. As is typical in Q-learning, the conditional outcome $\wh{m}_{\mu_2}^{\pi}(X_1)$ can be fitted backward-recursively: 
+\begin{gather*}
+	Q_2(\bar{x}; \pi) \equiv \hat{\mu}_2^\pi(\bar{x}) = \hat{\mathbb{E}} \left[ Y \mid \bar{x}, \pi(\bar{x}), \bar{C} = \mathbf{0}_2, \bar{S} = \mathbf{1}_2 \right], \quad \tilde{V}^\pi := Q_2(\bar{x}; \pi), \\
+	Q_1(x_1; \pi) \equiv \wh{m}_{\mu_2}^\pi(X_1) = \wh{\mathbb{E}} \left[ \tilde{V}^\pi \mid x_1, \pi_1(x_1), C_1 = 0, S_1 = 1 \right].
+\end{gather*}
+
+
+Principal Q-learning requires correct specification of the outcome models to ensure consistency with the always-survivor value function. 
+In the following section, we aim to derive an estimator based on the efficient influence function, which can offer protection against misspecification of these outcome models.
+
+
+%
+%
+\section{Multiply robust off-policy evaluation}
+Starting from the identification formula, we derive the efficient influence function (EIF) of $V_{\text{AS}}(\pi)$, from which the semiparametric efficiency bound follows. 
+\tred{Let $A_0=C_0=0$ and $\varphi_0^{\cdot}(\cdot)=1$. Define $D(O) = \E[p_1^0(X_1) m_{p_2}^{00}(X_1)]$ and $N(O;\pi) = \E[p_1^0(X_1) m_{p_2}^{00}(X_1) m_{\mu_2}^{\pi}(X_1)]$ be the denominator and the numerator of identification \eqref{Vid} given the observed data $O$ and a polity $\pi$, respectively. Theorem \ref{thm:2} characterizes the EIF of \eqref{Vid}.}
+
+\begin{theorem} \label{thm:2}
+	Under assumptions \ref{A1} and \ref{A2}-\ref{A5}, the efficient influence function of $V_{\text{AS}}(\pi)$ is $\mathcal \psi_{V(\pi)}(O) = \left\{ \phi_{N(\pi)}(O) - V_{\text{AS}}(\pi) \phi_D(O) \right\} / D(O)$ where
+	\tred{
+	\begin{align*}
+		&\phi_D(O)
+		 = \frac{\mathbf{1}\{\bar A\textrm{ = }\bar C\textrm{ = }{\bf 0}_2\}}{\pk_1^{0}(X_1)\pk_2^{{\bf 0}_2}(\bar X)} S_1S_2 + \sum_{k=1}^2 
+		   \bigg\{ \prod_{j=0}^{k-1} \frac{\mathbf{1}\{A_j\textrm{ = }C_j\textrm{ = }0\}}{\pk_j^{{\bf 0}_j}(\bar X_j)} - \prod_{j=0}^k \frac{\mathbf{1}\{A_j\textrm{ = }C_j\textrm{ = }0\}}{\pk_j^{{\bf 0}_j}(\bar X_j)} \bigg\} Q_{S,k}, \\
+		&\phi_{N(\pi)}(O) 
+		= Q_{Y,1} \phi_D(O) + \sum_{k=1}^2 \prod_{j=1}^k \frac{\mathbf1\{\pi_j(\bar X_j)\textrm{ = }A_j\}(1-C_j)S_j}{\pk_j^{\pi}(\bar X_j)p_j^{\pi}(\bar X_j)} \big(Q_{Y,j+1} - Q_{Y,j}\big) Q_{S,1}
+		,
+	\end{align*}
+	with $Q_{S,j}$, $Q_{Y,j}$ defined as in the Appendix \ref{app:thm2}.
+	}
+	Thus, the semiparametric efficiency bound for $V_{\text{AS}}(\pi)$ is $\Upsilon(\pi) = \E\left[ \mathcal \psi_{V(\pi)}^2(O) \right].$
+\end{theorem}
+	
+Based on the EIF, we construct a multiply robust (MR) estimator for $V_{\text{AS}}(\pi)$:
+\begin{align} \label{Vmr}
+	\wh{V}_{\text{MR}}(\pi) = \frac{\mathbb{E}_n \{ \hat{\phi}_{N(\pi)}(O) \} }{\mathbb{E}_n \{ \hat{\phi}_D(O) \} }
+\end{align}
+where $\hat{\phi}_N$ and $\hat{\phi}_D$ are plug-in estimators derived from the estimated nuisance models $\hat{p}_k^{\bar{a}_k}$, $\hat{p}_k^{\bar{a}_k}$, $\hat{\mu}_2^{a_1a_2}$, $\hat{m}_{p_2}^{a_1a_2}$, and $\hat{m}_{\mu_2}^{a_1a_2}$ for $k = 1, 2$. It can be observed that if all observations are always-survivors and there is no censoring, the MR estimator simplifies to the standard augmented inverse probability weighting (AIPW) estimator. 
+Furthermore, the estimator reduces to the estimators proposed by \cite{ps3} and \cite{chu23c} in single decision point cases.
+	
+Let $e_k^{\bar a_k}(\cdot;\hat\alpha_k),~ 
+	c_k^{\bar a_k}(\cdot;\hat\eta_k),~ 
+	p_k^{\bar a_k}(\cdot;\hat\gamma_k),~ 
+	\mu_2^{\bar a}(\cdot;\hat\zeta),~ 
+	m_{p_2}^{\bar a}(\cdot;\hat\xi),~ 
+	m_{\mu_2,\pi}^{\bar a}(\cdot;\hat\nu)$ for 
+$k=1,2$ denote the parametric models for the corresponding nuisance models and let $\alpha_k^*, \eta_k^*, \gamma_k^*, \zeta^*, \xi^*, \nu^*$ be the limit of their parameters. 
+Let $\wh\phi_N, \wh\phi_D$ be the plug-in estimator of $\phi_N, \phi_D$, respectively. Assume the uniform weak law of large numbers holds, i.e., $\E_n( \hat{\phi}_D ) \overset{\pr}{\to} \E (\phi_D)$ and $\E_n( \hat{\phi}_{N(\pi)} ) \overset{\pr}{\to} \E({\phi}_{N(\pi)})$.
+	
+	\begin{theorem}%[MR under parametric modeling] 
+	\label{thm:3}
+		Under Assumptions \ref{A1}, \ref{A2}-\ref{A5}, and the regularity conditions described in the \supp, %\ref{A9}, 
+		$\wh{V}_{\text{MR}}(\pi) = {\mathbb{E}_n\{ \hat{\phi}_{N(\pi)}(O) \} }/{\mathbb{E}_n\{ \hat{\phi}_D(O) \} }$ is multiply robust, meaning $\wh{V}_{\text{MR}}(\pi) \overset{p}{\to} V_{\text{AS}}(\pi)$ as $n \to \infty$ if any of the scenarios in Table \ref{tbl:mr} are satisfied. Furthermore, $\wh{V}_{\text{MR}}(\pi)$ achieves the semiparametric efficiency bound when all nuisance models are correctly specified.
+	\end{theorem}
+	
+\begin{table}[]
+\tbl{Five scenarios ensuring the consistency of \eqref{Vmr}. `$\XX$' indicates correct specification.} \label{tbl:mr}
+\begin{center}
+	\begin{tabular}{@{}llllllll@{}}
+	\toprule
+	      & $\wh\pk_1$ & $\wh p_1$ & $\wh\pk_2$ & $\wh p_2$ & $\wh m_{p_2}$ & $\wh\mu_2$ & $\wh m_{\mu_2}$ \\ \midrule
+	(i)   & \XX   & \XX         & \XX          & \XX         & \XX             &            &                 \\
+	(ii)  & \XX          &           & \XX          &           &               & \XX          & \XX               \\
+	(iii) & \XX          & \XX         &            & \XX         & \XX             & \XX          &                 \\
+	(iv)  & \XX          &           &            & \XX         &               & \XX          & \XX               \\
+	(v)   &            & \XX         &            & \XX         & \XX             & \XX          & \XX               \\ \bottomrule
+	\end{tabular}
+\end{center}
+\end{table}
+	
+	%
+	Theorem \ref{thm:3} highlights the dual benefits of the proposed estimator: robustness to partial model misspecification and local efficiency under correct specification. 
+	We conclude this section by presenting that the estimator exhibits multiple robustness and achieves semiparametric local efficiency with flexible nonparametric modeling. 
+	Let $\hat\theta = \{ \wh{\pk}_k^{\bar a_k}, \wh p_k^{\bar a_k}, \wh\mu_2^{a_1a_2}, \wh m_{p_2}^{00}, \wh m_{\mu_2}^{a_1a_2}: \bar a\in\{0,1\}^2 \}$ be the collection of nonparametric models, and let $\theta$ represent the true data-generating process.
+	%
+	
+	\begin{theorem} \label{thm:4}
+		Assume that the nuisance models are fitted using sample-splitting 
+		or that the components in $\hat{\theta}$ belong to a Donsker class. Under Assumptions \ref{A1}, \ref{A2}-\ref{A5}, and the regularity conditions described in the \supp, 
+		$n^{1/2} \big( \wh V_\text{MR}(\pi) - V_\text{AS}(\pi) \big) \overset d\to \mathcal N\left(0, \Upsilon(\pi)\right)$
+	\end{theorem}
+	%
+	The results provide a foundation for leveraging flexible machine learning methods to accurately model the nuisance components in practice. 
+	Furthermore, sample-splitting or cross-fitting (\citealp{chernozhukov2018double}) provides a practical technique for guaranteeing the property in Theorem \ref{thm:4}. 
+	{A cross-fitting algorithm is detailed in the \supp.}
+	
+
+	
+%
+%
+\section{Multiply rubust off-policy learning}
+Building upon the theoretical guarantees, we propose a method to learn an always-survivor-optimal policy in this section. 
+While a variety of policy classes can be accommodated, we focus our analysis on the class of linear policies, where $\pi_\beta = \{\pi_{\beta_1}, \pi_{\beta_2}\}$ is determined by a linear combination of observed characteristics, specifically $\pi_{\beta_k} = \mathbf{1}\{\tilde{h}_k^\top \beta_k > 0\}$, where $\tilde{h}_k^\top = (1, h_k^\top)$. 
+This approach is widely used in practice, as the coefficients $\beta=(\beta_1, \beta_2)$ provide a clear understanding of how covariates influence treatment decisions. 
+To simplify notation, we define $V_{\text{AS}}(\beta) \equiv V_{\text{AS}}(\pi_\beta)$ as the always-survivor value under $\pi_\beta$. Let $\hat{\beta}$ be the parameter that maximizes $\wh{V}_{\text{MR}}(\beta)$, and let $\beta^*$ be the probability limit of $\hat{\beta}$.
+
+	
+	
+\begin{theorem} \label{thm:5}
+	Assume that the nuisance models are fitted using sample-splitting, or that the components in $\hat{\theta}$ belong to a Donsker class. Under Assumptions \ref{A1}, \ref{A2}-\ref{A5}, and the regularity conditions described in the \supp, %\ref{A11},
+	$n^{1/2} \big( \wh V_\text{MR}(\hat\beta) - V_\text{AS}(\beta^*) \big) \overset d\to \mathcal N\left(0, \Upsilon({\beta^*})\right)$.
+\end{theorem}
+%
+Therefore, the MR estimator yields a policy with semiparametric local efficiency, guaranteeing optimal asymptotic variance when the models are correctly specified. 
+Even with partial misspecification, the framework inherits multiple robustness, allowing decision-makers to confidently search for optimal treatment regimes, providing increased protection against model misspecification. This is particularly valuable in real-world applications where the true underlying models may be complex or unknown. 
+Additionally, a cross-fitting estimator can be employed to ensure the results presented in Theorem \ref{thm:5}.
+
+
+%\begin{minipage}{\textwidth}
+
+  \begin{figure}%[]{\textwidth}
+    \centering
+%    \rule{6.4cm}{3.6cm}
+    \includegraphics[scale=0.7]{mr.png}
+    \captionof{figure}{Value estimates under a fixed policy. The red line is drawn at the true value.}
+    \label{fig:ope}
+  \end{figure}
+%  \hfill
+  \begin{table}%[c]{\textwidth}
+  \caption{Off-policy evaluation result. S.E. indicates standard error.}
+  \label{table:mr}
+    \centering
+    \begin{tabular}{@{}cccccccccccccc@{}}
+\toprule
+                                 &             & \textbf{M1} & \textbf{M2} & \textbf{M3} & \textbf{M4} & \textbf{M5} & \textbf{M6}  \\ \midrule
+\multirow{2}{*}{\textbf{n=2000}} & \textbf{Bias} & -0.20       & -0.10       & -0.15       & -0.13        & 0.22       & -1.74        \\
+                                 & \textbf{S.E.}   & 0.63        & 0.63        & 1.19        & 1.11         & 1.26        & 1.27         \\
+\multirow{2}{*}{\textbf{n=5000}} & \textbf{Bias} & -0.07       & -0.02       & -0.04       & -0.06        & 0.18       & -1.39        \\
+                                 & \textbf{S.E.}   & 0.37        & 0.37        & 1.05        & 0.66         & 0.74        & 1.04         \\ \bottomrule
+\end{tabular}
+    \end{table}
+
+
+\section{Simulation study}
+To evaluate the performance of the proposed methodology, we simulated trajectories with monotone censoring and truncation by death, using varying rates of missingness. We generated $X_1$ from a continuous uniform distribution over the interval $[-0.3, 0.7]$. $A_k$, $C_k^{\bar{a}_k}$, and $S_k^{\bar{a}_k}$ were generated using logistic models
+and the intermediate $X_2^{a_1}$ and final outcome $Y^{a_1a_2}$ were generated from normal distributions.
+This setup resulted in censoring rates ranging from 8\% to 13\% and survival rates between 65\% and 70\%. We conducted experiments with sample sizes of $n = 2000$ and $n = 5000$.
+
+\textbf{Multiple robustness}
+To demonstrate the multiple robustness, we conducted experiments across five model specification scenarios (M1-M5) expected to yield consistency, and one scenario (M6) expected to fail.
+Each process was repeated 500 times, and $\wh V_\text{MR}$ was computed in all six model specification scenarios. True always-survivor value were computed by plugin estimator with known true models.
+{The \supp\text{ }provides detailed information on data generation and model specification scenarios, including results from additional experiments.}
+
+Figure \ref{fig:ope} and Table \ref{table:mr} presents the results.
+Across scenarios M1-M5, the MR estimator consistently yields estimates close to the true value, demonstrating its multiple robustness.
+Based on the EIF, 95\% confidence intervals for the always-survivor value in scenario M1 were computed analytically. The coverage rates, 94.2\% for $n = 2000$ and 95.2\% for $n = 5000$, are close the nominal value.
+
+\tred{
+The same simulation was also run with estimators based on the OR \eqref{Vid} and the IPW \eqref{Vipw} identifications. 
+The standard error for the MR estimator 
+($0.631$ for $N=2000$, $0.369$ for $N=5000$) was positioned between the OR estimator 
+($0.475$ for $N=2000$, $0.280$ for $N=5000$) and the IPW estimator 
+($2.250$ for $N=2000$, $1.346$ for $N=5000$).  
+Our results confirm that the MR estimator achieves comparable efficiency to the OR estimator.
+}
+
+
+
+\textbf{Off-policy learning} \;
+In each of 500 independent data replications, we determined the linear policy $\hat\beta_\text{MR}$ and $\hat\beta_\text{AIPW}$ by maximizing $\wh V_\text{MR}(\beta)$ or $\wh V_\text{AIPW}(\beta)$ respectively, where
+%
+\begin{align}
+\begin{split}
+	\wh V_\text{AIPW}(\pi) 
+	&= \E_n 
+      \Big\{ 
+        \frac{\mathbf1\{\bar A=\pi(\bar X)\}(1-\tilde C_1)(1-\tilde C_2)}{\tilde\pk_1^\pi(X_1) \tilde\pk_2^\pi(\bar X)} 
+        \left\{Y - Q_2(\bar X, \bar A)\right\} \\
+    &\qquad+ \frac{\mathbf1\{A_1=\pi_1(X_1)\}(1-\tilde C_1)}{\tilde\pk_1^\pi(X_1)} 
+      \left\{ Q_2(\bar X, \bar A) - Q_1(X_1, A_1)\right\} +
+         Q_1(X_1, A_1) \Big\},
+\end{split} \label{Vaipw}
+\end{align}
+$\tilde C_k=C_k(1-S_k)$, $\tilde\pk_k^{\bar a_k}(\bar x_k) = \wh{\pr}(\tilde C_k = 0 | \bar x_k, \bar a_k, \tilde C_l=0, l=1,\dots,k-1)$, and $Q_k(\bar x_k, \bar a_k) = \wh{\E}(Y | \bar x_k, \bar a_k, \tilde C_l=0, l=1,\dots,k)$.
+This is a standard approach that treats trajectories experiencing death as censored observations.
+
+We employed a differential evolution algorithm to perform the value search.
+The learned policies are compared with the true optimal linear policy $\beta^*$, obtained by maximizing the plug-in estimator of \eqref{Vid} using a large dataset %(1 million samples) 
+	under ground truth nuisance models. 
+Figure \ref{fig:opl} compares the estimated values $\wh V_\text{MR}(\hat\beta_\text{MR})$ and $\wh V_\text{AIPW}(\hat\beta_\text{AIPW})$, the values $V(\hat\beta_\text{MR})$ and $V(\hat\beta_\text{AIPW})$ evaluated with the learned policies, and the true optimal value $V(\beta^*)$. 
+The 95\% confidence intervals based on the EIF exhibit coverage rates of 94.8\% for $n = 2000$ and 96\% for $n = 5000$, close to the nominal value.
+
+The percentage of correct decisions on the always-survivors (PCD-AS) was calculated using an independently generated large dataset. %(100,000 samples). 
+{The detailed calculation is described in the \supp.} 
+PCD-AS shows a convergence trend towards one as the training set size increases. The average PCD-AS of the MR estimator was $0.992$ for $n = 2000$ and $0.994$ for $n = 5000$, with standard deviations of $0.007$ and $0.004$, respectively, {which is closer to one with less variability than the PCD-AS of the AIPW estimator, averaging $0.987$ and $0.988$ with standard deviations of $0.008$ and $0.007$, respectively.}
+
+
+
+%\begin{minipage}{\textwidth}
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.7]{opl.png}
+  \captionof{figure}{Value estimates from $500$ independent simulation runs. 
+Left panels of each plot show the estimated values ($\wh V_\text{MR}(\hat\beta_\text{MR})$ and $\wh V_\text{AIPW}(\hat\beta_\text{AIPW})$), while right panels show the corresponding values evaluated with true nuisance functions ($V(\hat\beta_\text{MR})$ and $V(\hat\beta_\text{AIPW})$). The red horizontal line indicates the true optimal value ($V(\beta^*)$).}  
+\label{fig:opl}
+\end{figure}
+%\end{minipage}
+
+%
+%
+\section{Analysis of MIMIC-III data}
+
+To illustrate the utility of our proposed methodology, we applied it to the Medical Information Mart for Intensive Care III (MIMIC-III) v1.4 database.  MIMIC-III is a publicly accessible, MIT-licensed database containing de-identified health records from over 40,000 patients admitted to critical care units at Beth Israel Deaconess Medical Center between 2001 and 2012.
+ This dataset encompasses comprehensive patient information, including vital signs, laboratory results, medications, and survival outcomes, making it a suitable resource. \cite{mimic} provides a detailed description. 
+
+
+To simplify the analysis, we focused on two time points post-sepsis onset. We utilized eight baseline variables - age, weight, temperature ($^\circ$C), log glucose, log blood urea nitrogen (BUN), log creatinine (mg/dL), log white blood cell count (WBC), and log sequential organ failure assessment (SOFA) score - as $X_1$. For $X_2$, we used seven intermediate variables, which were the same as the baseline covariates excluding age. 
+Intervention with mechanical ventilation at each time point was represented by $A_1$ and $A_2$. 
+The negative SOFA score at the final time point was used as the outcome $Y$, so that a higher value indicates a better condition. If a patient died within $k$th 24-hour frame, $S_k=0$; otherwise, $S_k=1$. If a patient did not die but the outcome is missing, at the follow-up point, $C_k=1$. We focused on the high-risk group by using patient data with a baseline SOFA score above 8.
+{Processing procedure is detailed in the \supp.}
+
+We employed logistic regression models for estimating the propensity score, censoring and survival probability. For continuous outcome models, we fitted random forest regressors. Lastly, generalized additive models were fitted to estimate the conditional mean functions, $m_{p_2}$ and $m_{\mu_2}$. We used a differential evolution algorithm to optimize within the class of linear policies.
+
+To evaluate the benefit of our proposed estimator, we conducted a repeated 50 iterations of train-test split. In each iteration, stratified sampling on censoring ($C_1, C_2$) and survival ($S_1, S_2$) indicators was used to create balanced training and test sets. Policies were learned on training data and their value estimated on test data.  We established the ``true'' optimal value on the test set with multiply robust estimator as a benchmark. Figure \ref{fig:mimic} summarizes the results. 
+
+The MR estimator obtains policy closer to the true optimum than the AIPW estimator. 
+Consistent with recent findings (\citealp{sepsis1}), the learned policy (Figure \ref{fig:mimic}, right panel) demonstrates a significant influence of age and weight on treatment decisions. Specifically, patients with higher age and weight were more likely to be assigned to active treatment at baseline.
+At the intermediate stage, the learned treatment regime predominantly assigned patients to the untreated group. This observation suggests the acute nature of sepsis necessitates rapid intervention, while also indicating a cautious approach to mechanical ventilation, likely due to its associated risks (\citealp{unroe2010one}).
+
+\tred{
+Finally, we note that despite its role as a benchmark, the clinical utility of sepsis policies derived from MIMIC-III data is actively debated. \cite{nauka2025challenges} found applying trained models in practice inadequate, stating that missing data and diagnostic uncertainty lead to unpredictable model behavior. Conversely, \cite{festor2022assuring} claimed the model recommended fewer hazardous decisions than human clinicians despite data missingness.
+}
+
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.65]{mimic.png}
+  \includegraphics[scale=0.554]{learnedDTR.png}
+  \captionof{figure}{Analysis of MIMIC-III database.
+  (Left) Training set value was evaluated by nuisance model learned on training data, while test set value was computed by nuisance models learned on test data. Both values were evaluated on the test set.
+  The left panel displays the discrepancy between the training set value function with training set optimal policy ($\hat\beta$) and the test set value function with test set optimal policy ($\beta^*$). The right panel compares the test set value function achieved by $\hat\beta$ and $\beta^*$. A solid red line is drawn at zero. \;
+  (Right) Policy learned from the MR estimator. \;
+  } 
+\label{fig:mimic}
+\end{figure}
+
+
+%
+%
+\section{Discussions}
+
+\paragraph{Indentification for the multiple decision points case}
+Consider a scenario with $K \ge 3$ decision points. The identification formula for the always-survivor value, with corresponding generalized assumptions, is given by
+	\begin{gather}
+	V_{\text{AS},K}(\pi) = 
+	  {\E[ \prod_{k=1}^K m_{p_k}^{{\bf0}_k}(X_1) m_{\mu_K}^\pi(X_1) ]} \big /
+	    {\E[ \prod_{k=1}^K m_{p_k}^{{\bf0}_k}(X_1) ]}
+	    =: {N_K(\pi)}/{D_K},  \label{eq:Vid_K}
+	\end{gather}
+	where, for $k = 1, \dots, K$, the nuisance models are defined as
+	$p_k^{\bar a_k}(\bar x_k) := \pr(S_k | \bar x_k, \bar a_k, \bar C_k={\bf0}_k, \bar S_{k-1}={\bf1}_{k-1})$,
+	$\mu_K^{\bar a}(\bar x) := \E[Y | \bar x, \bar a, \bar C={\bf0}_K, \bar S={\bf1}_K]$,
+	$m_{p_k}^{{\bf0}_k}(x_1) := \E[ p_k^{{\bf0}_k}(\bar X_k) | x_1, 0, C_1=0, S_1=1 ]$, and
+	$m_{\mu_K}^{\pi}(x_1) := \E[ \mu_K^{\pi}(\bar X_K) \mathbf{1}\{\bar A=\pi(\bar X_K)\} %\mathbf 1\{\bar A_k = \bar a_k\} 
+	| x_1, \pi_1, C_1=0, S_1=1 ]$.
+The outcome model can again be estimated backward-recursively.
+The EIF derivation follows a process similar to Theorem \ref{thm:2}, albeit with significant effort. 
+\tred{
+Due to its technical complexity, the EIF is presented without proof. Define $Q_{S,j}$ and $Q_{Y,j}$ as in the Appendix \ref{app:thm2}. Let
+\begin{align*}
+	&\phi_{D_K}(O)
+	 = \prod_{k=1}^K\frac{\mathbf{1}\{A_k\textrm{ = }C_k\textrm{ = }0\}}{\pk_k^{{\bf 0}_k}(\bar X_k)} S_k 
+	 + \sum_{k=1}^K 
+	   \bigg\{ \frac{\mathbf{1}\{\bar A_{k\emph{--}1}\textrm{ = }\bar C_{k\emph{--}1}\textrm{ = }{\bf0}_{k\emph{--}1}\}}{\prod_{j=0}^{k-1}\pk_j^{{\bf 0}_j}(\bar X_j)} - \frac{\mathbf{1}\{\bar A_{k}\textrm{ = }\bar C_{k}\textrm{ = }{\bf0}_{k}\}}{\prod_{j=0}^k\pk_j^{{\bf 0}_j}(\bar X_j)} \bigg\} Q_{S,k}, \\
+%
+	&\phi_{N_K(\pi)}(O) 
+	 = Q_{Y,1} \phi_{D_K}(O) 
+	 + \sum_{k=1}^K \prod_{j=1}^k \frac{\mathbf1\{\pi_j(\bar X_j)\textrm{ = }A_j\}(1-C_j)S_j}{\pk_j^{\pi}(\bar X_j)p_j^{\pi}(\bar X_j)} \big(Q_{Y,j+1} - Q_{Y,j}\big) Q_{S,1}.
+\end{align*}
+% 
+The EIF of \eqref{eq:Vid_K} is given as $\{ \phi_{N_K(\pi)}(O) - V_{\text{AS},K}(\pi) \phi_{D_K}(O) \} / D_K(O)$.
+}
+
+{Verifying the assumptions and accurately fitting the nuisance models become challenging with a growing number of decision points. 
+The pessimism principle (\citealp{jin2021pessimism}) or a minimax learning approach \citep{kallus2021minimax} could potentially offer a solution, warranting future investigation.}
+
+
+
+%	
+%
+\paragraph{Practical considerations}
+If stratum assignment were known, a policy $\pi$ maximizing \eqref{Vmr} could directly optimize average outcomes within always-survivors. For protectables, active treatment would be optimal, as survival is contingent on it. 
+Since $U$ is latent, one approach is to estimate the always-surviving probability based on patient characteristics using the result $\pr(U=1111|x_1) = p_1^0(x_1)m_{p_2}^{00}(x_1)$. 
+Similarly, let $T^{\bar a}$ denote the potential survival time had a subject received treatment $\bar a$. Following \cite{tyeardtr}, we can derive an estimator for $S_t^{*\bar a}(X_1) = \mathbb{E}[ \pr(T^{\bar a} > t | \bar X) | X_1 ]$. By evaluating $\wh S_{t_0}^{*{\bf0}_K}(x_1)$ at a time $t_0$ beyond the final decision point, we estimate the probability of a subject being an always-survivor until $Y$ is observed. $\pi$ is then applied to patients with $\hat{p}_1^0(x_1)\hat{m}_{p_2}^{00}(x_1) > c$ or $\wh S_{t_0}^{*{\bf0}_K}(x_1) > c$, where $c$ is a predefined threshold (e.g., 0.95).
+
+Alternatively, we could balance between survivor-optimal decisions and overall population survival probability, ensuring policy's applicability to all subjects. We consider the penalized problem:
+$
+\tilde\pi = \mathop{\textrm{argmax}} _{\pi\in\Pi} \wh V_\textrm{MR}(\pi) + \lambda (1-\wh S_t^{*}(\pi))
+$
+where $S_t^*(\pi) = \mathbb{E}[ \pr(T^{\pi} > t | \bar X) ]$. Intuitively, the potential $t$-year mortality rate under $\pi$ acts as a regularizing penalty. The problem is well described in \cite{restrdtr}.
+$\tilde\pi$ is not survivor-optimal but controls the survival rate to a level determined by $\lambda$. 
+
+\tred{
+Finally, one could explore a principal stratification framework based on potential time to death. Such an approach would allow for more nuanced and fine-grained classification of participants beyond the conventional binary survival status, though it introduces additional methodological and inferential challenges \citep{zhang2025semiparametric}.
+}
+
+
+
+
+
+
+%%
+%%
+%\section*{Acknowledgement}
+%Acknowledgements should appear after the body of the paper but before any appendices and be as brief as possible
+%subject to politeness. 
+%%Information, such as contract numbers, of no interest to readers, should be excluded.
+
+%\section*{Supplementary material}
+%\label{SM}
+%Further material such as technical details, extended proofs, code, for example in \texttt{R}, or additional  simulations, figures and examples may appear online, and should be briefly mentioned as Supplementary Material where appropriate.  Please submit any such content as a PDF file along with your paper, entitled `Supplementary material for Title-of-paper'.
+%Include in the paper a section `Supplementary material',  with the sentence `The Supplementary Material includes $\ldots$', giving a brief indication of what is available. It should be possible to read and understand the paper without reading the Supplementary Material.
+
+
+
+
+
+
+
+
+
+%\bibliographystyle{plain}
+\bibliographystyle{abbrvnat}
+\bibliography{neurips_2025}
+
+
+
+
+
+
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+\newpage
+\appendix
+%
+%
+%
+%
+%
+\section{Appendix}
+Section \ref{App:A1} presents the regularity conditions and the proofs of the theorems stated in the main text.
+
+Section \ref{App:A2} provides technical details related to the cross-fitting algorithm, the experimental settings for the simulation study, and the preprocessing procedure of the MIMIC-III data. Results from an additional experiment are provided.
+
+\subsection{Proof of theoretical results} \label{App:A1}
+\subsubsection{Proof of Theorem 1}
+
+Throughout the appendix, for a given policy $\pi$, we simplify the notation by writing $N = N(\pi)$, $V(\pi) = V_{\textrm{AS}}(\pi)$, and $\wh V(\pi) = \wh V_{\textrm{MR}}(\pi)$.
+The first lemma demonstrates that the conditional mean of a quantity within the always-survivor stratum is equal to the unconditional mean of the function multiplied by the principal score.
+
+	\begin{lemma} \label{lemma:1}
+		For a function $g(X_1)$ such that $\mathbb E|g(X_1)| < \infty$, we have
+		\begin{align*}
+			\E\left[ g(X_1) \mid U=1111 \right] 
+			= \E\left[ \frac{ p_1^0(X_1)m_{p_2}^{00}(X_1) }{\E\left[p_1^0(X_1)m_{p_2}^{00}(X_1)\right]} g(X_1) \right].
+		\end{align*}
+	\end{lemma}
+\begin{proof}[Proof of Lemma 1]
+	First, by Bayes' theorem,
+\begin{align*}
+	\mathbb E[g(X_1) \mid U=1111] = \mathbb E\left[\frac{f(X_1 \mid U=1111)}{f(X_1)} g(X_1)\right] = \mathbb E\left[ \frac{\pr(U=1111 \mid X_1)}{\pr(U=1111)} g(X_1) \right].
+\end{align*}
+In addition,
+\begin{align*}
+	&\pr(U=1111 | X_1) 
+	 = \pr(S_2^{00} = 1 | X_1) \\
+	&= \pr(S_2^{00}=1 | X_1, A_1=C_1=0)  \tag{Assumptions \ref{A3},\ref{A5}(i)}\\%\ref{A3}} \\
+	&= \mathbb E\left[  \pr(S_2^{00}=1 | X_1, X_2^0, \bar A=(0,0), \bar C^{00}=(0,0)) \mid X_1, A_1=C_1=0  \right]  \tag{Assumptions \ref{A3},\ref{A5}(ii)}\\%\ref{A3}, \tef{A6}} \\
+	&= \mathbb E\left[  \pr(S_2=1 | \bar X, \bar A=\bar C=(0,0)) \mid X_1, A_1=C_1=0  \right]  \tag{Assumption \ref{A1}}\\%\ref{A1}} \\
+	&= \mathbb E\left[  \pr(S_1=S_2=1 | \bar X, \bar A=\bar C=(0,0)) \mid X_1, A_1=C_1=0  \right]  \tag{Assumption \ref{A2}}\\%\ref{A2}}\\
+	&= \mathbb E\big[  \pr(S_2=1 | \bar X, \bar A=\bar C=(0,0), S_1=1) 
+	   \pr(S_1=1 | \bar X, \bar A=\bar C=(0,0)) \mid X_1, A_1=C_1=0  \big]  \\ %\ref{A3}} \\
+	&= \mathbb E\big[  \pr(S_2=1 | \bar X, \bar A=\bar C=(0,0), S_1=1) 
+	   \pr(S_1=1 | \bar X, A_1=C_1=0) \mid X_1, A_1=C_1=0  \big] \tag{Assumptions \ref{A3},\ref{A5}(ii)} \\
+	&= \mathbb E\bigg[  \pr(S_2=1 | \bar X, \bar A=\bar C=(0,0), S_1=1) \\
+	   &\qquad \times \pr(S_1=1|X_1,A_1=C_1=0) \frac{f(X_2|X_1,A_1=C_1=0,S_1=1)}{f(X_2|X_1,A_1=C_1=0)}
+	     \bigg| X_1, A_1=C_1=0  \bigg] \\
+	&= \mathbb E\big[  \pr(S_2=1 | \bar X, \bar A=\bar C=(0,0), S_1=1)  \\
+	   &\qquad \times \pr(S_1=1 | X_1, A_1=C_1=0) | X_1, A_1=C_1=0, S_1=1  \big] \\% \ref{A3}, \ref{A5}, \ref{A6}, \ref{A7}} \\
+	&= p_1^0(X_1) \E\big[ p_2^{00}(\bar X) \mid X_1, A_1=C_1=0, S_1=1  \big] \\
+	&= p_1^0(X_1) m_{p_2}^{00}(X_1),   %\ref{A6}, \ref{A7}}
+\end{align*}
+and similarly, $\pr(U=1111) = \mathbb E\left[ p_1^0(X_1) m_{p_2}^{00}(X_1) \right]$. 
+\end{proof}
+
+Theorem 1 follows directly from Lemma 1.
+\begin{proof}[Proof of Theorem 1]
+\begin{align*}
+	V(\pi) 
+	&= \mathbb E[Y^{\pi} | U=1111] \\
+	&= \mathbb E\left[ \mathbb E( Y^{\pi} | X_1, U=1111) \mid U=1111 \right] \\
+	&= \mathbb E\left[ \mathbb E( Y^{\pi} | X_1, A_1=\pi_1(X_1), C_1=0, S_1=1, U=1111) \mid U=1111 \right]  \tag{Assumptions \ref{A2},\ref{A3},\ref{A5}}\\%\ref{A2}, \ref{A3}, \ref{A6}} \\
+	&= \mathbb E\left[ \mathbb E\left[ \mathbb E( Y^{\pi} | \bar X, A_1=\pi_1(X_1), C_1=0, S_1=1, U=1111) \mid X_1, U=1111 \right] \mid U=1111 \right]   \\
+	&= \mathbb E\bigg[ \mathbb E\big[ \mathbb E( Y^{\pi} | \bar X, \bar A=\pi(\bar X), \bar C=\bar0, \bar S=\bar1, U=1111) \\
+	&\;\;\quad\qquad \big| X_1, A_1=\pi_1(X_1), C_1=0, S_1=1, U=1111 \big] ~\Big|~ U=1111 \bigg]  \tag{Assumptions \ref{A2},\ref{A3},\ref{A5}}\\%\ref{A2}, \ref{A3}, \ref{A6}}  \\
+	&= \mathbb E\left[ \mathbb E\left[ \mu_2^\pi(\bar X) \mid X_1, A_1=\pi_1(X_1), C_1=0, S_1=1 \right] \mid U=1111 \right]  \tag{Assumption \ref{A4}}\\%\ref{A4}}  \\
+	&= \mathbb E\left[ m_{\mu_2}^\pi(X_1) \mid U=1111 \right]  \tag{Assumptions \ref{A2},\ref{A:S2},\ref{A4},\ref{A3},\ref{A5}}. %\ref{A2}, \ref{A3}, \ref{A4}, \ref{A6}}.
+\end{align*}
+\tred{
+Alternatively,
+\begin{align*}
+	V(\pi)
+	&= \mathbb E\bigg[ \mathbb E\big[ \mathbb E( Y^{\pi} | \bar X, \bar A=\pi(\bar X), \bar C=\bar0, \bar S=\bar1, U=1111) \\
+	&\;\;\quad\qquad \big| X_1, A_1=\pi_1(X_1), C_1=0, S_1=1, U=1111 \big] ~\Big|~ U=1111 \bigg] \\
+	&= \E\left[ \E\left\{\frac{\mathbf{1}\{\bar A=\pi(\bar X)\}(1-C_1)(1-C_2)S_1S_2}{\pk_1^\pi(X_1)\pk_2^\pi(\bar X)p_1^\pi(X_1)p_2^\pi(\bar X)} Y \Big| X_1 \right\} \right].  \tag{Assumption \ref{A4}}
+\end{align*}
+}
+Hence, the result follows by Lemma \ref{lemma:1}.
+\end{proof}
+	
+
+	
+%
+\subsubsection{Proof of theorem 2} \label{app:thm2}
+\tred{
+First, we define $Q_{S,j}$ and $Q_{Y,j}$ in Theorem \ref{thm:2} as
+\begin{align*}
+	Q_{S,1} &= \E[S_1p_2^{00}(\bar X)|X_1, A_1=0, C_1=0] = p_1^0(X_1)m_{p_2}^{00}(X_1), \quad
+	Q_{S,2} = S_1p_2^{00}(\bar X), \\
+	Q_{Y,1} &= m_{\mu_2}^\pi(X_1), \quad 
+	Q_{Y,2} = \mu_2^\pi(\bar X), \quad 
+	Q_{Y,3} = Y.
+\end{align*}
+%
+For $K \ge 3$ cases, we similarly define
+\begin{align*}
+	&Q_{S,K} = S_1\prod_{j=2}^K p_j^{{\bf 0}_j}(\bar X_j), \quad 
+	 Q_{S,j} = \E[ Q_{S,j+1} | \bar X_j, \bar A_j = {\bf0}_j, \bar C_j = {\bf0}_j], \\
+	&Q_{Y,K+1} = Y, \quad 
+	 Q_{Y,K} = \mu_K^\pi(\bar X), \quad
+	Q_{Y,j} = \E[Q_{Y,j+1} | \bar X_j, \bar A_j = \bar\pi_j(\bar X_j), \bar C_j = {\bf0}_j, \bar S_j = {\bf1}_j]
+\end{align*}
+for $j=1,\dots,K-1$.
+}
+We adopt the point-mass contamination strategy as introduced in \cite{Hines2021} and \cite{kennedy2023semiparametric}. Let $\mathcal P$ represent the distribution of the observation $O$.
+
+Consider the submodel $\mathcal P_t$, a perturbation of $\mathcal P$ in the direction of $\widetilde{\mathcal P}$ at the specific observation $\tilde o = \{\tilde x_1, \tilde a_1, \tilde c_1, (1-\tilde c_1)\tilde s_1, (1-\tilde c_1)\tilde s_1\tilde x_2, (1-\tilde c_1)\tilde s_1\tilde a_2, (1-\tilde c_1)\tilde c_2\tilde s_1, (1-\tilde c_1)(1-\tilde c_2)\tilde s_1\tilde s_2, (1-\tilde c_1)(1-\tilde c_2)\tilde s_1\tilde s_2\tilde y\}$. The G\^ateaux derivative of the denominator $D(\mathcal P_t)$ evaluated at $t=0$ can be derived as follows.
+
+\begin{align}
+	&\frac{\partial}{\partial t}D(\mathcal P_t) \bigg\vert_{t=0} \\
+	&= \int p_1^0(x_1) \mathbb E(p_2^{00}(\bar X) \mid x_1, A_1=C_1=0, S_1=1) \frac{\partial}{\partial t} f_t(x_1) \big\vert_{t=0} dx_1 \\
+	  &\quad+ \int \frac{\partial}{\partial t} \left( \int s_1 \frac{f_t(s_1, x_1, A_1=C_1=0)}{f_t(x_1, A_1=C_1=0)} ds_1 \right)\biggl\vert_{t=0} \mathbb E(p_2^{00}(\bar X) | x_1, A_1=C_1=0, S_1=1) f(x_1)dx_1 \\
+	  &\quad+ \int p_1^0(x_1) \frac{\partial}{\partial t} \bigg( \int s_2 \frac{f_t(s_2, \bar x, \bar A=\bar C={\bf 0}_2, S_1=1)}{f_t(\bar x,\bar A=\bar C={\bf 0}_2,S_1=1)} \\
+	   &\qquad\qquad\qquad\qquad\times\frac{f_t(\bar x,A_1=C_1=0,S_1=1)}{f_t(x_1,A_1=C_1=0,S_1=1)} ds_2dx_2 \bigg)  \bigg\vert_{t=0} f(x_1)dx_1 \\
+	&= \int p_1^0(x_1) \mathbb E(p_2^{00}(\bar X) \mid x_1, A_1=C_1=0, S_1=1) \{ \mathbf1_{\tilde x_1}(x_1) - f(x_1) \} dx_1 \\
+	  &\quad+ \int \frac{\mathbf1_{\tilde x_1}(x_1) (1-\tilde a_1)(1-\tilde c_1)}{f(x_1) \pk^0(x_1)} \left\{ \tilde s_1 - p_1^0(x_1) \right\} \mathbb E(p_2^{00}(\bar X) | x_1, A_1=C_1=0, S_1=1) f(x_1)dx_1 \\
+	  &\quad+ \int p_1^0(x_1) 
+	  \frac{\mathbf1_{\tilde x_1}(x_1)}{f(x_1)} \bigg[
+	    \frac{(1-\tilde a_1)(1-\tilde a_2)(1-\tilde c_1)(1-\tilde c_2)\tilde s_1}{\pk_2^{00}(\tilde x_1, \tilde x_2)\pk_1^0(\tilde x_1)p_1^0(\tilde x_1)} \big\{ \tilde s_2 - p_2^{00}(\tilde x_1, \tilde x_2) \big\} \\
+	    &\qquad\qquad\qquad\qquad\qquad+
+	     \frac{(1-\tilde a_1)(1-\tilde c_1)\tilde s_1}{\pk_1^0(\tilde x_1)p_1^0(\tilde x_1)} \big\{ p_2^{00}(\tilde x_1, \tilde x_2) - m_{p_2}^{00}(\tilde x_1) \big\}
+	  \bigg] f(x_1)dx_1.
+\end{align}
+Consequently, the efficient influence function for $D$, denoted by $\psi_D(O)$, is given by
+$
+\psi_D(O) := \phi_D(O) - D(O).
+$
+
+Similarly, we have
+\begin{align}
+	\frac{\partial}{\partial t} N(\mathcal P_t) \bigg\vert_{t=0}
+	&= \int m_{\mu_2}^\pi(x_1) p_1^0(x_1) m_{p_2}^{00}(x_1) \frac{\partial}{\partial t} f_t(x_1) \big\vert_{t=0} dx_1  \label{eq:N1} \\
+	  &\quad+ \int m_{\mu_2}^\pi(x_1) p_1^0(x_1) \frac{\partial}{\partial t} m_{p_2}^{00}(x_1;\mathcal P_t) \bigg\vert_{t=0} f(x_1) dx_1   \label{eq:N2} \\
+	  &\quad+ \int m_{\mu_2}^\pi(x_1) \frac{\partial}{\partial t} p_1^0(x_1;\mathcal P_t) \bigg\vert_{t=0} m_{p_2}^{00}(x_1) f(x_1) dx_1  \label{eq:N3} \\
+	  &\quad+ \int \frac{\partial}{\partial t} m_{\mu_2}^\pi(x_1;\mathcal P_t) \bigg\vert_{t=0} p_1^0(x_1) m_{p_2}^{00}(x_1) f(x_1) dx_1.  \label{eq:N4}
+\end{align}
+
+The simplification of each term yields
+\begin{align*}
+	\eqref{eq:N1} &= m_{\mu_2}^\pi(\tilde x_1) p_1^0(\tilde x_1) m_{p_2}^{00}(\tilde x_1) - N(\tilde o), \\
+	\eqref{eq:N2} &= \int m_{\mu_2}^\pi(x_1) p_1^0(x_1) \frac{\mathbf1_{\tilde x_1}(x_1)}{f(x_1)}\\
+	  &\qquad\times \bigg[
+	    \frac{(1-\tilde a_1)(1-\tilde a_2)(1-\tilde c_1)(1-\tilde c_2)\tilde s_1}{\pk_2^{00}(\tilde x_1, \tilde x_2)\pk_1^0(\tilde x_1)p_1^0(\tilde x_1)} \big\{ \tilde s_2 - p_2^{00}(\tilde x_1, \tilde x_2) \big\} \\
+	    &\qquad\qquad+
+	     \frac{(1-\tilde a_1)(1-\tilde c_1)\tilde s_1}{\pk_1^0(\tilde x_1)p_1^0(\tilde x_1)} \big\{ p_2^{00}(\tilde x_1, \tilde x_2) - m_{p_2}^{00}(\tilde x_1) \big\}  \bigg] f(x_1) dx_1, \\
+	\eqref{eq:N3} &= \int m_{\mu_2}^\pi(x_1) 
+	  \frac{\mathbf1_{\tilde x_1}(x_1) (1-\tilde a_1)(1-\tilde c_1)}{f(x_1) \pk_1^0(x_1)} \left\{ \tilde s_1 - p_1^0(x_1) \right\}
+	  m_{p_2}^{00}(x_1) f(x_1) dx_1, \\
+	\eqref{eq:N4} &= \int
+	\bigg[ \frac{\mathbf1\{(\tilde a_1, \tilde a_2)=\pi(\tilde x_1, \tilde x_2)\}(1-\tilde c_1)(1 - \tilde c_2)\tilde s_1\tilde s_2}{\pk_2^{\bar{\widetilde a}}(\tilde x_1, \tilde x_2)p_2^{\bar{\widetilde a}}(\tilde x_1, \tilde x_2) \pk_1^{\tilde a_1}(\tilde x_1)p_1^{\tilde a_1}(\tilde x_1)} \left\{ \tilde y - \mu_2^{\pi}(\tilde x_1, \tilde x_2) \right\} \\
+	  &\qquad\quad+ \frac{\mathbf1\{\tilde a_1 = \pi_1(\tilde x_1)\}(1-{\tilde c_1}){\tilde s_1}}{\pk_1^{\tilde a_1}(\tilde x_1)p_1^{\tilde a_1}(\tilde x_1)} \left\{ \mu_2^{\pi}(\tilde x_1, \tilde x_2) - m_{\mu_2}^\pi(\tilde x_1) \right\}
+	\bigg]\\
+	&\quad\times \frac{\mathbf1_{\tilde x_1}(x_1)}{f(\tilde x_1)} \times p_1^0(x_1) m_{p_2}^{00}(x_1) f(x_1) dx_1.
+\end{align*}
+Organizing the terms above yields the efficient influence function $\psi_N$ of $N$
+\[
+\psi_N(O) = \phi_N(O) - N(O).
+\]
+
+
+
+Finally, applying the product rule and the chain rule for G\^auteaux derivatives, we obtain
+\begin{align*} 
+	\psi_{V(\pi)}
+	&= \frac1D\psi_N - \frac{N}{D^2}\psi_D \\
+	&= \frac1D (\phi_N - N) - \frac1D V(\pi) (\phi_D - D) \\
+	&= \frac1D \left\{ \phi_N - V(\pi)\phi_D \right\}.
+	\label{eq:IF-ratio}
+\end{align*}
+%\end{proof}
+
+	
+%
+\subsubsection{Proof of Theorem 3}
+Let $\pr\{f\}$ and $\pr_n\{f\}$ denote the expectation of a function $f$ with respect to a probability measure $\pr$ and its empirical counterpart $\pr_n$, respectively. 
+We assume the following regularity conditions (Assumption \ref{A9}), which state positivity and boundedness for the parametric models.
+\begin{assumption} \ \label{A9}
+	\begin{enumerate}
+		\item [(i)] $\wh{\pk}_k^{\bar a_k}, \wh p_k^{\bar a_k} \ge \epsilon$ a.s. for all $\bar a_k$ for some $\epsilon > 0$.
+		\item [(ii)] $|\wh\mu_2^{a_1a_2}(\bar x)|, |\wh m_{\mu_2}^{a_1a_2}(x_1)| < L$ for all $\bar x, \bar a$ for some $L<\infty.$
+	\end{enumerate}
+\end{assumption}
+
+\begin{proof}[Proof of Theorem 3]
+
+Denote $\theta^* = \{ \alpha_k^*, \eta_k^*, \gamma_k^*, \zeta^*, \xi^*, \nu^*: k=1,2 \}$ as the probability limits of $\hat\theta = \{ \hat\alpha_k, \hat\eta_k, \hat\gamma_k, \hat\zeta, \hat\xi, \hat\nu: k=1,2 \}$. For simplicity, define
+$\wh e_k(\cdot) = e_k(\cdot; \hat\alpha_k)$,
+$e_k^*(\cdot) = e_k(\cdot; \alpha_k^*),$
+and similarly for other nuisance models.
+Additionally, let
+	\begin{gather*}
+		m_{p_2^*}^{a_1a_2}(x_1) = \mathbb E(p_2^{*a_1a_2}(\bar X)|x_1,a_1,C_1=0,S_1=1), \\
+		m_{\mu_2^*}^{a_1a_2}(x_1)  = \mathbb E(\mu_2^{*a_1a_2}(\bar X) |x_1,a_1,C_1=0,S_1=1).
+	\end{gather*}
+
+To demonstrate the multiple robustness of $\wh V(\pi)$, it is sufficient to show that (i) $\mathbb E\phi_D^* = D$ and (ii) $\mathbb E\phi_N^* = N$.
+
+\begin{itemize}
+	\item[(i)] 
+	\begin{align*}
+		\mathbb E[\phi_D^*]
+		&= \mathbb E \bigg[ 
+		\frac{(1-A_1)(1-C_1)}{\pk_1^{*0}(X_1)} \left\{S_1 - p_1^{*0}(X_1)\right\} m_{p_2}^{*00}(X_1) \\
+	      &\qquad+ \bigg[ \frac{(1-A_1)(1-A_2)(1-C_1)(1-C_2)S_1}{\pk_1^{*0}(X_1)p_1^{*0}(X_1)\pk_2^{*00}(\bar X)} \big(S_2 - p_2^{*00}(\bar X)\big) \\
+	      &\qquad\qquad+ 
+	   	    \frac{(1-A_1)(1-C_1)S_1}{\pk_1^{*0}(X_1)p_1^{*0}(X_1)} \left\{ p_2^{*00}(\bar X) - m_{p_2}^{*00}(X_1) \right\} \bigg] \times p_1^{*0}(X_1) \\
+	      &\qquad+ p_1^{*0}(X_1) m_{p_2}^{*00}(X_1) \bigg] \\
+	    &= \mathbb E\left[ \frac{\pk_1^{0}(X_1)}{\pk_1^{*0}(X_1)} \left\{p_1^{0}(X_1) - p_1^{*0}(X_1)\right\} m_{p_2}^{*00}(X_1) \right] + \mathbb E\left[ p_1^{*0}(X_1) m_{p_2}^{*00}(X_1) \right] \\
+	   	  &\quad+ \mathbb E\Bigg( \bigg[ \mathbb E \left\{
+	   	      \frac{\pk_2^{00}(\bar X)}{\pk_2^{*00}
+	   	      (\bar X)} \big(p_2^{00}(\bar X) - p_2^{*00}(\bar X)\big) \bigg\vert X_1, A_1=C_1=0, S_1=1
+	   	      \right\} \\
+	   	   &\qquad\qquad+
+	   	    \left\{ m_{p^*_2}^{00}(X_1) - m_{p_2}^{*00}(X_1) \right\} \bigg] \times p_1^{0}(X_1) \frac{\pk_1^{0}(X_1)}
+	   	    {\pk_1^{*0}(X_1)} \Bigg)
+	\end{align*}
+	If any of the following scenarios is met,
+	\begin{enumerate}
+		\item[(i-1)] $\widehat{\pk}_1, \widehat{\pk}_2$ are correctly specified.
+		\item[(i-2)] $\widehat{\pk}_1, \widehat p_2$ are correctly specified.
+		\item[(i-3)] $\widehat p_1, \widehat p_2, \widehat m_{p_2}$ are correctly specified.
+	\end{enumerate}
+	then $\pr_n\{\hat\phi_D\}$ converges in probability to $D$.
+
+
+	
+	\item[(ii)]
+	Similarly, by the law of iterated expectation,
+	\begin{align}
+		&\mathbb E\phi_N^* \\
+		&= \mathbb E \bigg[
+		\bigg( \frac{\mathbf1\{\pi(\bar X)=\bar A\}(1-C_1)(1-C_2)S_1S_2}{\pk^{*a_1}_1(X_1)p_1^{*a_1}(X_1)\pk_2^{*\bar a}(\bar X)p_2^{*\bar a}(\bar X)} \big\{Y - \mu_2^{*\pi}(\bar X)\big\} \\
+		  &\qquad\quad+ \frac{\mathbf1\{\pi_1(X_1)=A_1\}(1-C_1)S_1}{\pk_1^{*a_1}(X_1)p_1^{*a_1}(X_1)} \left\{ \mu_2^{*\pi}(\bar X)  
+		    - m_{\mu_2}^{*\pi}(X_1) \right\} \bigg) \\
+		  &\qquad \times p_1^{*0}(X_1) m_{p_2}^{*00}(X_1) \\
+		  &\qquad+ m_{\mu_2}^{*\pi}(X_1) \left[ \frac{(1-A_1)(1-C_1)}{\pk_1^{*0}(X_1)} \left(S_1 - p_1^{*0}(X_1)\right) \right] \cdot m_{p_2}^{*00}(X_1) \\
+		  &\qquad+ \bigg[ \frac{(1-A_1)(1-A_2)(1-C_1)(1-C_2)S_1}{\pk_1^{*0}(X_1)p_1^{*0}(X_1)\pk_2^{*00}(\bar X)} \big(S_2 - p_2^{*00}(\bar X)\big) \\
+	  	  &\qquad\quad\;+ 
+	  	     \frac{(1-A_1)(1-C_1)S_1}{\pk_1^{*0}(X_1)p_1^{*0}(X_1)} \left\{ p_2^{*00}(\bar X) - m_{p_2}^{*00}(X_1) \right\} \bigg] m_{\mu_2}^{*\pi}(X_1) p_1^{*0}(X_1) \\
+		  &\qquad+ m_{\mu_2}^{*\pi}(X_1) p_1^{*0}(X_1) m_{p_2}^{*00}(X_1)  \bigg] \\
+		&= \mathbb E\Bigg[ 
+		  \frac{\pk_1^{\pi_1}(X_1)p_1^{\pi_1}(X_1)}{\pk_1^{*\pi_1}(X_1)p_1^{*\pi_1}(X_1)} 
+		    \bigg\{
+		  \left( m_{\mu^*_2}^{\pi}(X_1) - m_{\mu_2}^{*\pi}(X_1) \right)
+		      \\
+		  &\qquad\;\;+ 
+		    \mathbb E\bigg( 
+		    \frac{\pk_2^{\pi}(\bar X)p_2^{\pi}(\bar X)}{\pk_2^{*\pi}(\bar X)p_2^{*\pi}(\bar X)}
+		    \big(\mu_2^{\pi}(\bar X) - \mu_2^{*\pi}(\bar X)\big) 
+		  \Big\vert X_1,A_1=\pi_1(X_1),C_1=0,S_1=1\bigg)
+		      \bigg\} \\
+		  &\qquad\times p_1^{*0}(X_1) m_{p_2}^{*00}(X_1) 
+		    + m_{\mu_2}^{*\pi}(X_1) \phi_D^* \\
+		  &\qquad+ 
+		    m_{\mu_2}^{*\pi}(X_1) p_1^{*0}(X_1) m_{p_2}^{*00}(X_1)
+		  \Bigg].  
+	\end{align}
+	
+	To enumerate the scenarios for a consistent value estimator, we only consider those with a consistent denominator.
+	\begin{enumerate}
+		\item[(ii-1)]  $\wh p_1, \wh p_2, \wh m_{p_2}$ are correctly specified
+		\item[(ii-2)]  $\wh p_1, \wh m_{p_2}, \wh\mu_2$ are correctly specified
+		\item[(ii-3)]  $\wh\mu_2, \wh m_{\mu_2}$ are correctly specified
+	\end{enumerate}
+	If (i-1) is met, we also need (ii-1) or (ii-3) for $\mathbb E\phi_N^* = N$. If (i-2) is met, then (ii-2) or (ii-3) is required, and if (i-3) is met, then (ii-3) is required.
+\end{itemize}
+
+Consequently, $\wh V(\pi)$ achieves consistency if the scenario is within:
+	\begin{align*}
+		&\{\text{ $\widehat{\pk}_1, \hat p_1, \widehat{\pk}_2, \hat p_2, \hat m_{p_2}$ are correctly specified }\}  
+		\cup 
+		 \{\text{ $\widehat{\pk}_1, \widehat{\pk}_2, \hat \mu_2, \hat m_{\mu_2}$ are correctly specified }\} \\
+		&\cup
+		 \{\text{ $\widehat{\pk}_1, \hat p_1, \hat p_2, \hat m_{p_2}, \hat \mu_2$ are correctly specified }\} 
+		\cup
+		 \{\text{ $\widehat{\pk}_1, \hat p_2, \hat \mu_2, \hat m_{\mu_2}$ are correctly specified }\} \\
+		&\cup
+		 \{\text{ $\hat p_1, \hat p_2, \hat m_{p_2}, \hat \mu_2, \hat m_{\mu_2}$ are correctly specified }\}.
+	\end{align*}
+	
+Now, we will show that if all nuisance models are correctly specified, $\wh V(\pi)$ has $\psi_{V(\pi)}$ as its efficient influence function. We use a dot to denote the partial derivative with respect to the model parameter $\theta$, for example, $\dot N^*(O) = \dot N(O;\theta^*) = \frac{\partial N(O;\theta)}{\partial \theta} \Big|_{\theta=\theta^*}$.
+
+By Taylor expansion at $\theta^*$, we have, for general functionals $N(O)$ and $D(O)$,
+\begin{gather}
+	\pr_n\{ N(O; \hat\theta) \} = \pr_n\{ N(O; \theta^*) \} + \pr\{ \dot N(O; \theta^*) \} (\hat\theta - \theta^*) + o_{\pr}(n^{-1/2}),
+	\label{eq:taylor-N} \\
+	\pr_n\{ D(O; \hat\theta) \} = \pr_n\{ D(O; \theta^*) \} + \pr\{ \dot D(O; \theta^*) \} (\hat\theta - \theta^*) + o_{\pr}(n^{-1/2}),
+	\label{eq:taylor-D} \\
+	    \frac{\pr_n\{ N(O; \hat\theta) \}}{\pr_n\{ D(O; \hat\theta) \}} = \frac{\pr_n\{ N(O; \hat\theta) \}}{\pr\{ D(O; \theta^*) \}} - \frac{\pr\{ N(O; \theta^*) \}}{[\pr\{ D(O; \theta^*) \}]^2} \left[ \pr_n\{ D(O; \hat\theta) \} - \pr\{ D(O; \theta^*) \} \right] + o_{\pr}(n^{-1/2}).
+	\label{eq:taylor-ratio}
+\end{gather}
+Plugging in $N(O;\theta) = \phi_N(\theta)$ and $D(O;\theta) = \phi_D(\theta)$ results in
+\begin{align*}
+	&\wh V(\pi) - V(\pi) \\
+	&= \frac{\pr_n\{ \hat\phi_N \}}{\pr\{ \phi_D^* \}} - \frac{\pr\{ \phi_N^* \}}{[\pr\{ \phi_D^* \}]^2} \left[ \pr_n\{ \hat\phi_D \} - {\pr\{ \phi_D^* \}} \right] - {V(\pi)} + o_{\pr}(n^{-1/2}) 
+	  \tag{by (\ref{eq:taylor-ratio})} \\
+	&= \pr_n \left\{ \frac1{\pr\{\phi_D^*\}} \left( \hat\phi_N - \frac{\pr\{ \phi_N^* \}}{\pr\{ \phi_D^* \}} \hat\phi_D \right) \right\} + o_{\pr}(n^{-1/2}) \\
+	&= \pr_n \left\{ \frac1{p_2^{00}} \big( \hat\phi_N -V(\pi) \hat\phi_D \big) \right\} + o_{\pr}(n^{-1/2}) \\
+	&= \pr_n \left\{ \frac1{p_2^{00}} \left( (\phi_N^* + {\pr \{ \dot\phi_N^* \})(\hat\theta-\theta^*)}\big) -V(\pi) \big(\phi_D^* + {\pr\{\dot\phi_D^*\}(\hat\theta-\theta^*)}\big) \right) \right\} + o_{\mathbb P }(n^{-1/2})  
+	  \tag{by (\ref{eq:taylor-N}), (\ref{eq:taylor-D})} \\
+	&= \pr_n \left\{ \frac1{p_2^{00}} \big( \phi_N^* -V(\pi) \phi_D^* \big) \right\} + o_{\pr}(n^{-1/2}) \\
+	&= \pr_n \{ {\psi}_{V(\pi)}\} + o_{\pr}(n^{-1/2}). \tag{*} \label{eq:clt-form}
+\end{align*}
+The penultimate equality follows because $\pr\{\dot\phi_N^*\} = \pr\{\dot\phi_D^*\}=0.$  
+\end{proof}
+
+
+%
+\subsubsection{Proof of Theorem 4}
+Let $\|\cdot\|_P$ denote the $L^2(P)$-norm with respect to a probability measure $P$. We omit the subscript when the corresponding measure is clear from the context.
+Regularity condition \ref{A10} states that the nonparametric models satisfy positivity and boundedness and are consistent with the true data-generating models, similar to Assumption \ref{A9}. It additionally assumes that the rate of convergence for each model does not exceed a certain level.
+
+\begin{assumption} \ \label{A10}
+	\begin{enumerate}
+	\item $\wh{\pk}_k^{\bar a_k}, \wh p_k^{\bar a_k} \ge \epsilon$ a.s. $k=1,2,$ for some $\epsilon > 0$.
+	\item
+		$|\wh\mu_2^{a_1a_2}(\bar x)|, |\wh m_{\mu_2}^{a_1a_2}(x_1)| < L$ for all $\bar x, \bar a$ for some $L<\infty.$
+	\item $\hat\theta \overset{\pr}\to \theta$ as $n\to\infty$.
+	\item $\|\hat g - g\| \cdot \|\hat h - h\| = o_{P}(n^{-1/2})$ for all $g \ne h$ where $g,h \in \{ \pk_k^{\bar a_k}, p_k^{\bar a_k}, \mu_2^{a_1a_2}, m_{p_2}^{00}, m_{\mu_2}^{a_1a_2}: \bar a\in\{0,1\}^2, k=1,2 \}$.
+	\end{enumerate}
+\end{assumption}
+
+\begin{proof}[Proof of Theorem 4]
+It suffices to show that the EIF of $\wh V(\pi)$ is $\psi_{V(\pi)}$. This means showing that
+\[
+	\wh V(\pi) - V(\pi) = \pr_n\{\psi_{V(\pi)}\} + o_{\pr}(n^{-1/2}).
+\]
+\begin{enumerate}
+	\item We observe that, by algebra,
+	\begin{align*}
+		&\pr_n\{ \hat\phi_D \} - \pr\{ \phi_D^* \} \\
+		&= (\pr_n - \pr)\{ \phi_D^* \} 
+		+ (\pr_n - \pr)\{ \hat\phi_D - \phi_D^* \}
+		+ \pr \{ \hat\phi_D - \phi_D^* \}.
+	\end{align*}
+	The first term is the centered empirical mean, which will converge to a normal distribution as $n \to \infty$. The second term can be simplified to
+	\begin{align*}
+		(\pr_n - \pr)\{ \hat\phi_D - \phi_D^* \} = \mathcal O_{\pr}\left( \frac{\| \hat\phi_D - \phi_D^* \|}{\sqrt n} \right) = o_{\pr}(n^{-1/2})
+	\end{align*}
+	by Lemma 1 from \cite{kennedy2023semiparametric},
+	where the last equality follows from the bounded convergence theorem because $\hat\phi_D \overset{\pr}{\to} \phi_D^*$ and $|\phi_D(\theta)|$ is bounded almost surely.
+	
+	For simplicity, let  
+	\begin{gather*}
+		m_{\wh p_2}^{a_1a_2}(x_1) = \mathbb E[\wh p_2^{a_1a_2}(\bar X) \mid x_1,a_1,0,1], \\
+		m_{\wh \mu, \pi}^{a_1a_2}(x_1) = \mathbb E[\wh \mu_2^{\pi}(\bar X) \mid x_1,\pi_1,0,1]
+	\end{gather*}
+	denote the conditional means of the pseudo-outcomes. To bound the convergence rate of the third term $T_D := \mathbb P\{ \hat\phi_D - \phi_D^* \}$, we observe that by the law of iterated expectation,
+	\begin{align*}
+		T_D &= \mathbb E \bigg[
+		\frac{{\pk}_1^0(X_1)}{\wh{\pk}_1^0(X_1)} \left\{p_1^0(X_1) - \wh p_1^0(X_1)\right\} \wh m_{p_2}^{00}(X_1) \\
+		&\qquad+ \wh p_1^0(X_1) \frac{\pk_1^0(X_1) p_1^0(X_1)} {\wh\pk_1^0(X_1) \wh p_1^0(X_1)} \bigg( 
+		  \mathbb E\bigg[\frac{\pk_2^{00}(\bar X)}{\wh\pk_2^{00}(\bar X)}
+		  \big\{p_2^{00}(\bar X) - \wh p_2^{00}(\bar X)\big\} | X_1,0,0,1\bigg] \\
+		&\qquad\qquad\qquad\qquad
+		 \qquad\qquad\qquad+ 
+			   \left\{ m_{\wh p_2}^{00}(X_1) - \wh m_{p_2}^{00}(X_1) \right\} \bigg) \\
+		&\qquad+ \wh p_1^0(X_1) \wh m_{p_2}^{00}(X_1)
+		 - p_1^0(X_1) m_{p_2}^{00}(X_1)
+		\bigg] \\
+		&= \mathbb E \Bigg[
+		\frac{\wh\pk_1^0(X_1) - \pk_1^0(X_1)}{\wh\pk_1^0(X_1)} \wh p_1^0(X_1) \left\{ \wh m_{p_2}^{00}(X_1) - m_{\hat p_2}^{00}(X_1) \right\} \\
+		  &\qquad+ 
+		   \frac{\wh\pk_1^0(X_1) - \pk_1^0(X_1)}{\wh\pk_1^0(X_1)} \left\{ \wh p_1^0(X_1) - p_1^0(X_1) \right\} m_{\wh p_2}^{00}(X_1) \\
+		   &\qquad+ \mathbb E\bigg(
+		    \bigg\{ p_1^0(X_1) \left(
+	 	    \frac{\pk_1^0(X_1)}{\wh\pk_1^0(X_1)} \big(\frac{\pk_2^{00}(\bar X)}{\wh\pk_2^{00}(\bar X)} - 1\big) + \big(\frac{\pk_1^0(X_1)}{\wh\pk_1^0(X_1)} - 1\big) 
+		    \right) \\
+		    &\quad\qquad\qquad+ (p_1^0(X_1) - \wh p_1^0(X_1)) \bigg\} \times \{p_2^{00}(\bar X) - \wh p_2^{00}(\bar X)\}
+		    | X_1,0,0,1\bigg) \\
+		  &\qquad+
+		   \left\{ p_1^0(X_1) - \wh p_1^0(X_1) \right\} \left\{ m_{\wh p_2}^{00}(X_1) - m_{p_2}^{00}(X_1) \right\} \Bigg]
+		  .
+	\end{align*}
+	The second equality is obtained by rearranging the terms, which involves adding and subtracting the same quantities. By the Cauchy-Schwarz inequality and conditional Jensen's inequality, we have, for some constant $K_D$,
+	\begin{align*}
+		|T_D| &\le
+		  K_D \times \bigg[
+		  \|\wh\pk_1^0 - \pk_1^0\| \cdot \left( \|\wh m_{p_2}^{00} - m_{p_2}^{00}\| + \|\wh p_1^0 - p_1^0\| \right) \\
+		  &\;\qquad\qquad+
+		   \Big(\|\wh\pk_2^{00}-\pk_2^{00}\| + \|\wh\pk_1^{0}-\pk_1^{0}\| + \|\wh p_1^{0} - p_1^{0}\|\Big) \cdot \|\wh p_2^{00} - p_2^{00}\| \\
+		  &\;\qquad\qquad+
+		   \|\wh p_1^0 - p_1^0\| \cdot \|m_{\wh p_2}^{00} - m_{p_2}^{00}\|
+		  \bigg] = o_{\pr}(n^{-1/2}).
+	\end{align*}
+
+	
+	%
+	%
+	\item By the same argument, we only need to determine the rate of convergence for the term $T_N := \mathbb P\{ \hat\phi_N - \phi_N^* \}$. Again, by rearranging the terms and using the fact that $T_D = o_{\pr}(n^{-1/2})$, we have
+	\begin{align*}
+		&T_N \\
+		&= \mathbb E\Bigg[ \frac{\pk_1^{\pi_1}(X_1)p_1^{\pi_1}(X_1)}{\wh\pk_1^{\pi_1}(X_1)\wh p_1^{\pi_1}(X_1)} 
+		  \bigg[ \left\{ m_{\hat\mu_2}^{\pi}(X_1) - \wh m_{\mu_2}^{\pi}(X_1) \right\}    \\
+		  &\qquad\;+ 
+		    \mathbb E\bigg\{ 
+		    \frac{\pk_2^{\pi}(\bar X)p_2^{\pi}(\bar X)}{\wh\pk_2^{\pi}(\bar X)\wh p_2^{\pi}(\bar X)}
+%		    \mathbf1\{\bar A = \pi(\bar X)\}
+		    \big\{\mu_2^{\pi}(\bar X) - \hat\mu_2^{\pi}(\bar X)\big\} 
+		  \Big\vert X_1,A_1=\pi_1(X_1),C_1=0,S_1=1\bigg\}  \bigg]\\
+		  &\quad \times \wh p_1^{0}(X_1) \wh m_{p_2}^{00}(X_1) + \wh m_{\mu_2}^{\pi}(X_1) \wh\phi_D - m_{\mu_2}^{\pi}(X_1) p_1^{0}(X_1) m_{p_2}^{00}(X_1)
+		  \Bigg] \\
+		&= \mathbb E\Bigg[ \frac{\pk_1^{\pi_1}(X_1)p_1^{\pi_1}(X_1)}{\wh\pk_1^{\pi_1}(X_1)\wh p_1^{\pi_1}(X_1)} 
+		  \bigg[ \left\{ m_{\hat\mu_2}^{\pi}(X_1) - \wh m_{\mu_2}^{\pi}(X_1) \right\}    \\
+		  &\qquad\;+
+		   \mathbb E\bigg\{ 
+		    \frac{\pk_2^{\pi}(\bar X)p_2^{\pi}(\bar X)}{\wh\pk_2^{\pi}(\bar X)\wh p_2^{\pi}(\bar X)}
+%		    \mathbf1\{\bar A = \pi(\bar X)\}
+		    \big\{\mu_2^{\pi}(\bar X) - \hat\mu_2^{\pi}(\bar X)\big\} 
+		    \Big\vert X_1,A_1=\pi_1(X_1),C_1=0,S_1=1\bigg\}  \bigg]\\
+		  &\quad \times \wh p_1^{0}(X_1) \wh m_{p_2}^{00}(X_1) 
+		   +\{\wh m_{\mu_2}^{\pi}(X_1) - m_{\mu_2}^{\pi}(X_1)\} p_1^{0}(X_1) m_{p_2}^{00}(X_1)
+		  \Bigg] + o_{\pr}(n^{-1/2}) \\
+		&= \mathbb E\Bigg[ \bigg( \frac{\pk_1^{\pi_1}(X_1)}{\wh\pk_1^{\pi_1}(X_1)} - 1 \bigg)
+		  \left\{ m_{\hat\mu_2}^{\pi}(X_1) - \wh m_{\mu_2}^{\pi}(X_1) \right\} p_1^{0}(X_1) \wh m_{p_2}^{00}(X_1)   \\
+		  &\qquad+
+		   \bigg(\frac{\pk_1^{\pi_1}(X_1)}{\wh\pk_1^{\pi_1}(X_1)}-1\bigg)
+		   \mathbb E\bigg\{ 
+		    \frac{\pk_2^{\pi}(\bar X)p_2^{\pi}(\bar X)}{\wh\pk_2^{\pi}(\bar X)\wh p_2^{\pi}(\bar X)}
+		    \big\{\mu_2^{\pi}(\bar X) - \hat\mu_2^{\pi}(\bar X)\big\} 
+		    \Big\vert X_1,\pi_1,0,1\bigg\} p_1^{0}(X_1) \wh m_{p_2}^{00}(X_1)  \\
+		  &\qquad+
+		   \big\{\wh m_{\mu_2}^{\pi}(X_1) - m_{\hat\mu_2}^{\pi}(X_1)\big\}
+		   \big\{ p_1^{0}(X_1) m_{p_2}^{00}(X_1) - \wh p_1^{0}(X_1) \wh m_{p_2}^{00}(X_1) \big\} \\
+		  &\qquad+
+		   \big\{m_{\hat\mu_2}^{\pi}(X_1) - m_{\mu_2}^{\pi}(X_1)\big\}
+		   \big\{ p_1^{0}(X_1) m_{p_2}^{00}(X_1) - \wh p_1^{0}(X_1) \wh m_{p_2}^{00}(X_1) \big\}
+		  \Bigg] + o_{\pr}(n^{-1/2}).
+	\end{align*}
+	By the Cauchy-Schwarz and conditional Jensen's inequalities, we obtain:
+	\begin{align*}
+		|T_N| 
+		&\le K_N \times \bigg[
+		 \|\pk_1^{\pi_1} - \wh\pk_1^{\pi_1}\|  \Big( \|\mu_2^\pi - \wh\mu_2^\pi\| 
+		         + \|m_{\mu_2}^\pi - \wh m_{\mu_2}^\pi\|\Big) \\
+		  &\qquad\qquad\;+ 
+		   \Big( \|\mu_2^\pi - \wh\mu_2^\pi\| 
+		         + \|m_{\mu_2}^\pi - \wh m_{\mu_2}^\pi\|\Big) 
+		   \Big( \|p_1^0 - \wh p_1^0\| + \|m_{p_2}^{00} - \wh m_{p_2}^{00}\| \Big)  \bigg]\\
+		  &\quad\;+ o_{\pr}(n^{-1/2}) = o_{\pr}(n^{-1/2})
+	\end{align*}
+	for some constant $K_N$.
+\end{enumerate}
+By 1 and 2, we have (\ref{eq:taylor-N}), (\ref{eq:taylor-D}), and {(\ref{eq:taylor-ratio})}. Hence, the desired result follows.
+\end{proof}
+
+
+%
+\subsubsection{Proof of Theorem 5}
+Let $V'(\beta^*)$ and $V''(\beta^*)$ denote the first and second-order derivatives of $V(\beta)$ evaluated at $\beta^*$, respectively.
+In addition to Assumption \ref{A10}, We further assume the following regularity conditions, which guarantee a well-defined optimization problem.
+
+\begin{assumption} \ \label{A11}
+	\begin{itemize}
+	\item[(i)] $V(\beta)$ is twice continuously differentiable in the neighborhood of $\beta^*$.
+	\item[(ii)] There exists $\delta_0 > 0$ such that $\pr(|\wt H_k^\intercal \beta_k| \le \delta) = O(\delta)$, $k=1,2$ uniformly in $0\le \delta\le \delta_0$.
+	\item[(iii)] $V(\beta;\theta)$ is Fr\'echet differentiable at $\theta^*$, and the Fr\'echet derivative $|\dot V(\beta;\theta^*)| \le M$ for almost all $o$ and $\beta$ for some $0<M<\infty$.
+	\end{itemize}
+\end{assumption}
+%
+The first condition is a standard regularity condition, ensuring the smoothness of the objective surface. This condition is essential for well-behaved optimization procedures and guarantees uniform convergence of the estimators. 
+The second condition, a margin condition (\citealp{luedtke2016statistical}), ensures that the probability of the undecidable boundary case, where $|\tilde{H}_k^\intercal \beta_k^*| = 0$, is zero.
+The third condition imposes a local smoothness on the always-survivor value function around the true data generating mechanism $\theta^*$. This condition prevents abrupt changes in the value function in the neighborhood of $\theta^*$.
+
+
+
+The following lemma dictates the rate of convergence of $\hat\beta$ to $\beta^*$, thus will be useful when proving asymptotic normality of $\wh V_\text{AS}(\hat\beta)$. 
+%
+\begin{lemma} \label{lemma:2}
+		Under assumptions \ref{A1}, \ref{A2}, \ref{A10}, and \ref{A11},
+		we have
+		$n^{1/3} \|\hat\beta - \beta^*\| = O_{\pr}(1).$
+	\end{lemma}
+\begin{proof}[Proof of Lemma 2] 
+The proof proceeds in two steps. First, we will show that $\beta^*$ is the probability limit of $\hat\beta$ by applying the argmax theorem.
+	\begin{enumerate}
+		\item[(i)] $V(\beta)$ is twice continuously differentiable at a neighborhood of $\beta^*$ by the assumption \ref{A9}.
+		\item[(ii)] By the proof of Theorem 4, $\wh V(\beta)$ is consistent to $V(\beta)$ for any $\beta$.
+		\item[(iii)] $\wh V(\hat\beta) \ge \sup_{\beta: \|\beta\|=1} \wh V(\beta)$ by definition of $\hat\beta$.
+	\end{enumerate}
+	As the requisite conditions are met, it follows that $\hat\beta$ converges in probability to $\beta^*$ as $n$ approaches infinity.
+		
+	The second stage of the proof employs Theorem 14.4 in conjunction with Lemma 9.6, Lemma 9.9, and Theorem 11.1 as presented in Kosorok (2008). The verification of the subsequent three conditions is performed:
+	\begin{enumerate}
+		\item[(i)] Consider a constant $\epsilon > 0$, and select $\beta$ such that the norm $\|\beta - \beta^*\| < \epsilon$. Given that $V'(\beta^*) = 0$, the second-order Taylor expansion of $V(\beta)$ in the vicinity of $\beta^*$ is given by:
+		\begin{align*}
+			V(\beta) - V(\beta^*) = \frac12 V''(\beta^*)\|\beta - \beta^*\|^2 + o(\|\beta - \beta^*\|^2).
+		\end{align*}
+	Since $\beta^*$ is a point of maximum and $V(\beta)$ is twice differentiable, $V(\beta)$ is strictly concave around $\beta^*$ without loss of generality. Thus, there exists a constant $c_1 > 0$ such that $-\frac12 V''(\beta^*) \ge c_1$. The second-order Taylor expansion of $V(\beta)$ at $\beta^*$ then yields $V(\beta) - V(\beta^*) < (-c_1 + \delta) \|\beta - \beta^*\|^2$ for some $\delta > 0$ and $\beta$ in a sufficiently small neighborhood of $\beta^*$.
+		
+		\item[(ii)] We want to show that for some constant $c_2 > 0$ and a function $\phi_n(\epsilon)$ such that the ratio $\phi_n(\epsilon)/\epsilon^\alpha$ does not depend on $n$ for some $\alpha < 2$, we have:
+		\begin{align}
+			\mathbb E^*\left[ n^{1/2} \sup_{\|\beta - \beta^*\| < \epsilon} \left| \wh V(\beta) - V(\beta) - \left\{\wh V(\beta^*) - V(\beta^*)\right\} \right| \right] \le c_2\phi_n(\epsilon),\label{eq:centeredproc}
+		\end{align}
+		where $\mathbb E^*(U) = \inf\{ \mathbb E(U): X\ge U \text{ is a random variable}, -\infty \le \mathbb E(U) \le \infty \text{ exists} \}$ denotes the outer expectation.
+		We claim that $\phi_n(\epsilon) = \epsilon^{1/2} + \epsilon$ and $\alpha=3/2$ satisfies the condition.
+		
+		By Theorem 4, we have, for any $\beta$,
+		\begin{gather*}
+			\wh V(\beta) - V(\beta) = \pr_n \left\{ \frac{\phi_{N;\beta} - V(\beta)\phi_{D}}{D} \right\} + o_{\pr}(n^{-1/2}),
+		\end{gather*}
+		and that the trailing $o_\pr(n^{-1/2})$ term is bounded by a quantity proportional to $\|\hat\theta - \theta^*\|^2 + (\pr_n - \pr)\{ \dot V(\theta^*) \} \|\hat\theta-\theta^*\|$.
+		It follows that
+		\begin{align*}
+			&\text{LHS of }(\ref{eq:centeredproc}) \\
+			&= \mathbb E^*\left[ n^{1/2} \sup_{\|\beta - \beta^*\| < \epsilon} \left| 
+			  \pr_n\left\{ \frac{\phi_{N; \beta} - V(\beta)\phi_D}{D} \right\} -
+			  \pr_n\left\{ \frac{\phi_{N; \beta^*} - V(\beta^*)\phi_D}{D} \right\} + o_{\pr}(n^{-1/2})
+			  \right| \right] \\
+			&= \mathbb E^*\Biggl[ n^{1/2} \sup_{\|\beta - \beta^*\| < \epsilon} \biggl| 
+			  \pr_n\left\{ \frac{\phi_{N; \beta} - V(\beta)\phi_D + V(\beta)D}{D} - V(\beta) \right\} \\
+			  &\qquad\qquad\qquad\qquad\quad-
+			  \pr_n\left\{ \frac{\phi_{N; \beta^*} - V(\beta^*)\phi_D + V(\beta^*)D}{D} - V(\beta^*) \right\} 
+			   + o_{\pr}(n^{-1/2}) \biggr| \Biggr]  \\
+			&= \underbrace{ 
+			  \mathbb E^*\left[ n^{1/2} \sup_{\|\beta - \beta^*\| < \epsilon} \left| 
+			  \pr_n\left\{ \frac{\pr_n\{ \phi_{N; \beta} - \phi_{N; \beta^*} \}}{D} + \{ V(\beta) - V(\beta^*) \} \right\} \right| \right] }_{=:\tau_1} \\
+			  &\qquad\quad- \underbrace{
+			  \mathbb E^*\left[ n^{1/2} \sup_{\|\beta - \beta^*\| < \epsilon} \left|
+			  \left\{ V(\beta) - V(\beta^*) \right\} \left\{ 1 - \frac{\pr_n\{ \phi_D \}}{D} \right\}
+			  \right| \right] }_{=:\tau_2} 
+			  + o_{\pr}(1).
+		\end{align*}
+		%
+		Note that
+		\begin{align*}
+			&\phi_{N;\beta} - \phi_{N;\beta*} \in \mathcal F_{\beta}(\bar x, \bar a, \bar c, \bar s, \bar y)\\
+			&\qquad=\Biggl\{
+			  d_{\beta,\beta^*}( \phi_N^{a_1a_2} )
+			:~ \|\beta-\beta^*\| < \epsilon \Biggr\}
+		\end{align*}
+		where
+		\begin{align*}
+			\phi_N^{a_1a_2}(O) 
+			&:= (\psi_{\mu_2}^{a_1a_2}(O) + \psi_{m_{\mu}}^{a_1a_2}(O))p_1^0(X_1)m_{p_2}^{00}(X_1) \\
+			&\;\quad+ m_{\mu_2}^{a_1a_2}(X_1) \psi_{p_1}^0(O) m_{p_2}^{00}(X_1) \\
+			&\;\quad+ m_{\mu_2}^{a_1a_2}(X_1) p_1^0(X_1) (\psi_{p_2}^{00}(O) + \psi_{m_{p_2}}^{00}(O)),
+		\end{align*}
+		%
+		\begin{align*}
+			d_{\beta,\beta^*}(Z^{a_1a_2}) 
+			&:= (Z^{11} - Z^{10} - Z^{01} + Z^{00}) \left( \mathbf1\{\tilde X_1^\intercal \beta_1, \tilde X_2^\intercal \beta_2 > 0\} - \mathbf1\{\tilde X_1^\intercal \beta_1^*, \tilde X_2^\intercal \beta_2^* > 0\} \right) \\
+			&\quad+ (Z^{10} - Z^{00}) \left(\mathbf1\{\tilde X_1^\intercal \beta_1 > 0\} - \mathbf1\{\tilde X_1^\intercal \beta_1^* > 0\}\right) \\
+			&\quad+ (Z^{01} - Z^{00}) \left(\mathbf1\{\tilde X_2^\intercal \beta_2 > 0\} - \mathbf1\{\tilde X_2^\intercal \beta_2^* > 0\}\right)
+		\end{align*} 
+		for a potential outcome $Z^{a_1a_2}$, and
+		\begin{align*}
+			\psi_{p_1}^{0}(\bar X) 
+			&:= \frac{(1-A_1)(1-C_1)}{\pk_1^{0}(X_1)} \left\{ S_1 - p_1^{0}(X_1) \right\}, \\
+			\psi_{p_2}^{00}(\bar X) 
+			&:= \prod_{k=1}^2\frac{(1-A_k)(1-C_k)S_{k-1}}{\pk_k^{\bar 0_k}(\bar X_k) p_{k-1}^{\bar 0_k}(\bar X_k)} \left\{ S_2 - p_2^{00}(\bar X) \right\}, \\
+			\psi_{\mu_2}^{a_1a_2}(\bar X) 
+			&:= \prod_{k=1}^2\frac{\mathbb 1\{A_k = a_k \}(1-C_k)S_{k-1}}{\pk_k^{\bar a_k}(\bar X_k) p_{k-1}^{\bar a_k}(\bar X_k)} \frac{S_2}{p_2^{a_1a_2}(\bar X)} \left\{ Y - \mu_2^{a_1a_2}(\bar X) \right\}, \\
+			\psi_{m_{\mu}}^{a_1a_2}(\bar X) 
+			&:= \frac{\mathbb 1\{A_1 = a_1 \}(1-C_1)S_1}{\pk_1^{a_1}(X_1) p_1^{a_1}(X_1)} \left\{ \mu_2^{a_1a_2}(\bar X) - m_{\mu_2}^{a_1a_2}(X_1) \right\}, \\
+			\psi_{m_{p_2}}^{00}(\bar X) 
+			&:= \frac{(1-A_1)(1-C_1)S_1}{\pk_1^{0}(X_1) p_1^{0}(X_1)} \left\{ p_2^{00}(\bar X) - m_{p_2}^{00}(X_1) \right\}.
+		\end{align*}
+		With a slight abuse of notation, define
+		\begin{align*}
+			d_{11}(Z) &:= Z^{11} - Z^{10} - Z^{01} + Z^{00}, \\
+			d_{10}(Z) &= Z^{10} - Z^{00}, \\
+			d_{01}(Z) &= Z^{01} - Z^{00}.
+		\end{align*} 
+		%
+		By Assumption \ref{A3}, %\ref{A6}, 
+		$M = \sup_{o} | d_{11}( \phi_N(o) ) | + \sup_{o} | d_{10}( \phi_N(o) ) | + \sup_{o} | d_{01}( \phi_N(o) ) | < \infty.$
+		
+		For $\|\beta - \beta^*\| < \epsilon,$ there exists $0 < k_0 \le \infty$ such that $|\tilde x_1^\intercal (\beta_1 - \beta_1^*)|, |\tilde x_2^\intercal (\beta_2 - \beta_2^*)| \le k_0\epsilon.$ We can see that
+		\begin{enumerate}
+		\item[(a)] If $|\tilde x_1^\intercal\beta_1^*| \le k_0\epsilon$ or  $|\tilde x_2^\intercal \beta_2^*| \le k_0\epsilon$,
+		\begin{align*}
+			\mathbf1\{ |\tilde x_1^\intercal\beta_1^*| \text{ or } |\tilde x_2^\intercal \beta_2^*| \le k_0\epsilon \} 
+			= 1 &\ge 
+			|\mathbf1\{ \tilde x_1^\intercal\beta_1  > 0\} - \mathbf1\{ \tilde x_1^\intercal\beta_1^* > 0\}|,\\
+			&\quad\; |\mathbf1\{ \tilde x_2^\intercal\beta_2 > 0\} - \mathbf1\{ \tilde x_2^\intercal\beta_2^* > 0\}|, \\
+			&\quad\; |\mathbf1\{ \tilde x_1^\intercal\beta_1, \tilde x_1^\intercal\beta_1 > 0 \} - \mathbf1\{ \tilde x_2^\intercal\beta_2^*, \tilde x_2^\intercal\beta_2 > 0 \}|.
+		\end{align*}
+		
+		\item[(b)] If $|\tilde x_1^\intercal\beta_1^*|, |\tilde x_2^\intercal \beta_2^*| > k_0\epsilon$,
+		\begin{align*}
+			\mathbf1\{ |\tilde x_1^\intercal\beta_1^*| \text{ or } |\tilde x_2^\intercal \beta_2^*| \le k_0\epsilon \} 
+			= 0 &\ge 
+			|\mathbf1\{ \tilde x_1^\intercal\beta_1  > 0\} - \mathbf1\{ \tilde x_1^\intercal\beta_1^* > 0\}|,\\
+			&\quad\; |\mathbf1\{ \tilde x_2^\intercal\beta_2 > 0\} - \mathbf1\{ \tilde x_2^\intercal\beta_2^* > 0\}|, \\
+			&\quad\; |\mathbf1\{ \tilde x_1^\intercal\beta_1, \tilde x_1^\intercal\beta_1 > 0 \} - \mathbf1\{ \tilde x_2^\intercal\beta_2^*, \tilde x_2^\intercal\beta_2 > 0 \}|.
+		\end{align*}
+		\end{enumerate}
+		
+		Thus, $F := M \cdot \mathbf1\{ |\tilde x_1^\intercal\beta_1^*| \text{ or } |\tilde x_2^\intercal \beta_2^*| \le k_0\epsilon \}$ is the envelope of $\mathcal F_{\beta}(\bar x, \bar a, \bar c, \bar s, \bar y).$
+		By assumption \ref{A11}(ii), 
+		\[
+		\|F\|_{\mathbb P,2} = M \mathbb P\left( |\tilde x_1^\intercal\beta_1^*| \text{ or } |\tilde x_2^\intercal\beta_2^*| \le k_0\epsilon \right)^{1/2} \le M(2k_0k_1\epsilon)^{1/2} < \infty
+		\]
+		for some $0 < k_1 < \infty.$
+		
+		
+		Since $\mathcal F_\beta$ is a class of linear combinations of indicator functions with dimension at most $2^3$, it is VC-subgraph by Lemma 9.6 and Lemma 9.9 in Kosorok (2008). Therefore, its modified bracketing integral $J_{[]}^*(1, \mathcal F_\beta)$ is finite.
+		
+		Now, let
+		\begin{align*}
+			\mathbb G_n \mathcal F_\beta 
+			&= n^{1/2}[\pr_n\{ \mathcal F_\beta\} - \pr\{ \mathcal F_\beta \}] \\
+			&= n^{1/2}\left[ \pr_n\{ \phi_{N; \beta} - \phi_{N; \beta^*} - D(V(\beta) - V(\beta^*)) \} \right]
+		\end{align*}
+		be the empirical process indexed by $\beta$. Applying Theorem 11.2 from \cite{kosorok2008} yields
+		\begin{align*}
+			\tau_1
+			&= \mathbb E^* \left[ n^{1/2} \sup_{\|\beta-\beta^*\|<\epsilon} \cdot \left| \mathbb G_n \mathcal F_\beta \right| \right] / D \\
+			&\le \ell \cdot J_{[]}^*(1,\mathcal F_\beta) \cdot \|F\|_{\mathbb P, 2} \\
+			&\le \ell \cdot J_{[]}^*(1,\mathcal F_\beta) \cdot M (2k_0k_1\epsilon)^{1/2}
+		\end{align*}
+		for some constant $0 < \ell < \infty.$ Hence, 
+		\begin{align}
+			\tau_1 \le c_2 := \ell \cdot J_{[]}^*(1,\mathcal F_\beta) \cdot M (2k_0k_1\epsilon)^{1/2} < \infty.
+			\label{eq:tau1}
+		\end{align}
+		
+		\item[(iii)]
+		Note that
+		\begin{align*}
+			\tau_2 
+			&= \E^*\left[ n^{1/2} \sup_{\|\beta-\beta^*\| < \epsilon} \left| \left\{V(\beta)-V(\beta^*)\right\}\left\{ 1 - \frac{\E_n\{ \phi_D \}}{D} \right\} \right| \right] \\
+			&\le \sup_{\|\beta - \beta^*\| < \epsilon} \Bigl|
+			   V(\beta) - V(\beta^*) \Bigr| \cdot \mathbb E^*\left[ \Bigl| n^{1/2}\left\{ 1 - \frac{\E_n\{ \phi_D \}}{D} \right\} \Bigr|
+			   \right] 
+			  = \mathcal O(\epsilon)
+		\end{align*}
+		where the last inequality follows from
+		\begin{align}
+			\Bigl| V(\beta) - V(\beta^*) \Bigr|
+			= \frac{| V(\beta) - V(\beta^*) |}{\|\beta - \beta^*\|} \cdot \|\beta - \beta^*\| 
+			\le \sup_{\|\beta - \beta^*\| < \epsilon}|V'(\beta)| \cdot \epsilon  % this is by mean value theorem
+			\label{eq:tau2}
+		\end{align}
+		and $\left|\mathbb E^*\left[\left|n^{1/2} \left\{1 - \frac{\E_n\{\phi_D\}}{D}\right\}\right|\right]\right| \le \sqrt{\text{Var}(\phi_D)}/D$.
+		
+		\item[(iv)]
+		Using equations (\ref{eq:tau1}) and (\ref{eq:tau2}), the centered process is bounded as follows:
+		\begin{align}
+			\text{LHS of }(\ref{eq:centeredproc}) \le c_1\epsilon^{1/2} + o_P(1) + \mathcal O(\epsilon) \le c_3 \phi_n(\epsilon)
+			 \label{eq:phi_n}
+		\end{align}
+		It can be verified that the mapping $\epsilon \mapsto \phi_n(\epsilon) / \epsilon^{3/2}$ is a decreasing function and is independent of $n$. Furthermore, by the definition of $\hat\beta$ as the maximizer of $\wh V(\beta)$, we have $\sup_\beta (\wh V(\beta) - \wh V(\hat \beta)) = 0 \le \mathcal O_{\pr}(n^{-2/3})$.
+	\end{enumerate}
+	
+	As it follows that
+	\[ 
+	n^{2/3} \phi_n(n^{-1/3}) = n^{2/3} (n^{-1/6} + n^{-1/3}) = n^{1/2} + n^{1/3} \le 2 n^{1/2}, \quad \forall n\ge0,
+	\]	we conclude that $n^{1/3}\|\beta-\beta^*\| = \mathcal O_{\pr}(1).$
+\end{proof}
+
+Now, using these established results, we will prove Theorem 4.
+
+\begin{proof}[Proof of Theorem 4]
+From the proof of Theorem 4 and the form in the last term of (\ref{eq:clt-form}), we have
+\[
+n^{1/2} \left( \wh V(\beta^*) - V(\beta^*) \right) \overset{d}\to \mathcal N\left( 0, \mathbb E[ \psi_{V(\pi)}^2 ] \right).
+\]
+Notice that
+\[
+n^{1/2} \left( \wh V(\hat\beta) - V(\beta^*) \right) = n^{1/2} \left( \wh V(\hat\beta) - \wh V(\beta^*) \right) + n^{1/2} \left( \wh V(\beta^*) - V(\beta^*) \right).
+\]
+Thus, it suffices to show that 
+\[
+n^{1/2} \left( \wh V(\hat\beta) - \wh V(\beta^*) \right) = n^{1/2} \left( \wh V(\hat\beta) - \wh V(\beta^*) - \{V(\hat\beta) - V(\beta^*)\} \right) + n^{1/2} \left( V(\hat\beta) - V(\beta^*) \right) = o_{\pr}(1).
+\]
+
+By (\ref{eq:phi_n}) and Lemma \ref{lemma:2}, let $\epsilon = c_4 n^{-1/3}$ for some $0 < c_4 < \infty$. Then, for sufficiently large $n$, the first term is bounded by:
+\begin{align*}
+	&n^{1/2} \left( \wh V(\hat\beta) - \wh V(\beta^*) - \{V(\hat\beta) - V(\beta^*)\} \right) \\
+	&\le \text{LHS of (\ref{eq:centeredproc})} = \mathcal O_{\pr}(n^{-1/6}) = o_{\pr}(1).
+\end{align*}
+By the Taylor expansion of $V(\hat\beta)$ around $\beta^*$, the second term becomes:
+\begin{align*}
+	n^{1/2} \left( V(\hat\beta) - V(\beta^*) \right)
+	&= n^{1/2} \left[ \frac12 V''(\beta^*)\|\hat\beta - \beta^*\|^2 + o_{\pr}\left( \|\hat\beta - \beta^*\|^2 \right) \right]  
+	  \tag{$V'(\beta^*) = 0$} \\
+	&= n^{1/2} \left[ \frac12 V''(\beta^*) \mathcal O_{\pr}(n^{-2/3}) + o_{\pr}( n^{-2/3} ) \right] 
+	  \tag{Lemma \ref{lemma:2}} \\
+	&= \frac12 V''(\beta^*) \mathcal O_{\pr}(n^{-1/6}) = o_{\pr}(1).
+\end{align*}
+Hence, the desired result follows.
+
+\end{proof}
+
+
+
+
+%
+%
+\subsection{Technical details}\label{App:A2}
+%
+\subsubsection{Cross-fitting algorithm}
+%
+As an alternative to employing Donsker class assumption, sample-splitting or cross-fitting can be used to simplify proofs and ensure theoretical properties of the proposed estimator. We provide a cross-fitting algorithm for computing the MR estimator.
+\begin{algorithm} \small \caption{Compute $\wh V_\text{MR}(\pi)$ via cross-fitting.} \label{alg:MR-samplesplit}
+\begin{algorithmic}[1]
+	\State $J$: Pre-specified number of folds.
+	\State Split the data $\{O_i: i=1,\cdots,n\}$ into $J$ disjoint folds $F_j$, $j=1,\cdots,J$.
+	\For {$j$ in $1 \dots J$}
+	  \State $n_j \gets |F_j|$.
+	  \State Fit nuisance models $\hat\theta_{-j}$ only using folds $\{ F_i: i \ne j\}$.
+	  \State Compute $\wh V_{\text{MR},-j}(\pi)$ based on $\hat\theta_{-j}$.
+	\EndFor
+	\State $\wh V_\text{MR}(\pi) \gets \sum_{j=1}^J ({n_j}/{n}) \wh V_{\text{MR},-j}(\pi).$
+\end{algorithmic}
+\end{algorithm}
+
+%
+\subsubsection{Simulation study} 
+\label{A:sim}
+\paragraph{Data generation} We generated $X_1$ from a continuous uniform distribution over the interval $[-0.3, 0.7]$. $A_k$, $C_k^{\bar{a}_k}$, and $S_k^{\bar{a}_k}$ were generated from logistic models
+\begin{gather}
+	\text{logit}(e_1^1(x_1))=0.3 + 0.2x_1, \label{eq:dgp1} \\
+	\text{logit}(c_1^{a_1}(x_1))=x_1 + a_1 + \eta_1, \quad \eta_1=2, \\
+	\text{logit}(p_1^{a_1}(x_1))=5x_1 + 3a_1 + 0.5a_1x_1.
+\end{gather}
+The intermediate variable $X_2^{a_1}$ were generated via a normal distribution with mean $\mu_1^{a_1}(x_1) = 0.2 + 0.3x_1 + 1.5a_1 + 0.75a_1x_1$ and standard deviation $1.5$. 
+Potential outcomes of second stage indicators are again generated by logistic models
+\begin{gather}
+	\text{logit}(e_2^{a_11}(\bar x))=0.7 + 0.2x_1 - 0.2x_2 -0.1 x_2^2, \\
+	\text{logit}(c_2^{a_1a_2}(\bar x))=-3 + x_1 + x_2 + 0.5 a_2 + a_2x_2 + \eta_2, \quad \eta_2=3.5, \\
+	\text{logit}(p_2^{a_1a_2}(\bar x))=0.8 - 1.42 x_1 + 0.8 a_1 - 0.65 a_2. \label{eq:dgp2}
+\end{gather}
+Finally, the outcome $Y^{a_1a_2}$ is generated from a normal distribution with mean $\mu_2^{a_1a_2}(\bar{x}) = 2.58 - 1.04x_1 + 1.21a_1 - 0.92a_1x_1 + 2.27x_2 + a_2(1.18 + 3.29a_1 + 3.95x_2)$ and standard deviation $1.5$.
+The process resulted in approximately 4\%, 8\% of censoring rates and 84\%, 65\% of survival rates in the first and second stage, respectively.
+
+To demonstrate the multiple robustness, we conducted experiments across five model specification scenarios (M1-M5) expected to yield consistency, and one scenario (M6) expected to fail. Nuisance models in each scenario are modeled to achieve the following description.
+\begin{align*}
+	\text{M1}&:~ \textrm{All nuisance models are correctly specified.}\\
+	\text{M2}&:~ p_2, m_{p_2} \textrm{ are incorrectly specified.}\\
+	\text{M3}&:~ \pk_2, m_{p_2} \textrm{ are incorrectly specified.}\\
+	\text{M4}&:~ \mu_2^{a_1a_2} \textrm{ is incorrectly specified.}\\
+	\text{M5}&:~ \mu_2^{a_1a_2}, m_{\mu_2} \textrm{ are incorrectly specified.}\\
+	\text{M6}&:~ \pk_1, \pk_2, p_1 \textrm{ are incorrectly specified.}
+\end{align*}
+Specifically in models M2-M6, we deliberately introduced misspecification by removing terms from the correct models \eqref{eq:dgp1}-\eqref{eq:dgp2} or by using a non-linearly transformed variables. 
+For the conditional outcome models $m_{p_2}$ and $m_{\mu_2}$, we employed generalized additive models when correct specification was intended, and ordinary least squares models without intercept for the misspecified cases.
+
+%
+\paragraph{Percentage of correct decision in always-survivors (PCD-AS)} \label{A:pcdas}
+Lemma \ref{lemma:1} provides a foundation to compute the PCD-AS. With $h(X_1;\hat\pi, \pi^*)=\E[ \mathbf 1\{\hat \pi(\bar X) = \pi^*(\bar X) \mid X_1, A_1=\pi_1(X_1), C_1=0, S_1=1\} ]$ which is $L^1(\mathcal P)$, we have, by Lemma \ref{lemma:1},
+\begin{align*}
+	\text{PCD}_\text{AS}(\hat\pi; \pi)
+	= \pr\left( \hat\pi(\bar X) = \pi(\bar X) \mid U=1111 \right)
+	= \E\left[ \frac{ p_1^0(X_1)m_{p_2}^{00}(X_1) }{\E\left[p_1^0(X_1)m_{p_2}^{00}(X_1)\right]} h(X_1; \hat \pi, \pi^*) \right].
+\end{align*}
+We used empirical version of this formula with true nuisance models and an independently generated large sample of size 100,000 to compute PCD-AS.
+
+
+%
+\paragraph{Additional experiment}
+We conducted additional experiment using data generated from different forms of correct nuisance models and values of $\eta_1,\eta_2$.
+$X_1$ were generated from the same continuous uniform distribution over $[-0.3, 0.7]$. $A_k$, $C_k^{\bar{a}_k}$, and $S_k^{\bar{a}_k}$ were generated from
+\begin{gather}
+	\text{logit}(e_1^1(x_1))=0.5 + 0.5x_1^2, \label{eq:dgp3} \\
+	\text{logit}(c_1^{a_1}(x_1))=x_1^2 + \eta_1, \quad \eta_1=2.5, \\
+	\text{logit}(p_1^{a_1}(x_1))=3x_1^2 + 5a_1 - 0.5a_1x_1.
+\end{gather}
+The intermediate variable $X_2^{a_1}$ were generated via a normal distribution with mean $\mu_1^{a_1}(x_1) = 0.5 - 0.3x_{1}^2 + a_1 - 0.5a_1x_{1}$ and standard deviation $1.5$. 
+Potential outcomes of second stage indicators are again generated by logistic models
+\begin{gather}
+	\text{logit}(e_2^{a_11}(\bar x))=0.7 - 0.5x_{1}^2 + 0.5x_{2} -0.1 x_2^2, \\
+	\text{logit}(c_2^{a_1a_2}(\bar x))=-3 + x_1 + x_2 + 0.5 a_2 + a_2x_2 + \eta_2, \quad \eta_2=4, \\
+	\text{logit}(p_2^{a_1a_2}(\bar x))=0.5 + 2 x_1 + x_1x_2 -0.8 a_1 + 0.65 a_2. \label{eq:dgp4}
+\end{gather}
+The outcome $Y^{a_1a_2}$ is generated from a normal distribution with mean $\mu_2^{a_1a_2}(\bar{x}) = -3 + X_1 + 1.5A_1 -0.5 A_1X_1 + \exp(X_2)/100 + A_2(1.5 + A_1 -0.5 X_2)$ and standard deviation $1.5$.
+
+From this setting, the first and second stages exhibited censoring rates of approximately 7\% and 13\%, respectively, with corresponding survival rates of 85\% and 70\%.
+The reduced death rates compared to the previous setting is expected to favor the standard AIPW estimator.
+
+Results from this alternative setting, as presented in Figures \ref{fig:mr2} and \ref{fig:opl2}, continue to demonstrate multiple robustness and consistency in off-policy learning of the always-survivor-optimal value.
+The 95\% confidence intervals derived from the EIF yielded coverage rates of 95.8\% ($n = 2000$) and 94\% ($n = 5000$), closely aligning with the nominal value.
+PCD-AS of the MR estimator converged towards one as the training set size increased, with average values of $0.971$ ($n = 2000$) and $0.982$ ($n = 5000$), and corresponding standard deviations of $0.027$ and $0.016$, {which is closer to one with less variability than the PCD-AS of the AIPW estimator, averaging $0.964$ and $0.973$ with standard deviations of $0.028$ and $0.017$, respectively.}
+
+
+
+
+
+%
+\begin{table}[]
+\caption{Simulated experiments: average single iteration run time (seconds).}
+    \centering
+\begin{tabular}{@{}lrr@{}}
+\toprule
+             & Off-policy evaluation & Off-policy learning \\ \midrule
+Experiment 1 & 66                    & 162                 \\
+Experiment 2 & 66                    & 268                 \\ \bottomrule
+\end{tabular} \label{table:runtime1}
+\end{table}
+
+\begin{table}[]
+\caption{MIMIC-III data application: average single iteration run time (seconds).}
+    \centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+\begin{tabular}[c]{@{}c@{}}Principal value search \eqref{Vid}\end{tabular} & \begin{tabular}[c]{@{}c@{}}Multiply robust \\ principal value search \eqref{Vmr}  \end{tabular} & \begin{tabular}[c]{@{}c@{}}Doubly robust \\ value search \eqref{Vaipw}
+\end{tabular} \\ \midrule
+\multicolumn{1}{r}{3.84}                                                             & \multicolumn{1}{r}{2302}                                       & \multicolumn{1}{r}{2.67}                                                     \\ \bottomrule
+\end{tabular} \label{table:runtime2}
+\end{table}
+
+\subsubsection{Preprocessing MIMIC-III data}
+%\paragraph{}
+Our preprocessing steps were initiated based on previously established sepsis data for reinforcement learning from \cite{komorowski2018artificial}.
+For each patient, we considered a set of baseline covariates, $X_1$ (age, weight, temperature, glucose, blood urea nitrogen, creatinine, WBC, SOFA score), and a reduced set of covariates, $X_2$ (weight, temperature, glucose, blood urea nitrogen, creatinine, white blood cell count, SOFA score), to inform treatment decisions. The primary outcome $Y$ was the SOFA score at the final time point, where lower scores indicate better patient status. 
+For $k=1,2$, the intervention $A_k$ was defined as the application of mechanical ventilation.  Survival status $S_k$ was determined by comparing chart time to death time, with $S_k=0$ indicating death. Censoring $C_k$ was defined as $C_k=1$ if the chart time was greater than or equal to discharge time, or if survivor information was unobserved.  
+
+We focused on the last 48 hours of patient data, dividing this period into three time points: baseline (blocs 6-12), intermediate (blocs 13-19), and final (bloc 20). This structure was designed to ensure all patients were confirmed to have sepsis diagnosis at baseline. 
+For each time point $k$, the covariate vector $X_k$ was extracted from the initial block, while binary indicators $A_k$, $C_k$, and $(1-S_k)$ were set to 1 if the corresponding event occurred at least once within that time point. We implemented outlier removal based on clinically plausible ranges, specifically for temperature (25-60 degrees celsius), white blood cell count ($\le 400$), creatinine ($> 0$), and weight ($> 0$).
+Finally, we restricted our analysis to patients with a baseline SOFA score greater than 8 to ensure a focus on individuals with a clinically severe condition. This preprocessing resulted in a final dataset of 1821 patients. The resulting dataset exhibited censoring rates of 51.6\% and survival rates of 98.9\%.
+
+
+%
+\tred{
+\subsubsection{Justification of the identification assumptions in the context of the MIMIC-III}
+}
+MIMIC-III is a standard dataset for reinforcement learning applications, particularly for Markov Decision Process-type problems after suitable preprocessing (Komorowski et al., 2018). Our reliance on Komorowski et al.'s (2018) preprocessing justifies our assumption of sequential randomization. Additionally, we included all available covariates believed to be pertinent to sepsis patient conditions, aiming to control for confounding as thoroughly as possible.
+
+For the selected subpopulation of sepsis patients, we consider an individual's condition to be largely uninfluenced by others. While patients received vasopressin concurrently with mechanical ventilation, $91$\% of these patients were treated with less than $0.5$ mcg/kg/min of vasopressin, and $77$\% received less than $0.2$ mcg/kg/min. The correlations between the maximum vasopressin dose and mechanical ventilation were $0.24$ ($k=1$) and $0.14$ ($k=2$). Moreover, the correlation between the maximum vasopressin dose and the outcome of interest was $-0.069$. Based on these observations, we assert that causal consistency is a reasonable assumption.
+
+We confirmed the probabilistic monotonicity of the censoring indicator, demonstrating that $\pr(C_2=1|A_1=a_1,A_2=a_2) \ge \pr(C_1=1|A_1=a_1)$. While the low mortality rate prevented empirical verification of survival indicator monotonicity, mechanical ventilation is widely recognized as a critical intervention designed to prolong survival in acute settings, frequently referred to as a "cornerstone of patient management (Fan et al., 2017)." This inherent purpose provides a strong basis for assuming monotonicity of the treatment effect.
+
+Our analysis confirmed significant overlap in covariate distributions across the different treatment groups, thereby supporting the positivity assumption for the propensity scores. Additionally, employing a flexible classifier, such as a random forest, allowed us to estimate response and survival probabilities that were consistently bounded away from zero. These empirical findings indicate that positivity is upheld, at least probabilistically.
+
+Given the unknown true models in this real-world data, evaluating model fit was limited. We chose flexible models (random forest and generalized additive model) to reduce the risk of misspecification and underfitting. A comparison between our MR estimator and the principal Q-learning estimator (the plug-in version of Equation 1) on both training and testing sets consistently resulted in close values. This is implied when the outcome regression models are correctly specified, the scenario which guarantees the consistency of the proposed estimator.
+
+
+
+%
+\tred{
+\subsubsection{Sensitivity analysis of the MIMIC-III application to violations of principal ignorability}
+}
+Assumption \ref{A4} is a strong yet untestable assumption, necessitating an analysis to evaluate the sensitivity of our results to its violation. We propose and present the results of this sensitivity analysis in this section.
+
+We define sensitivity parameters
+\[
+\rho_{u}^{\bar a}(X_1) := \frac{\mathbb{E}[Y^{\bar a} \mathbf{1}\{\pi(\bar X)=\bar a\}|X_1,U=u]}{\mathbb{E}[Y^{\bar a}\mathbf{1}\{\pi(\bar X)=\bar a\}|X_1,U=1111]}, 
+\quad \bar a\in \{0,1\}^2, u\in\{0,1\}^4
+\]
+following a tilting model, and $\lambda(X_1) = \mathbb{P}(U=0011|X_1,A_1=1,C_1=0,S_1=1) - \mathbb{P}(U=0101|X_1,A_1=1,C_1=0,S_1=1)$ that additionally controls strata assignment probability.
+
+\begin{theorem}
+Under Assumptions \ref{A1}, \ref{A2}, \ref{A:S2}, \ref{A3}-\ref{A5}, the always-survivor value function can be written as
+\begin{align}
+	V(\pi) = \frac{\E[ p_1^0(X_1)m_{p_2}^{00}(X_1) m_{\nu}^\pi(X_1) ]}{\E[ p_1^0(X_1)m_{p_2}^{00}(X_1) ]},  \label{Vsens}	
+\end{align}
+where $m_{\nu}^{a_1a_2}(X_1) = \E[\nu^{a_1a_2}(X_1) \mathbf{1}\{A_2\textrm{ = }a_2\} | X_1,A_1=a_1,C_1=0,S_1=1]$, ${\nu_2}^{a_1a_2}(X_1) = {\mu_2}^{a_1a_2}(X_1) / \omega_{a_1a_2}(X_1)$, and
+\begin{align*}
+	\omega_{01}(X_1) &= \frac{ m_{p_2}^{00}(X_1) }{ m_{p_2}^{01}(X_1) } + \rho_{0101}^{01}(X_1) \left\{ 1 - \frac{ m_{p_2}^{10}(X_1) }{ m_{p_2}^{01}(X_1) }\right\} + \rho_{0111}^{01}(X_1) \frac{m_{p_2}^{10}(X_1) - m_{p_2}^{00}(X_1)}{m_{p_2}^{01}(X_1)}, \\
+	\omega_{10}(X_1) &= \frac{m_{p_2}^{00}(X_1)}{m_{p_2}^{10}(X_1)} + \rho_{011}^{10}(X_1) \left\{ 1 - \frac{m_{p_2}^{01}(X_1)}{m_{p_2}^{10}(X_1)}\right\} + \rho_{0111}^{10}(X_1) \frac{m_{p_2}^{01}(X_1) - m_{p_2}^{00}(X_1)}{m_{p_2}^{10}(X_1)}, \\
+	\omega_{11}(X_1) &= \frac{m_{p_2}^{00}(X_1)}{m_{p_2}^{11}(X_1)} + \rho_{0101}^{11}(X_1) \frac{m_{p_2}^{01}(X_1) - m_{p_2}^{10}(X_1)}{m_{p_2}^{11}(X_1)} \\
+	    &\quad+ \rho_{0011}^{11}(X_1) \frac{m_{p_2}^{10}(X_1) - m_{p_2}^{01}(X_1)}{m_{p_2}^{11}(X_1)} + \rho_{0001}^{11}(X_1) \left\{1 - \frac{m_{p_2}^{01}(X_1) + \lambda(X_1)}{m_{p_2}^{11}(X_1)} \right\}.
+\end{align*}
+\end{theorem}
+%
+\begin{proof}
+Let $\mathcal{U}_{11} = \{0001,0011,0101,1111\}$
+\begin{align*}
+	m_{\mu_2}^{11}(X_1) 
+	&= \E[\mu_2^{11}(\bar X) \mathbf{1}\{\pi(\bar X)=1\} | X_1, A_1=1, C_1=0, S_1=1] \\
+	&= \E[ \E\{Y^{11}\mathbf{1}\{\pi(\bar X^1)=1\}|\bar X^1, \bar A={\bf 1}_2, \bar C^{11}={\bf 0}_2, \bar S^{11}={\bf 1}_2\} | X_1, A_1=1, C_1^1=0, \bar S^{11}={\bf 1}_2] \\
+	&= \E[ \E\{Y^{11}\mathbf{1}\{\pi(\bar X^1)=1\}|\bar X^1, A_1=1, C^{1}=0, \bar S^{11}={\bf 1}_2\} | X_1, A_1=1, C_1^1=0, \bar S^{11}={\bf 1}_2] \\
+	&= \E[ Y^{11}\mathbf{1}\{\pi(\bar X^1)=1\}| X_1, A_1=1, C_1^1=0, \bar S^{11}={\bf 1}_2] \\
+	&= \sum_{u\in \mathcal{U}_{11}} \E[ Y^{11}\mathbf{1}\{\pi(\bar X^1)=1\}| X_1, U=u] \pr(U=u | X_1,A_1=1,C_1=0,\bar S^{11}={\bf 1}_2)
+\end{align*}
+The second equality follows from Assumptions \ref{A1} and \ref{A:S2}. The third and fourth equality follows from Assumptions \ref{A3} and \ref{A5}. We show that the probability in the last equation can be written as nuisance models and sensitivity parameters. First, we have
+\begin{align*}
+	&\pr(U=0101|X_1,A_1=1,C_1=0,\bar S^{11}={\bf 1}_2) \\
+	&= \pr(S_2^{01}=1, S_2^{10}=0|X_1,A_1=1,C_1=0,\bar S^{11}={\bf 1}_2) \\
+	&= \pr(S_2^{01}=1|X_1,A_1=1,C_1=0,\bar S^{11}={\bf 1}_2) - \pr(S_2^{10}=1|X_1,A_1=1,C_1=0,\bar S^{11}={\bf 1}_2) \\
+	&= \frac{\pr(S_2^{01}=1|X_1,A_1=0,C_1=0,S_1=1) - \pr(S_2^{10}=1|X_1,A_1=1,C_1=0,S_1=1)} {\pr(S_2^{11}=1 | X_1,A_1=1,C_1=0,S_1=1)} \\
+	&= \{m_{p_2}^{01}(X_1) - m_{p_2}^{10}(X_1)\} / m_{p_2}^{11}(X_1)
+\end{align*}
+The second and the third inequality is from Assumption \ref{A2}. Similarly, 
+\begin{align*}
+\pr(U=0011|X_1,A_1=1,C_1=0,\bar S^{11}={\bf 1}_2) 
+= \{m_{p_2}^{10}(X_1) - m_{p_2}^{01}(X_1)\} / m_{p_2}^{11}(X_1), \\
+\pr(U=0001|X_1,A_1=1,C_1=0,\bar S^{11}={\bf 1}_2) 
+= 1 - \{m_{p_2}^{01}(X_1) + \lambda(X_1)\} / m_{p_2}^{11}(X_1).
+\end{align*}
+
+Thus, 
+\begin{align*}
+m_{\mu_2}^{11}(X_1) &= \E[ Y^{11}\mathbf{1}\{\pi(\bar X^1)=1\}| X_1, U=1111] \times \\
+&\quad \bigg\{ 
+  \frac{m_{p_2}^{00}(X_1)}{m_{p_2}^{11}(X_1)} 
+  + \rho_{0101}^{11}(X_1)\frac{m_{p_2}^{01}(X_1) - m_{p_2}^{10}(X_1)}{m_{p_2}^{11}(X_1)} 
+  + \rho_{0011}^{11}(X_1) \frac{m_{p_2}^{10}(X_1) - m_{p_2}^{01}(X_1)}{m_{p_2}^{11}(X_1)} \\
+ &\;\;\quad+ \rho_{0001}^{11}(X_1)\Big(1 - \frac{m_{p_2}^{01}(X_1) + \lambda(X_1)}{m_{p_2}^{11}(X_1)} \Big)
+    \bigg\} \\
+ &= \omega_{11}(X_1) \E[ Y^{11}\mathbf{1}\{\pi(\bar X^1)=1\}| X_1, U=1111]
+\end{align*}
+By the similar process, we can show that
+\begin{align*}
+	\omega_{01}(X_1) \E[ Y^{01}\mathbf{1}\{\pi(\bar X^0)=1\}| X_1, U=1111] = m_{\mu_2}^{01}(X_1), \\
+	\omega_{10}(X_1) \E[ Y^{10}\mathbf{1}\{\pi(\bar X^1)=0\}| X_1, U=1111] = m_{\mu_2}^{10}(X_1).
+\end{align*}
+Hence, the desired result follows.
+\end{proof}
+
+To simplify our analysis, we treated the sensitivity parameters as unknown constants, setting $\rho_{u}^{\bar a}(X_1) = \rho$, $\lambda(X_1) = \lambda$. We varied $\rho$ from $0.8$ to $1.25$ and $\lambda$ from $-0.2$ to $0$. 
+The negative range for $\lambda$ is motivated by recent evidence indicating that earlier mechanical ventilation may lead to better survival outcomes than later intervention \citep{kim2024impact}.
+
+We evaluated the policy using the plug-in version of Equation \eqref{Vsens} under varying values of sensitivity parameters. The maximum observed relative error of our estimates, when compared to the previously proposed estimates, was $0.12$. This finding suggests that the MR estimator is not sensitive to the violation of principal ignorability.
+
+\subsubsection{Computing resources}
+\label{A:compres}
+
+The off-policy learning simulation ran on an internal cluster, with each iteration on a single core, 8 GB RAM instance. 
+Other experiments and the MIMIC-III application used a CPU machine with 16 GB RAM. 
+Average single iteration run times are reported in Table \ref{table:runtime1} and Table \ref{table:runtime2}. 
+
+For the first experiment, the total run times were 55 minutes for off-policy evaluation and 135 minutes for off-policy learning.
+For the additional experiment, off-policy evaluation took a similar amount of time, while off-policy learning required 223.3 minutes.
+For the MIMIC-III application, a total of 50 iterations of off-policy learning required 3.2 minutes for the principal DTR \eqref{Vid}, 1918.3 minutes for the multiply robust principal DTR \eqref{Vmr}, and 2.2 minutes for the doubly robust DTR \eqref{Vaipw}.
+
+Full research project, including preliminary experiments, required more compute than the experiments reported.
+
+	
+	
+
+
+
+	
+%
+\begin{minipage}{\textwidth}
+
+\
+
+%\begin{figure}[hbt]
+\centering
+  \includegraphics{mr2.png}
+  \captionof{figure}{Value estimates under a fixed policy across scenarios M1-M6. The red horizontal line is drawn at the true always-survivor value.}
+  \label{fig:mr2}
+%\end{figure}
+\
+
+\
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\
+
+%\begin{figure}[hbt]
+\centering
+  \includegraphics{opl2.png}
+  \captionof{figure}{Value estimates from 500 independent simulated off-policy learning runs. Left panels of each plot show $\wh V_\text{MR}(\hat\beta_\text{MR})$ and $\wh V_\text{AIPW}(\hat\beta_\text{AIPW})$, while right panels show $V(\hat\beta_\text{MR})$ and $V(\hat\beta_\text{AIPW})$. The red horizontal line indicates the true optimal $V(\beta^*)$.}
+  \label{fig:opl2}
+\
+%\end{figure}
+\end{minipage}
+
+
+\end{document}

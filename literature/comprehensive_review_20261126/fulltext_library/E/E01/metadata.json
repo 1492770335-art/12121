@@ -1,0 +1,28 @@
+{
+  "paper_id": "E01",
+  "category": "E",
+  "title": "Performance guarantees for individualized treatment rules",
+  "authors": "Min Qian and Susan A. Murphy",
+  "doi": "10.1214/10-aos864",
+  "year": "2011",
+  "original_url": "https://doi.org/10.1214/10-aos864",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "766be8a6938fba78582d2b0ff08eaea841fd0eb16fe468d4a4d26d0dd844edc0",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1105.3369"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/E01/README.md",
+  "status": "local_only"
+}

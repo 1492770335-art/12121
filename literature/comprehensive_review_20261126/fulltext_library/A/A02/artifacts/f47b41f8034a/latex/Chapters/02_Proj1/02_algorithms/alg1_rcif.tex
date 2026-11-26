@@ -1,0 +1,23 @@
+\begin{algorithm}[H]
+  \caption{The random cumulative incidence forest estimator}
+  \label{alg:RCIF}
+  \begin{flushleft}
+    \begin{algorithmic}
+  \State \textbf{Input:} $\{(X_i, \delta_i, \delta_{ji}, Z_i, A_i)\}_{i=1}^n$
+  \State \textbf{Output:} $\widehat{F}_j(\cdot|Z,A=a)$
+  \State Result: random cause-j cumulative incidence forest $\widehat{F}_j(\cdot|Z,A)$
+  \State Parameters: number of trees $n_{\text{tree}}$, minimum terminal node size $n_{\text{min}}$, minimum number of events $n_{\text{minevent}}$
+%  \State 
+  \State For \underline{treatment arm} $a \in \mathcal{A}$ \textbf{do} 
+  \begin{itemize}[label={}]
+  \item For \underline{tree $w = 1, 2, \ldots, n_{\text{tree}}$} \textbf{do}
+  \begin{itemize}[label={}]
+  \item Partition the feature space with the input data $\{(X_i, \delta_i, \delta_{ji}, Z_i)\}_{i:a_i=a}$ via Gray's test \cref{grays_test} until node size $< 2n_{\text{min}}$ and there are at least $n_{\text{minevent}}$ events from any cause in every node
+  \item Obtain the terminal node cumulative incidence probability $\widehat{F}^a_{j,\{w\}}(t | Z)$ via Aalen-Johanson estimator \cref{AJ_estimator}
+  \end{itemize}
+  
+  \item Obtain the random cumulative incidence forest estimator $\widehat{F}_j(\cdot | Z, A = a) = \frac{1}{n_{\text{tree}}} \sum_{w=1}^{n_\text{tree}} \widehat{F}_{j,\{w\}}^{a}(t | Z)$
+  \end{itemize}
+\end{algorithmic}
+\end{flushleft}
+\end{algorithm}

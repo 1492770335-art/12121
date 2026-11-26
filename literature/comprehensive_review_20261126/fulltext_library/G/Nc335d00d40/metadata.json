@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nc335d00d40",
+  "category": "G",
+  "title": "Comparison of statistical and machine learning methods in competing risk analysis",
+  "authors": "Ji youn Lee and Insu Shin and Jae Won Lee",
+  "doi": "10.29220/csam.2026.33.1.051",
+  "year": "2026",
+  "original_url": "https://doi.org/10.29220/csam.2026.33.1.051",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "aac60c11a0cc6ab3199be723928c84dbc91d80b08a71a986c95b12a01ab71cab",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "http://www.csam.or.kr/journal/download_pdf.php?doi=10.29220/CSAM.2026.33.1.051"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/Nc335d00d40/README.md",
+  "status": "local_only"
+}

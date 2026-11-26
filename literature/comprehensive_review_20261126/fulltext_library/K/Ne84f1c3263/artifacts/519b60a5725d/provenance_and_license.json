@@ -1,0 +1,30 @@
+{
+  "paper_id": "Ne84f1c3263",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "519b60a5725d10cba2af83659c311c664a20adf78265aa632d85fa0a465f153b",
+  "source_url": "https://www.mdpi.com/2072-6694/16/7/1419/pdf?version=1712321139",
+  "original_version": "publishedVersion",
+  "bytes": "840637",
+  "pdf_pages": "11",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.mdpi.com/2072-6694/16/7/1419/pdf?version=1712321139",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:48.540534+08:00",
+  "format": "pdf",
+  "title": "Late Relapse after Allogeneic Stem Cell Transplantation in Patients Treated for Acute Myeloid Leukemia: Relapse Incidence, Characteristics, Role of Conditioning Regimen, and Outcome",
+  "authors": "Chloé Antier and Maxime Jullien and Benoît Tessoulin and Marion Loirat and Pierre Peterlin and Alice Garnier and Amandine Le Bourgeois and Patrice Chevallier and Thierry Guillaume",
+  "doi": "10.3390/cancers16071419",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "conditions of the Creative Commons\nAttribution (CC BY) license (https://\ncreativecommons.org/licenses/by/"
+    }
+  ]
+}

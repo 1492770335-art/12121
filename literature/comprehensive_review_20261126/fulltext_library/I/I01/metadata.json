@@ -1,0 +1,28 @@
+{
+  "paper_id": "I01",
+  "category": "I",
+  "title": "Making and Evaluating Point Forecasts",
+  "authors": "Gneiting, Tilmann",
+  "doi": "",
+  "year": "2009",
+  "original_url": "https://arxiv.org/abs/0912.0902",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "6b6cc2f0fd3daa1da42506f42f05fe88425880b2806f864ceaab85fc606ab5c9",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/0912.0902"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/I01/README.md",
+  "status": "local_only"
+}

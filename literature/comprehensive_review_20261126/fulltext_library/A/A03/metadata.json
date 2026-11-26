@@ -1,0 +1,42 @@
+{
+  "paper_id": "A03",
+  "category": "A",
+  "title": "Transformation-Invariant Learning of Optimal Individualized Decision Rules with Time-to-Event Outcomes",
+  "authors": "Yu Zhou and Lan Wang and Rui Song and Tuoyi Zhao",
+  "doi": "10.1080/01621459.2022.2068420",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1080/01621459.2022.2068420",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "a334f855acf316f59ddc44ee9cc0ef969960a83083cb0e6fe5f6034d232c65d3",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2204.04052"
+    },
+    {
+      "sha256": "d91fbef8d3b93bf3a98654b46590c430560e8d85dfbd76a9095b2e2faf7330b2",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://doi.org/10.1080/01621459.2022.2068420"
+    },
+    {
+      "sha256": "b3f56df4c55e59448a95f1574c22ee84a0dd18da53ceae18056da6bd94b0b695",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://doi.org/10.1080/01621459.2022.2068420"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/A03/README.md",
+  "status": "local_only"
+}

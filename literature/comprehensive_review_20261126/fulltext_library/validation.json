@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-11-27T01:12:21.672512+08:00",
+  "audited_baseline_paper_ids": 208,
+  "public_original_files_checked": 81,
+  "pdf_pages_checked": 2326,
+  "original_tex_files_checked": 121,
+  "index_entries_checked": 221,
+  "errors": [],
+  "limitations": [
+    "PDF extraction flags all detected mathematical pages; not a verified equation-to-LaTeX transcription.",
+    "XML without PDF is unpaginated.",
+    "No downloaded TeX source was compiled or executed."
+  ]
+}

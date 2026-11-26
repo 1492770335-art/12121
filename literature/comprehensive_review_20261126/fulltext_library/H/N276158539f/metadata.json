@@ -1,0 +1,28 @@
+{
+  "paper_id": "N276158539f",
+  "category": "H",
+  "title": "Survivor Average Causal Effects for Continuous Time: A Principal Stratification Approach to Causal Inference With Semicompeting Risks",
+  "authors": "Leah Comment and Fabrizia Mealli and Sebastien Haneuse and Corwin M. Zigler",
+  "doi": "10.1002/bimj.70041",
+  "year": "2025",
+  "original_url": "https://doi.org/10.1002/bimj.70041",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "8bfb69a9c54a2cdf5c93df9653d8b6f0c8ca1e6c591d96a1f58d86fc6e85a76a",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1902.09304"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/N276158539f/README.md",
+  "status": "local_only"
+}

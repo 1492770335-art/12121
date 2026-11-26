@@ -1,0 +1,28 @@
+{
+  "paper_id": "N8850eb0883",
+  "category": "E",
+  "title": "Robust Q-Learning",
+  "authors": "Ashkan Ertefaie and James R. McKay and David Oslin and Robert L. Strawderman",
+  "doi": "10.1080/01621459.2020.1753522",
+  "year": "2021",
+  "original_url": "https://doi.org/10.1080/01621459.2020.1753522",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "6a53b77d23fe27770a1e69a2b74f1dd737f71a8694c478ba4110a760188297b2",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2003.12427"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N8850eb0883/README.md",
+  "status": "local_only"
+}

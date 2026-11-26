@@ -1,0 +1,21 @@
+Following the simulation set-up in \cite{fine_proportional_1999}, we simulate two competing risks for $i = 1,\dots,N$, where the CIF for failures from cause 1 ($\epsilon = 1$) are given by a unit exponential mixture with mass $1-p$ at $\infty$ when covariate values are $0$, and use proportional subdistribution hazards model to obtain CIF for nonzero covariate values:
+ $$\Pr(T_i \le t, \epsilon = 1|Z_i) = 1-[1-p\{1-exp(-t)\}]^{\lambdaone}.$$
+More details are provided in the supplementary material. We first examine the mean truncated restricted OS time ($\phi^{\mu}_1 = \int^{\tau}_{0} \survfunc(t)dt$), then the mean truncated restricted PC (cause 1) CIF ($\phi^{\mu}_2 = \int^{\tau}_{0} \Pr(T\leq t, \epsilon = 1)dt$). 
+The full simulation results are displayed in Figure \ref{fig:sims_finegray_crit1}, where each dot represents a simulation iteration for each method, and the average across simulations is presented. A higher truncated mean survival time (left) and lower area under CIF for priority cause (right) is ideal.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Chapters/02_Proj1/03_figures/CR02.FineGray_SimulationResults_20240913_crit1.png}%{Chapters/02_Proj1/03_figures/CR02.FineGray_SimulationResults_20240907_crit1.png}
+    %Chapters/02_Proj1/03_figures/CR02.FineGray_SimulationResults_20240831_crit1.png}
+    \caption{Results from Fine-Gray setting simulations. (Left) Estimated truncated mean overall survival time, and (right) the estimated integrated priority cause cumulative incidence function under each estimated policy. Each dot represents one simulation replicate. The boxplots are the quartile summary of the points and the black dots are the average values of each method. The rows and columns of boxes represent a data generation scenario, study design and sample size.}
+	\label{fig:sims_finegray_crit1}
+\end{figure}
+
+When $p_{\text{mass}} = 0.2$, our proposed method generally has the same mean times for OS (albeit slightly lower) and slightly lower mean times for CI. We note that while AIPWE and the observed policy sometimes have a lower CIF average (e.g., $5$ covariates and $p_{\text{mass}} = 0.2$), their mean survival time average is also much lower. We also note that in the second row, our method has a mean lower than dtrSurv but higher than AIPWE and PMCR; and the opposite is true for cumulative incidence (lower compared to dtrSurv, but higher compared to AIPWE and PMCR). This is what we would expect, since dtrSurv determines optimal ITRs based on OS, while AIPWE and PMCR determine based on cumulative incidence. When $p_{\text{mass}} = 0.8$, where PC has strong influence on the data, the OS for all methods are similar with low variance across simulations (see Figure \ref{fig:sims_fg_solo} for fixed y-axis scales). However, when comparing the PC cumulative incidence, our model produces the lowest times on average, with the exception of the observed policy (which also has very low OS on average). 
+
+Figure \ref{fig:sims_fg_solo} displays just the setting of low censoring, high sample size, and $5$ covariates where the treatment assignment did not depend on covariates and $p_\text{mass} = 0.8$ from Figure \ref{fig:sims_finegray_crit1}. We can see that our method performs well, with similar survival times to other methods while producing lower mean truncated cumulative incidence for the PC times on average across simulations.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=1\textwidth]{Chapters/02_Proj1/03_figures/CR02.solo.FineGray_SimulationResults_20240913_crit1.png}%{Chapters/02_Proj1/03_figures/CR02.solo.FineGray_SimulationResults_20240907_crit1.png}
+    \caption{Fine-Gray setting for low censoring, high sample size, high covariates, high PC probability mass for covariate-independent treatment assignment mechanism. (Left) Estimated truncated mean overall survival time, and (right) the estimated integrated priority cause cumulative incidence function under each estimated policy. Each dot represents one simulation replicate. The boxplots are the quartile summary of the points, and the black dots are the average values of each method.}
+	\label{fig:sims_fg_solo}
+\end{figure}

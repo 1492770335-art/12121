@@ -1,0 +1,49 @@
+{
+  "paper_id": "I14",
+  "category": "I",
+  "title": "Methods for non-proportional hazards in clinical trials: A systematic review",
+  "authors": "Maximilian Bardo and Cynthia Huber and Norbert Benda and Jonas Brugger and Tobias Fellinger and Vaidotas Galaune and Judith Heinz and Harald Heinzl and Andrew C Hooker and Florian Klinglmüller and Franz König and Tim Mathes and Martina Mittlböck and Martin Posch and Robin Ristl and Tim Friede",
+  "doi": "10.1177/09622802241242325",
+  "year": "2024",
+  "original_url": "https://doi.org/10.1177/09622802241242325",
+  "local_fulltext": true,
+  "public_pdf": [
+    "I/I14/artifacts/9ee802ae2bd0/original.pdf"
+  ],
+  "public_markdown": [
+    "I/I14/artifacts/75a6237f78dd/fulltext.md",
+    "I/I14/artifacts/9ee802ae2bd0/fulltext.md"
+  ],
+  "public_txt": [
+    "I/I14/artifacts/75a6237f78dd/fulltext.txt",
+    "I/I14/artifacts/9ee802ae2bd0/fulltext.txt"
+  ],
+  "original_tex": [
+    "I/I14/artifacts/9ee802ae2bd0/latex/Appendix.tex",
+    "I/I14/artifacts/9ee802ae2bd0/latex/Appendix_supplement.tex",
+    "I/I14/artifacts/9ee802ae2bd0/latex/summary.tex"
+  ],
+  "public_xml": [
+    "I/I14/artifacts/75a6237f78dd/original.xml"
+  ],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "75a6237f78dde98a310b65a4b9e17431a1a1e4cdc152cc8d2fc4e3321dd2eae7",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11162097/fullTextXML",
+      "provenance": "I/I14/artifacts/75a6237f78dd/provenance_and_license.json"
+    },
+    {
+      "sha256": "9ee802ae2bd0f6de9b6a63f04431b6e9946214c922aca20e67bb38b555ef79e7",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "source_url": "https://arxiv.org/pdf/2306.16858",
+      "provenance": "I/I14/artifacts/9ee802ae2bd0/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/I14/README.md",
+  "status": "public_fulltext"
+}

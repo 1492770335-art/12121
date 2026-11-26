@@ -1,0 +1,27 @@
+# 复现全文库
+
+Python依赖：pypdf、pymupdf；原始采集脚本另使用bibtexparser等，见上级scripts/dependency_versions.json。所有下载得到的TeX和代码均不执行、不编译。
+
+在仓库根目录依次运行：
+
+```powershell
+python literature/comprehensive_review_20261126/scripts/library_audit.py
+python literature/comprehensive_review_20261126/scripts/library_pin_versions.py
+python literature/comprehensive_review_20261126/scripts/library_core_fetch.py
+python literature/comprehensive_review_20261126/scripts/library_public_pdf.py
+python literature/comprehensive_review_20261126/scripts/library_tex.py
+python literature/comprehensive_review_20261126/scripts/library_thirdparty_scan.py
+python literature/comprehensive_review_20261126/scripts/library_build.py
+python literature/comprehensive_review_20261126/scripts/library_local_convert.py
+python literature/comprehensive_review_20261126/scripts/library_line_maps.py
+python literature/comprehensive_review_20261126/scripts/library_validate.py
+python literature/comprehensive_review_20261126/scripts/library_report.py
+```
+
+源URL响应缓存位于local_private/cache/；版本许可HTML、源包和源TeX在local_private/fulltext_library_work/。公开许可证据只取必要的权利声明、版本、URL和哈希，不把未授权的整页HTML或受限全文上传。缓存重用会保留上一轮的来源证据；若需要重新核对变化，应单独保存新证据，不能将新版本的许可套到旧版本。
+
+私有转换稿在local_private/fulltext_library_local/。它们可以供本机读取，但不在GitHub上，也不会通过公开索引伪装成可远程取得的全文。
+
+GitHub读取建议：先取index.csv或index.json，选paper_id后读对应README.md。再取page_map.json，用markdown_start_line/markdown_end_line或txt_start_line/txt_end_line读取原始PDF某一页对应的文本范围。theorem_proof_locator.csv列出实际观察到的定理/证明等标签位置；原始TeX仍以original_tex列表和对应source_manifest.json为准。JATS只有章节结构，没有伪造的PDF分页。
+
+公开发布应使用验证过的本目录文件、library_*.py脚本和上级README.md白名单。不得上传local_private、原始源包中的数据/字体/第三方样式、访问凭据或未经许可的PDF/转换稿。当前仓库的既有论文与实验文件不属于本流程。

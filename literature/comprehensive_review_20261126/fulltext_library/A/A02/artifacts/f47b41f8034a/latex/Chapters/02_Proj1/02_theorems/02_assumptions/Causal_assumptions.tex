@@ -1,0 +1,14 @@
+\begin{assumption}[Stable Unit Treatment Value Assumption (SUTVA)]
+\label{assump:Causal1}
+Each individual's counterfactual outcomes, such as cause-specific failure time or overall failure time, are not affected by the treatment assignments or histories of other individuals in the study. Additionally, the process of censoring is assumed to be independent of other individuals' treatments and histories.
+\end{assumption}
+
+\begin{assumption}[Strong ignorability] % look up the name
+\label{assump:Causal2}
+The treatment assignment is conditionally independent of future potential outcomes (such as $\phi_1^{(a)}$ or $\phi_2^{(a)}$), given the individual's covariates $Z$. This can be expressed as $\phi^{(a)} \perp A \mid Z$, for all $a \in A$. 
+\end{assumption}
+
+\begin{assumption}[Positivity]
+\label{assump:Causal3}
+Given covariate information, the probability of having each treatment $a \in \mathcal{A}$ is greater than a constant $L > 0$, or $\Pr(A = a | Z = z) > L$ for all $a \in \mathcal{A}$, $z$ such that $\Pr(Z = z) > 0$.
+\end{assumption}

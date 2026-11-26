@@ -1,0 +1,36 @@
+{
+  "paper_id": "N5a18097227",
+  "category": "B",
+  "title": "Integrative learning of individualized treatment rules from multiple studies with partially overlapping treatments",
+  "authors": "Yuan Bian and Donglin Zeng and Hyun-Joon Yang and Leanne M Williams and Yuanjia Wang",
+  "doi": "10.1093/biomtc/ujag083",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1093/biomtc/ujag083",
+  "local_fulltext": true,
+  "public_pdf": [
+    "B/N5a18097227/artifacts/34160cd9de3f/original.pdf"
+  ],
+  "public_markdown": [
+    "B/N5a18097227/artifacts/34160cd9de3f/fulltext.md"
+  ],
+  "public_txt": [
+    "B/N5a18097227/artifacts/34160cd9de3f/fulltext.txt"
+  ],
+  "original_tex": [
+    "B/N5a18097227/artifacts/34160cd9de3f/latex/main.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "34160cd9de3fdd2f091907823b5ed29c4384189723ff07d5e0c362ec27b283c7",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2604.10712",
+      "provenance": "B/N5a18097227/artifacts/34160cd9de3f/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/N5a18097227/README.md",
+  "status": "public_fulltext"
+}

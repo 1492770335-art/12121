@@ -1,0 +1,34 @@
+{
+  "paper_id": "N4e7406b8e8",
+  "category": "K",
+  "title": "Total Body Irradiation, Busulfan, Fludarabine Conditioning for Pediatric Acute Myeloid Leukemia Patients Treated with Hematopoietic Stem Cell Transplantation in Second Complete Remission",
+  "authors": "Jae Wook Lee and Suejung Jo and Jae Won Yoo and Seongkoo Kim and Nack-Gyun Chung and Bin Cho",
+  "doi": "10.4143/crt.2026.0086",
+  "year": "2026",
+  "original_url": "https://doi.org/10.4143/crt.2026.0086",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/N4e7406b8e8/artifacts/b7a786e164a6/original.pdf"
+  ],
+  "public_markdown": [
+    "K/N4e7406b8e8/artifacts/b7a786e164a6/fulltext.md"
+  ],
+  "public_txt": [
+    "K/N4e7406b8e8/artifacts/b7a786e164a6/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "b7a786e164a650cd2046e28b92b98d5c71b9ee717f62e2ee0e0d63ab67cb3a86",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by-nc/4.0/",
+      "source_url": "https://www.e-crt.org/upload/pdf/crt-2026-0086.pdf",
+      "provenance": "K/N4e7406b8e8/artifacts/b7a786e164a6/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N4e7406b8e8/README.md",
+  "status": "public_fulltext"
+}

@@ -1,0 +1,34 @@
+{
+  "paper_id": "N7896ad9ac8",
+  "category": "E",
+  "title": "Censoring-adjusted tree-based policy learning for estimating dynamic treatment regimes with censored outcomes",
+  "authors": "Animesh Kumar Paul and Russell Greiner",
+  "doi": "10.1038/s41598-026-53856-y",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1038/s41598-026-53856-y",
+  "local_fulltext": true,
+  "public_pdf": [
+    "E/N7896ad9ac8/artifacts/db95d176baa4/original.pdf"
+  ],
+  "public_markdown": [
+    "E/N7896ad9ac8/artifacts/db95d176baa4/fulltext.md"
+  ],
+  "public_txt": [
+    "E/N7896ad9ac8/artifacts/db95d176baa4/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "db95d176baa4189dda4aeb426c7d76383e09aed24ddc3b2f2b6a05c0995c38e9",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2503.06690",
+      "provenance": "E/N7896ad9ac8/artifacts/db95d176baa4/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N7896ad9ac8/README.md",
+  "status": "public_fulltext"
+}

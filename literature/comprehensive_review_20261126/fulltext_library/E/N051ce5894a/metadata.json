@@ -1,0 +1,28 @@
+{
+  "paper_id": "N051ce5894a",
+  "category": "E",
+  "title": "Robust learning for optimal treatment decision with NP-dimensionality",
+  "authors": "Chengchun Shi and Rui Song and Wenbin Lu",
+  "doi": "10.1214/16-ejs1178",
+  "year": "2016",
+  "original_url": "https://doi.org/10.1214/16-ejs1178",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "0c13996d50f22d8781457bd211d7081191e72a985bee378b39fa981cfd5c1496",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1510.04378"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N051ce5894a/README.md",
+  "status": "local_only"
+}

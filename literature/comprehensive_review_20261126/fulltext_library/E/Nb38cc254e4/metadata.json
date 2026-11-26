@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nb38cc254e4",
+  "category": "E",
+  "title": "Concordance and value information criteria for optimal treatment decision",
+  "authors": "Chengchun Shi and Rui Song and Wenbin Lu",
+  "doi": "10.1214/19-aos1908",
+  "year": "2021",
+  "original_url": "https://doi.org/10.1214/19-aos1908",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "9a9caa181994e3230322760481b336754a2a91aac79a2c23c19c75c3316d02b6",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://researchonline.lse.ac.uk/id/eprint/102105/1/CIVIC1.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Nb38cc254e4/README.md",
+  "status": "local_only"
+}

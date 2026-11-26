@@ -1,0 +1,28 @@
+{
+  "paper_id": "N14a6119231",
+  "category": "I",
+  "title": "corrscore: Matrix-Aware Proper Scoring Rules and Significance Testing for Correlation and Covariance Forecasts in Python",
+  "authors": "Vinh Nguyen",
+  "doi": "10.68365/jrepstat.2026.3",
+  "year": "2026",
+  "original_url": "https://doi.org/10.68365/jrepstat.2026.3",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "04d76bc4f243a17feb87a097a97d168ea2eb6883fc286537056bd6a70b1ef306",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://jrepstat.fairpressjournals.com/articles/corrscore-matrix-aware-proper-scoring-rules-and-significance-testing-for-correlation-and-covariance-forecasts-in-python/corrscore-matrix-aware-proper-scoring-rules-and-significance-testing-for-correlation-and-covariance-forecasts-in-python-v1.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/N14a6119231/README.md",
+  "status": "local_only"
+}

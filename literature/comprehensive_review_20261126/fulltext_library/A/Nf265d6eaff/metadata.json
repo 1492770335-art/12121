@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nf265d6eaff",
+  "category": "A",
+  "title": "Tree based weighted learning for estimating individualized treatment rules with censored data",
+  "authors": "Yifan Cui and Ruoqing Zhu and Michael Kosorok",
+  "doi": "10.1214/17-ejs1305",
+  "year": "2017",
+  "original_url": "https://doi.org/10.1214/17-ejs1305",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c9d7bcd865ea88bc5b448074398a72c40b01aef6a1cfe49294d88a83e1b70c19",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1707.09632"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/Nf265d6eaff/README.md",
+  "status": "local_only"
+}

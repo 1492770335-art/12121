@@ -1,0 +1,512 @@
+[
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e297",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\begin{aligned}\\Delta Y=&{Y}^{(1)}-{Y}^{(0)}={w}_{1}*{\\overline{E} }_{1}+{w}_{2}*{\\overline{E} }_{2}\\\\&+\\dots +{w}_{M}*{\\overline{E} }_{M}\\end{aligned}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e301",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\overline{E} }_{m}=\\frac{{E}_{m}^{(1)}+{E}_{m}^{(0)}}{2},m=1,\\dots , M$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e305",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${Y}^{(1)}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e309",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${Y}^{(0)}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e326",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{m}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e332",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{m}^{(1)}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e336",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{m}^{(0)}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e345",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\overline{E} }_{m}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e353",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${w}_{m}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e361",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\{{\\overline{E} }_{m}\\}}_{m=1}^{M}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e373",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\overline{E} }_{m}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e377",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${w}_{m}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e386",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${M}_{i}^{*} =\\sum\\:_{m=1}^{M}{w}_{m}{E}_{im}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e419",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${t}_{0}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e423",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\tau}_{r=0}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e432",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${t}_{0}< {t}_{1}<\\dots < {t}_{K}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e436",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${T}_{max}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e440",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${t}_{k}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e444",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${t}_{k}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e453",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\widehat{{p}_{0}}\\left(t\\right), \\widehat{{p}_{1}}\\left(t\\right)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e457",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\widehat{{p}_{2}}\\left(t\\right)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e467",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\tau}_{i}\\equiv \\mathrm{m}\\mathrm{i}\\mathrm{n}({\\tau}_{r},{\\tau}_{i}^{*})$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e471",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\tau}_{i}^{*}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e488",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${wc}_{i0}\\left(t\\right), {wc}_{i1}\\left(t\\right), {wc}_{i2}\\left(t\\right)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e503",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${t}_{k}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e523",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${t}_{k}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e544",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\widehat{{EWTR}_{i}}= {\\int}_{{t}_{0}}^{{\\tau}_{i}}\\{{wc}_{i0}\\left(t\\right)\\widehat{{p}_{0}}\\left(t\\right)+{wc}_{i1}\\left(t\\right)\\widehat{{p}_{1}}\\left(t\\right)+ {wc}_{i2}\\left(t\\right) \\widehat{{p}_{2}}\\left(t\\right)\\}.$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e593",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$PTR= I\\left\\{\\left({\\beta}_{0}^{*}+{\\beta}_{1}^{*}{M}^{*}\\right)>0\\right\\}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e597",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\beta}_{0}^{*}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e601",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\beta}_{1}^{*}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e606",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${M}^{*}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e631",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\begin{aligned}\\mu \\left\\{PTR\\right\\}= &\\frac{1}{n}\\sum^{n}(\\frac{\\left(Z+\\frac{1}{2})\\ (PTR+\\frac{1}{2}\\right)}{\\pi }EWTR\\\\&+\\frac{(\\frac{1}{2}-Z)\\ (\\frac{1}{2}-PTR)}{1-\\pi }EWTR)\\end{aligned}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e658",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\mu \\left\\{Treatment\\right\\}=\\frac{1}{n}\\sum^{n}(\\frac{Z+1/2}{\\pi }EWTR)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e663",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\mu \\left\\{Control\\right\\}=\\frac{1}{n}\\sum^{n}(\\frac{1/2-Z}{1-\\pi }EWTR).$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e685",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$-\\frac{\\Psi }{2},\\frac{\\Psi }{2}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e689",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$s=1\\ or\\ 2$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e704",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\lambda}_{s=1}\\left(t\\right)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e708",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\lambda}_{s=2}\\left(t\\right)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e713",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\begin{aligned}{\\lambda}_{s=1}\\left(t\\right)=&exp[{\\alpha}_{1}+{\\beta}_{1}*Z+{\\gamma}_{1}*U\\\\&+\\sum\\:_{m=1}^{5}({\\delta}_{1m}* {E}_{m}+ {\\delta}_{1m}^{*}* {E}_{m}*Z)]\\end{aligned}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e717",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\begin{aligned}{\\lambda}_{s=2}\\left(t\\right)=&exp[{\\alpha}_{2}+{\\beta}_{2}*Z+{\\gamma}_{2}*U\\\\&+\\sum\\:_{m=1}^{5}{(\\delta }_{2m}* {E}_{m}+ {\\delta}_{2m}^{*}* {E}_{m}*Z)]\\end{aligned}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e721",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\lambda}_{s=3}\\left(t\\right)=exp[{\\alpha}_{3}]$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e726",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\alpha}_{1}, {\\alpha}_{2},$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e730",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\alpha}_{3}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e734",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\beta}_{1}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e738",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\beta}_{2}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e742",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\delta}_{sm}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e746",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\delta}_{sm}^{*}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e751",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${S}_{1}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e755",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\lambda}_{s=1}\\left(t\\right)+ {\\lambda}_{s=2}\\left(t\\right)+ {\\lambda}_{s=3}\\left(t\\right)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e759",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${S}_{1}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e764",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\mathrm{Pr}\\left(non-fatal\\:event\\right)= \\frac{{\\lambda}_{s=1}\\left({ S}_{1}\\right)}{{\\lambda}_{s=1}\\left({ S}_{1}\\right)+ {\\lambda}_{s=2}\\left({ S}_{1}\\right)+ {\\lambda}_{s=3}\\left({ S}_{1}\\right)}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e768",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\mathrm{Pr}\\left(death\\right)= \\frac{{\\lambda}_{s=2}\\left({ S}_{1}\\right)}{{\\lambda}_{s=1}\\left({ S}_{1}\\right)+ {\\lambda}_{s=2}\\left({ S}_{1}\\right)+ {\\lambda}_{s=3}\\left({ S}_{1}\\right)}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e772",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\mathrm{Pr}\\left(censoring\\right)= \\frac{{\\lambda}_{s=3}\\left({ S}_{1}\\right)}{{\\lambda}_{s=1}\\left({ S}_{1}\\right)+ {\\lambda}_{s=2}\\left({ S}_{1}\\right)+ {\\lambda}_{s=3}\\left({ S}_{1}\\right)}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e777",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${S}_{1}\\ge 4$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e781",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${S}_{1}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e785",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${S}_{2}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e789",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${S}_{1}+ { S}_{2}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e793",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\lambda}_{s=1}\\left({ S}_{1}\\right)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e805",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{1}, {E}_{2},$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e809",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{3}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e813",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{4}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e817",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{5}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e833",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\delta}_{sm}=0$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e837",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\delta}_{s1}=0.3, {\\delta}_{s2}=0.02, {\\delta}_{s3}=-0.5, {\\delta}_{s4}=-0.4, {\\delta}_{s5}=0.6$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e841",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\Phi =\\frac{{\\delta}_{sm}^{*}}{{\\delta}_{sm}}.$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e850",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\frac{{\\delta}_{sm}^{*}}{{\\delta}_{sm}}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e878",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${{\\boldsymbol{\\delta}}}_{{\\boldsymbol{s}}1}^{\\boldsymbol{*}}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e883",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${{\\boldsymbol{\\delta}}}_{{\\boldsymbol{s}}2}^{\\boldsymbol{*}}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e888",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${{\\boldsymbol{\\delta}}}_{{\\boldsymbol{s}}3}^{\\boldsymbol{*}}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e893",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${{\\boldsymbol{\\delta}}}_{{\\boldsymbol{s}}4}^{\\boldsymbol{*}}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e898",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${{\\boldsymbol{\\delta}}}_{{\\boldsymbol{s}}5}^{\\boldsymbol{*}}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e970",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\delta}_{sm}^{*}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e974",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{1}, {E}_{2},$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e978",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{3}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e982",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{4}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e986",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${E}_{5}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e991",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\beta}_{1}={\\beta}_{2}=-0.25$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1027",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\beta}_{2}=0, {\\delta}_{2m}^{*}=0$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1046",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$\\psi =0.5, {\\alpha}_{1}=-0.5{, \\alpha }_{2}=-1.6, {\\gamma}_{1}={\\gamma}_{2}=1,$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1050",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\alpha}_{3}=-4$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1067",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\alpha}_{1}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1071",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\alpha}_{2}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1075",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\beta}_{1}={\\beta}_{2}=-0.25$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1079",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\beta}_{1}=-0.25, {\\beta}_{2}=0$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1097",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$Z \\in \\left\\{-\\frac{1}{2},\\frac{1}{2}\\right\\},$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1109",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${M}^{*}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1114",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\widehat{EWTR}}_{i}={\\alpha}_{0}+{{\\alpha}_{1}M}^{*}+Z\\left({\\beta}_{0}^{*}+{\\beta}_{1}^{*}{M}^{*}\\right).$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1120",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$$PTR= I\\left\\{\\left({\\beta}_{0}^{*}+{\\beta}_{1}^{*}{M}^{*}\\right)>0\\right\\}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1142",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${{\\boldsymbol{\\beta}}}_{0}^{\\mathbf{*}},{{\\boldsymbol{\\beta}}}_{1}^{\\mathbf{*}}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1146",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\boldsymbol{Z}}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1172",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\Theta}_{Treatment}= \\mu \\left(PTR\\right)-\\mu \\left(Treatment\\right)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1177",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\Theta}_{Control}= \\mu \\left(PTR\\right)-\\mu \\left(Control\\right).$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1215",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\boldsymbol{\\alpha}}=0.05$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1219",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${{\\boldsymbol{E}}}_{1}\\dots {{\\boldsymbol{E}}}_{5},$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1226",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\boldsymbol{\\Phi}}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1258",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\Theta}_{Z=1}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1332",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\beta}_{EWTR}=41\\ days, p=0.07)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1351",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${{M}}_{{intersection}}^{*}=24.2$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1360",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${\\widehat{EWTR}}_{i}=\\alpha + {\\beta}_{0}*Z+ {\\beta}_{1}*Z*{M}_{i}^{*}$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1367",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${M}_{intersection}^{*}=24.2$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1401",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${{\\Theta}}_{{Rhythm}}={\\mu}\\left({PTR}\\right)-{\\mu}\\left({Rhythm}\\right)$$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "d33e1411",
+    "text": "\\documentclass[12pt]{minimal}\n                                                  \\usepackage{amsmath}\n                                                  \\usepackage{wasysym}\n                                                  \\usepackage{amsfonts}\n                                                  \\usepackage{amssymb}\n                                                  \\usepackage{amsbsy}\n                                                  \\usepackage{mathrsfs}\n                                                  \\usepackage{upgreek}\n                                                  \\setlength{\\oddsidemargin}{-69pt}\n                                                  \\begin{document}$${{\\Theta}}_{{Rate}}={\\mu}\\left({PTR}\\right)-{\\mu}\\left({Rate}\\right)$$\\end{document}"
+  }
+]

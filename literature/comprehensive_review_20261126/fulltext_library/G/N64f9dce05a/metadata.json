@@ -1,0 +1,28 @@
+{
+  "paper_id": "N64f9dce05a",
+  "category": "G",
+  "title": "Simulating time-to-event data from parametric distributions, custom distributions, competing-risks models, and general multistate models",
+  "authors": "Michael J. Crowther",
+  "doi": "10.1177/1536867x221083853",
+  "year": "2022",
+  "original_url": "https://doi.org/10.1177/1536867x221083853",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "6feedf1e7cc29ccf61775e197209482216820436671d64949bf89d53c2459788",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2110.10414"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/N64f9dce05a/README.md",
+  "status": "local_only"
+}

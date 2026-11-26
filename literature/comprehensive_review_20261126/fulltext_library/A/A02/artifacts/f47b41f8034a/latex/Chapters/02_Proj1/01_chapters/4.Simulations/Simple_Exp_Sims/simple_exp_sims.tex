@@ -1,0 +1,16 @@
+In this simulation setting, we assume $T_1$ is independent from $T_2$, 
+where $T_1 \sim \exp(\lambdaone)$, $T_2 \sim \exp(\lambdatwo)$. Since $T_1 \perp T_2$, $T \sim \exp(\lambdaone + \lambdatwo)$.
+%Let failure time from cause 1 ($T_1$) follow an exponential distribution with rate $\lambdaone$. Let failure time from cause 2 ($T_2$) follow an exponential distribution with rate $\lambdatwo$. In this setting, we assume $T_1$ and $T_2$ are independent. Thus, by property of independent distributions, the overall survival $T = \min(T_1,T_2)$ follows an exponential distribution with rate $\lambdaone + \lambdatwo$. 
+Let $\lambdaoneshort = \lambdaone$ and $\lambdatwoshort = \lambdatwo$. Then for the truncated mean criterion, we have $
+\label{eqn:sims_crit_simpleexp}
+%int S(t) dt
+\phi_1^\mu(t) = \int_0^\tau \survfunc(t)dt = \int_0^\tau \exp(-(\lambdaoneshort+\lambdatwoshort)t)dt$ and $
+%int CIF(t) dt
+\phi_2^\mu(t) = \int_0^\tau Pr(T \leq t, \epsilon = 1|Z_i) dt = \int_0^\tau \frac{\lambdaoneshort}{\lambdaoneshort + \lambdatwoshort} - e^{-\lambdatwoshort t} + \frac{\lambdatwoshort}{\lambdaoneshort + \lambdatwoshort}\left(e^{-(\lambdaoneshort +\lambdatwoshort) t} \right) dt
+%\\ %%S(t_0)
+%\phi_1^{\sigma,t_0}(t) &= \survfunc(t_0) = \exp(-(\lambdaoneshort+\lambdatwoshort)t_0)\\
+%CIF(t_0)
+%\phi_2^{\sigma,t_0}(t) &= Pr(T \leq t_0, \epsilon = 1|Z_i) = \frac{\lambdaoneshort}{\lambdaoneshort + \lambdatwoshort} - e^{-\lambdatwoshort t_0} + \frac{\lambdatwoshort}{\lambdaoneshort + \lambdatwoshort}\left(e^{-(\lambdaoneshort +\lambdatwoshort) t_0} \right)
+$. The derivations can be found in the Supplementary Material. Censoring is sampled from exponential distribution such that approximately $15\%$ of the final dataset is censored for low censoring, or approximately $50\%$ for high censoring. 
+
+\input{Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/simple_exp_results}

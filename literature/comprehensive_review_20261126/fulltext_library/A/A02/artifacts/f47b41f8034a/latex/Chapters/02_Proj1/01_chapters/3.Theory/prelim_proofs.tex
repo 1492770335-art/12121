@@ -1,0 +1,17 @@
+\newcommand{\PRELIMproofRCIF}{
+\if1\prelim{
+%rcif_consistency proof
+\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/RCIFproof_paper1}
+} \fi
+}
+
+
+\newcommand{\PRELIMproofITR}{
+\if1\prelim{
+%The proof for Theorem \ref{thm:ITR_Consistency} is below.
+\input{Chapters/02_Proj1/02_theorems/ITR_Estimator/Consistency/Consistency_ITR}
+\ITRconsistencyPROOF
+\eqnsteponePROOF
+} \fi
+}
+

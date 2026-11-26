@@ -1,0 +1,36 @@
+{
+  "paper_id": "Ne4d9c36f04",
+  "category": "E",
+  "title": "Constructing a T ‐Test for Value Function Comparison of Individualized Treatment Regimes in the Presence of Multiple Imputation for Missing Data",
+  "authors": "Minxin Lu and Annie Green Howard and Penny Gordon‐Larsen and Katie A. Meyer and Hsiao‐Chuan Tien and Shufa Du and Huijun Wang and Bing Zhang and Michael R. Kosorok",
+  "doi": "10.1002/sim.70210",
+  "year": "2025",
+  "original_url": "https://doi.org/10.1002/sim.70210",
+  "local_fulltext": true,
+  "public_pdf": [
+    "E/Ne4d9c36f04/artifacts/23dfb9aeefc1/original.pdf"
+  ],
+  "public_markdown": [
+    "E/Ne4d9c36f04/artifacts/23dfb9aeefc1/fulltext.md"
+  ],
+  "public_txt": [
+    "E/Ne4d9c36f04/artifacts/23dfb9aeefc1/fulltext.txt"
+  ],
+  "original_tex": [
+    "E/Ne4d9c36f04/artifacts/23dfb9aeefc1/latex/main.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "23dfb9aeefc1d9a7a9b472b19b20de8cc3dde0454917aa5b2ce99a744f754f0f",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2312.15217",
+      "provenance": "E/Ne4d9c36f04/artifacts/23dfb9aeefc1/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Ne4d9c36f04/README.md",
+  "status": "public_fulltext"
+}

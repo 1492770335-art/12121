@@ -1,0 +1,30 @@
+{
+  "paper_id": "N7a6c477885",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "45518b6706dee414719800838d23a515850369c5197e6fa6bbfd3b897a99874c",
+  "source_url": "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1818603/pdf",
+  "original_version": "publishedVersion",
+  "bytes": "964793",
+  "pdf_pages": "7",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1818603/pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:47.771559+08:00",
+  "format": "pdf",
+  "title": "The conditional benefit of being alive and disease free at 2 years after transplant: a long term survival evaluation among 456 patients affected by acute myeloid leukemia",
+  "authors": "Alessandro Bruno and Francesca Lorentino and Matteo G. Carrabba and Sara Mastaglio and Raffaella Greco and Sarah Marktel and Simona Piemontese and Magda Marcatti and Luca Vago and Francesca Farina and Daniela Clerici and Elisa Diral and Lorenzo Lazzari and Edoardo Campodonico and Daniele Sannipoli and Andrea Assanelli and Consuelo Corti and Massimo Bernardi and Jacopo Peccatori and Fabio Ciceri and Maria Teresa Lupo-Stanghellini",
+  "doi": "10.3389/fimmu.2026.1818603",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "of the Creative Commons Attribution\nLicense (CC BY). The use, distribution or"
+    }
+  ]
+}

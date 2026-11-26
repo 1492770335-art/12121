@@ -1,0 +1,36 @@
+{
+  "paper_id": "N5533d0166c",
+  "category": "E",
+  "title": "Online Policy Learning and Inference by Matrix Completion",
+  "authors": "Congyuan Duan and Jingyang Li and Dong Xia",
+  "doi": "10.1080/01621459.2025.2537454",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1080/01621459.2025.2537454",
+  "local_fulltext": true,
+  "public_pdf": [
+    "E/N5533d0166c/artifacts/6cbc9fd666ea/original.pdf"
+  ],
+  "public_markdown": [
+    "E/N5533d0166c/artifacts/6cbc9fd666ea/fulltext.md"
+  ],
+  "public_txt": [
+    "E/N5533d0166c/artifacts/6cbc9fd666ea/fulltext.txt"
+  ],
+  "original_tex": [
+    "E/N5533d0166c/artifacts/6cbc9fd666ea/latex/oPL-MC.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "6cbc9fd666ea1cead0ebb5cd5e0340286c278e6e2d320217ab9d6a923f05a4c5",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2404.17398",
+      "provenance": "E/N5533d0166c/artifacts/6cbc9fd666ea/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N5533d0166c/README.md",
+  "status": "public_fulltext"
+}

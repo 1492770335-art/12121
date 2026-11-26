@@ -1,0 +1,14 @@
+% Assumptions
+\newcommand{\RFassump}{
+\input{Chapters/02_Proj1/02_theorems/02_assumptions/CR_assumptions}
+% Assumptions for Forest Consistency
+Below are assumptions used for consistency of both forests. Assumptions \ref{assump:Cho1}-\ref{assump:Cho3} are necessary and realistic for the tree-based estimator terminal node size and splitting rules. Assumption \ref{assump:Cho1} requires the terminal node size to be not only sufficiently large absolutely but also sufficiently small relative to the sample size. Assumption \ref{assump:Cho2} follows from Definition \ref{def:regsplotalphatree}. Assumption \ref{assump:Cho3} adds smoothness to the survival function and censoring cumulative distribution function. Assumption \ref{assump:CuiAssump2} follows from \cite{cui_tree_2017} and \cite{wager_adaptive_2016}, which allows for dependency between covariates. Thus, non-hyper-rectangular or categorical history spaces are allowed with this assumption. Assumption \ref{khbddtv} is necessary for the random cumulative incidence forest because there is non-differentiability of the treatment policy.
+\assumpsForestconsistency
+}
+
+\newcommand{\ITRassump}{
+\input{Chapters/02_Proj1/02_theorems/02_assumptions/CR_assumptions}
+% Assumptions for ITR Consistency
+Below are assumptions for the proposed estimator for consistency. We assume bounding in Assumptions \ref{assump:boundeddensity}-\ref{assump:boundedV0} to account for nonregularity of the value function. This is a necessary and standard assumption for non-regularity conditions.
+\assumptionsITRconsistency
+}

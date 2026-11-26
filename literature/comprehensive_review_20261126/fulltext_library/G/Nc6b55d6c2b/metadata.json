@@ -1,0 +1,34 @@
+{
+  "paper_id": "Nc6b55d6c2b",
+  "category": "G",
+  "title": "Cause-distinct incidence for resolving confusion in competing risk analysis: a critical review",
+  "authors": "Tsuyoshi Nakamura and Tomomi Yamada and Yoshiaki Nose",
+  "doi": "10.3389/fams.2026.1777018",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3389/fams.2026.1777018",
+  "local_fulltext": true,
+  "public_pdf": [
+    "G/Nc6b55d6c2b/artifacts/fe7ec617f7f3/original.pdf"
+  ],
+  "public_markdown": [
+    "G/Nc6b55d6c2b/artifacts/fe7ec617f7f3/fulltext.md"
+  ],
+  "public_txt": [
+    "G/Nc6b55d6c2b/artifacts/fe7ec617f7f3/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "fe7ec617f7f37758d22ed4dc5de7cc968ab53baec00ef444dda518722ace93b1",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://public-pages-files-2025.frontiersin.org/journals/applied-mathematics-and-statistics/articles/10.3389/fams.2026.1777018/pdf",
+      "provenance": "G/Nc6b55d6c2b/artifacts/fe7ec617f7f3/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/Nc6b55d6c2b/README.md",
+  "status": "public_fulltext"
+}

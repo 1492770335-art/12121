@@ -1,0 +1,34 @@
+{
+  "paper_id": "N1e85cdf87a",
+  "category": "I",
+  "title": "Quantile-Based Safe Haven Analysis and Risk Interactions Between Green and Dirty Energy Futures",
+  "authors": "Erginbay Uğurlu",
+  "doi": "10.3390/risks13080159",
+  "year": "2025",
+  "original_url": "https://doi.org/10.3390/risks13080159",
+  "local_fulltext": true,
+  "public_pdf": [
+    "I/N1e85cdf87a/artifacts/1dac94d78c63/original.pdf"
+  ],
+  "public_markdown": [
+    "I/N1e85cdf87a/artifacts/1dac94d78c63/fulltext.md"
+  ],
+  "public_txt": [
+    "I/N1e85cdf87a/artifacts/1dac94d78c63/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "1dac94d78c6341713cc22551d301e2f354df6908cbf46e699660cdbd33b862f1",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.mdpi.com/2227-9091/13/8/159/pdf?version=1755698785",
+      "provenance": "I/N1e85cdf87a/artifacts/1dac94d78c63/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/N1e85cdf87a/README.md",
+  "status": "public_fulltext"
+}

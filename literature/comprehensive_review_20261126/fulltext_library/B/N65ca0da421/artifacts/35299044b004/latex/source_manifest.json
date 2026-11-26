@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2109.02570v1",
+  "license": "http://creativecommons.org/licenses/by-sa/4.0/",
+  "source_url": "https://arxiv.org/src/2109.02570v1",
+  "archive_sha256": "27f6062be44c5a7fef80964cd80e8c7b9da3e4495476d4bccfac54a4aaf44cb4",
+  "files": [
+    {
+      "path": "main.tex",
+      "bytes": 131131,
+      "sha256": "39d8d79479d0138ec80438b38eed26df3f0692cd4f9ed673ddfd790fba53dc85"
+    },
+    {
+      "path": "supplement.tex",
+      "bytes": 140353,
+      "sha256": "55ca7c06d657cda47a84b2ae851ccacebba6ce465218fd5c755eaf9c1643f2fa"
+    },
+    {
+      "path": "tables/T2DM_coef_long.tex",
+      "bytes": 1701,
+      "sha256": "ffb28f4ee0410271ad72366917469cc8e2897c66d0ec36b13c28b544aa71ae89"
+    },
+    {
+      "path": "tables/T2DM_coef.tex",
+      "bytes": 2104,
+      "sha256": "6d5ad1e15f584c8bf0785b00d7f28311b69f176438e778857be123f3165a0316"
+    },
+    {
+      "path": "tables/ACTG175_coef.tex",
+      "bytes": 24943,
+      "sha256": "ea98578dcdb2fc827f861a6eec28caf5a0f1fbf62cc89e1c15cb37c1a3026a9d"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

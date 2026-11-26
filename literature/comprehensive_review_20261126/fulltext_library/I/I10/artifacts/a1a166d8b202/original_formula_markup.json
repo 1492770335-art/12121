@@ -1,0 +1,1387 @@
+[
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M1",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(T,D)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M2",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M3",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M4",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M5",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M6",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde M(X)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M7",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$X$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M8",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde M(X)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M9",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde M(X)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M10",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M11",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M12",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M13",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(X_i,T_i,D_i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M14",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(X_j,T_j,D_j)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M15",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D_i=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M16",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T_i<T_j$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M17",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D_j=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M18",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D_j=2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M19",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde M(X_i)>\\tilde M(X_j)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M20",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(X_i,T_i,D_i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M21",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{equation*}\\label{eq2.1} \\tilde{\\mathcal C}_1=P(\\tilde M(X_i)>\\tilde M(X_j)\\mid D_i=1 \\mbox{ and } (T_i<T_j \\mbox{ or } D_j=2)), \\end{equation*}\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M22",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$i,j$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M23",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde {\\mathcal C}_2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M24",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$F_1(t\\mid X)=P(T\\leq t,D=1\\mid X)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M25",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T^*$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M26",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T^*=I(D=1)\\cdot T+I(D\\neq 1)\\cdot \\infty $\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M27",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T^*$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M28",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$F_1(t\\mid X)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M29",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t<\\infty $\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M30",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$1-F_1(\\infty \\mid X)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M31",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\infty $\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M32",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde {\\mathcal C}_1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M33",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T^*$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M34",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde {\\mathcal C}_1=P(\\tilde M(X_i)>\\tilde M(X_j)\\mid T_1^*<T_j^*)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M35",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$I(\\{s<T_j \\mbox { or } D_j=2\\})=1-I(\\{T_j\\leq s, D_j=1\\})$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M36",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\[ {\\rm P}\\{D_i=1 \\mbox{ and } (T_i<T_j \\mbox{ or } D_j=2)\\}= {\\rm E}_{X_i,X_j}\\int_0^\\infty (1-F_1(s\\mid X_j))\\,{\\rm d} F_1(s\\mid X_i), \\] \\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M37",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde {\\mathcal C}_1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M38",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{equation*}\\label{eq2.2} \\tilde{\\mathcal C}_1=\\frac{{\\mathrm{E}}_{X_i,X_j}(I(\\tilde M(X_i)>\\tilde M(X_j))\\int_0^\\infty (1-F_1(s\\mid X_j)) \\,{\\rm d} F_1(s\\mid X_i))}{{\\rm E}_{X_i,X_j}(\\int_0^\\infty (1-F_1(s\\mid X_j)) \\,{\\rm d} F_1(s\\mid X_i))}. \\end{equation*}\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M39",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$F_1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M40",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$F_2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M41",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$F_1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M42",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$X_i=X_j$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M43",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\frac 12$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M44",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{align*} \\tilde{\\mathcal C}_1&=P(\\tilde M(X_i)>\\tilde M(X_j)\\mid D_i=1 \\mbox{ and }(T_i<T_j \\mbox{ or } D_j=2))\\\\ &\\quad +\\tfrac{1}{2}P(\\tilde M(X_i)=\\tilde M(X_j)\\mid D_i=1 \\mbox{ and }(T_i<T_j \\mbox{ or } D_j=2)). \\end{align*} \\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M45",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(T_i,D_i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M46",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D_i=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M47",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(T_j,D_j)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M48",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T_j>T_i$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M49",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D_j=2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M50",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(T_i,D_i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M51",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D_i=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M52",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(T_j,D_j)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M53",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T_j\\leq T_i$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M54",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D_j=2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M55",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(T_i,D_i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M56",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D_i=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M57",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T_j>T_i$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M58",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{align*} \\tilde{\\mathcal C}^*_{1}&=P(\\tilde M(X_i)>\\tilde M(X_j)\\mid D_i=1 \\mbox{ and }T_i<T_j)\\\\ &=\\frac{{\\mathrm{E}}_{X_i,X_j}(I(\\tilde M(X_i)>\\tilde M(X_j))\\int_0^\\infty (1-F_1(s\\mid X_j)-F_2(s\\mid X_j))\\, {\\rm d} F_1(s\\mid X_i))} {{\\rm E}_{X_i,X_j}(\\int_0^\\infty (1-F_1(s\\mid X_j)-F_2(s\\mid X_j))\\, {\\rm d} F_1(s\\mid X_i))}. \\end{align*} \\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M59",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde {\\mathcal C}^*_{1}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M60",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$F_2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M61",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde {\\mathcal C}^*_{1}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M62",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$s$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M63",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde {\\mathcal C}_1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M64",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde {\\mathcal C}_1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M65",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde M(X)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M66",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$M(t,X)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M67",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M68",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M69",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$F_1(t\\mid X)=P(T\\leq t,D=1\\mid X)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M70",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{equation*}\\label{eq2.3} {\\mathcal C}_{1}(t):=P(M(t,X_i)>M(t,X_j)\\mid D_i=1 \\mbox{ and } T_i\\leq t \\mbox{ and } (T_i<T_j \\mbox{ or } D_j=2)). \\end{equation*}\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M71",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M72",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M73",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M74",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$F_1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M75",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(X_i,X_j)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M76",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M77",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\[ Q^{ij}(t)=I\\{M(t,X_i)>M(t,X_j)\\}, \\] \\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M78",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{equation*}\\label{eq2.4} {\\mathcal C}_1(t)=\\frac{{\\mathrm{E}}_{X_i,X_j}(Q^{ij}(t)\\int_0^t (1-F_1(s\\mid X_j))\\, {\\rm d} F_1(s\\mid X_i))}{{\\rm E}_{X_i,X_j}(\\int_0^t (1-F_1(s\\mid X_j))\\, {\\rm d} F_1(s\\mid X_i))}. \\end{equation*}\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M79",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$i,$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M80",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$C_i$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M81",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(X_i,\\tilde T_i, \\tilde D_i,\\Delta _i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M82",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(i=1\\cdots n)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M83",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde {T_i}=\\min (T_i,C_i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M84",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\Delta _i=I\\{T_i\\le C_i\\}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M85",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde {D_i}=\\Delta _i D_i$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M86",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{align*} \\tilde{N}^1_i(t)&=I\\{\\tilde{T}_i\\leq t, \\tilde D_i=1 \\}, \\quad {N}^1_i(t)=I\\{T_i\\leq t, D_i=1 \\},\\\\ \\tilde{N}^2_i(t)&=I\\{\\tilde{T}_i\\leq t, \\tilde D_i=2 \\}, \\quad {N}^2_i(t)=I\\{T_i\\leq t, D_i=2 \\},\\\\ \\tilde{A}_{ij}&=I\\{\\tilde{T}_i<\\tilde{T}_j\\}, \\quad A_{ij}=I\\{T_i<T_j\\},\\\\ \\tilde{B}_{ij}&=I\\{\\tilde{T}_i\\geq \\tilde{T}_j \\mbox{ and } \\tilde{D_j}=2\\}, \\quad B_{ij}=I\\{T_i\\geq T_j \\mbox{ and } D_j=2\\}. \\end{align*} \\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M87",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$X_i$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M88",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\[ S(t\\mid X_i)=1-{\\rm E}(N_i^1(t)\\mid X_i) - {\\rm E}(N_i^2(t)\\mid X_i)=1-F_1(t\\mid X_i)-F_2(t\\mid X_i). \\] \\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M89",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$X_i$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M90",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$C_i$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M91",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(T_i,D_i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M92",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$X_i$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M93",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{equation*}\\label{eq3.1} {\\mathrm{P}}(\\tilde T_i>t\\mid X_i)=G(t\\mid X_i)S(t\\mid X_i), \\end{equation*}\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M94",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$G(t\\mid X_i)=P(C_i>t\\mid X_i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M95",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M96",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$G(t-| X_i)=P(C_i\\ge t\\mid X_i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M97",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$k=1,2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M98",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{equation*}\\label{eq3.2} {\\mathrm{E}}(\\tilde N_i^k(t)\\mid X_i)= {\\rm E}(\\Delta_i N_i^k(t)\\mid X_i) = \\int_0^t {\\rm E}(C_i\\ge s\\mid X_i)\\,{\\rm E}({\\rm d} N^k_i(s)\\mid X_i) = \\int_0^t G(s-|X_i)\\, {\\rm d} F_k(s\\mid X_i). \\end{equation*}\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M99",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M100",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\[ \\hat{\\mathcal C}_{1,{\\rm naive}}(t)= \\frac{\\sum_{i=1}^n\\sum_{j=1}^n (\\tilde{A}_{ij}+\\tilde{B}_{ij}) Q^{ij}(t) \\tilde{N}^1_i(t)} {\\sum_{i=1}^n\\sum_{j=1}^n (\\tilde{A}_{ij}+\\tilde{B}_{ij}) \\tilde{N}^1_i(t)}, \\] \\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M101",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$Q^{ij}(t)=I\\{M(t,X_i)>M(t,X_j)\\}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M102",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M103",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M104",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M105",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M106",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {\\mathcal C}_{1,{\\mathrm {naive}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M107",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M108",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\mathcal G$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M109",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$G$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M110",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tau $\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M111",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\inf _x G(\\tau \\mid x)>\\epsilon >0.$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M112",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\mathcal G$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M113",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t<\\tau $\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M114",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {G}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M115",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\rm IF}_G(t,x;\\tilde T_i,\\tilde D_i,X_i)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M116",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{equation*}\\label{eq3.3} \\sqrt n \\{\\hat{G}(t\\mid x)-G(t\\mid x)\\} = \\frac{1}{\\sqrt n} \\sum_{i=1}^n {\\mathrm{IF}}_G(t,x;\\tilde T_i,\\tilde D_i,X_i) + o_p(1). \\end{equation*}\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M117",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\[ \\hat G(t\\mid X_i)=\\exp\\left\\{-\\int_0^t \\exp(\\hat\\gamma^T X_i)\\hat\\Gamma_0(s) \\,{\\rm d} s\\right\\}, \\] \\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M118",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat \\Gamma _0$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M119",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat \\gamma $\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M120",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat G,$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M121",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\[ \\hat{W}_{ij,1}=\\hat{G}(\\tilde{T}_i-|X_i)\\hat{G}(\\tilde{T}_i|X_j) \\hbox{ and } \\hat{W}_{ij,2}=\\hat{G}(\\tilde{T}_i-|X_i)\\hat{G}(\\tilde{T}_j-|X_j), \\] \\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M122",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M123",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{equation*}\\label{eq3.4} \\hat{\\mathcal C}_{1}(t)= \\frac{\\sum_{i=1}^n\\sum_{j=1}^n (\\tilde{A}_{ij}\\hat{W}_{ij,1}^{-1}+\\tilde{B}_{ij}\\hat{W}_{ij,2}^{-1}) Q^{ij}(t) \\tilde{N}^1_i(t) } {\\sum_{i=1}^n\\sum_{j=1}^n (\\tilde{A}_{ij}\\hat{W}_{ij,1}^{-1}+\\tilde{B}_{ij}\\hat{W}_{ij,2}^{-1}) \\tilde{N}^1_i(t)}. \\end{equation*}\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M124",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {G}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M125",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$G,$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M126",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {\\mathcal C}_{1}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M127",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M128",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t<\\tau $\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M129",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M130",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\sqrt n \\{\\hat {{\\mathcal C}}_1(t)- {\\mathcal C}_1(t)\\}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M131",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$X$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M132",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$M(X,t)=X$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M133",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$X$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M134",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$X$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M135",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(T,D)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M136",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\begin{equation*}\\label{eq4.1} \\begin{split} \\text{Event 1: }\\lambda_1(t\\mid X)&=\\lambda_{01}\\exp(\\beta_1 X),\\\\ \\text{Event 2: }\\lambda_2(t\\mid X)&=\\lambda_{02}\\exp(\\beta_2 X). \\end{split} \\end{equation*}\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M137",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T_1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M138",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T_2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M139",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T=\\min (T_1,T_2)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M140",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M141",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T_1<T_2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M142",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M143",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T_1\\ge T_2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M144",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\lambda _{01}(t)=1, \\lambda _{02}(t)=2,$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M145",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\beta _1= \\beta _2=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M146",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\lambda _{01}(t)=1, \\lambda _{02}(t)=0.5,$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M147",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\beta _1= 2,\\beta _2=-1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M148",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$q_{75}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M149",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M150",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M151",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$100\\,000$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M152",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$C$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M153",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}\\[ \\lambda_{{\\rm cens}}(t\\mid X)=\\lambda_{0,{\\rm cens}}\\cdot\\exp(\\gamma_1 X). \\] \\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M154",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde T$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M155",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M156",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$C$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M157",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$C<T$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M158",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\gamma _1=0$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M159",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\gamma _1=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M160",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t,$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M161",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\lambda _{0,{\\mathrm {cens}}}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M162",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde T<t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M163",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M164",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {naive}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M165",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {KM}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M166",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\rm Cox}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M167",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M168",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$75\\%$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M169",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M170",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\rm KM}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M171",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {KM}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M172",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M173",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$3$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M174",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M175",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$1000$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M176",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M177",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$N,$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M178",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(\\gamma _1=0),$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M179",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$(\\gamma _1=1),$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M180",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$,$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M181",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$N$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M182",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\gamma _1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M183",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M184",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {naive}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M185",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {KM}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M186",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {Cox}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M187",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)=62.1\\%, \\beta _1=1, \\beta _2=1, \\lambda _{01}=1, \\lambda _{02}=2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M188",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t= q_{75}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M189",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M190",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M191",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M192",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M193",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M194",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M195",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M196",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M197",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M198",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)=85.0\\%, \\beta _1=2, \\beta _2=-1, \\lambda _{01}=1, \\lambda _{02}=0.5$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M199",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t= q_{75}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M200",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M201",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M202",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M203",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M204",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M205",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$-$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M206",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M207",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$75$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M208",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$3$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M209",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\tilde T<t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M210",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$4$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M211",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$6$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M212",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$($\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M213",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M214",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$($\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M215",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$100$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M216",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M217",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$N$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M218",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\gamma _1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M219",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M220",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)=62.1\\%, \\beta _1=1, \\beta _2=1, \\lambda _{01}=1, \\lambda _{02}=2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M221",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t= q_{75}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M222",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)=85.0\\%, \\beta _1=2, \\beta _2=-1, \\lambda _{01}=1, \\lambda _{02}=0.5$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M223",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t= q_{75}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M224",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$8$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M225",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$10$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M226",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$95\\%$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M227",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$,$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M228",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$7$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M229",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {KM}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M230",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$4$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M231",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$6$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M232",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$1000$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M233",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {KM}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M234",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {naive}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M235",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {KM}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M236",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {Cox}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M237",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {KM}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M238",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {KM}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M239",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {Cox}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M240",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\hat {{\\mathcal C}}_{1,{\\mathrm {KM}}}(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M241",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$p<0.05$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M242",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M243",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t=10$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M244",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T\\leq t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M245",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D = 1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M246",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T>t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M247",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M248",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t=$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M249",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T\\leq t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M250",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D = 1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M251",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T>t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M252",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=2$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M253",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$timeROC$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M254",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$($\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M255",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$\\%)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M256",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_1(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M257",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathrm {AUC}}(t)_{1,C1}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M258",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathrm {AUC}}(t)_{1,C2}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M259",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathcal C}_2(t)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M260",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathrm {AUC}}(t)_{2,C1}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M261",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathrm {AUC}}(t)_{2,C2}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M262",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t=10$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M263",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t=10$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M264",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T\\leq t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M265",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T>t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M266",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\rm AUC}(t)_{\\cdot ,C1}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M267",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T>t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M268",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathrm {AUC}}(t)_{\\cdot ,C2}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M269",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$t=10$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M270",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T>t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M271",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=\\text {``other event type''}$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M272",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T>t$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M273",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}${\\mathrm {AUC}}(s)$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M274",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T=s$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M275",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=1$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M276",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$T>s$\\end{document}"
+  },
+  {
+    "kind": "original_jats_tex_math",
+    "source_id": "M277",
+    "text": "\\documentclass[12pt]{minimal}\n\\usepackage{amsmath}\n\\usepackage{wasysym} \n\\usepackage{amsfonts} \n\\usepackage{amssymb} \n\\usepackage{amsbsy}\n\\usepackage{upgreek}\n\\usepackage{mathrsfs}\n\\setlength{\\oddsidemargin}{-69pt}\n\\begin{document}\n}{}$D=2$\\end{document}"
+  }
+]

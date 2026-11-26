@@ -1,0 +1,30 @@
+{
+  "paper_id": "N0bfdddd54f",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "8d7d41df4da906306cd6e9025fa0b27e761a5b6d8cea56c3daa09338ef4de493",
+  "source_url": "https://chi.scholasticahq.com/article/170281.pdf",
+  "original_version": "publishedVersion",
+  "bytes": "738500",
+  "pdf_pages": "12",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://chi.scholasticahq.com/article/170281.pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:46.736079+08:00",
+  "format": "pdf",
+  "title": "Transplant outcomes after intensive chemotherapy or venetoclax plus azacitidine in acute myeloid leukemia: a multicenter retrospective study in Japan",
+  "authors": "Hiroyuki Muranushi and Junya Kanda and Tadakazu Kondo and Yasuyuki Arai and Ikue Okamura-Shiki and Takashi Ikeda and Hiroki Amagase and Takehiro Okuda and Daishi Nakagawa and Takeshi Maeda and Yasunori Ueda and Kazunori Imada and Kazuhiro Yago and Tomoharu Takeoka and Mutsumi Okada and Yasuko Miyahara and MItsumasa Watanabe and Nobuyoshi Arima and Toshiyuki Kitano and Masakatsu Hishizawa and Katsuhiro Io and Satoko Oka and Kosuke Asagoe and Takashi Akasaka and Kouhei Yamashita and Akifumi Takaori-Kondo",
+  "doi": "10.46989/001c.170281",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 10,
+      "lines": "This is an open-access article distributed under the terms of the Creative Commons Attribution 4.0 International License \n(CCBY-4.0). View this license's legal deed at http://creativecommons.org/licenses/by/4.0 and legal code at http://creativecom­"
+    }
+  ]
+}

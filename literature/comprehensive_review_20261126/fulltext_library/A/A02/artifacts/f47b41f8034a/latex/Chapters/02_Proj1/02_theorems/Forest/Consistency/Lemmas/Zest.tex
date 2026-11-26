@@ -1,0 +1,49 @@
+\newcommand{\lemmazest}{
+\begin{lemma}[Consistency of Z-estimators]
+\label{lemma:ChoLemma1}
+Let $\Psi(S_0) = 0$ for some $S_0 \in \Theta$, and assume $\norm{\Psi(S_n)}_L \to 0$ implies $\norm{S_n - S_0}_\infty \to 0$ for any sequence $\{S_n\}_{n \in \mathbb{N}} \subset \Theta_n \to \Theta$ as $n \to \infty$. Then, if $\norm{\Psi_n(\hat{S}_n)}_L \to 0$ in probability for some sequence of estimators $\{\hat{S}_n\}_{n \in \mathbb{N}} \subset \Theta_n$ and $\sup_{S \in \Theta_n} \norm{\Psi_n(S) - \Psi(S)}_L \to 0$ in probability, $\norm{\hat{S}_n - S_0}_\infty \to 0$ in probability, as $n \to \infty$.
+\end{lemma}
+}
+
+\newcommand{\lemmazestPROOF}{
+\begin{proof}[Proof of Lemma \ref{lemma:ChoLemma1}] Suppose a sequence $\hat{S}_n \in \Theta_n$ satisfies that $\norm{\Psi_n(\hat{S}_n)}_L \rightarrow 0$ and \\ $\sup_{S \in \Theta_n} \norm{\Psi_n(S) - \Psi(S)}_L \rightarrow 0$ both in probability as $n \rightarrow \infty$. Then we have
+\begin{align*}
+    \norm{\Psi(\hat{S}_n)}_L &\leq \norm{\Psi(\hat{S}_n) - \Psi_n(\hat{S}_n)}_L + \norm{\Psi_n(\hat{S}_n)}_L \\
+    &\leq \sup_{S \in \Theta_n} \norm{\Psi(S) - \Psi_n(S)}_L + \norm{\Psi_n(\hat{S}_n)}_L \rightarrow 0,
+\end{align*}
+in probability as $n \rightarrow \infty$. Thus, by the assumption, $\norm{\hat{S}_n - S_0}_{\infty} \rightarrow 0$.
+\end{proof}
+}
+
+\newcommand{\proponelemmazest}{
+\begin{prop}
+\label{prop:ChoProp2}
+$\esteqtruesurvlabel = 0$ for $\truesurv \in \Theta$
+\end{prop}
+}
+
+\newcommand{\proptwolemmazest}{
+\begin{prop}
+\label{prop:ChoProp3} Assume Assumptions \ifnum\jasa=1 4-8\else \ref{assump:CuiAssump1}-\ref{assump:CuiAssump2}\fi. As $n \to \infty$, $\norm{\esteq(\Snhat)}_L \to 0$ implies $\norm{\Snhat - \truesurv}_\infty \to 0$.
+\end{prop}
+}
+
+\newcommand{\propthreelemmazest}{
+\begin{prop}
+\label{prop:ChoProp4}
+Assume Assumptions \ifnum\jasa=1 4-8\else \ref{assump:CuiAssump1}-\ref{assump:CuiAssump2}\fi. As $n \to \infty$, $\norm{\esteqn(\Snhat)}_L \to 0$ in probability.
+\end{prop}
+}
+
+\newcommand{\propfourlemmazest}{
+\begin{prop}
+\label{prop:ChoProp5} 
+Assume Assumptions \ifnum\jasa=1 4-8\else \ref{assump:CuiAssump1}-\ref{assump:CuiAssump2}\fi. As $n \to \infty$, $\sup_{S \in \Theta_n} \norm{\esteqnlabel - \esteqlabel}_L \to 0$ in probability.
+\end{prop}
+}
+
+\newcommand{\propfivelemmazest}{
+\begin{prop}
+\label{prop:ChoProp6}(Bounded entropy integral of the tree and forest kernels). The collections of the unnormalized tree and forest kernel functions are Donsker, where the tree kernels $k_{\text{tree}}(\cdot)$ are axis-aligned random hyper-rectangles, and the forest kernels $k_{\text{forest}}(\cdot)$ are the mean of arbitrarily many ($n_{\text{tree}}$) tree kernels.
+\end{prop}
+}

@@ -1,0 +1,26 @@
+%\documentclass[15pt]{article}
+%\input{1.all_header_standalone}
+%\begin{document}
+We adapt the forest algorithm from \cite{cho_multi-stage_2023} to single stage treatment settings. We provide a high-level algorithm of the forest in Algorithm S1. Briefly, we use the Kaplan-Meier estimator to estimate the marginal survival probability of a node (or leaf) $\Node$, where each individual’s failure time information is given by $\{(X_i, \delta_{i})\}^{n_{\Node}}_{i=1}$ where \(n_{\Node}\) is the size of node \(\Node\), $X_i$ is the observed failure time, and $\delta_i$ is the event indicator for any cause: 
+\begin{equation}
+\label{eqn:KMest}
+\survfunchat(t\mid \Node) = \prod_{s \geq 0} \left( 1 + \frac{\sum_{i \in \Node} dN_{i}(s)}{\sum_{i \in \Node} Y_{i}(s)} \right),
+\end{equation}
+where $N_i(t) = I(X_i \le t, \delta_i = 1)$ and $Y_i(t) = I(X_i \ge t)$.
+The Kaplan-Meier estimator is used in both tree partitioning and terminal node survival probability estimation. 
+
+When the optimization criterion is the truncated mean survival time (\( \phi = \phi^\mu \)), the forest algorithm splits a node into two candidate daughter nodes, \( \Node_1 \) and \( \Node_2 \) by using the mean difference test to maximize the difference in truncated mean survival times:
+\begin{equation}
+\label{eqn:MDtest}
+MD(\Node_1, \Node_2) = \left| \int_{t > 0} (t \wedge \tau) d\widehat{S}(t \mid \Node_1) - \int_{t > 0} (t \wedge \tau) d\widehat{S}(t \mid \Node_2) \right|.
+\end{equation}
+This splitting rule identifies the best split as \( (\Node_1, \Node_2) = \arg \max_{\Node_1,\Node_2} MD(\Node_1, \Node_2) \). 
+
+The recursive partitioning process continues as long as the size of each node remains above the threshold \( n_{\min} \). The survival probability estimate of the terminal node \( \Node \) of the \( w \)-th (\( w = 1, 2, \ldots, n_{\text{tree}} \)) survival tree is given by the Kaplan-Meier estimator \( \widehat{S}_{w}(t \mid \Node) \). Letting $h = (a,Z)$, the random survival forest estimate is then given by
+\[
+\widehat{S}(t \mid h) = \frac{1}{n_{\text{tree}}} \sum_{w=1}^{n_{\text{tree}}} \sum_{l=1}^{\#\{\Node_{\{w\},l} : l\}} 1(h \in \Node_{\{w\},l}) \widehat{S}(t \mid \Node_{\{w\},l}),
+\]
+where \( \#\{\Node_{\{w\},l} : l\} \) is the number of terminal nodes of the \( w \)-th tree.
+
+\input{Chapters/02_Proj1/02_algorithms/alg1_rsf}
+%\end{document}

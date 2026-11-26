@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2007.03288v1",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "source_url": "https://arxiv.org/src/2007.03288v1",
+  "archive_sha256": "fddae05764a42df344846a100664901d2ee0d2cc47de9afc903d526c7651876a",
+  "files": [
+    {
+      "path": "longitudinal.tex",
+      "bytes": 69612,
+      "sha256": "54a3a5dde478889ad150984cfe9937ab823ac22165ddfc87375a11176fc899a3"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

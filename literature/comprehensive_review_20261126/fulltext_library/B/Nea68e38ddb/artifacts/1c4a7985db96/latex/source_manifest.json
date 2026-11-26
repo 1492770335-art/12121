@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2401.17909v2",
+  "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "source_url": "https://arxiv.org/src/2401.17909v2",
+  "archive_sha256": "c969f8a55f29ed137f062fbb5674e7dd1a1c732b3765298b4dc1528e3f492ef3",
+  "files": [
+    {
+      "path": "Draft.tex",
+      "bytes": 221986,
+      "sha256": "0ded8e0ffded537321a89dd1cd183016c5cff27c2a07b5fc517edc2f83198a1e"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

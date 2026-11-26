@@ -1,0 +1,4205 @@
+Robust sample weighting to facilitate individualized treatment rule learning for a target population
+
+Original PDF: [original.pdf](original.pdf). SHA256: `1aec8fcf88fe18dd31135c981e939c6357cf13eb36a2fd3cc5f2f0235188ff97`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+Technical extraction; compare with original PDF page 1.
+Robust Sample Weighting to Facilitate Individualized
+Treatment Rule Learning for a Target Population
+Rui Chen
+Department of Statistics, University of Wisconsin
+Jared D. Huling
+Division of Biostatistics, University of Minnesota
+Guanhua Chen*
+Department of Biostatistics and Medical Informatics, University of Wisconsin
+Menggang Yu†
+Department of Biostatistics and Medical Informatics, University of Wisconsin
+June 16, 2023
+Abstract
+Learning individualized treatment rules (ITRs) is an important topic in precision medicine.
+Current literature mainly focuses on deriving ITRs from a single source population. We consider
+the observational data setting when the source population differs from a target population of in-
+terest. Compared with causal generalization for the average treatment effect which is a scalar
+quantity, ITR generalization poses new challenges due to the need to model and generalize the
+rules based on a prespecified class of functions which may not contain the unrestricted true opti-
+mal ITR. The aim of this paper is to develop a weighting framework to mitigate the impact of such
+misspecification and thus facilitate the generalizability of optimal ITRs from a source population
+to a target population. Our method seeks covariate balance over a non-parametric function class
+characterized by a reproducing kernel Hilbert space and can improve many ITR learning methods
+that rely on weights. We show that the proposed method encompasses importance weights and
+overlap weights as two extreme cases, allowing for a better bias-variance trade-off in between.
+Numerical examples demonstrate that the use of our weighting method can greatly improve ITR
+estimation for the target population compared with other weighting methods.
+Keywords: Covariate Balancing; Covariate Shift; Generalizability; Precision Medicine; Weighting
+Adjustment
+*Corresponding authors: gchen25@wisc.edu
+†Corresponding authors: meyu@biostat.wisc.edu
+1
+arXiv:2105.00581v2  [stat.ML]  14 Jun 2023
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+1
+Introduction
+Individualized decision making based on a subject’s characteristics has received increasing attention
+in the past decades. It has broad application in many fields, such as establishing personalized treatment
+regimes based on electronic health record data (Wang et al., 2016), personalizing ad placement based
+on user profiles (Bottou et al., 2013), and optimally allocating public resources based on individual
+characteristics (Kube et al., 2019). The common goal of these problems is to find an individualized
+treatment rule (ITR), a mapping from individual characteristics to a treatment assignment such that
+the expected outcome is optimized under the rule (Murphy et al., 2001; Murphy, 2003; Robins, 2004).
+In order for the estimated ITR to be practically useful, it is usually desirable to limit the search of the
+optimal ITR within a prespecified class of restricted rules. Such restriction may arise from logistic,
+legal, ethical or political considerations (Kitagawa and Tetenov, 2018; Athey and Wager, 2021), or
+from the need for an interpretable ITR to inform better clinical practice; see, for example, Zhang et al.
+(2018); Murdoch et al. (2019).
+A wide array of statistical methods have been developed to estimate the optimal ITR using ex-
+perimental or observational data (Kosorok and Laber, 2019) since the pioneer work of Murphy et al.
+(2001), Murphy (2003), and Robins (2004). One can model observed outcomes as functions of the
+covariates and then obtains the optimal ITR by inverting the regression estimates (Qian and Murphy,
+2011; Foster et al., 2011). Of course, the success of these methods depends on accuracy of the out-
+come models. Alternatively, weighting-based ITR learning approaches obviate or reduce the need
+for fitting outcome models by directly optimizing the expected ITR outcome or value function (Zhao
+et al., 2012; Zhou et al., 2017; Chen et al., 2017). A critical component of this class of methods is a
+weighting function that reweights the source data based on the covariates and treatment information
+such that the treated and control groups are comparable. Nearly all such methods use inverse probabil-
+ity (of treatment) weighting for this task. Inverse probability weighting makes the treated and control
+groups look as though they followed the same covariate distribution as the whole source sample.
+2
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+Despite the vast literature in estimating the optimal ITR, much less attention has been paid to
+its generalizability to a target population with the exception of the work by Zhao et al. (2019), and
+Mo et al. (2020). In contrast, there is a surge of publications for average treatment effect general-
+ization (e.g., Cole and Stuart (2010); Tipton (2013); Buchanan et al. (2018); Dahabreh et al. (2020)).
+Compared with causal generalization for the average treatment effect which is a scalar quantity, ITR
+generalization poses new challenges due to the need to model and generalize the rules based on a
+prespecified class of functions which may not contain the unrestricted true optimal ITR. The aim of
+this paper is to develop a weighting framework to mitigate the impact of such misspecification thus
+facilitate the generalizability of optimal ITR from a source population to a target population. There-
+fore our framework needs to be coupled with existing ITR learning methods for estimation. For this
+setting, our work is different from the goal of prior works (Zhao et al., 2019; Mo et al., 2020) which
+focused on developing robust (thus generalizable) ITRs.
+The distributional difference in covariates between the two populations is termed as covariate
+shift in the literature (Sugiyama et al., 2007). The unrestricted optimal ITR can be determined from
+the conditional average treatment effect τ(x) which is the average outcome difference under two
+treatment for a given patient characteristics x (defined more precisely in Section 3.2). On the other
+hand, the best-in-class ITR, unlike the optimal ITR over all possible function classes, depends on the
+distribution of covariates. Thus, the weights in this setting ensure that the best-in-class ITR applies to
+the target population rather than the source population.
+To illustrate the interplay between ITR class misspecification and covariate shift, we consider
+the following example for learning a linear ITR under two scenarios of τ(x) when covariate shift
+is present in Figure 1. Here, two covariates, X1 and X2, determine the value of τ(x) (see Section
+4 for the explicit formula). In the first scenario, the unrestricted optimal ITR is a linear function
+of the covariates, hence the optimal within-class ITRs (optimal linear ITR) are the same for source
+and target populations. In other words, the issue of covariate shift does not need to be addressed
+since the prespecified rule class is correctly specified. In the second scenario, the unrestricted optimal
+3
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+ITR is a nonlinear function of the covariates, hence the optimal within-class ITR (optimal linear
+ITR) is different for the source and target populations. Hence, using the target population’s covariate
+information is critical to learn an optimal within-class ITR for the target population.
+−2
+−1
+0
+1
+2
+−2
+−1
+0
+1
+2
+x1
+x2
+group
+source
+target
+Data
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.4
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+−0.5
+−0.4
+−0.3
+−0.3
+−0.2
+−0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+Linear (κ = 0)
+Nonlinear (κ = 0.4)
+−2
+−1
+0
+1
+2
+−2
+−1
+0
+1
+2
+−2
+−1
+0
+1
+2
+x1
+x2
+−0.4
+0.0
+0.4
+τ(x)
+optimal ITR
+source
+target
+Conditional average treatment effect function τ(x)
+Figure 1: Left: covariate distribution of source and target populations with covariate shift; Right:
+contour plot of the conditional average treatment effect function τ(x) and the lines are the optimal
+linear decision boundaries, with the solid line indicating the boundary for the optimal linear ITR for
+the target population and the dashed line indicating the boundary for the optimal linear ITR on the
+source population.
+Weighting adjustment by the importance weights has been a commonly used approach for deal-
+ing with covariate shift (Sugiyama et al., 2007). In the context of ITR learning, the source data
+are reweighted by the density ratio between the target and source populations on top of the inverse
+probability weighting, as suggested by Kitagawa and Tetenov (2018, Remark 2.2). However the im-
+portance weights can contain extreme values especially when there is insufficient overlap between
+the treated and control groups or between the source and target populations, leading to unstable es-
+timation. Kallus (2021) proposed to alleviate the instability issue in this context by retargeting to
+a population whose density ratio against the source population is proportional to π(x){1 −π(x)},
+where π(x) denotes the propensity score. This retargeted “hypothetical” population allocates more
+emphasis on the covariate region where the treated and control groups have good overlap. When com-
+bined with inverse probability weighting, the resulting weights are essentially the overlap weights of
+Li et al. (2018). Kallus (2021) showed that when the prespecified rule class can well approximate the
+unrestricted true optimal ITR, their retargeting approach incurs no bias to the learning process and
+4
+
+
+===== ORIGINAL PDF PAGE 5 =====
+Technical extraction; compare with original PDF page 5.
+can lead to better performing ITRs, and thus can work well if one expects certain amount of covariate
+shift in the target population. However, when the unrestricted true optimal ITR is not contained in the
+prespecified rule class, this claim no longer holds because the retargeted population can be substan-
+tially different from the target population of interest, and thus their restricted optimal ITRs within the
+prespecified rule class also differ. Therefore, practitioners interested in generalizing an ITR to a new
+population are presented with two extreme weighting methods: the importance weights that strive for
+eliminating bias from confounding and covariate shift but may lead to large variance, and the overlap
+weights that emphasize robust and stable estimation but are prone to bias as they only mitigate con-
+founding. In this paper, we aim to develop a unifying weighting framework that not only encompasses
+the importance and the overlap weights, but also allows one to search a better bias-variance trade-off
+between them in a data-driven manner.
+Another increasingly recognized issue of these existing weighting methods is that they are con-
+structed in an indirect way based on the propensity score and density ratio. In practice these functions
+need to be estimated and can be extremely sensitive to model misspecification (Kang et al., 2007).
+Our proposed method addresses this issue by constructing the weights directly, bypassing the need
+for direct modeling of the propensity score or density ratio. Our approach to doing so is inspired by
+the recent growing literature of covariate balancing weights for estimation of the aggregate causal es-
+timands such as the average treatment effect (Hainmueller, 2012; Imai and Ratkovic, 2014; Wong and
+Chan, 2018; Hirshberg et al., 2019; Huling and Mak, 2020; Chattopadhyay et al., 2020; Kallus, 2020;
+Kallus and Santacatterina, 2022). Instead of explicitly specifying a functional form for the underlying
+propensity score model, covariate balancing approaches directly construct weights so that they im-
+prove the balance between treatment groups over a given set of covariate functions. The variation of
+the weights is typically controlled by minimizing the dispersion of the weights subject to the specified
+balance constraints for these covariate functions.
+As we will show, proper weights for ITR learning with possibly misspecified rule classes should
+be able to achieve balance on a possibly very complex set of covariate functions to cover candidate
+5
+
+
+===== ORIGINAL PDF PAGE 6 =====
+FORMULA CHECK REQUIRED: original PDF page 6.
+assignment rule classes. We start by establishing a covariate balancing weight strategy that mini-
+mizes the imbalance between the treated group, the control group, and the target population over a
+non-parametric function class characterized by a reproducing kernel Hilbert space (RKHS, see Wahba
+(1990)). By carefully inspecting the target population value function, we observe that different from
+adjusting for confounding, adjusting for covariate shift is not essential when the prespecified ITR
+class contains the unrestricted true optimal ITR. As we cannot know such containment in practice,
+we propose a three-way balancing strategy based on a convex combination of objectives that seek
+to induce covariate shift balance and confounding balance. As our weighting approach emphasizes
+full distributional balance of covariates, it is robust to the functional form of confounding and works
+well empirically. Despite our weights being non-parametrically constructed through balance-seeking
+objectives, we show that the resulting weights converge to either the importance weights or the over-
+lap weights under different hyperparameters when sample size tends to infinity. To the best of our
+knowledge, this is the first result that characterizing the asymptotic behavior of weights that opti-
+mize a balancing criterion under the causal generalization setting. In contrast, previous RKHS based
+balancing weights methods (Wong and Chan, 2018; Kallus, 2020; Kallus and Santacatterina, 2022)
+focused on estimating the average treatment effect, and they only provide asymptotic results for the
+corresponding weighted average treatment effect estimator but not for the weights themselves. More-
+over, the proposed method has potential real-world applications, such as generalizing ventilation rules
+for COVID-19 patients across diverse geographic locations that exhibit substantial covariate shifts in
+factors like age and pre-existing conditions (Kyono et al., 2023).
+2
+Preliminaries
+Suppose we have collected data on n subjects: (Xi, Si, SiAi, SiYi), i = 1, ..., n. Xi ∈X ⊂Rp
+denotes a vector of pre-treatment covariates which contain confounding factors and treatment effect
+modifiers. Si is a population indicator such that Si = 1 indicates subject i is from the source pop-
+6
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+ulation S and Si = 0 indicates i is from the target population T . Ai ∈{0, 1} is a binary treatment
+indicator and Yi is the outcome of interest for which we assume larger outcomes are preferred with-
+out loss of generality. In our setting, Ai and Yi are only observed for observations from the source
+population (Si = 1). We will refer to the observations from S as the source sample and the rest as
+the target sample. Let ns, nt be the sample sizes of the source and target samples, respectively, and
+n = ns + nt be the total sample size.
+For causal interpretation, we use the potential outcome framework (Rubin, 1974; Rosenbaum and
+Rubin, 1983), wherein each subject i is assumed to have two potential outcomes Yi(1), the outcome if
+subject i were to receive the treatment, and Yi(0), the outcome if i were not to receive the treatment.
+Under the assumption known as the Stable Unit Treatment Value Assumption, the observed outcome
+in the source sample can be expressed as Yi = Yi(Ai). Under this assumption, we can associate each
+observation with a “full” random variate (Xi, Si, Ai, Yi(0), Yi(1)), which across i are assumed to be
+i.i.d. draws from a super-population.
+Consider a prespecified ITR class D ⊂{0, 1}X. For an ITR d ∈D, the potential outcome
+following the treatment assignment prescribed by d is Y (d(X)). The utility of the ITR d can be
+measured by the value function, which is defined as the population mean outcome were all subjects
+to receive treatment according to d. Specifically, the value function under the source distribution and
+the target distribution are
+VS(d) = E[Y (d(X)) | S = 1]
+and
+VT (d) = E[Y (d(X)) | S = 0],
+respectively. The objective is then to find the optimal ITR in D for the target population, i.e. the one
+that maximizes VT (d) among all rules in the prespecified rule class:
+arg max
+d∈D
+VT (d).
+(1)
+We assume that the treatment assignment mechanism in the source sample is determined by a
+propensity score π(x) = P(A = 1 | X = x, S = 1) (Rosenbaum and Rubin, 1983). If the source
+7
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+sample is from a randomized trial, then π(x) is known. We further denote ρ(x) = P(S = 1 | X = x)
+and refer to this as participation probability (Dahabreh et al., 2020). To identify VT (d) from the
+observed data, we impose the following assumptions throughout the paper.
+Assumption 1. (Unconfoundedness of treatment assignment) In the source population, (Y (0), Y (1))
+are conditionally independent of A given X: (Y (0), Y (1)) ⊥⊥A | X, S = 1.
+Assumption 2. (Positivity of propensity score) The propensity score of the source population is
+bounded away from 0 and 1: for some c > 0, c ≤π(X) ≤1 −c almost surely.
+Assumption 3. (Mean exchangability across populations) The conditional mean of the potential out-
+comes given the covariates are equal between the two populations: E[Y (a) | X, S = 1] = E[Y (a) |
+X, S = 0] almost surely for a ∈{0, 1}.
+Assumption 4. (Positivity of participation probability) The participation probability is bounded away
+from 0: ρ(X) > c almost surely for some c > 0.
+The first two are common assumptions in causal inference; and together with the SUTVA enable
+identification of causal quantities with respect to the source population, such as VS(d), from the
+observed sample. The last two assumptions are adopted from Dahabreh et al. (2020) and Rudolph and
+van der Laan (2017) and allow us to generalize causal estimates to the target population (Colnet et al.,
+2020). In particular, Assumption 3 is a strong but necessary assumption. Without this assumption, it is
+impossible to learn meaningful ITRs for a target population using the data from the source population
+as the optimal ITRs for these two populations can be completely unrelated.
+Under these assumptions, the value function on the target population can be identified with the
+observed source sample quantities through
+VT (d) = E [w∗(A, X)1{d(X) = A}Y | S = 1]
+= E [Aw∗(1, X)d(X)Y | S = 1] + E [(1 −A)w∗(0, X){1 −d(X)}Y | S = 1]
+(2)
+8
+
+
+===== ORIGINAL PDF PAGE 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+where 1(·) is the indicator function and
+w∗(a, x) =
+ a
+π(x) +
+1 −a
+1 −π(x)
+ E(S){1 −ρ(x)}
+{1 −E(S)}ρ(x).
+(3)
+For a = 1 (or 0), w∗(1, x) (or w∗(0, x)) is proportional to the density ratio between the target popula-
+tion and the treated group (or control group). In other words, w∗(a, x) acts as the importance weight
+that reweights the underlying distribution of the source data to the target distribution. It can be esti-
+mated from data because E(S) can be estimated as the empirical average of Si and π(x), ρ(x) can be
+estimated by probability models for binary outcomes such as logistic regression. However, since the
+probability estimates appear in the denominator of w∗(a, x), estimation error and model misspecifi-
+cation of the probability models can lead to significant error in estimating VT (d) and thus jeopardize
+the ITR learning process. In the next section, we propose approaches to directly estimate weights that
+are suitable for ITR learning specifically.
+3
+Method
+Let w : {0, 1} × X →[0, ∞) denote a general weighting function. Let Sa = {i : Si = 1, Ai = a} be
+the index set of treatment group a among the source sample, a ∈{0, 1}. By abuse of notation we let
+S also denote {i : Si = 1} and similarly T = {i : Si = 0}. Following (2) we consider estimators for
+VT (d) of the form:
+bVn(d; w) = 1
+ns
+X
+i∈S1
+wid(Xi)Yi + 1
+ns
+X
+i∈S0
+wi{1 −d(Xi)}Yi,
+(4)
+where the weights wi are normalized as
+wi =
+
+
+
+
+
+
+
+
+
+
+
+w(1, Xi)
+1
+ns
+P
+i∈S1 w(1, Xi),
+if i ∈S1,
+w(0, Xi)
+1
+ns
+P
+i∈S0 w(0, Xi),
+if i ∈S0.
+9
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+The weights are normalized by treatment group, i.e., P
+i∈S1 wi = P
+i∈S0 wi = ns. Such weighted
+estimators are also known as the H´ajek estimator (Chattopadhyay et al., 2020). Given the weights, the
+optimal ITR can be estimated as
+ˆd = arg max
+d∈D
+bVn(d; w).
+(5)
+When w(1, x) = 1/π(x) and w(0, x) = 1/{1−π(x)}, (4) becomes the objective function of outcome
+weighted learning approach (Zhao et al., 2012).
+In this section, we will study the requirements on w(·) or wi such that maximizing bVn(d; w)
+produces a well-performing ITR for the target population and will then develop a balancing weight
+framework to meet these conditions. We first derive two different balancing weight methods, one that
+makes a covariate shift adjustment in addition to adjusting for confounding and the other that only
+adjusts for confounding. We will demonstrate that each of these two approaches is suitable under
+different situations, depending on whether or not the prespecified rule class contains the unrestricted
+optimal ITR. However, it is not clear a priori which of the weighting approaches is best suited for a
+given data-generating mechanism. To address this, our final approach will be formulated as a hybrid
+of these two balancing weighting methods that combines them in a data-driven manner.
+3.1
+General case: balancing to the target population
+In this section we focus on the general case where the true optimal ITR is potentially not contained
+in the prespecified class D. In this case we investigate what properties a set of weights should have
+in order to reduce error in estimation of the optimal ITR. From the perspective of ITR evaluation
+(Kallus, 2018), a natural idea is to choose w for the source population so that make bVn(d; w) is as
+close to VT (d) as possible for all d ∈D. Given such weights, an ITR d that is the maximizer of
+bVn(d; w) will also achieve a high value of VT (d).
+Define µa(x) = E[Y (a) | X = x] and εi ≡Yi −µAi(Xi). We assume that εi are mutually
+independent and have uniformly bounded variance, i.e., E[ε2
+i | Xi, Ai] ≤σ2 < ∞. Let Vn,T (d) =
+10
+
+
+===== ORIGINAL PDF PAGE 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+P
+i∈T [d(Xi)µ1(Xi)+{1−d(Xi)}µ0(Xi)]/nt be the sample version of VT (d), where nt = P
+i(1−Si).
+Then the estimation error bVn(d; w) −VT (d) admits the following decomposition:
+bVn(d; w) −VT (d) = 1
+ns
+X
+i∈S1
+wid(Xi){µ1(Xi) + εi} + 1
+ns
+X
+i∈S0
+wi{1 −d(Xi)}{µ0(Xi) + εi}
+−1
+nt
+X
+i∈T
+d(Xi)µ1(Xi) −1
+nt
+X
+i∈T
+{1 −d(Xi)}µ0(Xi) +
+
+Vn,T (d) −VT (d)
+	
+=
+Z
+X
+d(x)µ1(x)d
+ P(w)
+n,S1 −Pn,T
+
+(x) +
+Z
+X
+{1 −d(x)}µ0(x)d
+ P(w)
+n,S0 −Pn,T
+
+(x)
++ 1
+ns
+X
+i∈S
+1{d(Xi) = Ai}wiεi +
+
+Vn,T (d) −VT (d)
+	
+.
+(6)
+Here P(w)
+n,Sa = P
+i∈Sa wiδXi/ns are the weighted empirical distributions of the covariates of the treated
+(a = 1) and control (a = 0) units in the source sample, and Pn,T is the empirical distribution of the
+covariates of the target sample.
+The decomposition (6) allows a transparent understanding about what properties the w′
+is should
+possess to ensure the estimation error of the value function in the target population is small. The
+first term in the decomposition is the source of estimation bias arising from the imbalance between
+P(w)
+n,S1 and Pn,T on the function d(x)µ1(x). In other words, depending on the behavior of the unknown
+quantity d(x)µ1(x), this term can contribute to the bias if the weighted distribution of covariates of
+treated group in the source sample differs from the empirical distribution of covariates in the target
+sample. Similarly, the second term is due to the imbalance between P(w)
+n,S0 and Pn,T on {1−d(x)}µ0(x).
+The third term demonstrates how variance is inflated by the weighting function w(a, x). These three
+terms can be controlled by properly selecting the weighting function w(a, x). The last term on the
+right-hand side of (6) is completely due to sampling error and is not related to w(a, x) in any manner.
+It converges to 0 at the rate of O
+ n−1/2
+as long as the target sample is representative of the target
+population.
+We first consider the first term on the right-hand side of (6). Ideally, we want to eliminate or
+mitigate the bias by balancing P(w)
+n,S1 and Pn,T on d(x)µ1(x). However, µ1(x) is typically unknown.
+11
+
+
+===== ORIGINAL PDF PAGE 12 =====
+FORMULA CHECK REQUIRED: original PDF page 12.
+Even if µ1(x) can be well approximated by a single function, multiplication by d(x) with d(x) varying
+over the ITR class D can induce a highly complex set of functions. Therefore, we consider the
+maximum imbalance between P(w)
+n,S1 and Pn,T over a large and flexible class of functions. Specifically,
+we choose this function class to be the unit ball of an RKHS H associated with a positive definite
+kernel function K(x, x′). We will restrict our attention to universal and bounded kernel functions
+(Simon-Gabriel and Sch¨olkopf, 2018). This includes many commonly used kernel functions, such as
+the Gaussian kernel and the Mat´ern kernel. This maximum or worst-case imbalance is also commonly
+referred to as the maximum mean discrepancy (MMD) (Gretton et al., 2012):
+MMDH(P(w)
+n,S1, Pn,T ) =
+sup
+h∈H,∥h∥H≤1
+Z
+X
+h(x)d
+ P(w)
+n,S1 −Pn,T
+
+(x).
+(7)
+Although d(x)µ1(x) is typically not itself a member of the RKHS H due to the discrete nature of
+d(x), (7) still provides a probabilistic bound for the imbalance between P(w)
+n,S1 and Pn,T on d(x)µ1(x).
+Specifically, if µ1 ∈H and the kernel function takes the form of K(x, x′) = θ−pK0(∥x −x′∥/θ) then
+under suitable regularity conditions provided in the Supplementary Material, we can show that the
+following
+Z
+X
+d(x)µ1(x)d
+ P(w)
+n,S1 −Pn,T
+
+(x) ≤∥µ1∥HMMDH(P(w)
+n,S1, Pn,T ) + C1
+ 1
+nθp + θγ/2
+
+(8)
+holds with probability at least 1 −exp{−C2nθp+γ}, where γ, C1, C2 are constants not related to
+d(x). The derivation of this result is based on Gretton et al. (2012) and is deferred to the Supple-
+mentary Material. This observation motivates us to find a set of appropriate weights by minimizing
+MMDH(P(w)
+n,S1, Pn,T ). Gretton et al. (2012) showed that when X is a compact space, MMDH is indeed
+a metric of the probability distributions on X. Therefore, by minimizing MMDH(P(w)
+n,S1, Pn,T ) with
+respect to the weights, we are in essence searching for a set of weights that make the treated group in
+the source sample close to the target sample and further due to (8), this minimization can help mitigate
+one of the key sources of systematic bias, i.e. the first term in the decomposition (6). By a similar
+12
+
+
+===== ORIGINAL PDF PAGE 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+argument we propose to control the other key source of systematic bias, the second term of (6), by
+optimizing MMDH(P(w)
+n,S0, Pn,T ).
+To mitigate the influence of the third term in (6), it is vital to manage the magnitude of wi. This
+can often be accomplished by minimizing a dispersion measure of wi as seen in covariate balanc-
+ing weights literature (Hainmueller, 2012; Chan et al., 2016; Wang and Zubizarreta, 2020). We
+opt to penalize a large P
+i∈S w2
+i /n2
+s for several reasons. First, the conditional mean square of the
+third term of (6) given {Xi, Si, Ai}, P
+i∈S w2
+i 1{d(Xi) = Ai}var(εi | Xi, Si, Ai)/n2
+s, is bounded by
+σ2 P
+i∈S w2
+i /n2
+s. So P
+i∈S w2
+i /n2
+s directly relates to the magnitude of this term. Second, for weighted
+data the effective sample size is usually approximated as (P
+i wi)2/ P
+i w2
+i (Kish, 1965), which is
+equal to 4n2
+s/ P
+i∈S w2
+i in our case due to the normalizing constraints. Thus, P
+i∈S w2
+i /n2
+s has a clear
+interpretation as the inverse sample size and has been advocated for diagnosing the stability of weight-
+ing approaches (Chattopadhyay et al., 2020).
+Combining all the elements discussed, we propose to estimate weights via the optimization
+min
+w
+MMDH(P(w)
+n,S1, Pn,T )2 + MMDH(P(w)
+n,S0, Pn,T )2 + λ
+n2
+s
+X
+i∈S
+w2
+i ,
+subject to
+X
+i∈S1
+wi =
+X
+i∈S0
+wi = ns,
+(9)
+where λ > 0 is a hyperparameter controlling the level of penalty. Here we take square of the MMDH
+terms for computational convenience, which will be explained in Section S2.1 of the Supplementary
+Material.
+3.2
+Special case with correctly specified rule class: balancing within the source
+population
+In the previous section, we discussed a strategy to find an appropriate weighting function by making
+bVn(d; w) a good estimator for the value function VT (d) without any consideration for whether the
+prespecified ITR class D provided a reasonable approximation to the true optimal ITR. The resulting
+13
+
+
+===== ORIGINAL PDF PAGE 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+optimization problem minimizes the distance between P(w)
+n,Sa and Pn,T subject to a smoothing penalty.
+However, since the objective is to find a good ITR rather than to estimate VT (d), such an intermediate
+objective is not always necessary. In this section, we consider the situation where the unrestricted true
+optimal ITR d∗(x) = 1{µ1(x) ≥µ0(x)} is contained in D. In this case, the optimal ITR does not
+depend on the distribution of the covariates, obviating the need for covariate shift adjustments that
+make P(w)
+n,Sa similar to Pn,T . As a consequence, we will see that the balancing requirements can be
+relaxed, thus allowing for use of a balancing criterion that yields less variable weights compared with
+the general case in Section 3.1.
+To illustrate the key source of error in estimating the optimal ITR when D is well-specified,
+we investigate conditions under which the maximizer of bVn(d; w) will be close to d∗. A sufficient
+condition of such is to ensure that bVn(d, w) is only be greater than bVn(d∗, w) when d is close to d∗.
+In other words, bVn(d∗; w) −bVn(d; w) must be positive whenever d differs substantially from d∗. Let
+m(x) = {µ0(x) + µ1(x)}/2 denote the main effect function and τ(x) = µ1(x) −µ0(x) denote the
+conditional average treatment effect function. Let us consider the following decomposition
+bVn(d∗; w) −bVn(d; w) = 1
+ns
+X
+i∈S1
+wi{d∗(Xi) −d(Xi)}
+
+m(Xi) + τ(Xi)
+2
++ εi
+
+−1
+ns
+X
+i∈S0
+wi{d∗(Xi) −d(Xi)}
+
+m(Xi) −τ(Xi)
+2
++ εi
+
+= 1
+2
+Z
+X
+{d∗(x) −d(x)}τ(x)d
+ P(w)
+n,S1 + P(w)
+n,S0
+
+(x)
++
+Z
+X
+{d∗(x) −d(x)}m(x)d
+ P(w)
+n,S1 −P(w)
+n,S0
+
+(x)
++ 1
+ns
+X
+i∈S
+(2Ai −1){d∗(Xi) −d(Xi)}wiεi.
+(10)
+Since d(x) and d∗(x) only take value in {0, 1}, d∗(x) −d(x) ∈{0, ±1}. When D contains the
+unrestricted optimal ITR, d∗(x) can be expressed as 1{τ(x) ≥0}, so τ(x) is non-negative when
+d∗(x) −d(x) = 1 and negative when d∗(x) −d(x) = −1. Consequently, the first term on the right-
+hand side of (10) is always non-negative, and it will take a large positive value if d(x) is substantially
+14
+
+
+===== ORIGINAL PDF PAGE 15 =====
+FORMULA CHECK REQUIRED: original PDF page 15.
+different from d∗(x), especially when they disagree on the region in the covariate space where τ(x) is
+of large magnitude. On the contrary, the signs of the second and the last terms in (10) are uncertain.
+If the magnitude of these two terms can be controlled, then bVn(d∗; w) −bVn(d; w) can only be positive
+when d is sufficiently close to d∗.
+The second term arises from the imbalance between P(w)
+n,S1 and P(w)
+n,S0 on {d∗(x) −d(x)}m(x).
+Using similar arguments as in the previous section, we propose to control this quantity by optimizing
+MMDH(P(w)
+n,S1, P(w)
+n,S0). The last term in the decomposition always has mean zero and involves the
+variability of the weights; so to mitigate this noise term, we again use a penalty term λ P
+i∈S w2
+i /n2
+s.
+Hence, we obtain the following optimization problem
+min
+w
+MMDH(P(w)
+n,S1, P(w)
+n,S0)2 + λ
+n2
+s
+X
+i∈S
+w2
+i ,
+subject to
+X
+i∈S1
+wi =
+X
+i∈S0
+wi = ns.
+(11)
+The balancing objective in (11) is to make P(w)
+n,S1 and P(w)
+n,S0 close, but does not explicitly en-
+force them towards any specific distribution. In Section 3.4 we formally establish that the resulting
+reweighted distribution is one that focuses on the region in the covariate space where the two treatment
+groups have good overlap, similar to the notion of overlap weights (Li et al., 2018).
+Since MMDH is a metric of probability distributions, it follows from the triangle inequality that
+MMDH(P(w)
+n,S1, P(w)
+n,S0) ≤MMDH(P(w)
+n,S1, Pn,T ) + MMDH(P(w)
+n,S0, Pn,T ). This implies
+MMDH(P(w)
+n,S1, P(w)
+n,S0)2 ≤2MMDH(P(w)
+n,S1, Pn,T )2 + 2MMDH(P(w)
+n,S0, Pn,T )2.
+Thus, the balancing objective in (9) is inherently more stringent than that in (11). As a result, (11)
+will generally produce weights with less variability thus translating to a larger effective sample size.
+Balancing the weighted distribution of all confounders between the treated and control groups is
+indeed the minimal requirement in ITR estimation and cannot be further relaxed unless data were
+generated from a randomized controlled trial or no confounding is present. Without such a balance,
+15
+
+
+===== ORIGINAL PDF PAGE 16 =====
+FORMULA CHECK REQUIRED: original PDF page 16.
+the ITR obtained from optimizing Vn,T (d) might recommend a subject to take a treatment not because
+it corresponds to a better potential outcome but because more people with similar characteristics
+received the treatment in the observed data.
+3.3
+Back to the general case: a three-way balancing approach
+The objective (9) works for general situations but imposes stronger balancing requirements, which
+may result in more extreme weights, causing the ITR learning process to focus too heavily on a few
+observations with large weights. On the other hand, the objective (11) only requires minimal balancing
+requirements, but the resulting weights are only likely to yield an optimal ITR when D contains the
+unrestricted true optimal ITR. Yet, in practice, it is unclear how well D is specified and one may be
+unwilling to wager that D contains the unrestricted true optimal ITR and thus only balance the treated
+and control groups to each other. To achieve some of the benefits of each approach, we propose to
+combine these two balancing strategies by optimizing the following convex combination of them
+min
+w
+αMMDH(P(w)
+n,S1, Pn,T )2 + αMMDH(P(w)
+n,S0, Pn,T )2
++ (1 −α)MMDH(P(w)
+n,S1, P(w)
+n,S0)2 + λ
+n2
+s
+X
+i∈S
+w2
+i ,
+subject to
+X
+i∈S1
+wi =
+X
+i∈S0
+wi = ns.
+(12)
+Here α ∈[0, 1] is a hyperparameter controlling the extent to which the weighted treated/control group
+should resemble the target sample, and λ regularizes the smoothness of the weights. By Lemma 6 of
+the Supplementary Material, we can write each of the MMDH terms in (12) as a quadratic function of
+w. So the optimization problem is convex and its global optimum exists. We can solve this problem
+using standard quadratic programming tools. Furthermore, we propose a heuristic procedure to α and
+λ by grid search in Section S2.2 of the Supplementary Material.
+16
+
+
+===== ORIGINAL PDF PAGE 17 =====
+FORMULA CHECK REQUIRED: original PDF page 17.
+3.4
+Asymptotic properties
+The following theorem characterizes the convergence limit of the proposed weights. Here we impose
+two conditions on the RKHS: universality and that the unit ball is P-Donsker. These conditions hold
+for most commonly used kernels, such as the Gaussian kernel and Mat´ern kernel (Sriperumbudur
+et al., 2016).
+Theorem 1. Suppose { ˆwi, i ∈S} are the weights that solve (12). Assume the RKHS is universal, and
+the unit ball in it H is P-Donsker. Assume π(x), ρ(x) are continuous functions on X. If 0 < α ≤1,
+then
+1
+ns
+X
+i∈S
+
+ˆwi −w∗(Ai, Xi)
+	2
+p
+−→0,
+where w∗(a, x) is defined in (3). If α = 0,
+1
+ns
+X
+i∈S
+
+ˆwi −w†(Ai, Xi)
+	2
+p
+−→0.
+Here
+w†(a, x) = π(X){1 −π(X)}
+Cπ
+ a
+π(x) +
+1 −a
+1 −π(x)
+
+,
+where Cπ = E[π(X){1 −π(X)} | S = 1] is a normalizing constant.
+The proofs of this theorem and the other theoretical results below are deferred to the Supplemen-
+tary Material. The convergence results of the weights straightforwardly imply the convergence limit
+of bVn(d; ˆw), the objective function for learning the optimal ITR:
+Corollary 1.1. Suppose the conditions in Theorem 1 hold and the potential outcomes are square
+integrable. Then, for any treatment rule d, when α > 0, bVn(d; ˆw)
+p
+−→VT (d); when α = 0,
+bVn(d; ˆw)
+p
+−→Cπ
+−1E[Y (d)π(X){1 −π(X)} | S = 1].
+The limiting weights under both cases have the form of [π(x)−1a + {1 −π(x)}−1(1 −a)]h(x).
+They balance the weighted distributions of the covariates between the treated and control groups,
+17
+
+
+===== ORIGINAL PDF PAGE 18 =====
+FORMULA CHECK REQUIRED: original PDF page 18.
+and retarget the distribution to a population whose density ratio to the source population is h(x).
+When α > 0, h(x) ∝{1 −ρ(x)}/ρ(x) is exactly the density ratio between the target population and
+the source population, so the corresponding weights are the classical importance weights. For α = 0,
+h(x) ∝π(x){1−π(x)}. With this choice we put more focus on the covariate region where the treated
+and control groups have good overlap, i.e. the region where π(x) is close to 0.5. Li et al. (2018) also
+derived weights of this form from the perspective of minimizing the asymptotic efficient estimation
+variance of the weighted average treatment effect, and they referred to w† as the “overlap weights”.
+Kallus (2021) advocated using the overlap weights for estimating the optimal ITR with observational
+data, especially when there is limited overlap between the treated and control groups, because the
+overlap weights avoid putting too much attention to a few observations and thus reduce estimation
+variability. In our setting of learning optimal ITR for a target population, the overlap weights are
+well-justified when D is well specified and our non-parametric balancing weights converge to the
+overlap weights purely by means of optimizing within-population imbalance.
+Although the weights converge to the same limit for all α > 0, under finite samples, varying
+α from 1 to 0 provides a smooth transition from the importance weights to the overlap weights.
+The importance weights aim for minimizing the distributional difference between the source sample
+and the target population, while the overlap weights put more emphasis on improving stability and
+reducing any imbalance between treated and control units. Therefore, the proposed method enables
+us to search for a better trade-off in the middle ground, calibrating estimation towards the target
+population while retaining small variance and mitigating imbalance due to selection bias into the
+treatment.
+Another advantage of our method compared to the importance weights or overlap weights is that
+by targeting distributional imbalance directly, it avoids explicit modeling of the propensity score π(x)
+and participation probability ρ(x). As discussed before, modeling may result in the failure of weight-
+ing methods due to model misspecification or estimation error. While the proposed weights are free
+of model specification issues and have more stable values, Theorem 1 guarantees that they converge
+18
+
+
+===== ORIGINAL PDF PAGE 19 =====
+FORMULA CHECK REQUIRED: original PDF page 19.
+to interpretable limits. Further, since the proposed method is entirely formulated upon covariate
+balancing, it enjoys better finite sample balance properties, and this generally leads to more precise
+treatment comparison in practice (Chattopadhyay et al., 2020). As far as we know, our work is the first
+to show that overlap weights can be estimated by constructing weights that purely target imbalance of
+covariate distributions.
+4
+Simulation studies
+4.1
+Setup
+In this section, we conduct simulation studies to evaluate the performance of the proposed weighting
+method in finite sample settings. In our simulation setup, we generate covariates Xi independently
+from a uniform distribution on [−2, 2]4. Given the covariates Xi, the population indicator Si is then
+generated from a Bernoulli distribution with success probability ρ(Xi), where ρ(x) = G(x2 −1.2x1),
+G(z) = 0.8Φ(z) + 0.1 and Φ(z) is the standard normal cumulative probability function. Data with
+Si = 1 and Si = 0 constitute the source sample and target sample respectively. For the source sample,
+we further simulate the treatment assignment and outcome as follows. To test the performance of
+the proposed method under a wide range of settings, we consider three propensity score models for
+treatment assignment:
+(1) π(x) = G(0.5x1 + 0.3x2 −0.3);
+(linear assignment)
+(2) π(x) = G(1.6x1 + 1.3x2 −0.8);
+(linear assignment, bad overlap)
+(3) π(x) = G(0.4x2
+1 + 0.4x2
+2 + 0.5x1x2 −0.4x1 + 0.4x2 −0.9).
+(nonlinear assignment)
+In the first setting the propensity score, after a monotone transformation, linearly depends on the
+covariates, and thus logistic regression can provide a decent fit even though the link function is not
+perfectly specified. The second setting is similar, but the large coefficients induce a substantial differ-
+ence between the covariate distributions of the treated and control groups. The third setting includes
+19
+
+
+===== ORIGINAL PDF PAGE 20 =====
+FORMULA CHECK REQUIRED: original PDF page 20.
+quadratic terms and an interaction term, and thus any model that only considers main effects may be
+insufficient for controlling for confounding.
+The observed outcome is generated as Yi = m(Xi) + (Ai −0.5)τ(Xi) + εi, where m(x) =
+Φ(−0.6x1 −0.6x2 + 0.2x3 + 0.5) + 0.5 and εi
+i.i.d.
+∼N(0, 0.52). The conditional average treatment
+effect function is set as τ(x) = κτNL(x) + (1 −κ)τL(x), where
+τNL(x) = Φ(1.5x2 + 0.8x1 −0.4(x1 −x2)2 −0.3) −0.07(x1 −x2)2,
+τL(x) = Φ(0.4x2 + 0.6x1) −0.5.
+Here, τ(x) is linear combination of two parts: a nonlinear part τNL(x) and a linear part τL(x). The
+parameter κ controls the degree of nonlinearity of τ(x). We consider two choices of κ: 0 and 0.4,
+the former indicating a linear setting and the latter a nonlinear setting. Figure 1 visualizes τ(x) under
+these two choices. We choose D to be the linear rule class, i.e. ITRs of the form d(x) = 1(xTβ ≥0).
+So when κ = 0, D contains the unrestricted true optimal ITR, and thus the optimal ITRs for the
+source population and the target population are the same; otherwise, the optimal linear ITR for the
+target population is different from that for the source population, which necessitates adjustment for
+covariate shift from source to target.
+We implement the proposed method using the Gaussian kernel with bandwidth chosen via the
+median heuristic (Gretton et al., 2012). The tuning parameters of proposed method (α and λ) are
+selected by our proposed resampling algorithm in Section S2.2 with grid search using default grids.
+To find the linear rule that maximizes bVn(d, w), we re-cast the optimization problem as a weighted
+classification problem. Note that bVn(d, w) can be expressed as
+1
+ns
+X
+i∈S
+max(wiYi, 0) −1
+ns
+X
+i∈S
+|wiYi|1{d(Xi)̸ = Aisign(wiYi)},
+so maximizing bVn(d, w) is equivalent to minimizing 1
+ns
+P
+i∈S |wiYi|1{d(Xi)̸ = Aisign(wiYi)}, which
+is a weighted binary classification problem that uses Aisign(wiYi) as the labels and |wiYi| as the
+20
+
+
+===== ORIGINAL PDF PAGE 21 =====
+FORMULA CHECK REQUIRED: original PDF page 21.
+weights. We substitute the 0-1 loss with the logistic loss and solve the optimization approximately
+with weighted logistic regression (Xu et al., 2015). The predictive modeling tasks used for value
+function estimation in the tuning procedure are implemented with xgboost (Chen and Guestrin,
+2016).
+For comparison, we consider other weighting methods, including the overlap weights, the impor-
+tance weights and inverse probability (of treatment) weighting (labeled as Overlap, Importance
+and IPW, respectively). To compute these weights, we use logistic regression to fit the propensity
+score and participation probability. So the propensity score model is nearly correctly specified in
+the first two treatment assignment scenarios but is misspecified in the last treatment assignment sce-
+nario. The oracle counterparts (plotted in gray)that use the underlying true probabilities to construct
+weights are also included. We further include entropy balancing (Hainmueller, 2012) analogues of
+the importance weights and inverse probability weighting in the comparison, labeled as ebal t and
+ebal s respectively: ebal t finds the weights of minimum entropy such that covariate moments of
+the reweighted treated/control group are equal to those of the target sample, and ebal s is defined
+similarly but with covariate moments given by the whole source sample. We note that among the
+comparison methods, only the importance weights and ebal t use the covariate information from
+the target sample. After obtaining the weights from these methods, we apply the same weighted clas-
+sification procedure described above to maximize bVn(d, w) and get the corresponding optimal ITRs,
+which are then compared to the one estimated with our weights. In the implementation, the outcome
+modeling tasks are also carried out using xgboost. In the simulation, the total sample size is set to
+be n = 1600.
+We further evaluated the performance of our proposed weights under more flexible treatment rule
+classes using weighted decision trees for ITR estimation. In addition, we investigated the setting when
+ITRs are estimated using weighted regression models instead of outcome weighted learning. Results
+from these two investigations are included in the Supplementary Material.
+21
+
+
+===== ORIGINAL PDF PAGE 22 =====
+FORMULA CHECK REQUIRED: original PDF page 22.
+4.2
+Results
+We evaluate the performance of all methods using the regret of the learned ITR in comparison to
+the optimal linear ITR, specifically, the difference in the value function between the learned ITR and
+the optimal within-class ITR. An independent test sample of size 105 is generated from the target
+population to evaluate these quantities. We also use this test sample to search for the optimal linear
+ITR. Since in our settings only X1 and X2 are effect modifiers, the optimal linear ITR has the form
+of d(x) = 1{cos(θ)x1 + sin(θ)x2 + b ≥0}, then we find the optimal θ and b using the grid search
+procedure described in Kallus (2021). The boxplots in Figure 2 summarize the results under different
+scenarios based on 500 independent simulation runs.
+Linear assignment
+Linear assignment, bad overlap
+Nonlinear assignment
+Linear CATE
+Nonlinear CATE
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Overlap (true)
+Importance (true)
+IPW (true)
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Overlap (true)
+Importance (true)
+IPW (true)
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Overlap (true)
+Importance (true)
+IPW (true)
+0.00
+0.05
+0.10
+0.15
+0.20
+0.00
+0.05
+0.10
+0.15
+0.20
+Sample Weighting Method
+Regret
+Figure 2: Simulation results. Regret compared to the optimal linear ITR using outcome weighted
+learning. The term “CATE” stands for conditional average treatment effect. Methods labeled with
+(true) compute the weights using the true values of π(x) and ρ(x) instead of the estimated ones.
+The y-axis is zoomed in for visual clarity.
+In the first column of Figure 2, the underlying assignment mechanisms and the participation prob-
+abilities are linear in the covariates after a monotonic transformation, and the treated and control
+groups have sufficient overlap, so these settings constitute the easiest design across our simulation
+22
+
+
+===== ORIGINAL PDF PAGE 23 =====
+FORMULA CHECK REQUIRED: original PDF page 23.
+settings. As we can see, even for this simple setting, whether calibrating to the target sample can yield
+improvement in learning the ITR for the target population does depend on the underlying outcome
+model. When the rule class contains the unrestricted true optimal ITR, weighting the data to the target
+population helps only little (if any) in achieving a larger value function. However, it will make the
+estimated rule more vulnerable to random noise. In this case, the overlap weights attain the best per-
+formance and our proposed method achieves a very similar result to the overlap weights, as the tuning
+parameter selection procedure allows it to yield weights that mimic the overlap weights. On the other
+hand, when the difference in covariate distributions from source to target leads to a different optimal
+ITR, it is necessary to tailor the weights to the target population. As a result, the overlap weights
+yield a suboptimal ITR, while our method adaptively chooses the calibration level α to incorporate
+covariate shift adjustments and achieves the best performance among methods. We also notice that the
+importance weights based on modeling π(x) and ρ(x) can occasionally achieve great performance,
+but this is highly unstable with occasional poor results, likely due to large weights.
+The second and third columns of Figure 2 compare the performance under more challenging sce-
+narios. When there is a substantial difference between the covariate distributions of the treated and
+control groups, the performance of the overlap weights is similar to the previous cases in that it yields
+excellent performance but only for correctly specified rule classes; however, this benefit is attenuated
+in the nonlinear confounding setting when the model for the propensity score is more severely mis-
+specified. The other modeling-based weights appear to be vulnerable to insufficient treatment-control
+overlap, the misspecification of the propensity score model, or the wrong choice of moments to bal-
+ance. The proposed method achieves the best results among all the competing methods, especially
+when covariate shift needs to be adjusted for. Lastly, when the assignment mechanism is nonlinear,
+our method is able to retain satisfactory performance due to its non-parametric nature and ability to
+balance full covariate distributions not just prespecified covariate moments. The relative benefit of
+the proposed method is the greatest under the nonlinear assignment mechanism settings.
+We also plot the original covariate distribution of (X1, X2) of the source and target samples un-
+23
+
+
+===== ORIGINAL PDF PAGE 24 =====
+FORMULA CHECK REQUIRED: original PDF page 24.
+der the “linear assignment, bad overlap” scenario as well as the corresponding weighted covariate
+distribution of source sample with weights generated from our methods (α = 0,0.1 and 1), overlap
+weights and importance weights in Figure 3. When α = 0, our proposed weights are similar to the
+overlap weights, and when α = 1, our proposed weights are similar to the importance weights but
+less extreme. When α is increased to 0.1, our proposed weights appear as a smooth combination of
+overlap weights and importance weights. In our simulation, the chosen α’s were all close to 0.1 in
+this setting.
+−2
+−1
+0
+1
+2
+−2
+−1
+0
+1
+2
+x1
+x2
+Overlap weights (True)
+−2
+−1
+0
+1
+2
+−2
+−1
+0
+1
+2
+x1
+x2
+Data
+−2
+−1
+0
+1
+2
+−2
+−1
+0
+1
+2
+x1
+x2
+Importance weights (True)
+−2
+−1
+0
+1
+2
+−2
+−1
+0
+1
+2
+x1
+x2
+Proposed weights (α = 0)
+−2
+−1
+0
+1
+2
+−2
+−1
+0
+1
+2
+x1
+x2
+Proposed weights (α = 0.1)
+−2
+−1
+0
+1
+2
+−2
+−1
+0
+1
+2
+x1
+x2
+Proposed weights (α = 1)
+group
+treated
+control
+target
+source
+Figure 3: Covariate distribution and weights for samples from source population under “Linear as-
+signment, Bad overlap”. Each point represents a sample from either the source (treated and control
+group) or target population. Except for the plot of the raw data, the size of the point is proportional to
+the weight assigned to that sample for a given weighting method.
+In the Supplementary Material, we also demonstrate that our method can lead to better tree-based
+ITRs for the target population compared to other weights, indicating that our method still provides
+substantial benefit even when the specified rule class is flexible. Furthermore, we show that using our
+weights in weighted regression usually leads to better performance than other weights, including the
+unweighted regression approach.
+24
+
+
+===== ORIGINAL PDF PAGE 25 =====
+FORMULA CHECK REQUIRED: original PDF page 25.
+5
+Application: transthoracic echocardiography and mortality in
+sepsis
+In this section, we illustrate the proposed method by studying individualized treatment recommen-
+dation of the use of transthoracic echocardiography (TTEC) for intensive care unit (ICU) patients
+with sepsis. Feng et al. (2018) studied the average treatment effect of TTEC on improving 28-day
+mortality and suggested the use of TTEC is associated with a significant improvement. However, It
+has been argued that TTEC use in surgical ICU is not cost-effective due to a high failure rate (Cook
+et al., 2002). Hence, studying potential heterogeneous treatment effects of TTEC and identifying a
+subgroup of patients who can benefit from it is clinically relevant.
+We use the same dataset in Feng et al. (2018), which is derived from the MIMIC-III database
+(Johnson et al., 2016). This is an observational dataset consisting of 6361 ICU patients. Among the
+patients, 51.3% had TTEC performed during or in the period less than 24 hours before their ICU
+admission. We use 28-day survival as the outcome. We use 17 baseline variables in the analysis:
+age (range 18 - 91), gender, weight; severity at admission, which is measured by the simplified acute
+physiology score (SAPS), the sequential organ failure assessment (SOFA) score, and the Elixhauser
+comorbidity score; comorbidity indicators, including congestive heart failure, atrial fibrillation, res-
+piratory failure, malignant tumor; vital signs, including mean arterial pressure, heart rate and tem-
+perature; laboratory results, including platelet count, partial pressure of oxygen, lactate, and blood
+urea nitrogen. The distributions of lab results are right skewed, so we apply log transformations on
+these variables. All the continuous variables are then standardized for further analysis. We impute any
+missing values using MissForest (Stekhoven and B¨uhlmann, 2012), which is a flexible non-parametric
+missing value imputation approach.
+In order to evaluate ITR learning results and study the influence of covariate shift and confound-
+ing, we use the following procedure to construct the training data and test data which induces dif-
+ferent levels of covariate shift and confounding. First, we randomly sample 40% of the data without
+25
+
+
+===== ORIGINAL PDF PAGE 26 =====
+FORMULA CHECK REQUIRED: original PDF page 26.
+replacement; this part will be used to construct the source sample and the remaining represents the
+target population. The sampling probability is proportional to a function of the covariates, f(Xi).
+We consider two choices of f: (a) f(x) = 0.5, which means each individual is sampled with equal
+probability and (b) f(x) = G(age −weight + 0.6 × I(gender = female) −0.4), so the source
+and target populations have different covariate distributions. Here G(·) is the function defined in
+Section 4. Then among the first part of the data, we randomly select (without replacement) 50%
+of the TTEC patients and 50% of the non-TTEC patients to form the source sample; however, the
+treated units are selected with probability proportional to g(Xi) while the control units are with prob-
+ability proportional to 0.5 −g(Xi). This step induces additional confounding to the source data
+based on g. Three choices of g are considered: (a) g(x) = 0, so there is no extra confounding; (b)
+g(x) = G(SAPS + 0.8 × SOFA −0.9 × Elixhauser), which introduces extra confounding determined
+by a linear combination of the severity scores; (c) g(x) = G(0.3 × SAPS2 + 0.2 × SOFA2 + 0.2 ×
+Elixhauser2 + 0.4 × SAPS × SOFA −0.3 × SAPS + 0.4 × SOFA + 0.2 × Elixhauser −0.6), which
+leads to a confounding mechanism that involves an interaction term. Among the second part of the
+data, 1/3 of the patients are randomly sampled with equal probability, and their covariate information
+is used as the target sample, and the remaining data is used as the test data. So the target sample and
+the test data have the same covariate distribution.
+By the aforementioned procedure, we preserve the covariate-outcome relationship in the real data,
+but use various sampling designs to induce different levels of covariate shift and confounding. There
+are 6 scenarios; under each one, we run 400 replications of the sampling procedure. For each replica-
+tion, we then apply the proposed method to estimate the optimal ITR for the target population. The
+competing methods in Section 4 are also applied, except the ones using the true probabilities. In addi-
+tion, we include a trivial treatment rule that assigns all patients to TTEC (labeled as treat all) to
+help calibrate the performances of the methods relative to the average effect of TTEC. The evaluation
+metric is a modified version of the value function: VT ,2(d) = E[Y (d(X))−Y (1−d(X)) | S = 0]. For
+comparison purpose, VT ,2(d) is equivalent to VT (d) as VT ,2(d) = 2VT (d) −E[Y (1) + Y (0) | S = 0].
+26
+
+
+===== ORIGINAL PDF PAGE 27 =====
+FORMULA CHECK REQUIRED: original PDF page 27.
+We use VT ,2(d) because it is equal to the average treatment effect when d is the trivial treat-all ITR.
+We estimate VT ,2(d) on the test data using the conventional inverse probability estimator. The result
+is reported in Figure 4.
+Extra confounding:
+ None
+Extra confounding:
+ No interaction term
+Extra confounding:
+ Include interaction term
+Covariate shift: No
+Covariate shift: Yes
+proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+treat_all
+proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+treat_all
+proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+treat_all
+0.00
+0.05
+0.10
+0.00
+0.05
+0.10
+Sample Weighting Method
+(Modified) value function
+Figure 4: Modified version of value function in the real data application. treat all is a trivial
+ITR that assigns all patients to treatment and the result equals the average treatment effect. The other
+methods are the same as those in Figure 2.
+The modified value function of the trivial treat-all ITR is around 6% (i.e. a 6% improvement in
+28-day survival rate over no TTEC), which is close to the average treatment effect estimate in Feng
+et al. (2018) (5%). The value achieved by the best performing ITRs is around 8%. This suggests the
+presence of heterogeneity of treatment effect, thus personalizing decisions of whether to use TTEC
+can potentially lead to an improved overall survival rate. The performance of all the methods are close
+when there is no covariate shift and extra confounding.
+When source population and target populations have different covariate distributions (second row
+of Figure 4), methods like ebal t and Importance that calibrate to the target sample perform
+subpar. This suggests that a linear rule is likely sufficient and that calibrating the covariates to a
+specific distribution may be unnecessary; in this case, the overlap weights is a desirable option. The
+advantage of overlap weights becomes more noticeable when the treated and control groups have
+27
+
+
+===== ORIGINAL PDF PAGE 28 =====
+FORMULA CHECK REQUIRED: original PDF page 28.
+less overlap (second column of Figure 4). In this case the proposed method also achieves good
+performance because it can adaptively approximate the overlap weights by selecting a small α value.
+From the third column of Figure 4 we can see that the entropy balancing and probability modeling
+methods are subject to the choice of balancing functions or model specification. In contrast, the
+proposed method is free of such specification issues. Further, we can see that even with covariate
+shift and extra confounding with an interaction, our proposed method does nearly as well as when
+there is no covariate shift and no extra confounding.
+6
+Discussion
+In this work, we have proposed a weighting framework for ITR learning in the two-population set-
+ting where the target population’s covariate distribution might differ from the source. A key benefit
+of our method is that it directly targets covariate balance and does not require probability model-
+ing. To assess covariate balance after weighting, several descriptive statistics can be used, including
+(standardized) mean differences (Rosenbaum and Rubin, 1985), variance ratios (Austin, 2009), and
+weighted Kolmogorov-Smirnov statistics (Austin and Stuart, 2015), all of which are implemented in
+the R package cobalt (see the Supplementary Material for an example).
+Our methodological development focused on the objective function (2), which is based on the out-
+come weighted learning approach (Zhao et al., 2012). The proposed weights, however, can be used in
+any weighting-based ITR learning approaches, like those in Wallace and Moodie (2015), Zhou et al.
+(2017), and Chen et al. (2017). By leveraging the target population’s subject-level covariate informa-
+tion, the proposed weights improve the generalization capabilities of these ITR learning methods. Our
+framework can also be applied to learn ITRs in the single-population setting by replacing Pn,T in (12)
+with Pn,S, the empirical covariate distribution of the source sample. Similar to the two-population set-
+ting, while treated and control groups should be weighted to have similar distributions, this weighted
+distribution does not necessarily need to resemble the source population, especially when the ITR
+28
+
+
+===== ORIGINAL PDF PAGE 29 =====
+FORMULA CHECK REQUIRED: original PDF page 29.
+class is correctly specified (Kallus, 2021). Lastly, our framework can be extended to include other
+statistical distances by substituting MMDH in (12) with alternatives like the energy distance (Sz´ekely
+and Rizzo, 2013) or the Wasserstein distance (Villani, 2008). The resulting weights can also bal-
+ance the entire covariate distributions. However, the theoretical properties of the weights under these
+alternative distances would require further investigation.
+Acknowledgment
+We are grateful to the referees, the associate editor and the editor for their valuable comments and
+suggestions. Research reported in this work was partially funded through a Patient-Centered Out-
+comes Research Institute (PCORI) Award (ME-2018C2-13180). The views in this work are solely
+the responsibility of the authors and do not necessarily represent the views of the PCORI, its Board
+of Governors or Methodology Committee.
+Supplementary material
+The Supplementary Material includes proofs for the theoretical results in Section 3, computational
+details for the proposed method, and additional simulation and data application results.
+References
+Ahmed, A., Husain, A., Love, T. E., Gambassi, G., Dell’Italia, L. J., Francis, G. S., Gheorghiade,
+M., Allman, R. M., Meleth, S., and Bourge, R. C. (2006). Heart failure, chronic diuretic use, and
+increase in mortality and hospitalization: an observational study using propensity score methods.
+European heart journal, 27(12):1431–1439.
+29
+
+
+===== ORIGINAL PDF PAGE 30 =====
+FORMULA CHECK REQUIRED: original PDF page 30.
+Athey, S. and Wager, S. (2021). Policy learning with observational data. Econometrica, 89(1):133–
+161.
+Austin, P. C. (2009). Balance diagnostics for comparing the distribution of baseline covariates be-
+tween treatment groups in propensity-score matched samples. Statistics in medicine, 28(25):3083–
+3107.
+Austin, P. C. and Stuart, E. A. (2015). Moving towards best practice when using inverse probability
+of treatment weighting (iptw) using the propensity score to estimate causal treatment effects in
+observational studies. Statistics in medicine, 34(28):3661–3679.
+Bottou, L., Peters, J., Qui˜nonero-Candela, J., Charles, D. X., Chickering, D. M., Portugaly, E., Ray,
+D., Simard, P., and Snelson, E. (2013). Counterfactual reasoning and learning systems: The exam-
+ple of computational advertising. The Journal of Machine Learning Research, 14(1):3207–3260.
+Buchanan, A. L., Hudgens, M. G., Cole, S. R., Mollan, K. R., Sax, P. E., Daar, E. S., Adimora,
+A. A., Eron, J. J., and Mugavero, M. J. (2018). Generalizing evidence from randomized trials
+using inverse probability of sampling weights. Journal of the Royal Statistical Society: Series A
+(Statistics in Society), 181(4):1193–1209.
+Chan, K. C. G., Yam, S. C. P., and Zhang, Z. (2016). Globally efficient non-parametric inference
+of average treatment effects by empirical balancing calibration weighting. Journal of the Royal
+Statistical Society: Series B (Statistical Methodology), 78(3):673–700.
+Chattopadhyay, A., Hase, C. H., and Zubizarreta, J. R. (2020). Balancing vs modeling approaches to
+weighting in practice. Statistics in Medicine, 39(24):3227–3254.
+Chen, S., Tian, L., Cai, T., and Yu, M. (2017). A general statistical framework for subgroup identifi-
+cation and comparative treatment scoring. Biometrics, 73(4):1199–1209.
+30
+
+
+===== ORIGINAL PDF PAGE 31 =====
+FORMULA CHECK REQUIRED: original PDF page 31.
+Chen, T. and Guestrin, C. (2016). Xgboost: A scalable tree boosting system. In Proceedings of the
+22nd ACM SIGKDD International Conference on Knowledge Discovery & Data Mining, pages
+785–794.
+Cole, S. R. and Stuart, E. A. (2010). Generalizing Evidence From Randomized Clinical Trials to
+Target Populations: The ACTG 320 Trial. American Journal of Epidemiology, 172(1):107–115.
+Colnet, B., Mayer, I., Chen, G., Dieng, A., Li, R., Varoquaux, G., Vert, J.-P., Josse, J., and Yang, S.
+(2020). Causal inference methods for combining randomized trials and observational studies: a
+review. arXiv preprint arXiv:2011.08047.
+Cook, C. H., Praba, A. C., Beery, P. R., and Martin, L. C. (2002). Transthoracic echocardiography
+is not cost-effective in critically ill surgical patients. Journal of Trauma and Acute Care Surgery,
+52(2):280–284.
+Dahabreh, I. J., Robertson, S. E., Steingrimsson, J. A., Stuart, E. A., and Hernan, M. A. (2020).
+Extending inferences from a randomized trial to a new target population. Statistics in Medicine,
+39(14):1999–2014.
+Feng, M., McSparron, J. I., Kien, D. T., Stone, D. J., Roberts, D. H., Schwartzstein, R. M., Vieillard-
+Baron, A., and Celi, L. A. (2018). Transthoracic echocardiography and mortality in sepsis: analysis
+of the mimic-iii database. Intensive Care Medicine, 44(6):884–892.
+Foster, J. C., Taylor, J. M., and Ruberg, S. J. (2011). Subgroup identification from randomized clinical
+trial data. Statistics in Medicine, 30(24):2867–2880.
+Gretton, A., Borgwardt, K. M., Rasch, M. J., Sch¨olkopf, B., and Smola, A. (2012). A kernel two-
+sample test. The Journal of Machine Learning Research, 13(1):723–773.
+Hainmueller, J. (2012). Entropy balancing for causal effects: A multivariate reweighting method to
+produce balanced samples in observational studies. Political Analysis, 20(1):25–46.
+31
+
+
+===== ORIGINAL PDF PAGE 32 =====
+FORMULA CHECK REQUIRED: original PDF page 32.
+Hirshberg, D. A., Maleki, A., and Zubizarreta, J. (2019). Minimax linear estimation of the retargeted
+mean. arXiv preprint arXiv:1901.10296.
+Hirshberg, D. A. and Wager, S. (2017).
+Augmented minimax linear estimation.
+arXiv preprint
+arXiv:1712.00038.
+Huling, J. D. and Mak, S. (2020).
+Energy balancing of covariate distributions.
+arXiv preprint
+arXiv:2004.13962.
+Imai, K. and Ratkovic, M. (2014). Covariate balancing propensity score. Journal of the Royal Statis-
+tical Society: Series B (Statistical Methodology), 76(1):243–263.
+Johnson, A. E., Pollard, T. J., Shen, L., Li-Wei, H. L., Feng, M., Ghassemi, M., Moody, B., Szolovits,
+P., Celi, L. A., and Mark, R. G. (2016). Mimic-iii, a freely accessible critical care database. Scien-
+tific Data, 3(1):1–9.
+Kallus, N. (2018). Balanced policy evaluation and learning. In Advances in Neural Information
+Processing Systems, pages 8895–8906.
+Kallus, N. (2020). Generalized optimal matching methods for causal inference. J. Mach. Learn. Res.,
+21:62–1.
+Kallus, N. (2021). More efficient policy learning via optimal retargeting. Journal of the American
+Statistical Association, 116(534):646–658.
+Kallus, N. and Santacatterina, M. (2022).
+Optimal weighting for estimating generalized average
+treatment effects. Journal of Causal Inference, 10(1):123–140.
+Kang, J. D., Schafer, J. L., et al. (2007). Demystifying double robustness: A comparison of alternative
+strategies for estimating a population mean from incomplete data. Statistical Science, 22(4):523–
+539.
+32
+
+
+===== ORIGINAL PDF PAGE 33 =====
+FORMULA CHECK REQUIRED: original PDF page 33.
+Kish, L. (1965). Survey sampling. Wiley, New York.
+Kitagawa, T. and Tetenov, A. (2018). Who should be treated? empirical welfare maximization meth-
+ods for treatment choice. Econometrica, 86(2):591–616.
+Kosorok, M. R. (2007). Introduction to empirical processes and semiparametric inference. Springer
+Science & Business Media.
+Kosorok, M. R. and Laber, E. B. (2019). Precision medicine. Annual review of statistics and its
+application, 6:263–286.
+Kube, A., Das, S., and Fowler, P. J. (2019). Allocating interventions based on predicted outcomes: A
+case study on homelessness services. In Proceedings of the AAAI Conference on Artificial Intelli-
+gence, volume 33, pages 622–629.
+Kyono, T., Bica, I., Qian, Z., and van der Schaar, M. (2023). Selecting treatment effects models
+for domain adaptation using causal knowledge. ACM Transactions on Computing for Healthcare,
+4(2):1–29.
+Li, F., Morgan, K. L., and Zaslavsky, A. M. (2018). Balancing covariates via propensity score weight-
+ing. Journal of the American Statistical Association, 113(521):390–400.
+Mo, W., Qi, Z., and Liu, Y. (2020). Learning optimal distributionally robust individualized treatment
+rules. Journal of the American Statistical Association, pages 1–16.
+Murdoch, W. J., Singh, C., Kumbier, K., Abbasi-Asl, R., and Yu, B. (2019). Definitions, methods, and
+applications in interpretable machine learning. Proceedings of the National Academy of Sciences,
+116(44):22071–22080.
+Murphy, S. A. (2003). Optimal dynamic treatment regimes. Journal of the Royal Statistical Society:
+Series B (Statistical Methodology), 65(2):331–355.
+33
+
+
+===== ORIGINAL PDF PAGE 34 =====
+FORMULA CHECK REQUIRED: original PDF page 34.
+Murphy, S. A., van der Laan, M. J., Robins, J. M., and Group, C. P. P. R. (2001). Marginal mean
+models for dynamic regimes. Journal of the American Statistical Association, 96(456):1410–1423.
+Peypouquet, J. (2015).
+Convex optimization in normed spaces: theory, methods and examples.
+Springer.
+Qian, M. and Murphy, S. A. (2011). Performance guarantees for individualized treatment rules. The
+Annals of Statistics, 39(2):1180.
+Robins, J. M. (2004). Optimal structural nested models for optimal sequential decisions. In Proceed-
+ings of the second seattle Symposium in Biostatistics, pages 189–326. Springer.
+Rosenbaum, P. R. and Rubin, D. B. (1983). The central role of the propensity score in observational
+studies for causal effects. Biometrika, 70(1):41–55.
+Rosenbaum, P. R. and Rubin, D. B. (1985). Constructing a control group using multivariate matched
+sampling methods that incorporate the propensity score. The American Statistician, 39(1):33–38.
+Rubin, D. B. (1974).
+Estimating causal effects of treatments in randomized and nonrandomized
+studies. Journal of educational Psychology, 66(5):688.
+Rudolph, K. E. and van der Laan, M. J. (2017). Robust estimation of encouragement-design interven-
+tion effects transported across sites. Journal of the Royal Statistical Society: Series B (Statistical
+Methodology), 79(5):1509.
+Simon-Gabriel, C.-J. and Sch¨olkopf, B. (2018). Kernel distribution embeddings: Universal kernels,
+characteristic kernels and kernel metrics on distributions. The Journal of Machine Learning Re-
+search, 19(1):1708–1736.
+Sriperumbudur, B. et al. (2016). On the optimal estimation of probability measures in weak and strong
+topologies. Bernoulli, 22(3):1839–1893.
+34
+
+
+===== ORIGINAL PDF PAGE 35 =====
+FORMULA CHECK REQUIRED: original PDF page 35.
+Stekhoven, D. J. and B¨uhlmann, P. (2012). Missforest—non-parametric missing value imputation for
+mixed-type data. Bioinformatics, 28(1):112–118.
+Stellato, B., Banjac, G., Goulart, P., Bemporad, A., and Boyd, S. (2020). OSQP: an operator splitting
+solver for quadratic programs. Mathematical Programming Computation, 12(4):637–672.
+Sugiyama, M., Krauledat, M., and M ˜Aˇzller, K.-R. (2007). Covariate shift adaptation by importance
+weighted cross validation. Journal of Machine Learning Research, 8(May):985–1005.
+Sz´ekely, G. J. and Rizzo, M. L. (2013). Energy statistics: A class of statistics based on distances.
+Journal of Statistical Planning and Inference, 143(8):1249–1272.
+Tipton, E. (2013). Improving generalizations from experiments using propensity score subclassifi-
+cation: Assumptions, properties, and contexts. Journal of Educational and Behavioral Statistics,
+38(3):239–266.
+Villani, C. (2008). Optimal transport: old and new, volume 338. Springer Science & Business Media.
+Wahba, G. (1990). Spline models for observational data. SIAM, Philadelphia.
+Wallace, M. P. and Moodie, E. E. (2015). Doubly-robust dynamic treatment regimen estimation via
+weighted least squares. Biometrics, 71(3):636–644.
+Wang, Y., Wu, P., Liu, Y., Weng, C., and Zeng, D. (2016). Learning optimal individualized treatment
+rules from electronic health record data. In 2016 IEEE International Conference on Healthcare
+Informatics (ICHI), pages 65–71. IEEE.
+Wang, Y. and Zubizarreta, J. R. (2020). Minimal dispersion approximately balancing weights: asymp-
+totic properties and practical considerations. Biometrika, 107(1):93–105.
+Wong, R. K. and Chan, K. C. G. (2018). Kernel-based covariate functional balancing for observational
+studies. Biometrika, 105(1):199–213.
+35
+
+
+===== ORIGINAL PDF PAGE 36 =====
+FORMULA CHECK REQUIRED: original PDF page 36.
+Xu, Y., Yu, M., Zhao, Y.-Q., Li, Q., Wang, S., and Shao, J. (2015). Regularized outcome weighted
+subgroup identification for differential treatment effects. Biometrics, 71(3):645–653.
+Zhang, Y., Laber, E. B., Davidian, M., and Tsiatis, A. A. (2018). Interpretable dynamic treatment
+regimes. Journal of the American Statistical Association, 113(524):1541–1549.
+Zhao, Y., Zeng, D., Rush, A. J., and Kosorok, M. R. (2012). Estimating individualized treatment rules
+using outcome weighted learning. Journal of the American Statistical Association, 107(499):1106–
+1118.
+Zhao, Y.-Q., Zeng, D., Tangen, C. M., and LeBlanc, M. L. (2019). Robustifying trial-derived optimal
+treatment rules for a target population. Electronic Journal of Statistics, 13(1):1717.
+Zhou, X., Mayer-Hamblett, N., Khan, U., and Kosorok, M. R. (2017). Residual weighted learn-
+ing for estimating individualized treatment rules. Journal of the American Statistical Association,
+112(517):169–187.
+36
+
+
+===== ORIGINAL PDF PAGE 37 =====
+FORMULA CHECK REQUIRED: original PDF page 37.
+Supplementary Material for “Robust Sample Weighting to Facilitate Individual-
+ized Treatment Rule Learning for a Target Population”
+S1
+Technical proofs
+We impose the following regularity conditions throughout the proof.
+(a) X is a compact space. The covariates have continuous density on X. The propensity score
+π(x) and participation probability ρ(x) are both continuous functions on X. This implies that
+covariate distributions of the source and target populations are also continuous and they are
+denoted by ps(x) and pt(x) respectively.
+(b) K(x, x′) is continuous, non-negative, and bounded.
+(c) H is a universal RKHS. In other words, H is dense in C(X) with respect to the supremum
+norm.
+(d) The unit ball in H, denoted by H1, is P-Donsker.
+S1.1
+Proof of (8)
+For the inequality (8) we assume K(x, x′) takes the form of θ−pK0(∥x −x′∥/θ) and define γ =
+sup{γ : ∃L > 0, |{w(1, x)p1(x) −pt(x)} −{w(1, x′)ps(x′) −pt(x′)}| ≤L∥x −x′∥γ} > 0. For
+instance, when w(1, x)ps and pt(x) are Lipschitz continuous, then this condition holds with γ = 1.
+We additionally assume K0 satisfies
+R
+K0(∥x∥)∥x∥γdx < ∞. We first show the following lemma:
+Lemma 1. Suppose g : X →R is a bounded function and ν is a measure on X. H is an RHKS on X
+associated with a bounded kernel function K(x, x′). Then,
+sup
+h∈H1
+Z
+h(x)g(x)dν(x) =
+ZZ
+K(x, x′)g(x)g(x′)dν(x)dν(x′)
+ 1
+2
+.
+37
+
+
+===== ORIGINAL PDF PAGE 38 =====
+FORMULA CHECK REQUIRED: original PDF page 38.
+Proof. Define a linear operator Mg on H by Mg(h) =
+R
+h(x)g(x)dν(x) for h ∈H. Since
+|Mg(h)| ≤
+Z
+|⟨h, K(x, ·)⟩H||g(x)|dν(x) ≤∥h∥H
+Z p
+K(x, x)|g(x)|dν(x),
+Mg is continuous. Hence by the Riesz representer theorem, there exists a hg ∈H such that Mg(h) =
+⟨hg, h⟩H. Setting h = K(x′, ·) we can obtain hg(x′) = Mg(K(x′, ·)) =
+R
+K(x, x′)g(x)dν(x). So we
+have
+⟨hg, hg⟩H = Mg(hg) =
+Z
+hg(x′)g(x′)dν(x′) =
+ZZ
+K(x, x′)g(x)g(x′)dν(x)dν(x′).
+Then the desired result follows from suph∈H1 Mg(h) = suph∈H1⟨h, hg⟩H = ∥hg∥H.
+Remark. This Lemma also implies Lemma 6 by letting ν = P
+i∈IP ∪IQ δxi and g(x) = P
+i∈IP pi1(x =
+xi) −P
+j∈IQ qj1(x = xj).
+Proof of (8). We show the following inequality
+P
+ 
+sup
+µ1∈H1
+Z
+X
+µ1(x)d
+
+P(w)
+n,S1 −Pn,T
+
+(x)
+
++ C1
+ 1
+nθp + θγ/2 + t
+
+< sup
+µ1∈H1
+Z
+X
+d(x)µ1(x)d
+
+P(w)
+n,S1 −Pn,T
+
+(x)
+ !
+≤exp{−C2t2nθp},
+(S13)
+where C1, C2 are constants not related to d(x) and t is any positive number. In the following proofs,
+we use C to denote constants, but it may represent different values under different contexts. Without
+loss of generality, we assume w(1, x) has been normalized, i.e.,
+R
+X w(1, x)ps(x)dx = 1.
+The proof of (S13) consists of two parts. First, we show the reweighted sample MMDH can be
+bounded by the reweighted population MMDH with high probability. Suppose K0(x, x′) is upper
+bounded by a constant ¯K0, then K(x, x′) is upper bounded by ¯K0/θp. Following the same arguments
+in Gretton et al. (2012) Theorem 7, we can show that for any t > 0, with probability at least 1 −
+exp{−Ct2nθp},
+38
+
+
+===== ORIGINAL PDF PAGE 39 =====
+FORMULA CHECK REQUIRED: original PDF page 39.
+ sup
+µ1∈H1
+Z
+X
+d(x)µ1(x)d
+
+P(w)
+n,S1 −Pn,T
+
+(x)
+
+−sup
+µ1∈H1
+Z
+X
+d(x)µ1(x)d
+
+P(w)
+S1 −PT
+
+(x)
+ ≤C
+ 1
+nθp + t
+
+,
+ sup
+µ1∈H1
+Z
+X
+µ1(x)d
+
+P(w)
+n,S1 −Pn,T
+
+(x)
+
+−sup
+µ1∈H1
+Z
+X
+µ1(x)d
+
+P(w)
+S1 −PT
+
+(x)
+ ≤C
+ 1
+nθp + t
+
+.
+(S14)
+Second, we show
+sup
+µ1∈H1
+Z
+X
+d(x)µ1(x)d
+
+P(w)
+S1 −PT
+
+(x)
+
+≤sup
+µ1∈H1
+Z
+X
+µ1(x)d
+
+P(w)
+S1 −PT
+
+(x)
+
++ Cθγ/2.
+(S15)
+Note that both sup terms are non-negative due to symmetry of H1, so it suffices to show
+sup
+µ1∈H1
+Z
+X
+d(x)µ1(x)d
+
+P(w)
+S1 −PT
+
+(x)
+2
+≤sup
+µ1∈H1
+Z
+X
+µ1(x)d
+
+P(w)
+S1 −PT
+
+(x)
+2
++ C2θγ,
+or equivalently,
+sup
+µ1∈H1
+Z
+X
+µ1(x)d(x)g(x)dx
+2
+≤sup
+µ1∈H1
+Z
+X
+µ1(x)g(x)dx
+2
++ C2θγ,
+where let g(x) = w(1, x)p1(x) −pt(x). Applying Lemma 1 on the supremum terms we can see this
+is equivalent to showing
+ZZ
+K(x, x′)d(x)d(x′)g(x)g(x′)dxdx′ ≤
+ZZ
+K(x, x′)g(x)g(x′)dxdx′ + C2θγ.
+(S16)
+Let g+(x) = max(g(x), 0) and g−(x) = max(−g(x), 0), then g(x) = g+(x) −g−(x), g+(x) ≥0,
+g−(x) ≥0 and g+(x)g−(x) = 0. Then the left-hand side of (S16) equals
+ZZ
+K(x, x′)d(x)d(x′)g+(x)g+(x′)dxdx′ +
+ZZ
+K(x, x′)d(x)d(x′)g−(x)g−(x′)dxdx′
+−2
+ZZ
+K(x, x′)d(x)d(x′)g+(x)g−(x′)dxdx′
+≤
+ZZ
+K(x, x′)g+(x)g+(x′)dxdx′ +
+ZZ
+K(x, x′)g−(x)g−(x′)dxdx′
+=
+ZZ
+K(x, x′)g(x)g(x′)dxdx′ + 2
+ZZ
+K(x, x′)g+(x)g−(x′)dxdx′.
+39
+
+
+===== ORIGINAL PDF PAGE 40 =====
+FORMULA CHECK REQUIRED: original PDF page 40.
+The first inequality is because 0 ≤d(x) ≤1 and g+, g−, K are all non-negative. Note that when
+g+(x) > 0 and g−(x′) > 0, g+(x′) = 0, g+(x) ≤g+(x′) + L∥x −x′∥γ = L∥x −x′∥γ. So the second
+term of the equation above can be controlled by
+Z
+X
+Z
+X
+K(x, x′)g+(x)g−(x′)dxdx′ ≤L
+θp
+Z
+X
+g−(x′)dx′
+Z
+X
+K0(∥x −x′∥
+θ
+)∥x −x′∥γdx
+= Lθγ
+Z
+X
+g−(x′)dx′
+Z
+X/θ−x′/θ
+K0(∥z∥)∥z∥γdz
+= C2θγ.
+Thus, we’ve proved (S16). Combining (S15) and (S16) yields (S13). The desired result immediately
+follows by setting t = hγ/2.
+S1.2
+Proof of Theorem 1 and Corollary 1.1
+For notational simplicity, we will introduce new notation in the proof. The most frequently used no-
+tations are summarized here for easier reference (ξ represents a generic random variable or a function
+of the observed data):
+• w(1) = {wi : i ∈S1}, w(0) = {wi : i ∈S0} and w = (w(1)T, w(0)T)T.
+• H1 = {h ∈H : ∥h∥H ≤1}. F = H ⊕H, F1 = H1 ⊕H1. Elements in F are denoted as
+f = (f (1), f (0)).
+• ns = |S|, nt = |T |, n1 = |S1|, n0 = S0.
+• ¯ξ = Pn,S(ξ) =
+1
+ns
+P
+i∈S ξi, ¯ξ(1) = Pn,S1(ξ) =
+1
+n1
+P
+i∈S1 ξi and ¯ξ(0) = Pn,S0(ξ) =
+1
+n0
+P
+i∈S0 ξi
+denote the sample mean on the source sample, treated group and control group, respectively.
+• For f = (f (1), f (0)) ∈F, we let ¯f (1) =
+1
+n1
+P
+i∈S1 f (1)(Xi) and ¯f (0) =
+1
+n0
+P
+i∈S0 f (0)(Xi).
+• ES(ξ) = E(ξ | S = 1). ET (ξ) = E(ξ | S = 0). ES1(ξ) = E(ξ | S = 1, A = 1). ES0(ξ) =
+E(ξ | S = 1, A = 0). varS1(ξ) = var(ξ | S = 1, A = 1). varS0(ξ) = var(ξ | S = 1, A = 0).
+• π = E(π(X))
+40
+
+
+===== ORIGINAL PDF PAGE 41 =====
+FORMULA CHECK REQUIRED: original PDF page 41.
+Proof. The analysis is broken down the following steps:
+Step 1. Characterize the dual problem of (12).
+Step 2. Solve the limiting problem of the dual problem.
+Step 3. Show the weights converge to the limiting solution.
+In order to keep the main ideas clear, detailed proofs of some intermediate results are deferred as
+lemmas after the main proof.
+Step 1.
+Let F = H ⊕H be the direct sum of two identical RKHS’s H; that is, F is a Hilbert
+space consisting of elements {f = (f (1), f (0)) : f (1), f (0) ∈H} and its inner product is defined by
+⟨f1, f2⟩F = ⟨f (1)
+1 , f (1)
+2 ⟩H + ⟨f (0)
+1 , f (0)
+2 ⟩H.
+Define a linear map M : Rns →F by
+Mw =
+
+
+P
+i∈S1 wiK(Xi, ·)
+P
+i∈S0 wiK(Xi, ·)
+
+.
+We also define hT =
+1
+nt
+P
+i∈T K(Xi, ·) ∈H and
+Λ(x) =
+
+
+
+
+
+
+
+0,
+if P
+i xi = ns,
++∞,
+otherwise.
+Here we loosely define Λ on a Euclidean space without specifying the dimension and use x to denote
+a vector in that Euclidean space. When used below, the dimension could be n1 = |S1| or n0 = |S0|.
+Then the optimization problem (12) is equivalent to minimizing the following (extended real-
+valued) primal p : Rns →R ∪{+∞} defined below:
+p(w) = s(w) + r(Mw),
+where
+s(w) = Λ(w(1)) + Λ(w(0)) + λ
+2
+X
+i∈S
+w2
+i
+and
+r(f) = α
+2 ∥f (1) −nshT ∥2
+H + α
+2 ∥f (0) −nshT ∥2
+H + 1 −α
+2
+∥f (1) −f (0)∥2
+H.
+(S17)
+41
+
+
+===== ORIGINAL PDF PAGE 42 =====
+FORMULA CHECK REQUIRED: original PDF page 42.
+s and r are both convex and lower-semicontinuous functions and so is p. Next we characterize the
+Fenchel–Rockafellar dual (Peypouquet (2015), Section 3.6) of p. Since the dual space of F is itself,
+the dual, denoted by d, is a function on F and has the following form:
+d(f) = s∗(−M ∗f) + r∗(f).
+(S18)
+Here M ∗: F →Rns is the adjoint operator of M, and s∗: Rns →R and r∗: F →R are the Fenchel
+conjugates of r and s respectively. Specifically, M ∗satisfies ⟨M ∗f, ei⟩= ⟨f, Mei⟩F for the standard
+basis vectors e1, ..., ens. By the definition of M,
+⟨M ∗f, ei⟩=
+
+
+
+
+
+
+
+f (1)(Xi),
+if i ∈S1,
+f (0)(Xi),
+if i ∈S0.
+(S19)
+We defer the detailed calculation of s∗and r∗to Lemma 2 below. Using these results we obtain
+d(f) = 1
+2λ
+X
+i∈S1
+(f (1)(Xi) −¯f (1))2 + 1
+2λ
+X
+i∈S0
+(f (0)(Xi) −¯f (0))2
+−ns( ¯f (1) + ¯f (0)) + nsPn,T (f (1) + f (0))
++
+1
+4(2 −α)∥f (1) −f (0)∥2
+H + 1
+4α∥f (1) + f (0)∥2
+H −λn2
+s(n1 + n0)
+2n1n0
+,
+(S20)
+where ¯f (a) =
+1
+na
+P
+i∈Sa f (a)(Xi), a ∈{0, 1}. When α = 0, d(f) = 0 if f (1) + f (0) = 0 and +∞
+otherwise.
+Since p has a minimizer ˆw and r is continuous at M ˆw, by the Fenchel–Rockafellar duality (Pey-
+pouquet (2015), Theorem 3.51), there exists ˆf ∈F such that d( ˆf) = minf∈F d(f) = −p( ˆw), and
+−M ∗ˆf ∈∂s( ˆw). Here ∂s(w) denotes the set of all subgradients of s at w; that is ∂s(w) = {v ∈Rns :
+s(w′) −s(w) ≥⟨v, w′ −w⟩, ∀w′}. It is easy to verify that
+∂s(w) =
+
+
+
+
+
+
+
+λw(1) −γ11
+λw(0) −γ01
+
+: γ1, γ0 ∈R
+
+
+
+
+
+.
+42
+
+
+===== ORIGINAL PDF PAGE 43 =====
+FORMULA CHECK REQUIRED: original PDF page 43.
+Since −M ∗ˆf ∈∂s( ˆw), by (S19) we have
+
+
+
+
+
+
+
+−ˆf (1)(Xi) = λ ˆwi −ˆγ1,
+if i ∈S1,
+−ˆf (0)(Xi) = λ ˆwi −ˆγ0,
+if i ∈S0,
+for some ˆγ1, ˆγ0 ∈R. Recall P
+i∈S1 ˆwi = P
+i∈S0 ˆwi = ns, this implies ˆγa = ¯ˆf (a) + λns
+na for a = 1, 0. In
+other words,
+ˆwi =
+
+
+
+
+
+
+
+
+
+−f (1)(Xi) + ¯ˆf (1)
+λ
++ ns
+n1
+,
+if i ∈S1,
+−f (0)(Xi) + ¯ˆf (0)
+λ
++ ns
+n0
+,
+if i ∈S0.
+(S21)
+Step 2.
+In this part, we study the limiting form of the dual problem to find out what the weight limits
+should be. Note that this is a heuristic procedure to identify the weight limits, and we will rigorously
+prove the convergence results in Step 3.
+Minimizing d(f) over f ∈F is equivalent to minimizing
+1
+ns
+d(f) + λn2
+s(n1 + n0)
+2n1n0
+=
+1
+2λns
+X
+i∈S1
+(f (1)(Xi) −¯f (1))2 +
+1
+2λns
+X
+i∈S0
+(f (0)(Xi) −¯f (0))2
+−( ¯f (1) + ¯f (0)) + Pn,T (f (1) + f (0))
++
+1
+4(2 −α)ns
+∥f (1) −f (0)∥2
+H +
+1
+4αns
+∥f (1) + f (0)∥2
+H.
+(S22)
+We discuss the convergence limit of (S22) in the following cases.
+(Case 1: 0 < α ≤1) For any f ∈F, (S22) converges to the following almost surely as n →∞:
+n π
+2λvarS1(f (1)(X)) −ES1(f (1)(X)) + ET (f (1)(X))
+o
++
+1 −π
+2λ varS0(f (0)(X)) −ES0(f (0)(X)) + ET (f (0)(X))
+
+.
+(S23)
+which is a separable function of f (1) and f (0). Let f ∗= (f ∗(1), f ∗(0)) be the minimizer of (S23), then
+f ∗(1) and f ∗(0) minimize the first and second part of (S23) respectively. To find f ∗(1), we define for
+43
+
+
+===== ORIGINAL PDF PAGE 44 =====
+FORMULA CHECK REQUIRED: original PDF page 44.
+h ∈H,
+J(h) = π
+2λvarS1(h(X)) −ES1(h(X)) + ET (h(X)).
+By the overlap and exchangability assumptions, ES1(ξ) = ES(π(X)
+π ξ) and ET (ξ) = ES( pt(X)
+ps(X)ξ) for an
+r.v. ξ. Hence, J(h) =
+1
+2λES(π(X)h(X)2) −π
+2λ
+
+ES
+
+π(X)
+π h(X)
+2
+−ES
+
+π(X)
+π
+−pt(X)
+ps(X)
+
+h(X)
+
+.
+Next we solve for the minimizer of J(·), denoted by f ∗(1), ignoring the functional restriction of
+H. Using a functional differentiation argument we can show that f ∗(1) must satisfy
+1
+λπ(x)f ∗(1)(x) −1
+λES
+π(X)
+π
+f ∗(1)(X)
+
+π(x) +
+π(x)
+π
+−pt(x)
+ps(x)
+
+= 0.
+Solving this yields
+f ∗(1)(x) = −λ
+pt(x)
+ps(x)π(x) + C1.
+C1 here is any constant. Plugging this into (S21) and replacing ns
+n1 with 1
+π yields
+pt(x)
+ps(x)π(x), regardless the
+value of C1. By a similar argument we can obtain f ∗(0)(x) = −λ
+pt(x)
+ps(x)(1−π(x)) + C0 and an associated
+weighting function
+pt(x)
+ps(x)(1−π(x)). Therefore, the weight limit can be summarized as
+w∗(a, x) = pt(x)
+ps(x)
+ a
+π(x) +
+1 −a
+1 −π(x)
+
+.
+(Case 2: α = 0) For any f ∈F, (S22) converges to the following almost surely:
+
+
+
+
+
+
+
+
+
+π
+2λvarS1(h(X)) + 1 −π
+2λ varS0(h(X)) + ES0(h(X)) −ES1(h(X)),
+if f (1) = −f (0) = h
++∞,
+otherwise.
+(S24)
+The finite part can be written as J(h) =
+π
+2λvarS1(h(X)) + 1 −π
+2λ varS0(h(X)) + ES0(h(X)) −
+ES1(h(X)). By a functional differentiation argument we can see the minimizer of J(·) must satisfy
+1
+λh(x)−1
+λES
+π(X)
+π
+h(X)
+
+π(x)−1
+λES
+1 −π(X)
+1 −π
+h(X)
+
+(1−π(x))+
+1 −π(X)
+1 −π
+−π(X)
+π
+
+= 0.
+44
+
+
+===== ORIGINAL PDF PAGE 45 =====
+FORMULA CHECK REQUIRED: original PDF page 45.
+Solving this yields
+f ∗(1)(x) = −f ∗(0)(x) =
+λπ(x)
+ES{π(X)(1 −π(X))} + C.
+Regardless of the value of C, the associated weighting function is
+w†(a, x) = a(1 −π(x)) + (1 −a)π(x)
+ES{π(X)(1 −π(X))}
+.
+Step 3.
+Our analysis of this part is adapted from the proof of Theorem 1 in Hirshberg and Wager
+(2017).
+(Case 1: 0 < α ≤1) Let w∗
+i = w∗(Ai, Xi). We consider the following function on F:
+˜d(f) = λ
+2
+X
+i∈S1
+−f (1)(Xi) + ¯f (1)
+λ
++ ns
+n1
+−w∗
+i
+2
++ λ
+2
+X
+i∈S0
+−f (0)(Xi) + ¯f (0)
+λ
++ ns
+n0
+−w∗
+i
+2
++
+1
+4(2 −α)∥f (1) −f (0)∥2
+H + 1
+4α∥f (1) + f (0)∥2
+H
+(S25)
+and let ˜f = ( ˜f (1), ˜f (0)) be its minimizer of ˜d(f) and let { ˜wi} be the weights obtained by plugging ˜f
+into (S21). For any f ∈F, write δ = f −˜f = (f (1) −˜f (1), f (0) −˜f (0)). Next we will first show
+d( ˜f + δ) −d( ˜f) is negative only if varS1(δ(1)) and varS0(δ(0)) are both small, which then implies ˆw is
+close to ˜w. Then we prove ˆw is close to w∗by showing ˜w is.
+Since ˜f is the minimizer of ˜d, for any δ we have
+0 = lim
+t→0
+˜d( ˜f + tδ) −˜d( ˜f)
+t
+= −
+X
+i∈S1
+(δ(1)(Xi) −¯δ(1))( ˜wi −w∗
+i ) −
+X
+i∈S0
+(δ(0)(Xi) −¯δ(0))( ˜wi −w∗
+i )
++
+1
+2(2 −α)⟨˜f (1) −˜f (0), δ(1) −δ(0)⟩H + 1
+2α⟨˜f (1) + ˜f (0), δ(1) + δ(0)⟩H.
+(S26)
+45
+
+
+===== ORIGINAL PDF PAGE 46 =====
+FORMULA CHECK REQUIRED: original PDF page 46.
+Define R(δ) =
+1
+nsd( ˜f + δ) −1
+nsd( ˜f). We rearrange R(δ) as
+R(δ) =
+1
+2λns
+X
+i∈S1
+(δ(1)(Xi) −¯δ(1))2 +
+1
+2λns
+X
+i∈S0
+(δ(0)(Xi) −¯δ(0))2
+−1
+ns
+X
+i∈S1
+˜wi(δ(1)(Xi) −¯δ(1)) −1
+ns
+X
+i∈S0
+˜wi(δ(0)(Xi) −¯δ(0))+
+−(¯δ(1) + ¯δ(0)) + Pn,T (δ(1) + δ(0))
++
+1
+4(2 −α)ns
+∥f (1) −f (0) + δ(1) −δ(0)∥2
+H +
+1
+4αns
+∥f (1) + f (0) + δ(1) + δ(0)∥2
+H
+−
+1
+4(2 −α)ns
+∥f (1) −f (0)∥2
+H +
+1
+4αns
+∥f (1) + f (0)∥2
+H.
+Subtracting
+1
+ns times the right-hand side of (S26) from R(δ) we have
+R(δ) = G(δ) −H(δ) +
+1
+4(2 −α)ns
+∥δ(1) −δ(0)∥2
+H +
+1
+4αns
+∥δ(1) + δ(0)∥2
+H,
+where
+G(δ) =
+1
+2λns
+X
+i∈S1
+(δ(1)(Xi) −¯δ(1))2 +
+1
+2λns
+X
+i∈S0
+(δ(0)(Xi) −¯δ(0))2,
+H(δ) = 1
+ns
+X
+i∈S1
+w∗
+i (δ(1)(Xi) −¯δ(1)) + 1
+ns
+X
+i∈S0
+w∗
+i (δ(0)(Xi) −¯δ(0))
++ ¯δ(1) + ¯δ(0) −Pn,T (δ(1) + δ(0)).
+(S27)
+By Lemma 3 and Lemma 4 below, for any ϵ > 0, there exists rn = o(n−1
+4), nr2
+n →∞, such that
+on an event with probability at least 1 −C(ϵ +
+1
+nr2n) (here C is a constant not related to n), for all
+ζ ∈F1,
+|H(ζ)| ≤r2
+n
+if varS1(ζ(1)) ≤r2
+n and varS0(ζ(0)) ≤r2
+n,
+(S28)
+1
+na
+X
+i∈Sa
+(ζ(a)(Xi) −¯ζ(a))2 ≥1
+2varSa(ζ(a)),
+if varSa(ζ(a)) ≥r2
+n.
+(S29)
+We will show
+1
+ns
+P
+i∈S( ˆwi −˜wi)2 ≤tnr2
+n on this event, where
+tn = max
+4λns
+n1
+, 4λns
+n0
+, 4 max{α, 2 −α}nsr2
+n
+
+.
+First consider the situation where δ/tn ∈F1, i.e., ∥δ(a)∥H ≤tn for a = 1, 0. If varSa(δ(a)) ≤
+46
+
+
+===== ORIGINAL PDF PAGE 47 =====
+FORMULA CHECK REQUIRED: original PDF page 47.
+(tnrn)2 for a = 1, 0, then varSa(δ(a)/tn) ≤r2
+n, so |H(δ)| = tn|H(δ/tn)| ≤tnr2
+n, where the inequality
+follows from (S28). So we have
+R(δ) ≥G(δ) −|H(δ)| ≥G(δ) −tnr2
+n.
+So R(δ) can be only negative when G(δ) ≤tnr2
+n. If instead varSa(δ(a)) > (tnrn)2 for a = 1 or 0,
+let β = max{
+p
+varS1(δ(1)),
+p
+varS0(δ(0))}. Obviously β > tnrn. Let δ′ = rnδ/β, then ∥δ′(a)∥H =
+∥δ(a)∥Hrn
+β
+≤tnrn
+β
+≤1, and varSa(δ(a)) = varSa(δ(a))r2
+n
+β2
+≤r2
+n, so |H(δ′)| ≤r2
+n by (S28), which implies
+|H(δ)| = β|H(δ′)|/rn ≤βrn ≤β2/tn. If β =
+p
+varS1(δ(1)), then by (S29)
+R(δ) ≥G(δ) −|H(δ)| ≥
+n1
+4λns
+β2 −1
+tn
+β2 ≥0.
+The last inequality is because tn ≥4λns
+n1 . If β =
+p
+varS0(δ(0)), similarly R(δ) ≥0 as tn ≥4λns
+n0 .
+Next, we consider the situation where ∥δ(a)∥H > tn for a = 1 or 0, and show that R(δ) is non-
+negative. Let k = max{∥δ(1)∥H, ∥δ(0)∥H}/tn > 1 and δ′ = δ/k. Then ∥δ′(a)∥H ≤tn for a = 1, 0 and
+equality holds for at least one of them.
+R(δ) −kR(δ′) = (k2 −k)G(δ′) −(k −k)H(δ′)
++
+k2 −k
+4(2 −α)ns
+∥δ′(1) −δ′(0)∥2
+H + k2 −k
+4αns
+∥δ′(1) + δ′(0)∥2
+H ≥0.
+Hence, R(δ) ≥kR(δ′) ≥R(δ′).
+Next we show the non-negativity of R(δ′). Note that ∥δ′(a)∥H ≤tn, so we can reuse the results
+from the previous situation. If varSa(δ′(a)) > (tnrn)2 for a = 1 or 0, we have shown R(δ′) ≥
+G(δ′) −|H(δ′)| ≥0. If varSa(δ(a)) ≤(tnrn)2 for a = 1, 0, we have shown |H(δ′)| ≤tnr2
+n. Since
+∥δ′(1) −δ′(0)∥2
+H + ∥δ′(1) + δ′(0)∥2
+H = 2(∥δ′(1)∥2
+H + ∥δ′(0)∥2
+H) ≥2t2
+n, ∥δ′(1) −δ′(0)∥H or ∥δ′(1) + δ′(0)∥H
+must be no less than tn. Suppose ∥δ′(1) −δ′(0)∥H ≥tn, then we can lower bound R(δ′) by
+R(δ′) ≥G(δ) −|H(δ)| + ∥δ(1) −δ(0)∥2
+H
+4(2 −α)ns
+≥−tnr2
+n +
+t2
+n
+4(2 −α)ns
+.
+The right-hand side is non-negative when tn ≥4(2 −α)nsr2
+n. If ∥δ(1) −δ(0)∥H < tn, then ∥δ′(1) +
+47
+
+
+===== ORIGINAL PDF PAGE 48 =====
+FORMULA CHECK REQUIRED: original PDF page 48.
+δ′(0)∥H ≥tn, and a similar argument can be used to show R(δ′) ≥0 when tn ≥4αnsr2
+n.
+Therefore, we have shown that on an event with probability 1 −C(ϵ +
+1
+nr2n), R(δ) ≤0 only when
+G(δ) ≤tnr2
+n. This is the case for ˆδ = ˆf −˜f because ˜f + ˆδ is the minimizer d(f). As a result,
+G(ˆδ) ≤tnr2
+n. This can be rewritten as
+λ
+2ns
+P
+i∈S( ˆwi −˜wi)2 ≤tnr2
+n as ˆwi −˜wi = {ˆδ(a)(Xi) −¯ˆδ(a)}/λ
+for i ∈Sa by (S21). Recall rn = o(n−1
+4), then tn is also O(√n), and thus tnr2
+n →0. Therefore,
+for any small positive numbers η1, η2, we set ϵ =
+η2
+2C and let n be large enough that tnr2
+n ≤η1 and
+nr2
+n ≥2C
+η2 , then
+P
+ 
+λ
+ns
+X
+i∈S
+( ˆwi −˜wi)2 > η1
+!
+≤P
+ 
+λ
+ns
+X
+i∈S
+( ˆwi −˜wi)2 > tnr2
+n
+!
+≤η2.
+This implies
+1
+ns
+P
+i∈S( ˆwi −˜wi)2
+p
+−→0.
+Now we show
+1
+ns
+P
+i∈S( ˜wi −w∗
+i )2 →0. By the universality of H, for f ∗(1)(x) = −λ
+pt(x)
+ps(x)π(x)
+and f ∗(0)(x) = −λ
+pt(x)
+ps(x)(1−π(x)) there exist two sequences of functions {h(1)
+j }, {h(0)
+j } ⊂H such that
+h(a)
+j
+−f ∗(a)
+∞→0 for a = 1, 0, where ∥·∥∞is the supremum norm. Denote by vj = (vji)i∈S the
+weights associated with hj = (h(1)
+j , h(0)
+j ), then maxi∈S |vji −w∗
+i | →0. We can find a subsequence of
+{hj} (possibly with repetition), {hjn} such that ∥h(1)
+jn −h(0)
+jn ∥H/√ns →0 and ∥h(1)
+jn + h(0)
+jn ∥H/√ns →
+0. Hence,
+1
+ns
+X
+i∈S
+( ˜wi −w∗
+i )2 ≤
+2
+λns
+˜d( ˜f) ≤
+2
+λns
+˜d(hjn) ≤max
+i∈S (vjni −w∗
+i )2 + ∥h(1)
+jn −h(0)
+jn ∥2
+H
+2λ(2 −α)ns
++ ∥h(1)
+jn + h(0)
+jn ∥2
+H
+2λαns
+converges 0.
+Therefore,
+1
+ns
+P
+i∈S( ˆwi −w∗
+i )2
+p
+−→0 as the square root of it is no greater than
+q
+1
+ns
+P
+i∈S( ˆwi −˜wi)2 +
+q
+1
+ns
+P
+i∈S( ˜wi −w∗
+i )2 according to the triangle inequality.
+(Case 2: α = 0) Since d(f) equals +∞when f (1) + f (0)̸ = 0, we view it as a function on h by
+restricting f (1) = −f (0) = h:
+d(h) = 1
+2λ
+X
+i∈S1
+(h(Xi) −¯h(1))2 + 1
+2λ
+X
+i∈S0
+(h(Xi) −¯h(0))2 + 1
+2∥h∥2
+H.
+48
+
+
+===== ORIGINAL PDF PAGE 49 =====
+FORMULA CHECK REQUIRED: original PDF page 49.
+We still define ˜d as (S25) but restrict f (1) = −f (0) = h and replace w∗with w†:
+˜d(h) = λ
+2
+X
+i∈S1
+−h(Xi) + ¯h(1)
+λ
++ ns
+n1
+−w†
+i
+2
++ λ
+2
+X
+i∈S0
+−h(Xi) + ¯h(0)
+λ
++ ns
+n0
+−w†
+i
+2
++ 1
+2∥h∥2
+H.
+Similarly, let ˜h be the minimizer of ˜d(h) and write δ = h −˜h. For any δ, by the optimality of ˜h we
+have
+0 = lim
+t→0
+˜d(˜h + tδ) −˜d(˜h)
+t
+= −
+X
+i∈S1
+(δ(Xi) −¯δ(1))( ˜wi −w†
+i) +
+X
+i∈S0
+(δ(Xi) −¯δ(0))( ˜wi −w†
+i) + ⟨˜h, δ⟩H.
+(S30)
+Define R(δ) =
+1
+nsd(˜h + δ) −1
+nsd(˜h). We rearrange R(δ) as
+R(δ) =
+1
+2λns
+X
+i∈S1
+(δ(Xi) −¯δ(1))2 +
+1
+2λns
+X
+i∈S0
+(δ(Xi) −¯δ(0))2
+−1
+ns
+X
+i∈S1
+˜wi(δ(Xi) −¯δ(1)) + 1
+ns
+X
+i∈S0
+˜wi(δ(Xi) −¯δ(0))
+−(¯δ(1) −¯δ(0)) + 1
+2ns
+∥˜h + δ∥2
+H −1
+2ns
+∥˜h∥2
+H.
+Subtracting
+1
+ns times the right-hand side of (S30) from R(δ) we have
+R(δ) = G(δ) −H(δ) + 1
+2ns
+∥δ∥2
+H,
+where
+G(δ) =
+1
+2λns
+X
+i∈S1
+(δ(Xi) −¯δ(1))2 +
+1
+2λns
+X
+i∈S0
+(δ(Xi) −¯δ(0))2
+H(δ) = 1
+ns
+X
+i∈S1
+w†
+i(δ(Xi) −¯δ(1)) −1
+ns
+X
+i∈S0
+w†
+i(δ(Xi) −¯δ(0)) + (¯δ(1) −¯δ(0)).
+(S31)
+By Lemma 3 and Lemma 5 below, there exists rn = o(n−1
+4) such that on an event with probability
+49
+
+
+===== ORIGINAL PDF PAGE 50 =====
+FORMULA CHECK REQUIRED: original PDF page 50.
+at least 1 −C(ϵ +
+1
+nr2n), for all ξ ∈H1,
+|H(ξ)| ≤r2
+n
+if varS1(ξ) ≤r2
+n and varS0(ξ) ≤r2
+n,
+(S32)
+1
+na
+X
+i∈Sa
+(ξ(Xi) −¯ξ(a))2 ≥1
+2varSa(ξ),
+if varSa(ξ) ≥r2
+n.
+(S33)
+Similar as the previous case, we first show
+1
+ns
+P
+i∈S( ˆwi −˜wi)2 ≤tnr2
+n, where
+tn = max
+4λns
+n1
+, 4λns
+n0
+, 2nsr2
+n
+
+.
+Consider the situation where ∥δ∥H ≤tn. Following the same argument in Case 1 (except that β
+should be changed to max{
+p
+varS1(δ),
+p
+varS0(δ)}) we can show R(δ) is negative only when G(δ) ≤
+tnr2
+n given tn ≥max{4λns
+n1 , 4λns
+n0 }.
+Next, we consider the situation where ∥δ∥H > tn and show R(δ) is non-negative. Let k =
+∥δ∥H/tn > 1 and δ′ = δ/k. Again we have R(δ) ≥kR(δ′) ≥R(δ′) because
+R(δ) −kR(δ′) = (k2 −k)G(δ′) −(k −k)H(δ′) + (k2 −k)∥δ∥2
+H
+2ns
+≥0.
+Next we show the non-negativity of R(δ′), which then implies R(δ) ≥0. Since ∥δ′∥H ≤tn, we can
+reuse the results from the previous situation. If varSa(δ′) > (tnrn)2 for a = 1 or 0, we have shown
+R(δ′) ≥G(δ′) −|H(δ′)| ≥0. If varSa(δ) ≤(tnrn)2 for a = 1, 0, we have |H(δ′)| ≤tnr2
+n. Then we
+can lower bound R(δ′) by
+R(δ′) ≥G(δ) −|H(δ)| + ∥δ∥2
+H
+2ns
+≥−tnr2
+n + t2
+n
+2ns
+.
+The right-hand side is non-negative when tn ≥2nsr2
+n.
+Therefore, R(δ) can only be negative when G(δ) ≤tnr2
+n. Then using the same argument as in
+Case 1, we conclude that
+1
+ns( ˆwi −˜wi)2
+p
+−→0. For h†(x) =
+λπ(x)
+ES{π(X)(1−π(X))}, there exists a sequence
+{hj} ⊂H such that ∥hj −h∥∞→0, and we can find a subsequence with ∥hjn∥H/√ns →0.
+Then
+1
+ns
+P
+i∈S( ˜wi −w†
+i)2 ≤
+2
+λns ˜d(˜h) ≤
+2
+λns ˜d(hjn) →0. By the triangle inequality we conclude
+1
+ns
+P
+i∈S( ˆwi −w†
+i)2
+p
+−→0.
+50
+
+
+===== ORIGINAL PDF PAGE 51 =====
+FORMULA CHECK REQUIRED: original PDF page 51.
+Lemma 2. The functions s and r defined in (S17) have the following Fenchel conjugates:
+s∗(v) = 1
+2λ
+X
+i∈S1
+(vi −¯v(1))2 + 1
+2λ
+X
+i∈S0
+(vi −¯v(0))2 + ns(¯v(1) + ¯v(0)) −λn2
+s(n1 + n0)
+2n1n0
+(S34)
+r∗(g) =
+1
+4(2 −α)∥f (1) −f (0)∥2
+H + 1
+4α∥f (1) + f (0)∥2
+H + nsPn,T (f (1) + f (0)).
+(S35)
+Proof. Calculation of s∗: We write s as s(w) = s0(w(1)) + s0(w(0)), where s0(x) = Λ(x) + λ
+2
+P
+i x2
+i .
+Similar to Λ, here we define s0 on a Euclidean space without specifying the dimension. The conjugate
+of s0 is defined on the same Euclidean space:
+s∗
+0(y) = sup
+x {⟨y, x⟩−s0(x)} =
+sup
+x:1Tx=ns
+
+yTx −λ
+2 ∥x∥2
+2
+	
+.
+By the KKT conditions of this constrained optimization problem, there exists γ ∈R such that the
+solution x∗satisfies y −λx∗+ γ1 = 0 and 1Tx∗= ns. Solving them yields γ =
+λns
+nx −¯y and
+x∗= y−¯y1
+λ
++ ns
+nx1, where nx is the dimension of x and y. So s∗
+0(y) = yTx∗−λ
+2 ∥x∗∥2
+2 =
+1
+2λ
+P
+i(yi −
+¯y)2 + ns¯y −n2
+sλ
+2nx. Then we can calculate s∗as below: for v = (v(1), v(0)) ∈Rn1 ⊕Rn0,
+s∗(v) = sup
+w(1)
+
+⟨v(1), w(1)⟩−s0(w(1))
+	
++ sup
+w(0)
+
+⟨v(0), w(0)⟩−s0(w(0))
+	
+= s∗
+0(v(1)) + s∗
+0(v(0))
+= 1
+2λ
+X
+i∈S1
+(vi −¯v(1))2 + 1
+2λ
+X
+i∈S0
+(vi −¯v(0))2 + ns(¯v(1) + ¯v(0)) −λn2
+s(n1 + n0)
+2n1n0
+.
+Calculation of r∗: For f =∈F, by definition r∗(f) = supg∈F{⟨f, g⟩F −α
+2 ∥g(1) −nshT ∥2
+H + α
+2 ∥g(0) −
+nshT ∥2
+H + 1−α
+2 ∥g(1) −g(0)∥2
+H}. Using functional differentiation we can see that the solution of the
+51
+
+
+===== ORIGINAL PDF PAGE 52 =====
+FORMULA CHECK REQUIRED: original PDF page 52.
+optimization problem satisfies
+
+
+
+
+
+
+
+g∗(1) + (α −1)g∗(0) = αnshT −f (1),
+(α −1)g∗(1) + g∗(0) = αnshT −f (0).
+.
+Then we can solve for g∗and plug it into r∗(f) = ⟨f, g∗⟩F −r(g∗), which gives
+r∗(g) =
+1
+4(2 −α)∥f (1) −f (0)∥2
+H + 1
+4α∥f (1) + f (0)∥2
+H + ns⟨f (1) + f (0), hT ⟩H.
+By the reproducing property of H, ⟨f (1) + f (0), hT ⟩H = Pn,T (f (1) + f (0)) and (S35) immediately
+follows.
+Lemma 3. There exists rn = o(n−1
+4) such that for all r ≥rn the following holds with probability at
+least 1 −2 exp{−cHnr2} −4
+n:
+Pn(ξ −Pnξ)2 ≥1
+2var(ξ)
+as long as ξ ∈H1 with var(ξ) ≥r2. Here cH is a constant solely depending on H1.
+Proof. Since H1 is P-Donsker, Hirshberg and Wager (2017) showed in their proof of Theorem 1:
+there exists rn = o(n−1
+4) such that with probability at least 1 −2 exp{−cHnr2
+n},
+Pnh2 ≥3
+4Eh2.
+as long as h ∈H1 and Ph2 ≥r2
+n (their ηQ is set as 3
+4 here). Here cH is a constant solely depending on
+H1. The result also holds if we replace rn with any r ≥rn. We write
+Pn(ξ −¯ξ)2 = Pn(ξ −Eξ)2 −(Eξ −¯ξ)2.
+When var(ξ) = E(ξ −Eξ)2 ≥r2
+n, the first term is lower bounded by 3
+4var(ξ). As for the second term,
+we apply the Chebyshev’s inequality,
+P
+ 
+|Eξ −¯ξ| >
+p
+var(ξ)
+2
+!
+≤
+var(¯ξ)
+var(ξ)/4 = 4
+n.
+52
+
+
+===== ORIGINAL PDF PAGE 53 =====
+FORMULA CHECK REQUIRED: original PDF page 53.
+So the desired inequality holds with probability at least 1 −2 exp{−cHnr2
+n} −4
+n.
+Lemma 4. Define H : F →R as in (S27). For any positive ϵ, there exist rn = o(n−1
+4), nr2
+n →∞,
+such that for all r ≥rn the following holds with probability at least 1 −C(ϵ +
+1
+nr2n), where C is a
+constant related to π(X):
+|H(ζ)| ≤r2
+n
+as long as ζ ∈F1 and varSa(ζ(a)) ≤r2
+n for both a = 1, 0.
+Proof. For any ζ ∈F1, we can write H(ζ) = H1(ζ(1)) + H0(ζ(0)), where
+H1(h) = 1
+ns
+X
+i∈S1
+w∗
+i (h(Xi) −¯h(1)) + ¯h(1) −Pn,T h
+H0(h) = 1
+ns
+X
+i∈S0
+w∗
+i (h(Xi) −¯h(0)) + ¯h(0) −Pn,T h.
+Recall that for i ∈S1, w∗
+i = w∗(1, Xi) and note that ES[Aw∗(1, X)h(X)] = ET [h(X)] for all
+integrable h(X). We can rearrange H1(h) as
+H1(h) = 1
+ns
+X
+i∈S
+Aiw∗
+i (h(Xi) −¯h(1)) −Pn,T (h −¯h(1))
+= 1
+ns
+X
+i∈S
+Aiw∗
+i (h(Xi) −ES1h) −Pn,T (h −ES1h) + ( 1
+ns
+X
+i∈S
+Aiw∗
+i −1)(ES1h −¯h(1))
+= (Pn,S −PS)[Aw∗(1, X)(h(X) −ES1h)]
+(S36)
+−{(Pn,T −PT )(h(X) −ES1h)}
+(S37)
++ ( 1
+ns
+X
+i∈S
+Aiw∗(1, Xi) −1)(ES1h −¯h(1)).
+(S38)
+By the overlap assumption Aw∗(1, x) ≤
+pt(x)
+π(x)ps(x) is upper bounded. Then the function class consist-
+ing of only aw∗(1, x) is obviously uniformly bounded and P-Donsker. Since H1 is also uniformly
+bounded as |h(x)| = |⟨h, K(x, ·)⟩|H ≤∥h∥H
+p
+K(x, x) ≤
+p
+K(x, x) for all h ∈H1, then by
+Kosorok (2007), Corollary 9.31 (iii), {Aw∗(1, X)h : h ∈H1} is also a P-Donsker class. Suppose
+53
+
+
+===== ORIGINAL PDF PAGE 54 =====
+FORMULA CHECK REQUIRED: original PDF page 54.
+pt(x)
+π(x)ps(x) ≤M. Hirshberg and Wager (2017) showed in their proof of Theorem 1: on an event with
+probability at least 1 −ϵ, where ϵ can be arbitrarily small, there exists r′
+1,1,n = o(n−1
+4) such that for
+all r ≥r′
+1,1,n the following holds:
+(Pn,S −ES)(Aw∗(1, X)g(X)) ≤r′2
+1,1,n
+6πM 2,
+when ES(Aw∗(1, X)g(X))2 ≤r′2
+1,1,n (their ηM is set as
+1
+6πM2 here). The result still holds when we
+replace r′
+1,1,n with any r ≥r′
+1,1,n.
+Let r1,1,n = r′
+1,1,n/(√πM). {r1,1,n} is also o(n−1
+4). When varS1(h) ≤r2
+1,1,n, ES(Aw∗(1, X)[h(X)−
+ES1h(X)])2 ≤r′2
+1,1,n, and thus we can upper bound (S36) by
+r′2
+1,1,n
+6πC2 ≤
+r2
+1,1,n
+6 . Since H1 is P-Donsker,
+using the same argument we can find r1,2,n = o(n−1
+4) and bound (S37) by
+r2
+1,2,n
+6
+with probability at
+least 1 −ϵ.
+Let r1,n = max{r1,1,n, r1,2,n, n−1
+3}, then on an event with probability at least 1 −2ϵ, (S36) and
+(S37) are both bounded by
+r2
+1,n
+6 when var(h) ≤r2
+1,n. By Chebyshev’s inequality,
+P(|¯h(1) −Eh| >
+p
+varS1(h)) ≤1
+n1
+P(| 1
+ns
+X
+i∈S
+Aiw∗(1, Xi) −1| > r1,n
+6 ) ≤
+σ2
+nr2
+1,n
+,
+where σ2 = varS(Aw(1, X)). So with probability at least 1 −
+1
+n1 −
+σ2
+nr2
+1,n, the magnitude of (S38)
+is also bounded by
+p
+varS1(h)r1,n
+6
+≤
+r2
+1,n
+6 . Therefore, with probability at least 1 −
+1
+n1 −
+1
+n1r2
+1,n −2ϵ,
+H1(h) ≤
+r2
+1,n
+2 . The inequality also holds when r1,n is substituted with any r ≥r1,n.
+For the same reason there exists r0,n = o(n
+1
+4) such that with probability at least 1−1
+n0 −
+1
+n0r2
+0,n −2ϵ,
+H0(h) ≤r2 when varS0(h) ≤r2 for all r ≥r0,n. Finally we let rn = max{r1,n, r0,n}, then the desired
+result follows.
+Lemma 5. Define H : H →R as in (S31). For any positive ϵ, there exist rn = o(n−1
+4), nr2
+n →∞,
+such that for all r ≥rn the following holds with probability at least 1 −C(ϵ +
+1
+nr2), where C is a
+54
+
+
+===== ORIGINAL PDF PAGE 55 =====
+FORMULA CHECK REQUIRED: original PDF page 55.
+constant related to π(X):
+|H(ζ)| ≤r2
+as long as ζ ∈H1 and varSa(ζ) ≤r2 for both a = 1, 0.
+Proof. Recall wi = w(Ai, Xi) and note that ES[Aw(1, X)f(X)] = ES[(1 −A)w(0, X)f(X)]. We
+can rearrange H(f) as
+H(ζ) = (Pn,S −PS){Aw(1, X)(ζ(X) −ES1ζ(X))}
+−(Pn,S −PS){(1 −A)w(0, X)(ζ(X) −ES0ζ(X))}
+−( 1
+ns
+Aiwi −1)(¯ζ(1) −ES1ζ) + ( 1
+ns
+(1 −Ai)wi −1)(¯ζ(0) −ES0ζ).
+(S39)
+Following the same arguments as in the proof of Lemma 4, there exists rn = o(n−1
+4), nr2
+n →∞, such
+that with probability at least 1 −C(ϵ +
+1
+nr2n), each of terms above can be bounded by r2
+4 as long as
+r ≥rn, ζ ∈H1 and varSa(ζ) ≤r2 for a = 1, 0. Then the desired result immediately follows.
+Proof of Corollary 1.1.
+We rewrite bVn(d; w) =
+1
+ns
+P
+i∈S wi1(Ai = d(Xi))Yi When α > 0,
+|bVn(d; w) −bVn(d; w∗)| = | 1
+ns
+X
+i∈S
+( ˆwi −w∗
+i )1(Ai = d(Xi))Yi|
+≤
+s
+1
+ns
+X
+i∈S
+( ˆwi −w∗
+i )2
+s
+1
+ns
+X
+i∈S
+1(Ai = d(Xi))Y 2
+i
+≤
+s
+1
+ns
+X
+i∈S
+( ˆwi −w∗
+i )2
+s
+1
+ns
+X
+i∈S
+Y 2
+i .
+The first inequality follows from the Cauchy–Schwarz inequality, and the last one is because 1(Ai =
+d(Xi)) ≤1. Since the potential outcomes are square integrable,
+1
+ns
+P
+i∈S Y 2
+i is of order Op(1). Then
+|bVn(d; w) −bVn(d; w∗)|
+p
+−→0 as
+1
+ns
+P
+i∈S( ˆwi −w∗
+i )2
+p
+−→0 by Theorem 1. By the law of large
+numbers bVn(d; w∗)
+p
+−→VT (d), and bVn(d; ˆw) converges to the same limit in probability. The result
+for α = 0 follows from a similar argument.
+55
+
+
+===== ORIGINAL PDF PAGE 56 =====
+FORMULA CHECK REQUIRED: original PDF page 56.
+S2
+Computation
+In this section, we discuss the computational details of our proposed methods. In particular, we show
+that the optimization problem of finding the weights is a quadratic program and we also propose an
+algorithm for the tuning parameters (α and λ) selection.
+S2.1
+Finite sample representation
+Since H is an infinite-dimensional function space, direct evaluation and optimization of (12) may
+appear intractable. The following lemma is based on Lemma 6 of Gretton et al. (2012) and provides
+a finite sample representation for the MMDH between two (weighted) empirical distributions.
+Lemma 6. Let P = P
+i∈IP piδxi and Q = P
+j∈IQ qjδxj be two discrete probability distributions on
+X. Here IP and IQ are two finite index sets, and {pi, i ∈IP} and {qj, j ∈IQ} are point mass that
+satisfy P
+i∈IP pi = P
+i∈IQ qi = 1. Then
+MMDH(P, Q)2 =
+X
+i∈IP
+X
+i′∈IP
+pipi′K(xi, xi′) +
+X
+j∈IQ
+X
+j′∈IQ
+qjqj′K(xj, xj′) −2
+X
+i∈IP
+X
+j∈IQ
+piqjK(xi, xj).
+We can apply Lemma 6 to evaluate the MMDH terms in (12). Specifically, denote KSa,Sa′ =
+(K(xi, xj))i∈Sa,j∈Sa′ for a, a′ ∈{0, 1}, and KSa,T = (K(xi, xj))i∈Sa,j∈T . Let w be a vector of length
+ns by stacking (wi)i∈S1 and (wi)i∈S0. By Lemma 6, we can write each of the MMDH terms in (12) as
+a quadratic function of w. Then the optimization objective of (12) can be rearranged as
+wTΣw −2bTw + c
+with
+Σ = 1
+n2
+s
+
+
+KS1,S1 + λI
+(α −1)KS1,S0
+(α −1)KS0,S1
+KS0,S0 + λI
+
+, b =
+α
+nsnt
+
+
+KS1,T 1
+KS0,T 1
+
+, c = 2α
+n2
+t
+X
+i∈T
+X
+j∈T
+K(xi, xj).
+Here 1 is a vector of 1’s. The matrix Σ is positive definite, and the constraints in (12) are linear. So
+56
+
+
+===== ORIGINAL PDF PAGE 57 =====
+FORMULA CHECK REQUIRED: original PDF page 57.
+the optimization problem is convex and its global optima exists. We can solve this problem using
+standard quadratic programming tools.
+S2.2
+Hyperparameter selection
+There are two hyperparameters controlling the result of (12). The hyperparameter α controls the ex-
+tent to which the weighted source sample should resemble the target sample, and λ regularizes the
+smoothness of the weights. In this section we propose a heuristic procedure to select the hyperparam-
+eters by grid search. Before discussing the details and motivation of the procedure, we first outline
+the procedure:
+Algorithm 1. Tuning parameter selection procedure
+Input: A grid of values for α: {αj}J
+j=1 where 0 = α1 < α2 < · · · < αJ = 1 and a grid for λ:
+{λl}L
+l=1 where 0 < λ1 < λ2 < · · · < λL
+for each αj ∈{αj}J
+j=1 do
+for each λl ∈{λl}L
+l=1 do
+Optimize (12) to obtain weights ˆw ;
+Record the resulting treatment-control imbalance using the MMD criterion on a
+subsample
+Given αj, choose the λl (denoted by λαj) that results in the minimum treatment-control
+imbalance and evaluate the resulting ITR’s value function on the target sample;
+Output the pair (αj, λαj) that results in an ITR with the largest value
+For each α in a grid over [0, 1], we first select λ based on treatment-control balance. As discussed
+in Section 3.2, if the distribution of confounders in the treated and control groups is not well balanced,
+then the ITR may be biased towards the treatment assignment in the observed data. For each λ, we
+calculate the weights under (α, λ), and evaluate the MMDH between the weighted treated group and
+the weighted control group. To obtain an “honest” evaluation, we compute this quantity on subsam-
+ples of the source sample instead of the entire source sample, and use the average result computed
+57
+
+
+===== ORIGINAL PDF PAGE 58 =====
+FORMULA CHECK REQUIRED: original PDF page 58.
+from many subsamples as the selection criterion. With a right penalization level, the weights are ro-
+bust to sampling variation and lead to small imbalance on the subsamples. In this way, the degree
+of weight penalization λ and treatment-control balance are not necessarily competing directly. In our
+implementation, the size of subsample is set as 80% of the source sample, and the computation is
+done on 50 subsamples. Then the λ that yields the smallest treatment-control MMDH will be selected
+for the given α. We denote this selected value as λα.
+The selection of α is primarily based on an assessment of the performance of the corresponding
+ITR as measured by the value function. Let ˆwα be the optimal weights under (α, λα). We first
+solve for ˆdα by maximizing bVn(d; ˆwα), and then evaluate the value function of ˆdα. When α is small,
+the weighted treated and control groups do not resemble the target population, so bVn(d; ˆwα) is not
+necessarily a good estimator for VT (d). Hence, we use a regression-based approach to evaluate the
+value function: the source sample is used to fit the potential outcome models and impute the potential
+outcomes for the target, then a plug-in estimate of VT ( ˆdα) based on these imputations is computed.
+Then we select the α that yields the largest VT ( ˆdα).
+The default grid for α is (0, 0.14, (0.1 + 0.09 × 1)4, . . . , (0.1 + 0.09 × 9)4, 1) and the default grid
+for λ is (0.001, 0.002, 0.005, 0.012, 0.028, 0.066, 0.152, 0.351, 0.811, 1.874, 4.329, 10). Even though
+any kernels could be used in our proposal algorithm, we recommend to use universal kernels such as
+Gaussian kernels or Laplacian kernels rather than the nonuniversal kernels such as linear kernels due
+to universal kernels’s ability of approximating complex functions well (Simon-Gabriel and Sch¨olkopf,
+2018). Moreover, the theoretical properties proved in the Section 3.4 only hold when universal kernels
+are used.
+This hyperparameter tuning procedure involves solving the quadratic programming (12) under
+various choices of (α, λ). To speed up computation, when solving (12) under a new pair of hyperpa-
+rameters, we use the solution under the previous hyperparameters as a warm start. This is possible
+when using the OSQP package (Stellato et al., 2020). The empirical results in the Simulation Studies
+section suggest that this tuning procedure works quite well in practice and is able to select suitable
+58
+
+
+===== ORIGINAL PDF PAGE 59 =====
+FORMULA CHECK REQUIRED: original PDF page 59.
+hyperparameters.
+S3
+Additional simulation results
+S3.1
+Computation time of the proposed method
+Here we report the computation time of the proposed method under various sample sizes, using the
+first setting in Section 4 for illustration. Figure S1 shows that our method has cubic time complexity
+with respect to sample sizes. The experiment was run on a laptop under a macOS system with 2.3
+GHz Quad-Core Intel Core i5 CPU and 16GB 2133 MHz LPDDR3 memory.
+2^3
+3^3
+4^3
+5^3
+6^3
+7^3
+1000
+2000
+3000
+4000
+Sample size
+Computation time (s)
+Figure S1: Computation versus n.
+S3.2
+Non-linear ITR class
+Although the proposed method is mainly designed for situations where a limited ITR class is em-
+ployed, we explore its compatibility with more flexible rule classes. In this section, we repeat the
+simulation studies of Section 4, but after obtaining the sample weights with different methods, we ap-
+ply them to decision tree-based ITR learning. Note that the grid search procedure for identifying the
+ground truth of optimal linear ITR for the target population mentioned in Section 4 is not applicable
+59
+
+
+===== ORIGINAL PDF PAGE 60 =====
+Technical extraction; compare with original PDF page 60.
+for identify the optimal tree ITR. Instead, we constructed a classification tree to approximate the sign
+of the conditional average treatment effect (CATE) values using samples from the target population
+and used it as the ground truth to calculate the regret. The results are presented in Figure S2, where
+we note that our proposed weights result in ITRs with smaller regret than competing weights in all
+settings. For the setting with the linear assignment, bad overlap and a nonlinear CATE, our weights
+result in similar but slightly better performance than ebal s.
+Linear assignment
+Linear assignment, bad overlap
+Nonlinear assignment
+Linear CATE
+Nonlinear CATE
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Overlap (true)
+Importance (true)
+IPW (true)
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Overlap (true)
+Importance (true)
+IPW (true)
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Overlap (true)
+Importance (true)
+IPW (true)
+0.00
+0.05
+0.10
+0.15
+0.00
+0.05
+0.10
+0.15
+Sample Weighting Method
+Regret
+Figure S2: Regret compared to the optimal tree-based ITR using outcome weighted learning.
+S3.3
+Linear ITR by regression
+Throughout the main text and the previous simulation studies we applied sample weights to obtain
+ITR by solving a weighted classification problem as detailed in Section 4, which is derived from max-
+imizing the value function. In this section, we couple the weights with another type of ITR learning
+approach that regresses the outcome on the covariates and the interaction between the treatment and
+60
+
+
+===== ORIGINAL PDF PAGE 61 =====
+FORMULA CHECK REQUIRED: original PDF page 61.
+covariates Qian and Murphy (2011); Chen et al. (2017). Specifically, we first solve
+min
+γ0,γ,β0,β
+1
+ns
+X
+i∈S
+wi
+ Yi −γ0 −γTXi −(Ai −0.5)(β0 + βTXi)
+2
+to obtain ( ˆγ0, ˆγ, ˆβ0, ˆβ); then the ITR is defined as ˆd(x) = sign
+
+ˆβ0 + ˆβTx
+
+. The weights wi are used
+for ITR generalization. We also compare with ITR from no weights or equivalently wi ≡1.
+The regression-based method in essence works by predicting Y using both A and X. The ratio-
+nale of weighted regression can be intuitively understood as the following: an estimated model that
+minimizes the training error (the source population) may not minimize the testing error (the target
+population) under covariate shift, especially when the model is misspecified. The importance weights
+aim to calibrate the training error to the testing error using the covariate information of the source and
+target populations. However, as discussed in the main text, a drawback of importance weights is that
+it could reduce the effective sample size. Hence, it is unnecessary to address the covariate shift issue if
+the model is correctly specified. With the regression-based ITR learning method, we repeat the evalu-
+ation process in Section 4, comparing the same set of sample weighting methods. As shown in Figure
+S3, our proposed weighting method consistently yields the best performance; the other methods that
+have comparable performance are those relying on true probability functions, which are of course not
+available in practice.
+S4
+Additional simulation results for a new setting
+We additionally conduct simulations with a substantially more complex data generating mechanism.
+This data generating mechanism has more complex nuisance parameter functions (the participation
+probability, the propensity score, the main effect function, and the CATE) with more number of
+covariates. Specifically, we generate 10-dimensional covariates Xi independently from a uniform
+distribution on [−2, 2]10; the first 6 of these covariates are active in at least one element of the data
+generation mechanism and the last 4 are noise covariates. As in the simulation setup in the main text,
+61
+
+
+===== ORIGINAL PDF PAGE 62 =====
+FORMULA CHECK REQUIRED: original PDF page 62.
+Linear assignment
+Linear assignment, bad overlap
+Nonlinear assignment
+Linear CATE
+Nonlinear CATE
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Unweighted
+Overlap (true)
+Importance (true)
+IPW (true)
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Unweighted
+Overlap (true)
+Importance (true)
+IPW (true)
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Unweighted
+Overlap (true)
+Importance (true)
+IPW (true)
+0.00
+0.05
+0.10
+0.15
+0.20
+0.00
+0.05
+0.10
+0.15
+0.20
+Sample Weighting Method
+Regret
+Figure S3: Regret compared to the optimal linear ITR using a regression based approach.
+given the covariates Xi, the population indicator Si is then generated from a Bernoulli distribution
+with probability ρ(Xi) of being in the source population, where
+ρ(x) = G((x1 + x2)2 + x3 + x4 + (x3 + x4)2 + 21(|x5| > 1) −0.5x5x6),
+where G(z) is the same as in the simulation study in the main text. The treatment assignment proba-
+bility is set as
+π(x) = G(−.8(x1 −x2)2 + .4(x3 −x4)2 + 1(x5 > x6) −.5).
+The observed outcome is generated as Yi = m(Xi) + (Ai −0.5)τ(Xi) + εi, where
+m(x) = −x1 −x2 + x3 + x4 + x1x2 + x2
+1 + x2
+2 + (1 + x3x4)2 + 2x5x6 + 2 cos(x1 + x2) + .5
+and εi
+i.i.d.
+∼N(0, 0.52). Similar to the setup of the main text, the CATE function is set as τ(x) =
+62
+
+
+===== ORIGINAL PDF PAGE 63 =====
+FORMULA CHECK REQUIRED: original PDF page 63.
+κτNL(x) + (1 −κ)τL(x), where
+τNL(x) = (2x1 −x2)2 + (2x1 + x2)2 −2x3 + x4 + 2(x5 −x6)2sign(x3) −1,
+τL(x) = 0.4x2 + 0.6x1 −0.5.
+For these simulation studies, we use κ = 0.4.
+We apply all weights used in the main simulation study to three different estimation approaches for
+the ITR: 1) outcome weighted learning (OWL)-based estimators as used in the main text, 2) weighted
+tree-based ITRs as described and used in Section S3.2, and 3) weighted regression-based ITR estima-
+tors as described and investigated in Section S3.3. The results for each of these three ITR estimation
+settings are displayed in Figure S4. For all three settings , our approach consistently works better than
+all other weights. Occasionally, some other weighting methods would have comparable performance
+to ours, but those are the one relying on true probability functions, which are not available in practice.
+63
+
+
+===== ORIGINAL PDF PAGE 64 =====
+Technical extraction; compare with original PDF page 64.
+Highly nonlinear assignment
+Highly nonlinear CATE
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Overlap (true)
+Importance (true)
+IPW (true)
+0.5
+1.0
+1.5
+Sample Weighting Method
+Regret
+OWL−based ITRs
+Highly nonlinear assignment
+Highly nonlinear CATE
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+Overlap (true)
+Importance (true)
+IPW (true)
+0.0
+0.5
+1.0
+1.5
+Sample Weighting Method
+Regret
+Tree−based ITRs
+Highly nonlinear assignment
+Highly nonlinear CATE
+Proposed
+Overlap
+Importance
+IPW
+ebal_t
+ebal_s
+unweighted
+Overlap (true)
+Importance (true)
+IPW (true)
+0.8
+1.0
+1.2
+1.4
+Sample Weighting Method
+Regret
+Regression−based ITRs
+Figure S4: Regret for more complex simulation setting
+64
+
+
+===== ORIGINAL PDF PAGE 65 =====
+FORMULA CHECK REQUIRED: original PDF page 65.
+S5
+Additional real data results regarding covariate balancing di-
+agnosis
+Covariate balance between the treatment and control groups in the source sample, and between the
+source and the target samples, can be assessed by the following descriptive statistics after weight-
+ing: standardized mean differences (SMDs) (Rosenbaum and Rubin, 1985), variance ratios (Austin,
+2009), and weighted Kolmogorov-Smirnov (KS) statistic (Austin and Stuart, 2015). In particular, a
+useful overview of how to assess covariate balance and compare balancing methods using R package
+cobalt is available in the following vignette:
+https://ngreifer.github.io/cobalt/articles/cobalt.html
+Here, we provide “love” plots (Ahmed et al., 2006) in Figures S5, S6, and S7 to visualize these
+descriptive statistics under one simulation run of the data analysis presented in Section 5 under the
+setting of having both covariate shift and extra confounding (with no covariate interactions).
+For both SMDs and KS, closer to 0 indicates better balance. As seen in these plots, our proposed
+method balances the treated and control group in both first and second moments of the covariates
+(according to the SMDs presented on the left), while other approaches only balance the first moments;
+additionally, according to the weighted KS statistics, our proposed methods additionally balance the
+marginal distributions of the covariates well. However, we note that our weights do not balance
+the source sample well to the target population because our method in this case selected α close to
+0, which emphasizes balance between the treatment groups; such an α was chosen by our tuning
+parameter selection procedure because the ITR class was evidently well-specified, making source-
+target balance less critical for this dataset.
+65
+
+
+===== ORIGINAL PDF PAGE 66 =====
+Technical extraction; compare with original PDF page 66.
+vs_temp_first
+vs_map_first²
+lab_po2_first²
+age
+lab_bun_first²
+saps²
+lab_platelet_first
+weight²
+lab_po2_first
+age²
+lab_platelet_first²
+vs_map_first
+elix_score
+genderF
+lab_lactate_first²
+vs_heart_rate_first
+elix_score²
+vs_temp_first²
+weight
+sofa²
+vs_heart_rate_first²
+icd_malignancy1
+lab_lactate_first
+icd_afib1
+icd_chf1
+lab_bun_first
+icd_respfail1
+sofa
+saps
+0
+1
+2
+Absolute Standardized Mean
+Differences
+0.0
+0.1
+0.2
+0.3
+0.4
+Kolmogorov-Smirnov Statistics
+Sample
+Unadjusted
+Proposed
+ebal_s
+ebal_t
+IPW
+Importance
+Overlap
+Covariate balancing within the source population: covariate shift with extra confounding (no interaction)
+Figure S5: “Love” Plots for Assessing Covariate Balancing between the Treatment and Control
+Groups in the Source Sample.
+icd_malignancy1
+vs_map_first²
+vs_heart_rate_first
+saps²
+lab_lactate_first²
+sofa²
+vs_heart_rate_first²
+elix_score
+lab_platelet_first
+lab_platelet_first²
+lab_po2_first
+lab_po2_first²
+vs_map_first
+vs_temp_first
+lab_bun_first²
+age²
+lab_lactate_first
+elix_score²
+weight²
+genderF
+vs_temp_first²
+icd_respfail1
+lab_bun_first
+sofa
+icd_chf1
+icd_afib1
+weight
+saps
+age
+0.0
+0.2
+0.4
+0.6
+Absolute Standardized Mean
+Differences
+0.0
+0.1
+0.2
+0.3
+Kolmogorov-Smirnov Statistics
+Sample
+Unadjusted
+Proposed
+ebal_s
+ebal_t
+IPW
+Importance
+Overlap
+Covariate balancing between the treated group and target population: covariate shift with extra confounding (no interaction)
+Figure S6: “Love” Plots for Assessing Covariate Balancing between the Treatment Group in the
+Source Sample and the Target Sample.
+66
+
+
+===== ORIGINAL PDF PAGE 67 =====
+Technical extraction; compare with original PDF page 67.
+saps²
+lab_bun_first
+vs_map_first²
+lab_po2_first
+lab_lactate_first
+elix_score²
+vs_temp_first²
+icd_malignancy1
+vs_map_first
+vs_heart_rate_first²
+lab_lactate_first²
+icd_respfail1
+lab_platelet_first²
+saps
+sofa
+lab_platelet_first
+elix_score
+lab_bun_first²
+lab_po2_first²
+vs_temp_first
+sofa²
+vs_heart_rate_first
+icd_chf1
+weight²
+age²
+icd_afib1
+genderF
+weight
+age
+0.0
+0.2
+0.4
+0.6
+Absolute Standardized Mean
+Differences
+0.0
+0.1
+0.2
+0.3
+Kolmogorov-Smirnov Statistics
+Sample
+Unadjusted
+Proposed
+ebal_s
+ebal_t
+IPW
+Importance
+Overlap
+Covariate Balancing between source and target populations: covariate shift with extra confounding (no interaction)
+Figure S7: “Love” Plots for Assessing Covariate Balancing between the Control Group in the Source
+Sample and the Target Sample.
+67
+

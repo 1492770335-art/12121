@@ -1,0 +1,28 @@
+{
+  "paper_id": "H02",
+  "category": "H",
+  "title": "Separable Effects for Causal Inference in the Presence of Competing Events",
+  "authors": "Mats J. Stensrud and Jessica G. Young and Vanessa Didelez and James M. Robins and Miguel A. Hernán",
+  "doi": "10.1080/01621459.2020.1765783",
+  "year": "2022",
+  "original_url": "https://doi.org/10.1080/01621459.2020.1765783",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "346d3dad2926bf37051ca3656c009ee0b66b0c46d2a026a8ea127720dd56af30",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1901.09472"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/H02/README.md",
+  "status": "local_only"
+}

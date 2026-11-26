@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nccc0e9b69b",
+  "category": "E",
+  "title": "Reluctant Transfer Learning in Penalized Regressions for Individualized Treatment Rules Under Effect Heterogeneity",
+  "authors": "Eun Jeong Oh and Min Qian",
+  "doi": "10.1002/sim.70671",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1002/sim.70671",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "a73d66486328f600d653ff0631af7e078f91cf3b3818a5f76e16d6ca4f95fd91",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2511.08559"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Nccc0e9b69b/README.md",
+  "status": "local_only"
+}

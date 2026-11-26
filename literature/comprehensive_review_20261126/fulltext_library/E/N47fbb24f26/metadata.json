@@ -1,0 +1,36 @@
+{
+  "paper_id": "N47fbb24f26",
+  "category": "E",
+  "title": "Regret-Optimal Q-Learning with Low Cost for Single-Agent and Federated Reinforcement Learning",
+  "authors": "Haochen Zhang and Zhong Zheng and Lingzhou Xue",
+  "doi": "10.52202/085713-4288",
+  "year": "2025",
+  "original_url": "https://doi.org/10.52202/085713-4288",
+  "local_fulltext": true,
+  "public_pdf": [
+    "E/N47fbb24f26/artifacts/d76af8e426eb/original.pdf"
+  ],
+  "public_markdown": [
+    "E/N47fbb24f26/artifacts/d76af8e426eb/fulltext.md"
+  ],
+  "public_txt": [
+    "E/N47fbb24f26/artifacts/d76af8e426eb/fulltext.txt"
+  ],
+  "original_tex": [
+    "E/N47fbb24f26/artifacts/d76af8e426eb/latex/Camera_Ready.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "d76af8e426eb4796f760883bdae16d7393ac8298dcd25daa851d1c4686e87b2b",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2506.04626",
+      "provenance": "E/N47fbb24f26/artifacts/d76af8e426eb/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N47fbb24f26/README.md",
+  "status": "public_fulltext"
+}

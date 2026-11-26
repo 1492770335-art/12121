@@ -1,0 +1,28 @@
+{
+  "paper_id": "G18",
+  "category": "G",
+  "title": "DeepHit: A Deep Learning Approach to Survival Analysis With Competing Risks",
+  "authors": "Changhee Lee and William Zame and Jinsung Yoon and Mihaela Van der Schaar",
+  "doi": "10.1609/aaai.v32i1.11842",
+  "year": "2018",
+  "original_url": "https://doi.org/10.1609/aaai.v32i1.11842",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "5a061e24ff60ebf6762b1a15160e903d98169d4df7fc8967f10ae3a6bfd75b55",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://ojs.aaai.org/index.php/AAAI/article/download/11842/11701"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/G18/README.md",
+  "status": "local_only"
+}

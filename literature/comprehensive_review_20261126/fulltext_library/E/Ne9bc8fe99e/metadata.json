@@ -1,0 +1,28 @@
+{
+  "paper_id": "Ne9bc8fe99e",
+  "category": "E",
+  "title": "Estimation of Optimal Individualized Treatment Rules Using a Covariate-Specific Treatment Effect Curve With High-Dimensional Covariates",
+  "authors": "Wenchuan Guo and Xiao-Hua Zhou and Shujie Ma",
+  "doi": "10.1080/01621459.2020.1865167",
+  "year": "2021",
+  "original_url": "https://doi.org/10.1080/01621459.2020.1865167",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "708f4fee3114c6098962d6622da71106bc9012b41dda6a9bba56e05a3091ff5b",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1812.10018"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Ne9bc8fe99e/README.md",
+  "status": "local_only"
+}

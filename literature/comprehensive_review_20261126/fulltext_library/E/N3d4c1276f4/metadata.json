@@ -1,0 +1,28 @@
+{
+  "paper_id": "N3d4c1276f4",
+  "category": "E",
+  "title": "Estimating and improving dynamic treatment regimes with a time-varying instrumental variable",
+  "authors": "Shuxiao Chen and Bo Zhang",
+  "doi": "10.1093/jrsssb/qkad011",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1093/jrsssb/qkad011",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c05da7004c102eef42cc28c2b18ca1b80d75a7d87827262acd1a427db5eeff43",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2104.07822"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N3d4c1276f4/README.md",
+  "status": "local_only"
+}

@@ -1,0 +1,22 @@
+\begin{algorithm}[H]
+  \caption{The random survival forest estimator}
+  \label{alg:RSF}
+  \begin{flushleft}
+    \begin{algorithmic}
+  \State \textbf{Input:} $\{(X_i, \delta_i, Z_i, A_i)\}_{i=1}^n$
+  \State \textbf{Output:} $\widehat{S}(\cdot|Z,A=a)$
+  \State Result: random survival forest estimate $\widehat{S}(\cdot|Z,A)$
+  \State Parameters: the number of trees $n_{\text{tree}}$, the minimum terminal node size $n_{\text{min}}$
+  \State For \underline{treatment arm} $a \in \mathcal{A}$ \textbf{do} 
+  \begin{itemize}[label={}]
+  \item For \underline{tree $w = 1, 2, \ldots, n_{\text{tree}}$} \textbf{do}
+  \begin{itemize}[label={}]
+  \item Partition the feature space with the input data $\{(I(t\leq X_i), \delta_{ji}, Z_i)\}_{i:a_i=a}$ via MD test \cref{eqn:MDtest} until node size $< 2n_{\text{min}}$
+  \item Obtain the terminal node survival probability estimate $\widehat{S}{\{w\}}(t | a, Z)$ via Kaplan-Meier estimator \cref{eqn:KMest}
+  \end{itemize}
+  
+  \item Obtain the forest estimator $\widehat{S}(\cdot | Z, A = a) = \frac{1}{n_{\text{tree}}} \sum_{w=1}^{n_\text{tree}} \widehat{S}_{\{w\}}(t |a, Z)$
+  \end{itemize}
+\end{algorithmic}
+\end{flushleft}
+\end{algorithm}

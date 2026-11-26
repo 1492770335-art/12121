@@ -1,0 +1,90 @@
+\begin{comment}
+\documentclass[12pt]{article}
+\input{header} % Include the header file
+\input{header2}
+\end{comment}
+
+%\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+%\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+
+%\begin{document}
+
+\begin{proof}[Proof of Theorem \ifnum\jasa=1 2\else \ref{genRSF_consistency}\fi]
+It is sufficient to establish the consistency results for a single tree in order to prove Theorem \ifnum\jasa=1 2\else \ref{genRSF_consistency}\fi. By nature of the forest, which is the average of multiple trees where the randomization process of the trees is independent of the data generative law, the supremum error of averages is less than the average of supremum errors for the uniform consistency, i.e., for $\hat{S} = \frac{1}{n_\text{tree}} \sum_{w=1}^{n_\text{tree}} \hat{S}^{(w)}$, $$\sup_{t,h} \abs{\hat{S}(t_j|h) - S(t_j|h)} \leq \frac{1}{n_\text{tree}}  \sum_{w=1}^{n_\text{tree}} \sup_{t,h} \abs{\hat{S}^{(w)}(t_j|h) - S(t_j|h)}.$$
+Hence, we will prove prove Theorem 1 for just a single tree $\survfunchat_{\{w\}}$, which is built based on $\{\hist_{i}, \delta_{i}\}_{i=1}^n$. For ease of notation, we drop the tree index $w$ throughout the proof. %The same idea applies to the other theorems in the paper.
+
+Using a modified version of Lemma 2.10 from \cite{kosorok_introduction_2008}, let $\esteq: \Theta \rightarrow L$ and $\esteqn: \Theta \rightarrow L$ be maps between two normed spaces, where $\Theta$ is a parameter space, $L$ is some normed space, $\norm{\cdot}_L$ denotes the uniform norm, $\esteq$ is a fixed map, and $\esteqn$ is a data-dependent map. This lemma is modified to allow $\Theta_n$ to be data-dependent. Let $\Theta_n$ be the data-dependent survival function space, where survival functions are piecewise constant over a hyper-rectangle, represented by a rectangular kernel $k_h$ in the feature space so that $\survfunc\argtgkh = \survfunc\argtgh$ for all $\histlower \in \history$. 
+
+%\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/Zest}
+%\lemmazest
+\begin{lemma}[Consistency of Z-estimators]
+\label{lemma:ChoLemma1}
+Let $\Psi(S_0) = 0$ for some $S_0 \in \Theta$, and assume $\norm{\Psi(S_n)}_L \to 0$ implies $\norm{S_n - S_0}_\infty \to 0$ for any sequence $\{S_n\}_{n \in \mathbb{N}} \subset \Theta_n \to \Theta$ as $n \to \infty$. Then, if $\norm{\Psi_n(\hat{S}_n)}_L \to 0$ in probability for some sequence of estimators $\{\hat{S}_n\}_{n \in \mathbb{N}} \subset \Theta_n$ and $\sup_{S \in \Theta_n} \norm{\Psi_n(S) - \Psi(S)}_L \to 0$ in probability, $\norm{\hat{S}_n - S_0}_\infty \to 0$ in probability, as $n \to \infty$.
+\end{lemma}
+
+%%\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/Zest}
+%\lemmazestPROOF
+\begin{proof}[Proof of Lemma \ref{lemma:ChoLemma1}] Suppose a sequence $\hat{S}_n \in \Theta_n$ satisfies that $\norm{\Psi_n(\hat{S}_n)}_L \rightarrow 0$ and \\ $\sup_{S \in \Theta_n} \norm{\Psi_n(S) - \Psi(S)}_L \rightarrow 0$ both in probability as $n \rightarrow \infty$. Then we have
+\begin{align*}
+    \norm{\Psi(\hat{S}_n)}_L &\leq \norm{\Psi(\hat{S}_n) - \Psi_n(\hat{S}_n)}_L + \norm{\Psi_n(\hat{S}_n)}_L \\
+    &\leq \sup_{S \in \Theta_n} \norm{\Psi(S) - \Psi_n(S)}_L + \norm{\Psi_n(\hat{S}_n)}_L \rightarrow 0,
+\end{align*}
+in probability as $n \rightarrow \infty$. Thus, by the assumption, $\norm{\hat{S}_n - S_0}_{\infty} \rightarrow 0$.
+\end{proof}
+
+Let $\Theta$ be the space of all covariate-conditional survival functions. Define a normed space $L = D_{[-1,1]}\{[0, \tau]\times \mathbb{R}^d\}$, where $D_{A}B$ is the space of all right-continuous left-limits functions with range $A$ and support $B$. We use $\truesurv$ to denote the true survival function.
+
+We define the following estimating function and equations:
+\begin{align}
+\estfunclabel &= \estfunclong, \\
+%empirical expectation of \phi_{s,t}
+\esteqlabel &= \esteqlong \equiv \Pdot, \\
+%data-driven expectation of \phi_{s,t}
+\esteqnlabel &= \esteqnlong \equiv \Pndot,
+\end{align}
+where $\PopP$ is the population average of function values, i.e., $\PopP f = \int f(h) d\PopP(h)$, $\Pn$ is the sample average of function values, i.e., $\Pn f = \frac{1}{n} \sum_{i=1}^{n} f(H_i)$, $\truesurv \in \Theta$ is the true survival probability of failure from any cause, $\unnormdirac(h') = 1(h' = h)$ is the unnormalized Dirac measure, and $\kernel$ is the unnormalized tree kernel. Define $\kernel(h') = 1(h' \in \Node(h))$, where $\Node(h)$ is the terminal node of the tree that contains the point $h$. The term `unnormalized' refers to not being multiplied by the sample (or population) size. Let $\Snhat$ be the kernel-conditional Kaplan-Meier estimator, the Kaplan-Meier applied to the data with weights indicated by the tree kernel, $\kernel$. % Recall that $\delta = I(T\leqC)$ is the censoring indicator for overall survival, so that $\delta = 1$ when there is failure from any cause, and $\dela = 0$ when censored. Also recall that $X = \min(T,C)$ is the observed time for overall survival.
+Then, by Lemma \ref{lemma:ChoLemma1} and Propositions \ref{prop:ChoProp2} to \ref{prop:ChoProp5} stated below,
+$\lim_{n \to \infty} \norm{\Snhat - \truesurv}_\infty \to_p 0.$ Since $\survfunchat$ is an average of the trees, we have shown $\lim_{n \to \infty} \norm{\survfunchat - \truesurv}_\infty \to_p 0$.
+
+%Proposition 1 for Lemma Z-estimators
+\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/Zest}
+%\proponelemmazest
+\begin{prop}
+\label{prop:ChoProp2}
+$\esteqtruesurvlabel = 0$ for $\truesurv \in \Theta$
+\end{prop}
+
+%\proptwolemmazest
+\begin{prop}
+\label{prop:ChoProp3} Assume Assumptions \ifnum\jasa=1 4-8\else \ref{assump:CuiAssump1}-\ref{assump:CuiAssump2}\fi. As $n \to \infty$, $\norm{\esteq(\Snhat)}_L \to 0$ implies $\norm{\Snhat - \truesurv}_\infty \to 0$.
+\end{prop}
+
+%\propthreelemmazest
+\begin{prop}
+\label{prop:ChoProp4}
+Assume Assumptions \ifnum\jasa=1 4-8\else \ref{assump:CuiAssump1}-\ref{assump:CuiAssump2}\fi. As $n \to \infty$, $\norm{\esteqn(\Snhat)}_L \to 0$ in probability.
+\end{prop}
+
+%\propfourlemmazest
+\begin{prop}
+\label{prop:ChoProp5} 
+Assume Assumptions \ifnum\jasa=1 4-8\else \ref{assump:CuiAssump1}-\ref{assump:CuiAssump2}\fi. As $n \to \infty$, $\sup_{S \in \Theta_n} \norm{\esteqnlabel - \esteqlabel}_L \to 0$ in probability.
+\end{prop}
+
+\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop1Proof}
+\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop2Proof}
+\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop3Proof}
+
+Proposition \ref{prop:ChoProp6} is needed to prove Proposition \ref{prop:ChoProp5} below. This proposition shows that tree kernels (and, consequently, the forest kernels) are Donsker, and that the $\esteqlabel$ function is also Donsker. The proof can be found in \cite{cho_multi-stage_2023}. We use entropy calculation, the Donsker theorem, empirical process theory, and Assumptions \ifnum\jasa=1 4-8 \else \ref{assump:CuiAssump1}-\ref{assump:CuiAssump2}\fi to establish uniform consistency in Proposition \ref{prop:ChoProp5}. 
+
+%\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/Zest}
+%\propfivelemmazest
+\begin{prop}
+\label{prop:ChoProp6}(Bounded entropy integral of the tree and forest kernels). The collections of the unnormalized tree and forest kernel functions are Donsker, where the tree kernels $k_{\text{tree}}(\cdot)$ are axis-aligned random hyper-rectangles, and the forest kernels $k_{\text{forest}}(\cdot)$ are the mean of arbitrarily many ($n_{\text{tree}}$) tree kernels.
+\end{prop}
+
+\input{Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop4Proof}
+
+\end{proof}
+
+%end{document}

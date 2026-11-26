@@ -1,0 +1,5235 @@
+# Regularizing fairness in optimal policy learning with distributional targets
+
+Original PDF: [original.pdf](original.pdf). SHA256: `1c4a7985db96748aafbfa08f9e2311277f161935063d299fa67772a7cabc1b75`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+Technical extraction; compare with original PDF page 1.
+
+````text
+Regularizing Fairness in Optimal Policy Learning with
+Distributional Targets ∗
+Anders Bredahl Kock
+Department of Economics
+University of Oxford
+10 Manor Rd, Oxford OX1 3UQ
+anders.kock@economics.ox.ac.uk
+David Preinerstorfer†
+Insitute for Statistics and Mathematics
+WU Vienna University of Economics and Business
+Welthandelsplatz 1, 1020 Vienna
+david.preinerstorfer@wu.ac.at
+First version: September 2023
+Second version: January 2024
+This version: May 2025
+Abstract
+A decision maker typically (i) incorporates training data to learn about the relative ef-
+fectiveness of treatments, and (ii) chooses an implementation mechanism that implies an
+“optimal” predicted outcome distribution according to some target functional. Neverthe-
+less, a fairness-aware decision maker may not be satisfied achieving said optimality at the
+cost of being “unfair” against a subgroup of the population, in the sense that the outcome
+distribution in that subgroup deviates too strongly from the overall optimal outcome distri-
+bution. We study a framework that allows the decision maker to regularize such deviations,
+while allowing for a wide range of target functionals and fairness measures to be employed.
+We establish regret and consistency guarantees for empirical success policies with (possibly)
+data-driven preference parameters, and provide numerical results. Furthermore, we briefly
+illustrate the methods in two empirical settings.
+JEL Classification: C18, C21, C44.
+Keywords: Treatment allocation, pure exploration, unfairness penalties.
+∗We thank Michael Lechner, Liyang Sun, Alex Tetenov, Alonso Zuniga, and several colleagues and semi-
+nar/workshop participants at WU Vienna, TU Graz, University of Vienna, University of Geneva, UPF Barcelona,
+and Erasmus University Rotterdam for helpful feedback and suggestions. We are grateful to an Associate Editor
+and two referees for their comments, which helped us to improve the paper.
+†Corresponding author.
+1
+arXiv:2401.17909v2  [econ.EM]  28 May 2025
+
+````
+
+## PDF page 2
+
+FORMULA CHECK REQUIRED: original PDF page 2.
+
+````text
+1
+Introduction
+Optimal policy choice, i.e., inferring good answers to the question “whom to assign to which
+treatment” from data, is of fundamental importance to decision makers. Much progress has
+been achieved in the recent literature: seminal contributions (emphasizing the nonparametric
+nature of the problem) were made in Manski (2004), Dehejia (2005), Stoye (2009), Stoye (2012),
+Bhattacharya and Dupas (2012), Manski and Tetenov (2016), a study of asymptotic efficiency
+properties was provided in Hirano and Porter (2009), whereas more recent contributions focused
+on optimal policy choice from observational data and include Kitagawa and Tetenov (2018),
+Kitagawa and Tetenov (2021), Athey and Wager (2021), or Mbakop and Tabord-Meehan (2021);
+see also the recent overview given in Hirano and Porter (2020) for further references.
+A number of recent advances in that literature, in particular Kleinberg et al. (2018), cf. also
+the recent review of Cowgill and Tucker (2019), stress that in addition to assigning individuals
+with the goal to maximize expected welfare, decision makers should incorporate “fairness”
+considerations into optimal policy choice. The problem of a fairness-aware decision maker that
+we consider in the present article is the following: although the decision rule inferred, e.g., by
+applying one of the approaches suggested in the literature discussed above, may be optimal on an
+aggregate level, there may be subgroups of the population defined by protected characteristics,
+e.g., gender, ethnicity, or religion, in which the effect of the decision rule deviates markedly from
+that on the aggregate level. In other words, although the decision maker may have succeeded
+in choosing a policy that leads to optimal results on the population level, this global optimality
+is not resembled within all subgroups and hence the policy may be considered unfair.
+This concern fits into the broader context of fair Machine Learning or fair Artificial In-
+telligence, where the general goal is to avoid that algorithms inferred from data discriminate
+against certain groups; cf. Corbett-Davies and Goel (2018) and Pessach and Shmueli (2022)
+for recent overviews on the subject. They identify the following key features: (i) incorporating
+fairness is complicated by the lack of a single accepted definition of fairness (cf., e.g., Section 3
+and Appendix B.1 in Pessach and Shmueli (2022)), (ii) impossibility results show that different
+types of fairness cannot be achieved at the same time, and (iii) achieving (a particular type of)
+fairness typically reduces the efficiency of the policy.
+Fairness concerns can be incorporated into the optimal policy choice algorithms studied in
+Kitagawa and Tetenov (2018) or Athey and Wager (2021) by adjusting subpopulation weights
+in the objective function. Nevertheless, such weights need to be chosen by the decision maker
+upfront, and are typically difficult to defend. Motivated by the lack of methods allowing decision
+makers to incorporate more general forms of fairness considerations, Viviano and Bradic (2023)
+studied methods that combine fairness and optimal policy choice in a more distinguished way:
+instead of trying to infer a policy that maximizes expected population welfare, they formulate
+a multiobjective optimization problem, in which each objective corresponds to the welfare in
+the subpopulation obtained by considering a given value of a protected characteristic. After
+characterizing the Pareto frontier, the authors suggest to chose an element from the frontier
+which maximizes a fairness criterion, which is allowed to be very general, and can be chosen by
+the user in dependence on the notion of fairness that fits the specific problem at hand. Statistical
+performance guarantees are provided. Another recent contribution is Fang et al. (2023), who do
+2
+
+````
+
+## PDF page 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+not consider fairness between subgroups defined by a sensitive characteristic, but aim at lifting
+the lower tail of the outcome distribution implied by a policy to a given level, therefore leading
+to “fairness” between rich and poor individuals. To achieve this, in addition to maximizing
+expected welfare, they introduce a lower-bound constraint on a quantile chosen by the user,
+and suggest an algorithm to solve the resulting optimization problem, for which asymptotic
+guarantees are established. Both articles discuss observational as well as experimental data.
+Although decision makers can draw on these methods in situations where expected utility
+is the main target, there is currently no theory available that shows how one could incorporate
+fairness considerations in settings with more flexible target measures. Both Viviano and Bradic
+(2023) and Fang et al. (2023) target expected outcomes, and exploit linearity properties of that
+target in their constructions and proofs. For example, the characterization of the Pareto frontier
+given in Lemma 2.1 of Viviano and Bradic (2023), on which their approach crucially rests, ex-
+ploits linearity – or at least convexity/concavity – of the target measure.1 Important alternative
+targets in economic decision making are welfare measures other than expected utility, or mea-
+sures incorporating poverty concerns (cf. Cowell (2011) or Chakravarty (2009) for book-length
+treatments of measures that have been developed and studied in the economics and statistics
+literature). The importance of flexibility in choosing the target measure was emphasized in,
+e.g., Bitler et al. (2006) and Rostek (2010).
+The goal of the present article is to develop a flexible theory of optimal treatment assignment
+that allows the decision maker to incorporate fairness considerations in a setting where the target
+is not necessarily the expected outcome, but, e.g., a welfare measure such as the Gini-welfare or
+a quantile such as the median. More specifically, we develop a theory that allows the decision
+maker to work with the rich class of targets introduced in Kock et al. (2022), while incorporating
+covariate information and monitoring fairness properties of the policy recommendation.
+To
+arrive at a widely applicable theory concerning the target functional, we do not take a Pareto
+frontier based approach as in Viviano and Bradic (2023) or a constraint approach as in Fang et al.
+(2023) (which requires the somewhat inconvenient assumption that the constraint is actually
+feasible, which is not necessary in our approach), but we proceed as discussed informally in
+Section 1.1 below, and refer the reader to later sections for more details.
+In Appendix A we discuss in more detail how the present article relates to Kitagawa and
+Tetenov (2021) and Kock et al. (2023), where optimal policy choice problems with general
+targets are treated (without fairness considerations).
+1.1
+Informal summary of our methods and results, and practical guidelines
+1.1.1
+Objective
+In Section 2, we first decompose ⟨δ, F⟩, the (unknown) population distribution implied by a
+decision rule δ, as
+⟨δ, F⟩=
+X
+z∈Z
+pZ(z)⟨δ, F⟩z,
+1It needs to be emphasized again that (in contrast to their mean target, which is fixed) the fairness measure
+used by Viviano and Bradic (2023) is very general and allows for great flexibility.
+3
+
+````
+
+## PDF page 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+where ⟨δ, F⟩z denotes the (unknown) distribution implied by the decision rule δ in the sub-
+population of subjects with protected characteristic equal to z ∈Z, and where pZ(z) denotes
+the (unknown) proportion of such subjects. While the primary goal of the decision maker is to
+choose δ such as to maximize T(⟨δ, F⟩), where T is some (potentially nonlinear and nonconvex)
+functional, the secondary goal of the decision maker is to monitor fairness properties of the
+policy.2 Specifically, we consider a situation where, as the secondary goal, the decision maker
+finds parity across sub-populations (aka groups) defined by a protected characteristic desirable.
+That is, the decision maker wants to choose δ such that
+⟨δ, F⟩z ≈⟨δ, F⟩
+for every
+z ∈Z,
+in the sense that
+max
+z∈Z S
+ ⟨δ, F⟩z, ⟨δ, F⟩
+
+≈0,
+where S ≥0 is a semi-metric on the set of distribution functions, e.g., the Kolmogorov-Smirnov
+distance, allowing for some flexibility. If δ satisfies such a parity condition, this means that
+the outcome distributions implied by the decision rule δ do not differ much across the groups
+defined by the protected characteristic (with respect to the properties encoded in the fairness
+measure S).
+To combine the two goals outlined above, i.e., maximization of T evaluated at the implied
+outcome distribution ⟨δ, F⟩and achieving some degree of parity formalized via S, we adapt a
+penalty-based approach. This idea has repeatedly been applied to incorporate fairness consider-
+ations into regression and classification problems, cf., e.g., Kamishima et al. (2011), Kamishima
+et al. (2012), Berk et al. (2017), or Bechavod and Ligett (2017). Specifically, we aim at studying
+statistical methods to choose a decision rule δ that maximizes the penalized objective
+(1 −λ)T(⟨δ, F⟩) −λ max
+z∈Z S
+ ⟨δ, F⟩z, ⟨δ, F⟩
+
+,
+(1)
+where λ ∈[0, 1] is a preference parameter, which has to be chosen by the decision maker
+(possibly in a data-driven way). Note that the larger λ, the more emphasis is put on fairness.
+1.1.2
+Policies
+The policies we study are all of the empirical success type: In the case of discrete covariates,
+which is our main focus, we study a plug-in approach, where we first estimate F through ˆF, say,
+and then solve (numerically) the empirical version of the penalized objective in (1), cf. Section 3
+for a detailed description of the policy and its regret and consistency properties. We also discuss
+variants of our policies when the preference parameter λ in (1) is chosen in a data-driven way.
+To this end, the decision maker (DM) may obtain optimal policies for a set of preference
+parameters Λ ⊆[0, 1] first (making use of the just-mentioned empirical success type policy),
+and then select one of these policies by balancing the fairness/efficiency trade-off of the policies.
+This can be done informally, e.g., by investigating plots of the estimated fairness/efficiency
+2Because the decision maker does not know ⟨δ, F⟩or ⟨δ, F⟩z, the decision maker has to estimate these
+quantities, which introduces a nontrivial statistical aspect that needs to be addressed.
+4
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+properties of the policies, or more formally, e.g., by fixing a “budget” the DM can afford
+spending on fairness (cf. Berk et al. (2017)), and then selecting the policy which realizes the
+maximal degree of fairness affordable. The latter approach is described and studied in detail in
+Section 4. The former, more graphical approach, is illustrated in the applications in Section 7
+in the context of the Pennsylvania reemployment bonus experiment (cf. Bilias (2000)) and the
+entrepreneurship program data from Lyons and Zhang (2017), which was also investigated in
+Viviano and Bradic (2023).
+The case of non-discrete covariates is studied in Section 5, cf. Section 5.1 for a detailed
+description of the policies and a regret upper bound. In this context, we do not work with a
+plug-in for ˆF but estimate the objective function (introduced earlier) more directly, an approach
+that may be viewed as an extension of Kitagawa and Tetenov (2021) to our setting.
+1.1.3
+Practical guideline
+In a concrete application, one can proceed as follows:
+1. First, one has to fix a target functional T and a measure of unfairness S. Canonical choices
+are, e.g., the Gini-welfare measure or the expectation for the former and the Kolmogorov-
+Smirnov distance (possibly one-sided) for the latter. Many relevant target functionals are
+described in Chakravarty (2009) or Cowell (2011), to which we refer the practitioner who
+is unsure about which target functional fits the concrete application best. Once this choice
+has been made, the next step depends on the nature of the covariates.
+2. If the covariates are discrete, one can use the policy in Section 3, otherwise one uses the
+policy in Section 5.1. How this is precisely carried out further depends on whether a
+concrete value for λ is available or not:
+• If a concrete value for the preference parameter λ is known, approximately solve
+the objective in Equation (19) (for the discrete case) or in Equation (41) (otherwise)
+with a numerical optimization procedure, and roll out the policy obtained by random
+assignment; e.g., by making use of the concrete assignment mechanism described in
+Footnote 5.
+• If λ is not specified, we recommend to solve the respective objective for a grid of λ
+values, and use graphical inspection and/or the procedure in Section 4 to select
+a suitable value of λ; cf. the empirical examples in Section 7 for some guidance.
+Then, roll out the policy by random assignment (e.g., by making use of the concrete
+assignment mechanism described in Footnote 5).
+2
+Setting
+2.1
+Observational structure and two assumptions
+We consider a DM, who must decide at which proportions K ≥2 available treatments should
+be rolled out to a heterogeneous population. Before the “roll-out phase” begins, the DM needs
+to find out which proportions lead to the “optimal” (this will be made precise below) outcome
+5
+
+````
+
+## PDF page 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+distribution in the population. To make this decision, we assume that the DM is in possession
+of a training sample of n subjects that:
+1. were independently drawn from the target population,
+2. were assigned to one of the K treatments, possibly by making use of covariate information
+in the assignment decision,
+3. and were subjected to an outcome measurement.
+We adopt the potential outcomes framework, where to each subject j = 1, . . . , n, there
+corresponds a potential outcomes vector
+Yj =
+ Y1,j, . . . , YK,j
+′ ∈RK.
+That is, Yi,j is the potential outcome of subject j under treatment i. As usual, for each sub-
+ject j = 1, . . . , n in the training sample, the decision maker does not observe the whole potential
+outcome vector Yj, but only observes the single coordinate
+˜Yj := YDj,j,
+where Dj ∈{1, . . . , K} denotes the treatment subject j was assigned to, which the DM observes
+as well. In addition to ˜Yj and Dj, the DM observes two categorical covariates
+Xj ∈X,
+0 < |X| < ∞,
+and
+Zj ∈Z,
+0 < |Z| < ∞.
+For now we focus on the case where both covariates Xj and Zj can take on only finitely
+many values, because this simplifies the analysis and exposition considerably, and because this
+is an important case for practice. In Section 5 we consider the case where X is not finite.
+Remark 2.1. At this stage, the reader may think of Xj as a covariate that can be used to
+assign individuals to treatments during the roll-out phase. That is, the proportions used during
+the roll-out phase can depend on these covariates, in the sense that different proportions are
+rolled out for different values of x ∈X. The covariate Zj, on the other hand, should be thought
+of as a “protected characteristic” that cannot be used for assigning individuals in the roll-out
+phase, e.g., because it is simply not possible to measure this information during the roll-out
+phase or because it is not allowed to make different assignment decisions for different values
+of the protected characteristic.3 Nevertheless, this covariate is assumed to be available for all
+subjects in the training sample of the DM. Tan et al. (2022), who consider robust decision
+learning targeting the expected outcome, use an analogous setting concerning the treatment of
+sensitive characteristics.
+3Note that the variables Xj and Zj may be dependent, and that a decision depending on the former char-
+acteristic only may therefore also depend on Zj. In this sense, the decision rules we allow for are certainly not
+“independent” of the information inherent in the protected characteristic in general. If such an “independence”
+condition is required, a different approach that tries to eliminate this dependence has to be taken, which is not
+the goal in the present article. In the terminology of Frauen et al. (2023), who consider optimal policy choice
+with fairness considerations for an expected utility target, our focus is oriented towards “value fairness” whereas
+the fairness notion discussed in this footnote corresponds to “action fairness”.
+6
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+Summarizing, each subject is characterized by an underlying (only partly observed) random
+vector
+Wj :=
+
+Y ′
+j , Xj, Zj, Dj
+′
+∈RK × X × Z × {1, . . . , K}.
+The training sample available to the DM is (a realization of)
+˜
+Wj :=
+
+˜Yj, Xj, Zj, Dj
+′
+∈R × X × Z × {1, . . . , K}
+for j = 1, . . . , n.
+(2)
+All random variables are defined on an underlying probability space (Ω, A, P) with corresponding
+expectation operator E; outer probability and outer expectation are denoted by P∗and E∗,
+respectively, which will help us to avoid imposing measurability conditions.
+Without further mentioning in the theoretical results, we shall throughout this article impose
+an independent sampling condition:
+Assumption 2.1. The random vectors Wj, j = 1, . . . , n, are i.i.d..
+The independent sampling assumption is standard in the treatment assignment literature,
+and weakening it is not an objective of the present article. Also without further mentioning
+in the theoretical results, we impose throughout this article that the assignment mechanism is
+unconfounded conditional on the covariates observed, that is:
+Assumption 2.2. Conditional on Xj and Zj the potential outcome vector Yj is independent
+of Dj; i.e.,
+Yj ⊥⊥Dj | (Xj, Zj).
+2.2
+Decision rules and policies
+Based on the training sample in (2), the DM needs to specify how to proceed in the roll-out
+phase. The assignment decision can only be based on the observed value of the unprotected
+characteristic x ∈X, cf. Remark 2.1. Formally, and allowing for randomized decision rules, for
+each x ∈X the DM therefore has to decide (based on the training sample) on the proportions at
+which to roll out the treatments i = 1, . . . , K. A decision rule thus specifies, for each covariate
+value x ∈X, a “probability vector”
+δ(x) =
+ δ1(x), . . . , δK(x)
+′ ∈SK,
+(3)
+where SK = {α = (α1, . . . , αK)′ ∈[0, 1]K : α1 + . . . + αK = 1} denotes the standard simplex
+in RK. This class of decision rules allows for (but does not impose) randomization.
+The ith coordinate δi(x) of δ(x) corresponds to the probability of assigning a subject with
+covariate x to treatment i during the roll-out phase. The dependence of the proportions on x
+permits the DM to take advantage of the population’s heterogeneity. Note again (cf. Remark 2.1)
+that δ does not have z as an argument.
+Every data-driven method that turns the training sample defined in Equation (2) into a
+decision rule as just described shall be referred to as a policy; i.e., a policy is a function
+πn : Rn × X n × Zn × {1, . . . , K}n →SK,
+(4)
+7
+
+````
+
+## PDF page 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+where SK = S |X|
+K
+denotes the set of decision rules, i.e., all functions from X to the simplex SK.
+Throughout, we shall equip SK with the distance d1, which, for δ and ˜δ in SK, is defined as
+d1(δ, ˜δ) :=
+X
+x∈X
+∥δ(x) −˜δ(x)∥1,
+(5)
+where, for p ≥1, the symbol ∥· ∥p denotes the p-norm on a Euclidean space.
+Remark 2.2. As in Kock et al. (2023), we could also consider policies that are restricted to lie
+in a non-empty and closed subset of SK (corresponding to budget, similarity, or compatibility
+constraints). The theory and algorithms developed in Sections 2 and 3 would go through upon
+fairly straightforward modification of the statements and proofs. To avoid notation overload,
+however, we do not pursue this level of generality here. In Section 5, where we consider non-
+finitely valued covariates, restrictions on the set of decision rules will be imposed.
+2.3
+Goal of the DM
+We have not yet formally defined the actual goal of the DM. In order to decide which decision
+rules δ are preferable in a specific context, we
+1. need to investigate the structure of the population cdf (cumulative distribution function)
+implied by rolling out a decision rule δ, and
+2. single out a criterion on the basis of which to compare different population cdfs.
+This is addressed in the following subsections: After introducing some notation in Section 2.3.1,
+we address the first item in the above enumeration in Section 2.3.2 and the second in Sec-
+tion 2.3.3. An illustrative toy example is studied in Section 6.1 to illustrate the concepts.
+2.3.1
+Some notation
+We denote the joint probability mass function of (Xj, Zj, Dj) by pX,Z,D(x, z, i) = P(Xj =
+x, Zj = z, Dj = i), write pX,Z, pX, and pZ for the corresponding marginal probability mass
+functions of (Xj, Zj), Xj and Zj, respectively, and set
+pX|Z=z(x) := pX,Z(x, z)
+pZ(z)
+and
+pZ|X=x(z) := pX,Z(x, z)
+pX(x)
+.
+(6)
+On top of Assumptions 2.1 and 2.2, we shall assume (until Section 5) that the common support
+of (Xj, Zj, Dj) is X ×Z ×{1, . . . , K} so that, in particular, the quotients in (6) are well defined:
+Assumption 2.3. We have pX,Z,D(x, z, i) > 0 for every x ∈X, z ∈Z, and i ∈{1, . . . , K}.
+For x ∈X and z ∈Z we denote by F i(· | x, z) the cumulative distribution function (cdf) of
+Yi,j | Xj = x, Zj = z.
+Furthermore, we denote by F i(· | x) the cdf of Yi,j | Xj = x, and by F i the cdf of Yi,j. We
+write F = (F 1, . . . , F K)′, and analogously define for every x and z the vectors of conditional
+8
+
+````
+
+## PDF page 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+cdfs F (· | x), and F (· | x, z). For notational convenience, we shall collect the conditional cdfs of
+a random vector Y ′
+j given Xj = x and Zj = z and the corresponding probability mass functions
+in an array
+F :=
+h
+(F i(· | x, z), pX,Z(x, z)) : i = 1, . . . , K; x ∈X; z ∈Z
+i
+.
+(7)
+Given F as in (7), i.e., an array consisting of cdfs and a probability mass function over X × Z,
+we shall sometimes write
+(Y ′
+j , Xj, Zj)′ ∼F
+to signify that F is the array corresponding4 to the distribution of (Y ′
+j , Xj, Zj)′. Generically,
+we shall throughout denote by F the array corresponding to the distribution of (Y ′
+j , Xj, Zj)′,
+which is unknown to the DM.
+2.3.2
+Distributions generated by rolling out a decision rule
+We now consider the effect of rolling out a (fixed) decision rule δ ∈SK to the whole population
+via randomized assignment. More specifically, consider a new subject independently drawn from
+the same population as the training sample in the sense that
+(Y ′, X, Z)′ ∼F,
+(8)
+and assume that its assignment D (chosen by the DM), say, satisfies:
+1. conditionally on X, it is distributed according to δ(X), and
+2. conditionally on (X, Z), it is independent of every outcome Yi for i = 1, . . . , K;
+which, for every x ∈X, y ∈R, z ∈Z and treatment i, we summarize in the property5
+P(D = i, Yi ≤y | X = x, Z = z) = δi(x)P(Yi ≤y | X = x, Z = z).
+(9)
+Denoting YD by ˜Y , it is elementary to verify that the cdf of ˜Y then equals
+P
+
+˜Y ≤·
+
+=
+X
+x∈X
+K
+X
+i=1
+δi(x)pX(x)F i(· | x) =: ⟨δ, F⟩.
+(10)
+For every z ∈Z, we can analogously consider the cdf of ˜Y conditional on Z = z, i.e., the cdf in
+the subpopulation of subjects with protected characteristic equal to z, which is given by
+P
+
+˜Y ≤· | Z = z
+
+=
+X
+x∈X
+K
+X
+i=1
+δi(x)pX|Z=z(x)F i(· | x, z) =: ⟨δ, F⟩z,
+(11)
+and for which we thus have ⟨δ, F⟩= P
+z∈Z pZ(z)⟨δ, F⟩z.
+4Note that F corresponds to but does not specify completely the joint distribution of (Y ′
+j , Xj, Zj)′, because
+it does not specify the dependence between the potential outcomes, an aspect that is irrelevant for our results.
+5For concreteness, let U be a uniformly distributed random variable on (0, 1) that is independent of the
+training sample and of (Y ′, X, Z)′. Set γ0(x) := 0 and γi(x) = Pi
+j=1 δj(x) for i = 1, . . . , K and x ∈X, and
+assign the new subject to treatment i if U ∈[γi−1(X), γi(X)). Then (9) is satisfied (note that it also remains
+satisfied conditionally on the training sample in case δ depends on the training sample).
+9
+
+````
+
+## PDF page 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+2.3.3
+Objective: Target functional penalized for unfairness
+In the previous subsection we illustrated how the choice of δ implies a population cdf (10),
+which is further decomposed as a weighted average of subpopulation cdfs (11). Which types of
+population cdfs are desirable to the DM depends strongly on the context. Typically, “desirabil-
+ity” will be measured through a user-specified real-valued functional T, say, of the cdf generated;
+such as its mean, a quantile such as the median, or a trimmed mean, possibly augmented by a
+poverty or inequality measure.
+Given the functional T—the concrete form of which we leave unspecified for now to ease
+the presentation—we consider the problem where the DM wants to trade off two potentially
+conflicting objectives described next:
+1. The DM wants to choose δ ∈SK to maximize T(⟨δ, F⟩), i.e., the functional T evaluated
+at the outcome distribution ⟨δ, F⟩.
+2. The DM wants to roll out a δ that is fair in the sense that the subpopulation cdfs ⟨δ, F⟩z
+are all “close” to the population cdf ⟨δ, F⟩singled out by the first objective.
+If this
+condition is violated, there are subpopulations defined by the protected characteristic, the
+cdf of which substantially deviates from the “global” outcome cdf ⟨δ, F⟩, which the DM
+wants to avoid.
+While the first objective is governed by a functional T, we need to make the second part of the
+DM’s objective more precise. To this end, because the similarity of cdfs can be measured in
+different ways, we introduce another functional S that:
+(a) maps pairs of cdfs to [0, ∞),
+(b) equals 0 if the two input cdfs coincide,
+(c) is intended to measure the “similarity” between two cdfs, high values corresponding to a
+strong degree of dissimilarity.
+For concreteness, one may think of S as the Kolmogorov-Smirnov distance (or more generally,
+any pseudo-distance) on the set of cdfs, or the absolute difference in the functional T evaluated
+at two input cdfs.
+One could also introduce some “directionality effects” by working, e.g.,
+with a one-sided Kolmogorov-Smirnov pseudo-distance (for cdfs F and G consider S(F, G) =
+supx∈R max(F(x) −G(x), 0) instead of S(F, G) = supx∈R |F(x) −G(x)|). These are important
+examples, but the theory developed below applies more generally.
+The remaining question now is how the DM could balance the two optimization objectives. In
+the present article, we consider rules δλ ∈SK, say, that maximize, for a chosen penalty λ ∈[0, 1],
+the penalized objective
+Ωλ,F(δ) := (1 −λ)T
+ ⟨δ, F⟩
+
+−λ max
+z∈Z S
+ ⟨δ, F⟩z, ⟨δ, F⟩
+
+.
+(12)
+The objective Ωλ,F(δ) in (12) is composed of two terms: The first summand depends on the
+functional T evaluated at the cdf generated by the decision rule δ ∈SK. The DM’s primary
+goal is to maximize this quantity. The second term adds the maximal dissimilarity between a
+10
+
+````
+
+## PDF page 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+subpopulation cdf ⟨δ, F⟩z and the population cdf ⟨δ, F⟩. Note that if S is chosen suitably (e.g.,
+when S is a pseudo-metric on the set of cdfs), and
+max
+z∈Z S
+ ⟨δ, F⟩z, ⟨δ, F⟩
+
+is large, this corresponds to a situation where the cdf generated by rolling out δ leads to
+very different cdfs between subpopulations defined by the protected characteristics and the
+population cdf. In this sense, rolling out the treatments according to δ may be considered
+unfair.
+Remark 2.3. Note that we have chosen the penalty term maxz∈Z S
+ ⟨δ, F⟩z, ⟨δ, F⟩
+
+not to
+incorporate the “sizes” pZ(z) of the protected groups. Alternatively, one could also have used a
+penalty term of the form maxz∈Z pZ(z)S
+ ⟨δ, F⟩z, ⟨δ, F⟩
+
+, which, however, has the disadvantage
+of down-weighing small marginalized groups.
+The degree at which unfairness is penalized depends on the preference parameter λ, which
+has to be chosen by the DM. Choosing λ ≈0 corresponds to a situation where fairness is
+essentially not taken into account, and where the DM is mostly interested in determining which
+treatment combination maximizes T. On the other hand, choosing λ ≈1 corresponds to a
+situation where unfairness is severely penalized.
+Remark 2.4. Typically, the DM will determine solutions to (suitable approximations of) the
+optimization problem (13) for different values of λ, and will then determine the decision rule
+to eventually roll out by comparing aspects of the corresponding path of solutions δλ. That is,
+the DM will study aspects of (estimates of) the functions
+λ 7→T
+
+⟨δλ, F⟩
+
+and
+λ 7→S
+
+⟨δλ, F⟩z, ⟨δλ, F⟩
+
+,
+cf. Section 7 for some illustration in the context of two empirical examples. Based on these
+functions, the DM can decide which λ to choose and which corresponding δλ to roll out. The
+decision rule a DM applies proceeding in this way incorporates a data-driven choice of λ. Be-
+cause this choice may be highly complicated or subjective, we shall establish regret guarantees
+irrespective of what the data-driven preference parameter choice of the DM is.
+Remark 2.5. Alternatively to the objective in (12), one could consider an objective function
+that maximizes T
+ ⟨δ, F⟩
+
+subject to the constraint that δ satisfies
+max
+z∈Z S(⟨δ, F⟩z, ⟨δ, F⟩) ≤ε.
+As mentioned in the introduction, an advantage of working with the penalized criterion (12)
+over this constrained maximization problem is that a solution to the latter may fail to exist for
+a given ε, because no δ may satisfy the restriction.
+Proposition 2.1 below shows that under weak assumptions the optimization problem
+max
+δ∈SK Ωλ,F(δ),
+(13)
+11
+
+````
+
+## PDF page 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+permits a (possibly non-unique) solution for every λ ∈[0, 1]. Note that the optimization problem
+in (13) cannot directly be solved by the DM, because F is unknown. Therefore, the DM first
+has to estimate F and will then solve an approximation to that optimization problem. We
+address this aspect further below.
+A detailed example that illustrates the concepts introduced so far can be found in Section 6.
+2.4
+Main technical assumption concerning the functionals T and S and some
+preliminary observations
+To establish theoretical guarantees, we impose throughout the assumption that all cdfs (and
+conditional cdfs) we are working with are supported on a common interval [a, b], where a < b
+are real numbers (a cdf F is supported on [a, b] if F(a−) = 0 and F(b) = 1). We denote the set
+of cdfs supported on [a, b] by Dcdf([a, b]). Furthermore, to allow the researcher to incorporate
+known structural properties of the cdfs, we shall introduce a “parameter space” D ⊆Dcdf([a, b]),
+in which the conditional cdfs appearing in F given in (7) are assumed to lie in. The following
+assumption on the target functional T and the functional measuring fairness S in relation to D
+is crucial and will be assumed to hold throughout the article.
+Assumption 2.4. The functionals
+T : Dcdf([a, b]) →R
+and
+S : Dcdf([a, b]) × Dcdf([a, b]) →[0, ∞)
+(14)
+and the non-empty convex set D ⊆Dcdf([a, b]) satisfy
+|T(F) −T(G)| ≤∥F −G∥∞
+and
+|S(F, ˜F) −S(G, ˜G)| ≤∥F −G∥∞+ ∥˜F −˜G∥∞
+(15)
+for every (F, ˜F) ∈D × D and every (G, ˜G) ∈Dcdf([a, b]) × Dcdf([a, b]). Furthermore, it holds
+that S(F, F) = 0 for every F ∈Dcdf([a, b]).
+Assumption 2.4 imposes an asymmetric Lipschitz-type condition on the functionals T and S
+that will allow us, e.g., to establish concentration results for plug-in estimators based on em-
+pirical cdfs through the Dvoretzky-Kiefer-Wolfowitz-Massart (DKWM) inequality, cf. Massart
+(1990).
+It is not difficult to verify that the functionals discussed in the example presented in Sec-
+tion 6.1 (i.e., where T is a normalized Gini-welfare measure and S the Kolmogorov-Smirnov
+distance) satisfy Assumption 2.4.6
+Note that functionals that satisfy a variant of (15), but
+where constants appear in front of the norms in the upper bounds can be brought into the
+framework of Assumption 2.4 by normalization. We could also work with a version of Assump-
+tion 2.4 with constants appearing in the upper bounds, but this would be notationally more
+cumbersome. These constants would then enter the regret upper bounds established below mul-
+tiplicatively, but would not enter the policies introduced (hence their knowledge is not required
+by the DM to carry out the policy). Appendices F and G in Kock et al. (2022) verify the latter
+6Use the reverse triangle inequality for the Kolmogorov-Smirnov distance to verify the condition on SKS there,
+and the discussion after Lemma E.9 in Kock et al. (2022) to verify the condition on TGini.
+12
+
+````
+
+## PDF page 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+version of the above assumption for various poverty, inequality and welfare measures, as well as
+for functionals such as quantiles, U-statistics, L-statistics, and more.
+2.4.1
+Some consequences
+An important first question is whether the optimization problem in (13) permits a solution and
+if this is the case, how it depends on λ. For an array F as in (7), the following result establishes,
+among other useful properties, that the objective Ωλ,F defined in Equation (12) indeed has a
+maximizer (which need not be unique, cf. the example discussed in Section 6.1). For an array F
+as in (7) and H a set of cdfs, we write F ⊏H if all cdfs contained in the array F are elements
+of H , i.e.,
+F ⊏H
+⇔
+F i(· | x, z) ∈H for every i = 1, . . . , K, x ∈X, and z ∈Z.
+For a definition of upper hemicontinuity of a set-valued function (correspondence) we refer to
+Section 17.2 in Aliprantis and Border (2006).
+Proposition 2.1. The following statements hold for F ⊏D (cf. Assumption 2.4):
+1. arg maxδ∈SK Ωλ,F(δ) is a non-empty and compact subset of SK for every λ ∈[0, 1];
+2. the function λ 7→maxδ∈SK Ωλ,F(δ) is continuous and convex on [0, 1];
+3. the correspondence λ 7→arg maxδ∈SK Ωλ,F(δ) is upper hemicontinuous on [0, 1];
+4. for every array G, say, as in (7) that satisfies G ⊏Dcdf([a, b]) (but not necessarily G ⊏D),
+it holds that supδ∈SK Ωλ,G(δ) is finite.
+As a consequence of Proposition 2.1, if F entering the objective Ωλ,F(δ) were known, the
+DM could simply attempt to solve the optimization problem maxδ∈SK Ωλ,F(δ) and would then
+roll out an (approximate) solution to the population (possibly after comparing solutions for
+different values of the preference parameter λ). However, note that this is not feasible, because
+the conditional cdfs entering the problem are not available to the DM. Nevertheless, the DM can
+use the training sample to estimate those quantities and use a plug-in approach to empirically
+determine an (approximate) best policy, which we shall detail in Section 3.
+2.5
+Regret
+The goal of the DM is to use the training sample ˜
+Wj = ( ˜Yj, Xj, Zj, Dj) for j = 1, . . . , n, for
+which (Y ′
+j , Xj, Zj)′ ∼F, unknown, to learn an element of
+arg max
+δ∈SK Ωλ,F(δ),
+for λ ∈[0, 1],
+a non-empty set (given the assumptions imposed throughout) as just established in Proposi-
+tion 2.1. Given a policy πn, i.e., an algorithm to single out a decision rule in SK based on the
+training sample, the regret we shall work with is
+r(πn; λ, F) := max
+δ∈SK Ωλ,F(δ) −Ωλ,F
+
+πn( ˜
+Wj, j = 1, . . . , n)
+
+.
+(16)
+13
+
+````
+
+## PDF page 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+The regret measures the quality of the recommendation the DM makes based on the sample of
+subjects j = 1, . . . , n in terms of the value of the objective function.
+If the DM chooses from a set of policies πλ
+n indexed by λ ∈Λ ⊆[0, 1] and the preference
+parameter ˆλn ∈Λ is chosen in a data-driven way (i.e., as a function of ˜
+Wj for j = 1, . . . , n),
+the relevant regret notion becomes
+r(π
+ˆλn
+n ; ˆλn, F) = max
+δ∈SK Ωˆλn,F(δ) −Ωˆλn,F
+
+π
+ˆλn
+n ( ˜
+Wj, j = 1, . . . , n)
+
+,
+(17)
+the behavior of which we study in such situations. That is, given the DM has decided to use the
+concrete value ˆλn, we ask how good the performance of the corresponding policy πˆλn
+n
+is relative
+to the best one for the selected value of the preference parameter. An alternative regret notion,
+which is interesting if ˆλn estimates a certain target preference parameter λ∗(cf. the situation
+described in Section 4) is briefly discussed in Appendix B.
+3
+Empirical success policies
+We now consider empirical success policies.
+Such policies depend on two quantities: First,
+the preference parameter λ ∈[0, 1], which defines the target, and a tuning parameter ε > 0
+regulating the optimization accuracy. Given these two parameters, the DM proceeds in the
+following way (for some quantities, we abstain from signifying their dependence on n notationally
+to keep the expressions easy to read):
+1. For every i ∈{1, . . . , K},
+x ∈X, and z ∈Z, determine ˆF i(· | x, z), the empirical cdf
+based on all observations j in
+Mi
+x,z := {j = 1, . . . , n : Dj = i, Xj = x, Zj = z},
+(18)
+i.e.,
+ˆF i(· | x, z) := |Mi
+x,z|−1
+X
+j∈Mix,z
+1(YDj,j ≤·) = |Mi
+x,z|−1
+X
+j∈Mix,z
+1(Yi,j ≤·),
+which we set equal to, e.g., the cdf corresponding to point mass at b (the upper endpoint
+of the support of the cdfs one is working with) in case Mi
+x,z is empty.
+2. For every x ∈X and z ∈Z, obtain estimates
+ˆpX(x) := |{j : Xj = x}|
+n
+, ˆpZ(z) := |{j : Zj = z}|
+n
+,
+and ˆpX(x, z) := |{j : Xj = x, Zj = z}|
+n
+,
+and set ˆpZ|X=x(z) := ˆpX,Z(x, z)/ˆpX(x), which we set 0 if ˆpX(x) = 0.
+3. Set ˆFn :=
+h
+( ˆF i(· | x, z), ˆpX,Z(x, z)) : i = 1, . . . , K; x ∈X; z ∈Z
+i
+.
+4. Choose
+πε,λ
+n ( ˜
+Wj, j = 1, . . . , n) ∈
+
+γ ∈SK : sup
+δ∈SK
+Ωλ, ˆ
+Fn(δ) −Ωλ, ˆ
+Fn(γ) ≤ε
+
+.
+(19)
+14
+
+````
+
+## PDF page 15
+
+FORMULA CHECK REQUIRED: original PDF page 15.
+
+````text
+Some technical remarks are discussed in Appendix C.1.
+Remark 3.1 (Data-driven preference parameters). A data-driven preference parameter is any
+function ˆλn, say, that maps the training sample to [0, 1], i.e.,
+ˆλn : Rn × X n × Zn × {1, . . . , K}n →[0, 1].
+To extract a decision rule, the function ˆλn is applied to the data to obtain a value in [0, 1],
+which is then used as the input in the above description of the policy to obtain the decision rule
+πε,ˆλn( ˜
+Wj,j=1,...,n)
+n
+( ˜
+Wj, j = 1, . . . , n);
+we shall (with some abuse of notation) drop the dependence on the training sample and simply
+write πε,ˆλn
+n
+if no confusion can arise. For example, one could proceed in three steps:
+1. Fix a finite set of preference parameters Λ ⊆[0, 1], which one intends to consider, and
+obtain (approximate) solutions πε,λ
+n
+as in (19) for every λ ∈Λ.
+2. Compare the solutions according to some criterion (cf. Section 4 for a specific suggestion)
+and choose ˆλn accordingly.
+3. Roll out πε,ˆλn
+n
+.
+3.1
+Regret bounds
+We now establish an upper bound on the expected regret of any empirical success policy with
+data-dependent preference parameter. In addition to the bound on expected regret, the result
+also contains high-probability bounds on the regret.
+Theorem 3.1. Let (Y ′
+j , Xj, Zj)′ ∼F ⊏D for j = 1, . . . , n and abbreviate
+η(F) := max
+x,z
+K
+X
+i=1
+1
+q
+P
+ Dj = i | Xj = x, Zj = z
+ ×
+X
+z∈Z
+1
+p
+pZ(z)
+.
+(20)
+Then, for any data-driven preference parameter ˆλn : Rn ×X n ×Zn →[0, 1], the expected regret
+E∗
+r(πε,ˆλn
+n
+; ˆλn, F)
+
+≤22η(F)
+r
+log(K)|X|
+n
++ 4
+r
+|Z|
+n + ε;
+(21)
+furthermore, for every ρ > 0 it holds that
+P∗
+r(πε,ˆλn
+n
+; ˆλn, F) ≥ρ + ε
+
+≤4|Z||X|K2 max
+x,z,i e
+−
+nqx,z,iρ2
+512(|X|∨|Z|)2 ,
+(22)
+and where qx,z,i := pX,Z,D(x, z, i).
+It is important to emphasize that the upper bound just given decays at the parametric
+rate 1/√n in the size n of the training sample, given that one chooses the optimization procedure
+in (19) in such a way that the optimization error is of the order 1/√n. By similar methods
+15
+
+````
+
+## PDF page 16
+
+FORMULA CHECK REQUIRED: original PDF page 16.
+
+````text
+to the ones in Kock et al. (2023), this could formally be achieved, e.g., by optimizing the
+empirical objective function δ 7→Ωλ, ˆ
+Fn(δ) over a fine enough grid in SK (exploiting that the
+true underlying objective function δ 7→Ωλ,F(δ) is Lipschitz continuous, cf. Lemma E.1). We
+have decided not to specify the optimization method explicitly in this article.
+In practice,
+running an optimization algorithm such as a Nelder-Mead search (possibly multiple times at
+randomly chosen initial values) with a choice of accuracy parameters that one can afford in a
+particular application (in terms of runtime) is more convenient than optimizing over a grid and
+is what we do in our numerical and empirical results. The question which optimization heuristic
+should be used in terms of efficiency is interesting and deserves further investigation, but goes
+beyond the scope of the present article.
+Next, we comment on the quantity η(F) that enters the upper bound in Theorem 3.1. This
+quantity is composed of two factors. The first,
+max
+x,z
+K
+X
+i=1
+1
+q
+P
+ Dj = i | Xj = x, Zj = z
+,
+(23)
+is related to what is typically referred to as an overlap condition. It is particularly large if there
+exists a pair x and z and a treatment i, say, that is only assigned with a very low probability
+whenever Xj = x and Zj = z; this then leads to less accurate estimation of the cdf ˆF i(· | x, z).
+On the other hand, if
+P
+ Dj = i | Xj = x, Zj = z
+
+≈1/K,
+i.e., if the assignment is balanced, then (23) is approximately bounded from above by K3/2.
+The second factor
+X
+z∈Z
+1
+p
+pZ(z)
+is smallest if the protected subgroups are of equal size, in which case it equals |Z|3/2 and
+becomes large if a protected subgroup is rather small.
+This is not surprising, because the
+objective (deliberately) does not down-weigh unfairness against small groups (cf. the discussion
+in Remark 2.3), and therefore needs accurate estimates for the cdfs also within small groups.
+Hence, if there are small groups, the problem of determining the optimal policy becomes more
+difficult, which is reflected in the larger upper bound.
+We note that the theoretical guarantees given in Theorem 3.1 are informative if the cardi-
+nalities of X and Z are small relative to the size of the training sample. For a discussion of the
+setting where X is not finite, we refer the reader to Section 5. In Appendix C.2 we discuss how
+the value function λ 7→maxδ∈SK Ωλ,F(δ) can be estimated by interpolation, which may be of
+some independent interest.
+16
+
+````
+
+## PDF page 17
+
+FORMULA CHECK REQUIRED: original PDF page 17.
+
+````text
+3.2
+Consistency
+As the next theoretical result in this article, we give conditions under which the d1-distance of
+the policy πεn,ˆλn to the (non-empty) random set of maximizers7
+arg max
+δ∈SK Ωˆλn,F(δ)
+(24)
+converges to zero in probability as n →∞; i.e., we give conditions under which the policy πεn,ˆλn
+n
+is consistent. Furthermore, we shall also quantify the rate of convergence to zero of the proba-
+bility that the decision rule deviates from its target in (24) by more than a given distance ρ > 0.
+As in the previous section, we allow for data-driven preference parameters ˆλn, so that the
+set of maximizers in the previous display is data-dependent (unless ˆλn is constant). In the
+context of establishing consistency, this introduces some technical difficulties that—in contrast
+to Theorem 3.1—need to be traded off with additional assumptions on the data-driven preference
+parameter choice. In Appendix C.3 we exhibit the subtleties that arise for consistency results in
+the presence of data-driven preference parameters ˆλn, which explains why additional restrictions
+on ˆλn need to be imposed for a consistency result.
+3.2.1
+Consistency of the policy
+Recall that all random variables are defined on an underlying probability space (Ω, A, P). We
+denote convergence in P-probability by “ P−→” and convergence in outer P-probability by “ P∗
+−→”.
+Furthermore, for ρ > 0 and λ ∈[0, 1] we denote
+Mρ
+F,λ =
+
+γ ∈SK : d1
+ γ, arg max
+δ∈SK
+Ωλ,F(δ)
+
+≥ρ
+	
+.
+(25)
+For every ρ > 0 we denote
+cF(ρ, λ) := max
+δ∈SK Ωλ,F(δ) −max
+δ∈Mρ
+F,λ
+Ωλ,F(δ),
+(26)
+if Mρ
+F,λ̸ = ∅and we set cF(ρ, λ) = 0 in case Mρ
+F,λ is empty. Proposition 2.1 shows that the
+quantities appearing in (25) and (26) are well defined (noting that Mρ
+F,λ is a compact set).
+Based on Lemma C.3, the following result exhibits a general upper bound on the probabil-
+ity that the d1-distance between πεn,ˆλn
+n
+and arg maxδ∈SK Ωλ,F(δ) exceeds ρ, which then leads
+to consistency statements under further conditions on the quantities appearing in that upper
+bound.
+Theorem 3.2. Let (Y ′
+j , Xj, Zj)′ ∼F ⊏D for j = 1, . . . , n.
+Let a sequence of preference
+parameters
+ˆλn : Rn × X n × Zn →Λ ⊆[0, 1]
+be given, where Λ̸ = ∅does not depend on n. Then, for every ρ > 0, the function λ 7→cF(ρ, λ)
+7Here, as usual, the distance of a point x in a metric space (X, d) to a non-empty subset A ⊆X is defined
+as infz∈A d(x, z).
+17
+
+````
+
+## PDF page 18
+
+FORMULA CHECK REQUIRED: original PDF page 18.
+
+````text
+is Borel measurable, and for every positive real number ζ, it holds that
+P∗
+
+πεn,ˆλn
+n
+∈Mρ
+F,ˆλn
+
+≤2|X|
+
+K2 + 1
+ X
+z∈Z
+max
+x,j e
+−
+nqx,z,jζ2
+8|X|2
++ 2|Z|e
+−nζ2
+2|Z|2
++ P∗
+0 < cF(ρ, ˆλn) < εn + 6ζ
+
+,
+(27)
+for qx,z,i := pX,Z,D(x, z, i); and where the event in the latter probability is measurable if ˆλn is
+measurable. Therefore, if there exists a sequence ζn > 0 such that for every ρ > 0 we have
+nζ2
+n →∞
+and
+P∗
+0 < cF(ρ, ˆλn) < εn + 6ζn
+
+→0,
+then the policy πεn,ˆλn
+n
+is consistent, i.e.,
+d1
+
+πεn,ˆλn
+n
+, arg max
+δ∈SK Ωˆλn,F(δ)
+
+P∗
+−→0,
+as n →∞.
+(28)
+In particular, the policy πεn,ˆλn
+n
+is consistent if Λ consists of finitely many elements and εn →0.
+We note that the upper bound in (27) holds under minimal assumptions on the preference
+parameter. While the first two summands in that upper bound converge to 0 as n →∞(due to
+Assumption 2.3), there is no guarantee that the third summand converges to 0, in general. This
+is only true under additional conditions, e.g., finiteness of Λ. Note that the finiteness condition
+does not present a serious practical limitation, as one can typically only consider a finite grid
+of λ values.
+The final question that remains is how to choose the preference parameter λ. Before we
+address this question, we show that a policy that is consistent for arg maxδ∈SK Ωˆλn,F(δ) and is
+based on a data-driven preference parameter ˆλn that converges to a non-random λ∗∈[0, 1], is
+also consistent for arg maxδ∈SK Ωλ∗,F(δ); i.e., the policy is consistent for the target in which ˆλn is
+replaced by the limiting value λ∗. A similar statement is established if the preference parameter
+approaches a random variable with finite support.
+Such a result is interesting, in case an
+infeasible “oracle” preference parameter λ∗= λ∗(F) depending on the unknown F is targeted by
+a consistent data-driven preference parameter selection mechanism, as will be done in Section 4.
+Proposition 3.3. Let (Y ′
+j , Xj, Zj)′ ∼F ⊏D for j = 1, . . . , n. Let a sequence of preference
+parameters ˆλn : Rn × X n × Zn →[0, 1] be given that converges in (outer) probability to a
+(non-random) λ∗∈[0, 1] and let πn be a sequence of policies. Then
+d1
+
+πn, arg max
+δ∈SK Ωˆλn,F(δ)
+
+P∗
+−→0
+⇒
+d1
+
+πn, arg max
+δ∈SK Ωλ∗,F(δ)
+
+P∗
+−→0.
+(29)
+If ˆλn ∈Λ, a finite subset of [0, 1] that does not depend on n, and if ˆλn −ˆλ∗
+n
+P∗
+−→0 for a sequence
+random variables ˆλ∗
+n ∈Λ, then (29) holds with λ∗replaced by ˆλ∗
+n.
+Proposition 3.3 follows from upper-hemicontinuity of λ 7→arg maxδ∈SK Ωλ,F(δ) that was
+established in Proposition 2.1. Proposition 3.3 establishes that if one can single out a preferable
+theoretical preference parameter λ∗that itself is infeasible but consistently estimable, and if the
+18
+
+````
+
+## PDF page 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+policy πn is consistent for the random set of maximizers arg maxδ∈SK Ωˆλn,F(δ), then the policy
+is also consistent for the non-random set of maximizers arg maxδ∈SK Ωλ∗,F(δ).
+4
+Choosing the preference parameter
+Theorem 3.1 shows that the expected regret of the policies considered decays at the parametric
+rate regardless of how ˆλn is chosen. Furthermore, we have seen in Theorem 3.2 that whenever
+the preference parameter is selected from a finite set of candidate values, the corresponding
+policy is consistent in the sense that
+d1
+
+πεn,ˆλn
+n
+, arg max
+δ∈SK Ωˆλn,F(δ)
+
+P∗
+−→0,
+as n →∞,
+and Proposition 3.3 even shows that if ˆλn “converges” in (outer) probability to ˆλ∗
+n (in the sense
+that their distance converges to 0 in (outer) probability), then
+d1
+
+πεn,ˆλn
+n
+, arg max
+δ∈SK Ωˆλ∗n,F(δ)
+
+P∗
+−→0,
+as n →∞.
+Those guarantees are not in place if Λ is not finite, but this is not a strong restriction: In
+practice, a DM will initially fix a finite set of preference parameters Λ, say, from which an
+element is then selected in a data-driven way, possibly by comparing properties of the inferred
+policies πεn,λ
+n
+for λ ∈Λ. In this section, we assume that Λ is finite and consider in more detail
+the question of which preference parameter λ∗in Λ should be used. A first answer to this
+question was already briefly touched upon in Remark 2.4, where it was recommended that the
+DM study aspects of (estimates of) the functions
+λ 7→T
+
+⟨πεn,λ
+n
+, F⟩
+
+and
+λ 7→S
+
+⟨πεn,λ
+n
+, F⟩z, ⟨πεn,λ
+n
+, F⟩
+
+.
+The empirical examples in Section 7 will illustrate this approach.
+To provide another answer to this question, we adapt the “price of fairness” criterion in
+Berk et al. (2017) to our context. Suppose that the DM has obtained the policies πεn,λ
+n
+for
+every λ ∈Λ, which we shall assume to contain 0 in what follows, and now wants to decide
+which one among those to roll out. Recall that if the DM decides to roll out the policy πεn,λ
+n
+for a given λ ∈Λ, this results in the population cdf ⟨πεn,λ
+n
+, F⟩, which is unknown to the DM,
+because F is unknown. Ignore this “estimation step” for a moment, and define for every λ ∈Λ
+the difference
+∆n(λ, F) := T(⟨πεn,0
+n
+, F⟩) −T(⟨πεn,λ
+n
+, F⟩),
+which depends on the data due to its dependence on the policies. The difference ∆n(λ, F)
+measures, for a given λ, the difference in the target functional T applied to the policy πεn,0
+n
+(that
+does not penalize unfairness) and the policy πεn,λ
+n
+(that penalizes unfairness with penalty λ).
+Note that if ∆n(λ, F) > 0, then penalizing unfairness leads to a decrease/loss in the target
+functional.8 Therefore, one may interpret ∆(λ, F) as the “price” the DM is paying for penalizing
+8Note that ∆n(λ, F) can in principle also be negative, due to the policy being based on estimates of F.
+19
+
+````
+
+## PDF page 20
+
+FORMULA CHECK REQUIRED: original PDF page 20.
+
+````text
+unfairness by rolling out πεn,λ
+n
+instead of πεn,0
+n
+. We now assume that there is a maximal “budget”
+the DM can afford to spend in penalizing for unfairness, i.e., a maximal decrease in the target
+functional T that can be tolerated. Call this budget β > 0. Given that the DM intends to select
+the preference parameter λ from Λ, we thus define the targeted preference parameter as
+λ∗
+n(β, F) := max{λ ∈Λ : ∆n(λ, F) ≤β};
+(30)
+note that λ∗(β, F) exists because Λ is finite and contains 0.
+The so-defined “oracle” tar-
+get λ∗
+n(β, F) according to budget β is the maximal unfairness penalty that satisfies the budget
+constraint. Because F is unknown, we have to estimate λ∗
+n(β, F).
+Taking care of the estimation step is more difficult than it may perhaps seem at first sight.
+To see this, note that the function h, say, that maps z = (z0, z1, . . . , zM) ∈{0} × RM (M ∈N)
+to max{i : zi ≤β} is not everywhere continuous; the set of discontinuity points of h is given by
+D(h) := {z ∈{0} × RM : zh(z) = β}.
+(31)
+Therefore, replacing F by ˆFn in the definition of the preference parameter in the penultimate
+display in a plug-in fashion, and even though ∆n(λ, ˆFn) ≈∆n(λ, Fn) for every λ ∈Λ actually
+holds under weak assumptions (cf. the proof of Theorem 4.1), we can in general not easily
+conclude (e.g., by a suitable version of the continuous mapping theorem) that the plug-in
+preference parameter that replaces F by ˆFn in (30) consistently estimates its target without
+further assumptions.
+What can be achieved—without additional conditions beyond Assumptions 2.3 and 2.4 and
+a finiteness condition on Λ—is to consistently underestimate the oracle and to consistently
+satisfy the budget constraint. This is achieved by replacing F by ˆFn in (30) and by introducing
+some “slack”, i.e., we use the estimator
+ˆλ∗
+n(β, ˆFn) = max
+n
+λ ∈Λ : ∆n(λ, ˆFn) ≤β(1 −cn)
+o
+with
+cn :=
+p
+log(n)/n,
+(32)
+where
+∆n(λ, ˆFn) := T(⟨πεn,0
+n
+, ˆFn⟩) −T(⟨πεn,λ
+n
+, ˆFn⟩).
+The precise result is as follows.
+Theorem 4.1. Let (Y ′
+j , Xj, Zj)′ ∼F ⊏D for j = 1, . . . , n. Let Λ = {0, λ1, . . . , λM} ⊆[0, 1]
+with 0 < λ1 < λ2 < . . . < λM ≤1 for some fixed M ∈N. Fix a budget β > 0. If εn →0, it
+follows that
+P∗
+ˆλ∗
+n(β, ˆFn) > λ∗
+n(β, F)
+
+→0
+and
+P∗
+
+∆n
+
+ˆλ∗
+n(β, ˆFn), F
+
+> β
+
+→0,
+(33)
+i.e., ˆλ∗
+n(β, ˆFn) consistently underestimates λ∗
+n(β, F) and consistently satisfies the budget con-
+straint. Under the additional condition that for some α > 0 it holds that
+P∗
+β −∆n
+ λ∗
+n(β, F), F
+
+≤[α + β]cn
+
+→0,
+(34)
+20
+
+````
+
+## PDF page 21
+
+FORMULA CHECK REQUIRED: original PDF page 21.
+
+````text
+it even holds that
+ˆλ∗
+n(β, ˆFn) −λ∗
+n(β, F) P∗
+−→0,
+from which it then also follows that
+d1
+
+πεn,ˆλ∗
+n(β, ˆ
+Fn)
+n
+, arg max
+δ∈SK Ωλ∗n(β,F),F(δ)
+
+P∗
+−→0.
+(35)
+Theorem 4.1 provides conditions under which the data-driven preference parameter ˆλ∗
+n(β, ˆFn)
+converges in outer probability to its target, and that selecting the policy from a set of empirical
+success policies indexed over Λ based on ˆλ∗
+n(β, ˆFn) is consistent for the target that is defined
+by spending a maximal budget to penalize for unfairness.
+The main condition needed for consistency is the one in (34). It requires that the quan-
+tity ∆n
+ λ∗
+n(β, F), F
+
+, which never exceeds β by definition, takes its values in an (α + β)cn
+neighborhood of β with outer probability converging to 0, thus avoiding the discontinuity prob-
+lems implied by the function h as described around (31). That ∆n
+ λ∗
+n(β, F), F
+
+concentrates
+at the budget constraint β so that this condition is violated may arise in special cases but is
+not too likely given that Λ consists only of finitely many values chosen by the user. Hence, the
+extra condition needed for consistency does not seem to be a very strong restriction.
+If the extra condition (34) for consistency is not satisfied, the data-driven preference param-
+eter is “robust” in the sense that it consistently satisfies the budget constraint and is at least
+consistently not larger than the oracle, which is defined as the maximal penalty for unfairness
+that satisfies the budget constraint.
+That we can (only) consistently underestimate the oracle in general is conceptually in line
+with general findings in Sun (2021), where impossibility results in the related setting of em-
+pirical welfare maximization under (estimated) constraints are studied, and ways to take the
+corresponding estimation error into account are suggested.
+5
+Generalization to non-discrete covariates
+Throughout this article, we consider the case where Z is finite. So far, we focused on a setting
+where X is finite as well. In case X contains infinitely many elements, one could simply “dis-
+cretize” X, and then apply the policy developed and studied for the case of finitely supported
+covariates in Section 3. Granted the assumptions used to establish theoretical guarantees in
+earlier sections of this article are satisfied for the discretized covariates, the theoretical guaran-
+tees (expected regret bounds, consistency, etc.) carry over immediately. One disadvantage of
+this approach is that the performance guarantees developed, e.g., in Theorem 3.1, get weaker
+as the discretization gets finer. Yet, the finer the discretization, the more reasonable is, e.g.,
+the conditional independence Assumption 2.2, conditioning on the discretized covariates, which
+restricts the scope of such a “direct” application of our results.
+An alternative approach, which is not based on discretization, but can be viewed as a
+generalization of the approach of Kitagawa and Tetenov (2021) to our context, is discussed in
+the present section. The non-finiteness of the number of elements of X necessarily requires
+some notational and conceptual modifications, which are only maintained locally in this section
+21
+
+````
+
+## PDF page 22
+
+FORMULA CHECK REQUIRED: original PDF page 22.
+
+````text
+and the corresponding proofs in Appendix G. The objects studied (e.g., the training sample,
+policies, or the distributions generated in the roll-out phase) have the same conceptual meaning
+as before, and hence their interpretation does not require additional discussion on top of that
+already given earlier. In this section, we maintain throughout the following list of assumptions
+and notational conventions, without further mentioning them in the theoretical results:
+1. We assume that Z is finite, but we do not assume that X is finite (although this is not
+ruled out formally).
+2. We impose Assumptions 2.1, 2.2, and 2.4 throughout, but no longer impose Assumption 2.3
+(which is replaced, to some extent, by 5.1 below).
+3. We assume that Wj = (Y ′
+j , Xj, Zj, Dj)′ takes its values in RK × X × Z × {1, . . . , K}
+equipped with the product sigma algebra, where finite sets (in particular Z) are equipped
+with the power set (set of all subsets), RK is equipped with the Borel sigma algebra, and
+the non-empty set X is equipped with some sigma algebra.
+4. We denote a regular conditional distribution of Yi,j given (Xj, Zj) by Ki
+x,z(·).9 For x ∈X
+and z ∈Z the conditional cdf F i(· | x, z) := Ki
+x,z((−∞, ·]).
+Furthermore, we denote
+by F i the cdf of Yi,j. We collect the conditional cdfs of a random vector Y ′
+j given Xj = x
+and Zj = z and PX,Z, the joint distribution of Xj and Zj, in an array
+F :=
+h
+(F i(· | x, z), PX,Z) : i = 1, . . . , K; x ∈X; z ∈Z
+i
+.
+(36)
+The symbol PX denotes the distribution of Xj, PZ denotes the distribution of Zj with cor-
+responding probability mass function pZ, which we assume to be strictly positive at every
+element of Z, and PX|Z=z(·) = PX,Z(·, {z})/pZ(z) is a regular conditional distribution of
+Xj given Zj evaluated at z ∈Z (recall that Z is assumed finite).
+5. A decision rule δ is a measurable function from X to SK, the simplex in RK. We consider
+situations, where the decision rules are chosen from a non-empty set Π of measurable
+functions from X to SK.
+6. For every decision rule δ and every z ∈Z, we define (analogously to (11)) the cdf
+⟨δ, F⟩z(y) :=
+Z
+K
+X
+i=1
+δi(x)F i(y | x, z)dPX|Z=z(x),
+(37)
+and set (analogously to (10))
+⟨δ, F⟩:=
+X
+z∈Z
+⟨δ, F⟩zpZ(z).
+Analogously to Section 2.3.2, the cdfs ⟨δ, F⟩z and ⟨δ, F⟩are the conditional and uncon-
+ditional cdfs obtained by rolling out the decision rule δ.10
+9Because Yi,j is real-valued, the existence of a regular conditional distribution is guaranteed, cf. Definition
+A.7 and Theorem A.37 in Liese and Miescke (2008).
+10More precisely, consider a new draw from the underlying population as in (8), and suppose that its assignment,
+22
+
+````
+
+## PDF page 23
+
+FORMULA CHECK REQUIRED: original PDF page 23.
+
+````text
+7. We write F ⊏Π H if for every δ ∈Π and every z ∈Z the cdf ⟨δ, F⟩z is an element of the
+closure of H (w.r.t. the supremum metric).
+In addition, we impose the following “overlap” condition throughout this section (in place of
+working with Assumption 2.3):
+Assumption 5.1 (Overlap condition). Let
+ei(x, z) := P(Dj = i | Xj = x, Zj = z)
+for i = 1, . . . , K,
+define a regular conditional distribution of Dj given Xj and Zj, and assume that (it can be
+chosen such that) 0 < ei(x, z) for every i = 1, . . . , K, every x ∈X, and every z ∈Z, and such
+that E(e−1
+i (Xj, Zj)) < ∞for every i = 1, . . . , K.
+Granted all the assumptions above, we introduce the class of (non-negative) measurable
+functions
+GΠ := {fδ,c,z : δ ∈Π, c ∈R, z ∈Z},
+where fδ,c,z : R × X × Z × {1, . . . , K} →R is defined as (recall that pZ(z) > 0 is assumed for
+every z ∈Z)
+fδ,c,z(y, x, z∗, d) := δd(x) × 1(y ≤c) ×
+1(z∗= z)
+ed(x, z)pZ(z).
+That the expectation of fδ,c,z(YDj,j, Xj, Zj, Dj) equals ⟨δ, F⟩z(c) is shown in Lemma G.1 in
+Appendix G, delivering (recall
+˜
+Wj from (2)) the unbiased estimator n−1 Pn
+j=1 fδ,c,z( ˜
+Wj) of
+⟨δ, F⟩z(c), cf. also the discussion in Section 3 of Kitagawa and Tetenov (2021) for a similar
+approach. We abbreviate,
+∥Pn −P∥GΠ := sup
+f∈GΠ
+|n−1
+n
+X
+i=1
+f( ˜
+Wj) −E(f( ˜
+Wj))|.
+Note that suitably “small”, i.e., “parametric”, sets of decision rules Π (and hence GΠ) allow one
+to establish, for some finite constant c(GΠ, P) > 0, the bound
+E∗(∥Pn −P∥GΠ) ≤c(GΠ, P)/√n < ∞.
+(38)
+For example, if one additionally assumes that 0 < ε < ei(x, z) for every i = 1, . . . , K, every
+x ∈X, and every z ∈Z, the class of (non-negative) functions GΠ is bounded from above
+by maxz∈Z 1/(ε × pZ(z)), so that Theorem 2.14.1 in van der Vaart and Wellner (1996) deliv-
+ers (38) under (i) finiteness of a uniform entropy integral (satisfied in particular for VC classes)
+and (ii) suitable measurability conditions and some structural conditions of the underlying
+probability space are assumed.
+We abstain from formulating expected regret bounds in the present setting in terms of
+various other possible sufficient conditions for (38), but develop an upper bound on the regret
+D, say, satisfies Equation (9) for every i, x ∈X, y ∈R and z ∈Z, e.g., because the mechanism as discussed in
+Footnote 5 was implemented by the DM. Then, for every z ∈Z, ⟨δ, F⟩z is the cdf of YD given Z = z, and the
+cdf of YD is ⟨δ, F⟩.
+23
+
+````
+
+## PDF page 24
+
+FORMULA CHECK REQUIRED: original PDF page 24.
+
+````text
+itself that depends on ∥Pn −P∥GΠ. This approach has the benefit of also being informative
+if (38) is not satisfied, e.g., because GΠ is nonparametric, and a different rate of decay holds for
+the quantity to the left in (38). We refer the reader to, e.g., van der Vaart and Wellner (1996)
+and Gin´e and Nickl (2015) for tools to establish (38) under low-level assumptions on Π.
+The goal of the decision maker is to choose δ such as to approximate
+sup
+δ∈Π
+ΩF,λ(δ),
+with the penalized objective ΩF,λ(δ) as defined in (12) (Lemma G.2 in Appendix G shows that,
+under the maintained assumptions, the supremum in the previous display is finite). Similar to
+the definition in (4), a policy is a function πn : Rn ×X n ×Zn ×{1, . . . , K}n →Π, and its regret
+is defined as
+r(πn; λ, F) := sup
+δ∈Π
+Ωλ,F(δ) −Ωλ,F
+
+πn( ˜
+Wj, j = 1, . . . , n)
+
+,
+(39)
+where we replace λ by ˆλn if the preference parameter is selected in a data-driven way.
+5.1
+Empirical success type policy
+For a given preference parameter λ ∈[0, 1] and tuning parameter ε > 0, the policy πε,λ
+n
+we
+shall consider here is a suitably adapted version of the policy discussed in Section 3. Concep-
+tually, we do no longer work with a plug-in version of the objective (simply replacing F by an
+estimate), but we somewhat more carefully estimate the quantities through which the objective
+actually depends on directly. Here, we exploit that the expectation of fδ,c,z(YDj,j, Xj, Zj, Dj)
+equals ⟨δ, F⟩z(c), which is in line with the approach in Kitagawa and Tetenov (2021).
+We work with the “empirical target” ˆΩλ(δ), say, which, for δ ∈Π is defined as (cf. Assump-
+tion 2.4)
+ˆΩλ(δ) := (1 −λ)T(\
+⟨δ, F⟩) −λ max
+z∈Z S( \
+⟨δ, F⟩z, \
+⟨δ, F⟩),
+for estimates \
+⟨δ, F⟩z and \
+⟨δ, F⟩defined in (40) below.
+To obtain
+\
+⟨δ, F⟩z, we project the function c 7→n−1 Pn
+j=1 fδ,c,z(YDj,j, Xj, Zj, Dj), which
+(although being non-negative, non-decreasing, c`adl`ag, and pointwise unbiased for \
+⟨δ, F⟩z) is
+not guaranteed to be a cdf, cf. also the discussion in Section 3 of Kitagawa and Tetenov (2021),
+onto the set of cdfs; here, the projection of a non-decreasing, non-negative, c`adl`ag function
+G : R →R onto Dcdf([a, b]) (equipped with the Kolmogorov-Smirnov distance) is denoted by
+Ma,bG, i.e., Ma,bG(x) equals 0 for x < a, equals min(G(x), 1) for x ∈[a, b], and equals 1 for
+x ≥b.
+1. For every z ∈Z and every δ ∈SK define the following cdfs in Dcdf([a, b])
+\
+⟨δ, F⟩z := Ma,b
+
+n−1
+n
+X
+j=1
+fδ,·,z(YDj,j, Xj, Zj, Dj)
+
+,
+and \
+⟨δ, F⟩:=
+X
+z∈Z
+pZ(z) \
+⟨δ, F⟩z.
+(40)
+24
+
+````
+
+## PDF page 25
+
+FORMULA CHECK REQUIRED: original PDF page 25.
+
+````text
+2. Choose
+πε,λ
+n ( ˜
+Wj, j = 1, . . . , n) ∈
+
+γ ∈Π : sup
+δ∈Π
+ˆΩλ(δ) −ˆΩλ(γ) ≤ε
+
+.
+(41)
+Lemma G.2 in Appendix G shows that the supremum defining the set in (41) is finite.
+If the probabilities pZ and the propensities ei(x, z) are unknown, a DM needs to replace
+them by estimates ˆpZ(z) and ˆei,n(x, z) (the former defined as in Section 3, while we keep the
+latter abstract), respectively. In this situation, set
+˜fδ,c,z(y, x, z∗, d) := δd(x) × 1(y ≤c) ×
+1(z∗= z)
+ˆed(x, z)ˆpZ(z),
+which we leave undefined if the denominator equals 0. Then, we consider the adapted policy ˜πε,λ
+n ,
+say, that differs from πε,λ
+n
+in that it is not based on the quantities defined in (40) when computing
+the empirical target ˆΩλ(δ), but replaces them by
+^
+⟨δ, F⟩z := Ma,b
+
+n−1
+n
+X
+j=1
+˜fδ,·,z(YDj,j, Xj, Zj, Dj)
+
+,
+and ^
+⟨δ, F⟩:=
+X
+z∈Z
+ˆpZ(z) ^
+⟨δ, F⟩z.
+(42)
+5.2
+Performance bound
+We now provide an upper bound on the regret of the policies just defined.
+Theorem 5.1. Let (Y ′
+j , Xj, Zj)′ ∼F for j = 1, . . . , n, and assume that F ⊏Π D. Then, for
+any data-driven preference parameter ˆλn : Rn × X n × Zn →[0, 1], we have
+r(πε,ˆλn
+n
+; ˆλn, F) ≤6 × ∥Pn −P∥GΠ + ε,
+(43)
+and r(˜πε,ˆλn
+n
+; ˆλn, F) is bounded from above by the upper bound in (43) plus
+∥ˆpZ −pZ∥+ 6 × max
+z∈Z n−1
+n
+X
+j=1
+ˆp−1
+Z (z)ˆe−1
+Dj(Xj, z) −p−1
+Z (z)e−1
+Dj(Xj, z)
+ ,
+(44)
+which is to be interpreted as ∞if one of the denominator vanishes.
+Because E∥ˆpZ −pZ∥= O(n−1/2), e.g., cf. Lemma F.5, even if the propensity scores are
+unknown but (correctly) specified through a suitably regular parametric model, the expectation
+of the term in (44) will typically be of order O(n−1/2). Together with the behavior of the (outer)
+expectation of ∥Pn −P∥GΠ being of order O(n−1/2) if Π is sufficiently constrained (cf. the
+discussion around (38)), this then leads to a O(n−1/2) upper bound on the expected regret of
+the policy in the context studied in this section provided ε = O(n−1/2).
+It is also apparent from Theorem 5.1 that “large” nonparametric classes of policies or propen-
+sities will lead to slower rates of convergence to 0 of the expectation of the upper bound on the
+regret developed in Theorem 5.1.
+25
+
+````
+
+## PDF page 26
+
+FORMULA CHECK REQUIRED: original PDF page 26.
+
+````text
+6
+An example and numerical results
+6.1
+A toy example
+In this section, we provide a toy example that illustrates the setting outlined in Section 2. We
+shall re-investigate the example considered here in the numerical results below. Consider the
+case where T is the Gini-welfare functional, which is a popular welfare measure in the economics
+literature; cf. Sen (1976), and for results in an optimal policy choice context without fairness
+considerations see Kitagawa and Tetenov (2021). For a cdf F, the Gini-welfare functional is
+defined (assuming that the Lebesgue-Stieltjes integrals involved in its definition exists) as
+W(F) :=
+Z
+xdF(x) −1
+2
+Z Z
+|x −y|dF(x)dF(y).
+(45)
+This welfare measure trades-off the expected outcome µ(F) =
+R
+xdF(x), say, of F with σ(F) =
+1
+2
+R R
+|x −y|dF(x)dF(y), say, the “inequality” inherent in the distribution F, measured as its
+mean absolute difference (divided by 2). Hence, targeting the Gini-welfare measure, instead of
+simply the expected outcome, the decision maker not only aims at maximizing the expected out-
+come in the population considered, but also incorporates inequality concerns. We furthermore
+consider the similarity measure SKS, say, which maps two cdfs F and G to the Kolmogorov-
+Smirnov distance between them, i.e.,
+SKS(F, G) := ∥F −G∥∞:= sup
+x∈R
+|F(x) −G(x)|.
+We shall here consider the case where F ∈D = Dcdf([0, 1]). Denoting by TGini = W/2 the
+Gini-welfare functional normalized by 2, the penalized objective we shall work with is defined
+as
+Ωλ,F(δ) = (1 −λ)TGini
+ ⟨δ, F⟩
+
+−λ max
+z∈Z ∥⟨δ, F⟩z −⟨δ, F⟩∥∞;
+the normalization guarantees that Assumption 2.4 holds with D = Dcdf([0, 1]).
+Having fixed the functionals defining the target, we now consider the case where there are
+only K = 2 treatments, X = {0} and Z = {0, 1}. That is, for simplicity of discussion there is
+only one covariate value, but there are two possible values for the protected characteristic. To
+specify an array F as in (7), we consider the cdfs
+F 1(y | 0, 0) = F 2(y | 0, 1) = √y =: G(y)
+and
+F 2(y | 0, 0) = F 1(y | 0, 1) = y2 =: H(y), (46)
+for y ∈[0, 1] (0 for y < 0 and 1 for y > 1), and the probability mass function
+pX,Z(0, 0) =: p > 1/2
+and
+pX,Z(0, 1) = (1 −p),
+i.e., the subpopulation corresponding to Z = 0 constitutes the “majority” whereas the subpop-
+ulation corresponding to Z = 1 is the “minority.” It holds that µ(G) = 1/3 < 2/3 = µ(H)
+and σ(G) = 1/6 > σ(H) = 2/15, from which it follows that
+TGini(G) = (µ(G) −σ(G))/2 = 1/12
+and
+TGini(H) = (µ(H) −σ(H))/2 = 4/15.
+26
+
+````
+
+## PDF page 27
+
+FORMULA CHECK REQUIRED: original PDF page 27.
+
+````text
+0.2
+0.4
+0.6
+0.8
+1.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Figure 1: The figure plots the cdf ⟨δ, F⟩(left panel) and the cdf ⟨δ, F⟩0 (right panel) for different
+values of δ ∈{0, 1
+4, 1
+2, 3
+4, 1} and for p = 3/4. Lower values of δ lead to stochastically larger cdfs.
+Note that ⟨δ, F⟩1 can also be read off from the right panel due to symmetry, but the dependence
+on δ is now “reverted”, cf. Equation (47).
+Hence, the cdf H has larger Gini-welfare than the cdf G, and, from this point-of-view, is
+preferable. As a consequence, for the subpopulation defined by Z = 0 the second treatment
+(the cdf of which is H) is better than the first treatment (the cdf of which is G) in terms of TGini;
+the contrary is the case for the subpopulation defined by Z = 1. Note that in this example
+F 1(· | 0) = pG(·) + (1 −p)H(·)
+and
+F 2(· | 0) = pH(·) + (1 −p)G(·).
+The cdf generated by rolling out the decision rule δ = (δ, 1 −δ)′ for a δ ∈[0, 1] equals11
+⟨δ, F⟩=
+
+δp + (1 −δ)(1 −p)
+
+G +
+
+δ(1 −p) + (1 −δ)p
+
+H,
+with corresponding expectation µ(⟨δ, F⟩) = (δ + (1 −2δ)p + 1)/3 and
+σ(⟨δ, F⟩) =
+1
+210
+
+δ(20 −27δ) −27(1 −2δ)2p2 + 2(δ(54δ −47) + 10)p + 35
+
+,
+so that
+TGini(⟨δ, F⟩) =
+1
+420
+
+50δ + 27δ2(1 −2p)2 −2δp(54p + 23) + p(27p + 50) + 35
+
+.
+The subpopulation cdfs are given by
+⟨δ, F⟩0 = δG + (1 −δ)H
+and
+⟨δ, F⟩1 = δH + (1 −δ)G.
+(47)
+Figure 1 illustrates the cdfs ⟨δ, F⟩and ⟨δ, F⟩0 in dependence on δ in case p = 3/4. A simple
+computation now shows that the penalty term equals (recalling that p > 1/2)
+max
+z∈Z ∥⟨δ, F⟩z −⟨δ, F⟩∥∞= p|2δ −1| max
+y∈(0,1) y
+
+1 −y3
+= p
+3
+4 × 22/3 |2δ −1|.
+11Note that in case X a singleton set and K = 2, a decision rule δ is uniquely characterized by the probability
+at which the first treatment is assigned, which we denote by δ throughout this example.
+27
+
+````
+
+## PDF page 28
+
+FORMULA CHECK REQUIRED: original PDF page 28.
+
+````text
+0.2
+0.4
+0.6
+0.8
+1.0
+0.05
+0.10
+0.15
+0.20
+Figure 2: Objective function Ωλ,F(δ) for p = 3/4 (left panel), and the corresponding maximum
+value of the objective function for p = 3/4 in dependence on λ (right panel).
+To be explicit, the objective Ωλ,F
+ (δ, 1 −δ)′
+hence equals
+1
+420(1 −λ)
+
+50δ + 27δ2(1 −2p)2 −2δp(54p + 23) + p(27p + 50) + 35
+
+−3λp|2δ −1|
+4 × 22/3
+,
+(48)
+and is plotted in the left panel in Figure 2 (for p = 3/4).
+Fix a λ ∈[0, 1). From (48) we then see that the function δ 7→Ωλ,F((δ, 1−δ)′) when restricted
+to [0, 1/2] and also when restricted to [1/2, 1], respectively, coincides with a quadratic polynomial
+with positive leading coefficient. It thus follows that arg maxδ∈[0,1] Ωλ,F((δ, 1−δ)) ⊆{0, 1/2, 1}.
+Using p > 1/2 together with (48), we see that Ωλ,F((0, 1)′) > Ωλ,F((1, 0)′). It follows that either
+the argmax is {0}, or {1/2}, or their union {0, 1/2}, the latter occurring whenever Ωλ,F((0, 1)′) =
+Ωλ,F((1/2, 1/2)′), which is the case precisely if λ = c(p) := 1−
+630 3√
+2p
+2p
+
+54p+315 3√
+2+100
+
+−127. For λ = 1
+it is easy to see that the argmax is {1/2}. In general, the argmax is given by
+arg max
+δ∈[0,1]
+Ωλ,F
+ (δ, 1 −δ)′
+=
+
+
+
+
+
+
+
+
+
+
+
+0
+0 ≤λ < c(p)
+{0, 1/2}
+λ = c(p)
+1/2
+c(p) < λ ≤1,
+(49)
+cf. Figure 1 for the corresponding cdfs when p = 3/4, with a maximum value of
+max
+δ∈[0,1] Ωλ,F
+ (δ, 1 −δ)′
+=
+
+
+
+
+
+
+
+p
+
+−5
+
+20+63 3√
+2
+
+λ−54(λ−1)p+100
+
+−70(λ−1)
+840
+0 ≤λ ≤c(p)
+89
+560(1 −λ)
+c(p) < λ ≤1,
+which we depict for p = 3/4 in Figure 2 (note that c(3/4) ≈0.123).
+From the structure of the argmax in (49) we see that there is a phase-transition phenomenon
+in the value of the preference parameter λ. Up to the threshold c(p), the optimal policy always
+assigns the second treatment, which is the optimal treatment within the majority group, but
+is also the sub-optimal treatment within the minority group.
+However, if λ surpasses the
+threshold c(p), i.e., if the degree of fairness increases sufficiently, the optimal policy changes to
+a 50 : 50 assignment rule.
+Remark 6.1. In this example, the value function is convex (cf. also Proposition 2.1), but is
+not differentiable in λ, as there is a kink at c(p), which is related to the argmax not being a
+28
+
+````
+
+## PDF page 29
+
+FORMULA CHECK REQUIRED: original PDF page 29.
+
+````text
+singleton set at c(p). Note also that the argmax does not continuously depend on the preference
+parameter λ, even in this simple example. Also note that for λ > c(p) the optimal policy is
+randomized. Therefore, this example also illustrates that focusing on non-randomized decision
+rules would come with an efficiency loss.
+6.2
+Numerical results
+We now simulate data in the setting just considered in Section 6.1, and estimate the em-
+pirical success policy (as introduced in Section 3) on a grid of preference parameters λ ∈
+{0, 1/49, 2/49, . . . , 1}, where the optimization step in the policy is achieved via a Nelder-Mead
+algorithm (as it is implemented in R’s “constrOptim” routine), and for which the starting points
+are selected as the best among 50 randomly drawn points (according to a uniform distribution)
+from S2, respectively. Recall that in this example X consists only of one element, whereas there
+are two possible values in Z. To be comparable to the theoretical results in Section 6.1 we
+fix p = 3/4, recall that p corresponds to the size of the majority group.
+The treatment assignment mechanisms Di studied in the numerical results (besides satisfying
+Assumption 2.2) were generated according to the 2 scenarios as follows (recall that Zi = 0
+corresponds to being a member of the majority, whereas Zi = 1 corresponds to being a member
+of the minority):
+A1 the conditional distribution of Di given Zi satisfies P(Di = 1 | Zi = 0) = 1/4 and P(Di =
+1 | Zi = 1) = 3/4; thus, being assigned to Treatment 1 in the majority group is less likely
+than being assigned to Treatment 2, whereas being assigned Treatment 1 in the minority
+group is more likely than being assigned to Treatment 2.
+A2 the conditional distribution of Di given Zi satisfies P(Di = 1 | Zi = 0) = 3/4 and P(Di =
+1 | Zi = 1) = 1/4; thus, being assigned to Treatment 1 in the majority group is more likely
+than being assigned to Treatment 2, whereas being assigned Treatment 1 in the minority
+group is less likely than being assigned to Treatment 2.
+Recall from Section 6.1 that in the majority group the second treatment is better, while the
+first treatment is better in the minority group. Therefore, the assignment mechanism A1 cor-
+responds to a setting where the respective optimal treatment was assigned more likely within
+each subgroup, whereas assignment mechanism A2 corresponds to the opposite of that situ-
+ation. In addition to considering the mechanisms A1 and A2, we consider different sample
+sizes n ∈{100, 1000, 10000}, resulting in 6 different simulation scenarios. In each of these sce-
+narios we generate 100 datasets and infer the optimal empirical-success policy together with the
+value function for every λ ∈{0, 1/49, 2/49, . . . , 1}. The results are shown in Figures 3 and 4,
+which we shall explain and discuss in the following paragraphs.
+For each of the 6 scenarios considered, Figure 3 shows 100 curves of policies (corresponding
+to the 100 datasets generated) extracted for the whole range of preference parameters λ ∈
+[0, 1], where we interpolated linearly in between the grid-points {0, 1/49, 2/49, . . . , 1}.
+Note
+that because there are only two treatments, we can identify a policy with the corresponding
+probability to assign Treatment 1 (as we already did in Section 6.1). We decided to highlight the
+functions according to their “typicality”, which we measured through Tukey’s halfspace depth
+29
+
+````
+
+## PDF page 30
+
+FORMULA CHECK REQUIRED: original PDF page 30.
+
+````text
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+Figure 3: Figures (rows 1, 2, and 3 are for differing sample sizes n = 100, 1000, 10000, respec-
+tively, columns for different assignment mechanisms A1 (left column) and A2 (right column),
+respectively) showing the inferred probability (y-axis) to assign Treatment 1 over all 100 repli-
+cations, in dependence on the preference parameter λ (x-axis), with linear interpolation in
+between the points {0, 1/49, 2/49, . . . , 1}, at which the policy was actually estimated.
+The
+gray-scale coloring of the curves is chosen according to the depth of the curves, darker shades of
+gray corresponding to a stronger degree of typicality/centrality of the curve; see text for more
+explanation. The 10% of most central curves are highlighted in blue color, whereas the true
+argmax in dependence on λ is highlighted in red color. The vertical dashed line intersects the
+abscissa at c(p) ≈0.123.
+(cf. Tukey (1975)) as implemented in the R package DepthProc by Kosiorowski and Zawadzki
+(2022): the darker a gray curve is in Figure 3, the higher its Tukey-depth (i.e., its “typicality”)
+among the 100 functions estimated; furthermore, the top 10% of curves in terms of depth are
+colored in blue. Additionally, Figure 3 also shows the true argmax correspondence in red and the
+cut-off c(3/4) is highlighted as a vertical dashed line (cf. Section 6.1 for additional explanation).
+30
+
+````
+
+## PDF page 31
+
+FORMULA CHECK REQUIRED: original PDF page 31.
+
+````text
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.3
+−0.1
+0.0
+0.1
+0.2
+0.3
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.2
+−0.1
+0.0
+0.1
+0.2
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.05
+0.05
+0.15
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.05
+0.05
+0.15
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.00
+0.05
+0.10
+0.15
+0.20
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.00
+0.05
+0.10
+0.15
+0.20
+Figure 4: Figures (rows 1, 2, and 3 are for differing sample sizes n = 100, 1000, 10000, re-
+spectively, columns for different assignment mechanisms A1 (left column) and A2 (right col-
+umn), respectively) showing the empirical value function (y-axis) over all 100 replications, in
+dependence on the preference parameter λ (x-axis), with linear interpolation in between the
+points {0, 1/49, 2/49, . . . , 1}, at which the policy was actually estimated. The gray-scale coloring
+of the curves is chosen according to the depth of the curves, darker shades of gray corresponding
+to a stronger degree of typicality/centrality of the curve; see text for more explanation. The
+10% of most central curves are highlighted in blue color, whereas the true value function in
+dependence on λ is highlighted in red color. The vertical dashed line intersects the abscissa
+at c(p) ≈0.123.
+Figure 3 clearly illustrates the effect of a higher sample size: the larger the sample size, the closer
+are the estimated policy functions to the true argmax. Recalling from Section 6.1 that there is
+a phase-transition phenomenon concerning the optimal policy present at c(p) = 0.123, we note
+that this phenomenon is reflected quite accurately in the estimated policies for higher sample
+sizes, whereas for n = 100 there is a lot of variation concerning the value of λ at which the
+31
+
+````
+
+## PDF page 32
+
+FORMULA CHECK REQUIRED: original PDF page 32.
+
+````text
+estimated policy changes, which is even more pronounced in scenario A2 (i.e., the second column
+in Figure 3). In this context, we also note that the threshold c(p) = 0.123 is not an element
+of the grid {0, 1/49, 2/49, . . . , 1} of λ values for which the policy actually has been estimated.
+Although using 0.123 as an additional grid point would have potentially improved the policy,
+this would give an overly optimistic impression, because the threshold depends on F, which is
+unknown in practice. Therefore, using 0.123 as an additional grid point would have distorted
+the results in favor of the method studied. To increase the accuracy, one could nevertheless
+work with a finer grid, at higher computational costs.
+In Figure 4, we show the corresponding estimated value functions, with an analogous coloring
+scheme as in Figure 3 and where the red curve depicts the true value function. Interestingly,
+the figure shows that (in the example considered) there appears to be a downward bias present
+in the estimation of the value function, which diminishes as sample size grows. In general, a
+larger sample size leads to more accurate results.
+For completeness, we also plot the average regret in all 6 scenarios and for all 50 values
+of the preference parameter in Figure 5. As expected from the theoretical results, the regret
+gets smaller as sample size increases. Furthermore, larger values of the preference parameter
+correspond to relatively larger values of the average regret.
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.00
+0.01
+0.02
+0.03
+0.04
+0.05
+0.06
+n = 100
+n = 1000
+n = 10000
+n = 100
+n = 1000
+n = 10000
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.00
+0.01
+0.02
+0.03
+0.04
+0.05
+0.06
+0.07
+n = 100
+n = 1000
+n = 10000
+n = 100
+n = 1000
+n = 10000
+Figure 5: Average regret for sample sizes n = 100, 1000, 10000, respectively, assignment mech-
+anisms A1 (left column) and A2 (right column), in dependence on the preference parameter λ
+(x-axis), with linear interpolation in between the points {0, 1/49, 2/49, . . . , 1}, at which the pol-
+icy was actually estimated. The vertical dashed line intersects the abscissa at c(p) ≈0.123.
+7
+Empirical illustrations
+To showcase the methods discussed in this article in an empirical context, we shall now apply
+them (more precisely the policies in Section 3) to two datasets:
+32
+
+````
+
+## PDF page 33
+
+FORMULA CHECK REQUIRED: original PDF page 33.
+
+````text
+• data on the Pennsylvania reemployment bonus experiment underlying the analysis in Bilias
+(2000) (the dataset can be obtained, e.g., via the replication material for the article
+Chernozhukov et al. (2018) on the publisher’s website12);
+• the entrepreneurship program dataset from Lyons and Zhang (2017) (available in the
+replication material to that article via the publisher’s website13), which builds the basis
+of the empirical illustration in Viviano and Bradic (2023).
+We use the same target T (Gini-welfare) and similarity measure S (Kolmogorov-Smirnov dis-
+tance) as in Section 6.2 (after rescaling the outcome to [0, 1] in the first dataset). Furthermore,
+we used the same optimization heuristic (based on the same grid and starting value selection
+procedure). For both datasets we summarize the numerical computations in figures showing
+the following quantities in dependence on the preference parameter λ ∈[0, 1] based on linear
+interpolation in between the grid points
+max
+δ∈SK Ωλ, ˆ
+Fn(δ),
+T
+
+⟨πλ
+n, ˆFn⟩
+
+,
+and
+max
+z∈Z S
+
+⟨πλ
+n, ˆFn⟩z, ⟨πλ
+n, ˆFn⟩
+
+;
+(50)
+i.e., the (empirical) value function, the Gini-welfare corresponding to the predicted outcome
+distribution ⟨πλ
+n, ˆFn⟩when implementing the policy πλ
+n, which (nearly) maximizes the empirical
+objective function δ 7→Ωλ, ˆ
+Fn(δ), and the (empirical) similarity measure at the policy πλ
+n.
+7.1
+Pennsylvania reemployment bonus experiment
+In this dataset the treatment is a bonus for unemployment insurance claimants granted if they
+become employed within a given period of time. We here focus on treatment group 4 as the
+treatment vs. a control group, cf. Bilias (2000) for details. In particular, it follows that K = 2.
+The total sample size then is n = 5099. The outcome variable measures the duration (in weeks)
+of the first spell of unemployment. We incorporated the following covariates into our analysis:
+1. a categorical variable (with 3 categories) indicating the number of dependents of the
+claimant being 0, 1, or ≥2.
+2. a categorical variable (with 3 categories) indicating whether the claimant’s age was < 35,
+between 35 and 54, or higher;
+3. a categorical variable (with 3 categories) indicating whether the claimant was working
+in the sector of durable manufacturing, the sector of nondurable manufacturing, or in
+another sector.
+After combining them into a single factor (and dropping one category for which there was no
+observation) this resulted in a factor with 26 levels, i.e., |X| = 26.
+Furthermore, we worked with the following sensitive characteristics, after combining them
+into a single factor with 8 levels, i.e., |Z| = 8:
+1. a dummy variable indicating whether or not the claimant is female;
+12URL https://doi.org/10.1111/ectj.12097 retrieved on 25.01.2024.
+13URL https://www.openicpsr.org/openicpsr/project/113492/version/V1/view retrieved on 26.08.2023.
+33
+
+````
+
+## PDF page 34
+
+FORMULA CHECK REQUIRED: original PDF page 34.
+
+````text
+2. a categorical variable (4 categories) indicating whether the claimant is Black, Hispanic,
+White, or other;
+Figure 6 summarizes the results. The figure to the right, which shows the KS-based similarity
+measure (low values corresponding to higher similarity, i.e., higher fairness), shows that the
+difference between the distributions in the subpoulations (defined by the sensitive character-
+istics in the above enumeration) decreases sharply when passing from λ = 0 to λ = 1/49,
+whereas it remains essentially constant for λ ≥2/49. Although there is also an initial drop (of
+about 0.0024) in Gini-welfare in the total population, which is shown in the center of Figure 6,
+the Gini-welfare keeps decreasing at a still notable degree also for λ ≥2/49. If a DM can
+afford a decrease in total Gini-welfare of 0.0024, the empirical results therefore suggest to use
+the policy corresponding to λ = 1/49, as this already leads to a major reduction of unfairness.
+Higher levels of the preference parameter λ seem to mainly decrease welfare while not increasing
+fairness much further.
+In addition to the “qualitative” or inspection-based approach to choosing the preference
+parameter just outlined, Figure 6 (center) also illustrates the more quantitative and budget-
+based approach lined out in Section 4 for the example of β = 0.005. That is, when the DM
+deems an efficiency loss of 0.005 spent on increasing the degree of fairness affordable. In such a
+situation, one would, according to (32), introduce the slack cn =
+p
+log(n)/n ≈0.041, and then
+choose the policy corresponding to the largest preference parameter that realizes an efficiency
+not smaller than the efficiency realized at the policy corresponding to λ = 0 (which equals
+about 0.072 in this example) minus β(1 −cn) ≈0.0048, resulting in 0.0667 (as opposed to just
+subtracting β itself from 0.072, which would result in 0.0665). This is depicted in Figure 6,
+where the effect of introducing some slack is also illustrated. In this case, the figure shows that
+(according to this procedure) the DM would use the preference parameter 18/49.
+The actual assignment probabilities to the treatment category in dependence on the covari-
+ates can be seen in Figure 7, where we focus on smaller levels of λ, as this enhances readability.
+Given that introducing a small preference parameter of λ = 1/49 already substantially increases
+the fairness in the output distributions, it is interesting to investigate that region of the plot in
+more detail:
+• in the non-manufacturing sector (i.e., figure to the left in Figure 7), such a small change
+of preference parameter is related to a strong decrease in the treatment assignment proba-
+bilities in the “0 dependents & middle age” (solid blue) category, and to a strong increase
+in the treatment assignment probabilities in the “0 dependents & young age” (solid green)
+and the “2 dependents & middle age” (dotted blue) categories.
+• in the durable manufacturing sector (i.e., middle figure in Figure 7) there is no comparable
+change in the assignment probabilities for very small λ.
+• in the nondurable manufacturing sector (i.e., figure to the right in Figure 7) a small change
+of preference parameter is related to a strong increase in the assignment probabilities in
+the “0 dependents & middle age” category.
+34
+
+````
+
+## PDF page 35
+
+FORMULA CHECK REQUIRED: original PDF page 35.
+
+````text
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.25
+−0.20
+−0.15
+−0.10
+−0.05
+0.00
+0.05
+Empirical value function
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.065
+0.066
+0.067
+0.068
+0.069
+0.070
+0.071
+Gini welfare
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.25
+0.30
+0.35
+0.40
+0.45
+0.50
+KS−based similarity
+Figure 6: Results for the Pennsylvania reemployment bonus experiment data. From left to
+right, the three plots show (in dependence on the preference parameter λ, which is plotted on
+the x-axes): the empirical value function, the predicted Gini-welfare when the optimal policy
+is implemented, and the corresponding similarity measure.
+See Equation (50) for a precise
+description of the functions that are plotted. The dashed vertical line corresponds to λ = 1/49.
+The dotted vertical line corresponds to λ = 18/49. The dashed horizontal lines (figure in the
+middle) indicate the efficiency of the policy corresponding to λ = 0 minus β = .05 and minus
+β(1 −cn) ≈0.0048, respectively. The crossed region between those lines corresponds to the
+slack. The colored region above the crossed region contains the predicted Gini-welfare of the
+“affordable” policies; cf. the description in the text.
+7.2
+Entrepreneurship program
+The treatment variable here is an entrepreneurship training and incubation program for students
+and the outcome variable is subsequent entrepreneurial activity, which is a dummy variable,
+cf. Lyons and Zhang (2017) and Section 6 of Viviano and Bradic (2023) for more details. Also
+in this dataset K = 2. The total sample size (after eliminating observations with missing values)
+is n = 335. Following “Case 2” in Viviano and Bradic (2023) we incorporated the following
+covariates into our analysis:
+1. a (rounded) score assigned to the candidate by the interviewer taking values in 1, 2, . . . , 10
+(cf. Footnote 3 in Lyons and Zhang (2017));
+2. the school rank, taking values in 1, 2, 3, 4.
+In principle, this would result in 40 levels after combining the two variables into a single factor.
+However, there is no data available for 4 of the 40 levels, hence |X| = 36 in this application.
+The sensitive characteristic we worked with in this application is a dummy variable indicating
+whether the student is female, so that |Z| = 2. Figure 8 contains the results of the computations.
+The similarity measure reveals three substantial drops.
+Each of them could correspond to
+a possible choice of preference parameter.
+Unless budget constraints do not allow for this
+possibility, the DM could implement the policy corresponding to λ = 11/49: the KS-based
+similarity measure is essentially 0 for the policy corresponding to this preference parameter and
+hence cannot reduce substantially for larger values of the preference parameter. This leads to
+a “loss” in the population Gini-welfare of about 0.0124 relative to the policy corresponding
+to λ = 0.
+35
+
+````
+
+## PDF page 36
+
+FORMULA CHECK REQUIRED: original PDF page 36.
+
+````text
+0.00
+0.05
+0.10
+0.15
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Non−manufacturing
+0.00
+0.05
+0.10
+0.15
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Durable manufacturing
+0.00
+0.05
+0.10
+0.15
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Non−durable manufacturing
+Figure 7: Treatment assignment probabilities (y-axis) for all groups are plotted against the
+preference parameter λ (x-axis) for the Pennsylvania reemployment bonus experiment data.
+The three figures correspond to non manufacturing (left), durable manufacturing (middle),
+and nondurable manufacturing (right); the colors indicate age (green indicating < 35, blue
+indicating an age between 35 and 54, and black indicating a higher age than 54); the line types
+solid, dashed and dotted indicate the number of dependents 0, 1 and ≥2, respectively.
+Figure 8 (center) also illustrates the more quantitative and budget-based approach lined out
+in Section 4 for the example of β = 0.02. That is, when the DM deems an efficiency loss of 0.02
+spent on increasing the degree of fairness affordable. Here, the slack cn =
+p
+log(n)/n ≈0.132,
+and one would choose the policy corresponding to the largest preference parameter that realizes
+an efficiency not smaller than the efficiency realized at the policy corresponding to λ = 0 (which
+equals about 0.128 in this example) minus β(1 −cn) ≈0.017, resulting in 0.111 (as opposed to
+just subtracting β from 0.128, which would result in 0.108). This is depicted in Figure 8, where
+the effect of introducing some slack is also illustrated. In this example, the DM would conclude
+to use the preference parameter 21/49. Because using λ = 21/49 instead of λ = 11/49 (as we
+concluded in the previous paragraph) does not come with any notable decrease in unfairness (but
+decreases efficiency), a DM should perhaps stick to λ = 11/49, even though a higher preference
+parameter could be afforded. This application hence also shows that even when using a budget-
+based approach, inspecting the fairness and efficiency implications of the policies graphically is
+advisable for practice.
+The actual assignment probabilities to the treatment in dependence on the covariates can
+be seen in Figure 9, where we focus on levels of λ close to 11/49 as this enhances readability and
+corresponds to the interesting region of preference parameters according to the above discussion.
+One can observe that apart from schools ranked first and fourth, there are no fundamental
+changes in the assignment probabilities when λ increases from 10/49 to 11/49.
+In schools
+ranked first, one can observe that the assignment probabilities of students with a score of 5/10
+and 9/10 drop, whereas the assignment probabilities of students with a score of 4/10 increase
+to some degree. In schools ranked fourth the assignment probabilities of students with scores
+3/10 and 5/10 increase.
+36
+
+````
+
+## PDF page 37
+
+FORMULA CHECK REQUIRED: original PDF page 37.
+
+````text
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.00
+0.02
+0.04
+0.06
+0.08
+0.10
+0.12
+Empirical value function
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.08
+0.09
+0.10
+0.11
+0.12
+0.13
+Gini welfare
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.00
+0.01
+0.02
+0.03
+0.04
+0.05
+KS−based similarity
+Figure 8: Results for the entrepreneurship program data studied in Lyons and Zhang (2017).
+From left to right, the three plots show (in dependence on the preference parameter λ, which
+is plotted on the x-axes): the empirical value function, the predicted Gini-welfare when the
+optimal policy is implemented, and the corresponding similarity measure. See Equation (50)
+for a precise description of the functions that are plotted. The dashed vertical line corresponds
+to λ = 11/49.
+The dotted vertical line corresponds to λ = 21/49.
+The dashed horizontal
+lines indicate the efficiency of the policy corresponding to λ = 0 minus β = .02 and minus
+β(1 −cn) ≈0.017, respectively. The crossed region in between those lines corresponds to the
+slack. The colored region above the crossed region contains the predicted Gini-welfare of the
+“affordable” policies; cf. the description in the text.
+0.10
+0.15
+0.20
+0.25
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+School rank 1
+0.10
+0.15
+0.20
+0.25
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+School rank 2
+Score =  1
+Score =  2
+Score =  3
+Score =  4
+Score =  5
+Score =  6
+Score =  7
+Score =  8
+Score =  9
+Score =  10
+0.10
+0.15
+0.20
+0.25
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+School rank 3
+0.10
+0.15
+0.20
+0.25
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+School rank 4
+Figure 9: Treatment assignment probabilities (y-axis) for all groups are plotted against the
+preference parameter λ (x-axis) for the entrepreneurship program data studied in Lyons and
+Zhang (2017). The four figures correspond to the school ranks and the colors indicate the score
+as shown in the legend.
+37
+
+````
+
+## PDF page 38
+
+FORMULA CHECK REQUIRED: original PDF page 38.
+
+````text
+8
+Conclusion
+We have developed tools that allow a DM to choose a policy targeting a general functional
+(e.g., the Gini-welfare) of the population cdf, while taking into account the objective of treating
+protected subgroups fairly. The magnitude by which unfairness is penalized can be regulated
+by the DM via a preference parameter. We study ways to select this preference parameter,
+and show that the policy’s excess regret converges to 0 at the parametric rate. Furthermore,
+going beyond regret guarantees, we also establish the consistency of the policy under conditions
+that are satisfied in particular under the assumption that the preference parameter is selected
+(in an arbitrary way) from a finite set of preference parameters.
+We also introduced and
+discussed theoretical properties of a policy that applies in settings with non-discrete covariates,
+and illustrated our results numerically and in the context of two empirical applications.
+References
+Aliprantis, C. and Border, K. (2006). Infinite Dimensional Analysis. Springer.
+Athey, S. and Wager, S. (2021). Policy learning with observational data. Econometrica, 89
+133–161.
+Bachoc, F., Preinerstorfer, D. and Steinberger, L. (2020). Uniformly valid confidence
+intervals post-model-selection. Annals of Statistics, 48 440 – 463.
+Bechavod, Y. and Ligett, K. (2017). Penalizing unfairness in binary classification. arXiv
+preprint arXiv:1707.00044.
+Berk, R., Brown, L., Buja, A., Zhang, K. and Zhao, L. (2013). Valid post-selection
+inference. Annals of Statistics, 41 802–837.
+Berk, R., Heidari, H., Jabbari, S., Joseph, M., Kearns, M., Morgenstern, J.,
+Neel, S. and Roth, A. (2017). A convex framework for fair regression. arXiv preprint
+arXiv:1706.02409.
+Bertsekas, D. P. (1999). Nonlinear Programming. 2nd ed. Belmont, MA: Athena Scientific.
+Bhattacharya, D. and Dupas, P. (2012). Inferring welfare maximizing treatment assignment
+under budget constraints. Journal of Econometrics, 167 168–196.
+Bilias, Y. (2000). Sequential testing of duration data: the case of the pennsylvania ‘reemploy-
+ment bonus’ experiment. Journal of Applied Econometrics, 15 575–594.
+Bitler, M. P., Gelbach, J. B. and Hoynes, H. W. (2006). What mean impacts miss:
+Distributional effects of welfare reform experiments. American Economic Review, 96 988–
+1012.
+Chakravarty, S. R. (2009). Inequality, polarization and poverty. Springer.
+38
+
+````
+
+## PDF page 39
+
+FORMULA CHECK REQUIRED: original PDF page 39.
+
+````text
+Chernozhukov, V., Chetverikov, D., Demirer, M., Duflo, E., Hansen, C., Newey,
+W. and Robins, J. (2018). Double/debiased machine learning for treatment and structural
+parameters. The Econometrics Journal, 21 C1–C68.
+Corbett-Davies, S. and Goel, S. (2018). The measure and mismeasure of fairness: A critical
+review of fair machine learning. arXiv preprint arXiv:1808.00023.
+Cowell, F. (2011). Measuring Inequality. Oxford University Press.
+Cowgill, B. and Tucker, C. E. (2019). Economics, fairness and algorithmic bias. preparation
+for: Journal of Economic Perspectives.
+Dehejia, R. H. (2005). Program evaluation as a decision problem. Journal of Econometrics,
+125 141–173.
+Fang, E. X., Wang, Z. and Wang, L. (2023). Fairness-oriented learning for optimal individ-
+ualized treatment rules. Journal of the American Statistical Association, published online.
+Frauen, D., Melnychuk, V. and Feuerriegel, S. (2023). Fair off-policy learning from
+observational data. arXiv preprint arXiv:2303.08516.
+Gin´e, E. and Nickl, R. (2015). Mathematical Foundations of Infinite-Dimensional Statistical
+Models. Cambridge University Press.
+Hirano, K. and Porter, J. R. (2009). Asymptotics for statistical treatment rules. Econo-
+metrica, 77 1683–1701.
+Hirano, K. and Porter, J. R. (2020). Asymptotic analysis of statistical decision rules in
+econometrics. In Handbook of Econometrics, Volume 7A (S. N. Durlauf, L. P. Hansen, J. J.
+Heckman and R. L. Matzkin, eds.), vol. 7 of Handbook of Econometrics. Elsevier, 283–354.
+Kamishima, T., Akaho, S., Asoh, H. and Sakuma, J. (2012). Fairness-aware classifier with
+prejudice remover regularizer. In Machine Learning and Knowledge Discovery in Databases
+(P. A. Flach, T. De Bie and N. Cristianini, eds.). Springer Berlin Heidelberg, Berlin, Heidel-
+berg, 35–50.
+Kamishima, T., Akaho, S. and Sakuma, J. (2011). Fairness-aware learning through regular-
+ization approach. In 2011 IEEE 11th International Conference on Data Mining Workshops.
+643–650.
+Kitagawa, T. and Tetenov, A. (2018). Who should be treated? Empirical welfare maxi-
+mization methods for treatment choice. Econometrica, 86 591–616.
+Kitagawa, T. and Tetenov, A. (2021).
+Equality-minded treatment choice.
+Journal of
+Business & Economic Statistics, 39 561–574.
+Kleinberg, J., Ludwig, J., Mullainathan, S. and Rambachan, A. (2018). Algorithmic
+fairness. AEA Papers and Proceedings, 108 22–27.
+39
+
+````
+
+## PDF page 40
+
+FORMULA CHECK REQUIRED: original PDF page 40.
+
+````text
+Kock, A. B., Preinerstorfer, D. and Veliyev, B. (2022). Functional sequential treatment
+allocation. Journal of the American Statistical Association, 117 1311–1323.
+Kock, A. B., Preinerstorfer, D. and Veliyev, B. (2023). Treatment recommendation
+with distributional targets. Journal of Econometrics, 234 624–646.
+Kosiorowski, D. and Zawadzki, Z. (2022). DepthProc An R Package for Robust Exploration
+of Multidimensional Economic Phenomena.
+Liese, F. and Miescke, K. J. (2008). Statistical Decision Theory. Springer.
+Lyons, E. and Zhang, L. (2017). The impact of entrepreneurship programs on minorities.
+American Economic Review, 107 303–07.
+Manski, C. F. (2004). Statistical treatment rules for heterogeneous populations. Econometrica,
+72 1221–1246.
+Manski, C. F. and Tetenov, A. (2016).
+Sufficient trial size to inform clinical practice.
+Proceedings of the National Academy of Sciences, 113 10518–10523.
+Massart, P. (1990). The tight constant in the Dvoretzky-Kiefer-Wolfowitz inequality. Annals
+of Probability, 18 1269–1283.
+Mbakop, E. and Tabord-Meehan, M. (2021). Model selection for treatment choice: Penal-
+ized welfare maximization. Econometrica, 89 825–848.
+Pessach, D. and Shmueli, E. (2022).
+A review on fairness in machine learning.
+ACM
+Computing Surveys, 55.
+Rempa la, G. A. (2004). Asymptotic factorial powers expansions for binomial and negative
+binomial reciprocals. Proceedings of the American Mathematical Society, 132 261–272.
+Rostek, M. (2010).
+Quantile maximization in decision theory.
+The Review of Economic
+Studies, 77 339–371.
+Sen, A. (1976). Poverty: an ordinal approach to measurement. Econometrica 219–231.
+Stoye, J. (2009). Minimax regret treatment choice with finite samples. Journal of Economet-
+rics, 151 70–81.
+Stoye, J. (2012). Minimax regret treatment choice with covariates or with limited validity of
+experiments. Journal of Econometrics, 166 138–156.
+Sun, L. (2021). Empirical welfare maximization with constraints. arXiv:2103.15298.
+Tan, X., Qi, Z., Seymour, C. and Tang, L. (2022). Rise: Robust individualized decision
+learning with sensitive variables. Advances in Neural Information Processing Systems, 35
+19484–19498.
+40
+
+````
+
+## PDF page 41
+
+FORMULA CHECK REQUIRED: original PDF page 41.
+
+````text
+Tukey, J. W. (1975). Mathematics and the picturing of data. In Proceedings of the Interna-
+tional Congress of Mathematicians (Vancouver, B.C., 1974), Vol. 2. Canad. Math. Congr.,
+Montreal, QC, 523–531.
+van der Vaart, A. (1998). Asymptotic Statistics. Cambridge University Press.
+van der Vaart, A. and Wellner, J. (1996). Weak Convergence and Empirical Processes:
+With Applications to Statistics. Springer.
+Viviano, D. and Bradic, J. (2023). Fair policy targeting. Journal of the American Statistical
+Association, published online.
+41
+
+````
+
+## PDF page 42
+
+FORMULA CHECK REQUIRED: original PDF page 42.
+
+````text
+A
+Relation to Kitagawa and Tetenov (2021) and Kock et al.
+(2023)
+Kitagawa and Tetenov (2021) study treatment choice problems where the target functional is
+an element of the class of “rank-dependent” social welfare functions, cf. their Equation (1).
+This class includes, in particular, the Gini-welfare measure. Their results extend optimal policy
+design in the spirit of Kitagawa and Tetenov (2018) to a more flexible class of targets, whereas
+the rest of the literature typically concerns expected outcome as the target measure. Kitagawa
+and Tetenov (2021) do not investigate how fairness regarding subgroups of the population can
+be achieved, or how fairness and efficiency properties can be traded-off against each other.
+Subpopulation distributions and their similarity are central to our approach, but play no role
+in their context. We also mention here that their approach to estimating outcome distribution
+functions provides an important guideline in our Section 5, where we show how the assumption
+of discrete covariates, which is imposed in most parts of the present article, can be avoided.
+The observational setting we consider in the present article is related to that in Kock et al.
+(2023): we also consider a pure-exploration problem in which the decision maker can target a
+general functional of the outcome distribution. In contrast to Kock et al. (2023) we
+1. explicitly incorporate covariates into the decision making process to exploit observed het-
+erogeneity in the population;
+2. consider a more general objective that allows the DM to recommend a treatment (combi-
+nation) that penalizes unfairness;
+3. monitor how different degrees of fairness awareness affect the inferred decision, and inves-
+tigate how to choose the relevant preference parameter in practice.
+The first item provides a practically relevant extension to Kock et al. (2023).
+The second
+and third constitute the main contribution of the present article: we study the question how
+a DM can incorporate fairness considerations into the decision making process, and we give
+practical guidelines how the fairness-optimality trade-off can be monitored and chosen by the
+DM. In particular, our theory allows for data-dependent choices of the preference parameter
+that determines how strongly the fairness penalty enters the objective function. In contrast to
+Kock et al. (2023) we do not consider sequential procedures, because we here want to leave the
+sampling mechanism imposed on the data available to the DM unspecified.
+B
+Alternative regret notion: anchoring at a target preference
+parameter
+In situations where ˆλn estimates an underlying target λ∗
+n (cf. Section 4 for a concrete example),
+one could alternatively consider anchoring the regret at the target λ∗
+n itself instead of ˆλn, i.e.,
+r(π
+ˆλn
+n ; λ∗
+n, F) = max
+δ∈SK Ωλ∗n,F(δ) −Ωλ∗n,F
+
+π
+ˆλn
+n
+
+.
+42
+
+````
+
+## PDF page 43
+
+FORMULA CHECK REQUIRED: original PDF page 43.
+
+````text
+This regret notion evaluates the policy πˆλn
+n
+relative to the best one for the unknown value λ∗
+n.
+It is straightforward to verify (cf. the proof of Lemma E.1) that for a constant C > 0 depending
+on S, T, and D it holds that
+r(π
+ˆλn
+n ; ˆλn, F) −r(π
+ˆλn
+n ; λ∗
+n, F)
+ ≤2 max
+δ∈SK |Ωˆλn,F(δ) −Ωλ∗,F(δ)| ≤C|ˆλn −λ∗
+n|,
+so that
+E∗(r(π
+ˆλn
+n ; λ∗
+n, F)) ≤E∗(r(π
+ˆλn
+n ; ˆλn, F)) + CE∗|ˆλn −λ∗
+n|.
+This quantifies, to some extent, the (expected behavior) that for ˆλn ≈λ∗
+n the two regret notions
+behave similarly, whereas they may behave quite differently in case ˆλn̸ ≈λ∗
+n.
+Section 4 investigates consistency properties for a specific choice of λ∗
+n and a corresponding
+estimate ˆλn, under which ˆλn ≈λ∗
+n and hence r(πˆλn
+n ; ˆλn, F) ≈r(πˆλn
+n ; λ∗
+n, F) can be expected to
+hold. Nevertheless, theses results do not allow one to obtain regret guarantees for r(πˆλn
+n ; λ∗
+n, F)
+from those of r(πˆλn
+n ; ˆλn, F) based on the above upper bound for two reasons:
+1. we do not study rates of convergence, so that the guarantees obtained for the regret we
+work with, i.e., r(πˆλn
+n ; ˆλn, F), cannot be immediately shown to carry over to r(πˆλn
+n ; λ∗
+n, F);
+2. in the example studied in Section 4, ˆλn can only be expected to consistently underestimate
+the target λ∗
+n, and the results in Sun (2021) suggest that this cannot be avoided, in
+general.
+Hence, E∗|ˆλn −λ∗
+n| may not converge to 0 and may actually dominate the
+behavior of r(πˆλn
+n ; λ∗, F).
+C
+Supplementary results and discussions for Section 3
+In Appendix C we maintain (without further mentioning) all assumptions and notational con-
+ventions that are maintained in Section 3.
+C.1
+Technical remarks concerning the empirical success policy
+We here summarize some technical remarks concerning the policy stated in the beginning of
+Section 3.
+Remark C.1. The policy stated in the beginning of Section 3 allows for the possibility that
+the empirical version
+sup
+δ∈SK
+Ωλ, ˆ
+Fn(δ)
+(51)
+of the maximization problem maxδ∈SK Ωλ,F(δ) is only solved up to a given level of accuracy ε,
+cf. (19). While the problem maxδ∈SK Ωλ,F(δ) is guaranteed to permit a solution by Proposi-
+tion 2.1, there is no such guarantee for the problem in (51). The level of accuracy ε can be
+chosen by the user, and can be made arbitrarily small, balancing accuracy with computational
+(e.g., runtime) considerations. For the policy stated in the beginning of Section 3 to be feasi-
+ble, in the sense that the set in (19) is non-empty, it is important that the supremum that is
+approximated is actually finite, which is guaranteed by the last item in Proposition 2.1.
+43
+
+````
+
+## PDF page 44
+
+FORMULA CHECK REQUIRED: original PDF page 44.
+
+````text
+Remark C.2. Note that the policy πε,λ
+n
+stated in the beginning of Section 3 is not required to
+be a measurable selection of the set in (19) and hence may not be measurable. Our theoretical
+results take care of this possibility.
+Remark C.3. If decision rules are to be obtained for multiple values of λ, Step 4 in the policy
+stated in the beginning of Section 3 (but not the other steps) need to be repeated for all prefer-
+ence parameters one considers. Because the maximizer of the objective maxδ∈SK Ωλ,F(δ) may
+not be unique (cf. the example discussed in Section 6.1 for an illustration), there is no guarantee
+that specific approximate solutions (as in (19)) to supδ∈SK Ωλ1, ˆ
+Fn(δ) and supδ∈SK Ωλ2, ˆ
+Fn(δ) are
+“close” (relative to ε) even if λ1 ≈λ2 and ˆFn ≈F. What is true is that the corresponding values
+of the optimization problem’s value will be similar (due to a continuity property established in
+Lemma E.1 and results entailing ˆFn ≈F), i.e., supδ∈SK Ωλ1, ˆ
+Fn(δ) ≈supδ∈SK Ωλ2, ˆ
+Fn(δ).
+C.2
+Value function estimation by linear interpolation
+We here show how the value of the decision problem under consideration in Section 3 as a
+function of the preference parameter, i.e., the value function
+λ 7→max
+δ∈SK Ωλ,F(δ),
+(52)
+which we know to be convex from Proposition 2.1, can be uniformly consistently estimated by
+suitable interpolation methods (for pointwise estimation see Remark C.4 below). An estimate
+of the value function allows the decision maker to investigate the effect of different preference
+parameters on the maximal value of the objective (cf. the figures in Sections 6 and 7 and their
+discussion).
+Due to numerical restrictions, it will typically only be possible to determine the empirical
+success policy πεn,λ over a finite grid of preference parameters λ, from which one then infers the
+value function (52). We now show that if the empirical success policy πεn,λ is determined for
+every λ ∈Gm := {0, 1
+m, 2
+m, . . . , 1} with m = mn →∞, and if εn →0, then the value function
+is uniformly consistently estimated in (outer) probability by linearly interpolating the values of
+the empirical success policies determined for all preference parameters in the grid. The result
+follows from a finite-sample probability bound on
+sup
+δ∈SK,λ∈[0,1]
+Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)
+
+that is also used in the proof of Theorem 3.1 (and which is given in Lemma F.6 in the Appendix).
+To define the interpolation method properly, denote the set of continuous functions from [0, 1] →
+R by C([0, 1]), let m ∈N, and let the “linear interpolation operator”
+LIPm : Rm+1 →C([0, 1])
+associate to every v = (v0, . . . , vm)′ ∈Rm+1 the piecewise linear function
+λ 7→LIPm(λ; v) := vi+
+vi+1 −vi
+(i + 1)/m −i/m
+ λ −i/m
+
+, with 0 ≤i < m so that λ ∈[i/m, (i+1)/m],
+44
+
+````
+
+## PDF page 45
+
+FORMULA CHECK REQUIRED: original PDF page 45.
+
+````text
+i.e., it holds that LIPm(i/m; v) = vi for every i = 0, . . . , m, with linear interpolation in between
+the grid points i/m for i = 0, . . . , m.
+Theorem C.1. Let (Y ′
+j , Xj, Zj)′ ∼F ⊏D for j = 1, . . . , n, mn ∈N, and εn > 0. Then, there
+exists a real number α(F) > 0 such that
+sup
+λ∈[0,1]
+LIPmn
+
+λ;
+h
+Ωi/mn, ˆ
+Fn(πεn,i/mn
+n
+)
+imn
+i=0
+
+−max
+δ∈SK Ωλ,F(δ)
+
+(53)
+is bounded from above by
+2α(F)/mn +
+sup
+δ∈SK,λ∈[0,1]
+|Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)| + εn,
+where for every ρ > 0 it holds that
+P∗
+ 
+sup
+δ∈SK,λ∈[0,1]
+Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)
+ ≥ρ
+!
+≤4|Z||X|K2 max
+x,z,j e
+−
+nqx,z,jρ2
+128(|X|∨|Z|)2 ,
+(54)
+for qx,z,i := pX,Z,D(x, z, i). In particular, the expression in (53) converges to 0 in outer proba-
+bility if mn →∞and εn →0.
+To prove Theorem C.1 we need an auxiliary lemma:
+Lemma C.2. If f : [0, 1] →R is Lipschitz continuous with constant c > 0 and m ∈N, then
+sup
+λ∈[0,1]
+|LIPm(λ; [f(i/m)]m
+i=0) −f(λ)| ≤2c/m.
+Proof. We give the proof for the case c = 1 (which one can then apply to ˜f := f/c to obtain the
+general statement). Fix λ ∈[0, 1] and let i ∈{0, . . . , m −1} be such that λ ∈[i/m, (i + 1)/m].
+By definition,
+LIPm(λ; [f(i/m)]m
+i=0) = f(i/m) + m(f((i + 1)/m) −f(i/m))
+ λ −i/m
+
+,
+from which we obtain that |LIPm(λ; [f(i/m)]m
+i=0) −f(λ)| is bounded from above by
+|f(i/m) −f(λ)| + |f((i + 1)/m) −f(i/m)| ≤2/m.
+Proof of Theorem C.1: Proposition 2.1 shows that the value function λ 7→maxδ∈SK Ωλ,F(δ) is
+continuous and convex on [0, 1]. With the same argument as in the proof of that proposition
+one can show that the value function is continuous and convex on, e.g., [−1, 2]. It follows that
+the value function is Lipschitz continuous on [0, 1] with finite constant α(F) > 0, say. From
+Lemma C.2 it hence follows that
+sup
+λ∈[0,1]
+
+LIPmn
+ 
+λ;
+
+max
+δ∈SK Ωi/mn,F(δ)
+mn
+i=0
+!
+−max
+δ∈SK Ωλ,F(δ)
+
+≤2α(F)/mn.
+(55)
+45
+
+````
+
+## PDF page 46
+
+FORMULA CHECK REQUIRED: original PDF page 46.
+
+````text
+Next, we note that (by the definition of LIPm) the expression
+sup
+λ∈[0,1]
+
+LIPmn
+ 
+λ;
+
+max
+δ∈SK Ωi/mn,F(δ)
+mn
+i=0
+!
+−LIPmn
+
+λ;
+h
+Ωi/mn, ˆ
+Fn(πεn,i/mn)
+imn
+i=0
+
+.
+(56)
+coincides with
+max
+i=0,...,m
+max
+δ∈SK Ωi/mn,F(δ) −Ωi/mn, ˆ
+Fn(πεn,i/mn)
+ .
+Fix an index i ∈{0, . . . , m} and upper bound | maxδ∈SK Ωi/mn,F(δ) −Ωi/mn, ˆ
+Fn(πεn,i/mn)| by14
+ sup
+δ∈SK
+Ωi/mn,F(δ) −sup
+δ∈SK
+Ωi/mn, ˆ
+Fn(δ)
+ +
+ sup
+δ∈SK
+Ωi/mn, ˆ
+Fn(δ) −Ωi/mn, ˆ
+Fn(πεn,i/mn)
+ ,
+which, by definition of the policy, is upper bounded by
+sup
+δ∈SK,λ∈[0,1]
+|Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)| + εn.
+Combining the just-obtained bound with (55), we can upper bound
+sup
+λ∈[0,1]
+LIPmn
+
+λ;
+h
+Ωi/mn, ˆ
+Fn(πεn,i/mn
+n
+)
+imn
+i=0
+
+−max
+δ∈SK Ωλ,F(δ)
+
+by
+2α(F)/mn +
+sup
+δ∈SK,λ∈[0,1]
+|Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)| + εn.
+Equation (54) is established as (84) in Lemma F.6. The final statement in the theorem is now
+obvious.
+Remark C.4. In a situation where one is not interested in uniform estimation of the value
+function, but is only interested in estimating the value function at a given (possibly data-
+dependent) preference parameter ˆλn ∈[0, 1] (e.g., the one that is intended to be used), one
+trivially obtains a “pointwise” approximation result by directly applying the upper bound given
+in Equation (54), noting that
+sup
+δ∈SK
+Ωˆλn,F(δ) −Ωˆλn, ˆ
+Fn(δ)
+ ≥ρ
+implies
+sup
+δ∈SK,λ∈[0,1]
+Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)
+ ≥ρ.
+C.3
+An auxiliary result on M-estimators
+The strategy we employ to establish consistency of the policy in Section 3.2 is based on the
+standard consistency proof for M-estimators. We need to take care of the possibility, however,
+14Recall from the last item in Proposition 2.1 that the supremum inserted is finite.
+46
+
+````
+
+## PDF page 47
+
+FORMULA CHECK REQUIRED: original PDF page 47.
+
+````text
+that our (population) objective function evaluated at the data-driven tuning parameter, i.e.,
+δ 7→Ωˆλn,F(δ),
+(i) may not permit a unique optimizer (a problem that is fairly standard), and that
+(ii) the corresponding arg maxδ∈SK Ωˆλn,F(δ) depends on the data-driven tuning parameter ˆλn
+(a problem which substantially complicates the situation).
+To exhibit the problem and to connect it to classical situations that do not suffer from (i)
+and (ii), cf., e.g., Chapter 5 of van der Vaart (1998), we start with the following auxiliary
+lemma. The statement is not formulated within the framework laid out in Section 2, but is
+put in a more general context. In that result θ plays the role of a target parameter that one
+wishes to estimate consistently by making use of the sequence of estimators ˆθn, whereas γ plays
+the role of a tuning parameter that defines the objective function and which is selected in a
+data-driven way through ˆγn. Recall that all random variables are assumed to be defined on an
+underlying probability space (Ω, A, P). As usual, we shall notationally suppress the dependence
+of a function on ω ∈Ω; e.g., for a function f : A × Ω→R, say, we write f(a) instead of f(a, ω)
+if there is no reason for confusion.
+Lemma C.3. Let (Θ, d) be a compact metric space (Θ non-empty), Γ ⊆R be non-empty, and
+let the functions
+Qn : Θ × Γ × Ω→R, n ∈N,
+and
+Q : Θ × Γ →R
+be such that Q(·, γ) : Θ →R is continuous for every γ ∈Γ. For ρ > 0 and γ ∈Γ define
+Mρ
+γ := {θ′ ∈Θ : d(θ′, arg max
+θ∈Θ
+Q(θ, γ)) ≥ρ},
+and let ˆγn : Ω→Γ and ˆθn : Ω→Θ. Then, the following holds:
+1. For every ρ > 0, it holds that ˆθn ∈Mρ
+ˆγn implies maxθ∈Θ Q(θ, ˆγn) −maxθ∈Mρ
+ˆγn Q(θ, ˆγn) > 0
+and
+2 supθ∈Θ |Qn(θ, ˆγn) −Q(θ, ˆγn)| +
+
+supθ∈Θ Qn(θ, ˆγn) −Qn(ˆθn, ˆγn)
+
+maxθ∈Θ Q(θ, ˆγn) −maxθ∈Mρ
+ˆγn Q(θ, ˆγn)
+≥1.
+(57)
+2. For every ρ > 0, it holds that if Mρ
+γ̸ = ∅for all γ ∈Γ, if Γ is compact, and if γ 7→
+maxθ∈Θ Q(θ, γ) −maxθ∈Mρ
+γ Q(θ, γ) is continuous (e.g., because Q : Θ × Γ →R and γ 7→
+maxθ∈Mρ
+γ Q(θ, γ) are continuous), then
+inf
+γ∈Γ
+"
+max
+θ∈Θ Q(θ, γ) −max
+θ∈Mρ
+γ
+Q(θ, γ)
+#
+> 0.
+(58)
+3. The relation (58) for every ρ > 0, together with
+sup
+θ∈Θ
+|Qn(θ, ˆγn) −Q(θ, ˆγn)|
+and
+sup
+θ∈Θ
+Qn(θ, ˆγn) −Qn(ˆθn, ˆγn)
+47
+
+````
+
+## PDF page 48
+
+FORMULA CHECK REQUIRED: original PDF page 48.
+
+````text
+both converging (as n →∞) to zero in outer probability, implies consistency of ˆθn, in the
+sense that for every ρ > 0 it holds that
+P∗
+ 
+d(ˆθn, arg max
+θ∈Θ
+Q(θ, γ)) ≥ρ
+!
+= P∗
+ˆθn ∈Mρ
+ˆγn
+
+→0.
+Proof. Let ρ > 0 be given. Suppose that ω ∈Ωsatisfies ˆθn(ω) ∈Mρ
+ˆγ(ω) (we carefully signify
+the dependence on ω of all respective quantities in this proof). Then Mρ
+ˆγ(ω) cannot be empty.
+The set arg maxθ∈Θ Q(θ, ˆγn(ω)) is non-empty and closed due to compactness of Θ and conti-
+nuity of θ 7→Q(θ, ˆγn(ω)). Therefore, θ′ 7→d(θ′, arg maxθ∈Θ Q(θ, ˆγn(ω))) is Lipschitz-continuous
+on Θ. It follows that Mρ
+ˆγ(ω) is a closed, and hence compact, non-empty subset of Θ. There-
+fore, maxθ∈Mρ
+ˆγn(ω) Q(θ, ˆγn(ω)) exists and, using the definition of Mρ
+ˆγ(ω) together with ρ > 0,
+satisfies
+∞> max
+θ∈Θ Q(θ, ˆγn(ω)) −
+max
+θ∈Mρ
+ˆγn(ω)
+Q(θ, ˆγn(ω)) =: ∆(ρ, ω) > 0,
+which establishes the first statement in Part 1. From ˆθn(ω) ∈Mρ
+ˆγ(ω) we therefore obtain
+max
+θ∈Θ Q(θ, ˆγn(ω)) −Q(ˆθn(ω), ˆγn(ω)) ≥∆(ρ, ω).
+(59)
+We now note that the inequality in (57) is trivially satisfied if the supremum supθ∈Θ Qn(θ, ˆγn(ω)) =
+∞, and we can therefore assume henceforth that this supremum is a real number (it obviously
+cannot equal −∞). Adding and subtracting supθ∈Θ Qn(θ, ˆγn(ω)) and Qn(ˆθn(ω), ˆγn(ω)), respec-
+tively, and using
+ max
+θ∈Θ Q(θ, ˆγn(ω)) −sup
+θ∈Θ
+Qn(θ, ˆγn(ω))
+ ≤sup
+θ∈Θ
+Q(θ, ˆγn(ω)) −Qn(θ, ˆγ(ω))
+,
+we can upper bound the left-hand side in (59) by
+2 sup
+θ∈Θ
+Q(θ, ˆγn(ω)) −Qn(θ, ˆγn(ω))
+ +
+ 
+sup
+θ∈Θ
+Qn(θ, ˆγn(ω)) −Qn(ˆθn(ω), ˆγn(ω))
+!
+.
+Using ∆(ρ, ω) > 0 we now obtain the inequality in (57).
+To verify the statement in Part 2, just note that under the continuity condition imposed
+the infimum in (58) is attained at γ∗∈Γ, say, because Γ is assumed to be compact (and non-
+empty). This proves the statement, cf. also the definition of Mρ
+γ∗. To see that the statement in
+parenthesis is sufficient for the continuity assumption in Part 2, we can use Berge’s maximum
+theorem, e.g., Theorem 17.31 in Aliprantis and Border (2006).
+Part 3 is an immediate consequence of (the imposed assumptions and) Part 1.
+Remark C.5. Note that the quotient on the left-hand side of (57) relates the worst-case
+approximation error and the optimization error, i.e.,
+sup
+θ∈Θ
+|Qn(θ, ˆγn) −Q(θ, ˆγn)|
+and
+sup
+θ∈Θ
+Qn(θ, ˆγn) −Qn(ˆθn, ˆγn)
+48
+
+````
+
+## PDF page 49
+
+FORMULA CHECK REQUIRED: original PDF page 49.
+
+````text
+to the minimal change in the value of the objective function Q(·, ˆγn) when being ρ-separated
+from its set of maximizers, i.e., to
+max
+θ∈Θ Q(θ, ˆγn) −max
+θ∈Mρ
+ˆγn
+Q(θ, ˆγn).
+In principle, the optimization error can be controlled by the practitioner and is therefore often,
+but not always, ignored, i.e., assumed to be 0 when studying consistency of an estimator defined
+as the solution of an optimization problem. Under suitable assumptions (e.g., a uniform law of
+large numbers in case Qn is an average), the approximation error typically converges to 0 in
+(outer) probability.
+Remark C.6. Part 3 of Lemma C.3 shows that (58) together with convergence to zero of the
+approximation and optimization errors in (outer) probability is enough to ensure consistency of
+the estimator. The second part of that lemma shows that (58) follows from a set of conditions
+including a continuity assumption. The condition in (58), however, is not generally met in the
+problem we consider in the present article without imposing conditions on Γ, e.g., finiteness.
+This is illustrated in the context of the example discussed in Section 6.1 in the following remark,
+and implies that additional assumptions on ˆλn are necessary to deduce a consistency statement
+through the approach outlined above.
+Example C.1. Reconsider the example discussed in Section 6.1. Given ρ ∈(0, 1/2), we also
+have to consider the maximum of the objective in (48) over the set Mρ
+F,λ, say, of all decision
+rules η = (η, 1 −η)′, η ∈[0, 1], that are separated away from the argmax in d1-distance, i.e.,
+Mρ
+F,λ :=
+
+η ∈SK : d1
+ η, arg max
+δ∈SK
+Ωλ,F(δ)
+
+≥ρ
+	
+.
+Due to the specific structure of the argmax in that example, cf. (49), and continuity properties
+of the objective, is not difficult to see that in that example
+0 ≤
+"
+max
+δ∈SK Ωλm,F (δ) −
+max
+δ∈Mρ
+F,λm
+Ωλm,F (δ)
+#
+≤Ωλm,F((0, 1)′) −Ωλm((1/2, 1/2)′) →0
+along any sequence λm ∈[0, c(p)) that converges to c(p), showing that (58) is violated in this
+example.
+Hence, the condition in (58) cannot be expected to hold in our framework when selecting
+tuning parameters from [0, 1], and therefore obtaining consistency by controlling the approxi-
+mation and estimation error as outlined above requires further conditions on ˆλn that were not
+necessary in the context of Theorem 3.1.
+D
+Notation and some preparatory results
+Recall that for an array F as in Equation (7), i.e.,
+F =
+h
+(F i(· | x, z), pX,Z(x, z)) : i = 1, . . . , K; x ∈X; z ∈Z
+i
+,
+49
+
+````
+
+## PDF page 50
+
+FORMULA CHECK REQUIRED: original PDF page 50.
+
+````text
+and a given (non-empty) set of cdfs H ⊆Dcdf([a, b]) we write
+F ⊏H
+⇔
+F i(· | x, z) ∈H for every i = 1, . . . , K, x ∈X, and z ∈Z.
+For a vector G = (G1, . . . , Gl)′ of functions G : R →R we write
+∥G∥∞:=
+l
+max
+i=1 ∥Gi∥∞=
+l
+max
+i=1 sup
+v∈R
+|Gi(v)|,
+which may be infinite. Recall that the symbol ∥· ∥p denotes the p-norm on a Euclidean space.
+For two arrays F and ˜F as in Equation (7) that satisfy F ⊏Dcdf([a, b]) and ˜F ⊏Dcdf([a, b]),
+we obtain (for x ∈X and z ∈Z fixed, and cf. Section 2.3.1 for the definition of F (· | x) and
+similar quantities)
+∥F (· | x) −˜F (· | x)∥∞=
+K
+max
+i=1 ∥F i(· | x) −˜F i(· | x)∥∞,
+and
+∥F (· | x, z) −˜F (· | x, z)∥∞=
+K
+max
+i=1 ∥F i(· | x, z) −˜F i(· | x, z)∥∞;
+furthermore, we associate to an array F as in Equation (7) the quantities
+pX =
+ pX(x)
+
+x∈X
+and
+pX,Z =
+ pX,Z(x, z)
+
+x∈X,z∈Z
+and write, e.g., ˜pX or ˆpX, respectively for the same quantities but corresponding to ˜F or ˆFn.
+Similarly, we associate to F (and analogously to ˜F or ˆFn), for every fixed z ∈Z, the vec-
+tors pX|Z=z = (pX|Z=z(x))x∈X and pZ =
+ pZ(z)
+
+z∈Z.
+Recall that for δ ∈SK and z ∈Z we write
+⟨δ, F⟩=
+X
+x∈X
+K
+X
+i=1
+δi(x)pX(x)F i(· | x)
+and
+⟨δ, F⟩z =
+X
+x∈X
+K
+X
+i=1
+δi(x)pX|Z=z(x)F i(· | x, z),
+and denote
+u(F, ˜F) :=
+X
+x∈X
+∥pX(x)F (· | x) −˜pX(x) ˜F (· | x)∥∞.
+and
+uz(F, ˜F) :=
+X
+x∈X
+∥pX|Z=z(x)F (· | x, z) −˜pX|Z=z(x) ˜F (· | x, z)∥∞.
+(60)
+Remark D.1. Throughout, we shall use the symbols ⟨γ, F⟩and ⟨γ, F⟩z for any γ : X →RK
+(not necessarily a map to SK). Note, however, that for such γ, these quantities are no longer
+cdfs in general.
+With this notation (recalling d1 from (5)), we obtain the following result.
+Lemma D.1. For two arrays F and ˜F as in Equation (7) and δ and ˜δ in SK, we have
+∥⟨δ, F⟩−⟨˜δ, ˜F⟩∥∞≤d1(δ, ˜δ) + u(F, ˜F),
+(61)
+50
+
+````
+
+## PDF page 51
+
+FORMULA CHECK REQUIRED: original PDF page 51.
+
+````text
+and for every z ∈Z it holds that
+∥⟨δ, F⟩z −⟨˜δ, ˜F⟩z∥∞≤d1(δ, ˜δ) + uz(F, ˜F).
+(62)
+Furthermore, it holds that
+u(F, ˜F) ≤
+X
+z∈Z
+pZ(z)uz(F, ˜F) + ∥pZ −˜pZ∥1 ≤max
+z∈Z uz(F, ˜F) + ∥pZ −˜pZ∥1.
+(63)
+Proof. We first establish (61). Writing
+⟨˜δ −δ, ˜F⟩:=
+X
+x∈X
+K
+X
+i=1
+(˜δi(x) −δi(x))˜pX(x) ˜F i(· | x),
+the triangle inequality delivers
+∥⟨δ, F⟩−⟨˜δ, ˜F⟩∥∞≤∥⟨δ, F⟩−⟨δ, ˜F⟩∥∞+ ∥⟨˜δ −δ, ˜F⟩∥∞≤∥⟨δ, F⟩−⟨δ, ˜F⟩∥∞+ d1(δ, ˜δ).
+From δ(x) ∈SK for every x ∈X, we obtain
+∥⟨δ, F⟩−⟨δ, ˜F⟩∥∞≤
+X
+x∈X
+K
+X
+i=1
+δi(x)∥pX(x)F i(· | x) −˜pX(x) ˜F i(· | x)∥∞≤u(F, ˜F),
+which delivers (61). The inequality in (62) is obtained analogously. Concerning the inequalities
+in (63), we note that
+pX(x)F (· | x) =
+X
+z∈Z
+pX,Z(x, z)F (· | x, z)
+allows us to write
+u(F, ˜F) =
+X
+x∈X
+∥
+X
+z∈Z
+pZ(z)
+n
+pX|Z=z(x)F (· | x, z) −˜pX|Z=z(x) ˜F (· | x, z)
+o
+−
+X
+z∈Z
+˜pX|Z=z(x)
+ ˜pZ(z) −pZ(z)
+ ˜F (·|x, z)∥∞,
+which (using the triangle inequality) we can upper bound by
+X
+z∈Z
+pZ(z)uz(F, ˜F) +
+X
+z∈Z
+
+X
+x∈X
+˜pX|Z=z(x)
+
+|pZ(z) −˜pZ(z)|,
+from which two inequalities in (63) follow.
+E
+Auxiliary results and proofs for Section 2
+For the following result, we recall from Equation (12) the definition of the objective function
+Ωλ,F(δ) = (1 −λ)T
+ ⟨δ, F⟩
+
+−λ max
+z∈Z S
+ ⟨δ, F⟩z, ⟨δ, F⟩
+
+.
+51
+
+````
+
+## PDF page 52
+
+FORMULA CHECK REQUIRED: original PDF page 52.
+
+````text
+Lemma E.1. Fix λ ∈[0, 1], let F ⊏D and ˜F ⊏Dcdf([a, b]) be arrays as in Equation (7), and
+let δ and ˜δ be elements of SK. Then,
+Ωλ,F(δ) −Ωλ, ˜
+F(˜δ)
+ ≤(1 + λ)
+
+d1(δ, ˜δ) + max
+z∈Z uz(F, ˜F)
+
++ ∥pZ −˜pZ∥1.
+(64)
+In particular, the function δ 7→Ωλ,F(δ) is Lipschitz continuous on SK with constant 1 + λ.
+Furthermore, the function (λ, δ) 7→Ωλ,F(δ) is Lipschitz continuous on [0, 1] × SK.
+Proof of Lemma E.1. We upper bound
+|Ωλ,F(δ) −Ωλ, ˜
+F(˜δ)| ≤(1 −λ)A + λB,
+where
+A :=
+T(⟨δ, F⟩) −T(⟨˜δ, ˜F⟩)
+ ≤d1(δ, ˜δ) + max
+z∈Z uz(F, ˜F) + ∥pZ −˜pZ∥1,
+the inequality follows from Assumption 2.4 (note that D is assumed to be convex and F ⊏D
+holds by assumption, implying that ⟨δ, F⟩∈D) and (61) together with (63); and
+B : = max
+z∈Z
+S
+ ⟨δ, F⟩z, ⟨δ, F⟩
+
+−S
+
+⟨˜δ, ˜F⟩z, ⟨˜δ, ˜F⟩
+
+≤max
+z∈Z ∥⟨δ, F⟩z −⟨˜δ, ˜F⟩z∥∞+ ∥⟨δ, F⟩−⟨˜δ, ˜F⟩∥∞,
+where we used Assumption 2.4. Using Equations (61), (62), and (63), we obtain
+B ≤2
+
+d1(δ, ˜δ) + max
+z∈Z uz(F, ˜F)
+
++ ∥pZ −˜pZ∥1.
+Combining the upper bounds on A and B just obtained, the inequality in (64) and the Lipschitz-
+continuity statement in the lemma follows. To see the last statement in the lemma, note that
+the upper bounds on A and B show that the functions
+δ 7→T(⟨δ, F⟩)
+and
+δ 7→max
+z∈Z S
+ ⟨δ, F⟩z, ⟨δ, F⟩
+
+are Lipschitz continuous on SK, from which the Lipschitz continuity of (λ, δ) 7→Ωλ,F(δ) follows.
+Proof of Proposition 2.1. Lemma E.1 shows that the function (λ, δ) 7→Ωλ,F(δ) is continuous
+on [0, 1] × SK. Therefore, all assumptions for Berge’s maximum theorem (as in, e.g., Aliprantis
+and Border (2006), Theorem 17.31) are satisfied, which establishes the first three statements
+in the proposition apart from the convexity statement, which is a consequence of Danskin’s
+theorem (cf., e.g., Proposition B.25 in Bertsekas (1999)).
+To establish the last statement, let F ⊏D, let δ ∈SK and use Lemma E.1 to obtain
+Ωλ,G(δ) ≤|Ωλ,G(δ) −Ωλ,F(δ)| + Ωλ,F(δ) ≤2 max
+z∈Z uz(F, ˜F) + 2 + Ωλ,F(δ).
+(65)
+Taking the supremum over δ ∈SK in both sides of (65) and using the fact already established
+in the first part of this proof then delivers the last statement of the proposition.
+52
+
+````
+
+## PDF page 53
+
+FORMULA CHECK REQUIRED: original PDF page 53.
+
+````text
+F
+Auxiliary results and proofs for Section 3
+Throughout this section, we shall sometimes abbreviate the training sample from (2) as follows
+
+˜
+Wj, j = 1, . . . , n
+
+=: ˜
+W .
+(66)
+Correspondingly, we can write
+πε,λ
+n
+
+˜
+Wj, j = 1, . . . , n
+
+= πε,λ
+n ( ˜
+W ).
+Lemma F.1. Let λ ∈[0, 1] and F be an array as in Equation (7) satisfying F ⊏D. Let πε,λ
+n
+be an empirical success policy as defined in Section 3. Then,
+r(πε,λ
+n ; λ, F) ≤2 sup
+δ∈SK
+|Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)| + ε
+≤ε + 2(1 + λ) max
+z∈Z uz(F, ˆFn) + 2∥pZ −ˆpZ∥1.
+Proof. Using the last item in Proposition 2.1 (guaranteeing that all suprema below are finite)
+and (19), we write
+r(πε,λ
+n ; λ, F) =
+max
+δ∈SK Ωλ,F(δ) −sup
+δ∈SK
+Ωλ, ˆ
+Fn(δ) + sup
+δ∈SK
+Ωλ, ˆ
+Fn(δ) −Ωλ,F
+
+πε,λ
+n ( ˜
+W )
+
+≤
+max
+δ∈SK Ωλ,F(δ) −sup
+δ∈SK
+Ωλ, ˆ
+Fn(δ) + Ωλ, ˆ
+Fn(πε,λ
+n ( ˜
+W )) −Ωλ,F
+
+πε,λ
+n ( ˜
+W )
+
++ ε
+≤2 sup
+δ∈SK
+|Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)| + ε.
+This proves the first inequality; the second now follows from (64) in Lemma E.1.
+From (60) and Lemma F.1 it follows that the quantities determining the behavior of the
+upper bound for the regret just developed in Lemma F.1 are the random variables
+∥pX|Z=z(x)F (· | x, z) −ˆpX|Z=z(x) ˆF (· | x, z)∥∞,
+for x ∈X, z ∈Z,
+(67)
+where ˆpX|Z=z(x) = ˆpX,Z(x, z)/ˆpZ(z) whenever ˆpZ(z) > 0 and ˆpX|Z=z(x) = 0 else, and the
+random variable
+∥pZ −ˆpZ∥1.
+We shall next develop suitable bounds for these quantities.
+Let us recall here that for every i ∈{1, . . . , K}, x ∈X and z ∈Z we denote by ˆF i(· | x, z)
+the empirical cdf based on observations in
+Mi
+x,z := {j = 1, . . . , n : Dj = i, Xj = x, Zj = z},
+(68)
+i.e.,
+ˆF i(· | x, z) = |Mi
+x,z|−1
+X
+j∈Mix,z
+1(YDi,j ≤·) = |Mi
+x,z|−1
+X
+j∈Mix,z
+1(Yi,j ≤·),
+53
+
+````
+
+## PDF page 54
+
+FORMULA CHECK REQUIRED: original PDF page 54.
+
+````text
+which we set equal to the cdf corresponding to point mass at b (the upper endpoint of the
+support of the cdfs one is working with) in case Mi
+x,z is empty.
+Note that Mi
+x,z is a random set, i.e., actually Mi
+x,z = Mi
+x,z(Dj, Xj, Zj; j = 1, . . . , n), which
+we suppress notationally.
+In the conditioning arguments in the following proof, given fixed
+numbers (dj, xj, zj) ∈{1, . . . , K} × X × Z for j = 1, . . . , n we shall analogously write
+Mi
+x,z(dj, xj, zj; j = 1, . . . , n) = {j = 1, . . . , n : dj = i, xj = x, Zj = z},
+(69)
+which is a non-random subset of {1, . . . , n} (i.e., Mi
+x,z(dj, xj, zj; j = 1, . . . , n) is a possible
+realization of Mi
+x,z).
+Lemma F.2. Let (Y ′
+j , Xj, Zj)′ ∼F for j = 1, . . . , n, and let x ∈X and z ∈Z. Then,
+E
+
+∥ˆF (· | x, z) −F (· | x, z)∥∞
+
+≤2.75 ×
+r
+log(K)
+n
+K
+X
+j=1
+(qx,z,j)−1/2,
+(70)
+where qx,z,i := P(X1 = x, Z1 = z, D1 = i) for i = 1, . . . , K; furthermore, for every ρ > 0 it holds
+that
+P
+
+∥ˆF (· | x, z) −F (· | x, z)∥∞≥ρ
+
+≤2K
+K
+X
+i=1
+e−
+nρ2qx,z,i
+2
+.
+(71)
+Proof. We first establish (70). Fix x ∈X and z ∈Z. Recall that qx,z,i > 0 for every i = 1, . . . , K
+due to Assumption 2.3. In this proof we abbreviate
+Mi := ∥ˆF i(· | x, z) −F i(· | x, z)∥∞,
+and we define the random variable
+β :=
+K
+min
+i=1 |Mi
+x,z|.
+Define the set S ⊆
+ {1, . . . , K} × X × Z
+n via
+S :=
+n
+(d, x, z) ∈
+ {1, . . . , K} × X × Z
+n : β(d, x, z) > 0
+o
+,
+where we denoted, cf. the discussion surrounding (69),
+β(d, x, z) :=
+K
+min
+i=1
+Mi
+x,z(dj, xj, zj; j = 1, . . . , n)
+ .
+Use the law of total probability, P(β = 0) = P((D, X, Z) /∈S), and Mi ≤1, to upper bound
+E(∥ˆF (· | x, z) −F (· | x, z)∥∞) = E(
+K
+max
+i=1 Mi)
+by the sum
+P (β = 0) +
+X
+(d,x,z)∈S
+Ed,x,z
+
+K
+max
+i=1 Mi
+
+P(D = d, X = x, Z = z),
+(72)
+54
+
+````
+
+## PDF page 55
+
+FORMULA CHECK REQUIRED: original PDF page 55.
+
+````text
+where Ed,x,z denotes the expectation operator conditional on the event {D = d, X = x, Z =
+z}, where X := (X1, . . . , Xn)′, Z := (Z1, . . . , Zn)′ and D := (D1, . . . , Dn)′.
+Fix a (d, x, z) ∈S, and note that P(D = d, X = x, Z = z) > 0 by Assumptions 2.1 and 2.3.
+On the event {D = d, X = x, Z = z} ⊆Ω, the random set Mi
+x,z is constant and non-empty,
+i.e., there exist natural numbers j1 < . . . < j|Mix,z| for which Mi
+x,z = {j1, . . . , j|Mix,z|}, and such
+that we can write
+ˆF i(· | x, z) = |Mi
+x,z|−1
+X
+j∈Mix,z
+1(YDj,j ≤·) = |Mi
+x,z|−1
+|Mi
+x,z|
+X
+l=1
+1(Yi,jl ≤·),
+so that in particular
+Mi = ∥|Mi
+x,z|−1
+|Mi
+x,z|
+X
+l=1
+1(Yi,jl ≤·) −F i(· | x, z)∥∞.
+Using the i.i.d. assumption, for any real numbers c1, . . . , c|Mix,z| it holds that the probability
+P
+
+Yi,j1 ≤c1, . . . , Yi,|Mix,z| ≤c|Mix,z| | D = d, X = x, Z = z
+
+,
+can be written as the product
+|Mi
+x,z|
+Y
+l=1
+P
+ Yi,jl ≤cl | Djl = i, Xjl = x, Zjl = z
+
+=
+|Mi
+x,z|
+Y
+l=1
+F i(cl | x, z),
+(73)
+the equality following from the conditional independence Assumption 2.2. That is, conditional
+on the event {D = d, X = x, Z = z}, the empirical cdf ˆF i(· | x, z) is based on |Mi
+x,z| i.i.d.
+random variables with cdf F i(· | x, z). Arguing analogously to the proof of Theorem 4.3 in Kock
+et al. (2023) (from their Equation C.2 to C.3), but replacing the expectation operator there by
+the conditional expectation Ed,x,z, we hence obtain
+Ed,x,z
+
+K
+max
+i=1 Mi
+
+≤1.505 ×
+s
+log(K)
+β(d, x, z),
+which together with (72) and upon denoting wx,z(i) := P
+
+minK
+j=1 |Mj
+x,z| = i
+
+, establishes
+E
+
+∥ˆF (· | x, z) −F (· | x, z)∥∞
+
+≤wx,z(0) + 1.505
+p
+log(K)
+n
+X
+i=1
+i−1/2wx,z(i).
+(74)
+To establish the inequality in (70), we use the bound
+wx,z(i) ≤
+K
+X
+j=1
+P
+
+|Mj
+x,z| = i
+
+,
+and note that for every j = 1, . . . , K the random variable |Mj
+x,z| is Bernoulli distributed with
+55
+
+````
+
+## PDF page 56
+
+FORMULA CHECK REQUIRED: original PDF page 56.
+
+````text
+parameter n and success probability qx,z,j := P(X1 = x, Z1 = z, D1 = j). From the upper
+bound in (74), together with the inequality
+(1 −p)m ≤e−pm ≤(2epm)−1/2
+(75)
+(for every p ∈(0, 1] and every m ∈N), it follows that E(∥ˆF (· | x, z) −F (· | x, z)∥∞) is bounded
+from above by (recalling Assumption 2.3)
+K
+X
+j=1
+
+
+(2eqx,z,jn)−1/2 + 1.505
+p
+log(K)
+n
+X
+i=1
+i−1/2P(|Mj
+x,z| = i)
+
+
+.
+To obtain (70) it remains to apply Lemma F.7 (with m = 1 and α = 1/2) to bound
+n
+X
+i=1
+i−1/2P
+
+|Mj
+x,z| = i
+
+≤
+s
+2
+qx,z,jn,
+and to collect terms (recalling that K ≥2).
+Next we establish (71). Note that for ρ ≥1 the claimed inequality is trivially true and
+fix ρ ∈(0, 1). Then, arguing as above and using analogous notation, with Pd,x,z the conditional
+probability corresponding to Ed,x,z, the law of iterated expectations shows that P(∥ˆF (· | x, z)−
+F (· | x, z)∥∞≥ρ) is bounded from above by
+P (β = 0) +
+X
+(d,x,z)∈S
+Pd,x,z
+
+K
+max
+i=1 Mi ≥ρ
+
+P(D = d, X = x, Z = z),
+(76)
+which by a union bound and the DKWM-inequality, cf. Massart (1990), exploiting the condi-
+tional independence relation established around (73), can be upper bounded by
+P (β = 0) + 2K
+X
+(d,x,z)∈S
+P(D = d, X = x, Z = z)e−2β(d,x,z)ρ2
+= wx,z(0) + 2K
+n
+X
+i=1
+e−2iρ2wx,z(i)
+≤2K
+K
+X
+j=1
+n
+X
+i=0
+e−2iρ2P(|Mj
+x,z| = i) = 2K
+K
+X
+j=1
+(1 −qx,z,j(1 −e−2ρ2))n,
+the second equality following from |Mj
+x,z| being binomially distributed with parameter n and
+success probability qx,z,j and its moment-generating function (mgf).
+The inequality in (71)
+follows from Lemma F.3 below.
+Lemma F.3. For every p ≥0 and ρ ∈[0, 1], it holds that
+1 −p(1 −e−2ρ2) ≤e−pρ2/2.
+Proof. Combine 1 −e−2ρ2 ≥ρ2/2 with 1 −z ≤e−z for every z ∈R.
+56
+
+````
+
+## PDF page 57
+
+FORMULA CHECK REQUIRED: original PDF page 57.
+
+````text
+Lemma F.4. For every z ∈Z, it holds that
+E
+
+∥ˆpX|Z=z −pX|Z=z∥1
+
+≤2
+s
+|X|
+pZ(z)n;
+(77)
+furthermore, for every ρ > 0 it holds that
+P
+
+∥ˆpX|Z=z −pX|Z=z∥1 ≥ρ
+
+≤2|X|e
+−npZ (z)ρ2
+2|X|2
+;
+(78)
+cf. the discussion after (67) for the definition of ˆpX|Z=z.
+Proof. Fix z ∈Z. We first claim that for every x ∈X we have
+E
+
+|ˆpX|Z=z(x) −pX|Z=z(x)|
+
+≤pX|Z=z(x)(1 −pZ(z))n +
+q
+2pX|Z=z(x)(1 −pX|Z=z(x))
+p
+pZ(z)n
+;
+given this inequality, (77) follows by summing over x ∈X using that for non-negative real num-
+bers pi, i = 1, . . . , m, adding up to 1 it holds that Pm
+i=1
+p
+pi(1 −pi) ≤√m −1 (by the Cauchy-
+Schwarz inequality), (75), and combining the resulting terms using (2e)−1/2 +
+√
+2
+p
+|X| −1 ≤
+2
+p
+|X|. To prove the claim, fix x ∈X and note that by the law of total probability and Jensen’s
+inequality
+E(|ˆpX|Z=z(x) −pX|Z=z(x)|) ≤
+X
+z∗∈Zn
+q
+E((ˆpX|Z=z(x) −pX|Z=z(x))2|Z = z∗)P(Z = z∗).
+Conditional on Z = z∗∈Zn for a z∗such that {i : z∗
+i = z}̸ = ∅, the estimator ˆpX|Z=z(x) is
+the relative frequency of successes out of |{i : z∗
+i = z}| independent Bernoulli trials with success
+probability pX|Z=z(x) (use an argument similar to the one leading up to (73)), and therefore
+satisfies
+E
+
+(ˆpX|Z=z(x) −pX|Z=z(x))2 | Z = z∗
+= pX|Z=z(x)(1 −pX|Z=z(x))
+|{i : z∗
+i = z}|
+.
+Because ˆpX|Z=z(x) := 0 if none of the coordinates of Z equals z, we have that E(|ˆpX|Z=z(x) −
+pX|Z=z(x)|) is bounded from above by
+pX|Z=z(x)(1 −pZ(z))n +
+q
+pX|Z=z(x)(1 −pX|Z=z(x))
+n
+X
+l=1
+P(|{i : Zi = z}| = l)
+√
+l
+.
+By Lemma F.7 (with m = 1 and α = 1/2) the latter sum is not larger than
+√
+2
+√
+pZ(z)n.
+To prove the second statement in the lemma, we start with the following observation: fix x ∈
+X and γ ∈(0, 1] and use the law of total probability with a similar conditioning argument as
+above and Hoeffding’s inequality to bound P(|ˆpX|Z=z(x) −pX|Z=z(x)| ≥γ) by
+2
+n
+X
+m=0
+e−2γ2mP(|{i : Zi = z}| = m) = 2
+
+1 −pZ(z)(1 −e−2γ2)
+n
+≤2e−npZ(z)γ2/2,
+the equality following from the mgf of the Binomial distribution and the inequality from
+57
+
+````
+
+## PDF page 58
+
+FORMULA CHECK REQUIRED: original PDF page 58.
+
+````text
+Lemma F.3.
+Now, we consider two cases: if |X| = 1, then (78) trivially holds for ρ ≥1
+and it holds by the bound just developed for all ρ ∈(0, 1). If |X| > 1, (78) trivially holds
+for ρ > 2. Fix ρ ∈(0, 2]. Then, the above observation (noting ρ/|X| ≤1) gives
+P
+
+∥ˆpX|Z=z −pX|Z=z∥1 ≥ρ
+
+≤
+X
+x∈X
+P(|ˆpX|Z=z(x) −pX|Z=z(x)| ≥ρ/|X|) ≤2|X|e
+−npZ (z)ρ2
+2|X|2
+.
+A completely analogous argument establishes the following result (the result actually follows
+immediately from Lemma F.4 for the special case Z = 1 and “inverting” the roles of X and Z).
+We abstain from spelling out the details.
+Lemma F.5. It holds that
+E
+ ∥ˆpZ −pZ∥1
+
+≤2
+r
+|Z|
+n .
+(79)
+Furthermore, for every ρ > 0 it holds that
+P
+ ∥ˆpZ −pZ∥1 ≥ρ
+
+≤2|Z|e
+−nρ2
+2|Z|2 .
+(80)
+Lemma F.6. Let (Y ′
+j , Xj, Zj)′ ∼F for j = 1, . . . , n, and let z ∈Z. Then
+E
+
+uz(F, ˆFn)
+
+≤5.5κz
+s
+log(K)|X|
+pZ(z)n
+,
+where
+κz := max
+x
+K
+X
+j=1
+s
+pX,Z(x, z)
+qx,z,j
+,
+(81)
+with qx,z,j := P(X1 = x, Z1 = z, D1 = j) for x ∈X and j = 1, . . . , K, and for every ρ > 0 it
+holds that
+P
+
+uz(F, ˆFn) ≥ρ
+
+≤2|X|
+
+K2 + 1
+
+max
+x,j e
+−
+nqx,z,jρ2
+8|X|2
+.
+(82)
+If F ⊏D, it follows with κ := maxz κz that
+E∗
+ 
+sup
+δ∈SK,λ∈[0,1]
+Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)
+
+!
+≤11κ
+r
+log(K)|X|
+n
+X
+z∈Z
+1
+p
+pZ(z)
++ 2
+r
+|Z|
+n ,
+(83)
+and that for every ρ > 0 we have
+P∗
+ 
+sup
+δ∈SK,λ∈[0,1]
+Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)
+ ≥ρ
+!
+≤4|Z||X|K2 max
+x,z,j e
+−
+nqx,z,jρ2
+128(|X|∨|Z|)2 .
+(84)
+Proof. We start with the inequality in (81). Recall that pZ(z) and the qx,z,j appearing in the
+upper bound are non-zero, because of Assumption 2.3. From the definition of uz in Equation (60)
+we obtain
+uz(F, ˆFn) ≤
+
+X
+x∈X
+pX|Z=z(x)∥F (· | x, z) −ˆF (· | x, z)∥∞
+
++ ∥pX|Z=z −ˆpX|Z=z∥1.
+(85)
+58
+
+````
+
+## PDF page 59
+
+FORMULA CHECK REQUIRED: original PDF page 59.
+
+````text
+Lemmas F.2 and F.4 together hence imply, for every z ∈Z, the bound
+E
+
+uz(F, ˆFn)
+
+≤T1 + T2,
+(86)
+where we set
+T1 := 2.75 ×
+r
+log(K)
+n
+X
+x∈X
+K
+X
+j=1
+pX|Z=z(x)(qx,z,j)−1/2
+and
+T2 := 2
+s
+|X|
+pZ(z)n.
+Recalling qx,z,j = P(X1 = x, Z1 = z, D1 = j) and using the Cauchy-Schwarz inequality we get
+X
+x∈X
+K
+X
+j=1
+pX|Z=z(x)(qx,z,j)−1/2 ≤p−1
+Z (z)κz
+X
+x∈X
+q
+pX,Z(x, z) ≤κz
+p
+|X|/pZ(z),
+so that
+T1 ≤2.75κz
+s
+log(K)|X|
+pZ(z)n
+.
+From κz ≥1 it follows that
+T1 + T2 ≤5.5κz
+s
+log(K)|X|
+pZ(z)n
+,
+which establishes (81).
+To verify (82), we first use (85) to obtain
+P
+
+uz(F, ˆFn) ≥ρ
+
+≤
+X
+x∈X
+P
+
+∥F (· | x, z) −ˆF (· | x, z)∥∞≥ρ/2
+
++P
+
+∥pX|Z=z −ˆpX|Z=z∥≥ρ/2
+
+,
+which we then estimate using the bounds in Equations (71) (Lemma F.2) and (78) (Lemma F.4)
+to arrive at (note that qx,z,j ≤pZ(z))
+2K
+X
+x∈X
+K
+X
+j=1
+e−
+nρ2qx,z,j
+8
++ 2|X|e
+−npZ (z)ρ2
+8|X|2
+≤2|X|
+
+K2 + 1
+
+max
+x,j e
+−
+nqx,z,jρ2
+8|X|2
+.
+To verify (83), we recall from Lemma E.1 that
+sup
+δ∈SK,λ∈[0,1]
+Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)
+ ≤2 max
+z∈Z uz(F, ˆFn) + ∥pZ −ˆpZ∥1.
+Therefore, the already established inequality in (81) together with (79) in Lemma F.5 estab-
+lishes (83).
+To prove (84) note that the previous display together with the already established rela-
+tion (82) and (80) in Lemma F.5 establishes the bound
+P∗
+ 
+sup
+δ∈SK,λ∈[0,1]
+Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)
+ ≥ρ
+!
+≤2|X|
+
+K2 + 1
+ X
+z∈Z
+max
+x,j e
+−
+nqx,z,jρ2
+128|X|2 + 2|Z|e
+−nρ2
+8|Z|2 ,
+59
+
+````
+
+## PDF page 60
+
+FORMULA CHECK REQUIRED: original PDF page 60.
+
+````text
+which can further be upper bounded by
+2|X|
+
+K2 + 1
+
+|Z| max
+x,z,j e
+−
+nqx,z,jρ2
+128|X|2 + 2|Z|e
+−nρ2
+8|Z|2 ≤4|Z||X|K2 max
+x,z,j e
+−
+nqx,z,jρ2
+128(|X|∨|Z|)2 .
+Proof of Theorem 3.1: Lemma F.1 shows for every λ ∈[0, 1] that
+r(πε,λ
+n ; λ, F) ≤2 sup
+δ∈SK
+|Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)| + ε.
+We therefore obtain
+E∗(r(πε,ˆλn
+n
+; ˆλn, F)) ≤E∗
+ 
+sup
+λ∈[0,1]
+r
+
+πε,λ
+n ; λ, F
+!
+≤2E∗
+ 
+sup
+δ∈SK,λ∈[0,1]
+|Ωλ,F(δ) −Ωλ, ˆ
+Fn(δ)|
+!
++ ε,
+which by (83) is bounded from above by
+22
+r
+log(K)|X|
+n
+κ
+X
+z∈Z
+1
+p
+pZ(z)
++ 4
+r
+|Z|
+n + ε.
+(87)
+Inserting the definition of κ delivers the bound in (21).
+The inequality in (22), follows immediately from the first display in this proof together
+with (84).
+Proof of Theorem 3.2: Fix ρ > 0. Recall from (26) that for every λ ∈[0, 1] we defined
+cF(ρ, λ) =
+
+
+
+
+
+maxδ∈SK Ωλ,F(δ) −maxδ∈Mρ
+F,λ Ωλ,F(δ)
+if Mρ
+F,λ̸ = ∅,
+0
+else.
+(88)
+In the following steps, we show that λ 7→cF(ρ, λ) is Borel-measurable on [0, 1]; if not men-
+tioned otherwise all references to theorems, results, and pages in the following items 1-5 are
+to Aliprantis and Border (2006), the terminology of which we shall also use without repeating
+their definitions:
+1. By our Lemma E.1, the function (λ, δ) 7→Ωλ,F(δ) is continuous on [0, 1] × SK. Hence, it
+is a Carath´eodory Function (cf. Definition 4.50); the unit interval is throughout equipped
+with its Borel sigma algebra. As a consequence of Part 3 of the “Measurable Maximum
+Theorem” 18.19, the nonempty-valued correspondence λ 7→arg maxδ∈SK Ωλ,F(δ) is mea-
+surable on [0, 1] (and hence weakly measurable by Lemma 18.2).
+2. Due to Theorem 18.5 the distance function
+(λ, γ) 7→d1
+ 
+γ, arg max
+δ∈SK
+Ωλ,F(δ)
+!
+associated with the nonempty-valued weakly measurable λ 7→arg maxδ∈SK Ωλ,F(δ) is a
+Carath´eodory function.
+60
+
+````
+
+## PDF page 61
+
+FORMULA CHECK REQUIRED: original PDF page 61.
+
+````text
+3. Decomposing Mρ
+F,λ as
+
+γ ∈SK : d1
+ γ, arg max
+δ∈SK
+Ωλ,F(δ)
+
+> ρ
+	
+∪
+
+γ ∈SK : d1
+ γ, arg max
+δ∈SK
+Ωλ,F(δ)
+
+−ρ = 0
+	
+and using Lemmas 18.7 and 18.8 together with the union part of 18.4 shows that λ 7→Mρ
+F,λ
+is a measurable correspondence.
+4. The correspondence λ 7→ˇMρ
+F,λ defined via
+λ 7→
+
+
+
+
+
+Mρ
+F,λ
+if Mρ
+F,λ̸ = ∅
+SK
+else.
+is weakly measurable, which is evident from Definition 18.1, and has non-empty and
+compact values (for the latter compare the proof of Lemma C.3).
+5. We can write
+cF(ρ, λ) = max
+δ∈SK Ωλ,F(δ) −max
+δ∈ˇMρ
+F,λ
+Ωλ,F(δ).
+Part 1 in the “Measurable Maximum Theorem” 18.19 proves that λ 7→maxδ∈SK Ωλ,F(δ)
+and λ 7→maxδ∈ˇMρ
+F,λ Ωλ,F(δ) are measurable from which measurability of λ 7→cF(ρ, λ)
+follows.
+To establish the inequality in (27), we use Part 1 of Lemma C.3 with (Θ, d) = (SK, d1),
+Γ = Λ, Qn = Ω·, ˆ
+Fn(·), Q = Ω·,F(·), ˆθn = πεn,ˆλn
+n
+, and ˆγn = ˆλn. All assumptions in Part 1
+of Lemma C.3 are satisfied, the continuity condition regarding Q was verified in Lemma E.1.
+Fix ζ > 0, recall the definition of Mρ
+F,ˆλn from (25), and note that the second condition in
+εn + 6ζ ≤cF(ρ, ˆλn)
+and
+πεn,ˆλn
+n
+∈Mρ
+F,ˆλn
+(89)
+implies via the first part of Lemma C.3 and the definition of πεn,ˆλn
+n
+that
+2 sup
+δ∈SK
+|Ωˆλn, ˆ
+Fn(δ) −Ωˆλn,F(δ)| + εn ≥cF(ρ, ˆλn)
+and
+cF(ρ, ˆλn) > 0,
+so that an application of Lemma E.1 then implies
+4 max
+z∈Z uz(F, ˆFn) + 2∥pZ −ˆpZ∥1 + εn ≥cF(ρ, ˆλn)
+and
+cF(ρ, ˆλn) > 0.
+Hence, the two conditions in (89) together imply
+2
+3 max
+z∈Z uz(F, ˆFn) + 1
+3∥pZ −ˆpZ∥1 ≥ζ
+and
+cF(ρ, ˆλn) > 0.
+61
+
+````
+
+## PDF page 62
+
+FORMULA CHECK REQUIRED: original PDF page 62.
+
+````text
+We can thus upper bound
+P∗
+
+πεn,ˆλn
+n
+∈Mρ
+F,ˆλn
+
+≤P
+
+max
+z∈Z uz( ˆFn, F) ≥ζ
+
++ P
+ ∥ˆpZ −pZ∥1 ≥ζ
+
++ P∗
+0 < cF(ρ, ˆλn) < εn + 6ζ
+
+,
+(90)
+noting that the first two events in the upper bound are measurable (due to the specific form
+of uz( ˆFn, F)), and that the event in the third probability is measurable whenever ˆλn is so (as
+a composition of two measurable functions) from what has been shown above. Lemma F.6 and
+a union bound shows that the first probability in the upper bound in (90) is not smaller than
+2|X|
+
+K2 + 1
+ X
+z∈Z
+max
+x,j e
+−
+nqx,z,jζ2
+8|X|2
+,
+Lemma F.5 shows that
+P
+ ∥ˆpZ −pZ∥1 ≥ζ
+
+≤2|Z|e
+−nζ2
+2|Z|2 ,
+which establishes (27). The consistency statement after (27) follows from (27). It remains to
+prove the last statement in the theorem. To this end, note that if Λ = {λ∗
+1, . . . , λ∗
+M}, for a
+fixed M ∈N, we can trivially bound
+P∗
+0 < cF(ρ, ˆλn) < εn + 6ζn
+
+≤
+M
+X
+i=1
+1
+ 0 < cF(ρ, λ∗
+i ) < εn + 6ζn
+
+,
+which converges to 0 for any ζn →0 whenever εn →0.
+Proof of Proposition 3.3: We start with (29). Suppose that
+d1
+
+πn, arg max
+δ∈SK Ωˆλn,F(δ)
+
+P∗
+−→0.
+We first note that if arg maxδ∈SK Ωλ∗,F(δ) = SK, there is nothing to show, and we are done.
+Hence, we assume from now on that arg maxδ∈SK Ωλ∗,F(δ)̸ = SK. Recall from (25) that
+Mρ
+F,λ :=
+
+γ ∈SK : d1
+ γ, arg max
+δ∈SK
+Ωλ,F(δ)
+
+≥ρ
+	
+,
+and fix ρ > 0 small enough such that Mρ
+F,λ∗̸ = ∅(such a ρ > 0 exists, because the closed
+set arg maxδ∈SK Ωλ∗,F(δ), cf. Proposition 2.1, is a strict subset of SK). Because the map
+γ 7→d1
+ γ, arg max
+δ∈SK
+Ωλ,F(δ)
+
+is continuous (as the distance to a non-empty closed set, cf. also Part 1 of Proposition 2.1), the
+set Mρ
+F,λ∗is closed, so that its complement in SK is an open neighborhood of arg maxδ∈SK Ωλ,F(δ).
+Proposition 2.1 established upper hemicontinuity, cf. Definition 17.2 in Aliprantis and Border
+(2006), of the correspondence
+λ 7→arg max
+δ∈SK Ωλ,F(δ),
+62
+
+````
+
+## PDF page 63
+
+FORMULA CHECK REQUIRED: original PDF page 63.
+
+````text
+so that there exists an ε = ε(ρ) > 0 such that Λε := [λ∗−ε, λ∗+ ε] ∩[0, 1] ⊆[0, 1] and such that
+[
+λ∈Λε
+arg max
+δ∈SK Ωλ,F(δ) ⊆SK\Mρ
+F,λ∗.
+(91)
+The (outer) probability of the event ˆλn /∈Λε goes to 0 as n →∞. Hence, we shall assume
+that ˆλn ∈Λε in the following. Given a non-empty and compact subset A of a metric space
+(V, dV ), we can associate to every v ∈V an element ΠAv ∈A, say, that satisfies dV (v, A) =
+infw∈A dV (v, w) = dV (v, ΠAv). Denoting
+π∗
+n := Πarg maxδ∈SK Ωλ∗,F(δ)πn,
+ˆπn := Πarg maxδ∈SK Ωˆλn,F(δ)πn,
+as well as
+ˆπ∗
+n := Πarg maxδ∈SK Ωλ∗,F(δ)
+h
+Πarg maxδ∈SK Ωˆλn,F(δ)πn
+i
+= Πarg maxδ∈SK Ωλ∗,F(δ) ˆπn,
+we hence see that
+d1
+
+πn, arg max
+δ∈SK Ωλ∗,F(δ)
+
+= d1
+ πn, π∗
+n
+
+≤d1
+ πn, ˆπ∗
+n
+
+≤d1 (πn, ˆπn) + d1
+ ˆπn, ˆπ∗
+n
+
+.
+The expression d1(πn, ˆπn) equals d1(πn, arg maxδ∈SK Ωˆλn,F(δ)) by definition, and thus con-
+verges to 0 in (outer) probability by assumption. The expression d1 (ˆπn, ˆπ∗
+n) is bounded from
+above by ρ due to ˆλn ∈Λε and Equation (91). Because ρ > 0 was arbitrary, this proves the
+first statement in the theorem.
+To prove the second statement, note that the finiteness of Λ and the assumed convergence
+in outer probability implies P∗(ˆλn̸ = ˆλ∗
+n) →0 as n →∞, which obviously proves the result.
+Proof of Theorem 4.1: We first note that by Assumption 2.4 and Equations (61) and (63), we
+have
+max
+λ∈Λ |∆n(λ, F) −∆n(λ, ˆFn)| ≤|⟨πεn,0
+n
+, F⟩−⟨πεn,0
+n
+, ˆFn⟩| + max
+λ∈Λ |⟨πεn,λ
+n
+, F⟩−⟨πεn,λ
+n
+, ˆFn⟩|
+≤2u(F, ˆFn) ≤2 max
+z∈Z uz(F, ˜F) + 2∥pZ −˜pZ∥1.
+It hence follows from Lemmas F.6 and F.5 and a union bound that for every ρ > 0 it holds that
+P∗
+
+max
+λ∈Λ |∆n(λ, F) −∆n(λ, ˆFn)| ≥ρ
+
+≤2|X|
+
+K2 + 1
+ X
+z∈Z
+max
+x,j e
+−
+nqx,z,jρ2
+128|X|2 + 2|Z|e
+−
+nρ2
+32|Z|2 .
+In particular, recalling that cn =
+p
+log(n)/n, we obtain (recalling Assumption 2.3) for every α >
+0 that
+P∗
+
+max
+λ∈Λ |∆n(λ, F) −∆n(λ, ˆFn)| ≥αcn
+
+→0.
+(92)
+To prove (33), just note that by definition it always holds that
+∆n(ˆλ∗
+n(β, ˆFn), ˆFn) ≤β(1 −cn),
+63
+
+````
+
+## PDF page 64
+
+FORMULA CHECK REQUIRED: original PDF page 64.
+
+````text
+and that ˆλ∗
+n(β, ˆFn) > λ∗
+n(β, F) implies ∆n(ˆλ∗
+n(β, ˆFn), F) > β. It hence follows that both sets
+of which outer probabilities are taken in (33) are contained in the set defined by the rela-
+tion maxλ∈Λ |∆n(λ, F) −∆n(λ, ˆFn)| ≥βcn. The outer probability of the latter event converges
+to 0 by (92). This verifies (33).
+Next, we need to verify that under the additional condition that for some α > 0 it holds
+that
+P∗
+β −∆n
+ λ∗
+n(β, F), F
+
+≤[α + β]cn
+
+→0,
+we have
+ˆλ∗
+n(β, ˆFn) −λ∗
+n(β, F) P∗
+−→0;
+(93)
+the convergence in (35) then directly follows from the second part of Proposition 3.3, noting
+that the consistency requirement to the left in (29) is satisfied as a consequence of Theorem 3.2.
+To show (93), because Λ is finite, we need to verify that
+P∗
+ˆλ∗
+n(β, ˆFn)̸ = λ∗
+n(β, F)
+
+→0.
+Due to sub-additivity of outer probabilities and because we already know that P∗(ˆλ∗
+n(β, ˆFn) >
+λ∗
+n(β, F)) →0, it suffices to verify that
+P∗
+ˆλ∗
+n(β, ˆFn) < λ∗
+n(β, F)
+
+→0.
+To this end, due to (92), it suffices to show that for an α > 0, which we also assume to
+satisfy (34), we have
+P∗
+
+ˆλ∗
+n(β, ˆFn) < λ∗
+n(β, F) and max
+λ∈Λ |∆n(λ, F) −∆n(λ, ˆFn)| < αcn
+
+→0.
+Note that ˆλ∗
+n(β, ˆFn) < λ∗
+n(β, F) implies ∆n(λ∗
+n(β, F), ˆFn) > β(1 −cn), which together with
+max
+λ∈Λ |∆n(λ, F) −∆n(λ, ˆFn)| < αcn
+gives
+β −∆n(λ∗
+n(β, F), F) ≤[α + β]cn,
+the outer probability of which converges to 0 by assumption.
+Lemma F.7. If the random variable B follows a Binomial distribution with parameters n ∈N
+and p ∈(0, 1], then, for every α ∈(0, 1] and every m ∈N ∪{0},
+E
+
+B−αm1 {B > 0}
+
+≤
+"
+2m(m+1)/2[1 −(1 −p)n+m]
+pm Qm
+i=1(n + i)
+#α
+≤2αm(m+1)/2
+(pn)αm
+;
+(94)
+where for m = 0 we set Qm
+i=1(n + i) = 1.
+Proof. The second inequality in (94) is trivial. By Jensen’s inequality we only need to establish
+the first inequality in (94) for the special case where α = 1. Furthermore, for m = 0 that
+inequality is easily seen to be an equality. It therefore remains to verify the first inequality
+64
+
+````
+
+## PDF page 65
+
+FORMULA CHECK REQUIRED: original PDF page 65.
+
+````text
+in (94) for α = 1 and for every m ∈N, n ∈N, and p ∈(0, 1]. Fix such a triple m, n, and p. For
+every k ∈N, we shall write Bk for a binomially distributed random variable with parameters k
+and p, and note that
+E
+
+B−m
+n
+1 {Bn > 0}
+
+≤2mE
+
+(Bn + 1)−m1 {Bn > 0}
+
+= 2m
+n
+X
+i=1
+1
+(i + 1)m
+n
+i
+
+pi(1 −p)n−i,
+which we can equivalently write (an analogous observation was used in Rempa la (2004), cf. the
+last display on their p.262) as
+2m
+p(n + 1)
+n
+X
+i=1
+1
+(i + 1)m−1
+n + 1
+i + 1
+
+pi+1(1 −p)n−i
+=
+2m
+p(n + 1)
+n+1
+X
+i=2
+1
+im−1
+n + 1
+i
+
+pi(1 −p)n+1−i
+≤
+2m
+p(n + 1)E
+
+B−(m−1)
+n+1
+1 {Bn+1 > 0}
+
+.
+Summarizing, we have shown that
+E
+
+B−m
+n
+1 {Bn > 0}
+
+≤
+2m
+p(n + 1)E
+
+B−(m−1)
+n+1
+1 {Bn+1 > 0}
+
+,
+which we can iterate to obtain the first inequality in (94) from
+E
+
+B0
+n+m1 {Bn+m > 0}
+
+= 1 −(1 −p)n+m.
+G
+Proofs for Section 5
+Throughout this section, all assumptions listed in Section 5 are maintained.
+Lemma G.1. E(fδ,c,z(YDj,j, Xj, Zj, Dj)) = ⟨δ, F⟩z(c) for every δ ∈Π, c ∈R, and z ∈Z.
+Proof of Lemma G.1: Fix δ ∈Π, c ∈R, and z ∈Z. We abbreviate ˜Yj = YDj,j throughout.
+Note that
+0 ≤fδ,c,z( ˜Yj, Xj, Zj, Dj) ≤
+max
+i=1,...,K
+1
+pZ(z)ei(Xj, Zj).
+Hence, as a consequence of the maintained assumptions that pZ(z) > 0 and E(e−1
+i (Xj, Zj)) <
+∞for every i = 1, . . . , K, fδ,c,z( ˜Yj, Xj, Zj, Dj) is integrable.
+Thus, by the law of iterated
+expectations, we can write
+E(fδ,c,z( ˜Yj, Xj, Zj, Dj)) =
+K
+X
+i=1
+E
+
+E
+
+1(Dj = i)fδ,c,z( ˜Yj, Xj, Zj, Dj) | Xj, Zj
+
+.
+65
+
+````
+
+## PDF page 66
+
+FORMULA CHECK REQUIRED: original PDF page 66.
+
+````text
+The inner expectation coincides (almost everywhere) with
+δi(Xj)
+pZ(z)ei(Xj, z) × 1(Zj = z) × E(1(Yi,j ≤c, Dj = i) | Xj, Zj),
+which, making use of the conditional independence assumption, reduces to
+K
+X
+i=1
+δi(Xj)
+pZ(z) × 1(Zj = z) × F i(c | Xj, Zj),
+so that (upon taking the outer expectation) we arrive (cf. (37)) at
+E(fδ,c,z(Yj, Xj, Zj, Dj)) = ⟨δ, F⟩z(c)
+Proof of Theorem 5.1: We first establish the bound for r(πε,ˆλn
+n
+; ˆλn, F): Using Lemma G.2 be-
+low, we can write
+r(πε,ˆλn
+n
+; ˆλn, F) = sup
+δ∈Π
+Ωˆλn,F(δ) −sup
+δ∈Π
+ˆΩˆλn (δ) + sup
+δ∈Π
+ˆΩˆλn (δ) −Ωˆλn,F
+
+πε,ˆλn
+n
+
+,
+which, by the definition of the policy, is bounded from above by
+sup
+δ∈Π
+Ωˆλn,F(δ) −sup
+δ∈Π
+ˆΩˆλn (δ) + ˆΩˆλn
+
+πε,ˆλn
+n
+
+−Ωˆλn,F
+
+πε,ˆλn
+n
+
++ ε.
+This is bounded from above by 2 supδ∈Π |Ωˆλn,F(δ) −ˆΩˆλn(δ)| + ε. It is easy to verify that the
+inequalities in Assumption 2.4 remain valid for F and ˜F in the closure of D ⊆Dcdf([a, b])
+(equipped with the supremum metric); cf. Remark 2.3 and Footnote 4 in Kock et al. (2022).
+Making use of this observation and Assumption 2.4, together with the assumption F ⊏Π D
+(implying also that ⟨δ, F⟩= P
+z∈Z pZ(z)⟨δ, F⟩z is an element of the closure of D, because the
+latter is assumed to be convex), we can upper bound
+2 sup
+δ∈Π
+|Ωˆλn,F(δ) −ˆΩˆλn(δ)| + ε ≤6 max
+z∈Z sup
+δ∈Π
+∥\
+⟨δ, F⟩z −⟨δ, F⟩z∥∞+ ε.
+(95)
+Fix δ ∈Π, c ∈R, and z ∈Z, and note that (by the definition of \
+⟨δ, F⟩z and Ma,b)
+| \
+⟨δ, F⟩z(c) −⟨δ, F⟩z(c)| ≤|n−1
+n
+X
+j=1
+fδ,c,z(YDj,j, Xj, Zj, Dj) −⟨δ, F⟩z(c)| ≤∥Pn −P∥GΠ.
+(96)
+where the last inequality made use of Lemma G.1.
+We now establish the bound for r(˜πε,ˆλn
+n
+; ˆλn, F): Clearly, we only need to consider the case
+where all denominators in (44) are nonzero. In this case, for later use, we first observe that
+|fδ,c,z(y, x, z∗, d) −˜fδ,c,z(y, x, z∗, d)| ≤
+
+1
+pZ(z)ed(x, z) −
+1
+ˆpZ(z)ˆed(x, z)
+ ,
+(97)
+66
+
+````
+
+## PDF page 67
+
+FORMULA CHECK REQUIRED: original PDF page 67.
+
+````text
+from which it follows that, for every δ ∈Π and every z ∈Z, we have
+\
+⟨δ, F⟩z −^
+⟨δ, F⟩z
+ ≤n−1
+n
+X
+j=1
+
+1
+pZ(z)eDj(Xj, z) −
+1
+ˆpZ(z)ˆeDj(Xj, z)
+ .
+(98)
+Similarly as in the steps leading up to (95) one obtains the bound
+r(˜πε,ˆλn
+n
+; ˆλn, F) ≤∥ˆpZ −pZ∥1 + 6 max
+z∈Z sup
+δ∈Π
+∥^
+⟨δ, F⟩z −⟨δ, F⟩z∥∞+ ε.
+Adding ±\
+⟨δ, F⟩z inside the supremum norm, the triangle inequality together with Equations (96)
+and (98) concludes the proof.
+Lemma G.2. The quantities supλ∈[0,1] supδ∈Π ΩF,λ(δ) and supλ∈[0,1] supδ∈Π ˆΩλ(δ) are finite,
+regardless of whether the latter expression is based on \
+⟨δ, F⟩and \
+⟨δ, F⟩z (defined in (40)) or
+on the quantities ^
+⟨δ, F⟩and ^
+⟨δ, F⟩z (defined in (42)).
+Proof. Because S is non-negative, we have, for every λ ∈[0, 1] and every δ ∈Π, that
+ΩF,λ(δ) ≤|T
+ ⟨δ, F⟩
+
+| + max
+z∈Z S
+ ⟨δ, F⟩z, ⟨δ, F⟩
+
+;
+and analogously
+ˆΩλ(δ) ≤|T(\
+⟨δ, F⟩)| + max
+z∈Z S( \
+⟨δ, F⟩z, \
+⟨δ, F⟩),
+with an analogous bound holding true when ˆΩλ(δ) is based on ^
+⟨δ, F⟩z and ^
+⟨δ, F⟩. Because
+⟨δ, F⟩, ⟨δ, F⟩z, \
+⟨δ, F⟩,
+\
+⟨δ, F⟩z, ^
+⟨δ, F⟩, and ^
+⟨δ, F⟩z are elements of Dcdf([a, b]), it suffices to
+verify that there exist real numbers C and C′, say, such that for any G ∈Dcdf([a, b]) and
+Gz ∈Dcdf([a, b]), z ∈Z, it holds that
+|T(G)| ≤C
+and
+S(Gz, G) ≤C′.
+To this end, fix a H ∈D. By Assumption 2.4,
+|T (G) | ≤|T (H) | + ∥H −G∥∞≤|T (H) | + 1,
+and similarly (using that S(H, H) = 0)
+S (Gz, G) = S (Gz, G) −S(H, H) ≤∥Gz −H∥∞+ ∥G −H∥∞≤2.
+67
+
+````
+

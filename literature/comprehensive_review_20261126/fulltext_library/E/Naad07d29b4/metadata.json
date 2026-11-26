@@ -1,0 +1,28 @@
+{
+  "paper_id": "Naad07d29b4",
+  "category": "E",
+  "title": "Sequential advantage selection for optimal treatment regime",
+  "authors": "Ailin Fan and Wenbin Lu and Rui Song",
+  "doi": "10.1214/15-aoas849",
+  "year": "2016",
+  "original_url": "https://doi.org/10.1214/15-aoas849",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "a82b96621df84b8364306d11662e32dbe3cbb79a4d93a26a92e287039a202127",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1405.5239"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Naad07d29b4/README.md",
+  "status": "local_only"
+}

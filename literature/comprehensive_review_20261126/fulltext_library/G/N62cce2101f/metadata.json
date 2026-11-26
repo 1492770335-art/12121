@@ -1,0 +1,28 @@
+{
+  "paper_id": "N62cce2101f",
+  "category": "G",
+  "title": "Analyzing Competing Risk Data Using theRtimeregPackage",
+  "authors": "Thomas H. Scheike and Mei-Jie Zhang",
+  "doi": "10.18637/jss.v038.i02",
+  "year": "2011",
+  "original_url": "https://doi.org/10.18637/jss.v038.i02",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "1bd4e4cf61c1e47247fcac381b3a39834e2cd25fc57855787949b9e259c0b215",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://www.jstatsoft.org/index.php/jss/article/view/v038i02/v38i02.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/N62cce2101f/README.md",
+  "status": "local_only"
+}

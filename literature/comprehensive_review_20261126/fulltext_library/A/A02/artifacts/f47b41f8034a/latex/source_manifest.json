@@ -1,0 +1,234 @@
+{
+  "arxiv_id": "2411.08315v1",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2411.08315v1",
+  "archive_sha256": "4344d27651b78dcf552fd681e295bc350b518a542292abcbc74b3654727b1d38",
+  "files": [
+    {
+      "path": "Chapters/02_Proj1/01_chapters/0.abstract.tex",
+      "bytes": 1295,
+      "sha256": "3ad55bf2a74d065d3f93181a5737001979380ef38e0888a8aa8cb467dba9c698"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/1.introduction/1.background.tex",
+      "bytes": 5280,
+      "sha256": "610ff078cba0d5c5dc15909c403a7cf82f31d6e8f7a5c47047d5484e1e29d6c7"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/1.introduction/1.introduction.tex",
+      "bytes": 4157,
+      "sha256": "e760177303d47e00a123f1907f737bd45c885e27de7f0d96831a0de7bfb01d24"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/1.introduction/paper_structure.tex",
+      "bytes": 634,
+      "sha256": "69b0de719d1780a96dac87d4e2f4abb53ad6588b162e94610e18d8496e841e8b"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/2.0frameworknotation.tex",
+      "bytes": 4894,
+      "sha256": "77bf429ca24d4010e1ced9f3ef75fa4432251236cebee5b16df09cf1c55d9caf"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/2.1methods.tex",
+      "bytes": 7379,
+      "sha256": "ebcfe885f19dd83de971bb94a89f4b5c5a75e34634c243ae2ff79ab4b1a040c6"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/3.Theory/chapter_theory.tex",
+      "bytes": 7051,
+      "sha256": "55e299f06cc0488aae822c38cf4414a57623012d45be1682f22df3c9a849010a"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/3.Theory/lambda_star.tex",
+      "bytes": 2231,
+      "sha256": "4a8aa8d3f9c0e5aebbb7df70b100f779d628be720c5888ebffed84d1a6748950"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/3.Theory/prelim_proofs.tex",
+      "bytes": 381,
+      "sha256": "564ab7bd33240f0fdaba58e922b1ab8a758e3749bc4f1ea9ce16dbd57542fc3e"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/4.Simulations/Fine_Gray_Sims/fine_gray_sims.tex",
+      "bytes": 4189,
+      "sha256": "9ed422ff0e3dc0d1b29e9258c2ec0bbc867380bdee13e5e72579be35a1fa774c"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/4.Simulations/Fine_Gray_Sims/supplementary_fg.tex",
+      "bytes": 5671,
+      "sha256": "e256da9ccc7b18bbdadbee27e84e188560c1850503d9e1e37639dae12d7ef5fd"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/simple_exp_results.tex",
+      "bytes": 1905,
+      "sha256": "a8d07d5598ab59d1546aed2961aad273200c54052ff73d83ac8a49483d6130f8"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/simple_exp_sims.tex",
+      "bytes": 1888,
+      "sha256": "ed8fe3607de56e12b4f5ee1b0d1896641c2c3c90814a21b1a444c198ea664aff"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/4.Simulations/Simple_Exp_Sims/supplementary_se.tex",
+      "bytes": 2282,
+      "sha256": "0f9e9109175bb03ffea80ab6580cf68bfed54548785a8673f762197c7999462d"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/4.Simulations/chapter_sims.tex",
+      "bytes": 3138,
+      "sha256": "522051fd20ea406d511b539d433977ef49987b33c0b6447e6379ac3db4e75d4e"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/5.RDA/chapter_rda.tex",
+      "bytes": 5779,
+      "sha256": "be849351e883a29afbd098712dcf2366c496cac82cd764a4d00f2a30c3c57a55"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/5.RDA/supplementary_rda.tex",
+      "bytes": 1279,
+      "sha256": "234983e2c145b1f2de8ddb99ed39f80f55026bd70a3c44ea911fef0a0f24b83b"
+    },
+    {
+      "path": "Chapters/02_Proj1/01_chapters/6.discussion.tex",
+      "bytes": 3310,
+      "sha256": "67b014e0519f6375aeef77e653105abd94d1805d20c88d571fbc05c374d494c0"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_algorithms/CR_algorithms.tex",
+      "bytes": 3311,
+      "sha256": "42a86ea413bba910f804b81e0f81b2f2e35090032a2454d09ce70293c65a57fa"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_algorithms/alg1_overview.tex",
+      "bytes": 1719,
+      "sha256": "cf134460939841ae3fe288296c43f569058f2c7baa9399b725b6e85e82edd1bb"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_algorithms/alg1_rcif.tex",
+      "bytes": 1404,
+      "sha256": "bb0b58a9b22c865629545b2427633c4c1572231bb7a85cf26f72e450f747980c"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_algorithms/alg1_rsf.tex",
+      "bytes": 1183,
+      "sha256": "254b3aaaa47d18ca0b87eca3d6f5726d66aec432824c68d2fc4c14551e8fdc7c"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/02_assumptions/Assumptions.tex",
+      "bytes": 1559,
+      "sha256": "048c66e7dc714c977fb3e347c2bc66b990881ce05bf5591b35b5fcced90a9b3b"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/02_assumptions/CR_assumptions.tex",
+      "bytes": 2552,
+      "sha256": "52188edb7e063a1f2a8fe346c88425d72b1cc87a60ad521a2458e47b4aee98a4"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/02_assumptions/Causal_assumptions.tex",
+      "bytes": 1047,
+      "sha256": "98f0fe8d869911573bad70efe339a0fb6c1fb01eecc16f4b3aeb0092559eb782"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/02_assumptions/Cho_assumptions1_5.tex",
+      "bytes": 1867,
+      "sha256": "159518635f5d01d42f25e36e692b5b71adf47582e2e06f899cba191c9ca165cb"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Consistency/21May2024MeetingNotes.tex",
+      "bytes": 6491,
+      "sha256": "a65031e7d8e5b9f337b315a021f40607a644c24ab49c242004ce43465d23443c"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop1Proof.tex",
+      "bytes": 2748,
+      "sha256": "1e1ae2248598d218c7a93e8347a29495767c076f3b9f08b81552d67225f08030"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop2Proof.tex",
+      "bytes": 6907,
+      "sha256": "946e3087f73922c3709062ee8c1439efa3e9633150a31caf18dcc12acd935f8a"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop3Proof.tex",
+      "bytes": 5322,
+      "sha256": "007c09a80e62524d48d3428bf614c589ea29f7ae06cf9454db16b85da4e2fa24"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop4Proof.tex",
+      "bytes": 17042,
+      "sha256": "078dd493b4a9a7c0edd2544aac424b80bf0214126abebd1eb422f0cef6b2d808"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/PropProofs/Prop5Proof.tex",
+      "bytes": 1482,
+      "sha256": "f83a7cb13942d49b21d82733df17816c4de98eaea96c61ec7f39ef99cb9c6a49"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Consistency/Lemmas/Zest.tex",
+      "bytes": 2674,
+      "sha256": "3ee8f31e8ffd27a5f3aea400ad23b18916765374c4fc7cfd0ca3dbc4dec88de6"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Consistency/Paper1_Consistency_Theorems.tex",
+      "bytes": 1626,
+      "sha256": "067a4f429b5b98e24876a9a0c49ceaa7d3d5bf0141856c0d7d8056525ee49d30"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Consistency/RCIFproof_paper1.tex",
+      "bytes": 11742,
+      "sha256": "6826ee547aa201da22fb6eeb5b8e8fe50ef4fa059315994a87c4eaace7e7d94c"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Consistency/RSFproof_paper1.tex",
+      "bytes": 7643,
+      "sha256": "c970afd79b9049e21c5799aa114a12457f052111f9844ea52bfafd25426cad55"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/Forest/Forest_Details.tex",
+      "bytes": 2113,
+      "sha256": "0bf296f2b873a2113265bd7ee702596008e1601ea6206c54452a10c62418623f"
+    },
+    {
+      "path": "Chapters/02_Proj1/02_theorems/ITR_Estimator/Consistency/Consistency_ITR.tex",
+      "bytes": 11062,
+      "sha256": "51f4d8601ae71ae974186fd16baba2ad80b407082864a8af7c469e4b67601007"
+    },
+    {
+      "path": "Chapters/02_Proj1/03_tables/CR_tables.tex",
+      "bytes": 3389,
+      "sha256": "b3dfec33dcc197c8cbf5dc14a593b93a27dc07966ce5a09f550a8d09159c5a45"
+    },
+    {
+      "path": "Chapters/02_Proj1/03_tables/Paper1_notation_table.tex",
+      "bytes": 2793,
+      "sha256": "0ac1af4a2cb6a25e034693b837bb4a9f195efa0cfb218781609de74b972b4241"
+    },
+    {
+      "path": "Chapters/02_Proj1/04_supplMat/CR_appendix1.tex",
+      "bytes": 4684,
+      "sha256": "fea8dc69dff1eff83144d643da280b8ccebad47a29d362535f464fb7c90d595d"
+    },
+    {
+      "path": "Chapters/02_Proj1/04_supplMat/ForestDetails_RSF.tex",
+      "bytes": 2361,
+      "sha256": "76da4c1b48c787bb54bd7fe0c32118bb92c8919e7966dc692acd8cc6deb79420"
+    },
+    {
+      "path": "layout.tex",
+      "bytes": 1131,
+      "sha256": "bd16ade92be9c0b31eeb955fb427bae7a0604edfb44d46f512eec84f0ad14c4c"
+    },
+    {
+      "path": "macros.tex",
+      "bytes": 9741,
+      "sha256": "1a0bfe7ca555be0892c164ae809738570504af6d7e18ed6cf1cf19c63f8fbb98"
+    },
+    {
+      "path": "main.tex",
+      "bytes": 16398,
+      "sha256": "9d22787e32a915d811fa52de41d680ed77630f2cea60adfaea37797cd97fda46"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

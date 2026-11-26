@@ -1,0 +1,34 @@
+{
+  "paper_id": "N7fd9155413",
+  "category": "K",
+  "title": "Clinical characteristics and risk factors of acute cutaneous graft-vs.-host disease following allogeneic hematopoietic stem cell transplantation in pediatric acute myeloid leukemia: a single-center retrospective study",
+  "authors": "Shan He and Mincui Zheng and Wenyong Kuang and Na Song and Shaoyang Deng and Benshan Zhang",
+  "doi": "10.3389/fped.2026.1820755",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3389/fped.2026.1820755",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/N7fd9155413/artifacts/43420fa1c67c/original.pdf"
+  ],
+  "public_markdown": [
+    "K/N7fd9155413/artifacts/43420fa1c67c/fulltext.md"
+  ],
+  "public_txt": [
+    "K/N7fd9155413/artifacts/43420fa1c67c/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "43420fa1c67ca1a367b6fb79f029d63b62764f6b99271b576d95c6a85ef9ef3f",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.frontiersin.org/journals/pediatrics/articles/10.3389/fped.2026.1820755/pdf",
+      "provenance": "K/N7fd9155413/artifacts/43420fa1c67c/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N7fd9155413/README.md",
+  "status": "public_fulltext"
+}

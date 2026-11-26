@@ -1,0 +1,59 @@
+{
+  "arxiv_id": "2407.01770v1",
+  "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "source_url": "https://arxiv.org/src/2407.01770v1",
+  "archive_sha256": "67099d2122bb746d6b431963c99807034a50595acc97d981723b002e3feb2481",
+  "files": [
+    {
+      "path": "aoas/causalSCR202403.tex",
+      "bytes": 89406,
+      "sha256": "9dcbf25d71fe2e2a5defe6d855bef97f9bac743df07bb0742c5625e9ab88b546"
+    },
+    {
+      "path": "aoas/supplementary.tex",
+      "bytes": 43263,
+      "sha256": "d2a22f9580759c84daaac23dba391b61a26b49ff28d9bf0628bd4b59ac17b10a"
+    },
+    {
+      "path": "Biometrics/main.tex",
+      "bytes": 87243,
+      "sha256": "d75237fb4140a295b9734470132cc3fd48cb6f6d3f9bce009c7f96e062bb9fa2"
+    },
+    {
+      "path": "Biometrics/supplementary.tex",
+      "bytes": 43261,
+      "sha256": "14b50a466748389f05b5b72a0ebf0e3a473c950aba0f793de89e5db981728d08"
+    },
+    {
+      "path": "main.tex",
+      "bytes": 94581,
+      "sha256": "3bcf17599c4209b0f549d24968235185e1127daca1a9408c17439eb326a4aeb2"
+    },
+    {
+      "path": "no_template/main.tex",
+      "bytes": 89188,
+      "sha256": "308837d6bc9e2364888ce9923aae17a323a0df2d31beb422287264821a112c53"
+    },
+    {
+      "path": "no_template/supp.tex",
+      "bytes": 43263,
+      "sha256": "d2a22f9580759c84daaac23dba391b61a26b49ff28d9bf0628bd4b59ac17b10a"
+    },
+    {
+      "path": "sim/main.tex",
+      "bytes": 94581,
+      "sha256": "3bcf17599c4209b0f549d24968235185e1127daca1a9408c17439eb326a4aeb2"
+    },
+    {
+      "path": "sim/supplementary.tex",
+      "bytes": 40138,
+      "sha256": "2c0c4ea5d28fc227c91fe7521ee51453ef2242286b8d5c4ae4918d756c774dfb"
+    },
+    {
+      "path": "supplementary.tex",
+      "bytes": 40138,
+      "sha256": "2c0c4ea5d28fc227c91fe7521ee51453ef2242286b8d5c4ae4918d756c774dfb"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

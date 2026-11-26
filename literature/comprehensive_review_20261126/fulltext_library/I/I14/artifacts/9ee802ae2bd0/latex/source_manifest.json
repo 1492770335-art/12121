@@ -1,0 +1,24 @@
+{
+  "arxiv_id": "2306.16858v2",
+  "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "source_url": "https://arxiv.org/src/2306.16858v2",
+  "archive_sha256": "39ff8555d4a78dfeeb4d93f398de75f702b6717e5097d3c3dcefa858f7985e15",
+  "files": [
+    {
+      "path": "Appendix_supplement.tex",
+      "bytes": 144677,
+      "sha256": "d02e14213e830639c5f69f018bff326206bc58a3d37c9d713178b357fe4cff54"
+    },
+    {
+      "path": "Appendix.tex",
+      "bytes": 12770,
+      "sha256": "16fafa9e63ee929a8bcbc4a1bf90cb887e1830075c3aed9ea22882da45b3ebc2"
+    },
+    {
+      "path": "summary.tex",
+      "bytes": 97447,
+      "sha256": "0a0e5a01b9c8487c57be08302b526046fd4e7f018605bcca959f6ebd694f20b5"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

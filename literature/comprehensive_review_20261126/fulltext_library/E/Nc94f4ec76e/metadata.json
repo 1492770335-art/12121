@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nc94f4ec76e",
+  "category": "E",
+  "title": "Learning Optimal Distributionally Robust Individualized Treatment Rules",
+  "authors": "Weibin Mo and Zhengling Qi and Yufeng Liu",
+  "doi": "10.1080/01621459.2020.1796359",
+  "year": "2021",
+  "original_url": "https://doi.org/10.1080/01621459.2020.1796359",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "a294654158d540c030ace9109b65056b84870b1963a145700f35592cf2132b10",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2006.15121"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Nc94f4ec76e/README.md",
+  "status": "local_only"
+}

@@ -1,0 +1,28 @@
+{
+  "paper_id": "H07",
+  "category": "H",
+  "title": "Generalized random forests",
+  "authors": "Susan Athey and Julie Tibshirani and Stefan Wager",
+  "doi": "10.1214/18-aos1709",
+  "year": "2019",
+  "original_url": "https://doi.org/10.1214/18-aos1709",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "16f3e320d67b6a39d47490bbda466df7a42343deb53f4609729a4826b9e649e8",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1610.01271"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/H07/README.md",
+  "status": "local_only"
+}

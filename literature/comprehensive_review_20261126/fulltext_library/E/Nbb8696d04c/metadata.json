@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nbb8696d04c",
+  "category": "E",
+  "title": "A semiparametric instrumented difference-in-differences approach to policy learning",
+  "authors": "Pan Zhao and Yifan Cui",
+  "doi": "10.1093/biomet/asaf043",
+  "year": "2025",
+  "original_url": "https://doi.org/10.1093/biomet/asaf043",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c0cae9297cecce5934be0125a8537b59fc63a5976e999859f056de8c10afa394",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2310.09545"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Nbb8696d04c/README.md",
+  "status": "local_only"
+}

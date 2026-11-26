@@ -1,0 +1,28 @@
+{
+  "paper_id": "N3828b7b80c",
+  "category": "A",
+  "title": "Targeted learning ensembles for optimal individualized treatment rules with time-to-event outcomes",
+  "authors": "I Díaz and O Savenkov and K Ballman",
+  "doi": "10.1093/biomet/asy017",
+  "year": "2018",
+  "original_url": "https://doi.org/10.1093/biomet/asy017",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "bd32cb827577ba7f26c531b50a8d060eae2730d61a33f3e84fabad155a3cc432",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1702.04682"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/N3828b7b80c/README.md",
+  "status": "local_only"
+}

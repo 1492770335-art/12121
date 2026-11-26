@@ -1,0 +1,28 @@
+{
+  "paper_id": "N7de102edb2",
+  "category": "K",
+  "title": "Maintenance therapy with oral decitabine plus cedazuridine after allogeneic stem cell transplantation for myelodysplastic syndrome",
+  "authors": "Portia Smallbone and Terri Lynn Shigle and Oren Paslovsky and Chitra Hosing and Amin Alousi and Qaiser Bashir and Yosra Aljawai and Jeremy Ramdial and Uday Popat and Richard Champlin and Elizabeth J. Shpall and Betül Oran",
+  "doi": "10.3324/haematol.2024.287177",
+  "year": "2025",
+  "original_url": "https://doi.org/10.3324/haematol.2024.287177",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "1f95dd84fac034d9869a489cb706ac07f6d81a11a21f89fb25164fde1b0f8cb9",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://haematologica.org/article/download/11958/78151"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N7de102edb2/README.md",
+  "status": "local_only"
+}

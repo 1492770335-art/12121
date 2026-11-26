@@ -1,6 +1,8 @@
 # 全面文献检索与获取任务（2026-11-26）
 研究主题：竞争风险数据下基于分位数准则的两阶段个体化治疗规则。
 
+**最新全文与许可状态（2026-11-27）：**请先看 [fulltext_library/](fulltext_library/README.md) 和[构建报告](fulltext_library/REPORT.md)。该目录提供逐篇许可核查、原始PDF/XML、按原始页码及行号组织的Markdown/TXT、原始作者TeX、受限资料的原创定位札记，以及13篇核心文献的新获取状态。本页下方保留上一批采集快照；最新状态以全文库报告为准。
+
 - [人类可读目录](01_literature_catalog.md)
 - [CSV种子清单](literature_catalog.csv)
 - [Codex执行任务](CODEX_TASK.md)

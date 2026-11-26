@@ -1,0 +1,34 @@
+{
+  "paper_id": "N47e3cac5c2",
+  "category": "K",
+  "title": "Impact of pre-transplant chemotherapy cycles on allogeneic hematopoietic cell transplant outcomes in pediatric acute myeloid leukemia in first complete remission",
+  "authors": "Aaron Ackerman and Christen L. Ebens and Troy C. Lund and Margaret L. MacMillan and Robin Williams and Aswin Jayaraaman Chandrasekaran and Ryan Shanley and Elizabeth Krieger and Alex Hoover",
+  "doi": "10.3389/fonc.2026.1881569",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3389/fonc.2026.1881569",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/N47e3cac5c2/artifacts/62c6997424c9/original.pdf"
+  ],
+  "public_markdown": [
+    "K/N47e3cac5c2/artifacts/62c6997424c9/fulltext.md"
+  ],
+  "public_txt": [
+    "K/N47e3cac5c2/artifacts/62c6997424c9/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "62c6997424c909014a99ec65086138dba1bffa4d93277b9b7cbc393b67da548c",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2026.1881569/pdf",
+      "provenance": "K/N47e3cac5c2/artifacts/62c6997424c9/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/N47e3cac5c2/README.md",
+  "status": "public_fulltext"
+}

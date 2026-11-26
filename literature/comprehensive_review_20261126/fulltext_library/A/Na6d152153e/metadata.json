@@ -1,0 +1,28 @@
+{
+  "paper_id": "Na6d152153e",
+  "category": "A",
+  "title": "Bayesian Nonparametric Estimation for Dynamic Treatment Regimes With Sequential Transition Times",
+  "authors": "Yanxun Xu and Peter Müller and Abdus S. Wahed and Peter F. Thall",
+  "doi": "10.1080/01621459.2015.1086353",
+  "year": "2016",
+  "original_url": "https://doi.org/10.1080/01621459.2015.1086353",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "6854c952032a2767d7c0f5dae63feaf8a850449dfbd04f6bb46613bc2e46985a",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1405.2656"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/Na6d152153e/README.md",
+  "status": "local_only"
+}

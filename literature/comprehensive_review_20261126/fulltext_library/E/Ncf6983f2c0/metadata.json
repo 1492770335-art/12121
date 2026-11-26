@@ -1,0 +1,28 @@
+{
+  "paper_id": "Ncf6983f2c0",
+  "category": "E",
+  "title": "Deep spectral Q‐learning with application to mobile health",
+  "authors": "Yuhe Gao and Chengchun Shi and Rui Song",
+  "doi": "10.1002/sta4.564",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1002/sta4.564",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "f5096f7168e7dfa41f08ac481e8c8c660358067e9d8ed252b30866a9465b7f69",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2301.00927"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Ncf6983f2c0/README.md",
+  "status": "local_only"
+}

@@ -1,0 +1,40 @@
+{
+  "paper_id": "N65ca0da421",
+  "category": "B",
+  "title": "Efficient Learning of Optimal Individualized Treatment Rules for Heteroscedastic or Misspecified Treatment-Free Effect Models",
+  "authors": "Weibin Mo and Yufeng Liu",
+  "doi": "10.1111/rssb.12474",
+  "year": "2022",
+  "original_url": "https://doi.org/10.1111/rssb.12474",
+  "local_fulltext": true,
+  "public_pdf": [
+    "B/N65ca0da421/artifacts/35299044b004/original.pdf"
+  ],
+  "public_markdown": [
+    "B/N65ca0da421/artifacts/35299044b004/fulltext.md"
+  ],
+  "public_txt": [
+    "B/N65ca0da421/artifacts/35299044b004/fulltext.txt"
+  ],
+  "original_tex": [
+    "B/N65ca0da421/artifacts/35299044b004/latex/main.tex",
+    "B/N65ca0da421/artifacts/35299044b004/latex/supplement.tex",
+    "B/N65ca0da421/artifacts/35299044b004/latex/tables/ACTG175_coef.tex",
+    "B/N65ca0da421/artifacts/35299044b004/latex/tables/T2DM_coef.tex",
+    "B/N65ca0da421/artifacts/35299044b004/latex/tables/T2DM_coef_long.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "35299044b004e7b87d34697630a5a6f159217831313bc5dbfcd19488be46b9d7",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by-sa/4.0/",
+      "source_url": "https://arxiv.org/pdf/2109.02570",
+      "provenance": "B/N65ca0da421/artifacts/35299044b004/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/N65ca0da421/README.md",
+  "status": "public_fulltext"
+}

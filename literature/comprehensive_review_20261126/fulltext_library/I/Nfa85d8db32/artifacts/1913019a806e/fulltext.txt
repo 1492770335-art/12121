@@ -1,0 +1,1416 @@
+The Impact of Financial Stress and Uncertainty on Green and Conventional Bonds and Stocks: A Nonlinear and Nonparametric Quantile Analysis
+
+Original PDF: [original.pdf](original.pdf). SHA256: `1913019a806e373c72acce69f8bdc2055a888aad27efa5b61a6199c091e6db45`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+Technical extraction; compare with original PDF page 1.
+Citation: Mar’I, Muhammad, Mehdi
+Seraj, and Turgut Tursoy. 2024. The
+Impact of Financial Stress and
+Uncertainty on Green and
+Conventional Bonds and Stocks:
+A Nonlinear and Nonparametric
+Quantile Analysis. Risks 12: 120.
+https://doi.org/10.3390/
+risks12080120
+Academic Editor: Annamaria
+Olivieri
+Received: 1 July 2024
+Revised: 23 July 2024
+Accepted: 28 July 2024
+Published: 31 July 2024
+Copyright: © 2024 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed
+under
+the
+terms
+and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+risks
+Article
+The Impact of Financial Stress and Uncertainty on Green
+and Conventional Bonds and Stocks: A Nonlinear and
+Nonparametric Quantile Analysis
+Muhammad Mar’I 1
+, Mehdi Seraj 2,*
+and Turgut Tursoy 1
+1
+Department of Banking and Finance, Near East University, Nicosia 99138, Cyprus;
+muhammad.mari@neu.edu.tr (M.M.); turgut.tursoy@neu.edu.tr (T.T.)
+2
+Department of Economics, Near East University, Nicosia 99138, Cyprus
+*
+Correspondence: mehdi.seraj@neu.edu.tr
+Abstract: This study aims to investigate the impact of financial stress and uncertainty on the returns of
+green and conventional bonds and stocks in the United States from 2010 to 2022. The research utilizes
+nonlinear and nonparametric analysis, which includes the quantile-on-quantile and nonparametric
+causality-in-quantiles approaches to examine the relationship between variables. The data analyzed
+using R programming language show that financial stress positively impacts the middle quantiles of
+both conventional and green equity, while financial uncertainty negatively impacts upper quantiles.
+The study also finds that financial stress has a more significant impact on all types of bonds compared
+to financial uncertainty, with conventional bonds being more affected. This study proposes a pyramid
+that classifies financial assets based on their susceptibility to financial stress, which could help
+investors evaluate risk levels and make better investment decisions. The study recommends that
+policymakers should encourage green investments by offering incentives, such as tax credits. They
+should also focus on enhancing the efficiency of volatile assets by implementing new investment
+rules and regulations.
+Keywords: green investments; financial stress; quantile-on-quantile; nonparametric causality-in-
+quantiles; modern portfolio theory
+1. Introduction
+Over the past two decades, there has been a significant increase in the use of energy
+products, leading to a rise in carbon emissions and concerns about global warming. To
+address these concerns, alternative energy sources, such as clean energy, have gained impor-
+tance, particularly in developed countries (An et al. 2021). This shift towards green invest-
+ments is driven by the need to protect the environment and ensure sustainability. However,
+meeting the growing demand for energy requires significant capital investments in green
+sectors. Therefore, the importance of green projects has been highlighted for governments,
+investors, and producers (Maghyereh et al. 2019; He et al. 2021; Razzaq et al. 2021).
+Green investments are affected by macroeconomic factors, including financial stress
+and instability.
+Financial stress, defined as periods when the financial system expe-
+riences substantial strain, can impede the normal operations of financial institutions
+(Balakrishnan et al. 2011). Such stress can slow down economic activities, causing global
+panic in equity markets and damaging financial systems and the economy. Measuring
+financial stress’s severity is challenging due to the complex nature of markets (Battiston
+and Martinez-Jaramillo 2018; Polat and Ozkan 2019; Fu et al. 2022). Identifying times of
+systemic financial stress, such as global crises, is relatively simple, but pinpointing other
+periods of high or low financial stress is more complicated (Liang 2013).
+Risks 2024, 12, 120. https://doi.org/10.3390/risks12080120
+https://www.mdpi.com/journal/risks
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+Risks 2024, 12, 120
+2 of 18
+Investors need to understand the diverse repercussions of economic stress and uncer-
+tainties on both green and conventional investments. This understanding helps them to
+assess the potential benefits of diversifying portfolios and managing risks (Reboredo 2018).
+Green bonds, introduced in 2007 by the European Investment Bank, fund environmen-
+tally friendly projects and have gained popularity among various entities (Jiang et al. 2022).
+Like conventional bonds, they offer investment opportunities for individuals and institu-
+tions seeking to diversify their portfolios with sustainable assets. However, green bonds
+often underperform during periods of low uncertainty (Silva et al. 2024). Financial un-
+certainty, which refers to the unpredictability of financial markets, can influence resource
+allocation and economic activity (Ludvigson et al. 2021).
+This research explores the relationship between financial stress and uncertainty in
+the United States and the effects of the two on different types of financial assets. The
+main objective is to assess the impact of financial stress and uncertainty on both green
+and conventional assets, comparing their sensitivity to these factors. The study also
+aims to identify investment portfolios that can minimize risk in the current economic
+environment and determine the optimal assets for risk diversification based on empirical
+results in the context of modern portfolio theory. Examining how green investments can
+hedge against financial stress and uncertainty has significant implications for portfolio
+diversification, potentially increasing investor interest in green bonds and supporting
+sustainable development (Pham and Nguyen 2022).
+Selecting appropriate tests to analyze the effect of financial stress and uncertainty
+on financial assets is crucial. Bahloul et al. (2018) emphasize the importance of model-
+ing nonlinearity, higher-order moments, and quantiles of returns. This study employs
+two econometric techniques: (1) the quantile-on-quantile (QQ) approach evaluates the
+relationship between financial stress, uncertainty, and investments, assessing how dif-
+ferent quantiles of financial stress and uncertainty impact the conditional quantile of
+financial assets (Sim and Zhou 2015); (2) the nonparametric causality-in-quantiles tech-
+nique accounts for market state asymmetry, characterizing Granger causality across the
+distribution, and is immune to outliers, making it suitable for analyzing financial time
+series (Balcilar et al. 2016).
+The subsequent sections of the manuscript are organized as follows: Section 2 presents
+a comprehensive overview of the literature and investigations related to the subject matter;
+Section 3 elucidates the data and methodology employed in the study; Section 4 analyzes
+and compares the findings of the study to the existing literature; Section 5 offers the final
+remarks and conclusions.
+2. Literature Review
+Green bonds are similar to conventional bonds, but their proceeds fund environmen-
+tally friendly projects. Their popularity has grown since their inception in 2007, with
+issuance increasing from USD 4.2 billion in 2012 to USD 258.9 billion in 2019, issued in
+62 countries (Pham and Nguyen 2022). As the green bond market continues to expand
+rapidly, it becomes crucial to analyze its risk and return characteristics. This would provide
+investors with valuable insights into the market and enable them to make informed deci-
+sions. Although green investments have grown considerably, their long-term viability is
+largely dependent on the financial security, financial risk, and profitability of clean energy
+projects. As a result, researchers and investors are now interested in observing the returns
+of green investment projects (Reboredo and Ugolini 2018).
+Recent research has found that green bond portfolios can achieve financial returns on
+par with conventional bond portfolios, suggesting that investors need not sacrifice financial
+performance when supporting environmentally sustainable projects. Moreover, green bond
+portfolios exhibit lower exposure to certain risk factors, such as equity and default risks,
+compared to their non-green counterparts. The dynamic nature of green bond performance,
+particularly across different climate policy uncertainty scenarios, is noteworthy. Green
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+Risks 2024, 12, 120
+3 of 18
+bonds tend to outperform during periods of heightened climate risk concerns, indicating a
+market response to changing investor preferences towards sustainability (Silva et al. 2024).
+In this context, Reboredo and Naifar (2017) conducted a study to examine the rela-
+tionship between Islamic bond prices and financial and policy uncertainty. The empirical
+results of the study showed that US bond prices had a negative impact and causality effects
+on Islamic bond prices. The study also found that financial uncertainty had a negative effect
+that was limited to intermediate Islamic bond price quantiles. Pham and Nguyen (2022)
+aimed to explore how stock volatility, oil volatility, and economic policy uncertainty influ-
+ence the returns on green bonds. The study examined four main green bond indices and
+three uncertainty indices (VIX, OVX, and EPU). The findings suggested that the relationship
+between green bonds and uncertainty is not constant and depends on the prevailing condi-
+tions. When uncertainty is low, there is a weak link between green bonds and uncertainty,
+making green bonds an effective hedge against uncertainty during such periods. However,
+during periods of high uncertainty, the benefits of diversification from green bonds are not
+as significant.
+Lin and Su (2022) examined the interdependence of the green bond markets of the USA
+and China on three uncertainty indicators. The findings indicated that the three uncertainty
+indicators significantly impact the returns and volatilities of green bond markets. However,
+the role of each indicator differs between the two nations, with financial uncertainty being
+the primary driver of US green bonds and economic policy uncertainty being the primary
+driver of Chinese green bonds. Moreover, the impact of these uncertainties on green bond
+returns varies across different market states, and green bond volatilities may respond
+abnormally to extreme increases in these uncertainties.
+Chuliá et al. (2017) conducted a study to examine the impact of US policy and equity
+market uncertainties on stock returns of mature and emerging markets. The findings
+showed that during episodes of financial distress, an uncertainty shock reduces stock mar-
+ket returns in both mature and emerging markets. However, the magnitude of the impact
+is higher for emerging markets. Additionally, the shock increases the highest quantiles of
+returns for mature markets but not for emerging markets. Policy uncertainty had a less
+significant impact but still negatively affected the stock market dynamics during episodes
+of financial distress, particularly for emerging markets. Aziz et al. (2021) examined how
+financial uncertainty in the US affects stock market volatility in India, Sri Lanka, Pakistan,
+and Bangladesh. The results showed that the spillover effect of financial uncertainty varies
+with the forecast horizon, and the effect is significant on more countries with a higher
+forecast horizon. The US’s financial uncertainty has a negative impact on most of the
+stock markets.
+Financial stress and uncertainty can have significant effects on various investment
+instruments, including energy and metal commodity future prices, Islamic bond prices,
+and stock returns in both mature and emerging markets. In the aftermath of a series of
+financial crises, stock market downturns, and oil price declines, the financial markets
+underwent a significant period of upheaval known as “Financial Stress.” This phenomenon
+has emerged as a critical determinant of stock price dynamics during times of stress
+(Bloom 2009; Soltani and Abbes 2022). This has motivated scholars to conduct research
+on the potential consequences of financial stress and uncertainty on diverse investments.
+For example, Reboredo and Uddin (2016) investigated the effects of financial stress and
+policy uncertainty on the future prices of energy and metal commodities in the USA. The
+study found that financial stress had Granger causality effects in intermediate and upper
+commodity return quantiles. However, the research suggested that general stock market
+uncertainty was not a crucial determinant of the future prices of commodities.
+He et al.’s (2021) study examined the relationship between clean energy stock returns
+and fluctuations in oil prices, gold prices, and financial stress in the US and European
+economies. The study found that financial stress has a negative impact on the clean energy
+stock indices of the US and Europe in lower quantiles, indicating bearish market conditions.
+In the short run, the study found aninverse relationship between financial stress and clean
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+Risks 2024, 12, 120
+4 of 18
+energy stocks in the extremely higher quantiles of Europe and the extremely higher and
+lower quantiles of the US.
+Another study conducted by Fu et al. (2022) used the QARDL (quantile autoregressive
+distributed lagged) approach to investigate the dynamic relationship between macroe-
+conomic variables, including financial stress, oil and gold prices, natural gas, and clean
+energy stocks. The study found that increased financial stress and oil and gold prices have
+a significant, negative impact on the performance of clean energy stocks in both the short
+and long term.
+In Soltani and Abbes’s (2022) research, the aim was to assess the extent to which
+financial stress can predict the behavior of Middle East and North Africa (MENA) financial
+markets. The results indicated that financial stress has the strongest predictive power at
+the lower quantiles, specifically when the market is in a bearish state.
+While the literature has extensively explored the impacts of financial stress and un-
+certainty on various financial markets, there is limited research specifically addressing
+how these factors influence green bonds compared to conventional investments. Studies
+such as those by Reboredo and Naifar (2017) and Pham and Nguyen (2022) have analyzed
+the effects of uncertainty on green bonds, but there remains a gap in understanding the
+comparative sensitivity of green and conventional financial assets to financial stress and
+uncertainty. Additionally, there is a need to explore this relationship across different market
+states and economic conditions, as highlighted by Lin and Su (2022).
+This study contributes to the existing literature by providing a comparative analysis
+of green and conventional investments under different levels of financial stress and un-
+certainty. Unlike previous studies, which often focus on a single type of financial asset,
+this research examines a broader range of assets, including green bonds, and employs
+advanced econometric techniques such as the quantile-on-quantile (QQ) approach and
+the nonparametric causality-in-quantiles technique. These methods offer a more nuanced
+understanding of how different quantiles of financial stress and uncertainty impact the con-
+ditional quantile of financial assets, accounting for market state asymmetry and robustness
+to outliers.
+By exploring how green investments can function as a hedge against financial stress
+and uncertainty, this study has significant implications for portfolio diversification. The
+insights gained can increase investor interest in green bonds, potentially leading to more
+financial support for sustainable development (Pham and Nguyen 2022).
+3. Data Description and Methodology
+To attain trustworthy results, we have adhered to specific procedures in analyzing our
+data. These procedures outline the steps that we have pursued in each phase, commencing
+from data collection and culminating in the extraction of results. Figure 1 summarizes
+these procedures.
+Figure 1. Study procedures.
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+Risks 2024, 12, 120
+5 of 18
+3.1. Data Description
+This study utilizes data from the United States and divides them into two sets based on
+data availability. The first set covers the period from March 2010 to December 2022, while
+the second set spans from May 2013 to December 2022. In order to minimize the effects of
+randomness, the prices have been transformed into continuous returns (Brooks 2019). The
+dependent variables include the S&P 500 Index, which is a market-capitalization-weighted
+index that tracks the performance of 500 large-cap American corporations. Meanwhile, the
+WilderHill Clean Energy Index is intended to evaluate the progress of clean energy firms.
+In addition, US government bonds are deemed relatively low-risk investments, backed by
+the full confidence and assurance of the US government. The S&P Green Bond Index was
+developed by S&P Dow Jones Indices, comprising bonds designed exclusively to finance
+projects that have ecological advantages, including sustainable agriculture, renewable
+energy, and pollution prevention (Spglobal 2023).
+Researchers often use the United States as a bellwether for global financial conditions
+due to its central role in the international financial system. The US economy is a significant
+player in global financial markets, and its dynamics can have far-reaching effects. Despite
+the emergence of several influential economies, such as China, the influence of the American
+economy continues to dominate global markets. Therefore, examining financial stress and
+uncertainty in the United States provides valuable insights that are indicative of broader
+global trends (Zhang et al. 2019).
+The independent variables consist of the Financial Stress Index (FSI), a composite index
+utilized to gauge the extent of financial stress within a given economy, subregion, or region.
+This index encompasses the four principal financial markets: the banking sector, the foreign
+exchange market, the equity market, and the debt market (Aric 2023). Additionally, the
+Financial Market Uncertainty Index is another measure of financial uncertainty, developed
+by Professors Sydney Ludvigson and Serena Ng. It is based on a dynamic factor model
+that extracts common movements in stock market volatility, treasury bond yields, and
+the spread between corporate bond yields and treasury yields (Ludvigson 2023). Table 1
+presents the data used in the study.
+Table 1. The study sample.
+The Variables
+Symbols
+Periods
+Sources
+S&P 500 Index
+EQT
+March 2010 to December 2022
+Investing (2023)
+Invesco WilderHill Clean Energy ETF
+GEQT
+March 2010 to December 2022
+Investing (2023)
+US government bond
+BND
+May 2013 to December 2022
+Investing (2023)
+S&P Green Bond Index
+GBND
+May 2013 to December 2022
+Spglobal (2023)
+Financial stress
+FIST
+March 2010 to December 2022
+Aric (2023)
+Financial uncertainty
+FIUN
+March 2010 to December 2022
+Ludvigson (2023)
+Figure 2 depicts the behavior of the time series, with the uppermost two graphs
+representing equity, the middle two graphs representing bonds, and the lowermost two
+graphs representing financial stress and financial uncertainty. The figure indicates that the
+returns of green equity exhibit higher volatility compared to conventional equity, and a
+similar pattern is observed in bonds, suggesting that investing in green equity and bonds
+may entail higher risks than investing in conventional counterparts. In terms of financial
+stress and financial uncertainty, no specific pattern is evident. Further information can be
+found in Table 2, which presents the statistical descriptive data of the study sample.
+
+
+===== ORIGINAL PDF PAGE 6 =====
+FORMULA CHECK REQUIRED: original PDF page 6.
+Risks 2024, 12, 120
+6 of 18
+Figure 2. Variables’ behavior over time.
+In Table 2, we can notice that GEQT has the highest standard deviation with a value
+of 9, followed by EQT and FIST with values of 4 and 2, respectively. Based on the Jarque
+Bera test, we reject the null hypothesis that the data are normally distributed since the
+p-value is significant at a level less than 1%. According to the Augmented Dickey–Fuller
+test, we can see that EQT and GEQT are integrated at the level I(0), while BND, GBND,
+FIST, and FIUN are not stationary.
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+Risks 2024, 12, 120
+7 of 18
+Table 2. Descriptive statistics.
+Variables
+EQT
+GEQT
+BND
+GBND
+FIST
+FIUN
+Obs.
+154
+154
+116
+116
+154
+154
+Range
+25.309
+71.104
+3.913
+6.239
+10.79
+0.777
+Median
+1.612
+0.167
+0.031
+0.151
+-0.999
+0.873
+Mean
+0.867
+-0.009
+0.041
+0.049
+-0.387
+0.91
+Std. dev.
+4.266
+9.6
+0.57
+1.1
+2.033
+0.161
+Jarque Bera test
+10.933 ***
+22.564 ***
+40.44 ***
+38.306 ***
+51.535 ***
+9.2221 ***
+ADF test
+−6.064 **
+−3.889 **
+−2.744
+−3.018
+−2.849
+−2.597
+BDS test m = 6
+5.295 ***
+19.577 ***
+5.743 ***
+6.236 ***
+122.959 ***
+981.987 ***
+ARCH test lag(3)
+23.537 ***
+10.869 **
+7.4 *
+22.764 ***
+107.75 ***
+367.23 ***
+*, **, and *** indicate a significant level at 10%, 5%, and 1%, respectively.
+In order to establish a nonlinear cause-and-effect relationship between the vari-
+ables and determine an appropriate approach for data analysis, we utilized two tests,
+namely, the BDS and ARCH tests. Specifically, we employed the BDS test developed by
+Broock et al. (1996) to examine the residuals of the equations in a VAR(1) model for the
+cause-and-effect variables. The null hypothesis of the BDS test assesses the presence of
+independent and identically distributed (i.i.d.) residuals across different embedding di-
+mensions (n) for each series. Our findings, as presented in Table 2, strongly rejected the
+null hypothesis, even at the 1% significance level, indicating the compelling evidence of a
+nonlinear cause-and-effect relationship across variables. The aforementioned findings are
+corroborated by the results of the ARCH test, which reject the null hypothesis of a constant
+variance of the error term in the residuals. This indicates the presence of heteroscedasticity
+in the residuals, suggesting that the variance of the error term varies over time.
+3.2. Methodology
+3.2.1. QQ Approach
+In this study, we employ the QQ approach, proposed by Sim and Zhou (2015) to
+examine the impact of financial stress and uncertainty on the performance of green and
+conventional investments. This approach enables us to assess how changes in the quantiles
+of one variable may affect the conditional quantiles of another variable.
+The quantile regression approach, similar to the ordinary least squares (OLS) method-
+ology, assesses the relationship between independent and dependent variables. However,
+it extends beyond this by examining the effects at both the upper and lower quantiles of a
+distribution, providing a more comprehensive understanding of the relationship between
+variables over various time periods (Shahbaz et al. 2018).
+Compared to OLS or quantile regression, the QQ approach has a significant advantage
+in modeling economic relationships more comprehensively. While OLS regression can only
+estimate the impact of financial stress and uncertainty shocks on the conditional mean of
+investments, quantile regression breaks down this effect into the conditional quantile. The
+QQ approach extends the quantile regression method by examining how the quantiles of
+financial stress and uncertainty can affect the conditional quantile of investments. Out
+of the three estimation approaches, the QQ approach provides the most comprehensive
+information about the relationship between financial stress, uncertainty, and investments.
+In fact, through the QQ approach, we can gain insights into the high complexity of this
+relationship. In order to determine how the quantiles of cause variable shocks impact
+the quantiles of the effect variable, we utilize a model for the θ-quantile of the dependent
+variable (rt) based on the independent variable (Xt) shocks as follows:
+rt = βθ(Xt) + αθrt−1 + vθ
+t
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+Risks 2024, 12, 120
+8 of 18
+The error term vθ
+t has a θ-quantile of zero. The link function denoted by βθ(·) does not
+have prior information about how the independent variables send shocks to the dependent
+variable. We take the first-order Taylor expansion of the above equation to achieve
+min
+b0,b1
+n
+∑
+i=1
+ρθ
+
+rt −b0 −b1
+  ˆXt −Xτ −α(θ)rt−1
+
+K
+ 
+Fn
+  ˆXt
+ −τ
+h
+!
+The loss function’s quantile, denoted by ρθ[·], is used in conjunction with the Gaussian
+kernel function K(·) to assign weights to nearby observations based on a bandwidth
+parameter h. This enables us to focus on the local impact of (X) shocks at the τ-quantile.
+The weights assigned to each observation are determined by the distance between the
+observation and a reference point Xτ. Specifically, the farther a data point is from the
+reference point, the lower its weight will be (see Sim and Zhou 2015).
+3.2.2. Nonparametric Causality-in-Quantiles
+Balcilar et al. (2016) proposed a nonparametric approach for identifying nonlinear
+causal relationships called nonparametric causality-in-quantiles. This method employs a hy-
+brid approach based on the methodologies of Nishiyama et al. (2011) and Jeong et al. (2012).
+Compared to linear and nonlinear models, the causality-in-quantiles technique has several
+advantages. For instance, it can account for asymmetry in causality depending on the state
+of the market, which other methods cannot. Moreover, it characterizes Granger causality
+across the entire distribution, thereby making it immune to outliers. This characteristic
+makes it suitable for analyzing financial time series, which frequently exhibit fat tails and
+regime shifts due to the occurrence of co-jumps in both the financial and economic data.
+Balcilar et al. (2016) also developed a new test that incorporates both the k-th or-
+der nonlinear causality test of Nishiyama et al. (2011) and the quantile-causality test of
+Jeong et al. (2012). By combining these two approaches, the new test is more comprehen-
+sive than either one alone. Specifically, they have extended the framework to include a test
+for the second moment using the combined Nishiyama et al. and Jeong et al. methodology,
+which is presented as follows:
+yt = g(Yt−1) + σ(Xt−1)εt
+The disturbance term in the equation is represented by εt. The functions g(·) and σ(·)
+have certain characteristics that ensure stationarity. By converting the equation into a pair
+of hypotheses, namely, null and alternative, we can test for causality in variance as follows:
+H0 : P
+n
+Fyt|Zt−1{Qθ(Yt−1) | Zt−1} = θ
+o
+= 1
+H1 : P
+n
+Fyt|Zt−1{Qθ(Yt−1) | Zt−1} = θ
+o
+< 1
+Jeong et al. (2012) suggested a method to address the problem of causality in the
+conditional first moment leading to causality in the second moment. To tackle this issue,
+the following model can be utilized to interpret causality in higher-order moments:
+yt = g(Xt−1, Yt−1) + εt
+Therefore, it is possible to define causality in higher-order quantiles as
+H0 : P
+n
+Fyk
+t |Zt−1{Qθ(Yt−1) | Zt−1} = θ
+o
+= 1 f or k = 1, 2, . . . , K
+H1 : P
+n
+Fkyt|Z−1{Qθ(Yt−1) | Zt−1} = θ
+o
+< 1 f or k = 1, 2, . . . , K
+
+
+===== ORIGINAL PDF PAGE 9 =====
+Technical extraction; compare with original PDF page 9.
+Risks 2024, 12, 120
+9 of 18
+The causal relationship in the tail of a distribution is not the same as that in the center.
+The lag order (P) is determined for a vector autoregression (VAR) model that includes the
+variables using the SIC criterion (see Balcilar et al. 2016; Shahbaz et al. 2017).
+4. Empirical Results
+4.1. QQ Approach
+4.1.1. Conventional Investments
+The uppermost two graphs of Figure 3 depict the influence of financial stress and
+uncertainty on conventional equity, while the lowermost two graphs illustrate the impact
+of financial stress and uncertainty on conventional bonds. The effect of financial stress on
+investments is presented in the first column, while the effect of financial uncertainty is
+presented in the second column.
+Figure 3. Effect of financial uncertainty on investments.
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+Risks 2024, 12, 120
+10 of 18
+It is evident from Figure 3 that financial stress has a strong positive impact on equity.
+In terms of financial stress and conventional stocks, positive shocks can be observed from
+all financial stress quintiles to the conventional stock quintiles (0.6–0.8). These shocks are
+severe and reach a peak of about 700, while the negative shocks do not exceed −100. It is
+noteworthy that shocks resulting from financial uncertainty are less aggressive compared
+to shocks from financial stress. It can be seen that shocks originating from all over the
+quantiles of financial uncertainty to the upper quantile of the traditional equities (0.8–0.9)
+are predominantly negative, with a magnitude of approximately −300. Conversely, the
+positive shocks have a maximum magnitude of +50.
+In the realm of bonds, it is apparent that financial stress sends asymmetric shocks to
+conventional bonds. Positive shocks emanate from the financial stress quintiles (0.1–0.8)
+to the bonds’ quintiles (0.6), whereas negative shocks are transmitted from all quintiles of
+financial stress (0.1–0.9) to bond quintiles (0.7). The size of the positive shock to conventional
+bonds is approximately 200, while the negative shocks to conventional bonds are about
+100. As regards financial uncertainty, asymmetry can be observed in the shocks transmitted
+from financial uncertainty to conventional bonds. These shocks range from 12 to −6 in
+magnitude. It can be observed that the upper quantiles of financial uncertainty transmit
+negative shocks to the upper bond quantiles (0.9) while simultaneously sending positive
+shocks to the lower bond quintiles (0.1–0.2). Moreover, it is worth noting that lower
+quintiles of financial uncertainty transmit more severe asymmetric shocks, particularly
+the shocks originating from the financial uncertainty quintiles (0.1–0.2) towards the bond
+quintiles (0.6–0.7), which are negative, reaching a strength of up to −6 and, at the same
+time, transmitting positive shocks to the bond quantiles (0.8–0.9) with a strength of up
+to 10.
+4.1.2. Green Investments
+Comparing the sent shockwaves of stress and financial uncertainty, it is evident from
+Figure 4 that financial stress has a strong positive impact on green equity. In terms of
+financial stress, the location of the shocks sent from financial stress to green stocks is similar
+to shocks sent to conventional equity, but their magnitude is stronger, ranging between 1200
+and −200. It is also observed that shocks transmitted from financial uncertainty to green
+equities are more substantial than those to conventional equities, regardless of whether
+they are positive or negative. Negative shocks originating from all quantiles of financial
+uncertainty can be observed in green equity, particularly in the upper quantiles (0.7–0.9).
+The magnitude of these shocks does not surpass 200, whereas lower quantiles (0.1–0.6) are
+not affected to the same extent.
+In the realm of bonds, it is apparent that financial stress sends asymmetric shocks to
+green bonds. These shocks exhibit a similar pattern across both types of bonds (conventional
+and green). Positive shocks emanate from the financial stress quintiles (0.1–0.8) to the green
+bonds’ quintiles (0.6), whereas negative shocks are transmitted from all quintiles of financial
+stress (0.1–0.9) to green bond quintiles (0.7). The magnitude of the shocks differs across
+types of quantiles, with the positive shocks sent to conventional bonds appearing to be
+more severe than those sent to green bonds. The size of the positive shock to conventional
+bonds is approximately 200, whereas that to green bonds does not exceed 100. Moreover,
+the negative shocks to conventional bonds are somewhat comparable to those sent to green
+bonds, as they reach about 100 in conventional bonds, while they are 120 in green bonds.
+Green bonds have been found to exhibit higher volatility compared to conventional
+bonds. Shock magnitudes for green bonds range between 30 and −20, with the most severe
+shocks ranging from the low quantile of financial uncertainty (0.1–0.4) to the high quantile
+of green bonds. These shocks are asymmetric and are primarily concentrated in the upper
+quantile of the green bond distribution. Specifically, strong positive shocks are located
+in the 0.8–0.9 quantile of the green bond distribution and have a magnitude of positive
+30, while negative shocks are located in the previous quantile (0.6–0.7) of the green bond
+distribution and have a magnitude of –10.
+
+
+===== ORIGINAL PDF PAGE 11 =====
+Technical extraction; compare with original PDF page 11.
+Risks 2024, 12, 120
+11 of 18
+ 
+ 
+Figure 4. Effect of financial stress on green investments.
+4.2. Nonparametric Causality-in-Quantiles
+Given the strong evidence of nonlinearity provided by both the BDS and ARCH tests,
+we aim to further investigate the presence of a causal relationship flowing from financial
+uncertainty and financial stress to both conventional and green investments. To achieve
+this, we will employ a nonparametric quantile-causality analysis.
+The nonparametric causality-in-quantiles analysis results are presented in Tables 3
+and 4. Table 3 displays causality in conditional mean and variance from financial uncer-
+tainty to investment across various quantiles for the study sample. Table 4 shows causality
+in conditional mean and variance from financial stress to investment across different
+quantiles for the study sample.
+By examining causality across different quantiles, the nonparametric causality-in-
+quantiles analysis allows for the assessment of the potential existence of causal effects
+across different levels of investments. The nonparametric causality-in-quantiles analysis
+reveals the presence of a causal relationship between financial uncertainty and stress, with
+investment across a broad spectrum of investment vehicles. This relationship was found
+to be significant for both conventional and green equity, as well as for conventional and
+green bonds.
+
+
+===== ORIGINAL PDF PAGE 12 =====
+Technical extraction; compare with original PDF page 12.
+Risks 2024, 12, 120
+12 of 18
+Table 3. Nonparametric causality-in-quantiles from financial uncertainty to investment.
+Bond
+Green Bond
+Equity
+Green Equity
+Quantile
+Causality in
+Conditional
+Mean
+Causality in
+Conditional
+Variance
+Causality in
+Conditional
+Mean
+Causality in
+Conditional
+Variance
+Causality in
+Conditional
+Mean
+Causality in
+Conditional
+Variance
+Causality in
+Conditional
+Mean
+Causality in
+Conditional
+Variance
+0.05
+4.825 ***
+4.735 ***
+8.013 ***
+7.115 ***
+13.480 ***
+12.819 ***
+6.798 ***
+6.608 ***
+0.10
+4.025 ***
+3.433 ***
+6.234 ***
+5.498 ***
+9.416 ***
+9.086 ***
+5.087 ***
+4.988 ***
+0.15
+4.664 ***
+3.941 ***
+5.052 ***
+4.379 ***
+8.085 ***
+7.678 ***
+5.083 ***
+4.754 ***
+0.20
+4.051 ***
+3.766 ***
+4.835 ***
+4.925 ***
+6.799 ***
+6.855 ***
+4.911 ***
+4.293 ***
+0.25
+3.813 ***
+3.614 ***
+4.576 ***
+4.341 ***
+6.718 ***
+6.169 ***
+4.612 ***
+4.316 ***
+0.30
+3.718 ***
+3.317 ***
+4.139 ***
+4.169 ***
+5.906 ***
+5.461 ***
+4.625 ***
+4.514 ***
+0.35
+3.446 ***
+3.239 ***
+4.365 ***
+4.059 ***
+5.494 ***
+5.250 ***
+4.322 ***
+4.415 ***
+0.40
+3.040 ***
+3.050 ***
+4.013 ***
+3.635 ***
+5.165 ***
+4.987 ***
+4.189 ***
+4.372 ***
+0.45
+2.921 ***
+3.242 ***
+3.765 ***
+3.661 ***
+4.660 ***
+4.621 ***
+3.886 ***
+4.220 ***
+0.50
+3.162 ***
+3.231 ***
+3.523 ***
+3.619 ***
+4.332 ***
+4.262 ***
+3.856 ***
+3.920 ***
+0.55
+3.039 ***
+3.443 ***
+3.327 ***
+3.441 ***
+4.023 ***
+4.050 ***
+3.655 ***
+3.733 ***
+0.60
+2.863 ***
+3.282 ***
+3.066 ***
+3.162 ***
+3.504 ***
+3.753 ***
+3.319 ***
+3.538 ***
+0.65
+2.833 ***
+2.968 ***
+2.576 ***
+2.940 ***
+3.067 ***
+3.532 ***
+3.059 ***
+3.280 ***
+0.70
+2.562 **
+2.977 ***
+2.446 **
+2.690 ***
+2.582 ***
+3.235 ***
+2.740 ***
+3.054 ***
+0.75
+2.652 ***
+2.536 **
+2.129 **
+2.340 **
+2.113 **
+2.989 ***
+2.311 **
+2.834 ***
+0.80
+2.164 **
+2.645 ***
+1.312
+1.775 *
+2.026 **
+2.773 ***
+2.015 **
+2.636 ***
+0.85
+1.640
+1.669 *
+1.486
+1.987 **
+1.358
+2.729 ***
+1.840 *
+2.093 **
+0.90
+1.325
+2.032 **
+0.948
+2.229 **
+1.197
+2.656 ***
+1.025
+1.697 *
+0.95
+1.564
+1.125
+1.073
+3.048 ***
+1.709 *
+2.609 ***
+0.935
+2.350 **
+*, **, and *** indicate a significant level at 10%, 5%, and 1%, respectively.
+Table 4. Nonparametric causality-in-quantiles from financial stress to investment.
+Bond
+Green Bond
+Equity
+Green Equity
+Quantile
+Causality in
+Conditional
+Mean
+Causality in
+Conditional
+Variance
+Causality in
+Conditional
+Mean
+Causality in
+Conditional
+Variance
+Causality in
+Conditional
+Mean
+Causality in
+Conditional
+Variance
+Causality in
+Conditional
+Mean
+Causality in
+Conditional
+Variance
+0.05
+4.093 ***
+4.452 ***
+7.509 ***
+6.495 ***
+13.246 ***
+13.002 ***
+6.827 ***
+6.876 ***
+0.10
+4.217 ***
+3.459 ***
+5.831 ***
+4.830 ***
+9.057 ***
+9.218 ***
+5.027 ***
+5.255 ***
+0.15
+3.910 ***
+3.844 ***
+4.691 ***
+3.802 ***
+7.890 ***
+7.743 ***
+5.042 ***
+4.926 ***
+0.20
+3.331 ***
+3.702 ***
+4.456 ***
+3.998 ***
+6.637 ***
+6.698 ***
+4.807 ***
+4.667 ***
+0.25
+3.197 ***
+3.381 ***
+4.277 ***
+3.453 ***
+6.686 ***
+6.118 ***
+4.576 ***
+4.611 ***
+0.30
+3.447 ***
+3.124 ***
+4.053 ***
+3.790 ***
+5.874 ***
+5.585 ***
+4.595 ***
+5.066 ***
+0.35
+3.329 ***
+3.210 ***
+4.200 ***
+3.661 ***
+5.480 ***
+5.224 ***
+4.431 ***
+4.685 ***
+0.40
+3.344 ***
+3.007 ***
+4.102 ***
+3.462 ***
+5.156 ***
+4.770 ***
+4.162 ***
+4.593 ***
+0.45
+3.075 ***
+3.034 ***
+3.748 ***
+3.440 ***
+4.745 ***
+4.431 ***
+4.049 ***
+4.285 ***
+0.50
+3.289 ***
+2.864 ***
+3.430 ***
+3.304 ***
+4.362 ***
+4.180 ***
+4.565 ***
+4.003 ***
+0.55
+3.051 ***
+2.714 ***
+2.929 ***
+3.333 ***
+3.985 ***
+4.026 ***
+4.251 ***
+3.891 ***
+0.60
+2.555 **
+2.346 **
+2.530 **
+3.028 ***
+3.475 ***
+3.804 ***
+4.056 ***
+3.748 ***
+0.65
+2.721 ***
+2.681 **
+2.451 **
+2.602 ***
+3.103 ***
+3.490 ***
+3.738 ***
+3.464 ***
+0.70
+2.546 **
+2.427 **
+2.453 **
+2.318 **
+2.536 **
+3.290 ***
+3.104 ***
+3.303 ***
+0.75
+2.134 **
+2.326 **
+1.972 **
+2.117 **
+2.073 **
+3.007 ***
+2.564 **
+2.792 ***
+0.80
+1.841 *
+2.037 **
+1.372
+1.691 *
+1.900 *
+2.770 ***
+2.188 **
+2.597 ***
+0.85
+1.642
+1.430
+1.538
+1.905 *
+1.310
+2.744 ***
+1.767 *
+2.072 **
+0.90
+1.277
+1.917 *
+0.914
+2.080 **
+1.169
+2.666 ***
+0.997
+1.710 *
+0.95
+1.510
+1.142
+1.033
+2.839 ***
+1.695 *
+2.629 ***
+0.937
+2.389 **
+*, **, and *** indicate a significant level at 10%, 5%, and 1%, respectively.
+The fact that financial uncertainty and stress have a causal effect on investment be-
+havior implies that they influence investment decisions directly, regardless of the specific
+type of investment being evaluated. This outcome emphasizes the significance of man-
+aging financial uncertainty and tension during the investment decision-making process
+and emphasizes the possible advantages of creating strategies to lessen the impact of
+these factors.
+In general, nonparametric causality-in-quantiles findings suggest that this causality is
+consistently strong in the lower and middle quintiles of overall investments, indicating a
+strong relationship during bearish markets and periods of no trends. However, the strength
+of this causality weakens in the upper quintiles when considering the conditional mean,
+rendering it insignificant. Nevertheless, the strength of causality persists in the upper
+quintiles when considering conditional variance. Overall, the results indicate that financial
+stress and uncertainty can have a significant impact on investment decisions, particularly
+during challenging market conditions.
+
+
+===== ORIGINAL PDF PAGE 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+Risks 2024, 12, 120
+13 of 18
+4.3. Discussion
+The present research investigates the effects of financial stress and uncertainty on two
+categories of financial assets: conventional and green financial assets. With regard to the
+comparison of the impact of financial stress and uncertainty on conventional and green
+equity, it was observed that financial stress induces positive shocks in the 0.5 quintiles of
+both categories of equity, which represent the turning point at which the market shifts from
+a bearish trend to a bullish trend. Additionally, our analysis highlights that the effect of
+financial stress on green equity is stronger than that on conventional equity. Conversely,
+financial uncertainty exerts a negative impact on both conventional and green equity in the
+upper quantiles of 0.8–0.9, potentially causing a shift from an upward trend to a downward
+trend. Although this result does not agree with Soltani and Abbes (2022), who pointed
+out that shocks have a stronger effect during a bearish market, it can be justified in the
+context that financial stress acts as a catalyst for positive shocks at a critical turning point
+(0.5 quintile). This is particularly true for green equity, which is more strongly influenced
+due to possibly higher volatility or investor sentiment towards sustainable investments.
+Conversely, financial uncertainty has a significant, negative impact on both types of eq-
+uity in high-performing segments (upper quintiles), reflecting the market’s sensitivity to
+potential risks and the tendency for investors to de-risk in the face of uncertainty.
+The outcomes of our investigation align with the results of previous studies conducted
+by Aziz et al. (2021) and Reboredo and Uddin (2016), which demonstrate that stress and
+financial uncertainty impact the returns of financial assets. Moreover, our findings are in
+line with the results reported in Chuliá et al.’s (2017) study, which show that financial un-
+certainty generates negative shocks in the upper quantiles, indicating a potential alteration
+in the market direction.
+Concerning bonds, it is evident that financial stress generates more significant shocks
+on all types of bonds compared to financial uncertainty. However, it is worth mentioning
+that the impact of financial stress on conventional bonds is stronger than that on green
+bonds. In contrast, the opposite trend is observed for financial uncertainty, as it exerts
+more severe shocks on green bonds than on conventional bonds. Overall, our study reveals
+that the impact of uncertainty and financial stress on conventional and green bonds differs
+across quantiles, which is contingent on market conditions. These results are in line with
+prior research conducted by He et al. (2021), Fu et al. (2022), Pham and Nguyen (2022),
+and Lin and Su (2022).
+The findings of the study were corroborated by the nonparametric causality-in-
+quantiles test. In summary, the results can be summarized in the following points:
+•
+Overall, financial stress exerts a more positive, significant impact on assets than
+financial uncertainty does.
+•
+Both financial stress and uncertainty have a greater effect on conventional bonds than
+on green bonds.
+•
+Financial stress and uncertainty affect conventional stocks more than all types of bonds.
+•
+Financial stress and uncertainty affect green stocks more significantly than any
+other asset.
+It is worth noting that the stress index in financial markets serves a dual purpose:
+as a measure of stress and as a leading indicator of the economy, helping to forecast
+macroeconomic trend reversals. Consequently, financial stress can be defined as the impact
+of uncertainty and the shifting expectations of losses on the economic agents of financial
+institutions and markets (Montassar and Gaaliche 2014). In the finance and economics
+world, researchers have taken an interest in evaluating the stress affecting different types
+of assets and investments. This is carried out with the objective of understanding the
+magnitude and direction of these pressures so that appropriate recommendations can be
+made to minimize their effects. Thus, it would be beneficial to focus on the effects of
+financial stress on financial assets and formulate proposals based on its outcomes.
+Building upon the study’s empirical outcomes regarding the effects of financial stress
+on conventional and green assets, we propose a pyramid (see Figure 5) that classifies
+
+
+===== ORIGINAL PDF PAGE 14 =====
+Technical extraction; compare with original PDF page 14.
+Risks 2024, 12, 120
+14 of 18
+the assets least and most influenced by financial stress; the assets that are least impacted
+by financial stress are at the bottom and the most impacted are at the top. We see that
+green bonds are the least volatile assets due to financial stress, followed by conventional
+bonds, which are more affected by financial stress than green bonds but less affected than
+conventional stocks. Finally, at the top of the pyramid, we find green stocks, which are
+considered to be the most impacted by financial stress.
+Figure 5. Asset-based risk.
+This study’s suggested pyramid categorizes conventional and green financial assets
+according to their sensitivity to financial stress. This is an essential tool for assessing
+investment options and highlights the importance of hedging strategies when investing
+in the riskiest assets. The pyramid also emphasizes the need to increase the efficiency of
+volatile assets in the market and implement measures and regulations to mitigate their
+susceptibility to economic shocks. The proposed pyramid is a useful tool for investors
+to assess the risk levels of different financial assets. It identifies green bonds as the least
+vulnerable to financial stress, followed by conventional bonds. While conventional bonds
+are more exposed to financial stress than green bonds, they are still less vulnerable than
+conventional stocks, which are the most vulnerable asset class.
+The proposed pyramid can be utilized by investors to make well-informed investment
+decisions based on their risk tolerance. Those who prefer lower risk may find green
+bonds to be a suitable investment, whereas those willing to assume more risk may opt for
+conventional bonds. On the other hand, investors who are comfortable with higher risk can
+choose to invest in green stocks. Overall, the proposed pyramid highlights the importance
+of market efficiency and regulatory measures in mitigating the effects of financial stress on
+vulnerable assets. By taking measures to enhance the efficiency and resilience of assets in
+the market, investors can make informed investment decisions and reduce their exposure
+to financial shocks.
+4.4. An Application in the Context of Modern Portfolio Theory
+The Modern Portfolio Theory, introduced by Markowitz (1952, 1959), is a framework
+that helps investors to construct an optimal portfolio of assets that maximizes returns while
+minimizing risk. An application in the context of the Modern Portfolio Theory could help
+investors to build and manage their portfolios.
+The Modern Portfolio Theory can be utilized in a scenario where an investor is looking
+to create a portfolio that balances high returns with low risk and contemplating which
+indices to include in this portfolio. The investor aims to identify the indices that will yield
+the maximum return while minimizing risk. The application could use historical data and
+statistical analysis to estimate the expected returns and risks of different assets and then
+compare them to find the portfolio that offers the highest expected return for a given level
+of risk.
+We conducted a mean–variance analysis to construct six investment portfolios. To
+identify the optimal asset allocation in each portfolio, we evaluated the standard devi-
+
+
+===== ORIGINAL PDF PAGE 15 =====
+Technical extraction; compare with original PDF page 15.
+Risks 2024, 12, 120
+15 of 18
+ation of returns for each portfolio and selected the portfolio with the lowest expected
+risk-based standard deviation. Table 5 presents the results of our analysis, including
+the optimal portfolio weight for each asset and the corresponding expected risk-based
+standard deviation.
+Table 5. Optimal portfolio weight-based mean–variance analysis.
+Portfolio
+Weights
+Mean Return
+Standard Deviation
+Portfolio 1
+wGBND
+60%
+70%
+0.009
+wBND
+40%
+Portfolio 2
+wGBND
+100%
+0.47%
+0.012
+wEQT
+0.00%
+Portfolio 3
+wGBND
+100%
+0.47%
+0.012
+wGEQT
+0.00%
+Portfolio 4
+wBND
+100%
+1.03%
+0.014
+wEQT
+0.00%
+Portfolio 5
+wBND
+100%
+1.03%
+0.014
+wGEQT
+0.00%
+Portfolio 6
+wGEQT
+0.00%
+14.83%
+0.089
+wEQT
+100%
+Table 5 indicates that the best portfolio of two investments is the one that contains a
+mixture of 60% green bonds and 40% conventional bonds, as it offers a very high average
+return compared to other portfolios of up to 70% with a minimum risk of 0.009 standard
+deviation. The next least risky portfolio consists of green bonds alone, as it offers a
+0.47% return with a risk of 0.012 standard deviation, followed by an investment portfolio
+consisting of traditional bonds only, as it offers a return of 1.03% with a risk of 0.014 standard
+deviation, and, finally, a portfolio composed of conventional stocks, which only offers a
+14.83% return with a risk of 0.089 standard deviation.
+These results are consistent with the proposed pyramid, Figure 5, which shows the
+lowest risk assets to the highest risk, and they indicate that the mixture of conventional
+and green bonds achieves the best return and least risk. It is worth noting that a mixture
+of green bonds with traditional stocks or a mixture of conventional bonds with green or
+conventional stocks presents less risk and, at the same time, a lower return than the mixture
+between green stocks and traditional stocks, which offers a higher return with higher risk.
+5. Conclusions and Policy Recommendation
+The research presented investigates the differential impacts of financial stress and un-
+certainty on conventional and green financial assets. Our findings offer significant insights
+into the behavior of these asset categories under varying market conditions, contributing
+to the growing body of literature on sustainable finance and financial market dynamics.
+Financial stress induces positive shocks at the 0.5 quintile for both conventional and
+green equities, signifying a critical turning point from bearish to bullish trends. Notably,
+the effect of financial stress is more pronounced in green equity, likely due to higher
+volatility or heightened investor sentiment towards sustainable investments. Conversely,
+financial uncertainty negatively impacts both conventional and green equities in the upper
+quantiles (0.8–0.9), suggesting a shift from upward to downward trends. This underscores
+the market’s sensitivity to potential risks and the propensity of investors to de-risk during
+uncertain times.
+
+
+===== ORIGINAL PDF PAGE 16 =====
+FORMULA CHECK REQUIRED: original PDF page 16.
+Risks 2024, 12, 120
+16 of 18
+In the case of bonds, financial stress impacts all bonds more significantly than financial
+uncertainty, with conventional bonds being more affected than green bonds. Conversely,
+financial uncertainty has a more severe effect on green bonds compared to conventional
+bonds. The results highlight that financial stress generally exerts a more positive impact on
+assets than financial uncertainty. Additionally, both financial stress and uncertainty have a
+more significant effect on conventional bonds than on green bonds, and green stocks are the
+most impacted by financial stress among all asset types. These insights can guide investors
+in making informed decisions based on their risk tolerance and market conditions.
+Building upon the study’s empirical outcomes regarding the effects of financial stress
+on conventional and green assets, the study proposes a pyramid that classifies the assets
+least and most influenced by financial stress. The presented pyramid in this study is a
+crucial instrument for evaluating investment choices and emphasizes the significance of
+hedging strategies when investing in the riskiest assets. Moreover, it is an effective tool
+for investors to evaluate the risk levels of different financial assets under financial stress
+conditions. Furthermore, the proposed pyramid highlights the necessity of enhancing the
+efficiency of volatile assets in the market and implementing measures and regulations to
+mitigate their susceptibility to economic shocks.
+5.1. Policy Implications and Recommendations
+•
+Encourage green investments: Green bonds were found to be less vulnerable to
+financial stress compared to conventional bonds and stocks. Policymakers should
+encourage green investments by offering incentives to investors, such as tax credits and
+subsidies, to promote the transition toward a more sustainable and resilient economy.
+•
+Implement measures to mitigate the sensitivity to economic shocks: Policymakers
+should implement measures to mitigate the susceptibility of financial assets to eco-
+nomic shocks. This can be achieved through the introduction of policies aimed at
+stabilizing financial markets during times of stress and uncertainty, such as imple-
+menting circuit breakers or increasing regulatory oversight.
+•
+Increase the efficiency of volatile assets: Since volatile assets are more susceptible to
+economic shocks, policymakers should focus on enhancing the efficiency of these assets
+in the market. This can be achieved by implementing measures, such as introducing
+new investing rules and regulations.
+•
+Increase awareness and education: Given the importance of financial stress and
+uncertainty on the returns of financial assets, policymakers should increase awareness
+and education among investors regarding the risks associated with investing in volatile
+assets. This can help to reduce the adverse effects of market volatility and improve
+investor confidence in the long-term performance of financial markets.
+5.2. Limitation and Future Research Directions
+Our focus on conventional and green equities and bonds excludes other asset classes
+and may not fully account for all factors influencing financial markets, such as geopolitical
+events. Causally linking financial stress, uncertainty, and asset performance also remains
+challenging due to the presence of unobserved variables. Addressing these limitations in
+future research could enhance the depth and breadth of our understanding of financial
+market dynamics.
+Building on our findings, future research could explore the underlying mechanisms
+driving the differential impacts of financial stress and uncertainty on conventional and
+green assets. Additionally, examining the role of investor sentiment and regulatory frame-
+works in shaping market responses to financial stress would provide deeper insights into
+market dynamics.
+Author Contributions: Conceptualization, M.S.; Methodology, M.M.; Software, M.M.; Valida-
+tion, M.S.; Formal analysis, M.M.; Investigation, M.M.; Resources, M.M.; Data curation, M.M.;
+Writing—original draft, M.M.; Writing—review & editing, M.S. and T.T.; Visualization, M.M.; Super-
+vision, M.S. and T.T. All authors have read and agreed to the published version of the manuscript.
+
+
+===== ORIGINAL PDF PAGE 17 =====
+Technical extraction; compare with original PDF page 17.
+Risks 2024, 12, 120
+17 of 18
+Funding: This research received no external funding.
+Data Availability Statement: This study utilizes data from the United States and divides it into two
+sets based on data availability. The first set covers the period from March 2010 to December 2022,
+while the second set spans from May 2013 to December 2022.
+Conflicts of Interest: The authors declare no conflict of interest.
+References
+An, Hui, Asif Razzaq, Muhammad Haseeb, and Leonardus W. W. Mihardjo. 2021. The Role of Technology Innovation and People’s
+Connectivity in Testing Environmental Kuznets Curve and Pollution Heaven Hypotheses across the Belt and Road Host Countries:
+New Evidence from Method of Moments Quantile Regression. Environmental Science and Pollution Research 28: 5254–70. [CrossRef]
+Aric. 2023. Financial Stress Index FSI. Available online: https://aric.adb.org/database/fsi (accessed on 17 March 2023).
+Aziz, Tariq, Jahanzeb Marwat, Sheraz Mustafa, Asma Zeeshan, and Yasir Iqbal. 2021. Linkage between US Financial Uncertainty and
+Stock Markets of SAARC Countries. The Journal of Asian Finance, Economics and Business 8: 747–57. [CrossRef]
+Bahloul, Walid, Mehmet Balcilar, Juncal Cunado, and Rangan Gupta. 2018. The Role of Economic and Financial Uncertainties in
+Predicting Commodity Futures Returns and Volatility: Evidence from a Nonparametric Causality-in-Quantiles Test. Journal of
+Multinational Financial Management 45: 52–71. [CrossRef]
+Balakrishnan, Ravi, Stephan Danninger, Selim Elekdag, and Irina Tytell. 2011. The transmission of financial stress from advanced to
+emerging economies. Emerging Markets Finance and Trade 47: 40–68. [CrossRef]
+Balcilar, Mehmet, Rangan Gupta, and Christian Pierdzioch. 2016. Does Uncertainty Move the Gold Price? New Evidence from a
+Nonparametric Causality-in-Quantiles Test. Resources Policy 49: 74–80. [CrossRef]
+Battiston, Stefano, and Serafin Martinez-Jaramillo. 2018. Financial Networks and Stress Testing: Challenges and New Research Avenues
+for Systemic Risk Analysis and Financial Stability Implications. Journal of Financial Stability 35: 6–16. [CrossRef]
+Bloom, Nicholas. 2009. The Impact of Uncertainty Shocks. Econometrica 77: 623–85. [CrossRef]
+Broock, William A., José Alexandre Scheinkman, W. Davis Dechert, and Blake LeBaron. 1996. A Test for Independence Based on the
+Correlation Dimension. Econometric Reviews 15: 197–235. [CrossRef]
+Brooks, Chris. 2019. Introductory Econometrics for Finance. Cambridge: Cambridge University Press.
+Chuliá, Helena, Rangan Gupta, Jorge M. Uribe, and Mark E. Wohar. 2017. Impact of US Uncertainties on Emerging and Mature
+Markets: Evidence from a Quantile-Vector Autoregressive Approach. Journal of International Financial Markets, Institutions and
+Money 48: 178–91. [CrossRef]
+Fu, Zheng, Zhiguo Chen, Arshian Sharif, and Ummara Razi. 2022. The Role of Financial Stress, Oil, Gold and Natural Gas Prices on
+Clean Energy Stocks: Global Evidence from Extreme Quantile Approach. Resources Policy 78: 102860. [CrossRef]
+He, Xiaojuan, Shekhar Mishra, Ameenullah Aman, Muhammad Shahbaz, Asif Razzaq, and Arshian Sharif. 2021. The Linkage between
+Clean Energy Stocks and the Fluctuations in Oil Price and Financial Stress in the US and Europe? Evidence from QARDL
+Approach. Resources Policy 72: 102021. [CrossRef]
+Investing. 2023. Investing.com—Stock Market Quotes & Financial News. Available online: https://www.investing.com/ (accessed on
+17 February 2023).
+Jeong, Kiho, Wolfgang K. Härdle, and Song Song. 2012. A Consistent Nonparametric Test for Causality in Quantile. Econometric Theory
+28: 861–87. [CrossRef]
+Jiang, Yonghong, Jieru Wang, Zhiming Ao, and Yujou Wang. 2022. The Relationship between Green Bonds and Conventional Financial
+Markets: Evidence from Quantile-on-Quantile and Quantile Coherence Approaches. Economic Modelling 116: 106038. [CrossRef]
+Liang, Nellie. 2013. Systemic Risk Monitoring and Financial Stability. Journal of Money, Credit and Banking 45 (Suppl. S1): 129–35.
+[CrossRef]
+Lin, Boqiang, and Tong Su. 2022. Uncertainties and Green Bond Markets: Evidence from Tail Dependence. International Journal of
+Finance & Economics 28: 4458–75. [CrossRef]
+Ludvigson, Sydney. 2023. Uncertainty Data: Macro and Financial Indexes—Sydney C. Ludvigson, Professor of Economics at New
+York University and NBER. Available online: https://www.sydneyludvigson.com/macro-and-financial-uncertainty-indexes
+(accessed on 17 February 2023).
+Ludvigson, Sydney. C., Sai Ma, and Serena Ng. 2021. Uncertainty and business cycles: Exogenous impulse or endogenous response?
+American Economic Journal: Macroeconomics 13: 369–410. [CrossRef]
+Maghyereh, Aktham I., Basel Awartani, and Hussein Abdoh. 2019. The Co-Movement between Oil and Clean Energy Stocks:
+A Wavelet-Based Analysis of Horizon Associations. Energy 169: 895–913. [CrossRef]
+Markowitz, Harry. 1952. Portfolio Selection. The Journal of Finance 7: 77–91.
+Markowitz, Harry. 1959. Portfolio Selection: Efficient Diversification of Investments. New York: Wiley.
+Montassar, Zayati, and Makram Gaaliche. 2014. Les Déterminants d’instabilité Financière: Un Essai de Détection à Partir de l’Indice
+de Stress Financier [Determinants of Financial Instability: An Attempt at Detection by the Financial Stress Index]. International
+Journal of Innovation and Applied Studies 6: 48–60.
+Nishiyama, Yoshihiko, Kohtaro Hitomi, Yoshinori Kawasaki, and Kiho Jeong. 2011. A Consistent Nonparametric Test for Nonlinear
+Causality—Specification in Time Series Regression. Journal of Econometrics 165: 112–27. [CrossRef]
+
+
+===== ORIGINAL PDF PAGE 18 =====
+Technical extraction; compare with original PDF page 18.
+Risks 2024, 12, 120
+18 of 18
+Pham, Linh, and Canh Phuc Nguyen. 2022. How Do Stock, Oil, and Economic Policy Uncertainty Influence the Green Bond Market?
+Finance Research Letters 45: 102128. [CrossRef]
+Polat, Onur, and Ibrahim Ozkan. 2019. Transmission Mechanisms of Financial Stress into Economic Activity in Turkey. Journal of Policy
+Modeling 41: 395–415. [CrossRef]
+Razzaq, Asif, Arshian Sharif, Arsalan Najmi, Ming-Lang Tseng, and Ming K. Lim. 2021. Dynamic and Causality Interrelationships from
+Municipal Solid Waste Recycling to Economic Growth, Carbon Emissions and Energy Efficiency Using a Novel Bootstrapping
+Autoregressive Distributed Lag. Resources, Conservation and Recycling 166: 105372. [CrossRef]
+Reboredo, Juan C. 2018. Green Bond and Financial Markets: Co-Movement, Diversification and Price Spillover Effects. Energy Economics
+74: 38–50. [CrossRef]
+Reboredo, Juan C., and Andrea Ugolini. 2018. The Impact of Energy Prices on Clean Energy Stock Prices. A Multivariate Quantile
+Dependence Approach. Energy Economics 76: 136–52. [CrossRef]
+Reboredo, Juan C., and Gazi Salah Uddin. 2016. Do Financial Stress and Policy Uncertainty Have an Impact on the Energy and Metals
+Markets? A Quantile Regression Approach. International Review of Economics & Finance 43: 284–98. [CrossRef]
+Reboredo, Juan Carlos, and Nader Naifar. 2017. Do Islamic Bond (Sukuk) Prices Reflect Financial and Policy Uncertainty? A Quantile
+Regression Approach. Emerging Markets Finance and Trade 53: 1535–46. [CrossRef]
+Shahbaz, Muhammad, Mehmet Balcilar, and Zeynel Abidin Ozdemir. 2017. Does Oil Predict Gold? A Nonparametric Causality-in-
+Quantiles Approach. Resources Policy 52: 257–65. [CrossRef]
+Shahbaz, Muhammad, Muhammad Zakaria, Syed Jawad Hussain Shahzad, and Mantu Kumar Mahalik. 2018. The Energy Consumption
+and Economic Growth Nexus in Top Ten Energy-Consuming Countries: Fresh Evidence from Using the Quantile-on-Quantile
+Approach. Energy Economics 71: 282–301. [CrossRef]
+Silva, Florinda, André Ferreira, and Maria Céu Cortez. 2024. The performance of green bond portfolios under climate uncertainty:
+A comparative analysis with conventional and black bond portfolios. Research in International Business and Finance 70: 102354.
+[CrossRef]
+Sim, Nicholas, and Hongtao Zhou. 2015. Oil Prices, US Stock Return, and the Dependence between Their Quantiles. Journal of Banking
+& Finance 55: 1–8.
+Soltani, Hayet, and Mouna Boujelbène Abbes. 2022. The Predictive Power of Financial Stress on the Financial Markets Dynamics:
+Hidden Markov Model. Journal of Economics and Finance 47: 94–115. [CrossRef]
+Spglobal. 2023. S&P Green Bond Index | S&P Dow Jones Indices. Available online: https://www.spglobal.com/spdji/en/indices/
+esg/sp-green-bond-index/#overview (accessed on 17 February 2023).
+Zhang, Dayong, Lei Lei, Qiang Ji, and Ali M. Kutan. 2019. Economic policy uncertainty in the US and China and their impact on the
+global markets. Economic Modelling 79: 47–56. [CrossRef]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.
+

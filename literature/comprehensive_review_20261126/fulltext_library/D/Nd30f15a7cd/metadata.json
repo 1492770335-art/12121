@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nd30f15a7cd",
+  "category": "D",
+  "title": "Smoothed quantile regression for censored residual life",
+  "authors": "Kyu Hyun Kim and Daniel J. Caplan and Sangwook Kang",
+  "doi": "10.1007/s00180-022-01262-z",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1007/s00180-022-01262-z",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "2ea88d5bdae96c80141e25ae9fca80f484383fb4091a5976bafd4f8789dd2016",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2205.00413"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/Nd30f15a7cd/README.md",
+  "status": "local_only"
+}

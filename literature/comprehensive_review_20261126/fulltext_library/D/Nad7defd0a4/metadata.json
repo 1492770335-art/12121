@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nad7defd0a4",
+  "category": "D",
+  "title": "Quantile Regression Based on Semi-Competing Risks Data",
+  "authors": "Jin-Jian Hsieh and A. Adam Ding and Weijing Wang and Yu-Lin Chi",
+  "doi": "10.4236/ojs.2013.31003",
+  "year": "2013",
+  "original_url": "https://doi.org/10.4236/ojs.2013.31003",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "21647bbe5ce407c6963b414efd8a42097cac5e07bf5743379b07086c4b2f89a9",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://content.scirp.org/pdf/ojs_2013022015405125.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/Nad7defd0a4/README.md",
+  "status": "local_only"
+}

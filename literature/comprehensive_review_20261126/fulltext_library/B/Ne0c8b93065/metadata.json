@@ -1,0 +1,28 @@
+{
+  "paper_id": "Ne0c8b93065",
+  "category": "B",
+  "title": "Proximal Learning for Individualized Treatment Regimes Under Unmeasured Confounding",
+  "authors": "Zhengling Qi and Rui Miao and Xiaoke Zhang",
+  "doi": "10.1080/01621459.2022.2147841",
+  "year": "2024",
+  "original_url": "https://doi.org/10.1080/01621459.2022.2147841",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "158be44d08d7dd81a47ae91c0654d42bfbe8947740412b9558ba57c9089ad633",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2105.01187"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/Ne0c8b93065/README.md",
+  "status": "local_only"
+}

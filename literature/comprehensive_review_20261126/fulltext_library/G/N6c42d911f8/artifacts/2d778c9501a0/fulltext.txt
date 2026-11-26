@@ -1,0 +1,1661 @@
+Absorbing weighted-indexed semi-Markov chains with competing risks
+
+Original PDF: [original.pdf](original.pdf). SHA256: `2d778c9501a01d82745cc7135f31a39bb8f011d4eade915967365bea0b6c098c`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1 =====
+Technical extraction; compare with original PDF page 1.
+Absorbing weighted-indexed semi-Markov chains
+with competing risks
+Guglielmo D'Amico 
+University of Chieti-Pescara
+Edoardo Lui 
+University of Chieti-Pescara
+Filippo Petroni 
+University of Chieti-Pescara
+Research Article
+Keywords: weighted-indexed semi-Markov chain; absorbing state; competing risks; Markov renewal
+equation; first-passage time; index score
+Posted Date: November 10th, 2026
+DOI: https://doi.org/10.21203/rs.3.rs-11443197/v1
+License:   This work is licensed under a Creative Commons Attribution 4.0 International License.  
+Read Full License
+Additional Declarations: No competing interests reported.
+
+
+===== ORIGINAL PDF PAGE 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+Absorbing weighted-indexed semi-Markov chains
+with competing risks
+Guglielmo D’Amico
+Edoardo Lui
+Filippo Petroni
+Department of Economics, University “G. d’Annunzio” of Chieti–Pescara, Pescara, Italy
+Corresponding author: Edoardo Lui, edoardo.lui@phd.unich.it.
+ORCID: 0009-0001-9778-0757
+Abstract
+Weighted-indexed semi-Markov chains (WISMCs) enrich a semi-Markov state process with an
+endogenous index that summarises the past trajectory through exponentially weighted mem-
+ory. Existing applications mainly treat recurrent systems and usually choose the score function
+deﬁning the index by modelling intuition and speciﬁc knowledge of the studied system. We de-
+velop the absorbing case, in which the transient dynamics end through one of several competing
+terminal causes, and we separate the theory conditional on a ﬁxed score from the speciﬁcation
+problem of choosing that score. We deﬁne an absorbing WISMC on the augmented state-index
+space, discuss the aﬃne normalisation of the index score and the stability of the model with
+respect to it, derive indexed renewal equations for cause-speciﬁc absorption probabilities, ﬁrst-
+passage distributions and survival, and show that, under a uniform absorption condition, the
+ﬁxed-point solutions are unique and the iteration converges geometrically. The framework is mo-
+tivated by credit default/prepayment, reliability failure modes, and energy-community shortage
+events; a synthetic numerical illustration shows how the theoretical quantities are computed.
+Keywords: weighted-indexed semi-Markov chain; absorbing state; competing risks; Markov re-
+newal equation; ﬁrst-passage time; index score.
+1
+Introduction
+Weighted-Indexed Semi-Markov Chains (WISMCs) model systems whose transition law depends
+both on the present state and on an endogenous index that summarises the past trajectory through
+exponentially weighted memory (D’Amico, 2011; D’Amico and Petroni, 2011, 2012, 2018, 2021;
+De Blasis, 2023; D’Amico et al., 2024a,b). Two systems in the same state may have reached it
+through diﬀerent histories, and these histories may aﬀect both the next transition and the next
+sojourn time; the index retains this information without enlarging the state to the whole past.
+WISMCs have been applied in ﬁnance, energy and reliability (D’Amico et al., 2015a), building on
+the classical Markov renewal and semi-Markov theory (Pyke, 1961a,b; Çinlar, 1975; Limnios and
+Oprişan, 2001; Janssen and Manca, 2006; Barbu and Limnios, 2008). Second-order semi-Markov
+chains, analysed by D’Amico et al. (2015b) with an application to wind energy production, provide
+a related way of introducing memory into the kernel.
+Existing WISMC applications mainly concern recurrent dynamics. Many systems, however,
+are terminal: a loan ends in default or prepayment, a component fails through one of several
+modes, an energy system enters a shortage condition. The relevant quantities are then ﬁrst-passage
+1
+
+
+===== ORIGINAL PDF PAGE 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+times, cause-speciﬁc absorption probabilities and survival, as in the competing-risk and multi-
+state literature (Aalen and Johansen, 1978; Fine and Gray, 1999; Hougaard, 2000; Kalbﬂeisch and
+Prentice, 2002; Putter et al., 2007; Geskus, 2024). Default and prepayment are standard competing
+exits in credit and mortgage modelling (Deng et al., 2000; Chamboko and Bravo, 2020; Saavedra
+et al., 2024), and the valuation of mortgages subject to both full prepayment and default risks is
+studied by Zhou et al. (2024), and rating dynamics show duration eﬀects and path dependence
+that the current rating does not capture (D’Amico et al., 2006, 2010; Lando and Skødeberg, 2002;
+Christensen et al., 2004; Frydman and Schuermann, 2008). The rate of occurrence of failures of
+Markov processes has also been applied to ﬁnancial credit ratings (D’Amico, 2015). Semi-Markov
+and phase-type models with one absorbing state per cause are available in reliability (Wu et al.,
+2019; Garcia-Maya et al., 2022; Lindqvist, 2023), but, to our knowledge, their kernels do not depend
+on an endogenous memory of the trajectory.
+Competing risks have also been modelled within
+multi-state system methodology with sojourn times from a general family closed under minima
+(Dimitrakopoulou et al., 2025).
+This paper develops the absorbing counterpart of the WISMC. We consider a ﬁnite set of
+transient states, a compact index space and a ﬁnite set of absorbing causes. Conditional on the
+current state and index, an indexed semi-Markov kernel governs the next destination and sojourn;
+the index is updated along transient jumps and stopped at absorption.
+The process is then a
+Markov renewal process on the augmented state-index space, killed at the ﬁrst jump into a cause,
+and the post-jump index becomes an argument of every future absorption quantity.
+Our ﬁrst
+contribution is the resulting calculus: indexed renewal equations for cause-speciﬁc ﬁrst-passage
+distributions, survival and ultimate cause probabilities, with minimality of the solutions and, under
+a uniform absorption condition, uniqueness and geometric convergence of the ﬁxed-point iteration.
+The ﬁrst-step arguments are standard; what is new is that the terminal components of the kernel
+determine the cause-speciﬁc laws, while the transient components propagate the index into all
+future quantities.
+Our second contribution concerns the index itself. The index depends not only on the memory
+parameter but also on the score that maps the trajectory into the remembered quantity, which
+previous applications ﬁx by modelling intuition and speciﬁc knowledge of the studied system. In
+an absorbing model this choice directly aﬀects the absorption probabilities. We show that the score
+is identiﬁed only up to aﬃne transformations, introduce normalised admissible classes, prove that
+the index and the kernel are Lipschitz in the score, and give conditions under which the absorption
+probabilities are Lipschitz in the score as well. Comparing candidate scores is therefore meaningful,
+although a selection procedure is not developed here. A synthetic credit-risk illustration compares
+the ﬁxed-point and renewal-equation solutions with Monte Carlo estimates and shows the eﬀect of
+the index and of the score on the cause-speciﬁc probabilities.
+The construction diﬀers from three standard alternatives. Duration-dependent semi-Markov
+kernels condition on backward time but do not propagate a memory built from the pre-entry path;
+multi-state and cause-speciﬁc hazard models treat history through covariates or frailties rather
+than through a recursively updated index; macro-factor migration models condition on external
+stress, whereas the WISMC index is an internal compression of the observed trajectory. The model
+is thus most useful when past stress must keep aﬀecting absorption after the observed state has
+changed. Reward functionals accumulated until absorption, such as discounted losses and their
+decomposition by cause, are not treated here and are left to separate work. For reward processes of
+semi-Markov type see, for example, Silvestrov and Manca (2017) and D’Amico and Vergine (2026).
+Section 2 deﬁnes the absorbing WISMC and Section 3 studies the index score. Section 4 derives
+the absorption equations and Section 5 their stability with respect to the score. Section 6 presents
+the illustration and Section 7 concludes.
+2
+
+
+===== ORIGINAL PDF PAGE 4 =====
+FORMULA CHECK REQUIRED: original PDF page 4.
+2
+Absorbing WISMC
+We ﬁrst recall the ordinary semi-Markov construction without an index. Let (Jn, Tn)n≥0 be a time-
+homogeneous Markov Renewal Process deﬁned on the probability space (Ω, F, P) with state space
+E × R+ where E is a ﬁnite set. Let denote by
+Sn+1 = Tn+1 −Tn , ∀n ∈N
+the sojourn time spent in state Jn. A time-homogeneous Markov renewal process is speciﬁed by
+the semi-Markov kernel Q = (Qij(t), t ∈R+, i, j ∈E) with
+Qij(t) = P(Jn+1 = j, Sn+1 ≤t | Jn = i).
+The associated embedded transition matrix is P = (Pij) where
+Pij = Qij(∞) = P(Jn+1 = j | Jn = i),
+X
+j∈E
+Pij = 1,
+and the unconditional distribution of the next sojourn time from state i is
+Hi(t) = P(Sn+1 ≤t | Jn = i) =
+X
+j∈E
+Qij(t).
+Whenever Pij > 0, the conditional sojourn distribution given the next state is
+Gij(t) = P(Sn+1 ≤t | Jn = i, Jn+1 = j) = Qij(t)
+Pij
+.
+Conversely,
+Qij(t) = PijGij(t),
+with the convention that Qij ≡0 if Pij = 0. The associated continuous-time semi-Markov process
+is
+Zt = JN(t),
+N(t) = sup{n : Tn ≤t}.
+Having introduced the matrix of cumulative distribution functions G =
+ Gij(t), t ∈R+, i, j ∈E
+,
+the pair (P, G) describes the embedded destination and the duration mechanism, while Q combines
+both pieces into one renewal kernel.
+In a weighted-indexed semi-Markov chain the next jump is allowed to depend on a path-
+dependent index.
+Let U ⊂R be a compact interval.
+At jump times the process is described
+by (Jn, Un), where Un ∈U is a predictable functional of the past trajectory. Conditional on the
+augmented state (Jn, Un) = (i, u), where the index process Un summarizes the relevant information
+contained in the past trajectory up to transition n, we assume the next property is satisﬁed almost
+surely for all j ∈E and t ∈R+
+P(Jn+1 = j, Sn+1 ≤t | Jn, Un, Tn, . . . , J0, U0, T0) = P(Jn+1 = j, Sn+1 ≤t | Jn, Un).
+Moreover, previous equation is assumed to be independent of n.
+The indexed semi-Markov kernel is deﬁned by
+Qij(u; t) = P(Jn+1 = j, Sn+1 ≤t | Jn = i, Un = u).
+3
+
+
+===== ORIGINAL PDF PAGE 5 =====
+FORMULA CHECK REQUIRED: original PDF page 5.
+The indexed embedded transition matrix and indexed holding-time distributions are then
+Pij(u) = Qij(u; ∞),
+Hi(u; t) =
+X
+j∈E
+Qij(u; t),
+and, for Pij(u) > 0,
+Gij(u; t) = Qij(u; t)
+Pij(u) .
+Hence
+Qij(u; t) = Pij(u)Gij(u; t),
+so the index may aﬀect the probability of the next state, the duration distribution, or both.
+The classical semi-Markov model is recovered when these quantities do not depend on u. This
+conditional-kernel formulation is the standard WISMC Markov-renewal hypothesis, rewritten here
+in the notation used for the absorbing extension.
+We now split the state space as
+E = E◦∪A,
+E◦= {1, . . . , m},
+A = {a1, . . . , ar},
+where E◦is the transient state space and A is the set of absorbing causes. For i ∈E◦and j ∈E,
+Qij(u; ·) governs the next transition. For a ∈A, absorption is terminal: after a jump to a the
+continuous-time process remains in a forever. Equivalently, one may set
+Paa(u) = 1,
+Paj(u) = 0
+(j̸ = a),
+and suppress any further index update after absorption.
+Deﬁnition 1 (Absorbing WISMC). An absorbing weighted-indexed semi-Markov chain is a process
+(Jn, Tn, Un)n≥0 with J0 ∈E◦and U0 ∈U such that, on the event {Jn = i} with i ∈E◦,
+P(Jn+1 = j, Sn+1 ≤t | Fn) = Qij(Un; t),
+j ∈E, t ≥0,
+where Fn = σ(J0, U0, J1, S1, . . . , Jn, Sn) is the natural ﬁltration up to the nth transition epoch.
+For each (i, u) the kernel is a probability law on E × [0, ∞), that is P
+j∈E Qij(u; ∞) = 1.
+If
+Jn+1 = j ∈E◦, the index is updated by a measurable map Λ : U × E◦× E◦× [0, ∞) →U,
+Un+1 = Λ(Un, i, j, Sn+1),
+Sn+1 = Tn+1 −Tn.
+If Jn+1 ∈A, the process is absorbed and no further transient evolution is considered.
+By construction Un is Fn-measurable, so the pair (Jn, Un) is known at time Tn. The deﬁnition
+implies the following ﬁrst-jump property, used in all proofs below: conditionally on F1 and on
+{J1 ∈E◦}, the shifted process (Jn+1, Tn+1 −T1, Un+1)n≥0 is again an absorbing WISMC with
+the same kernel and update map, started from (J1, U1). Indeed, its conditional one-step laws are
+Q(Un+1; ·) and depend on Fn+1 only through (Jn+1, Un+1). We write Pi,u and Ei,u for the law and
+expectation of the process started from (J0, U0) = (i, u). The number of jumps up to absorption,
+the absorption time and the absorbing cause are
+ν = inf{n ≥1 : Jn ∈A},
+τ = Tν,
+C = Jν,
+with τ = ∞if ν = ∞; on {τ = ∞} the cause is undeﬁned and {C = a} is empty for every a ∈A.
+Equivalently, τ = inf{t ≥0 : Zt ∈A} and C = Zτ.
+4
+
+
+===== ORIGINAL PDF PAGE 6 =====
+FORMULA CHECK REQUIRED: original PDF page 6.
+The index is observed at jump times, but its canonical WISMC update is a calendar-time
+update; however, through an appropriate choice of the score function Λ, the memory mechanism
+can be constructed so that the inﬂuence of past observations decays as the duration of the most
+recent sojourn increases. During the sojourn [Tn, Tn+1) the kernel uses the pre-jump value Un; after
+a transient jump, the new value is obtained by applying Λ with the realised holding time Sn+1. This
+convention preserves the original WISMC idea that long sojourns should have a diﬀerent memory
+eﬀect from short sojourns.
+The object driving all later equations is therefore the family of indexed kernels
+{Qij(u; ·) : i ∈E◦, j ∈E, u ∈U}.
+The competing-risk structure is carried by the terminal components Qia(u; ·), a ∈A, while the
+path dependence is carried by the deterministic update of Un. This separation is important: once
+the score and update rule deﬁning Un are ﬁxed, the model is an Markov renewal process on the
+augmented space E◦× U, killed when the next destination lies in A.
+3
+The index-score speciﬁcation problem
+In the WISMC framework, the index is deﬁned through a map Λ, whose speciﬁcation typically
+involves both a memory parameter, regulating the persistence of past information, and a score
+function f, determining which features of the trajectory are accumulated in the index. In earlier
+applications, this score is often ﬁxed heuristically and tailored to the phenomenon under study.
+For absorbing competing-risk models, however, this choice has direct consequences for the resulting
+terminal cause probabilities.
+3.1
+Predictability, aﬃne normalisation and Markov closure
+Let Fn be the natural ﬁltration generated by the (Jn, Sn) process before its absorption up to the
+nth jump. A score is not allowed to use future information: it is applied to a predictable history
+summary Hn ∈H, with Hn being Fn-measurable. For example, Hn may contain the current state,
+the last few visited states, the last few sojourns.
+Deﬁnition 2 (Calendar-time WISMC index). Let f : H →R be a bounded score function, let
+λ ∈[0, 1) and let Uλ
+0 [f] = U0 be given. The calendar-time WISMC index used in this paper is
+deﬁned, up to absorption, by
+Uλ
+n+1[f] = λSn+1Uλ
+n[f] +
+
+1 −λSn+1
+f(Hn+1),
+n ≥0,
+(1)
+with the convention 00 = 1 when λ = 0.
+A natural question is how the index responds when the score is transformed aﬃnely. The answer
+is given by the following proposition.
+Proposition 1 (Aﬃne equivalence of scores). Let g = cf + d with c̸ = 0. If the initial indices are
+transformed consistently, U0[g] = cU0[f]+d, then Un[g] = cUn[f]+d for every n before absorption.
+Consequently, if the indexed kernel is reparameterised by Q′(v; ·) = Q((v−d)/c; ·) on the transformed
+index space U′ = {cu + d : u ∈U}, the two speciﬁcations generate the same law for the observed
+state/sojourn process (Jn, Sn)n≥0, and in particular the same absorption time and absorbing cause.
+5
+
+
+===== ORIGINAL PDF PAGE 7 =====
+FORMULA CHECK REQUIRED: original PDF page 7.
+Proof. The ﬁrst claim is proved by induction on n. It holds for n = 0 by assumption. If Un[g] =
+cUn[f] + d, then, using that the weights λSn+1 and 1 −λSn+1 sum to one,
+Uλ
+n+1[g] = λSn+1Uλ
+n[g] +
+
+1 −λSn+1
+g(Hn+1)
+= λSn+1(cUλ
+n[f] + d) +
+
+1 −λSn+1 h
+cf(Hn+1) + d
+i
+= c
+h
+λSn+1Uλ
+n[f] +
+
+1 −λSn+1
+f(Hn+1)
+i
++ d
+h
+λSn+1 + 1 −λSn+1i
+= cUλ
+n+1[f] + d.
+For the second claim, note that v ↦→(v −d)/c is a bijection of U′ onto U, so Q′ is a well-deﬁned
+indexed kernel on U′. At every jump time, Q′(Un[g]; ·) = Q((Un[g] −d)/c; ·) = Q(Un[f]; ·). Hence,
+for every n and on every history, the conditional law of (Jn+1, Sn+1) given Fn is the same under the
+two speciﬁcations. The ﬁnite-dimensional distributions of (J0, S1, J1, . . . , Sn, Jn) are products of
+these conditional laws, so they coincide for every n; by the Kolmogorov extension theorem the laws
+of the whole state/sojourn path coincide. Absorption time and cause are measurable functionals of
+this path, which gives the last assertion.
+Proposition 1 shows that the score is identiﬁable only up to aﬃne transformations unless a
+normalisation is imposed. Natural choices are
+min
+i
+f(i) = 0,
+max
+i
+f(i) = 1,
+which is the convention used in the numerical illustration below.
+Min-max normalisation ﬁxes
+location and scale, but not orientation: both score functions f and 1 −f are min-max normalised.
+When large index values are interpreted as stress, the orientation must be ﬁxed by a separate
+sign convention or by an ordered risk outcome. We call admissible the scores that are min–max
+normalised with a ﬁxed orientation, and denote their class by F.
+Other conventions, such as
+mean-zero and unit-variance normalisation, are possible but should not be mixed with min-max
+normalisation in the same comparison.
+Remark 1 (Range of the index). Since Uλ
+n+1[f] is a convex combination of Uλ
+n[f] and f(Hn+1), the
+index stays in the closed convex hull of U0 and the range of f; in particular it stays in U = [0, 1]
+when U0 ∈[0, 1] and f is min–max normalised. Thus the index is adapted to the same ﬁltration
+and remains a functional of the past trajectory.
+Remark 2 (Relation with previous WISMC indices). The factor λSn+1 has a calendar-time in-
+terpretation: if a quantity x is held constant during Sn+1 unit periods, iterating the one-period
+exponential smoother v ↦→λv + (1 −λ)x over those periods maps v into λSn+1v + (1 −λSn+1)x.
+This is the exponential weighting introduced by D’Amico and Petroni (2012) in discrete calendar
+time, where it replaced the moving average over a ﬁxed number of past transitions used in D’Amico
+and Petroni (2011). If the score were evaluated on the state occupied during the sojourn, that is
+f(Jn) in place of f(Hn+1), then for integer sojourns (1) would coincide with the normalised index of
+D’Amico and Petroni (2012), except for the weight λTn given to U0, which vanishes geometrically.
+When all sojourns have unit length the recursion reduces to an embedded jump-time exponential
+smoother.
+Here the score is instead evaluated at the history Hn+1 available at the end of the
+sojourn, so that in the state-score case it refers to the state Jn+1 reached by the jump: the length
+of the sojourn just completed determines how much weight the newly entered state receives. Other
+speciﬁcations of the index have been adopted in the literature, and (1) does not reproduce them: in
+D’Amico (2011) the index is a reward accumulation process linked to the Markov renewal process,
+and diﬀerent index choices are made in D’Amico and Petroni (2018).
+6
+
+
+===== ORIGINAL PDF PAGE 8 =====
+FORMULA CHECK REQUIRED: original PDF page 8.
+Remark 3 (Parametric kernels). If the kernel belongs to a family that is closed under aﬃne
+reparametrisations of the index, the aﬃne equivalence is absorbed by the parameters.
+For the
+multinomial-logit speciﬁcation Pij(u) ∝exp{αij +βiju} used in Section 6, replacing u by v = cu+d
+is equivalent to (αij, βij) ↦→(αij −βijd/c, βij/c). Hence two aﬃnely equivalent scores give the same
+maximised likelihood when the coeﬃcients are unrestricted and the initial indices are transformed
+consistently. In particular the scores f and 1 −f cannot be distinguished by likelihood, which is
+why orientation must be ﬁxed by convention.
+Theorem 1 (Augmented Markov renewal closure). Fix a ﬁnite history Hn with values in a mea-
+surable space H, a bounded measurable score f : H →U, and λ ∈[0, 1). Enlarge the state to
+Xn = (Jn, Hn, Uλ
+n[f]).
+Assume that there is a probability kernel x ↦→Kx(j, ds) on E × [0, ∞), measurable in x, such that,
+for every pre-absorption history,
+P(Jn+1 = j, Sn+1 ≤s | Fn) = KJn,Hn,Uλ
+n[f](j, [0, s]),
+and that there is a measurable update map Γ with
+Hn+1 = Γ(Hn, Jn+1, Sn+1)
+on transient jumps. Then the process (Xn, Tn)n≥0, stopped when Jn ∈A, is a Markov renewal
+chain on the augmented state space. Its transition kernel is obtained by pushing Kx through the
+map
+(j, s) ↦→(j, Γ(h, j, s), λsu + (1 −λs)f(Γ(h, j, s))) ,
+x = (i, h, u),
+for j ∈E◦; jumps to A are killing jumps.
+Proof. Write Φx(j, q) =
+ j, Γ(h, j, q), λqu + (1 −λq)f(Γ(h, j, q))
+ for x = (i, h, u), j ∈E◦and q ≥0.
+The map (x, j, q) ↦→Φx(j, q) is measurable, as a composition of measurable maps. For a measurable
+set B ⊆E◦× H × U and s ≥0, deﬁne
+eQx(B, s) =
+X
+j∈E◦
+Z s
+0
+1B(Φx(j, q)) Kx(j, dq),
+eQx(†, s) =
+X
+a∈A
+Kx(a, [0, s]),
+where † denotes the killed (absorbed) state. For ﬁxed x, B ↦→eQx(B, s) is a measure, nondecreasing
+and right-continuous in s. The total mass over transient destinations and † is one, so eQ is a semi-
+Markov kernel on the augmented space with a cemetery state. Measurability of x ↦→eQx(B, s)
+follows from that of K and Φ.
+Now ﬁx n. The state Xn is Fn-measurable, because Hn is predictable and Uλ
+n[f] is obtained
+from U0 and (Hk, Sk)k≤n through (1). On transient jumps Xn+1 = ΦXn(Jn+1, Sn+1) by the two
+update rules. For every bounded measurable φ on (E◦× H × U) × [0, ∞),
+E[φ(Xn+1, Sn+1)1{Jn+1∈E◦} | Fn] =
+X
+j∈E◦
+Z
+φ(ΦXn(j, q), q) KXn(j, dq) =
+Z
+φ(y, q) eQXn(dy, dq),
+where the ﬁrst equality uses the assumption on the conditional law of (Jn+1, Sn+1) and the second is
+the change-of-variables formula for image measures. Also P(Jn+1 ∈A, Sn+1 ≤s | Fn) = eQXn(†, s).
+Both right-hand sides depend on Fn only through Xn. Since σ(X0, S1, X1, . . . , Sn, Xn) ⊆Fn, the
+same identities hold conditionally on the history of the augmented chain.
+This is the Markov
+renewal property of (Xn, Tn) with kernel eQ, stopped at the ﬁrst jump into †.
+7
+
+
+===== ORIGINAL PDF PAGE 9 =====
+FORMULA CHECK REQUIRED: original PDF page 9.
+3.2
+Stability with respect to the score
+Since the score function is a modelling choice, it is important to ensure that small perturbations of
+the score produce controlled changes in the index. The following lemma establishes this stability
+along any ﬁxed history.
+Lemma 1 (Stability of the index with respect to the score). Let f, g : H →R be bounded predictable
+score functions and ﬁx λ ∈[0, 1). Let Uλ[f] and Uλ[g] be generated on the same history by
+Uλ
+n+1[f] = λSn+1Uλ
+n[f] +
+
+1 −λSn+1
+f(Hn+1),
+for f and analogously for g. Then, for every n ≥0,
+|Uλ
+n[f] −Uλ
+n[g]| ≤λTn−T0|Uλ
+0 [f] −Uλ
+0 [g]| +
+
+1 −λTn−T0
+∥f −g∥∞.
+In particular, if the two indices have the same initial value, Uλ
+0 [f] = Uλ
+0 [g], then
+sup
+n≥0
+|Uλ
+n[f] −Uλ
+n[g]| ≤∥f −g∥∞.
+Proof. Set Dn = |Uλ
+n[f] −Uλ
+n[g]|, ∆= ∥f −g∥∞and λSn+1 ∈[0, 1]. Subtracting the two recursions,
+which share the same Sn+1 and Hn+1,
+Uλ
+n+1[f] −Uλ
+n+1[g] = λSn+1 Uλ
+n[f] −Uλ
+n[g]
+ + (1 −λSn+1)
+ f(Hn+1) −g(Hn+1)
+,
+so that
+Dn+1 ≤λSn+1Dn + (1 −λSn+1)∆.
+We show by induction that Dn ≤ΓnD0 + (1 −Γn)∆with Γn = Qn
+k=1 λSk = λTn−T0 and W0 = 1.
+The case n = 0 is trivial. If it holds for n, then
+Dn+1 ≤λSn+1{ΓnD0 + (1 −Γn)∆} + (1 −λSn+1)∆= Γn+1D0 + (1 −Γn+1)∆,
+since λSn+1(1−Γn)+1−λSn+1 = 1−Γn+1. The identity Γn = λS1+···+Sn and S1+· · ·+Sn = Tn−T0
+give the claim. The bound is a convex combination of D0 and ∆, so it never exceeds max(D0, ∆);
+when D0 = 0 it gives the ﬁnal assertion.
+Corollary 1 (Stability of indexed transition laws). For each i ∈E◦and u ∈U, deﬁne the probability
+measure µu
+i on E × [0, ∞) by
+µu
+i (B) :=
+X
+j∈E
+Z ∞
+0
+1B(j, s) Qij(u; ds),
+B ∈B
+ E × [0, ∞)
+,
+where E is equipped with the discrete topology and Qij(u; ds) denotes the ﬁnite measure associated
+with the cumulative function Qij(u; ·). In particular,
+µu
+i
+ {j} × [0, t]
+ = Qij(u; t),
+µu
+i
+ E × [0, ∞)
+ =
+X
+j∈E
+Qij(u; ∞) = 1.
+Assume that there exists LQ < ∞such that
+sup
+i∈E◦∥µu
+i −µv
+i ∥TV ≤LQ|u −v|,
+u, v ∈U,
+8
+
+
+===== ORIGINAL PDF PAGE 10 =====
+FORMULA CHECK REQUIRED: original PDF page 10.
+where, for probability measures µ and µ′,
+∥µ −µ′∥TV :=
+sup
+B∈B(E×[0,∞))
+|µ(B) −µ′(B)|.
+Let f and g be bounded scores, and let Uλ
+n[f] and Uλ
+n[g] be the corresponding indices generated
+along the same history, with the same memory parameter λ ∈[0, 1) and with values in U. Then,
+at every jump time before absorption,⃦⃦⃦⃦
+µ Uλ
+n[f]
+Jn
+−µ Uλ
+n[g]
+Jn⃦⃦⃦⃦
+TV
+≤LQ
+h
+λTn−T0⃓⃓Uλ
+0 [f] −Uλ
+0 [g]⃓⃓+
+ 1 −λTn−T0∥f −g∥∞
+i
+.
+Proof. Applying the uniform Lipschitz assumption with i = Jn, u = Uλ
+n[f] and v = Uλ
+n[g] gives⃦⃦⃦⃦
+µ Uλ
+n[f]
+Jn
+−µ Uλ
+n[g]
+Jn⃦⃦⃦⃦
+TV
+≤LQ⃓⃓Uλ
+n[f] −Uλ
+n[g]⃓⃓.
+The conclusion follows from Lemma 1.
+The corresponding stability of the absorption functionals with respect to the score is established
+in Section 5, once these functionals have been deﬁned.
+3.3
+Standing assumptions
+The aim of this Section is to derive cause-speciﬁc absorption probabilities and ﬁrst-passage distribu-
+tions from the one-step indexed kernel. The following standing assumptions provide the conditions
+needed to justify the renewal decompositions and limiting arguments that connect the local tran-
+sition mechanism to these terminal quantities. Some of these conditions, are already part of the
+model of Section 2; for the reader’s convenience, we collect them here together with the additional
+requirements, so that all the assumptions used in the sequel are stated in a single place.
+Assumption 1 (Standing assumptions).
+(1.1) E◦and A are ﬁnite and U is compact.
+(1.2) The kernel Qij(u; ·) is measurable in u, and sojourns are uniformly non-degenerate: there
+exist t0 > 0 and ε ∈(0, 1] such that 1 −Hi(u; t0) ≥ε for all i ∈E◦and u ∈U.
+(1.3) The index update Λ is measurable and maps U into U.
+(1.4) Absorption occurs almost surely unless explicitly stated otherwise.
+Lemma 2 (Consequences of Assumption 1.2). Let N(t) = #{n ≥1 : Tn ≤t ∧τ} be the number of
+jumps by time t. Under Assumption 1.2, for every t ≥0 there is θ > 0 with supi,u Ei,u[eθN(t)] < ∞.
+In particular the process is non-explosive and N(t) has ﬁnite moments of all orders, uniformly in
+the initial state.
+Proof. Fix an initial state (i, u); all bounds below are uniform in (i, u).
+Recall that ν is the number of jumps up to absorption. Set ξk = 1{Sk>t0} for k ≤ν, and ξk := 1
+for k > ν, when no further sojourn takes place. On {Jk ∈E◦}, the deﬁnition of the kernel and
+Assumption 1.2 give
+Pi,u(ξk+1 = 1 | Fk) = Pi,u(Sk+1 > t0 | Fk) = 1 −HJk(Uk; t0) ≥ε,
+and on {Jk ∈A} the same inequality holds trivially because ξk+1 = 1.
+9
+
+
+===== ORIGINAL PDF PAGE 11 =====
+FORMULA CHECK REQUIRED: original PDF page 11.
+Let m := ⌊t/t0⌋, which does not depend on n. If N(t) ≥n, the ﬁrst n jumps occur by time t, so
+S1+· · ·+Sn = Tn ≤t and ξk = 1{Sk>t0} for k ≤n. The number of these n sojourns that exceed t0 is
+ξ1+· · ·+ξn, and each of them contributes more than t0 to the sum; hence (ξ1+· · ·+ξn) t0 < Tn ≤t,
+that is ξ1 + · · · + ξn < t/t0 and therefore ξ1 + · · · + ξn ≤m. Therefore
+{N(t) ≥n} ⊆{ξ1 + · · · + ξn ≤m},
+Pi,u(N(t) ≥n) ≤Pi,u(ξ1 + · · · + ξn ≤m).
+Now ﬁx η > 0 and set q := 1 −ε + εe−η; then q < 1 because ε > 0 and e−η < 1. Since x ↦→e−ηx
+is decreasing on {0, 1} and P(ξk+1 = 1 | Fk) ≥ε,
+Ei,u
+e−ηξk+1 | Fk
+ = 1 −(1 −e−η) Pi,u(ξk+1 = 1 | Fk) ≤1 −(1 −e−η) ε = q.
+Because ξ1, . . . , ξk are Fk-measurable, conditioning successively on Fn−1, Fn−2, . . . , F0 gives
+Ei,u
+e−η(ξ1+···+ξn) = Ei,u
+h
+e−η(ξ1+···+ξn−1) Ei,u
+e−ηξn | Fn−1
+i
+≤q Ei,u
+e−η(ξ1+···+ξn−1) ≤· · · ≤qn.
+The event {ξ1 + · · · + ξn ≤m} coincides with {e−η(ξ1+···+ξn) ≥e−ηm}, so from Markov’s inequality
+Pi,u(N(t) ≥n) ≤eηm Ei,u
+e−η(ξ1+···+ξn) ≤eηm qn,
+where eηm and q depend only on (t, t0, ε, η) and not on (i, u).
+Choose θ > 0 with eθq < 1. Writing eθN = 1+P
+n≥1
+ eθn−eθ(n−1)1{N≥n} for the integer-valued
+variable N = N(t) and taking expectations,
+Ei,u
+eθN(t) = 1 + (eθ −1)
+X
+n≥1
+eθ(n−1) Pi,u(N(t) ≥n) ≤1 + (eθ −1) eηm X
+n≥1
+eθ(n−1)qn < ∞,
+since the last series is geometric with ratio eθq < 1. The bound does not depend on (i, u), which
+proves the ﬁrst claim.
+Non-explosion follows from Pi,u(N(t) = ∞) ≤Pi,u(N(t) ≥n) ≤eηmqn →0 as n →∞. For
+moments of order k ≥1, the inequality ex ≥xk/k! for x ≥0 gives N(t)k ≤k! θ−keθN(t), hence
+supi,u Ei,u[N(t)k] < ∞.
+Remark 4. Lemma 2 connects the embedded construction at jump times with the evolution in
+calendar time. Since the holding-time law may vary with the endogenous index, specifying the
+successive transitions alone does not exclude their accumulation within a ﬁnite time interval. The
+lemma ensures that the construction remains well deﬁned at every ﬁnite time, while the exponential-
+moment estimate provides additional integrability control of the jump activity.
+4
+Competing-risk absorption equations
+Let τ and C be the absorption time and the absorbing cause deﬁned in Section 2. For a ∈A, deﬁne
+F a
+i (u; t) = Pi,u(τ ≤t, C = a),
+πa
+i (u) = Pi,u(C = a).
+The survival function is
+Si(u; t) = Pi,u(τ > t).
+Throughout this section we consider the model of Deﬁnition 1, with augmented state (Jn, Un) and
+index update Λ(u, i, j, s). The score f and the memory parameter λ are ﬁxed and suppressed from
+10
+
+
+===== ORIGINAL PDF PAGE 12 =====
+FORMULA CHECK REQUIRED: original PDF page 12.
+the notation; the post-jump index is written as Λ(u, i, j, s). When an explicit history component
+Hn is required, the renewal equations can be formulated on the larger augmented state space of
+Theorem 1, using the corresponding kernel and update map.
+A uniﬁed approach to hitting times of jump Markov type processes is given by Limnios and
+Wu (2024); here the ﬁrst-passage problem is posed on the augmented state-index space and split
+by absorbing cause.
+Theorem 2 (Cause-speciﬁc indexed renewal equation). For each a ∈A, the ﬁrst-passage function
+satisﬁes
+F a
+i (u; t) = Qia(u; t) +
+X
+j∈E◦
+Z t
+0
+F a
+j (Λ(u, i, j, s); t −s) Qij(u; ds).
+(2)
+Moreover, F a is the minimal nonnegative solution of (2): if Φi(u; t) ≥0 is measurable and satisﬁes
+(2), then Φ ≥F a pointwise.
+Proof. Denote by R the right-hand side of (2) viewed as an operator on nonnegative measurable
+functions Φi(u; t):
+(RΦ)i(u; t) = Qia(u; t) +
+X
+j∈E◦
+Z t
+0
+Φj(Λ(u, i, j, s); t −s) Qij(u; ds).
+The operator R is monotone with respect to the pointwise order:
+Φ ≤Φ′
+=⇒
+RΦ ≤RΦ′,
+where Φ ≤Φ′ means that Φj(u; t) ≤Φ′
+j(u; t) for every j ∈E◦, t ≥0 and u ∈U.
+Recall that τ = Tν and C = Jν. Split the event {τ ≤t, C = a} according to J1. On {J1 = a}
+the event is {S1 ≤t}, with probability Qia(u; t). On {J1 ∈A \ {a}} the event is empty. On
+{J1 = j ∈E◦, S1 = s} the event is {τ −T1 ≤t −s, C = a} for the shifted process. By the ﬁrst-
+jump property of Section 2, the shifted process is an absorbing WISMC started at (j, Λ(u, i, j, s)), so
+the conditional probability equals F a
+j (Λ(u, i, j, s); t−s) when s ≤t, and zero otherwise. Integrating
+over the law Qij(u; ds) of (J1, S1) gives (2).
+For k ≥0 let
+F (k)
+i
+(u; t) = Pi,u(τ ≤t, C = a, ν ≤k),
+the probability of absorption by cause a by time t within at most k jumps. Since J0 = i ∈E◦,
+absorption requires at least one jump, so ν ≥1 and F (0) ≡0. Next, apply the same ﬁrst-jump
+decomposition used above to the event {τ ≤t, C = a, ν ≤k + 1}.
+On {J1 = a} we have
+ν = 1 ≤k + 1, so the constraint is automatically satisﬁed and the contribution is again Qia(u; t).
+On {J1 ∈A \ {a}} the event is empty. On {J1 = j ∈E◦, S1 = s}, one jump has been used,
+so ν = 1 + ν′, where ν′ is the number of jumps to absorption of the shifted process.
+Hence
+ν ≤k + 1 if and only if ν′ ≤k, and by the ﬁrst-jump property the conditional probability is
+F (k)
+j
+(Λ(u, i, j, s); t −s) for s ≤t and zero otherwise. Integrating over Qij(u; ds) gives
+F (k+1) = RF (k),
+k ≥0.
+Finally, the events {τ ≤t, C = a, ν ≤k} increase with k. Their union is {τ ≤t, C = a, ν <
+∞} = {τ ≤t, C = a}, because absorption at a ﬁnite time τ ≤t happens after ﬁnitely many jumps:
+if ν = ∞the process is never absorbed and τ = ∞. By continuity of probability along increasing
+sequences of events, F (k)
+i
+(u; t) ↑F a
+i (u; t) for every (i, t, u).
+Let Φ ≥0 solve Φ = RΦ. Then Φ ≥0 = F (0). If Φ ≥F (k), monotonicity gives Φ = RΦ ≥
+RF (k) = F (k+1). Hence Φ ≥F (k) for all k, and Φ ≥F a.
+11
+
+
+===== ORIGINAL PDF PAGE 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+Remark 5. The minimality statement does not by itself imply uniqueness among all bounded so-
+lutions. Such uniqueness requires an additional condition excluding nonzero bounded harmonic
+components of the transient renewal operator. The uniform absorption condition below is a conve-
+nient suﬃcient condition for the inﬁnite-horizon ﬁxed-point equations.
+Proposition 2 (Survival renewal equation). For i ∈E◦,
+Si(u; t) = 1 −Hi(u; t) +
+X
+j∈E◦
+Z t
+0
+Sj(Λ(u, i, j, s); t −s) Qij(u; ds),
+where
+Hi(u; t) =
+X
+j∈E
+Qij(u; t)
+is the distribution of the ﬁrst sojourn time out of i.
+Proof. Split {τ > t} according to the ﬁrst jump. If S1 > t, no jump, and hence no absorption,
+has occurred by time t; this event has probability 1 −Hi(u; t). If S1 = s ≤t and J1 ∈A, then
+τ = s ≤t, so there is no contribution. If S1 = s ≤t and J1 = j ∈E◦, then τ > t if and only if
+the shifted process survives beyond t −s. By the ﬁrst-jump property its conditional probability is
+Sj(Λ(u, i, j, s); t −s). Integrating over Qij(u; ds) gives the equation.
+Remark 6 (Consistency check). By Lemma 2 the process is non-explosive, so {τ ≤t} is the disjoint
+union of {τ ≤t, C = a}, a ∈A, and Si(u; t) = 1 −P
+a∈A F a
+i (u; t). Summing (2) over a and using
+P
+j∈E Qij = Hi shows that 1−P
+a F a satisﬁes the survival equation of Proposition 2. This identity
+is a useful numerical check: in a discretised solver the computed survival function and cause-speciﬁc
+distributions should add up to one at every t.
+Theorem 3 (Ultimate competing-risk probabilities). For each a ∈A, the ultimate cause probability
+πa satisﬁes
+πa
+i (u) = Pia(u) +
+X
+j∈E◦
+Z ∞
+0
+πa
+j (Λ(u, i, j, s)) Qij(u; ds),
+where Pia(u) = Qia(u; ∞), and πa is the minimal nonnegative solution of this ﬁxed-point system.
+If, in addition, absorption occurs almost surely (Assumption 1.4), then
+X
+a∈A
+πa
+i (u) = 1,
+i ∈E◦, u ∈U.
+Proof. Since {τ ≤t, C = a} ↑{τ < ∞, C = a} = {C = a} as t →∞, we have F a
+i (u; t) ↑πa
+i (u). In
+(2), Qia(u; t) ↑Pia(u), and the integrand 1[0,t](s)F a
+j (Λ(u, i, j, s); t −s) increases to πa
+j (Λ(u, i, j, s))
+for every s. Monotone convergence therefore gives the ﬁxed-point equation. Minimality follows
+from the argument in the proof of Theorem 2, with π(k)
+i
+(u) = Pi,u(C = a, ν ≤k) in place of F (k).
+Finally P
+a πa
+i (u) = Pi,u(τ < ∞), which equals one under almost sure absorption. The ﬁxed-point
+equation and minimality do not require this assumption.
+To obtain a uniform geometric convergence rate for the ﬁxed-point iteration and quantitative
+bounds for the subsequent stability analysis, we impose the following absorption condition.
+Assumption 2 (Uniform absorption in blocks). There exist an integer n0 ≥1 and a constant
+δ > 0 such that, from every augmented transient state (i, u), the probability of hitting A within
+the next n0 embedded jumps is at least δ.
+12
+
+
+===== ORIGINAL PDF PAGE 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+Corollary 2 (Uniqueness under uniform absorption). Under Assumption 2, absorption occurs
+almost surely and the bounded solution of the ultimate ﬁxed-point system in Theorem 3 is unique.
+Proof. By the Markov property of the augmented chain at the jump times n0, 2n0, . . . and Assump-
+tion 2, the probability of avoiding absorption for kn0 embedded jumps is at most (1 −δ)k, hence
+tends to zero. Thus absorption is almost sure. Let T be the transient ﬁxed-point operator
+(T x)i(u) =
+X
+j∈E◦
+Z ∞
+0
+xj(Λ(u, i, j, s)) Qij(u; ds).
+By Assumptions 1.2–1.3, T maps the Banach space of bounded measurable functions on E◦×U, with
+the supremum norm, into itself. It is positive and substochastic, so ∥T ∥= supi,u(T 1)i(u) ≤1. By
+induction, (T n1)i(u) = Pi,u(ν > n) is the probability of no absorption during the ﬁrst n jumps, and
+positivity gives ∥T n∥= supi,u(T n1)i(u). Assumption 2 therefore implies ∥T n0∥≤1−δ. Therefore,
+by submultiplicativity of the operator norm and ∥T ∥≤1, for n = kn0 + q with 0 ≤q < n0,
+∥T n∥≤∥T n0∥k ∥T q∥≤(1 −δ)k.
+The Neumann series P
+n≥0 T n converges in operator norm, with P
+n ∥T n∥≤n0/δ. Hence I −T
+is invertible with (I −T )−1 = P
+n T n, and the bounded solution of πa = pa + T πa, with pa
+i (u) =
+Pia(u), is unique. Since 0 ≤πa ≤1 is a bounded solution by Theorem 3, it is this solution, and
+πa = P
+n≥0 T npa. The iteration πa,(k+1) = pa +T πa,(k) converges geometrically in supremum norm
+from any bounded starting point, with error at most (1 −δ)⌊k/n0⌋∥πa,(0) −πa∥∞.
+5
+Stability of absorption probabilities with respect to the score
+We retain the augmented state (i, u) used in Section 4 and now make the dependence of the
+absorption probabilities on the score explicit.
+The ultimate cause probabilities πa of Theorem 3 solve a linear ﬁxed-point equation of the form
+V [f] = bf + AfV [f] on the augmented state (i, u), with bf = pa and Af the transient operator T
+of Corollary 2. The operator is built with the index update Λf generated by the score f, so the
+solution depends on the score. We now study how. Theorem 4 is stated for a general ﬁxed-point
+functional and requires ∥Af∥≤ρ < 1; for πa this holds, for instance, when Assumption 2 holds
+with n0 = 1 and the same δ for every admissible score, since then ∥T ∥≤1 −δ. Proposition 3 only
+requires contraction over blocks of jumps and therefore covers Assumption 2 with any n0.
+Theorem 4 (Stability of ﬁxed-point functionals). Let B be a Banach space of bounded functions
+on the augmented transient state space with norm ∥· ∥(in the applications, the supremum norm
+∥· ∥∞). Suppose that, for each score f in an admissible class F, a quantity of interest V [f] ∈B is
+the unique solution of
+V [f] = bf + AfV [f],
+where Af is a bounded linear operator on B. Assume that there exist constants ρ < 1, LA, Lb < ∞
+and B < ∞such that, for all admissible f, g,
+∥Af∥≤ρ,
+∥Af −Ag∥≤LA∥f −g∥∞,
+∥bf −bg∥≤Lb∥f −g∥∞,
+∥bf∥≤B.
+Then the map f ↦→V [f] is Lipschitz:
+∥V [f] −V [g]∥≤Lb + LAB/(1 −ρ)
+1 −ρ
+∥f −g∥∞.
+13
+
+
+===== ORIGINAL PDF PAGE 15 =====
+FORMULA CHECK REQUIRED: original PDF page 15.
+Proof. The operator norm is submultiplicative, so ∥An
+f∥≤∥Af∥n ≤ρn for every n ≥0. For the
+partial sums YN = PN
+n=0 An
+f and M > N,
+∥YM −YN∥≤
+M
+X
+n=N+1
+∥An
+f∥≤
+M
+X
+n=N+1
+ρn ≤ρN+1
+1 −ρ,
+so YN is a Cauchy sequence in the space of bounded linear operators on B. This space is complete
+because B is, hence YN →Y := P
+n≥0 An
+f. By telescoping,
+(I −Af)YN = YN(I −Af) = I −AN+1
+f
+,
+and ∥AN+1
+f
+∥≤ρN+1 →0. Letting N →∞gives (I −Af)Y = Y (I −Af) = I. Thus I −Af is
+invertible, (I −Af)−1 = P
+n≥0 An
+f, and
+∥(I −Af)−1∥≤
+X
+n≥0
+∥An
+f∥≤
+X
+n≥0
+ρn =
+1
+1 −ρ.
+In particular V [f] = (I −Af)−1bf is the unique solution of the ﬁxed-point equation in B. Since the
+bound ∥Af∥≤ρ holds for every admissible score, the same conclusions hold for g.
+Thus, considering the bound ∥bg∥≤B,
+∥V [g]∥= ∥(I −Ag)−1bg∥≤∥(I −Ag)−1∥∥bg∥≤
+B
+1 −ρ.
+Subtracting the two ﬁxed-point equations gives
+V [f] −V [g] = (bf −bg) + AfV [f] −AgV [g].
+Adding and subtracting AfV [g], and using the linearity of Af,
+AfV [f] −AgV [g] = Af
+ V [f] −V [g]
+ + (Af −Ag)V [g].
+Hence V [f] −V [g] satisﬁes
+V [f] −V [g] = Af(V [f] −V [g]) + bf −bg + (Af −Ag)V [g].
+The diﬀerence therefore solves a ﬁxed-point equation with the same operator Af.
+Thus
+V [f] −V [g] = (I −Af)−1h
+(bf −bg) + (Af −Ag)V [g]
+i
+.
+Now, by the triangle inequality and the deﬁnition of the operator norm,
+∥V [f] −V [g]∥≤
+1
+1 −ρ
+
+Lb + LAB
+1 −ρ
+
+∥f −g∥∞= Lb + LAB/(1 −ρ)
+1 −ρ
+∥f −g∥∞,
+which is the claimed bound.
+The operator-Lipschitz condition ∥Af −Ag∥≤LA∥f −g∥∞is restrictive when B is the space
+of all bounded measurable functions with the supremum norm. In the reduced augmented state
+(i, u), changing the score moves the point Λf(u, i, j, s) at which the next value is evaluated, and
+a discontinuous test function can then change by a ﬁxed amount however close f and g are. The
+next result replaces that condition with regularity of the solution itself. It also covers the case in
+which only a power of the operator is contractive.
+14
+
+
+===== ORIGINAL PDF PAGE 16 =====
+FORMULA CHECK REQUIRED: original PDF page 16.
+Proposition 3 (Score stability under Lipschitz solutions). Consider the reduced augmented state
+(i, u) ∈E◦× U with index update Λf(u, i, j, s) = λsu + (1 −λs)f(j), and operators
+(Afx)i(u) =
+X
+j∈E◦
+Z ∞
+0
+xj
+ Λf(u, i, j, s)
+Qij(u; ds),
+that is, Af is the transient operator T of Corollary 2 built with the update Λf. Let f, g be scores
+with values in U, and let V [f] = bf +AfV [f] and V [g] = bg +AgV [g] be bounded solutions. Assume
+that
+(i) Kf := P
+n≥0 ∥An
+f∥< ∞;
+(ii) ∥bf −bg∥∞≤Lb∥f −g∥∞;
+(iii) u ↦→(V [g])j(u) is Lipschitz with constant LV , uniformly in j ∈E◦.
+Then
+∥V [f] −V [g]∥∞≤Kf (Lb + LV ) ∥f −g∥∞.
+Condition (i) holds with Kf ≤(1−ρ)−1 if ∥Af∥≤ρ < 1, and with Kf ≤n0/δ if the index dynamics
+generated by f satisfy the uniform absorption condition of Assumption 2.
+Proof. By (i) and the proof of Theorem 4 we have
+(I −Af)−1 =
+X
+n≥0
+An
+f,
+∥(I −Af)−1∥≤
+X
+n≥0
+∥An
+f∥= Kf.
+Condition (i) is weaker than ∥Af∥< 1: it only requires that the operator contracts over several
+steps.
+As in the proof of Theorem 4, adding and subtracting AfV [g] gives (I −Af)(V [f] −V [g]) =
+(bf −bg) + (Af −Ag)V [g], hence,
+∥V [f] −V [g]∥∞≤Kf
+h
+∥bf −bg∥∞+ ∥(Af −Ag)V [g]∥∞
+i
+.
+The ﬁrst term on the right-hand side is bounded by Lb∥f −g∥∞by (ii). The two operators Af and
+Ag of the second term share the kernel Qij(u; ds), which does not depend on the score; they diﬀer
+only through the point at which the next value is evaluated. Hence
+(Af −Ag)V [g]
+
+i(u) =
+X
+j∈E◦
+Z ∞
+0
+h
+(V [g])j
+ Λf(u, i, j, s)
+ −(V [g])j
+ Λg(u, i, j, s)
+i
+Qij(u; ds).
+Since f and g take values in U, both Λf(u, i, j, s) and Λg(u, i, j, s) are convex combinations of points
+of U and therefore lie in U, where V [g] is deﬁned. The term λsu is common to the two updates
+and cancels, so⃓⃓
+Λf(u, i, j, s) −Λg(u, i, j, s)⃓⃓= (1 −λs) |f(j) −g(j)| ≤∥f −g∥∞,
+because 0 ≤1 −λs ≤1. By (iii),⃓⃓⃓
+(V [g])j
+ Λf(u, i, j, s)
+ −(V [g])j
+ Λg(u, i, j, s)
+⃓⃓⃓≤LV (1 −λs) |f(j) −g(j)| ≤LV ∥f −g∥∞.
+Using
+R ∞
+0 Qij(u; ds) = Qij(u; ∞) = Pij(u), we obtain⃓⃓⃓
+(Af −Ag)V [g]
+
+i(u)⃓⃓⃓≤LV ∥f −g∥∞
+X
+j∈E◦
+Pij(u) = LV ∥f −g∥∞
+
+1 −
+X
+a∈A
+Pia(u)
+
+≤LV ∥f −g∥∞.
+15
+
+
+===== ORIGINAL PDF PAGE 17 =====
+FORMULA CHECK REQUIRED: original PDF page 17.
+The last inequality expresses that the probability of a transient destination at the next jump is at
+most one, the diﬀerence being the probability of absorption at that jump. Taking the supremum
+over (i, u) gives ∥(Af −Ag)V [g]∥∞≤LV ∥f −g∥∞.
+Thus,
+∥V [f] −V [g]∥∞≤Kf
+ Lb∥f −g∥∞+ LV ∥f −g∥∞
+ = Kf(Lb + LV )∥f −g∥∞.
+As for the bounds on Kf, if ∥Af∥≤ρ < 1, then ∥An
+f∥≤ρn and Kf ≤P
+n≥0 ρn = (1 −ρ)−1.
+For the uniform absorption case, Af is the operator T of Corollary 2 built with the update Λf,
+and the proof of that corollary gives ∥Akn0+q
+f
+∥≤(1 −δ)k for k ≥0 and 0 ≤q < n0. Grouping the
+powers in blocks of n0,
+Kf =
+X
+k≥0
+n0−1
+X
+q=0
+∥Akn0+q
+f
+∥≤
+X
+k≥0
+n0(1 −δ)k = n0
+δ .
+Finally, for πa the one-step term pa
+i (u) = Pia(u) depends on (i, u) and on the kernel, but not on
+the score, so (ii) holds with Lb = 0 and the bound reduces to ∥πa[f] −πa[g]∥∞≤KfLV ∥f −g∥∞.
+Condition (iii) is an assumption on the solution: it has to be checked for the model at hand.
+6
+Illustration
+We use a synthetic example with a credit-risk interpretation to check numerically the equations of
+Sections 4 and 5. The aim is controlled veriﬁcation, not empirical realism. The transient states are
+credit quality classes, E◦= {1, 2, 3}, labelled Good, Watch and Weak, and there are two absorbing
+causes, A = {D, R}, where D is default and R is regular repayment or another benign exit. The
+index is read as a smoothed measure of recent stress: high values raise the probabilities of default
+and downgrade, and the eﬀect fades gradually after the trajectory returns to good states.
+Speciﬁcation.
+The score is f(1) = 0, f(2) = 1/2, f(3) = 1, which is min–max normalised and
+oriented so that large values mean stress. The index follows (1) with Hn+1 = Jn+1,
+Un+1 = λSn+1Un +
+ 1 −λSn+1f(Jn+1),
+λ = 0.75,
+after each transient jump, that is, Λf(u, i, j, s) = λsu + (1 −λs)f(j) as in Proposition 3. The score
+is evaluated at the state reached at the end of the sojourn, so a long stay in Good followed by a
+downgrade to Weak raises the index more than a short one. Since U0 ∈[0, 1] and f takes values in
+[0, 1], the index stays in U = [0, 1]. The kernel is Qij(u; ds) = Pij(u) Gij(ds), with multinomial-logit
+embedded probabilities
+Pij(u) =
+exp{αij + βiju}
+P
+k∈E◦∪A exp{αik + βiku},
+i ∈E◦, j ∈E◦∪A,
+and, in the destination order (1, 2, 3, D, R),
+α =
+⎛
+⎜
+⎝
+2.20
+0.10
+−1.40
+−3.20
+−1.40
+0.50
+1.40
+0.40
+−2.20
+−1.20
+−1.00
+0.20
+1.20
+−1.10
+−1.80
+⎞
+⎟
+⎠,
+β =
+⎛
+⎜
+⎝
+−0.20
+0.40
+1.00
+1.80
+−1.00
+−0.40
+0.20
+0.90
+2.10
+−1.20
+−0.60
+−0.10
+0.40
+2.40
+−1.30
+⎞
+⎟
+⎠.
+Thus βiD > 0 and βiR < 0: a high index raises default and lowers repayment. The sojourn laws
+are Weibull, Gij(t) = 1 −exp{−(t/ηij)κ} with κ = 1.35, and do not depend on the index; the scale
+depends on the current state and on the type of destination, with transient/default/repayment
+scales (1.60, 1.20, 2.20) from state 1, (1.25, 0.95, 1.80) from state 2 and (1.00, 0.75, 1.50) from state
+3. Unless stated otherwise the initial condition is J0 = 1, U0 = 0.60.
+16
+
+
+===== ORIGINAL PDF PAGE 18 =====
+FORMULA CHECK REQUIRED: original PDF page 18.
+Assumptions.
+Assumption 1.1 holds by construction and Assumption 1.3 because the update is a
+convex combination of points of [0, 1]. For Assumption 1.2, with t0 = 0.5 the quantity 1−Hi(u; t0) =
+P
+j Pij(u){1 −Gij(t0)} is at least ε = 0.634 for all i and u. The one-step absorption probability
+PiD(u) + PiR(u) is continuous and positive on [0, 1]; its minimum is δ = 0.0243, attained in state
+Good near u = 0.39. Hence Assumption 2 holds with n0 = 1, absorption is almost sure (Corollary 2,
+so that Assumption 1.4 holds), and the transient operator satisﬁes ∥T ∥≤1 −δ = 0.976 and
+P
+n ∥T n∥≤1/δ ≈41.1. Since δ depends only on the kernel and every score with values in [0, 1]
+keeps the index in [0, 1], the same δ holds for every such score.
+The contraction condition of
+Section 5 is therefore satisﬁed with ρ = 1 −δ.
+Numerical methods.
+The ultimate probabilities of Theorem 3 specialise to
+πa
+i (u) = Pia(u) +
+X
+j∈E◦
+Pij(u)
+Z ∞
+0
+πa
+j
+ λsu + (1 −λs)f(j)
+ Gij(ds),
+a ∈{D, R}.
+Numerical schemes for Markov renewal equations and their discretisation errors are studied by
+Elkins and Wortman (2001) and Wu et al. (2021), and compared for semi-Markov reliability by
+Wu and Limnios (2024). Numerical solutions of non-homogeneous and homogeneous semi-Markov
+processes in the transient case are given by Janssen and Manca (2001) and Corradi et al. (2004).
+Here the equations are solved by value iteration from πa,(0) ≡0 on a uniform grid of 401 points in
+[0, 1], with linear interpolation at oﬀ-grid post-jump indices. The integral over the Weibull sojourn
+is evaluated by the midpoint quantile rule
+R h dGij ≈n−1
+q
+Pnq
+k=1 h
+ G−1
+ij ((k −1
+2)/nq)
+ with nq = 41.
+The iteration is stopped when the sup-norm distance between successive iterates is below 10−12,
+which takes 320 iterations for πD and 307 for πR; by Corollary 2 the limit is the unique bounded
+solution. Doubling the grid changes the reported values by less than 2 × 10−7, and raising nq to
+201 by less than 6 × 10−5. The computed probabilities satisfy maxi,u |πD
+i (u) + πR
+i (u) −1| < 10−10,
+as required by Theorem 3 under almost sure absorption. Monte Carlo estimates are obtained by
+simulating the process jump by jump from the continuous Weibull law; no trajectory reaches the
+cap of 300 jumps. Throughout, s.e. denotes a Monte Carlo standard error: {ˆp(1 −ˆp)/N}1/2 for a
+probability ˆp estimated from N independent paths, and the sample standard deviation divided by
+N1/2 for an average.
+Index before absorption.
+Over 2000 paths started at (J0, U0) = (1, 0.60), the index during the
+last sojourn before absorption averages 0.635 (s.e. 0.006) on the 1457 paths ending in default and
+0.240 (s.e. 0.010) on the 543 paths ending in repayment; the average of the index over the visited
+jump times is 0.423 and 0.309, respectively. High recent stress is therefore associated with exit by
+default, in line with the dependence of πD
+i (u) on u discussed below.
+Ultimate cause probabilities.
+Table 1 compares the ﬁxed-point default probabilities with
+Monte Carlo estimates based on N = 12000 paths for each initial condition; all diﬀerences are
+within about one standard error. Figure 1 shows πD
+i (u) and πR
+i (u) as functions of the initial index,
+together with Monte Carlo estimates on the grid u ∈{0, 0.1, . . . , 1} with N = 2000 paths per point;
+over the 33 points the largest diﬀerence is 1.95 standard errors. For every initial state the default
+probability increases with u: for example πD
+1 (0) = 0.650 and πD
+1 (1) = 0.763. Two obligors in the
+same state Good thus have diﬀerent default probabilities when their stress histories, summarised
+by u, diﬀer.
+17
+
+
+===== ORIGINAL PDF PAGE 19 =====
+FORMULA CHECK REQUIRED: original PDF page 19.
+Table 1: Ultimate default probabilities: ﬁxed point of Theorem 3 and Monte Carlo estimates
+(N = 12000 paths for each row).
+Initial state
+Initial u
+Fixed point
+Monte Carlo
+s.e.
+Diﬀerence/s.e.
+Good
+0.20
+0.6706
+0.6723
+0.0043
+0.38
+Good
+0.60
+0.7147
+0.7150
+0.0041
+0.07
+Watch
+0.60
+0.8211
+0.8225
+0.0035
+0.41
+Weak
+0.60
+0.8950
+0.8978
+0.0028
+1.04
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Initial index u
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Probability
+Default: πD
+i (u)
+Initial state
+Good (fixed point)
+Watch (fixed point)
+Weak (fixed point)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Initial index u
+Repayment: πR
+i (u)
+Figure 1: Ultimate cause probabilities πD
+i (u) (left) and πR
+i (u) (right) as functions of the initial
+index. Lines: ﬁxed point of Theorem 3. Points: Monte Carlo estimates with N = 2000 paths and
+95% intervals.
+18
+
+
+===== ORIGINAL PDF PAGE 20 =====
+FORMULA CHECK REQUIRED: original PDF page 20.
+First-passage distributions and survival.
+The time-dependent equations of Theorem 2 and
+Proposition 2 are of Volterra type, because sojourns are positive, and are solved forward on a time
+grid with step 0.025 up to t = 120, using the same quantile rule (nq = 61) and linear interpolation
+in (t, u) on a grid of 101 index values. In the survival equation the term Hi is discretised with
+the same quantile rule as the integral, so that the identity Si = 1 −P
+a F a
+i of Remark 6 can be
+checked on the discretised solver: the computed S, F D and F R add up to one within 2 × 10−15.
+At t = 120 the survival probability is below 0.0015 and F D
+i (u; 120) diﬀers by at most 0.0011 from
+πD
+i (u), consistently with F a
+i (u; t) ↑πa
+i (u) as t →∞. Figure 2 reports F D
+1 (u; t) and S1(u; t) for
+u = 0.20 and u = 0.60, together with the empirical distributions of the Monte Carlo samples of
+Table 1 at t ∈{2.5, 5, 10, 20, 40}; over these 20 comparisons the largest diﬀerence is 1.87 standard
+errors.
+A higher initial index shifts default earlier: at t = 10, F D
+1 (0.60; 10) = 0.259 against
+F D
+1 (0.20; 10) = 0.185.
+0
+10
+20
+30
+40
+50
+60
+t
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+Probability
+FD
+1 (u; t)
+renewal equation, u=0.2
+renewal equation, u=0.6
+Monte Carlo, u=0.2
+Monte Carlo, u=0.6
+0
+10
+20
+30
+40
+50
+60
+t
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+S1(u; t)
+Figure 2: Cause-speciﬁc ﬁrst-passage distribution F D
+1 (u; t) (left) and survival function S1(u; t)
+(right) from state Good, for u = 0.20 and u = 0.60. Lines: solutions of the equations of Theorem 2
+and Proposition 2. Points: Monte Carlo estimates (N = 12000) with 95% intervals.
+Non-indexed benchmark.
+A semi-Markov benchmark without index is calibrated on 8000
+training paths simulated from the WISMC started at (1, 0.60): its embedded probabilities are
+the empirical transition frequencies conditional only on the current state, while the sojourn laws
+are the same Weibull laws. Its default probability from state Good does not depend on the index;
+Table 2 reports it exactly, as the ﬁrst component of (I −PE◦E◦)−1PE◦D for the estimated matrix,
+and by Monte Carlo. The benchmark value 0.709 lies between the WISMC values πD
+1 (0) = 0.650
+and πD
+1 (1) = 0.763: it averages the stress histories present in the training paths, whereas the
+WISMC conditions on the index. The reported standard errors refer to the simulation only and do
+not include the estimation error of the benchmark.
+Role of the score.
+Table 3 uses the ﬁxed-point equation to illustrate the results on the score,
+without any estimation step. The reversed score 1 −f is also min–max normalised but has the
+opposite orientation.
+With the kernel reparametrised as in Remark 3 (c = −1, d = 1), that
+is (αij, βij) ↦→(αij + βij, −βij), and the initial index mapped to 1 −U0, Proposition 1 gives
+πD
+i [1−f](1−u) = πD
+i [f](u); the computed values coincide up to 5×10−16. Min–max normalisation
+therefore does not ﬁx the orientation of the score, which must be ﬁxed by convention, as discussed in
+Section 3. The ﬂattened score g = (0, 0.9, 1) is min–max normalised but not aﬃnely equivalent to f,
+19
+
+
+===== ORIGINAL PDF PAGE 21 =====
+FORMULA CHECK REQUIRED: original PDF page 21.
+Table 2: Default probability from state Good: non-indexed semi-Markov benchmark and indexed
+WISMC. Monte Carlo estimates use N = 5000 paths.
+Model
+Initial u
+Exact
+Monte Carlo
+s.e.
+Semi-Markov benchmark
+any
+0.7089
+0.7054
+0.0064
+Indexed WISMC
+0.00
+0.6500
+–
+–
+Indexed WISMC
+0.20
+0.6706
+–
+–
+Indexed WISMC
+0.60
+0.7147
+0.7174
+0.0064
+Indexed WISMC
+1.00
+0.7627
+–
+–
+with ∥f −g∥∞= 0.4. It changes the default probabilities by at most 0.057 in sup norm; for instance
+πD
+1 [g](0.60) = 0.766 against πD
+1 [f](0.60) = 0.715. For comparison, the bound of Proposition 3, with
+Lb = 0, Kf ≤1/δ and the Lipschitz constant of u ↦→πD
+j [g](u) estimated on the grid as LV = 0.196,
+equals 3.23. In this example δ is small and the bound is therefore not informative; the observed
+sensitivity is much smaller.
+Table 3: Eﬀect of the score on the default probabilities, computed from the ﬁxed-point equation:
+supu |πD
+i [f](u)−πD
+i [ · ](u)| for each initial state. For the reversed score the kernel is reparametrised
+as in Remark 3 and U0 ↦→1 −U0.
+Score
+∥f −·∥∞
+Good
+Watch
+Weak
+Reversed 1 −f, reparametrised
+–
+< 10−15
+< 10−15
+< 10−15
+Flattened g = (0, 0.9, 1)
+0.4
+0.055
+0.057
+0.041
+The experiment is implemented in a reproducible Python notebook, described in the data and
+code availability statement. In summary, the ﬁxed-point and renewal equations of Section 4 agree
+with independent Monte Carlo estimates, the index changes the cause-speciﬁc probabilities and
+their timing for a ﬁxed current state, and the score aﬀects these probabilities in the way predicted
+by Proposition 1 and Section 5.
+7
+Conclusion
+This paper introduced an absorbing version of weighted-indexed semi-Markov chains with com-
+peting terminal causes. The construction preserves the main advantage of WISMCs, namely a
+tractable endogenous memory of the past trajectory, while extending the model to systems that are
+naturally killed by terminal events. Once the process is viewed as a Markov renewal chain on the
+augmented transient state-index space, the classical semi-Markov renewal calculus can be rewrit-
+ten in a form that keeps track of the post-jump index. This leads to cause-speciﬁc ﬁrst-passage
+equations and ultimate absorption probabilities in which the future law depends not only on the
+current state but also on the accumulated history encoded by the index.
+A central point of the paper is that this index is not fully speciﬁed by the memory parameter.
+The score function used to build the index aﬀects terminal probabilities, and therefore it should
+not be treated as an arbitrary heuristic.
+The aﬃne normalisation shows which features of the
+score are identiﬁable, and the stability results give conditions under which terminal probabilities
+depend Lipschitz-continuously on it. Together they make a predictive comparison of candidate
+scores within an admissible class meaningful.
+20
+
+
+===== ORIGINAL PDF PAGE 22 =====
+FORMULA CHECK REQUIRED: original PDF page 22.
+The synthetic credit-risk illustration gives a controlled example of the mechanism. In the con-
+trolled kernel, a high stress index raises downgrade and default probabilities, and, by construction
+of the update, its eﬀect fades gradually as the trajectory returns to good states. The example shows
+how two obligors in the same current state may have diﬀerent terminal probabilities because they
+have diﬀerent histories. It also veriﬁes numerically that the cause-speciﬁc ﬁxed-point and renewal
+equations can be solved directly and agree with Monte Carlo estimates for the controlled kernel.
+Several extensions remain open. The substochastic pre-absorption dynamics could be devel-
+oped into a quasi-stationary theory under state- and index-dependent survival. Quasi-stationary
+asymptotics for perturbed semi-Markov processes in discrete time (Petersson, 2017) are a natural
+reference point for this extension. Another natural direction is to develop the likelihood theory un-
+der right censoring and delayed entry, where the observational start time need not coincide with the
+process origin. A third is to allow non-homogeneous calendar-time kernels, so that macroeconomic
+conditions aﬀect the transition law together with the endogenous index. Further developments
+include portfolio interactions, stochastic marks attached to terminal jumps, semi-parametric or
+RKHS score selection, and reward functionals accumulated until absorption, such as discounted
+losses, their higher moments and their decomposition by cause. These extensions would preserve
+the same core idea developed here: absorbing competing-risk dynamics can be studied through a
+semi-Markov renewal structure once the relevant memory has been encoded in a well-deﬁned index.
+The numerical illustration is synthetic and is intended as a controlled veriﬁcation of the equa-
+tions, not as an empirical credit-risk calibration; in particular, the implied default probabilities are
+much higher than those of real loan portfolios. Estimation is not studied, and no ﬁnite-sample
+theory is given. The non-indexed semi-Markov benchmark in the illustration is calibrated on sim-
+ulated paths and should be read as a baseline for the controlled experiment, not as evidence from
+observed data.
+Declarations
+Funding.
+The authors did not receive support from any organization for the submitted work.
+Competing interests.
+The authors have no relevant ﬁnancial or non-ﬁnancial interests to dis-
+close.
+Data availability.
+No external or proprietary data are used. All data analysed in the illustration
+are synthetic and are generated by the code described below.
+Author contributions.
+All authors contributed equally to this work.
+All authors read and
+approved the ﬁnal manuscript.
+References
+Odd O. Aalen and Søren Johansen. An empirical transition matrix for non-homogeneous Markov
+chains based on censored observations. Scandinavian Journal of Statistics, 5(3):141–150, 1978.
+Vlad Stefan Barbu and Nikolaos Limnios. Semi-Markov Chains and Hidden Semi-Markov Models
+toward Applications: Their Use in Reliability and DNA Analysis, volume 191 of Lecture Notes in
+Statistics. Springer, New York, 2008. doi: 10.1007/978-0-387-73173-5.
+21
+
+
+===== ORIGINAL PDF PAGE 23 =====
+FORMULA CHECK REQUIRED: original PDF page 23.
+Richard Chamboko and Jorge Miguel Bravo. A multi-state approach to modelling intermediate
+events and multiple mortgage loan outcomes. Risks, 8(2):64, 2020. doi: 10.3390/risks8020064.
+Jens H. E. Christensen, Ernst Hansen, and David Lando. Conﬁdence sets for continuous-time rating
+transition probabilities. Journal of Banking & Finance, 28(11):2575–2602, 2004.
+Erhan Çinlar. Introduction to Stochastic Processes. Prentice-Hall, 1975.
+Gianfranco Corradi, Jacques Janssen, and Raimondo Manca. Numerical treatment of homogeneous
+semi-Markov processes in transient case – a straightforward approach. Methodology and Com-
+puting in Applied Probability, 6(2):233–246, 2004. doi: 10.1023/B:MCAP.0000017715.28371.85.
+Guglielmo D’Amico. Rate of occurrence of failures (ROCOF) of higher-order for Markov processes:
+Analysis, inference and application to ﬁnancial credit ratings. Methodology and Computing in
+Applied Probability, 17(4):929–949, 2015. doi: 10.1007/s11009-015-9437-8.
+Guglielmo D’Amico and Filippo Petroni. A semi-Markov model with memory for price changes.
+Journal of Statistical Mechanics: Theory and Experiment, 2011(12):P12009, 2011. doi: 10.1088/
+1742-5468/2011/12/P12009.
+Guglielmo D’Amico and Filippo Petroni.
+Weighted-indexed semi-Markov models for modeling
+ﬁnancial returns. Journal of Statistical Mechanics: Theory and Experiment, 2012(7):P07015,
+2012. doi: 10.1088/1742-5468/2012/07/P07015.
+Guglielmo D’Amico and Filippo Petroni.
+Copula based multivariate semi-Markov models with
+applications in high-frequency ﬁnance. European Journal of Operational Research, 267(2):765–
+777, 2018. doi: 10.1016/j.ejor.2017.12.016.
+Guglielmo D’Amico and Filippo Petroni.
+A micro-to-macro approach to returns, volumes and
+waiting times. Applied Stochastic Models in Business and Industry, 37(4):767–789, 2021. doi:
+10.1002/asmb.2622.
+Guglielmo D’Amico and Salvatore Vergine. Analysis of semi-Markov reward processes motivated
+by ramp rate limitation in wind farms. Methodology and Computing in Applied Probability, 28:
+18, 2026. doi: 10.1007/s11009-026-10254-1.
+Guglielmo D’Amico, Jacques Janssen, and Raimondo Manca. Homogeneous semi-Markov reliability
+models for credit risk management. Decisions in Economics and Finance, 28(2):79–93, 2006. doi:
+10.1007/s10203-005-0055-8.
+Guglielmo D’Amico, Jacques Janssen, and Raimondo Manca. Initial and ﬁnal backward and forward
+discrete time non-homogeneous semi-Markov credit risk models. Methodology and Computing in
+Applied Probability, 12(2):215–225, 2010. doi: 10.1007/s11009-009-9142-6.
+Guglielmo D’Amico, Filippo Petroni, and Flavio Prattico. Reliability measures for indexed semi-
+Markov chains applied to wind energy production. Reliability Engineering & System Safety, 144:
+170–177, 2015a.
+Guglielmo D’Amico, Filippo Petroni, and Flavio Prattico. Performance analysis of second order
+semi-Markov chains: An application to wind energy production. Methodology and Computing in
+Applied Probability, 17(3):781–794, 2015b. doi: 10.1007/s11009-013-9394-z.
+22
+
+
+===== ORIGINAL PDF PAGE 24 =====
+FORMULA CHECK REQUIRED: original PDF page 24.
+Guglielmo D’Amico, Bice Di Basilio, and Filippo Petroni.
+Drawdown-based risk indicators
+for high-frequency ﬁnancial volumes.
+Financial Innovation, 10:83, 2024a.
+doi:
+10.1186/
+s40854-023-00593-0.
+Guglielmo D’Amico, Bice Di Basilio, and Filippo Petroni. Liquidity risk analysis via drawdown-
+based measures. The Journal of Finance and Data Science, 10:100138, 2024b. doi: 10.1016/j.
+jfds.2024.100138.
+Riccardo De Blasis. Weighted-indexed semi-Markov model: calibration and application to ﬁnancial
+modeling. Financial Innovation, 9:35, 2023. doi: 10.1186/s40854-022-00418-6.
+Yongheng Deng, John M. Quigley, and Robert Van Order.
+Mortgage terminations, hetero-
+geneity and the exercise of mortgage options.
+Econometrica, 68(2):275–307, 2000.
+doi:
+10.1111/1468-0262.00110.
+Theodora Dimitrakopoulou, Alex Karagrigoriou, Andreas Makrides, and Ilia Vonta.
+Compet-
+ing risks modelling via multistate system methodology under a generalized family of distri-
+butions.
+Methodology and Computing in Applied Probability, 27(2):41, 2025.
+doi: 10.1007/
+s11009-025-10169-3.
+Guglielmo D’Amico. Age-usage semi-markov models. Applied mathematical modelling, 35(9):4354–
+4366, 2011.
+D. A. Elkins and M. A. Wortman.
+On Numerical Solution of the Markov Renewal Equation:
+Tight Upper and Lower Kernel Bounds. Methodology and Computing in Applied Probability, 3
+(3):239–253, 2001. doi: 10.1023/A:1013767704349.
+Jason P. Fine and Robert J. Gray. A proportional hazards model for the subdistribution of a
+competing risk. Journal of the American Statistical Association, 94(446):496–509, 1999. doi:
+10.1080/01621459.1999.10474144.
+Halina Frydman and Til Schuermann. Credit rating dynamics and Markov mixture models. Journal
+of Banking & Finance, 32(6):1062–1075, 2008.
+Brenda Garcia-Maya, Nikolaos Limnios, and Bo Henry Lindqvist. Competing risks modeling by
+extended phase-type semi-Markov distributions. Methodology and Computing in Applied Proba-
+bility, 24(1):309–319, 2022. doi: 10.1007/s11009-020-09839-1.
+Ronald B. Geskus. Competing risks: Concepts, methods, and software. Annual Review of Statistics
+and Its Application, 11:227–254, 2024. doi: 10.1146/annurev-statistics-040522-094556.
+Philip Hougaard. Analysis of Multivariate Survival Data. Springer, New York, 2000. doi: 10.1007/
+978-1-4612-1304-8.
+Jacques Janssen and Raimondo Manca.
+Numerical solution of non-homogeneous semi-Markov
+processes in transient case. Methodology and Computing in Applied Probability, 3(3):271–293,
+2001. doi: 10.1023/A:1013719007075.
+Jacques Janssen and Raimondo Manca. Applied Semi-Markov Processes. Springer, New York, 2006.
+doi: 10.1007/0-387-29548-8.
+John D. Kalbﬂeisch and Ross L. Prentice. The Statistical Analysis of Failure Time Data. Wiley,
+Hoboken, second edition, 2002. doi: 10.1002/9781118032985.
+23
+
+
+===== ORIGINAL PDF PAGE 25 =====
+FORMULA CHECK REQUIRED: original PDF page 25.
+David Lando and Torben M. Skødeberg. Analyzing rating transitions and rating drift with contin-
+uous observations. Journal of Banking & Finance, 26(2–3):423–444, 2002.
+Nikolaos Limnios and Gheorghe Oprişan.
+Semi-Markov Processes and Reliability.
+Birkhäuser,
+Boston, 2001. doi: 10.1007/978-1-4612-0161-8.
+Nikolaos Limnios and Bei Wu. A uniﬁed approach for hitting time of jump Markov type pro-
+cesses.
+Methodology and Computing in Applied Probability, 26(3):30, 2024.
+doi:
+10.1007/
+s11009-024-10100-2.
+Bo Henry Lindqvist. Phase-type models for competing risks, with emphasis on identiﬁability issues.
+Lifetime Data Analysis, 29(2):318–341, 2023. doi: 10.1007/s10985-022-09547-7.
+Mikael Petersson. Quasi-stationary asymptotics for perturbed semi-Markov processes in discrete
+time. Methodology and Computing in Applied Probability, 19(4):1047–1074, 2017. doi: 10.1007/
+s11009-016-9530-7.
+Hein Putter, Marta Fiocco, and Ronald B. Geskus. Tutorial in biostatistics: competing risks and
+multi-state models. Statistics in Medicine, 26(11):2389–2430, 2007. doi: 10.1002/sim.2712.
+Ronald Pyke. Markov renewal processes: Deﬁnitions and preliminary properties. The Annals of
+Mathematical Statistics, 32(4):1231–1242, 1961a. doi: 10.1214/aoms/1177704863.
+Ronald Pyke. Markov renewal processes with ﬁnitely many states. The Annals of Mathematical
+Statistics, 32(4):1243–1259, 1961b. doi: 10.1214/aoms/1177704864.
+Cayan Atreio Portela Bárcena Saavedra, Juliana Betini Fachini-Gomes, Eduardo Monteiro de Cas-
+tro Gomes, and Herbert Kimura. Probability of default for lifetime credit loss for IFRS 9 using
+machine learning competing risks survival analysis models. Expert Systems with Applications,
+249:123607, 2024. doi: 10.1016/j.eswa.2024.123607.
+Dmitrii Silvestrov and Raimondo Manca.
+Reward algorithms for semi-Markov processes.
+Methodology and Computing in Applied Probability, 19(4):1191–1209, 2017.
+doi:
+10.1007/
+s11009-017-9559-2.
+Bei Wu and Nikolaos Limnios. A comparative study of numerical methods for reliability assessment
+based on semi-Markov processes. Reliability Engineering & System Safety, 252:110431, 2024. doi:
+10.1016/j.ress.2024.110431.
+Bei Wu, Lirong Cui, and Chen Fang. Reliability analysis of semi-Markov systems with restriction
+on transition times. Reliability Engineering & System Safety, 190:106516, 2019. doi: 10.1016/j.
+ress.2019.106516.
+Bei Wu, Brenda Ivette Garcia Maya, and Nikolaos Limnios. Using Semi-Markov Chains to Solve
+Semi-Markov Processes. Methodology and Computing in Applied Probability, 23(4):1419–1431,
+2021. doi: 10.1007/s11009-020-09820-y.
+Congjin Zhou, Guojing Wang, Yinghui Dong, and Pin Wang. The valuation at origination of mort-
+gages with full prepayment and default risks. Methodology and Computing in Applied Probability,
+26(2):12, 2024. doi: 10.1007/s11009-024-10081-2.
+24
+

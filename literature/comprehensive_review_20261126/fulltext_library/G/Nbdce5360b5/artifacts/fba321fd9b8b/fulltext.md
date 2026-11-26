@@ -1,0 +1,1459 @@
+# Ensemble Prediction of Time-to-Event Outcomes with Competing Risks: A Case-Study of Surgical Complications in Crohn's Disease
+
+Original PDF: [original.pdf](original.pdf). SHA256: `fba321fd9b8b1213638a4ffb8312d5ddf25f1b4722d67bfd368ac2a76c3a51cc`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+Technical extraction; compare with original PDF page 1.
+
+````text
+Ensemble Prediction of Time to Event Outcomes with Com-
+peting Risks: A Case Study of Surgical Complications in
+Crohn’s Disease
+Michael C Sachs
+Department of Medicine, Karolinska Institutet Stockholm, Sweden.
+E-mail: michael.sachs@ki.se
+Andrea Discacciati
+Institute of Environmental Medicine, Karolinska Institutet, Stockholm, Sweden.
+˚Asa H Everhov
+Department of Medicine, Karolinska Institutet, Stockholm, Sweden.
+Ola Ol´en
+Department of Medicine, Karolinska Institutet, Stockholm, Sweden.
+Erin E Gabriel
+Department of Medical Epidemiology and Biostatistics, Karolinska Institutet, Stockholm,
+Sweden.
+Summary. We develop a novel algorithm to predict the occurrence of major abdominal
+surgery within 5 years following Crohn’s disease diagnosis using a panel of 29 baseline co-
+variates from the Swedish population registers. We model pseudo-observations based on
+the Aalen-Johansen estimator of the cause-speciﬁc cumulative incidence with an ensem-
+ble of modern machine learning approaches. Pseudo-observation pre-processing easily
+extends all existing or new machine learning procedures to right-censored event history
+data. We propose pseudo-observation based estimators for the area under the time vary-
+ing ROC curve, for optimizing the ensemble, and the predictiveness curve, for evaluating
+and summarizing predictive performance.
+Keywords: competing risks; Crohn’s disease; inﬂammatory bowel disease; machine learn-
+ing; pseudo observations
+arXiv:1902.02533v1  [stat.AP]  7 Feb 2019
+
+````
+
+## PDF page 2
+
+Technical extraction; compare with original PDF page 2.
+
+````text
+2
+Michael C Sachs et al.
+1.
+Introduction
+1.1.
+Motivating study and statistical approaches
+Crohn’s disease (CD) is a chronic debilitating condition characterized by periods of
+inﬂammatory activity in the bowel that causes symptoms such as abdominal pain, di-
+arrhea, and weight loss. Pharmacologic treatment for CD includes medications such
+as steroids, immunomodulating drugs, and biological therapy. Despite these available
+medications, many people with CD are escalated to surgical interventions from small
+to extensive resections of the bowel or colon (Gomoll´on et al., 2016). Previous studies
+have estimated that up to 50% of patients with CD undergo surgery within 10 years
+after diagnosis; however, surgical rates have decreased over time, possibly due to the
+introduction of modern treatments such as thiopurines and anti-TNF (Lakatos et al.,
+2012; Ramadas et al., 2010). The aim of this study is to determine whether clinical and
+demographic characteristics observed at the time of diagnosis can be used to predict
+the occurrence of major abdominal surgery within 5 years, with the goal of personalized
+disease management. Although it might be of interest to determine which characteristics
+are associated with risk, we instead focus on obtaining the most accurate predictions,
+which, at least in this registry based setting, are useful even without knowing what is
+driving them.
+One of the statistical challenges is to deal with the fact that patients may die or
+emigrate during follow-up. These competing risks must be accounted for in development
+and evaluation of the prediction model. There are several possible approaches available
+for modeling a censored time to event outcome with competing risks. The time to event
+can be converted into a binary indicator of having the event within 5 years, and then the
+remaining observations weighted by the inverse of the probability of not being censored.
+This can be less eﬃcient as subjects censored prior to the time horizon do not directly
+contribute to estimation of the model. What’s more, the estimation method must be
+able to incorporate weights. A series of Cox models or direct modeling of the cumulative
+incidence as a function of covariates is also an option via the Fine-Gray model (Fine and
+Gray, 1999).
+As it is rarely known which model will give the best predictions, we instead wish to
+
+````
+
+## PDF page 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+Ensemble Prediction for CD
+3
+use an ensemble of models and machine learning (ML) procedures for prediction. There
+are existing methods that adapt ML procedures to censored data. Binder et al. (2009)
+develops a boosting algorithm for the Fine-Gray model under competing risks to select
+a subset of variables and form a prediction model. Ishwaran et al. (2014) develops a
+survival random forest that accounts for competing risks. Hothorn et al. (2006) develop
+two methods for ensemble learning that deal with right censored data by considering only
+observed event times and weighting by the probability of not being censored. Scheike
+et al. (2008) describes an alternative approach that involves direct binomial regression
+of the counting process formulation of the event in the presence of competing risks.
+Gerds and Ozenne (2018) provides a suite of methods for estimating the performance of
+prediction models in the competing risks setting, using inverse probability of censoring
+weighted (IPCW) estimates of the Brier score and AUC, however, one must ﬁt the
+prediction models ﬁrst.
+Under many of the existing methods based on binary data,
+including those in Scheike et al. (2008) and Hothorn et al. (2006), one needs to model
+the distribution of time to censoring and then use these as weights in the ML procedure.
+Although weight estimation may be easy, particularly in our motivating setting, there
+still needs to be a way to use the IPC weights in the ML procedure, making IPC weighting
+a useful but procedure speciﬁc solution for dealing with censoring.
+Our suggested procedure provides a general method that allows the application of all
+existing and any newly developed ML algorithm, without extension, to censored data
+with or without competing risks. We propose to generate pseudo-observations of the
+cause-speciﬁc cumulative incidence of surgery at 5 years, accounting for the competing
+risks of death and emigration, and use these pseudo-observations as the outcome variable
+in an ensemble learning approach using standard software for continuous outcomes.
+Mogensen and Gerds (2013) takes a similar approach to our proposed method, also
+using pseudo-observations, but only for the class of tree-based methods, building an
+ensemble of trees to construct a random forest. One may view our proposed procedure
+as an extension of concepts in Mogensen and Gerds (2013).
+In addition, we demonstrate how pseudo-observations can be used to estimate the
+time-varying ROC curve (Zheng et al., 2012; Heagerty et al., 2000) and the time varying
+
+````
+
+## PDF page 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+4
+Michael C Sachs et al.
+predictiveness curve (Pepe et al., 2007). To our knowledge, neither of these results has
+been demonstrated before. Using these results, we combine a set of ML procedures into
+an ensemble by optimizing the time-varying area under the ROC curve.
+The use of pseudo-observations has been described and evaluated fairly extensively
+for their use in the estimation of association models (Andersen et al., 2003; Andersen and
+Pohar Perme, 2010). Relatively little attention has been given towards their use in the
+development and evaluation of prediction models. In addition to Mogensen and Gerds
+(2013), Nicolaie et al. (2013) develop methods related to the development of dynamic
+prediction models using pseudo-observations and one paper has suggested evaluating
+existing predictive models using pseudo-observations to estimate the Brier score (Cortese
+et al., 2013).
+1.2.
+Description of the dataset and variables
+The motivating example comes from the Swedish population registers, in which we iden-
+tiﬁed all individuals with a ﬁrst ever diagnosis of CD in the Inpatient or Outpatient
+register from January 1, 2003 until December 31, 2014 using the international classiﬁca-
+tion of disease (ICD) code K50 (ICD-10, 1997-2014). We required at least two diagnostic
+listings with CD as main or contributory diagnosis in inpatient or outpatient care or CD
+associated abdominal surgery at the same time as the ﬁrst CD diagnosis. Patients regis-
+tered with a record of one of the major abdominal surgery events before 1 January 2003
+were excluded.
+The outcome variable of major abdominal surgery was deﬁned according to a set of
+procedure codes based on the NOMESCO Classiﬁcation of Surgical Procedures. We used
+six categories of procedures based on anatomical localization and expected functional
+outcome: resection of the small bowel, ileocecal/ileocolic resection, segmental resection of
+the colon, colectomy, and/or proctectomy. The occurrence of any of those surgeries and
+possibly in combination with each other deﬁned the major abdominal surgery outcome.
+Endoscopic, perianal, and upper gastrointestinal procedures were not included.
+Baseline characteristics and demographics are gathered from the patient register, the
+multigeneration register, and the prescribed drug register which are described in more
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+Ensemble Prediction for CD
+5
+detail elsewhere (Ludvigsson et al., 2016). A detailed description of the data sources and
+methods for deﬁning variables is available in a recent manuscript (Ol´en et al., 2017), and
+descriptive statistics for our study population are given in the Supplementary Materials.
+1.3.
+Aims of this paper
+Our aims are four-fold: illustrate our proposed general pseudo-observation based method
+for ensemble learning optimizing the area under the time varying ROC curve, compare
+our approach to existing methods, develop prediction algorithms for risk of surgery
+within 5 years in patients with CD, and evaluate those predictions with the pseudo-
+observation based predictiveness curve.
+After giving some notation in Section 2.1, we describe pseudo-observations for the
+cause-speciﬁc cumulative incidence in Section 2.2. We then develop pseudo-observation
+based estimators for the time-varying cause-speciﬁc area under the ROC curve and the
+predictiveness curve in Section 2.3. Then, using these results, we detail our modiﬁcation
+of the SuperLearner algorithm for this setting in Section 2.4. All of these methods are
+evaluated and compared to existing approaches in a simulation study which is described
+in Section 3. Finally, we analyze and discuss the results from our motivating study in
+Section 4.
+2.
+Methods
+2.1.
+Notation
+• Yi: right censored event time and ∆i ∈{0, 1, 2, 3}: event indicator where 0 indicates
+censoring, 1 indicates surgery, 2 indicates death, and 3 indicates emigration, for
+subjects i = 1, . . . , n.
+• Ti: is the true event time, δi ∈{1, 2, 3}: event indicator 1 indicates surgery, 2
+indicates death, and 3 indicates emigration,
+• Xij: biomarker measurement/covariate measured at baseline, for j = 1, . . . , p. Xi
+is the vector of covariates for subject i.
+
+````
+
+## PDF page 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+6
+Michael C Sachs et al.
+• Bik = fk(Xi), where fk : Rp →R is a covariate signature indexed by k. We denote
+ˆfk the estimated signature. The index k is used to distinguish between signatures
+estimated by diﬀerent algorithms or on diﬀerent subsets of the data.
+We are interested in the cumulative incidence of failure due to surgery at 5 years:
+C1(t⋆) = E{I(Ti ≤t⋆, δi = 1)} =
+Z t⋆
+0
+S(u)α1(u) du,
+where S(u) is the overall survival probability, α1(u) is the cause-speciﬁc hazard for
+failures from abdominal surgery, and t⋆= 5 years.
+2.2.
+Pseudo-observations for cumulative incidence
+Following Andersen and Pohar Perme (2010), we summarize the survival data as the
+counting process:
+N1(t) =
+X
+i
+I(Yi ≤t, ∆i = 1),
+giving the number of observed failures due to surgery on or before time t, and R(t) =
+P
+i I(Yi ≥t) gives the number of subjects still at risk just before time t. Our estimator of
+the cumulative incidence function is the Aalen-Johansen estimator (Aalen and Johansen,
+1978)
+ˆC1(t) =
+Z t
+0
+ˆS(u) d ˆA1(u),
+where ˆA1(u) =
+R t
+0 dN1(u)/R(u) is the Nelson-Aalen estimator for the cumulative cause-
+speciﬁc hazard for surgery failures, and ˆS is the Kaplan-Meier estimator of the overall
+survival from any cause.
+Then the ith pseudo-observation for cause 1 at time t is
+ˆCi
+1(t) = n ˆC1(t) −(n −1) ˆC−i
+1 (t),
+where ˆC−i
+1 (t) is the cumulative incidence function estimator computed by using the sam-
+ple excluding the ith observation. By construction and the unbiasedness of the Aalen-
+Johansen estimator, the pseudo-observations are unbiased for the cumulative cause-
+speciﬁc incidence: E{ ˆCi
+1(t)} = C1(t). Moreover, observe that the survival from any
+cause can be estimated E{1 −P3
+j=1 ˆCi
+j(t)} = P(Yi > t).
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+Ensemble Prediction for CD
+7
+Graw et al. (2009) proved that the mean of pseudo-observations conditional on covari-
+ates is asymptotically unbiased for the conditional cause-speciﬁc cumulative incidence.
+The validity of this proof and asymptotic properties of pseudo-observations in regression
+settings was further studied in Overgaard et al. (2017) and Jacobsen and Martinussen
+(2016). Thus we have,
+E( ˆCi
+1(t⋆)|Xi) = P(Ti ≤t⋆, δi = 1|Xi) + oP (1).
+This property of the pseudo-observations for the cumulative incidence allows us to use
+them as the outcome in prediction models in which we aim to estimate a mapping f(Xi).
+Then, as we show in the next section, we can evaluate the mapping f for predicting
+surgery by estimating the time-varying ROC curve, again using pseudo-observations.
+Conditional asymptotic unbiasedness of the pseudo-observations relies on the assump-
+tion that censoring time is independent of event time, event type and all other covariates;
+this was called ‘completely independent censoring’ in Overgaard et al. (2017). In our
+dataset, due to the quality of the Swedish population register, there is no loss to follow-up
+that is not due to death or emigration. Thus it is critical to model death and emigration
+as competing risks rather than simply censoring those subjects because the association
+between certain covariates and death or emigration may violate this assumption. All
+other censoring before 5 years is determined by the time of entry into the study (the
+date of CD diagnosis). For this reason, we use stratiﬁed pseudo-observation procedures.
+This was suggested in Andersen and Pohar Perme (2010), as a way to relax the deal
+with censoring that is dependent on a known categorical covariate. In other studies with
+loss to follow-up, censoring dependence maybe more complex. Procedures to extend
+pseudo-observations by modeling the censoring distribution and reweighting have been
+developed (Binder et al., 2014).
+2.3.
+Time varying measures of prediction accuracy estimated using pseudo observa-
+tions
+The time-varying ROC curve (Heagerty et al., 2000; Saha and Heagerty, 2010) for
+biomarker signature Bi at time t and cutoﬀc is deﬁned by the time varying, cause-
+
+````
+
+## PDF page 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+8
+Michael C Sachs et al.
+speciﬁc true-positive fraction
+TP(t, c) = P(Bi > c|Ti ≤t, δi = 1)
+and the false positive fraction that is deﬁned across all event types:
+FP(t, c) = P(Bi > c|Ti > t).
+While the TP can be deﬁned for all causes, we omit the cause-type subscript for the TP
+because we are only interested in the failures due to cause 1 (abdominal surgery). We
+can estimate these using pseudo-observations as follows. Bayes’ rule gives us
+P(Bi > c|Ti ≤t, δi = 1) = P(Ti ≤t, δi = 1|Bi > c)P(Bi > c)
+P(Ti ≤t, δi = 1)
+,
+which is the ratio of a conditional cumulative incidence to the marginal cumulative
+incidence. This suggests the following estimators:
+d
+TP(t, c) =
+P
+i ˆCi
+1(t)I(Bi > c)
+P
+i ˆCi
+1(t)
+and
+d
+FP(t, c) =
+P
+i(1 −P3
+j=1 ˆCi
+j(t))I(Bi > c)
+P
+i 1 −P3
+j=1 ˆCi
+j(t)
+.
+We conjecture that these estimators are asymptotically unbiased, based on the prop-
+erties of the pseudo-observations shown in Overgaard et al. (2017) and application of
+the continuous mapping theorem.
+The ROC curve at time t is a plot of the pairs {FP(t, c), TP(t, c)} as the cutoﬀ
+c varies.
+The estimated area under the time varying ROC curve at a ﬁxed time t
+for signature B is computed numerically using the trapezoidal rule, and is denoted
+[
+AUC(B, t). To our knowledge, this is a novel estimator of the time-varying ROC curve
+and, as a result, the time-varying AUC. The time-varying AUC has recently been shown
+to be a proper scoring function in the context of risk prediction of events at a ﬁxed time,
+unlike the survival concordance index (Blanche et al., 2018), making it a sensible target
+for prediction. The Brier score is a proper scoring rule also, but is diﬃcult to interpret
+in this case because the pseudo-observations are unbounded and because the true binary
+
+````
+
+## PDF page 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+Ensemble Prediction for CD
+9
+outcome is not completely observed. The time-varying predictiveness curve is then used
+to comprehensively evaluate the performance of the resulting prediction models.
+We can also estimate a time varying version of the predictiveness curve (Pepe et al.,
+2007) using pseudo-observations. The cause-speciﬁc predictiveness curve can be deﬁned
+P(Ti ≤t, δi = 1|Bi = c). We assess the usefulness of the model that creates Bi by
+plotting the percentiles of Bi versus the estimated cause speciﬁc cumulative incidence
+at those percentiles. As described by Pepe et al. (2007), this curve displays whether
+there are meaningful variations in the risk of the event in question over the range of
+predicted quantities.
+To our knowledge, pseudo-observations have not been used to
+estimate predictiveness curves previously.
+This curve could be estimated by binning Bi, into deciles and taking the average of
+the pseudo-observations within each of the bins. Further, we can ﬁt a locally weighted
+smooth average with the pseudo-observations as the outcome and the quantiles of Bi as
+the predictor. The ﬁtted values from this model provide an estimate of the predictiveness
+curve, from which we can display the estimated population cumulative incidence values
+as a smooth function of the predicted probabilities.
+The estimated true positive fractions and false positive fractions plotted as functions
+of the predicted risk values, combined with ROC and predictiveness curves provide a
+comprehensive summary of the performance and operating characteristics of the predic-
+tive models. We illustrate this in the data analysis below in Figure 3.
+2.4.
+Super-Learner predictive model development
+It is unknown which class of prediction procedures will perform best on a given real
+dataset. Instead of selecting one speciﬁc procedure or machine learning method, we use
+an ensemble of methods, and then form predictions by stacking the predictions from
+the particular methods into an ”ensemble predictor”.
+The stacking is performed by
+selecting the linear combination of individual predictions that maximizes the estimated
+AUC(t) in a cross-validation procedure. This stacked modeling approach is called the
+Superlearner (Van der Laan et al., 2007), and is implemented in the SuperLearner R
+package (Polley et al., 2017). Van der Laan et al. (2007) demonstrate that the resulting
+
+````
+
+## PDF page 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+10
+Michael C Sachs et al.
+prediction algorithm performs at least as well as the best predictor in the library of
+algorithms. The general algorithm is described in that paper, and here we present the
+speciﬁc steps adapted to our setting.
+Let L denote the library of K prediction algorithms. In general, a prediction algo-
+rithm with index k for k = 1, . . . , K, could be any method to develop ˆfk. The speciﬁc
+algorithms that we use in our simulations and data example are given in Table 3. The
+steps are as follows:
+(a) For a ﬁxed, ﬁnite grid of time points {t1, . . . , t⋆, . . . , tm}, where t⋆is the time point
+of interest for predicting incidence, calculate the pseudo-observations ˆCi
+j(tl), for
+j = 1, 2, 3; l = 1, . . . , m; i = 1, . . . , n.
+(b) Split the dataset X into a training and validation sample, according to a V-fold
+cross validation scheme: split the ordered n observations into V equal size groups.
+Let the ν-th group be the validation sample, and the remaining group the training
+sample, ν = 1, ..., V . Deﬁne T(ν) to be the νth training data split and V (ν) to be
+the corresponding validation data split where T(ν) = X \ V (ν), ν = 1, ..., V .
+(c) Stack the datasets so that there are m rows per subject i, with the same covariates
+Xi, additional variables for the pseudo-observations, and an additional variable for
+the times t1, . . . , t⋆, . . . , tm.
+(d) Fit each algorithm on the training set for each fold T(ν), to obtain ˆfkν for k =
+1, . . . , K and ν = 1, ..., V .
+(e) For each ˆfkν, obtain predicted pseudo-observations at t⋆for the validation set for
+each fold, i.e., ˜Ci
+1(t)k = ˆfkν(Xi, t⋆), for i ∈V (ν) and k = 1, . . . , K. This yields
+K predicted pseudo-observations for each subject i. Denote the vector of these for
+subject i and time t⋆as ˜Ci
+1(t⋆).
+(f) For a ﬁxed λ and t⋆, ﬁnd the K dimensional parameter vector ˆα that satisﬁes
+max
+α
+[
+AUC(αT ˜Ci
+1(t⋆), t⋆) + λ
+X
+k
+|αk|.
+To ensure proper calibration, normalize the coeﬃcients by their sum, ˆα∗= ˆα/1T ˆα.
+Although multiple time points may be used in the prediction procedures, note that
+only the time point t⋆is used in the loss function optimization procedure.
+
+````
+
+## PDF page 11
+
+FORMULA CHECK REQUIRED: original PDF page 11.
+
+````text
+Ensemble Prediction for CD
+11
+(g) For k = 1, . . . , K, ﬁt each algorithm on the full dataset to obtain ˆfk(Xi, t⋆), for
+i = 1, . . . , n. This forms an n by k matrix where the rows are predicted pseudo-
+observations for each subject, and the columns correspond to diﬀerent prediction
+methods.
+The ﬁnal predictor is the linear combination ˆα∗T ˆfk according to the
+cross-validated weights obtained in the previous step.
+The penalty term in step 6 above is introduced to solve the indentiﬁability issues
+that arise in maximization of the AUC, similar to what was suggested by Lin et al.
+(2011) and further discussed by Fong et al. (2016). Brieﬂy, the issues in maximizing the
+empirical AUC arise because the ROC curve is invariant to monotone transformations
+of the signature. Penalization of the objective function is one way to solve this issue and
+yield a unique solution for α.
+The calculation of the pseudo-observations at the ﬁxed grid of time points in step (a)
+and the stacking thereof allows us to borrow information across the time points, with the
+idea that this should perform as well or better than the counting process approach, or
+using an single time point. The computational burden of both calculating the pseudo-
+observations and ﬁtting the models in the library increases with the number of time
+points. The selection of the density and location of the time points in the grid is not
+something we investigate in this paper, however, in principle, one can include all observed
+event times. We suggest possible approaches to this issue in the discussion.
+3.
+Simulation study
+3.1.
+Data generation
+For each replicate of the simulation scenario, we generate a dataset with 500 subjects,
+20 normally distributed variables that are correlated with each other to varying degrees,
+and event times that are distributed Weibull with about 20% cumulative incidence of the
+surgery event and 7% cumulative incidence of the competing event of death at time t⋆.
+Censoring is completely independent (except for scenario D) and is either 20% or 50%
+on average random censoring, corresponding to 33% or 65% at the time t⋆. In scenario
+D, we allow censoring to depend on covariates. In all scenarios, the competing event was
+generated according to a Weibull distribution with a scale parameter that depends on a
+
+````
+
+## PDF page 12
+
+FORMULA CHECK REQUIRED: original PDF page 12.
+
+````text
+12
+Michael C Sachs et al.
+single covariate that was not related to the covariates that are associated with the time
+to surgery.
+For each simulated dataset, we implement our proposed method by computing pseudo
+observations for a grid of 4 time points, 2 before and 1 after the time point of inter-
+est, t⋆and using the AUC based SuperLearner procedure desribed in detail above. For
+comparison to our proposed method, we ﬁt a pseudo-observation model using a single
+time point at t⋆, a IPCW SuperLearner model on the binary outcome created by di-
+chotomizing the time to surgery at t⋆using the non-negative log likelihood loss, the
+model proposed by Binder et al. (2009) as implemented in the CoxBoost R package, and
+the random forests for competing risks survival proposed by (Ishwaran et al., 2014), as
+implemented in the R package randomForestsSRC. We estimate and use inverse proba-
+bility of censoring weighting in the binary SuperLearner approach via Kaplan-Meier for
+censoring event. For the binary SuperLearner only methods that natively allowed for
+weights were considered, while more libraries were used by the pseudo-observations. Ta-
+ble 3 in the application section describes the libraries used for each SuperLearner type.
+We generate an independent dataset on which to estimate the out-of-sample prediction
+error as estimated by the AUC.
+We consider 2 diﬀerent censoring rates and 4 diﬀerent scenarios:
+• Scenario A: exactly one variable is associated with the scale parameter of the
+surgery outcome in a log-linear way.
+• Scenario B: exactly 5 variables are associated with the scale parameter of the
+surgery outcome according to a b-spline relationship of degree 3, and with a linear
+interaction eﬀect.
+• Scenario C: exactly 5 variables are associated with the scale parameter of the
+surgery outcome in a complex way, including non-linearities, interactions, and
+threshold eﬀects.
+• Scenario D: Same as B, but censoring depends on a subset of the covariates from
+those associated with the surgery outcome. The covariate eﬀect on censoring is
+log-linear on the scale parameter of a Weibull distribution.
+
+````
+
+## PDF page 13
+
+FORMULA CHECK REQUIRED: original PDF page 13.
+
+````text
+Ensemble Prediction for CD
+13
+• Scenario E: Bootstrap of 500 samples and the ﬁrst 20 covariates from the CD data
+analysis. In this case the true event times and probabilities are unknown.
+Detailed speciﬁcation of and code for the simulation scenarios is given in the supple-
+mentary materials. In addition, we released an R package called sachsmc/pseupersims
+on github that contains the code used to perform this simulation study.
+The purpose of the simulation study is to evaluate the ability of the SuperLearner
+model based on pseudo-observations to develop a prediction model for the cumulative
+incidence and to compare to alternative approaches, and to the true model.
+3.2.
+Using pseudo-observations to develop prediction models
+Our proposed approach performs comparably to competing methods in terms of accu-
+rately predicting the true cumulative incidence, as shown in Tables 1 and 2. The average
+AUC over the simulation replicates is superior to all other considered approaches in sce-
+narios B, C, and D, while the other approaches perform well in scenario A. Compared
+to the binary SuperLearner approach, diﬀerences in the performance of the pseudo-
+observation based models were small, while the CoxBoost model and random forests
+occasionally showed markedly inferior performance. Still the classiﬁcation accuracy of
+the pseudo observation model is competitive with other approaches and potential for
+performance gains are clear. In the simulation E, 500 person bootstraps from the CD
+analysis data, we present the average estimated AUC for each of the methods. In that
+case, even the model based pseudo observations estimated at a single time point out-
+performs the binary, but the CoxBoost and random forests models outperform all other
+methods.
+The models based on pseudo observations computed at a single time point occa-
+sionally had convergence issues and therefore have extreme outliers, which explains the
+sometimes dramatically high MSE. The pseudo-observation model based on four time
+points had smaller variance in the predictions relative to the binary model in scenar-
+ios D and E. However, in some cases such as scenario B, we observe a higher variance,
+because, unlike all of the other methods, the predictions from the pseudo-observation
+models are not bounded. Finally, our proposed estimator for the AUC using the pseudo
+
+````
+
+## PDF page 14
+
+FORMULA CHECK REQUIRED: original PDF page 14.
+
+````text
+14
+Michael C Sachs et al.
+observations appears to be unbiased, as the estimated values were nearly identical to the
+AUC estimated using the true, and typically unobserved binary outcome of surgery at
+time t⋆.
+4.
+CD complications results
+The total sample size included 9605 subjects diagnosed with adult-onset CD after Jan-
+uary 1, 2003.
+The demographic characteristics we considered for prediction include
+gender, age at diagnosis, calendar year of diagnosis, highest parental education, whether
+or not parents were born outside of Sweden, whether the subject was born outside of
+Sweden, and whether there is any family history of CD or ulcerative colitis. Clinical
+characteristics considered at the time of diagnosis are whether it was an inpatient or
+outpatient diagnosis, Montr´eal classiﬁcation of disease, presence of primary sclerosing
+cholangitis, presence of extra-intestinal manifestations, and exposure to CD related med-
+ications. Comorbidities considered were diabetes, hypertension, ischemic heart disease,
+cerebrovascular disease, congestive heart failure, chronic obstructive pulmonary disorder,
+and kidney failure. The covariates are described in Supplemental Tables 1 - 3.
+The cumulative incidence curves for the two competing risks are shown in Figure 1.
+We are interested in developing a model to predict the incidence of abdominal surgery
+within 5 years, while accounting for the competing risks of death and emigration.
+4.1.
+Predictive performance
+We randomly split the dataset into two, equal-size subsamples, a training and a validation
+set. On the training set, we performed the algorithm as described above, including cross-
+validation within the training sample. Time of entry into the study (CD diagnosis) was
+categorized into the sets January 2003-December 2008, and then in 6 month periods from
+January 2009 to December 2015. Pseudo observations were calculated conditionally on
+the categorized time of entry to account for censoring that is determined by time of
+entry and for subsets with no subjects with more than 5 years of follow up, the last
+estimated value of the cumulative incidence was carried forward. We used the grid of
+time points {2.5, 4, 5, 5.5} years, and calculated pseudo observations at these times. We
+
+````
+
+## PDF page 15
+
+Technical extraction; compare with original PDF page 15.
+
+````text
+Ensemble Prediction for CD
+15
+Table 1. Results of simulation study using a setting with approximately 20% random censoring
+(approximately 33% missingness in the binary outcome). We compare the estimation of the area
+under the time varying ROC curve using the true binary outcome that is unobserved (labelled
+tbauc), the estimation of the AUC using pseudo observations as described in Section 2 (labelled
+pauc), and the bias, standard deviation, and mean squared error (mse) of the predicted outcomes
+compared to the true probabilities of the outcome.
+model
+mean.tbauc
+sd.tbauc
+mean.pauc
+sd.pauc
+mean.bias
+sd.prob
+mse
+Scenario A
+binary
+0.735
+0.031
+0.736
+0.033
+0.003
+0.146
+0.043
+CoxBoost
+0.734
+0.026
+0.731
+0.029
+0.002
+0.116
+0.040
+pseudo
+0.729
+0.028
+0.729
+0.031
+0.002
+0.147
+0.086
+pseudo.single
+0.717
+0.033
+0.718
+0.035
+0.000
+0.171
+0.132
+rfsrc
+0.716
+0.027
+0.717
+0.029
+-0.008
+0.123
+0.049
+true
+0.747
+0.025
+0.747
+0.028
+0.000
+0.228
+0.000
+Scenario B
+binary
+0.569
+0.042
+0.570
+0.045
+-0.001
+0.064
+0.068
+CoxBoost
+0.522
+0.034
+0.514
+0.038
+0.009
+0.041
+0.044
+pseudo
+0.546
+0.073
+0.548
+0.075
+-0.056
+0.505
+103.615
+pseudo.single
+0.533
+0.051
+0.535
+0.054
+-0.009
+0.527
+5.799
+rfsrc
+0.579
+0.036
+0.580
+0.040
+-0.011
+0.072
+0.055
+true
+0.666
+0.031
+0.665
+0.035
+0.000
+0.122
+0.000
+Scenario C
+binary
+0.839
+0.039
+0.840
+0.041
+0.010
+0.256
+0.062
+CoxBoost
+0.630
+0.032
+0.622
+0.036
+0.002
+0.081
+0.025
+pseudo
+0.848
+0.062
+0.848
+0.062
+0.010
+0.268
+0.257
+pseudo.single
+0.833
+0.040
+0.834
+0.042
+-0.007
+0.300
+0.117
+rfsrc
+0.780
+0.034
+0.780
+0.036
+-0.010
+0.109
+0.034
+true
+0.927
+0.013
+0.927
+0.013
+0.000
+0.521
+0.000
+Scenario D
+binary
+0.839
+0.037
+0.843
+0.037
+0.009
+0.258
+0.054
+CoxBoost
+0.625
+0.032
+0.621
+0.034
+-0.002
+0.081
+0.027
+pseudo
+0.853
+0.035
+0.858
+0.036
+0.011
+0.252
+0.155
+pseudo.single
+0.830
+0.075
+0.834
+0.075
+0.010
+0.380
+4.797
+rfsrc
+0.782
+0.032
+0.785
+0.033
+-0.013
+0.107
+0.042
+true
+0.926
+0.013
+0.929
+0.014
+0.000
+0.520
+0.000
+Scenario E: bootstrap of CD data, 36% missingness
+binary
+-
+-
+0.525
+0.035
+-
+0.324
+-
+CoxBoost
+-
+-
+0.585
+0.043
+-
+0.062
+-
+pseudo
+-
+-
+0.560
+0.059
+-
+0.297
+-
+pseudo.single
+-
+-
+0.552
+0.061
+-
+0.184
+-
+rfsrc
+-
+-
+0.598
+0.042
+-
+0.089
+-
+
+````
+
+## PDF page 16
+
+FORMULA CHECK REQUIRED: original PDF page 16.
+
+````text
+16
+Michael C Sachs et al.
+Table 2. Results of simulation study using a setting with approximately 50% random censoring
+(approximately 65% missingness in the binary outcome). We compare the estimation of the area
+under the time varying ROC curve using the true binary outcome that is unobserved (labeled tbauc),
+the estimation of the AUC using pseudo observations as described in Section 2 (labeled pauc), and
+the bias, standard deviation, and mean squared error (mse) of the predicted outcomes compared
+to the true probabilities of the outcome.
+model
+mean.tbauc
+sd.tbauc
+mean.pauc
+sd.pauc
+mean.bias
+sd.pred
+100∗mse
+Scenario A
+binary
+0.730
+0.034
+0.728
+0.039
+0.024
+0.140
+0.114
+CoxBoost
+0.734
+0.028
+0.729
+0.036
+0.026
+0.110
+0.117
+pseudo
+0.722
+0.041
+0.719
+0.048
+0.037
+0.188
+8.272
+pseudo.single
+0.704
+0.041
+0.701
+0.045
+0.031
+0.161
+0.168
+rfsrc
+0.711
+0.031
+0.708
+0.038
+0.017
+0.110
+0.077
+true
+0.747
+0.028
+0.745
+0.035
+0.000
+0.230
+0.000
+Scenario B
+binary
+0.552
+0.043
+0.554
+0.051
+0.020
+0.061
+0.123
+CoxBoost
+0.519
+0.033
+0.513
+0.042
+0.032
+0.042
+0.144
+pseudo
+0.532
+0.065
+0.534
+0.069
+0.013
+0.382
+6.204
+pseudo.single
+0.517
+0.044
+0.517
+0.051
+0.122
+0.708
+96.630
+rfsrc
+0.557
+0.035
+0.558
+0.045
+0.013
+0.067
+0.068
+true
+0.661
+0.029
+0.659
+0.037
+0.000
+0.121
+0.000
+Scenario C
+binary
+0.814
+0.039
+0.802
+0.043
+0.033
+0.231
+0.182
+CoxBoost
+0.620
+0.034
+0.607
+0.044
+0.044
+0.073
+0.232
+pseudo
+0.820
+0.057
+0.811
+0.057
+0.075
+0.319
+15.444
+pseudo.single
+0.792
+0.074
+0.780
+0.075
+0.045
+0.320
+3.285
+rfsrc
+0.738
+0.036
+0.726
+0.046
+0.035
+0.089
+0.161
+true
+0.926
+0.013
+0.911
+0.017
+0.000
+0.521
+0.000
+Scenario D
+binary
+0.822
+0.042
+0.812
+0.047
+0.026
+0.234
+0.139
+CoxBoost
+0.616
+0.033
+0.602
+0.040
+0.031
+0.075
+0.139
+pseudo
+0.824
+0.040
+0.814
+0.043
+0.032
+0.322
+0.403
+pseudo.single
+0.788
+0.086
+0.781
+0.087
+0.016
+0.432
+6.134
+rfsrc
+0.738
+0.035
+0.727
+0.039
+0.023
+0.090
+0.090
+true
+0.925
+0.013
+0.911
+0.017
+0.000
+0.522
+0.000
+
+````
+
+## PDF page 17
+
+Technical extraction; compare with original PDF page 17.
+
+````text
+Ensemble Prediction for CD
+17
+Fig. 1. Cumulative incidence curves of surgery, death or emigration since onset of Crohn’s
+disease in a sample of 9605 patients with onset between 2003 and 2014.
+ran one SuperLearner model using the full grid, and another one including all nested
+subsets of the grid (meaning no non-adjacent times were included) combined with each
+ML procedure in the ensemble. For comparison, we ran all methods considered in the
+simulations. The binary outcome had 36% missingness on the training sample. The
+censoring weights used in the binary method were estimated using Kaplan-Meier for
+censoring, stratiﬁed by the times of entry in the same way as for the pseudo observations.
+The performance of the candidate learning algorithms are described in Table 3 by
+the cross-validated AUCs and the estimated SuperLearner coeﬃcients, when applicable.
+Precise speciﬁcation of the various settings and tuning parameters for each procedure
+are supplied in the supplementary materials. The performance of each of the models is
+modest, with AUCs ranging from 0.57 to 0.64. The non-negative log-likelihood risk is
+also presented in Table 3 for the binary methods; smaller values of this indicate better
+performance. The weights estimated using the SuperLearner ensemble optimization are
+
+````
+
+## PDF page 18
+
+Technical extraction; compare with original PDF page 18.
+
+````text
+18
+Michael C Sachs et al.
+given in the weight columns. The performance of the ensemble over all nested subsets of
+the times in the grid was similar, but slightly superior, to that using only the four point
+time grid.
+The out-of-sample predictive performance results are shown in Figure 3. The Su-
+perLearner model using the pseudo-observations was superior to the weighted binary
+SuperLearner, with estimated AUCs of 0.64 and 0.50, respectively. The random forests
+model and the CoxBoost model performed slightly worse than the pseudo-observation
+approach, as summarized by the AUC, with an AUC of 0.632 and 0.60, respectively.
+The characteristics of the models diﬀered in other ways, such as the shape of the ROC
+curve and predictiveness curves.
+The predictiveness curves in Figure 3 show that the pseudo-observation model is
+informative regarding risk of abdominal surgery. CD patients in the top percentile of
+the predicted risk have an estimated 21% probability of surgery within 5 years, compared
+to the marginal risk of 13%. Likewise, the patients with the lowest predicted risk have
+less than a 5% risk of surgery within 5 years. The smoothed locally weighted average
+of the pseudo observations allows us to estimate the predictiveness curve as a smooth
+function of the risk percentile, as shown in the solid line. This also suggests that pseudo-
+observation based predictions have value, as it varies monotonically over the percentiles
+of the predictions.
+5.
+Discussion
+In our motivating study, we developed a predictive model for abdominal surgery within 5
+years following CD diagnosis based on routinely collected clinical characteristics observed
+at the time of diagnosis. The proposed prediction procedure has an estimated out of
+sample AUC of 0.64, which is the highest among the considered methods. Medical man-
+agement of CD is becoming increasingly personalized and individualized risk estimations
+are needed. For some patients at high risk of surgery, a more aggressive medication or
+monitoring strategy may be warranted. In some patients, where a surgical intervention
+is inevitable, it should be performed sooner to improve quality of life.
+Although it may be helpful to further understanding, it is not necessary to ’unpack
+
+````
+
+## PDF page 19
+
+FORMULA CHECK REQUIRED: original PDF page 19.
+
+````text
+Ensemble Prediction for CD
+19
+Table 3.
+Description of the prediction algorithms used and in which settings they were used for the
+example. For the binary and pseudo observations SuperLearner approaches, we summarize the non-
+negative log-likelihood risk for binary (smaller is better), and the AUC (larger is better) for pseudo for each
+method, along with the estimated coefﬁcients for the method in the ensemble. The nested pseudo column
+presents the average (over the subsets) AUC and sum of the weights for each model in which all nested
+subsets of the grid of time points are allowed in the ensemble. For the survival based methods, CoxBoost
+and random forests, we compute the out-of-sample AUC based on pseudo-observations for comparison
+to the other methods.
+Model
+R package
+Binary
+All Pseudo
+Nested Pseudo
+Risk
+weight
+AUC
+weight
+AUC
+weight
+Used for both Binary and Pseudo Observations
+General Linear model, with
+screening
+stats
+25.2
+0.17
+0.63
+0.15
+0.63
+0.04
+Generalized additive model,
+with screening
+gam
+24.7
+0.00
+0.63
+0.19
+0.63
+0.03
+Random forest with bagging
+randomForest
+22.1
+0.40
+0.59
+0.20
+0.60
+0.04
+Recursive partitioning and
+regression trees
+rpart
+Inf
+0.08
+0.57
+0.04
+0.55
+0.14
+LASSO
+glmnet
+22.6
+0.00
+0.64
+0.20
+0.63
+0.03
+Multivariate adaptive poly-
+nomial spline, with screening
+polspline
+27.6
+0.06
+0.61
+0.10
+0.62
+0.21
+Extreme gradient boosting
+xgboost
+22.0
+0.28
+0.63
+0.46
+0.63
+0.25
+Used only for Pseudo Observations
+Kernel support vector ma-
+chine
+kernlab
+0.59
+−0.07
+0.58
+0.08
+Stepwise selection
+stats
+0.63
+0.13
+0.63
+0.05
+Used only for censored survival outcomes
+Cox Boost
+CoxBoost
+0.63
+Random Forests
+randomForestSRC
+0.60
+
+````
+
+## PDF page 20
+
+Technical extraction; compare with original PDF page 20.
+
+````text
+20
+Michael C Sachs et al.
+Fig. 2. Estimated out of sample ROC curves for the different models used in the example.
+the black box’ for the predictive model to be useful in this setting because all variables
+contributing to the predictions will be collected regardless of their usefulness in predicting
+risk. For this reason, the model for the predictions could be used directly, via electronic
+health records, for real-time predictions in clinical settings, without the need to know
+which variables are driving the models. Implementation of such real-time predictions
+and evaluating its impact on patient outcomes is a future area of clinical research for
+the authors.
+We have shown that the use of pseudo-observations based on the cumulative incidence
+can be used with the all libraries for continuous data that are compatible with the Su-
+perLearner package, and by extension can be used with any existing or newly developed
+ML procedures for continuous data in the same way. We also show that our proposed
+loss function, the pseudo-observation based time-dependent AUC, is a useful measure
+of predictive value for our setting and that the pseudo-observation based predictiveness
+
+````
+
+## PDF page 21
+
+Technical extraction; compare with original PDF page 21.
+
+````text
+Ensemble Prediction for CD
+21
+Fig. 3. (Left panel) Estimated out-of-sample true and false positive fractions as functions of the
+risk percentiles for the cumulative incidence of surgery at 5 years, accounting for the competing
+risk of death, since onset of Crohn’s disease in the validation sample. (Right panel) Estimated
+predictiveness curves for the cumulative incidence of surgery at 5 years, accounting for the
+competing risk of death, since onset of Crohn’s disease in the validation sample. Points are
+binned estimates, solid line is the locally weighted smoothed average of the individual pseudo-
+observations (not the binned estimates), and dotted line is the marginal risk.
+curve is a useful depiction of those predictions. We provide freely available software
+which contains this modiﬁcation to the SuperLearner package in addition to the other
+methods described herein.
+Although our proposed pseudo-observation based method outperforms the IPCW
+binary method in terms of predictive accuracy in the data analysis and when using mul-
+tiple times points in the most settings in the simulations, it performs more similarly
+when a single time point is used. In addition, in most, but not all, of the scenarios,
+our method outperforms the individual class survival methods. The pseudo-observation
+based method, however, we found easier to apply, as the package randomForestSRC
+caused R to crash repeatedly during development; we believe this may be due to the
+
+````
+
+## PDF page 22
+
+FORMULA CHECK REQUIRED: original PDF page 22.
+
+````text
+22
+Michael C Sachs et al.
+large sample size leading to memory issues in the data analysis. Although our proposed
+methods performs similarly to, sometimes better and sometimes worse than, the other
+existing methods, a new ML procedure may be developed that will improve performance
+of our methods in the future. As creating pseudo-observations is a general pre-processing
+step, a pseudo-observation based ensemble could include this new method without ex-
+tension, where direct adaptations of the method for application to censored data will
+take time and eﬀort.
+The idea of stacking pseudo-observations in regression models is not new, and was an
+approach suggested for dynamic prediction models of competing risks (Nicolaie et al.,
+2013). One advantage of the SuperLearner approach is that it is possible to include
+multiple time-point sets, as we did in the data analysis, to determine what time points
+from a pre-selected grid are most useful. The question of how to choose the grid of time
+points at which to calculate the pseudo-observations is one that we did not investigate
+in great detail. It is of note that we selected the grid somewhat arbitrarily, thus one
+might expect that performance can only be improved via some selection or optimization
+process. The pre-selection of the grid is an avenue for future research.
+6.
+Bibliography
+References
+Aalen, O. O. and Johansen, S. (1978) An empirical transition matrix for non-
+homogeneous markov chains based on censored observations. Scandinavian Journal of
+Statistics, 141–150.
+Andersen, P. K., Klein, J. P. and Rosthøj, S. (2003) Generalised linear models for cor-
+related pseudo-observations, with applications to multi-state models. Biometrika, 90,
+15–27.
+Andersen, P. K. and Pohar Perme, M. (2010) Pseudo-observations in survival analysis.
+Statistical methods in medical research, 19, 71–99.
+Binder, H., Allignol, A., Schumacher, M. and Beyersmann, J. (2009) Boosting for high-
+dimensional time-to-event data with competing risks. Bioinformatics, 25, 890–896.
+
+````
+
+## PDF page 23
+
+FORMULA CHECK REQUIRED: original PDF page 23.
+
+````text
+Ensemble Prediction for CD
+23
+Binder, N., Gerds, T. A. and Andersen, P. K. (2014) Pseudo-observations for competing
+risks with covariate dependent censoring. Lifetime data analysis, 20, 303–315.
+Blanche, P., Kattan, M. W. and Gerds, T. A. (2018) The c-index is not proper for the
+evaluation of t-year predicted risks. Biostatistics.
+Cortese, G., Gerds, T. A. and Andersen, P. K. (2013) Comparing predictions among
+competing risks models with time-dependent covariates. Statistics in medicine, 32,
+3089–3101.
+Fine, J. P. and Gray, R. J. (1999) A proportional hazards model for the subdistribution
+of a competing risk. Journal of the American statistical association, 94, 496–509.
+Fong, Y., Yin, S. and Huang, Y. (2016) Combining biomarkers linearly and nonlinearly
+for classiﬁcation using the area under the roc curve. Statistics in medicine, 35, 3792–
+3809.
+Gerds, T. A. and Ozenne, B. (2018) riskRegression: Risk Regression Models and Pre-
+diction Scores for Survival Analysis with Competing Risks.
+URL: https://CRAN.
+R-project.org/package=riskRegression. R package version 2018.10.03.
+Gomoll´on, F., Dignass, A., Annese, V., Tilg, H., Van Assche, G., Lindsay, J. O., Peyrin-
+Biroulet, L., Cullen, G. J., Daperno, M., Kucharzik, T. et al. (2016) 3rd european
+evidence-based consensus on the diagnosis and management of crohn’s disease 2016:
+part 1: diagnosis and medical management. Journal of Crohn’s and Colitis, 11, 3–25.
+Graw, F., Gerds, T. A. and Schumacher, M. (2009) On pseudo-values for regression
+analysis in competing risks models. Lifetime Data Analysis, 15, 241–255.
+Heagerty, P. J., Lumley, T. and Pepe, M. S. (2000) Time-dependent roc curves for
+censored survival data and a diagnostic marker. Biometrics, 56, 337–344.
+Hothorn, T., B¨uhlmann, P., Dudoit, S., Molinaro, A. and Van Der Laan, M. J. (2006)
+Survival ensembles. Biostatistics, 7, 355–373.
+Ishwaran, H., Gerds, T. A., Kogalur, U. B., Moore, R. D., Gange, S. J. and Lau, B. M.
+(2014) Random survival forests for competing risks. Biostatistics, 15, 757–773.
+
+````
+
+## PDF page 24
+
+FORMULA CHECK REQUIRED: original PDF page 24.
+
+````text
+24
+Michael C Sachs et al.
+Jacobsen, M. and Martinussen, T. (2016) A note on the large sample properties of esti-
+mators based on generalized linear models for correlated pseudo-observations. Scan-
+dinavian Journal of Statistics, 43, 845–862.
+Van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super learner. Statistical
+applications in genetics and molecular biology, 6.
+Lakatos, P. L., Golovics, P. A., David, G., Pandur, T., Erdelyi, Z., Horvath, A., Mester,
+G., Balogh, M., Szipocs, I., Molnar, C. et al. (2012) Has there been a change in
+the natural history of crohn’s disease?
+surgical rates and medical management in
+a population-based inception cohort from western hungary between 1977–2009. The
+American journal of gastroenterology, 107, 579.
+Lin, H., Zhou, L., Peng, H. and Zhou, X.-H. (2011) Selection and combination of
+biomarkers using roc method for disease classiﬁcation and prediction. Canadian Jour-
+nal of Statistics, 39, 324–343.
+Ludvigsson, J. F., Almqvist, C., Bonamy, A.-K. E., Ljung, R., Micha¨elsson, K., Neovius,
+M., Stephansson, O. and Ye, W. (2016) Registers of the swedish total population and
+their use in medical research. European journal of epidemiology, 31, 125–136.
+Mogensen, U. B. and Gerds, T. A. (2013) A random forest approach for competing risks
+based on pseudo-values. Statistics in medicine, 32, 3102–3114.
+Nicolaie, M., van Houwelingen, J., de Witte, T. and Putter, H. (2013) Dynamic pseudo-
+observations: A robust approach to dynamic prediction in competing risks. Biometrics,
+69, 1043–1052.
+Ol´en, O., Askling, J., Sachs, M., Frumento, P., Neovius, M., Smedby, K., Ekbom, A.,
+Malmborg, P. and Ludvigsson, J. F. (2017) Childhood onset inﬂammatory bowel dis-
+ease and risk of cancer: a swedish nationwide cohort study 1964-2014. Bmj, 358,
+j3951.
+Overgaard, M., Parner, E. T., Pedersen, J. et al. (2017) Asymptotic theory of gener-
+alized estimating equations based on jack-knife pseudo-observations. The Annals of
+Statistics, 45, 1988–2015.
+
+````
+
+## PDF page 25
+
+FORMULA CHECK REQUIRED: original PDF page 25.
+
+````text
+Ensemble Prediction for CD
+25
+Pepe, M. S., Feng, Z., Huang, Y., Longton, G., Prentice, R., Thompson, I. M. and
+Zheng, Y. (2007) Integrating the predictiveness of a marker with its performance as a
+classiﬁer. American journal of epidemiology, 167, 362–368.
+Polley, E., LeDell, E., Kennedy, C. and van der Laan, M. (2017) SuperLearner: Super
+Learner Prediction.
+URL: https://CRAN.R-project.org/package=SuperLearner.
+R package version 2.0-22.
+Ramadas, A., Gunesh, S., Thomas, G., Williams, G. and Hawthorne, A. (2010) Natural
+history of crohn’s disease in a population-based cohort from cardiﬀ(1986–2003): a
+study of changes in medical treatment and surgical resection rates. Gut, 59, 1200–
+1206.
+Saha, P. and Heagerty, P. (2010) Time-dependent predictive accuracy in the presence of
+competing risks. Biometrics, 66, 999–1011.
+Scheike, T. H., Zhang, M.-J. and Gerds, T. A. (2008) Predicting cumulative incidence
+probability by direct binomial regression. Biometrika, 95, 205–220.
+Zheng, Y., Cai, T., Jin, Y. and Feng, Z. (2012) Evaluating prognostic accuracy of
+biomarkers under competing risk. Biometrics, 68, 388–396.
+
+````
+

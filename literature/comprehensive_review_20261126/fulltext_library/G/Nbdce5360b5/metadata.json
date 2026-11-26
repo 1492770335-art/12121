@@ -1,0 +1,38 @@
+{
+  "paper_id": "Nbdce5360b5",
+  "category": "G",
+  "title": "Ensemble Prediction of Time-to-Event Outcomes with Competing Risks: A Case-Study of Surgical Complications in Crohn's Disease",
+  "authors": "Michael C. Sachs and Andrea Discacciati and Åsa H. Everhov and Ola Olén and Erin E. Gabriel",
+  "doi": "10.1111/rssc.12367",
+  "year": "2019",
+  "original_url": "https://doi.org/10.1111/rssc.12367",
+  "local_fulltext": true,
+  "public_pdf": [
+    "G/Nbdce5360b5/artifacts/fba321fd9b8b/original.pdf"
+  ],
+  "public_markdown": [
+    "G/Nbdce5360b5/artifacts/fba321fd9b8b/fulltext.md"
+  ],
+  "public_txt": [
+    "G/Nbdce5360b5/artifacts/fba321fd9b8b/fulltext.txt"
+  ],
+  "original_tex": [
+    "G/Nbdce5360b5/artifacts/fba321fd9b8b/latex/amssym.tex",
+    "G/Nbdce5360b5/artifacts/fba321fd9b8b/latex/iris-analysis.tex",
+    "G/Nbdce5360b5/artifacts/fba321fd9b8b/latex/supplement.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "fba321fd9b8b1213638a4ffb8312d5ddf25f1b4722d67bfd368ac2a76c3a51cc",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/1902.02533",
+      "provenance": "G/Nbdce5360b5/artifacts/fba321fd9b8b/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "G/Nbdce5360b5/README.md",
+  "status": "public_fulltext"
+}

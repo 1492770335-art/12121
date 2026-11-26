@@ -1,0 +1,53 @@
+\begin{table}[H]
+\caption{Summary Statistics and Balance Check}
+\label{tab:balance_check}
+\centering
+\begin{threeparttable}
+
+{\normalsize
+
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} cccccc}
+\toprule
+ & \multicolumn{4}{c}{Sample mean by group } &   \multicolumn{1}{c}{Difference in sample means}\\
+ &  \multicolumn{4}{c}{[standard deviation]} &  \\
+\cmidrule{2-6}
+ & $(U, U)$ & $(U, T)$ & $(T, U)$ & $(T, T)$ & p-value \\
+\midrule
+Peak hour usage & 201 & 200 & 196 & 198 & 0.910 \\
+ (2020 summer, Wh) & [145] & [136] & [136] & [136] & \\
+\addlinespace
+Pre-peak hour usage & 189 & 184 & 183 & 182 & 0.853 \\
+ (2020 summer, Wh) & [143] & [130] & [137] & [130] & \\
+\addlinespace
+Post-peak hour usage & 311 & 311 & 308 & 305 & 0.893 \\
+ (2020 summer, Wh) & [175] & [171] & [164] & [163] & \\
+\addlinespace
+Peak hour usage & 311 & 309 & 304 & 306 & 0.913 \\
+ (2020 winter, Wh) & [194] & [170] & [179] & [170] & \\
+\addlinespace
+Pre-peak hour usage & 171 & 171 & 169 & 166 & 0.854 \\
+ (2020 winter, Wh) & [117] & [102] & [112] & [102] & \\
+\addlinespace
+Post-peak hour usage & 287 & 295 & 280 & 287 & 0.664 \\
+ (2020 winter, Wh) & [198] & [198] & [203] & [192] & \\
+\addlinespace
+Number of people at home & 1.31 & 1.32 & 1.31 & 1.34 & 0.956 \\
+(1 PM - 5 PM) & [1.04] & [0.96] & [1.04] & [1.01] & \\
+\addlinespace
+Number of people at home & 2.57 & 2.48 & 2.47 & 2.51 & 0.483 \\
+(5 PM - 9 PM) & [1.29] & [1.20] & [1.23] & [1.20] & \\
+\addlinespace
+Self-efficacy in energy conservation & 3.44 & 3.44 & 3.47 & 3.44 & 0.935 \\
+ (1-5 scale) & [0.84] & [0.86] & [0.86] & [0.82] & \\
+\addlinespace
+Household income & 651 & 639 & 614 & 606 & 0.120 \\
+(JPY 10,000) & [400] & [387] & [393] & [333] & \\
+\bottomrule
+\end{tabular*}
+}
+
+\begin{tablenotes}[flushleft]
+\footnotesize\item Notes: Columns 1-4 show present sample means and standard deviations in brackets for the pre-experimental consumption data and demographic variables by randomly-assigned group to the first and second period. $(U,U)$ is assigned to the untreated in both the first and second periods. $(U,T)$ is assigned to the untreated in the first period and the treated in the second period. $(T,U)$ is assigned to the treated in the first period and the untreated in the second period. $(T,T)$ is assigned to the treated in both the first and second periods. Column 5 shows the p-values of the F-test for the difference in sample averages between the four groups. The number of households are 625 for $(U,U)$, 606 for $(U,T)$, 581 for $(T,U)$, and 588 for $(T,T)$. The monetary unit is given as 1 ¢=1 JPY in the summer of 2020.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

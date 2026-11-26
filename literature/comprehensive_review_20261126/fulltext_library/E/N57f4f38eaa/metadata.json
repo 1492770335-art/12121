@@ -1,0 +1,28 @@
+{
+  "paper_id": "N57f4f38eaa",
+  "category": "E",
+  "title": "Residual Weighted Learning for Estimating Individualized Treatment Rules",
+  "authors": "Xin Zhou and Nicole Mayer-Hamblett and Umer Khan and Michael R. Kosorok",
+  "doi": "10.1080/01621459.2015.1093947",
+  "year": "2017",
+  "original_url": "https://doi.org/10.1080/01621459.2015.1093947",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "e86f5bb3c8a054afd4f74c19a1d267db0251efe6f907c20d6e06e07fa76219f2",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1508.03179"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N57f4f38eaa/README.md",
+  "status": "local_only"
+}

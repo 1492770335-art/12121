@@ -1,0 +1,28 @@
+{
+  "paper_id": "E14",
+  "category": "E",
+  "title": "$\\mathbf{Q}$- and $\\mathbf{A}$-Learning Methods for Estimating Optimal Dynamic Treatment Regimes",
+  "authors": "Phillip J. Schulte and Anastasios A. Tsiatis and Eric B. Laber and Marie Davidian",
+  "doi": "10.1214/13-sts450",
+  "year": "2014",
+  "original_url": "https://doi.org/10.1214/13-sts450",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "5b7baf17002a4f1aeb90b52f0df9a2fa4fccf01ea500163cda40aa95dc1b4c2b",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1202.4177"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/E14/README.md",
+  "status": "local_only"
+}

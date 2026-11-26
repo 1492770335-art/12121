@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2404.17398v2",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2404.17398v2",
+  "archive_sha256": "5c8b984f84b2552cd6765a9463897b83990ad89bfc09dd889c85c5f915fb41d7",
+  "files": [
+    {
+      "path": "oPL-MC.tex",
+      "bytes": 307654,
+      "sha256": "35190e79d42f5a1653202a6cb5c6b14d3c59d9e8579ac7b8faadc39cf6cb0c4f"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

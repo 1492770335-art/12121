@@ -1,0 +1,129 @@
+
+\section{Algorithms}\label{sec:motivation}
+
+
+In this section, we present two algorithms. {\newedit The first algorithm aims to estimate the soft optimal policy by first estimating a soft Q-function. The second algorithm estimates the optimal policy after estimating the Q-function.}
+
+
+\subsection{Minimax Soft-Q-learning with Penalization}
+Our ultimate aim is to mimic the optimal policy $\pi^{\star}$. As a first step, we begin by finding a policy that maximizes the following regularized objective: 
+ $  \argmax_{\pi} J_{\alpha}(\pi)$ where for $\alpha>0$ we define
+\begin{align*}
+ J_{\alpha}(\pi)=(1-\gamma)^{-1}\EE_{(s,a)\sim d_{\pi,\mu_0},r\sim P_r(\cdot \mid s,a)}[r-\underbrace{\alpha \log \{\pi(a\mid s)/\pi_b(a\mid s)\}]}_{\text{KL penalty (between $\pi$ and $\pi_b$)}} 
+\end{align*} %
+This objective function is used in a variety of contexts in RL as mentioned in Section~\ref{subsec:related}. The optimal policy that maximizes $J_{\alpha}(\pi)$ with respect to $\pi$  is  
+\begin{align}\label{eq:softmax_optimal}
+    \pi^{\star}_{\alpha}=\mathrm{softmax}(q^{\star}_{\alpha}/\alpha + \log \pi_b),
+\end{align}
+where $q^{\star}_{\alpha}:\Scal \times \Acal \to \RR$ is the soft Q-function uniquely characterized by the soft Bellman equation:
+\begin{align*}
+\forall (s,a);\EE_{s'\sim P(\cdot \mid s,a)}[\gamma \Omega_{\alpha,\pi_b}(q^{\star}_{\alpha})(s')+r-q^{\star}_{\alpha}(s,a) \mid s,a ]=0,
+\end{align*}
+where $\Omega_{\alpha,\pi_b}:[\Scal\times \Acal \to \RR]\to[\Scal \to \RR]$ has $
+    \Omega_{\alpha,\pi_b}(q)(s)= \alpha \log \sum_{a}\{\exp(q(s,a')/\alpha)\pi_b(a' \mid s) \}. $
+As opposed to the standard objective function with $\alpha=0$, the KL penalty term serves as a regularization term that renders $\pi^{\star}_{\alpha}$ sufficiently proximate to $\pi_b$. As $\alpha$ approaches $\infty$, the optimal policy $\pi^{\star}_{\alpha}$ approaches $\pi_b$. %
+On the other hand, when $\alpha=0$, $\pi^{\star}_{\alpha}$ is $\pi^{\star}$. Thus, in order to compete with $\pi^{\star}$, it is necessary to keep $\alpha$ sufficiently small. We elaborate on this selection procedure in \pref{sec:theory}. 
+
+The natural method for offline RL using this formulation involves learning $q^{\star}_{\alpha}$ from the offline data and plugging it into \pref{eq:softmax_optimal}. The question that remains is how to accurately learn $q^{\star}_{\alpha}$ from the offline data. We consider the following optimization problem: 
+\begin{align}\textstyle\label{eq:goal-pre}
+    \argmin_{q \in \Qcal'} 0.5 \EE_{(s,a)\sim P_b}[q^2(s,a)]
+\end{align} 
+ where $\Qcal'$ consists of all functions $q: \Scal \times \Acal \to \RR$ satisfying 
+ \begin{align}\label{eq:constraint1}
+\EE_{s'\sim P(\cdot\mid s,a)}[\gamma \Omega_{\alpha,\pi_b}(q)(s')+r-q(s,a) \mid s,a ]=0~~~\forall (s,a)\in (\Scal \times \Acal)_b.
+\end{align}
+{ Here, because of the constraint \pref{eq:constraint1}, the solution is $q^{\star}_{\alpha}$. Furthermore, we use $q^2(s,a)$ in \pref{eq:goal-pre} because this choice relaxes the equality in \pref{eq:constraint1} to an inequality $\leq 0$ as we will demonstrate in  \pref{sec:intuition}. Consequently, the entire optimization problem outlined in \pref{eq:goal-pre} and \pref{eq:constraint1} transforms into a convex optimization problem. } 
+
+
+Then, using the method of Lagrange multipliers, \pref{eq:goal-pre} is transformed into 
+\begin{align}\label{eq:goal}\textstyle
+    \min_{q}\max_{l} L_{\alpha}(q,l),\quad L_{\alpha}(q,l):=
+\EE\bracks{q^2(s,a)/2+ \{\gamma \Omega_{\alpha,\pi_b}(q)(s')+r-q(s,a)\}l(s,a)}. 
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Being motivated by the above formulation, our MSQP algorithm, specified in \pref{alg:main}, approximates this formulation by replacing expectations with sample averages and restricting optimization to function classes with bounded complexity.
+
+\begin{algorithm}[!t]
+\caption{MSQP (Minimax Soft-Q-learning with Penalization) }\label{alg:main}
+\begin{algorithmic}[1]
+  \STATE {\bf Require}: Parameter $\alpha \in \RR^{+}$, Models $\Qcal,\Lcal \subset [\Scal \times \Acal \to \RR^{+}]$. 
+    \STATE   Estimate $q^{\star}_{\alpha}$ as follows: 
+    \begin{align}\label{eq:soft_q_objective}
+        \hat q_{\alpha}\in \argmin_{q\in \Qcal}\max_{l\in \Lcal}\EE_n[q^2(s,a)/2+ %
+        \{\gamma \Omega_{\alpha,\pi_b}(q)(s')+r-q(s,a)\}l(s,a)]. %
+    \end{align}%
+   \STATE Estimate the soft optimal policy: $
+   \textstyle 
+      \hat \pi_{\alpha}=\mathrm{softmax}(\hat q_{\alpha}/\alpha +\log \pi_b ). $
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{remark}[Computation]
+Although minimax optimization is generally difficult to solve, it is computationally feasible when we choose RKHS or linear function classes for $\Lcal$. In this case, we can solve the inner maximization problem analytically in closed form, as the objective function is linear in $l$. 
+As a result, the minimax optimization problem reduces to  empirical risk minimization. 
+\end{remark}
+
+
+
+
+
+
+\subsection{Minimax $Q^{\star}$-learning with Penalization }
+
+
+Next, we examine a policy learning algorithm utilizing $Q^{\star}$-functions. To learn $Q^{\star}$, our objective function is derived from the constrained optimization problem:
+\begin{align}\textstyle\label{eq:goal2-pre}
+    \argmin_{q\in \Qcal^{\star '}}0.5\EE_{(s,a)\sim P_b}[q^2(s,a)]
+\end{align}
+where $\Qcal^{\star '}$ consists of all functions $q: \Scal \times \Acal \to \RR$ satisfying
+\begin{align*}\textstyle
+\forall (s,a)\in (\Scal \times \Acal)_b;\mathbb{E}_{s'\sim P(\cdot \mid s,a)}[\gamma \max_{a'\in \Acal} q(s',a')+r-q(s,a)\mid s,a]=0. 
+\end{align*}
+Next, again using the method of Lagrange multipliers, \pref{eq:goal2-pre} is transformed into 
+\begin{align} \label{eq:goal2}\textstyle
+    \min_{q}\max_{l} L_{0}(q,l),\,L_{0}(q,l):=\EE [q^2(s,a)/2 + \{ \gamma \max_{a'}q(s',a')+r-q(s,a)\}l(s,a)]. 
+\end{align}
+Note $L_0$ is the limit of $L_\alpha$ as $\alpha\to0$.
+
+Our MQP algorithm, specified in \pref{alg:main2}, similarly approximates this formulation by replacing expectations with sample averages and restricting optimization to function classes with bounded complexity. Our final policy is greedy with respect to the learned Q-function but restricting to the support of the offline data in order to avoid exploiting regions not covered by the offline data.
+
+
+
+
+
+\begin{algorithm}[!t]
+\caption{MQP (Minimax $Q^{\star}$-learning with Penalization)}\label{alg:main2}
+\begin{algorithmic}[1]
+  \STATE {\bf Require}:  Models $\Qcal,\Lcal \subset [\Scal \times \Acal \to \RR^{+}]$. 
+    \STATE   Estimate $q^{\star}$ as follows:
+    \begin{align}\label{eq:q_objective}
+        \hat q_{0}\in \argmin_{q\in \Qcal}\max_{l\in \Lcal}\EE_n[q^2(s,a)/2+  %
+        \{\gamma \max_{a'} q(s',a')+r-q(s,a)\}l(s,a)]. %
+    \end{align}
+   \STATE Estimate the optimal policy: $
+       \hat \pi_{0}(a\mid s)=  \argmax_{a: \pi_b(a\mid s)>0}\hat q_{0}(s,a).$
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{remark}[Prominent differences]\label{rem:difference_q_star}
+There exist several other minimax estimators for $Q^{\star}$ including BRM \citep{antos2008learning} and MABO \citep{xie2020q}. {\newedit Although these ensure convergence guarantees in terms of Bellman residual errors, they do not ensure the guarantee in terms of $L^2$-errors, which is our focus.}
+
+Our minimax objective function differs significantly from that of the aforementioned approaches, and its unique design plays a pivotal role in enabling $L^2$-rates.
+\end{remark}
+
+

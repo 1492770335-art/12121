@@ -1,0 +1,135 @@
+
+\section{$L^2$-convergence Rates for Soft $Q$-functions and $Q^{\star}$-functions} 
+
+
+
+
+To analyze our Q-estimators we first establish conditions that ensure $
+ q^{\star}_{\alpha}=\argmin_{q \in \Qcal }\max_{l \in \Lcal} L_{\alpha}(q,l)$ on the support $(\Scal\times \Acal)_b$. Building on this, we prove $L^2$-convergence rates for $\hat q_{\alpha}$ and $\hat q_0$. {\newedit These $L^2$-convergence guarantees are subsequently translated into performance guarantees of the policies we output in \pref{sec:theory}.}
+
+
+\subsection{Identification of Soft Q-functions}\label{sec:identification}
+
+
+Consider an $L^2$-space $\Hcal$ where the inner product is define as $\langle h_1,h_2\rangle = \EE_{(s,a)\sim P_b}[h_1(s,a)h_2(s,a)]$.
+Then we define two operators and a key function:\footnote{{\finaledit We use the notation $\cdot^{\top}$ because ${P^{\star}_{\alpha}}^{\top}$ is interpreted as the adjoint operator in the non-weighted $L^2$-space.}}
+\begin{align*}
+  & P^{\star}_{\alpha}   \textstyle: \Hcal \ni f \mapsto \EE_{s'\sim P(s,a),a'\sim \pi^{\star}_{\alpha}}[f(s',a')\mid (s,a)=\cdot] \in \Hcal, \\ 
+   \textstyle   &  \{P^{\star}_{\alpha}\}^{\top}  \textstyle: \Hcal \ni f \mapsto \int P(\cdot \mid s,a)\pi^{\star}_{\alpha}(\cdot \mid \cdot)f(s,a)\mathrm{d}(s,a) \in \Hcal,\\
+    &l^{\star}_{\alpha}(s,a) \coloneqq  \begin{cases}
+         \frac{(I-\gamma \{P^{\star}_{\alpha}\}^{\top})^{-1 }(P_b(s,a)q^{\star}_{\alpha}(s,a))}{P_b(s,a)} \quad&(s,a)\in (\Scal \times \Acal)_b,  \\
+         0 &(s,a)\neq (\Scal \times \Acal)_b.  
+    \end{cases}
+\end{align*}
+These satisfy a key adjoint property, which we leverage to show $(q^{\star}_{\alpha},l^{\star}_{\alpha})$ is a saddle point of $L_{\alpha}(q,l)$.
+\begin{lemma}\label{lem:adjoint}
+ $\forall q\in \Hcal$, we have 
+$\langle  l^{\star}_{\alpha} , (I-\gamma P^{\star}_{\alpha}) q \rangle_{\Hcal} = \langle  q^{\star}_{\alpha}, q \rangle _{\Hcal}. $
+\end{lemma}
+
+Our first assumption ensures that $l_\alpha^\star$ exists. 
+\begin{assum}\label{assum:scale2}
+Suppose $\|d_{\pi^{\star}_{\alpha},P_b}/P_b\|_{\infty}<\infty$. {Note the infinity norm $\|\cdot\|_{\infty}$ is over $\Scal \times \Acal$.}  
+\end{assum}
+\begin{proposition}\label{prop:scale2}
+Under Assumption~\ref{assum:scale2}, we have
+$\|l^{\star}_{\alpha}\|_{\infty} < \infty$.
+
+\end{proposition}
+\pref{prop:scale2} is immediate noting that $(I-\gamma \{P^{\star}_{\alpha}\}^{\top})^{-1}(P_b(\cdot)q^{\star}_{\alpha}(\cdot))=\sum_{t=0}^{\infty}\gamma^t (\{P^{\star}_{\alpha}\}^{\top})^t  (P_bq^{\star}_{\alpha})$ and
+recalling the discounted occupancy measure under $\pi^{\star}_{\alpha}$ with initial distribution $\mu_0$ is written as $d_{\pi^{\star}_{\alpha},\mu_0} = (1-\gamma)(I-\gamma \{P^{\star}_{\alpha}\}^{\top})^{-1}(\mu_0)$. Hence, $\|l^{\star}_{\alpha}\|_{\infty}\leq (1-\gamma)^{-1}R_{\max}\|d_{\pi^{\star}_{\alpha,P_b}}/P_b\|_{\infty}$.
+
+{\finaledit Note that $\|d_{\pi^{\star}_{\alpha,P_b}}/P_b\|_{\infty}$ crucially differs with the standard density-ratio-based concentrability coefficient  $\|d_{\pi^{*}_{\alpha},\mu_0}/P_b\|_{\infty}$ in offline RL. 
+{\newedit Unlike $\|d_{\pi^{*}_{\alpha},P_b}/P_b\|_{\infty}$ , the value of $\|d_{\pi^{*}_{\alpha},\mu_0}/P_b\|_{\infty}$ can be infinite when the initial distribution $\mu_0$ is not covered by offline data $P_b$
+ as the practical motivating example is explained in the footnote in Section~\ref{sec:intro} and Example~\ref{exa:external}. 
+}} 
+
+
+Our next assumption ensures $q^{\star}_{\alpha}\geq 0$, which also guarantees that $l^{\star}_{\alpha}\geq 0$.
+\begin{assum}\label{assum:scale}
+Suppose $\alpha\log\|\pi^{*}_{\alpha}/\pi_b\|_{\infty}\leq R_{\min}$. %
+\end{assum}
+Assumption~\ref{assum:scale} can be satisfied by rescaling reward (\ie, rescaling $R_{\min}$) as long as $\|\pi^{*}_{\alpha}/\pi_b\|_{\infty}$ is finite. Hence, it is very mild.   Putting \pref{lem:adjoint} together with our assumptions we have the following.
+
+
+
+
+
+
+\begin{lemma}\label{lem:saddle}
+Suppose Assumptions~\ref{assum:scale2} and  \ref{assum:scale} hold. Then, $(q^{\star}_{\alpha}, l^{\star}_{\alpha})$ is a saddle point of   $L_{\alpha}(q,l)$ over $q\in \Hcal,l\in \Hcal$, \ie, $
+  L_{\alpha}(q,l^{\star}_{\alpha}) \geq L_{\alpha}(q^{\star}_{\alpha},l^{\star}_{\alpha}) \geq L_{\alpha}(q^{\star}_{\alpha},l)$ $\forall q\in \Hcal, \forall l\in \Hcal$.
+\end{lemma}
+
+
+Recall that a point $(\tilde q,\tilde l)$ is a saddle point if and only if the strong duality holds, and $\tilde q \in \argmin_{q \in \Hcal}\sup_{l \in \Hcal}L_{\alpha}(q,l),\tilde l \in \argmax_{l \in \Hcal}\inf_{q\in \Hcal}L_{\alpha}(q,l)$ using the general characterization \citep{bertsekas2009convex}. Hence, \pref{lem:saddle} ensures $q^{\star}_{\alpha} \in  \argmin_{q \in \Hcal}\max_{l \in \Hcal}L_{\alpha}(q,l)$. 
+
+Next, we consider the constrained optimization problem when we use function classes $\Qcal \subset \Hcal, \Lcal \subset \Hcal$. As long as the saddle point is included in $(\Qcal,\Lcal)$, we can prove that $q^{\star}_{\alpha}$ is a unique minimaxer.  %
+
+\begin{lemma}\label{lem:saddle2}
+Suppose Assumptions~\ref{assum:scale2} and \ref{assum:scale} hold, $q^{\star}_{\alpha} \in \Qcal$, and $l^{\star}_{\alpha}\in \Lcal$. Then, we have that
+$q^{\star}_{\alpha} =  \argmin_{q \in \Qcal}\sup_{l \in \Lcal}L_{\alpha}(q,l)$ on the support $(\Scal \times \Acal)_b$. 
+\end{lemma}
+
+This establishes that realizability ($q^{\star}_{\alpha} \in \Qcal,\,l^{\star}_{\alpha}\in \Lcal$)
+is sufficient to identify $q^{\star}_{\alpha}$ on the offline data distribution. At a high level, $q^{\star}_{\alpha} \in  \argmin_{q \in \Qcal}\sup_{l \in \Lcal}L_{\alpha}(q,l)$ is established through the invariance of saddle points, \ie, saddle points over original sets remain saddle points over restricted sets. Its uniqueness is verified by the strong convexity in $q$ of $L_{\alpha}(q,l)$ induced by $\EE_{(s,a)\sim P_b}[q^2(s,a)]$. 
+
+
+\subsection{$L^2$-convergence Rate for   
+Soft Q-estimators}\label{subsec:finite}
+
+
+Based on the population-level results in \pref{sec:identification}, we give a finite-sample error analysis of $\hat q_\alpha$  
+\begin{assum}[Realizability of soft Q-function]\label{assum:softmax}
+   Suppose $q^{\star}_{\alpha} \in \Qcal$ and $\|q\|_{\infty}\leq B_{\Qcal}\,\forall q\in \Qcal$.
+\end{assum}
+
+\begin{assum}[Realizability of Lagrange multiplier]\label{assum:largrange}
+Suppose $l^{\star}_{\alpha} \in \Lcal$ and $\|l\|_{\infty}\leq B_{\Lcal}\,\forall l \in \Lcal$.
+\end{assum}
+
+It is natural to set $B_{\Qcal}=(1-\gamma)^{-1}R_{\max}$ and $B_{\Lcal}=(1-\gamma)^{-1}R_{\max}\|d_{\pi^*_{\alpha},P_b}/P_b\|_{\infty}$, but letting these be arbitrary offers further flexibility to our results.
+
+
+\begin{theorem}[$L^2$-convergence of soft Q-estimators]\label{thm:convergence_soft}
+Suppose Assumptions~\ref{assum:scale2}, \ref{assum:scale}, \ref{assum:softmax}, and \ref{assum:largrange} hold. Then, with probability $1-\delta$, the $L^2$-error $\|\hat q_{\alpha}-q^{\star}_{\alpha}\|_2$ is upper-bounded by $$
+ c \prns{  \Bcal^2_{\Qcal}+\Bcal_{\Qcal}\Bcal_{\Lcal}\{\alpha+\ln(|\Acal|)\}}^{1/2} \left(  \ln(|\Qcal||\Lcal|/\delta)/n\right)^{1/4}.  $$
+\end{theorem}
+
+Our result is significant as it relies on realizability-type conditions rather than Bellman closedness. Since the majority of existing works focus on non-regularized Q-functions, we postpone the comparison to these existing works to the next section.
+ Note when $\Qcal$ and $\Lcal$ are infinite, we can easily replace $|\Qcal|,|\Lcal|$ with their $L^{\infty}$-covering numbers following \citet{uehara2021finite}. Details are given in the appendix.  
+
+
+\subsection{$L^2$-convergence Rate for  $Q^{\star}$-functions}
+
+
+Next, we give analogous finite-sample error analysis of $\hat q_0$ leveraging the same reasoning.  
+
+\begin{assum}[Realizability of $Q^{\star}$-functions]\label{assum:q_star}
+Suppose $q^{\star}\in \Qcal$ and $\|q\|_{\infty}\leq B_{\Qcal}\,\forall q\in \Qcal$. 
+\end{assum}
+
+
+Next, we define the Lagrange multiplier:
+\begin{align*}
+   \textstyle \{P^{\star}\}^{\top}&:\Hcal \ni f \mapsto \int P(\cdot\mid s,a)\pi^{\star}(\cdot\mid \cdot)f(s,a)\mathrm{d}\mu(s,a)\in \Hcal, 
+\\
+l^{\star} &\coloneqq \{(I-\gamma \{P^{\star}\}^{\top})^{-1 }(q^{\star}P_{\pi_b})\}/P_{\pi_b}.
+\end{align*}
+{\finaledit While $l^{\star} $ involves the density ratio, this is always well-defined as long as $\|d_{\pi^{\star},{P_b}}/P_b\|_{\infty}<\infty$. %
+} Then, it can be similarly established that $(q^{\star},l^{\star})$ is a saddle point of $L_0(q,l)$ over $q\in \Hcal,l\in \Hcal$ as we show in \pref{lem:saddle}. We lastly require its realizability.
+
+
+
+\begin{assum}[Realizability of Lagrange multiplier]\label{assum:lagrange2}
+Suppose  $\|d_{\pi^{\star},{P_b}}/P_b\|_{\infty}<\infty$ and $l^{\star} \in \Lcal$. Further suppose $\|l\|_{\infty}\leq B_{\Lcal}\,\forall l\in \Lcal$. 
+\end{assum}
+
+
+\begin{theorem}[$L^2$-convergence of Q-estimators]\label{thm:convergence_q}
+Suppose Assumptions~\ref{assum:q_star} and \ref{assum:lagrange2} hold. Then, with probability $1-\delta$, the $L^2$-error $\|\hat q_{0}-q^{\star}\|_2$ is upper-bounded by $$
+ c\prns{  \Bcal^2_{\Qcal}+  \Bcal_{\Lcal}\Bcal_{\Qcal}}^{1/2} (\ln(|\Qcal||\Lcal|/\delta)/n)^{1/4}.$$
+\end{theorem}
+
+{\finaledit To the best of our knowledge, this is the first guarantee on $L^2$ errors for learning $q^*$ using \emph{general function approximation without relying on Bellman completeness}. This is highly nontrivial, and we have carefully crafted our algorithm to obtain this guarantee. Existing results are often specific to particular models, such as linear models \citep{shi2022statistical}, or they require Bellman completeness \citep{chen2019information,chen2022well}, or they are limited to offline policy evaluation scenarios \citep{huang2022beyond} (\ie, cases involving linear Bellman operators, but nonlinear Bellman operators). Actually, it seems that even under the assumption of Bellman completeness, obtaining an L2 guarantee \emph{without strong coverage assumptions} remains unclear. A detailed comparison among these different approaches is presented in Section \ref{sec:contribution_over}.
+} 

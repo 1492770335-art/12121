@@ -1,0 +1,34 @@
+{
+  "paper_id": "Ndfdff87fd0",
+  "category": "K",
+  "title": "T-cell replete haploidentical transplantation compared to mismatched unrelated allogeneic transplantation with post-transplantation cyclophosphamide in patients with secondary acute myeloid leukemia in first complete remission: A study from the ALWP/EBMT",
+  "authors": "Sarah Kayser and Arnon Nagler and Allain Thibeault Ferhat and Jaime Sanz and Raynier Devillier and Yener Koc and Anna Maria Raiola and Alessandro Busca and Alexander Kulagin and Jan Vydra and Maija Itala-Remes and Stefania Bramanti and Giovanni Grillo and Zafer Gulbas and Jiri Pavlu and Montserrat Rovira and Simona Sica and Alessandro Rambaldi and Eolia Brissot and Ali Bazarbachi and Mohamad Mohty and Fabio Ciceri",
+  "doi": "10.1038/s41409-026-02951-9",
+  "year": "2026",
+  "original_url": "https://doi.org/10.1038/s41409-026-02951-9",
+  "local_fulltext": true,
+  "public_pdf": [
+    "K/Ndfdff87fd0/artifacts/5bee362072fa/original.pdf"
+  ],
+  "public_markdown": [
+    "K/Ndfdff87fd0/artifacts/5bee362072fa/fulltext.md"
+  ],
+  "public_txt": [
+    "K/Ndfdff87fd0/artifacts/5bee362072fa/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "5bee362072fa8608f6e9b44b6f5895fe622dba12b900cc2e3980fa8ccf964f6c",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://zenodo.org/records/23952595/files/T-cell%20replete%20haploidentical%20transplantation%20compared%20to%20mismatched%20unrelated%20allogeneic%20transplantation%20with.pdf",
+      "provenance": "K/Ndfdff87fd0/artifacts/5bee362072fa/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "K/Ndfdff87fd0/README.md",
+  "status": "public_fulltext"
+}

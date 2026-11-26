@@ -1,0 +1,674 @@
+%\documentclass[useAMS,usenatbib]{biom}
+\documentclass[12pt]{article}
+\usepackage[
+top    = 2cm,
+bottom = 2.50cm,
+left   = 2.50cm,
+right  = 2.50 cm]{geometry}
+\renewcommand{\baselinestretch}{1.5}
+\renewcommand*{\arraystretch}{0.85}
+\usepackage{amsmath,mathabx}
+\usepackage{graphicx,psfrag,epsf}
+\usepackage{enumerate}
+\usepackage{natbib}
+\usepackage{url} % not crucial - just used below for the URL 
+\usepackage{booktabs,threeparttable}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{lscape}
+\usepackage{multirow}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{remark}{Remark}[theorem]
+%\newtheorem{lemma}[theorem]{Lemma}
+
+\usepackage{etoolbox}
+\usepackage[table]{xcolor}
+\newcommand\red[1]{{\color{red}#1}}
+\newcommand\blue[1]{{\color{blue}#1}}
+\newcommand\orange[1]{{\color{orange}#1}}
+\newcommand\pink[1]{{\color{pink}#1}}
+\newtheorem{condition}{Condition}%[section]
+%\pdfminorversion=4
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{0}
+
+
+
+\def\blue #1{{\color{blue}{#1}}}
+\def\red #1{{\color{red}{#1}}}
+
+
+\def\bfZ{\mathbf{Z}}
+\def\bfz{\mathbf{z}}
+\def\tildeZ{\widetilde{\bfZ}}
+\def\bfbeta{\bm{\beta}}
+\def\bfvarrho{\bm{\varrho}}
+\def\bfgamma{\bm{\gamma}}
+\def\bfLambda{\bm{\Lambda}}
+
+\def\hatalpha{\widehat{\alpha}}
+
+\def\Pr{\operatorname{Pr}}
+
+%\theoremstyle{plain}
+%\newtheorem{thm}{Theorem}
+%\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+%\newtheorem{cor}{Corollary}
+%\theoremstyle{remark}
+\newtheorem{assum}{Assumption}
+%\newtheorem{exmp}{Example}
+\newtheorem{rem}{Remark}
+
+\usepackage[figuresright]{rotating}
+
+\renewcommand{\theequation}{A.\arabic{equation}} % This line ads "A."
+\renewcommand{\thetable}{S.\arabic{table}}
+\renewcommand{\thefigure}{S.\arabic{figure}}
+\setcounter{table}{0}
+\setcounter{prop}{1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{footnote}{2}
+
+\begin{document}
+
+\label{firstpage}
+
+ \begin{center}
+    {\LARGE\bf Supplementary Materials for ``Exploring causal effects of hormone- and radio-treatments in an observational study of breast cancer using copula-based semi-competing risks models"}
+\end{center}
+ \begin{center}
+ \large Tonghui Yu$^1$, Mengjiao Peng$^2$, Yifan Cui$^3$ ,Elynn Chen$^{4}$, Chixiang Chen$^{5,6,*}$\\
+ \end{center}
+ \begin{center}
+	$^{1}$
+   School of Physical and Mathematical Sciences \\
+   Nanyang Technological University, Singapore\\ 
+	$^{2}$
+    School of Statistics, East China Normal University, China\\ 
+	$^{3}$
+    Center for Data Science, Zhejiang University, China\\ 
+    $^4$  Stern School of Business, New York University, New York, NY, USA.\\
+    $^5$  Division of Biostatistics and Bioinformatics,\\ Department of Epidemiology and Public Health,\\ University of Maryland School of Medicine, Baltimore, MD, U.S.A.\\
+    $^6$ Department of Neurosurgery,\\
+    University of Maryland School of Medicine, Baltimore, MD, USA
+    \end{center}
+     \begin{center}
+	% E-mail address for correspondence
+	{$^{*}$\textit{Contact Email: chixiang.chen@som.umaryland.edu}}
+ \end{center}
+
+Section \ref{sec:proof} provides proof of Proposition 1 from the main context. Section \ref{sec:prop2} gives the identification of causal parameters in the presence of unmeasured confounding. Section \ref{sec:mcem algorithm} summarizes the MCEM algorithm, used in Section 4.2 from the main context, for estimating regression parameters in the presence of unmeasured confounding. Section \ref{sec:extra simulation} contains more extra results in simulation studies. Section \ref{sec:extra real} 
+%and \ref{sec:framingham} 
+provides additional results for the breast cancer study. %and Framingham heart study, respectively.
+
+\section{Proof of Proposition 1}
+\label{sec:proof}
+\textbf{Proof.}
+Note that from the law of total probability
+\begin{equation}
+\Pr(T_k(a)\geq t|ad) 
+= \int_0^{\infty} \Pr(T_k(a)\geq t|T_1(0)\leq T_2(0), T_1(1)\leq T_2(1),\bfZ) f_{\bfZ}(\bfZ|ad)d\bfZ.
+\label{eq:pf_ad1}
+\end{equation}
+The integrand in \eqref{eq:pf_ad1} can be written as
+\begin{equation*}
+\begin{split}
+&\Pr(T_k(a)\geq t|T_1(0)\leq T_2(0),T_1(1)\leq T_2(1),\bfZ) \\
+& =  \Pr(T_k(a)\geq t|T_1(a)\leq T_2(a),\bfZ) \\
+& = \Pr(T_k(a)\geq t|T_1(a)\leq T_2(a),A=a,\bfZ) \\
+& = \Pr(T_k\geq t|T_1\leq T_2,A=a,\bfZ) :=S_{1|T_1\leq T_2,A=a,\bfZ}(t),
+\end{split}
+\end{equation*}
+where the first equality is from Assumption 3, the third by randomization in Assumption 2, and the fourth by Assumption 1. Besides, the term $f_{\bfZ}(\bfZ|ad)$ in \eqref{eq:pf_ad1} can be written as
+\begin{equation*}
+\begin{split}
+f_{\bfZ|ad}(\bfZ) 
+& =  \frac{\Pr( T_1(0)\leq T_2(0), T_1(1)\leq T_2(1)|\bfZ)f_{\bfZ}(\bfZ)}{\int_0^{\infty} \Pr( T_1(0)\leq T_2(0), T_1(1)\leq T_2(1)|\bfZ)f_{\bfZ}(\bfZ)d\bfZ}\\
+& =  \frac{\Pr( T_1(0)\leq T_2(0)|\bfZ)\Pr( T_1(1)\leq T_2(1)|\bfZ)f_{\bfZ}(\bfZ)}{\int_0^{\infty} \Pr( T_1(0)\leq T_2(0)|\bfZ)\Pr( T_1(1)\leq T_2(1)|\bfZ)f_{\bfZ}(\bfZ)d\bfZ}\\
+& = \frac{\Pi_{A=0,\bfZ}\Pi_{A=1,\bfZ}f_{\bfZ}(\bfZ)}{\int_0^{\infty} \Pi_{A=0,\bfZ}\Pi_{A=1,\bfZ}f_{\bfZ}(\bfZ)d\bfZ}
+\end{split}
+\end{equation*}
+where the first equality is by the Bayes' theorem, the second by Assumption 3, and the third by randomization in Assumptions 1-2. The proof for the identification of $\operatorname{ND-SCE}$ is similar.
+Thus the results in Proposition 1 can be directly obtained.
+
+
+\section{Identification of causal parameters with unmeasured confounding}
+\label{sec:prop2}
+\begin{prop}
+\label{prop:scae}
+Under Assumptions 1-2, 5-6, the stratum-specific survivor average causal effects in (4)-(6) in the main context %\eqref{eq:SCE1}-\eqref{eq:SCE3} 
+are identified by
+\begin{equation}
+\begin{split}
+&\operatorname{AD-SCE}_1(t)\\
+%&=\frac{\mathbb{E}_{\gamma,\bfZ}\left[(S_{1|T_1\leq T_2,A=1,\gamma,\bfZ}(t)-S_{1|T_1\leq T_2,A=0,\gamma,\bfZ}(t) )\Pi_{A=0,\gamma,\bfZ}\Pi_{A=1,\gamma,\bfZ} \right]}{\mathbb{E}_{\gamma,\bfZ}\left[\Pi_{A=0,\gamma,\bfZ}\Pi_{A=1,\gamma,\bfZ} \right]}\\
+& = \frac{\mathbb{E}_{\gamma,\bfZ}\left\{ \int_t^{\infty} D_1 \left(s,s|1,\gamma,\bfZ  \right)d S_1(s| 1,\gamma,\bfZ ) \int_0^{\infty} D_1 \left(s,s|0,\gamma,\bfZ  \right)d S_1(s| 0,\gamma,\bfZ )
+\right\}}{\mathbb{E}_{\gamma,\bfZ}\left\{ 
+\int_0^{\infty} D_1 \left(s,s|1,\gamma,\bfZ  \right)d S_1(s| 1,\gamma,\bfZ ) \int_0^{\infty} D_1 \left(s,s|0,\gamma,\bfZ  \right)d S_1(s| 0,\gamma,\bfZ )\right\}}\\
+&- \frac{\mathbb{E}_{\gamma,\bfZ}\left\{ 
+\int_t^{\infty} D_1 \left(s,s|0,\gamma,\bfZ  \right)d S_1(s| 0,\gamma,\bfZ )
+  \int_0^{\infty} D_1 \left(s,s|1,\gamma,\bfZ  \right)d S_1(s| 1,\gamma,\bfZ )
+  \right\}}{\mathbb{E}_{\gamma,\bfZ}\left\{ 
+  \int_0^{\infty} D_1 \left(s,s|1,\gamma,\bfZ  \right)d S_1(s| 1,\gamma,\bfZ )\int_0^{\infty} D_1 \left(s,s|0,\gamma,\bfZ  \right)d S_1(s| 0,\gamma,\bfZ )\right\}},
+\end{split}
+\label{eq:adSCE_f1}
+\end{equation}
+\begin{equation}
+\begin{split}
+&\operatorname{AD-SCE}_2(t)\\
+%&=\frac{\mathbb{E}_{\gamma,\bfZ}\left[(S_{2|T_1\leq T_2,A=1,\gamma,\bfZ}(t)-S_{2|T_1\leq T_2,A=0,\gamma,\bfZ}(t) )\Pi_{A=0,\gamma,\bfZ}\Pi_{A=1,\gamma,\bfZ} \right]}{\mathbb{E}_{\gamma,\bfZ}\left[\Pi_{A=0,\gamma,\bfZ}\Pi_{A=1,\gamma,\bfZ} \right]}\\
+& = \frac{\mathbb{E}_{\gamma,\bfZ}\left\{ \left[
+S_2(t| 1,\gamma,\bfZ )+\int_t^{\infty}D_2 \left(s,s|1,\gamma,\bfZ  \right)d S_2(s| 1,\gamma,\bfZ )\right]\left[1+\int_0^{\infty}D_2 \left(s,s|0,\gamma,\bfZ  \right)d S_2(s| 0,\gamma,\bfZ )\right]
+  \right\}}{\mathbb{E}_{\gamma,\bfZ}\left\{ 
+\left[1+\int_0^{\infty}D_2 \left(s,s|0,\gamma,\bfZ  \right)d S_2(s| 0,\gamma,\bfZ )\right]\left[1+\int_0^{\infty}D_2 \left(s,s|1,\gamma,\bfZ  \right)d S_2(s| 1,\gamma,\bfZ )\right] \right\}}\\
+&- \frac{\mathbb{E}_{\gamma,\bfZ}\left\{ \left[
+S_2(t| 0,\gamma,\bfZ )+\int_t^{\infty}D_2 \left(s,s|0,\gamma,\bfZ  \right)d S_2(s| 0,\gamma,\bfZ )\right]\left[1+\int_0^{\infty}D_2 \left(s,s|1,\gamma,\bfZ  \right)d S_2(s| 1,\gamma,\bfZ )\right]
+  \right\}}{\mathbb{E}_{\gamma,\bfZ}\left\{ 
+\left[1+\int_0^{\infty}D_2 \left(s,s|0,\gamma,\bfZ  \right)d S_2(s| 0,\gamma,\bfZ )\right]\left[1+\int_0^{\infty}D_2 \left(s,s|1,\gamma,\bfZ  \right)d S_2(s| 1,\gamma,\bfZ )\right] \right\}},
+\end{split}
+\label{eq:adSCE_f2}
+\end{equation}
+\begin{equation}
+\begin{split}
+&\operatorname{ND-SCE}_2(t)\\
+%&= \frac{\mathbb{E}_{\gamma,\bfZ}\left[ (S_{2|T_1\geq T_2,A=1,\gamma,\bfZ}(t)-S_{2|T_1\geq T_2,A=0,\gamma,\bfZ}(t))\widetilde{\Pi}_{A=0,\gamma,\bfZ}\widetilde{\Pi}_{A=1,\gamma,\bfZ} \right]}{\mathbb{E}_{\gamma,\bfZ}\left[\widetilde{\Pi}_{A=0,\gamma,\bfZ}\widetilde{\Pi}_{A=1,\gamma,\bfZ} \right]}\\
+& = \frac{\mathbb{E}_{\gamma,\bfZ}\left\{ \int_t^{\infty} D_2 \left(s,s|1,\gamma,\bfZ  \right)d S_2(s| 1,\gamma,\bfZ ) \int_0^{\infty} D_2 \left(s,s|0,\gamma,\bfZ  \right)d S_2(s| 0,\gamma,\bfZ )
+\right\}}{\mathbb{E}_{\gamma,\bfZ}\left\{ 
+\int_0^{\infty} D_2 \left(s,s|1,\gamma,\bfZ  \right)d S_2(s| 1,\gamma,\bfZ ) \int_0^{\infty} D_2 \left(s,s|0,\gamma,\bfZ  \right)d S_2(s| 0,\gamma,\bfZ )\right\}}\\
+&- \frac{\mathbb{E}_{\gamma,\bfZ}\left\{ 
+\int_t^{\infty} D_2 \left(s,s|0,\gamma,\bfZ  \right)d S_2(s| 0,\gamma,\bfZ )
+  \int_0^{\infty} D_2 \left(s,s|1,\gamma,\bfZ  \right)d S_2(s| 1,\gamma,\bfZ )
+  \right\}}{\mathbb{E}_{\gamma,\bfZ}\left\{ 
+  \int_0^{\infty} D_2 \left(s,s|1,\gamma,\bfZ  \right)d S_2(s| 1,\gamma,\bfZ )\int_0^{\infty} D_2 \left(s,s|0,\gamma,\bfZ  \right)d S_2(s| 0,\gamma,\bfZ )\right\}}.
+\end{split}
+\label{eq:ndSCE_f}
+\end{equation}
+\end{prop}
+
+
+\section{MCEM algorithm}
+\label{sec:mcem algorithm}
+The EM algorithm is a popular tool for maximizing likelihood functions in the presence of unobserved data. The E step is approximated using simulated samples from the exact conditional distribution of the unmeasured variables given the observed data, so the E-step is divided into a simulation and a MC integration step. Specifically, we first replace $\lambda_{0k}^{(a)}(t)$ %in \eqref{eq:loglik} 
+with the jump sizes of $\Lambda_{0k}^{(a)}$ at time t denoted by $\Lambda_{0k}^{(a)}\{t\}$. The NPMLE estimates for $\Lambda_{01}^{(a)}\{t_1\}$ and $\Lambda_{02}^{(a)}\{t_2\}$ have the forms of
+\begin{equation}
+\widehat{\Lambda}_{01}^{(a)}\{t_1\} = \frac{\sum\limits_{j=1}^n \delta_{j1}I(A_j=a)I(X_j=t_1)}{\sum\limits_{j=1}^n I(X_j\geq t_1)I(A_j=a)\exp(\bfbeta_1^{(a)T}\bfZ_j)E_{\gamma}[\gamma_jw_{1j}(a)|\mathcal{O}_j]},
+\end{equation}
+\begin{equation}
+\widehat{\Lambda}_{02}^{(a)}\{t_2\} = \frac{\sum\limits_{j=1}^n \delta_{j2}I(A_j=a)I(Y_j=t_2)}{\sum\limits_{j=1}^n I(Y_j\geq t_2)I(A_j=a)\exp(\bfbeta_2^{(a)T}\bfZ_j)E_{\gamma}[\gamma_jw_{2j}(a)|\mathcal{O}_j]},
+\end{equation}
+where 
+\begin{equation*}
+\begin{split}
+w_{1i}(a) &= \delta_{i1}\delta_{i2}\left[ \frac{D_{121}(X_i,Y_i;\alpha^{(a)})S_1(X_i|\bfZ_i,a,\gamma_i)}{D_{12}(X_i,Y_i;\alpha^{(a)})}+1\right]\\
+&+\delta_{i1}(1-\delta_{i2})\left[\frac{D_{11}(X_i,Y_i;\alpha^{(a)})S_1(X_i|\bfZ_i,a,\gamma_i)}{D_{1}(X_i,Y_i;\alpha^{(a)})}+1 \right]\\
+&+(1-\delta_{i1})\delta_{i2}\frac{D_{12}(X_i,Y_i;\alpha^{(a)})S_1(X_i|\bfZ_i,a,\gamma_i)}{D_{2}(X_i,Y_i;\alpha^{(a)})}\\
+&+(1-\delta_{i1})(1-\delta_{i2})\frac{D_{1}(X_i,Y_i;\alpha^{(a)})S_1(X_i|\bfZ_i,a,\gamma_i)}{D(X_i,Y_i;\alpha^{(a)})},
+\end{split}
+\end{equation*}
+
+\begin{equation*}
+\begin{split}
+w_{2i}(a) &= \delta_{i1}\delta_{i2}\left[ \frac{D_{122}(X_i,Y_i;\alpha^{(a)})S_2(Y_i|\bfZ_i,a,\gamma_i)}{D_{12}(X_i,Y_i;\alpha^{(a)})}+1\right]\\
+&+\delta_{i1}(1-\delta_{i2})\left[\frac{D_{12}(X_i,Y_i;\alpha^{(a)})S_2(Y_i|\bfZ_i,a,\gamma_i)}{D_{1}(X_i,Y_i;\alpha^{(a)})}+1 \right]\\
+&+(1-\delta_{i1})\delta_{i2}\frac{D_{22}(X_i,Y_i;\alpha^{(a)})S_2(Y_i|\bfZ_i,a,\gamma_i)}{D_{2}(X_i,Y_i;\alpha^{(a)})}\\
+&+(1-\delta_{i1})(1-\delta_{i2})\frac{D_{2}(X_i,Y_i;\alpha^{(a)})S_2(Y_i|\bfZ_i,a,\gamma_i)}{D(X_i,Y_i;\alpha^{(a)})}.
+\end{split}
+\end{equation*}
+Thus the baseline cumulative hazard functions for the nonterminal and terminal events are estimated by the following piece-wise constant functions
+\begin{equation}
+\widehat{\Lambda}_{01}^{(a)}(t_1)= \sum\limits_{i: X_i\leq t_1} \widehat{\Lambda}_{01}^{(a)}\{X_i\},
+\end{equation}
+\begin{equation}
+\widehat{\Lambda}_{02}^{(a)}(t_2)= \sum\limits_{i: Y_i\leq t_2} \widehat{\Lambda}_{02}^{(a)}\{Y_i\}.
+\end{equation}
+
+
+
+Plugging $\lambda_{0k}^{(a)}(t)$ and $\Lambda_{0k}^{(a)}(t)$ by $\widehat{\Lambda}_{0k}^{(a)}\{t\}$ and $\widehat{\Lambda}_{0k}^{(a)}(t)$, respectively, into the log-likelihood (15) in the main context %\eqref{eq:loglik} 
+yields the profile log-likelihood of $\bfvarrho$. Due to the existence of unmeasured factor and intractable integral, a Monte Carlo Expectation-Maximization (MCEM) approach can be used to estimate $\bfvarrho$. Specifically, the complete log-likelihood function of $(\alpha^{(a)},\Lambda_{01}^{(a)},\Lambda_{02}^{(a)},\bfbeta_{1}^{(a)},\bfbeta_{2}^{(a)},\sigma)$ based on $(\mathcal{O},\bfgamma)$ is given by 
+\begin{equation}
+\begin{split}
+&l_c(\alpha^{(a)},\Lambda_{01}^{(a)},\Lambda_{02}^{(a)},\bfbeta_{1}^{(a)},\bfbeta_{2}^{(a)},\sigma|\mathcal{O},\bfgamma) \\
+&= \sum\limits_{i=1}^n l_{ci}(\alpha^{(a)},\Lambda_{01}^{(a)},\Lambda_{02}^{(a)},\bfbeta_{1}^{(a)},\bfbeta_{2}^{(a)},\sigma|\mathcal{O}_i,\gamma_i) \\
+&= \sum\limits_{i=1}^n l_i(\alpha^{(a)},\Lambda_{01}^{(a)},\Lambda_{02}^{(a)},\bfbeta_{1}^{(a)},\bfbeta_{2}^{(a)}|\mathcal{O}_i,\gamma_i)+f_{\gamma}(\gamma_i|\sigma)
+\end{split}
+\end{equation}
+In the E-step, we compute the expectation of the complete log-likelihood based on observed data $\mathcal{O}$, pre-specified $\sigma$ and current updated estimates $(\widehat{\bfvarrho}^{(r)},\widehat{\bfLambda}^{(r)})$ as follows.
+\begin{equation}
+\begin{split}
+E\left[l_c(\bfvarrho,\widehat{\bfLambda}^{(r)},\sigma|\mathcal{O},\bfgamma)|\mathcal{O},\widehat{\bfvarrho}^{(r)}\right]& = \sum\limits_{i=1}^n \int l_{ci}(\bfvarrho,\widehat{\bfLambda}^{(r)},\sigma|\mathcal{O}_i,\gamma_i) f(\gamma_i|\mathcal{O}_i;\widehat{\bfvarrho}^{(r)},\widehat{\bfLambda}^{(r)},\sigma) d\gamma_i\\
+&\approx \frac{1}{m}\sum\limits_{t=1}^m l_c(\bfvarrho,\widehat{\bfLambda}^{(r)},\sigma|\mathcal{O},\bfgamma_t^{(r)})
+\l:= Q(\bfvarrho|\widehat{\bfvarrho}^{(r)})
+\end{split}
+\end{equation}
+for a large enough integer $m$, where $\bfgamma_t^{(r)}=(\gamma_{t1}^{(r)},\cdots, \gamma_{tn}^{(r)})$ can be obtained from a Markov chain Monte Carlo (MCMC) routine such as the Gibbs sampler or
+Metropolis–Hastings algorithm with posterior distribution 
+% acceptance-rejection algorithm may perform worse as $\sigma$ increases or for heavy-tail distributions.
+$f(\gamma_i|\mathcal{O}_i;\widehat{\bfvarrho}^{(r)},\widehat{\bfLambda}^{(r)},\sigma)$ in the form of
+\begin{equation}
+f(\gamma_i|\mathcal{O}_i;\widehat{\bfvarrho},\widehat{\bfLambda},\sigma) 
+= \frac{\exp\left[l_i(\widehat{\bfvarrho},\widehat{\bfLambda}|\mathcal{O}_i,\gamma_i) \right]f_{\gamma}(\gamma_i|\sigma)}{\int \exp\left[l_i(\widehat{\bfvarrho},\widehat{\bfLambda}|\mathcal{O}_i,\gamma_i) \right]f_{\gamma}(\gamma_i|\sigma)d\gamma_i}.
+\end{equation}
+%However, drawing an MCMC sample at each iteration of the EM algorithm could be prohibitively costly particularly for large $m$. So, we utilize the strategy of non-iterative importance sampling \citep{levine2001mcem} and initially generate $\bfgamma_{ti}$ from $f(\gamma_i|\mathcal{O}_i;\widehat{\bfvarrho}^{(0)},\widehat{\bfLambda}^{(0)},\sigma)$. At each iteration $r$ of E-step, we compute the weighted log-likelihood instead:
+%\begin{equation}
+%Q(\bfvarrho|\widehat{\bfvarrho}) = \frac{1}{m_r}\sum\limits_{t=1}^{m_r} w_t^{(r)} l_c(\bfvarrho,\widehat{\bfLambda}^{(r)},\sigma|\mathcal{O},\bfgamma_t)
+%\end{equation}
+%for large enough integer $m_r$, where 
+%\begin{equation*}
+%w_t^{(r)} = \frac{\exp\left[l_c(\widehat{\bfvarrho}^{(r)},\widehat{\bfLambda}^{(r)},\sigma|\mathcal{O},\bfgamma_t) \right]}{\exp\left[l_c(\widehat{\bfvarrho}^{(0)},\widehat{\bfLambda}^{(r)},\sigma|\mathcal{O},\bfgamma_t) \right]}
+%\end{equation*}
+%The cost in obtaining the weights $w_t^{(r)}$ is less than obtaining a new sample. 
+In the M-step, the estimates of $\bfvarrho$ is updated via $\widehat{\bfvarrho}^{(r+1)} = \max_{\bfvarrho}Q(\bfvarrho|\widehat{\bfvarrho}^{(r)}).  $
+Although the Monte Carlo approximation provides a solution to overcome the intractable E-step, it also has a persistent MC error depending on the sample size. This can sometimes be overcome by starting with small value of $m$ and increasing $m$ with iteration step $r$. The rule for increasing MCMC sample sizes can be found in \cite{caffo2005ascent} to make the algorithm move closer to convergence. 
+
+
+
+\section{Simulation Setups and extra simulation results}
+\label{sec:extra simulation}
+
+
+\iffalse
+In the second example (Ex2), we consider more set of covariates to capture cross-world dependence. The covariates, denoted as $Z_{ip}$ ($p=1,\cdots,6$), are independently generated from a standard normal distribution. The regression coefficients for these covariates are specified in Table S.1 in the supplementary material. Other aspects of the setup are in accord with Ex1 with $c_u=16$. In the third example (Ex3), the setup is the same as in Ex1 with $c_u=16$, except for the treatment variable $A_i$, which is generated from a logistic regression in which the success probability is given by $\{1+\exp(-Z_{i1})\}^{-1}$. The estimation results of causal parameters under Ex2 and Ex3, each with a sample size of $n=1000$, are presented in Figures \ref{fig:causal_ex2} and \ref{fig:causal_ex3}, respectively. 
+\fi
+
+\textbf{Class without frailty.}
+In the first scenario (Ex1), there are two covariates:  $Z_{i1}\sim$ uniform$[-1,1]$ and $Z_{i2}\sim N(0,1)$, $i=1,\cdots,n$. The treatment variable, denoted by $A_i$, independently follows a Bernoulli distribution with a probability of 0.5. Regardless of the assigned treatment, we employ the same Frank copula function with Kendall's tau $\tau^{(0)}=\tau^{(1)}=\tau$ set at either 0.3 or 0.6, where the definition of Kendall's tau is introduced in (3) from the main context. %\eqref{eq:kendal_tau}.  
+The marginal distributions for the non-terminal and terminal event times follow Cox proportional hazards models with Weilbull distributions at baseline. Different values are assigned to the regression coefficients and baseline hazard function under distinct treatment allocations. Specific details are provided in Table S.1. %in the supplementary material. 
+The censoring variable is drawn from a Uniform$[0, c_u]$, where $c_u$ is chosen to achieve the desired censoring rates. In the case of low censoring, we set $c_u=45$, resulting in approximately 35$\%$ for $T_1$ and 10$\%$ for $T_2$ censored in the samples; while in the case of high censoring, $c_u=16$ is chosen, leading to censoring rates of approximately 45$\%$ for $T_1$ and 30$\%$ for $T_2$. 
+%Setup Ex2 involves more sets of covariates and  $A_i$ in Ex3 is generated from a conditional model on covariates. Details of the latter two scenarios can be referred to the supplementary material.
+In the second example (Ex2), we consider more set of covariates to capture cross-world dependence. The covariates, denoted as $Z_{ip}$ ($p=1,\cdots,6$), are independently generated from a standard normal distribution. The regression coefficients for these covariates are specified in Table S.1. %in the supplementary material. 
+Other aspects of the setup are in accord with Ex1 with $c_u=16$. In the third example (Ex3), the setup is the same as in Ex1 with $c_u=16$, except for the treatment variable $A_i$, which is generated from a logistic regression in which the success probability is given by $\{1+\exp(-Z_{i1})\}^{-1}$. 
+
+\textbf{Class with frailty.} 
+We continue to consider an example (Ex4) with two covariates and a frailty variable. The generation of covariates and the treatment variable are the same with the first example Ex1. The frailty variable follows a Gamma distribution with shape and rate equal to $1/\sigma$, where $\sigma$ is set at either 0.2 or 0.4. We plug the true value of $\sigma$ into estimation for illustrating the proposed method. In practice, these frailty models will be used in the sensitivity analysis with several pre-specified $\sigma$ values. The marginal distributions for the nonterminal and terminal event times follow the shared-frailty proportional hazards models (14) in the main context. %\eqref{model: marginal}. 
+The true values of regression coefficients are specified in Table S.1 within the supplementary material. The joint distribution between nonterminal and terminal event times follows the Frank copula structure with Kendall's tau $\tau^{(0)}=\tau^{(1)}=\tau$, set at either 0.3 or 0.6. The censoring variable is simulated from a Uniform$[0, 12]$, leading to the censoring rates of approximately 50$\%$ for $T_1$ and 30$\%$ for $T_2$. 
+
+\begin{table}[h]
+    \centering
+        \caption{Parameter specification in the simulated samples }
+    \label{tab:sim_param}
+    \begin{tabular}{cccccccc}
+    \hline \hline
+    \multicolumn{1}{l}{Examples}&\multicolumn{1}{c}{}&\multicolumn{2}{c}{$T_1$}&&\multicolumn{2}{c}{$T_2$}\\
+    \cline{3-4}\cline{6-7}
+    &&$\Lambda_{01}^{(a)}(t)$& $\beta_{1}^{(a)}$&&$\Lambda_{02}^{(a)}(t)$&$\beta_{2}^{(a)}$\\
+     \hline
+    Ex1/Ex3& $a=0$     &  $(t/3.5)^5$& (1,2) && $(t/4)^{5.5}$ &(1,2) \\
+    &$a=1$     &  $(t/5.5)^6$ & (0,2) && $(t/5.8)^{6.5}$ &(0.5,2) \\
+    \hline
+    Ex2& $a=0$     &  $(t/3)^4$& (2/3,2/3,2/3,0,0,0) && $(t/3.4)^{4.2}$ &(0,0,0,2,2,2) \\
+    &$a=1$     &  $(t/4)^5$ & (1,1,1,0,0,0) && $(t/4.5)^{5.2}$ &(0,0,0,1,1,1) \\  
+    \hline
+    Ex4& $a=0$     &  $(t/3)^4$& (2,0) && $(t/3.4)^{4.2}$ &(0,2) \\
+    &$a=1$     &  $(t/4)^5$ & (1,0) && $(t/4.5)^{5.2}$ &(0,1) \\                 
+    \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\footnotesize
+\begin{center}
+\caption{Estimation results of regression coefficients and association parameters in the first example Ex1. The mean biases, Monte Carlo standard derivation (MCSD) and asymptotic standard error (SE) of estimated parameters are summarized in this table.}
+\label{tab:est_coef_ex1}
+\begin{tabular}{lrrrrrrrrrrrrrrrr}
+\hline\hline
+& &\multicolumn{7}{c}{$\tau=0.3$}&&\multicolumn{7}{c}{$\tau=0.6$}\tabularnewline
+\cline{3-9}\cline{11-17}
+& &\multicolumn{3}{c}{$n=500$}&&\multicolumn{3}{c}{$n=1000$}&&\multicolumn{3}{c}{$n=500$}&&\multicolumn{3}{c}{$n=1000$}\tabularnewline
+\cline{3-5}\cline{7-9}\cline{11-13}
+\cline{15-17}
+ && Bias& MCSD&SE& & Bias& MCSD&SE& & Bias& MCSD&SE&& Bias& MCSD&SE \tabularnewline
+ \hline
+\multicolumn{5}{l}{low censoring}\tabularnewline
+$\tau^{(0)}$&& 0.016&0.048&0.044& & 0.007&0.033&0.032& &-0.074&0.050&0.082& &-0.030&0.053&0.057\tabularnewline
+$\tau^{(1)}$&& 0.019&0.048&0.046& & 0.015&0.034&0.035&&-0.157&0.081&0.104& &-0.089&0.074&0.071\tabularnewline
+$\beta_{11}^{(0)}$&&-0.012&0.146&0.152& & 0.005&0.103&0.102&& 0.015&0.135&0.142&& 0.028&0.096& 0.096\tabularnewline
+$\beta_{12}^{(0)}$&&-0.028&0.150&0.157& &-0.011&0.097&0.108&& 0.027&0.142&0.149&& 0.030&0.096&0.107\tabularnewline
+$\beta_{11}^{(1)}$&&-0.019&0.154&0.152& &-0.015&0.087&0.104&&-0.070&0.138&0.148&&-0.040&0.082&0.097\tabularnewline
+$\beta_{12}^{(1)}$&&-0.016&0.169&0.175& &-0.032&0.117&0.117&& 0.027&0.155&0.168&& 0.015&0.110&0.114\tabularnewline
+$\beta_{21}^{(0)}$&& 0.019&0.126&0.131& & 0.007&0.092&0.091&& 0.046&0.137&0.148&& 0.035&0.092&0.096\tabularnewline
+$\beta_{22}^{(0)}$&& 0.011&0.128&0.132& & 0.010&0.087&0.091&& 0.078&0.134&0.147&& 0.059&0.092&0.101\tabularnewline
+$\beta_{21}^{(1)}$&&-0.007&0.120&0.130& & 0.000&0.091&0.085&&-0.027&0.130&0.149&&-0.018&0.091&0.096\tabularnewline
+$\beta_{22}^{(1)}$&& 0.010&0.137&0.139& & 0.004&0.083&0.089&& 0.074&0.128&0.150&& 0.053&0.088&0.100\tabularnewline
+\hline
+\multicolumn{5}{l}{high censoring}\tabularnewline
+$\tau^{(0)}$&& 0.016&0.052&0.047 && 0.006&0.036&0.035 &&-0.081&0.067&0.085 &&-0.032&0.049&0.054\tabularnewline
+$\tau^{(1)}$&& 0.027&0.052&0.051 && 0.019&0.039&0.040 &&-0.166&0.094&0.106 &&-0.090&0.069&0.071\tabularnewline
+$\beta_{11}^{(0)}$&&-0.007&0.166&0.166 && 0.009&0.111&0.110 && 0.017&0.154& 0.156&& 0.037&0.115&0.102\tabularnewline
+$\beta_{12}^{(0)}$&&-0.020&0.158&0.168 &&-0.006&0.105&0.115 && 0.031&0.149&0.161 && 0.039&0.106&0.110\tabularnewline
+$\beta_{11}^{(1)}$&&-0.015&0.177&0.181 &&-0.011&0.107& 0.121&&-0.072&0.162&0.175 &&-0.039&0.102&0.115\tabularnewline
+$\beta_{12}^{(1)}$&&-0.001&0.183&0.193 &&-0.027&0.125&0.130 && 0.050&0.172& 0.191&& 0.027&0.123&0.128\tabularnewline
+$\beta_{21}^{(0)}$&& 0.022&0.141&0.145 && 0.009&0.103&0.099 && 0.057&0.161&0.165 && 0.041&0.104&0.106\tabularnewline
+$\beta_{22}^{(0)}$&& 0.013&0.134&0.142 && 0.011&0.096&0.099 && 0.099&0.149&0.161 && 0.068&0.097&0.110\tabularnewline
+$\beta_{21}^{(1)}$&& 0.003&0.134&0.154 &&-0.001&0.104&0.101 &&-0.011&0.150&0.177 &&-0.005&0.111&0.117\tabularnewline
+$\beta_{22}^{(1)}$&& 0.018&0.163&0.162 && 0.004&0.097&0.104 && 0.102&0.156&0.173 && 0.071&0.104&0.118\tabularnewline
+\hline
+\end{tabular}\end{center}
+\end{table}
+
+\begin{figure}[h]
+  \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim1000_case1_tau45_rho0.3haz.pdf}
+  \begin{center}
+    \texttt{(a) low censoring}
+\end{center}
+
+%\bigskip\hrulefill\bigskip
+  \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim1000_case1_tau16_rho0.3haz.pdf}
+\begin{center}
+    \texttt{(b) high censoring}
+\end{center}
+\caption{Estimation of baseline cumulative hazard functions for each arm in the first example with $n=1000$ and $\tau=0.3$.}
+    \label{fig:bshaz}
+\end{figure}
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Estimation results of regression coefficients and association parameters in  Ex4. The mean biases and Monte Carlo standard derivation (MCSD) of estimated parameters are summarized in this table.}
+\label{tab:est_coef_ex4}
+\begin{tabular}{lrrrrrrrrrrrr}
+\hline\hline
+& &\multicolumn{5}{c}{$\tau=0.3$}&&\multicolumn{5}{c}{$\tau=0.6$}\tabularnewline
+\cline{3-7}\cline{9-13}
+& &\multicolumn{2}{c}{$n=500$}&&\multicolumn{2}{c}{$n=1000$}&&\multicolumn{2}{c}{$n=500$}&&\multicolumn{2}{c}{$n=1000$}\tabularnewline
+\cline{3-4}\cline{6-7}\cline{9-10}
+\cline{12-13}
+ && Bias& MCSD&& Bias& MCSD&& Bias& MCSD&& Bias& MCSD \tabularnewline
+\hline
+\multicolumn{5}{l}{$\sigma=0.2$}\tabularnewline
+$\tau^{(0)}$ &&$ 0.018$&$0.061$&&$ 0.004$&$0.047$&&$-0.031$&$0.044$&&$-0.033$&$0.036$\tabularnewline
+$\tau^{(1)}$&&$ 0.014$&$0.057$&&$ 0.008$&$0.044$&&$-0.051$&$0.062$&&$-0.043$&$0.042$\tabularnewline
+$\beta_{11}^{(0)}$&&$ 0.004$&$0.241$&&$ 0.027$&$0.156$&&$ 0.018$&$0.302$&&$ 0.032$&$0.202$\tabularnewline
+$\beta_{12}^{(0)}$&&$ 0.004$&$0.142$&&$-0.003$&$0.086$&&$ 0.079$&$0.150$&&$ 0.073$&$0.120$\tabularnewline
+$\beta_{11}^{(1)}$&&$-0.012$&$0.198$&&$ 0.007$&$0.149$&&$-0.045$&$0.227$&&$-0.051$&$0.149$\tabularnewline
+$\beta_{12}^{(1)}$&&$ 0.013$&$0.115$&&$ 0.004$&$0.083$&&$ 0.048$&$0.127$&&$ 0.053$&$0.077$\tabularnewline
+$\beta_{21}^{(0)}$&&$ 0.004$&$0.150$&&$ 0.016$&$0.114$&&$ 0.018$&$0.167$&&$ 0.032$&$0.120$\tabularnewline
+$\beta_{22}^{(0)}$&&$-0.013$&$0.154$&&$-0.006$&$0.109$&&$ 0.024$&$0.169$&&$ 0.029$&$0.110$\tabularnewline
+$\beta_{21}^{(1)}$&&$-0.004$&$0.156$&&$ 0.001$&$0.107$&&$-0.001$&$0.170$&&$ 0.008$&$0.112$\tabularnewline
+$\beta_{22}^{(1)}$&&$ 0.007$&$0.114$&&$ 0.001$&$0.073$&&$ 0.045$&$0.126$&&$ 0.043$&$0.080$\tabularnewline
+\hline
+\multicolumn{5}{l}{$\sigma=0.4$}\tabularnewline
+$\tau^{(0)}$ &&$ 0.032$&$0.063$&&$ 0.011$&$0.048$&&$-0.039$&$0.049$&&$-0.039$&$0.039$\tabularnewline
+$\tau^{(1)}$ &&$ 0.021$&$0.067$&&$ 0.019$&$0.047$&&$-0.057$&$0.068$&&$-0.050$&$0.059$\tabularnewline
+$\beta_{11}^{(0)}$&&$-0.024$&$0.229$&&$-0.019$&$0.166$&&$ 0.008$&$0.291$&&$-0.001$&$0.212$\tabularnewline
+$\beta_{12}^{(0)}$&&$-0.005$&$0.130$&&$-0.007$&$0.093$&&$ 0.051$&$0.175$&&$ 0.042$&$0.146$\tabularnewline
+$\beta_{11}^{(1)}$&&$-0.010$&$0.204$&&$-0.042$&$0.136$&&$-0.053$&$0.241$&&$-0.070$&$0.179$\tabularnewline
+$\beta_{12}^{(1)}$&&$ 0.006$&$0.118$&&$ 0.001$&$0.086$&&$ 0.039$&$0.122$&&$ 0.038$&$0.105$\tabularnewline
+$\beta_{21}^{(0)}$&&$-0.001$&$0.174$&&$ 0.005$&$0.118$&&$ 0.009$&$0.176$&&$ 0.012$&$0.114$\tabularnewline
+$\beta_{22}^{(0)}$&&$-0.031$&$0.166$&&$-0.021$&$0.119$&&$ 0.006$&$0.178$&&$ 0.005$&$0.129$\tabularnewline
+$\beta_{21}^{(1)}$&&$ 0.004$&$0.181$&&$-0.016$&$0.111$&&$-0.006$&$0.201$&&$-0.026$&$0.123$\tabularnewline
+$\beta_{22}^{(1)}$&&$-0.002$&$0.121$&&$-0.015$&$0.087$&&$ 0.024$&$0.131$&&$ 0.018$&$0.103$\tabularnewline
+\hline
+\end{tabular}\end{center}
+\end{table}
+
+
+
+%chixiang: \red{this result is good. but the figure should be polished more. we may need another table or figure to show compare the MCSD and estimated standard error, either use boostrap or asymptotic, whichever is more convenient}
+
+
+\begin{figure}[h]
+  \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim1000_case4_tau16_rho0.3.pdf}
+  \begin{center}
+    \texttt{(a) $\tau=0.3$}
+\end{center}
+  \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim1000_case4_tau16_rho0.6.pdf}
+\begin{center}
+    \texttt{(b) $\tau=0.6$}
+\end{center}
+\caption{Estimation of causal parameters in Ex2 with $\tau=0.3,0.6$ and $n=1000$.}
+    \label{fig:causal_ex2}
+\end{figure}
+
+\begin{figure}[h]
+  \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim1000_case5_tau16_rho0.3.pdf}
+  \begin{center}
+    \texttt{(a) $\tau=0.3$}
+\end{center}
+  \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim1000_case5_tau16_rho0.6.pdf}
+\begin{center}
+    \texttt{(b) $\tau=0.6$}
+\end{center}
+\caption{Estimation of causal parameters in Ex3 with $\tau=0.3,0.6$ and $n=1000$.}
+    \label{fig:causal_ex3}
+\end{figure}
+
+\begin{figure}[h]
+  \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim500_case2_tau12_rho0.3.pdf}
+  \begin{center}
+    \texttt{(a) $n=500$}
+\end{center}
+
+%\bigskip\hrulefill\bigskip
+  \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim1000_case2_tau12_rho0.3.pdf}
+\begin{center}
+    \texttt{(b) $n=1000$}
+\end{center}
+\caption{Estimation of causal parameters in Ex4 with $\tau=0.3$ and $\sigma=0.2$.}
+    \label{fig:causal0.3_ex41}
+\end{figure}
+
+\begin{figure}[h]
+  \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim500_case3_tau12_rho0.3.pdf}
+  \begin{center}
+    \texttt{(a) $n=500$}
+\end{center}
+
+%\bigskip\hrulefill\bigskip
+  \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim1000_case3_tau12_rho0.3.pdf}
+\begin{center}
+    \texttt{(b) $n=1000$}
+\end{center}
+\caption{Estimation of causal parameters in Ex4 with $\tau=0.3$ and $\sigma=0.4$.}
+    \label{fig:causal0.6_ex42}
+\end{figure}
+
+\begin{figure}[h]
+ \medskip
+\includegraphics[height=9cm,width=17cm]{fig/sim500_case2_tau12_rho0.6.pdf}
+ \begin{center}
+ \texttt{(a) $\sigma=0.2$}
+\end{center}
+
+\includegraphics[height=9cm,width=17cm]{fig/sim500_case3_tau12_rho0.6.pdf}
+  \begin{center}
+    \texttt{(a) $\sigma=0.4$}
+\end{center}
+
+%\bigskip\hrulefill\bigskip
+\caption{Estimation of causal parameters in Ex4 with $n=500$, $\tau=0.6$ and $\sigma=0.2/0.4$.}
+    \label{fig:causal0.6_ex42}
+\end{figure}
+
+
+\clearpage
+
+\section{Additional results for breast cancer study}
+\label{sec:extra real}
+
+\bibliographystyle{apalike}
+\bibliography{ref_causal}
+
+
+\begin{landscape}
+\begin{table}[htbp]
+\footnotesize
+\tabcolsep=5pt
+\begin{center}
+\caption{Estimation of regression coefficients and Kendall's tau $\tau^{(a)}$ for the breast cancer study under different specified frailty variance $\sigma$, where $a=0$ and 1 represent no treatment and hormone treatment, respectively. }
+\label{tab:breast_coef1}
+\begin{tabular}{llllllllllllll}
+\hline\hline
+\multirow{2}*{$\sigma$}&\multirow{2}*{$\tau^{(a)}$}& \multicolumn{6}{c}{RFS$(T_1)$}&\multicolumn{6}{c}{OS$(T_2)$}\tabularnewline
+\cmidrule(lr){3-8}\cmidrule(lr){9-14}
+&&Age&ER&Meno&Node&NPI&size&Age&ER&Meno&Node&NPI&Size\tabularnewline
+\hline
+\multicolumn{6}{l}{a=0 (no treatment)}\tabularnewline
+$ 0$&$0.574^{**}$&$ 0.005$&$0.457$&$-0.057$&$0.613$&$0.228*$&$0.008$&$0.056^{**}$&$-0.021$&$-0.732^{**}$&$0.909^{**}$&$0.175*$&$0.011$\tabularnewline
+%$0.0001$&$0.589^{**}$&$ 0.003$&$0.403$&$-0.032$&$0.608$&$0.266*$&$0.009$&$0.055$&$-0.028$&$-0.714*$&$0.937^{**}$&$0.186$&$0.011$\tabularnewline
+$ 0.5$&$0.566^{**}$&$ 0.000$&$0.403$&$ 0.033$&$0.696*$&$0.248*$&$0.006$&$0.055$&$-0.003$&$-0.705^{**}$&$0.981^{**}$&$0.253^{**}$&$0.013$\tabularnewline
+$ 1$&$0.438^{**}$&$-0.002$&$0.388$&$-0.025$&$0.762$&$0.319^{**}$&$0.005$&$0.054$&$-0.083$&$-0.730^{*}$&$1.090^{**}$&$0.283^{**}$&$0.012$\tabularnewline
+$ 1.5$&$0.548^{**}$&$ 0.000$&$0.334$&$-0.034$&$0.678^{*}$&$0.266^{*}$&$0.008$&$0.054$&$-0.012$&$-0.710^{**}$&$0.927^{**}$&$0.213^{*}$&$0.011$\tabularnewline
+$10$&$0.498^{**}$&$-0.005$&$0.369$&$-0.037$&$0.743$&$0.252^{*}$&$0.005$&$0.051$&$-0.011$&$-0.749^{*}$&$0.964^{*}$&$0.197$&$0.011$\tabularnewline
+\hline
+\multicolumn{6}{l}{a=1 (hormone treatment)}\tabularnewline
+$ 0$&$0.675^{**}$&$0.016$&$ 0.008$&$-0.081$&$0.500^{**}$&$0.179^{*}$&$0.021^{**}$&$0.044^{**}$&$-0.071$&$-0.027$&$0.270$&$0.188^{**}$&$0.017^{**}$\tabularnewline
+%$0.0001$&$0.646^{**}$&$0.013$&$-0.064$&$-0.150$&$0.565^{**}$&$0.267^{**}$&$0.022^{**}$&$0.043$&$-0.076$&$-0.028$&$0.306$&$0.205^{**}$&$0.015$\tabularnewline
+$ 0.5$&$0.655^{**}$&$0.010$&$-0.037$&$-0.134$&$0.515^{**}$&$0.281^{*}$&$0.025^{*}$&$0.045$&$-0.097$&$-0.005$&$0.337^{*}$&$0.236^{**}$&$0.017^{**}$\tabularnewline
+$ 1$&$0.505^{**}$&$0.004$&$-0.082$&$-0.124$&$0.559^{*}$&$0.289^{**}$&$0.024^{**}$&$0.042$&$-0.104$&$ 0.093$&$0.312$&$0.239$&$0.019^{**}$\tabularnewline
+$ 1.5$&$0.652^{**}$&$0.007$&$-0.082$&$-0.152$&$0.558^{**}$&$0.273^{*}$&$0.025$&$0.044$&$-0.129$&$ 0.008$&$0.355^{*}$&$0.249^{**}$&$0.019^{**}$\tabularnewline
+$10$&$0.584^{**}$&$0.004$&$-0.056$&$-0.151$&$0.563^{**}$&$0.270^{**}$&$0.024$&$0.041$&$-0.111$&$ 0.000$&$0.329^{*}$&$0.226^{**}$&$0.016^{**}$\tabularnewline
+\hline
+\multicolumn{14}{l}{* and ** indicate significance computed by 100  Bootstrap replicates at levels 0.1 and 0.05, respectively.}\tabularnewline
+\end{tabular}\end{center}
+\end{table}
+\end{landscape}
+
+
+%\begin{table}[htbp]
+%\footnotesize
+%\caption{Integration of the causal parameters over the interval from zero to the maximum observed follow-up time under the breast cancer data.}
+%\label{tab:breast_causal}
+%\begin{center}
+%\begin{tabular}{lrrrrrrrrrr}
+%\hline\hline
+%\multicolumn{1}{l}{ }&\multicolumn{1}{c}{$\sigma=0$}&\multicolumn{1}{c}{0.1}&\multicolumn{1}{c}{0.14}&\multicolumn{1}{c}{0.19}&\multicolumn{1}{c}{0.27}&\multicolumn{1}{c}{0.38}&\multicolumn{1}{c}{0.53}&\multicolumn{1}{c}{0.74}&\multicolumn{1}{c}{1.03}&\multicolumn{1}{c}{1.43}\tabularnewline
+%\hline
+%\multicolumn{8}{c}{none versus hormone treatments}\tabularnewline
+%ND-SACE&\tabularnewline
+%AD-SACE1&
+%AD-SACE2&
+%\hline
+%\multicolumn{8}{c}{hormone versus combined treatments}\tabularnewline
+%\hline
+%\end{tabular}\end{center}
+%\end{table}
+
+
+\begin{landscape}
+\begin{table}[htbp]
+\footnotesize
+\tabcolsep=5pt
+\begin{center}
+\caption{Estimation of regression coefficients and Kendall's tau $\tau^{(a)}$ for the breast cancer study under different specified frailty variance $\sigma$, where $a=0$ and 1 represent hormone treatment and combined treatment of hormone and radio, respectively. }
+\label{tab:breast_coef}
+\begin{tabular}{llllllllllllllll}
+\hline\hline
+\multirow{2}*{$\sigma$}&\multirow{2}*{$\tau^{(a)}$}& \multicolumn{7}{c}{RFS$(T_1)$}&\multicolumn{7}{c}{OS$(T_2)$}\tabularnewline
+\cmidrule(lr){3-9}\cmidrule(lr){10-16}
+&&{Age}&{PR}&{HER2}&{Meno}&{Node}&{NPI}&{Size}&{Age}&{PR}&{HER2}&{Meno}&{Node}&{NPI}&{Size}\tabularnewline
+\hline
+\multicolumn{10}{l}{a=0 (hormone treatment only)}\tabularnewline
+0&0.676**&0.017*&0.005&0.262&-0.136&0.49**&0.182*&0.022**&0.044**&0.081&0.15&-0.015&0.256&0.194**&0.017**\tabularnewline
+%0.0001&0.662**&0.009&-0.092&0.217&-0.209&0.61**&0.28**&0.024**&0.044&0.077&0.161&-0.015&0.273&0.218**&0.017**\tabularnewline
+0.5&0.674**&0.01&-0.042&0.243&-0.18&0.536**&0.277**&0.023&0.045&-0.042&0.198&0.004&0.344*&0.237**&0.02**\tabularnewline
+1&0.553**&0.008&-0.031&0.252&-0.188&0.552**&0.282**&0.028**&0.042&-0.052&0.186&0.018&0.293&0.251**&0.021**\tabularnewline
+1.5&0.62**&0.008&-0.067&0.23&-0.174&0.588**&0.277&0.027**&0.044&0.042&0.194&-0.097&0.335&0.22**&0.018**\tabularnewline
+10&0.585**&0.005&-0.079&0.23&-0.189&0.618**&0.261*&0.024**&0.04&0.068&0.177&-0.021&0.279&0.221**&0.016\tabularnewline
+\hline
+\multicolumn{10}{l}{a=1 (combined treatment of hormone and radio)}\tabularnewline
+0&0.65**&0.011&-0.461**&0.709**&-1.002**&0.468&0.08&0.015**&0.054**&-0.203&0.536&-0.499&0.336&0.103&0.014**\tabularnewline
+%0.0001&0.633**&0&-0.446&0.785**&-1.031*&0.474&0.196&0.015**&0.054&-0.199&0.549&-0.501&0.34&0.127&0.015**\tabularnewline
+0.5&0.637**&0.001&-0.377&0.515&-0.935&0.468&0.187&0.015&0.054&-0.225&0.604&-0.448&0.414&0.122&0.015*\tabularnewline
+1&0.554**&0.002&-0.44&0.797**&-0.942&0.365&0.199&0.015*&0.054&-0.21&0.65*&-0.509&0.383&0.137&0.012\tabularnewline
+1.5&0.598**&0.001&-0.446&0.719**&-0.942&0.452&0.195&0.016&0.053&-0.215&0.625**&-0.493&0.375&0.104&0.012\tabularnewline
+10&0.435**&0.099&-0.376&0.808**&-1.058*&0.367&0.23&0.019*&0.054&-0.279&0.576*&-0.404&0.359&0.073&0.016\tabularnewline
+\hline
+\multicolumn{14}{l}{* and ** indicate significance computed by 100  Bootstrap replicates at levels 0.1 and 0.05, respectively.}\tabularnewline
+\end{tabular}\end{center}
+\end{table}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}
+    \centering
+    \includegraphics[height=15cm,width=28cm]{fig/matchkm.pdf}
+    \caption{Kaplan–Meier survival curves obtained using propensity score matching method. a) and c) are KM survival curves of RFS by ignoring dependent censoring. b) and d) are  KM survival curves of OS for breast cancer patients. }
+    \label{fig:matchkm}
+\end{figure}
+\end{landscape}
+%\newpage
+%\section{Framingham heart study}\label{sec:framingham}
+%We continue to apply the proposed method to analyze a subset of the Framingham heart data.
+% , which can be accessible in the R package \emph{riskCommunicator}. 
+%Participants in this study have taken biennial examinations since the study entry, and all subjects are continually monitored for cardiovascular outcomes. Our focus is to evaluate the effect of smoking status on survival outcomes for elderly patients aged above 55 years. We exclude subjects with a history of prevalent coronary heart disease prior to the first examination, resulting in a remaining cohort of 1,074 patients for our analysis. In this study, the nonterminal event time is the number of days from the baseline exam to the occurrence of cardiovascular disease, including angina pectoris, myocardial infarction, coronary insufficiency, or fatal coronary heart disease. The terminal event time is the number of days from baseline exam to death. Due to the end or loss of follow-up, $67.5\%$ of the nonterminal event times and $38.7\%$ of the terminal event times are censored. 
+% The observable values for nonterminal event times range $26\sim 8697$ days, while the observable values for terminal event times range $26\sim 8759$ days. 
+%The risk factors of interest include systolic blood pressure (SBP) at the last two of three measurements, the logarithm of serum total cholesterol (TCHOL), and casual serum glucose (GLU). These covariates are normalized by centering them at the sample means and scaling them by their sample standard deviations.
+
+%The estimated regression coefficients are summarized in Supplementary Table S.6. TCHOL exhibits a significant effect on death in smokers but is insignificant for nonsmokers. The sensitivity analysis reveals that variations in the frailty variance affect net covariate effects slightly, except for the effect of GLU on $T_1$. Figure \ref{fig:causal_heart} displays the curves of causal parameters varying with time. Supplementary Table S.7. summarizes the integral of the causal parameters over the interval from zero to the maximum observed follow-up. These results suggest that smoking has a negative effect and enhances the risk of cardiovascular diseases and death for elderly patients in both ``AD" and ``ND" strata. 
+%Our findings align with numerous authoritative studies. For instance, smoking stands as a strong independent risk factor of cardiovascular events and mortality even at older age,  advancing cardiovascular mortality by more than five years \citep{Monsh1551}.
+%According to World Health Organization data, smoking accounts for $10\%$ of all cardiovascular diseases.
+%World Health Organization. (2012). WHO global report on mortality attributable to tobacco.
+
+%\begin{figure}[h]
+%  \medskip
+%\includegraphics[height=16cm,width=17cm]{fig/framingham_sigmas.pdf}
+%\caption{Estimation of causal parameters for the Framingham heart study. The three plots in the top line present the estimated $\operatorname{ND-SCE_2}$, $\operatorname{AD-SCE_1}$ and $\operatorname{AD-SCE_2}$ with different specified frailty variance $\sigma$. The three plots in the bottom line present the estimated causal parameters along with their 95$\%$ confidence interval under pre-specified $\sigma = 0$ (without unmeasured confounding).}
+%    \label{fig:causal_heart}
+%\end{figure}
+
+%\begin{table}[htbp]
+%\begin{center}
+%\caption{Estimation of regression coefficients for the  Framingham heart study. }
+%\label{tab:heart_ coef}
+%\begin{tabular}{lllllllll}
+%\hline\hline
+%&& \multicolumn{3}{c}{$T_1$}&&\multicolumn{3}{c}{$T_2$}\tabularnewline
+%\cline{3-5}\cline{7-9}
+%\multicolumn{1}{c}{$\sigma$}&\multicolumn{1}{c}{$\tau^{(a)}$}&\multicolumn{1}{c}{SBP}&\multicolumn{1}{c}{TCHOL}&\multicolumn{1}{c}{GLU}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{SBP}&\multicolumn{1}{c}{TCHOL}&\multicolumn{1}{c}{GLU}\tabularnewline
+%\hline
+%\multicolumn{9}{c}{$a=0$}\tabularnewline
+%$0$&$ 0.395$&$0.390*$&$ 0.066$&$0.121*$&&$0.330*$&$-0.070$&$0.103*$\tabularnewline
+%$0.01$&$ 0.390$&$0.395*$&$ 0.060$&$0.120*$&&$0.335*$&$-0.081$&$0.106*$\tabularnewline
+%$0.10$&$ 0.380$&$0.390*$&$ 0.043$&$0.126*$&&$0.335*$&$-0.083$&$0.114*$\tabularnewline
+%$0.18$&$ 0.372$&$0.382*$&$ 0.029$&$0.137*$&&$0.337*$&$-0.096$&$0.124*$\tabularnewline
+%$0.32$&$ 0.361$&$0.393*$&$ 0.033$&$0.139*$&&$0.341*$&$-0.091$&$0.133*$\tabularnewline
+%$0.56$&$ 0.334$&$0.402*$&$ 0.010$&$0.147*$&&$0.355*$&$-0.119$&$0.138*$\tabularnewline
+%\hline
+%\multicolumn{9}{c}{$a=1$}\tabularnewline
+%$0$&$ 0.381$&$0.273*$&$-0.049$&$0.186*$&&$0.278*$&$-0.276*$&$0.196*$\tabularnewline
+%$0.01$&$ 0.362$&$0.250*$&$-0.052$&$0.187$&&$0.272*$&$-0.278*$&$0.206*$\tabularnewline
+%$0.10$&$ 0.348$&$0.268*$&$-0.072$&$0.206*$&&$0.296*$&$-0.301*$&$0.221*$\tabularnewline
+%$0.18$&$ 0.345$&$0.289*$&$-0.063$&$0.191$&&$0.308*$&$-0.300*$&$0.217*$\tabularnewline
+%$0.32$&$ 0.320$&$0.309*$&$-0.081$&$0.188*$&&$0.332*$&$-0.326*$&$0.217*$\tabularnewline
+%$0.56$&$ 0.278$&$0.328*$&$-0.093$&$0.229$&&$0.360*$&$-0.346*$&$0.263*$\tabularnewline
+%\hline
+%\multicolumn{9}{l}{* indicates significance at level 0.05.}\tabularnewline
+%\end{tabular}\end{center}
+%\end{table}
+
+%\begin{table}[htbp]
+%\begin{center}
+%\caption{Integration of the causal parameters over the interval from zero to the maximum observed follow-up time under the Framingham heart data.}
+%\label{tab:heart_causal}
+%\begin{tabular}{lrrrrrr}
+%\hline\hline
+%\multicolumn{1}{l}{ }&\multicolumn{1}{c}{$\sigma=0$}&\multicolumn{1}{c}{0.01}&\multicolumn{1}{c}{0.1}&\multicolumn{1}{c}{0.18}&\multicolumn{1}{c}{0.32}&\multicolumn{1}{c}{0.56}\tabularnewline
+%\hline
+%ND-SACE&$-368.98$&$-423.59$&$-503.09$&$-449.05$&$-486.25$&$-513.64$\tabularnewline
+%AD-SACE1&$-657.07$&$-711.33$&$-792.35$&$-697.19$&$-703.07$&$-741.19$\tabularnewline
+%AD-SACE2&$-339.13$&$-354.62$&$-413.50$&$-416.15$&$-397.88$&$-409.93$\tabularnewline
+%\hline
+%\end{tabular}\end{center}
+%\end{table}
+
+
+
+
+\end{document}
+

@@ -1,0 +1,28 @@
+{
+  "paper_id": "D03",
+  "category": "D",
+  "title": "Competing Risks Quantile Regression",
+  "authors": "Limin Peng and Jason P. Fine",
+  "doi": "10.1198/jasa.2009.tm08228",
+  "year": "2009",
+  "original_url": "https://doi.org/10.1198/jasa.2009.tm08228",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "0e4d84e5c69d4a3dd807d49afd4e85e2f8a0f9dc62f48fddc533dc6738db2078",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://doi.org/10.1198/jasa.2009.tm08228"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/D03/README.md",
+  "status": "local_only"
+}

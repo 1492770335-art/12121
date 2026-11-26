@@ -1,0 +1,28 @@
+{
+  "paper_id": "N0d9d6017c6",
+  "category": "B",
+  "title": "Coase Meets Negishi: Property Rights, Welfare Weights, and Distributional Consequences in Climate Economics",
+  "authors": "Simon Lang and Matthew Gordon and Matthew Kotchen",
+  "doi": "10.3386/w35971",
+  "year": "2026",
+  "original_url": "https://doi.org/10.3386/w35971",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "bc66f01ce8d164acea1de6931e69f05ceeafc2d172145b016fa58e7a9aa901dd",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://doi.org/10.3386/w35971"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/N0d9d6017c6/README.md",
+  "status": "local_only"
+}

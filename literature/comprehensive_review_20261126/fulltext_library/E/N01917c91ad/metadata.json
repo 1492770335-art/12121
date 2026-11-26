@@ -1,0 +1,28 @@
+{
+  "paper_id": "N01917c91ad",
+  "category": "E",
+  "title": "Transfer Learning of Individualized Treatment Rules from Experimental to Real-World Data",
+  "authors": "Lili Wu and Shu Yang",
+  "doi": "10.1080/10618600.2022.2141752",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1080/10618600.2022.2141752",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "c82c3c89e00e8222127369859f886a55ab8eef0bba88ed970f71c8c08515b2ad",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2108.08415"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N01917c91ad/README.md",
+  "status": "local_only"
+}

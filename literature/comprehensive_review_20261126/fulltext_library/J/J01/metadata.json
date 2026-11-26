@@ -1,0 +1,28 @@
+{
+  "paper_id": "J01",
+  "category": "J",
+  "title": "Semiparametric M-estimation with non-smooth criterion functions",
+  "authors": "Laurent Delsol and Ingrid Van Keilegom",
+  "doi": "10.1007/s10463-018-0700-y",
+  "year": "2020",
+  "original_url": "https://doi.org/10.1007/s10463-018-0700-y",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "16dae8d1bddc0708061014bf810048cd877fc7815d2e0bd42e1d5be05ca85f50",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://www.ism.ac.jp/editsec/aism/72/0577.pdf"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "J/J01/README.md",
+  "status": "local_only"
+}

@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2404.17019v1",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://arxiv.org/src/2404.17019v1",
+  "archive_sha256": "63fe74d6f52b2b8c72015ce1a995da3d4762a116db00a7f32bdb195892ac04c1",
+  "files": [
+    {
+      "path": "neymanmlrev1.tex",
+      "bytes": 87311,
+      "sha256": "44867635e8e5acb033018a5127431d0ebb5814a96ff238397b0a7cfec1faee5e"
+    }
+  ],
+  "notes": "Original .tex bytes only; no compilation, no formula rewriting. Third-party styles, figures and data omitted from public source subset."
+}

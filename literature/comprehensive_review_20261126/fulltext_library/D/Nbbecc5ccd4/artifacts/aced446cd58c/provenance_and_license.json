@@ -1,0 +1,30 @@
+{
+  "paper_id": "Nbbecc5ccd4",
+  "category": "D",
+  "artifact_type": "main",
+  "sha256": "aced446cd58c9f5018839ab78fcbcabf7e58862ae59facd9d19c3184828a7489",
+  "source_url": "https://www.mdpi.com/2227-7390/11/6/1295/pdf?version=1678258499",
+  "original_version": "publishedVersion",
+  "bytes": "429481",
+  "pdf_pages": "23",
+  "arxiv_id": "",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.mdpi.com/2227-7390/11/6/1295/pdf?version=1678258499",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:53.636249+08:00",
+  "format": "pdf",
+  "title": "Weighted Competing Risks Quantile Regression Models and Variable Selection",
+  "authors": "Erqian Li and Jianxin Pan and Manlai Tang and Keming Yu and Wolfgang Karl Härdle and Xiaowen Dai and Maozai Tian",
+  "doi": "10.3390/math11061295",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "conditions of the Creative Commons\nAttribution (CC BY) license (https://\ncreativecommons.org/licenses/by/"
+    }
+  ]
+}

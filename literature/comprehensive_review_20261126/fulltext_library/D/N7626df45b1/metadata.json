@@ -1,0 +1,28 @@
+{
+  "paper_id": "N7626df45b1",
+  "category": "D",
+  "title": "Comparison of quantile regression curves with censored data",
+  "authors": "Lorenzo Tedesco and Ingrid Van Keilegom",
+  "doi": "10.1007/s11749-023-00854-1",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1007/s11749-023-00854-1",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "4f13ee12fd09521dc6df2a1b14c1b8ccd92eb08ee2d8b474ee6601e265824ef2",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2302.03440"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/N7626df45b1/README.md",
+  "status": "local_only"
+}

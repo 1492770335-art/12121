@@ -1,0 +1,28 @@
+{
+  "paper_id": "Nfe45b0a8ff",
+  "category": "E",
+  "title": "Reward ignorant modeling of dynamic treatment regimes",
+  "authors": "Michael P. Wallace and Erica E. M. Moodie and David A. Stephens",
+  "doi": "10.1002/bimj.201700322",
+  "year": "2018",
+  "original_url": "https://doi.org/10.1002/bimj.201700322",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "d0ab5c074811445512e47720f9fc286f4a519996551f6b67a394f2f2111037bc",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://mcgill.scholaris.ca/bitstreams/212de692-b0ce-4a92-9ff6-58d6fb1a3c77/download"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/Nfe45b0a8ff/README.md",
+  "status": "local_only"
+}

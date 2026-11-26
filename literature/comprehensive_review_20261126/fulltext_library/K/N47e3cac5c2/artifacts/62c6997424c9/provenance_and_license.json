@@ -1,0 +1,30 @@
+{
+  "paper_id": "N47e3cac5c2",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "62c6997424c909014a99ec65086138dba1bffa4d93277b9b7cbc393b67da548c",
+  "source_url": "https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2026.1881569/pdf",
+  "original_version": "publishedVersion",
+  "bytes": "860618",
+  "pdf_pages": "10",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2026.1881569/pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:47.537144+08:00",
+  "format": "pdf",
+  "title": "Impact of pre-transplant chemotherapy cycles on allogeneic hematopoietic cell transplant outcomes in pediatric acute myeloid leukemia in first complete remission",
+  "authors": "Aaron Ackerman and Christen L. Ebens and Troy C. Lund and Margaret L. MacMillan and Robin Williams and Aswin Jayaraaman Chandrasekaran and Ryan Shanley and Elizabeth Krieger and Alex Hoover",
+  "doi": "10.3389/fonc.2026.1881569",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 1,
+      "lines": "terms of the Creative Commons\nAttribution License (CC BY). The use,"
+    }
+  ]
+}

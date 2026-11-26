@@ -1,0 +1,34 @@
+{
+  "paper_id": "Nf5ce55e86a",
+  "category": "I",
+  "title": "The Sovereign Risk Amplifies ESG Market Extremes: A Quantile-Based Factor Analysis",
+  "authors": "Oscar Walduin Orozco-Cerón and Orlando Joaqui-Barandica and Diego F. Manotas-Duque",
+  "doi": "10.3390/risks13120245",
+  "year": "2025",
+  "original_url": "https://doi.org/10.3390/risks13120245",
+  "local_fulltext": true,
+  "public_pdf": [
+    "I/Nf5ce55e86a/artifacts/f833f68b1356/original.pdf"
+  ],
+  "public_markdown": [
+    "I/Nf5ce55e86a/artifacts/f833f68b1356/fulltext.md"
+  ],
+  "public_txt": [
+    "I/Nf5ce55e86a/artifacts/f833f68b1356/fulltext.txt"
+  ],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "f833f68b13564047fccfdbac7d7012fd70beb3cd1e69cf7c62259e0828006158",
+      "decision": "public_allowed",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://www.mdpi.com/2227-9091/13/12/245/pdf?version=1765349190",
+      "provenance": "I/Nf5ce55e86a/artifacts/f833f68b1356/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "I/Nf5ce55e86a/README.md",
+  "status": "public_fulltext"
+}

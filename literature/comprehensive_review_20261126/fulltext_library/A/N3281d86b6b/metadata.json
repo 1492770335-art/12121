@@ -1,0 +1,28 @@
+{
+  "paper_id": "N3281d86b6b",
+  "category": "A",
+  "title": "Flexible inference of optimal individualized treatment strategy in covariate adjusted randomization with multiple covariates",
+  "authors": "Trinetri Ghosh and Yanyuan Ma and Rui Song and Pingshou Zhong",
+  "doi": "10.1214/23-ejs2127",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1214/23-ejs2127",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "0dcb946b36f7eed30f290ea20159270b457085ad5b3d66f39b63a493ac0c9596",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2111.10425"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "A/N3281d86b6b/README.md",
+  "status": "local_only"
+}

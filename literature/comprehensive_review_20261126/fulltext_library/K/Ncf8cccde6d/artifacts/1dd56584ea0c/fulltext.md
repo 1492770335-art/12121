@@ -1,0 +1,1171 @@
+# Outcomes and predictors of second haploidentical hematopoietic stem cell transplantation for pediatric acute leukemia relapsing after a first allograft
+
+Original PDF: [original.pdf](original.pdf). SHA256: `1dd56584ea0cb033d493237ee1a881788a0440cf1925956837feef35682ca700`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1; PDF label 1
+
+FORMULA CHECK REQUIRED: original PDF page 1.
+
+````text
+Outcomes and predictors
+of second haploidentical
+hematopoietic stem cell
+transplantation for pediatric
+acute leukemia relapsing
+after a ﬁrst allograft
+Kai Chen 1†, Huifang Wang 2†, Qing Liu 1, Guanhua Hu 2,
+Zhang Feng 2, Bing Zou 1, Yingxi Zuo 2, Lu Bai 2, Pan Suo 2,
+Jingbo Shao 1, Hui Jiang 1, Xiaohui Zhang 2, Xiaojun Huang 2,
+Jinjin Chen 3* and Yifei Cheng 2*
+1Department of Hematology and Oncology, Shanghai Children’s Hospital, School of Medicine, Shanghai
+Jiao Tong University, Shanghai, China, 2Peking University People’s Hospital & Peking University Institute of
+Hematology, National Clinical Research Center for Hematologic Disease, Beijing Key Laboratory of
+Hematopoietic Stem Cell Transplantation, Beijing, China, 3Department of Child Health Care, Shanghai
+Children’s Hospital, School of Medicine, Shanghai Jiao Tong University, Shanghai, China
+Background: The clinical efﬁcacy and prognostic factors of haploidentical
+hematopoietic stem cell transplantation (haplo-HSCT) as a salvage approach for
+children with relapsed acute leukemia (AL) after a ﬁrst allogeneic HSCT (allo-
+HSCT) remain unclear. This study aimed to evaluate the clinical efﬁcacy, survival
+outcomes, and prognostic factors of second haploidentical HSCT in children with
+relapsed AL following prior allo-HSCT.
+Methods: This retrospective study included 40 pediatric patients (median age: 8.5
+years) who underwent a second haplo-HSCT at two Chinese transplantation
+centers between January 2017 and December 2023. The primary endpoints were
+overall survival (OS) and leukemia-free survival (LFS); and secondary endpoints
+included cumulative relapse incidence and non-relapse mortality (NRM).
+Results: With a median follow-up of 16.0 months, 1- and 2-year OS rates were
+77.8% and 65.5%, and LFS rates were 72.4% and 61.0%, respectively. The 2-year
+cumulative incidences of relapse and NRM were 26.6% and 15.1%, respectively.
+Multivariate analysis showed that B-cell acute lymphoblastic leukemia was
+associated with the most favorable 2-year OS (HR = 0.081, 95%CI: 0.007–
+0.877, P = 0.039). Grade III–IV acute GVHD occurred in 25.0% of patients, and
+chronic GVHD occurred in 50.0% (10.0% extensive).
+Conclusions: These ﬁndings suggest that second haplo-HSCT with myeloablative
+conditioning may be a viable and effective salvage option for pediatric patients
+with relapsed AL lacking matched donors, possibly through graft-versus-leukemia
+effects. Future studies should incorporate targeted therapies and immune
+modulation strategies to improve outcomes in this high-risk population.
+KEYWORDS
+graft-versus-leukemia effect, haploidentical hematopoietic stem cell transplantation
+(haplo-HSCT), pediatric relapsed acute leukemia, prognostic factors, second
+allogeneic transplantation, survival outcomes
+Frontiers in Immunology
+frontiersin.org
+01
+OPEN ACCESS
+EDITED BY
+Xue-Zhong Yu,
+Medical College of Wisconsin,
+United States
+REVIEWED BY
+Xiaoqi Wang,
+Xinqiao Hospital, China
+Murat Solmaz,
+TC Saglik Bakanligi Batman Iluh Devlet
+Hastanesi, Türkiye
+*CORRESPONDENCE
+Jinjin Chen
+jjvoo@163.com
+Yifei Cheng
+yifeicheng1999@vip.sina.cn
+†These authors have contributed
+equally to this work and share
+ﬁrst authorship
+RECEIVED 19 May 2026
+REVISED 29 June 2026
+ACCEPTED 02 July 2026
+PUBLISHED 20 July 2026
+CITATION
+Chen K, Wang H, Liu Q, Hu G, Feng Z,
+Zou B, Zuo Y, Bai L, Suo P, Shao J,
+Jiang H, Zhang X, Huang X, Chen J
+and Cheng Y (2026) Outcomes and
+predictors of second haploidentical
+hematopoietic stem cell transplantation
+for pediatric acute leukemia relapsing
+after a ﬁrst allograft.
+Front. Immunol. 17:1885224.
+doi: 10.3389/fimmu.2026.1885224
+COPYRIGHT
+© 2026 Chen, Wang, Liu, Hu, Feng, Zou,
+Zuo, Bai, Suo, Shao, Jiang, Zhang, Huang,
+Chen and Cheng. This is an open-access
+article distributed under the terms of the
+Creative Commons Attribution License
+(CC BY). The use, distribution or
+reproduction in other forums is
+permitted, provided the original
+author(s) and the copyright owner(s) are
+credited and that the original publication
+in this journal is cited, in accordance
+with accepted academic practice. No
+use, distribution or reproduction is
+permitted which does not comply with
+these terms.
+TYPE Original Research
+PUBLISHED 20 July 2026
+DOI 10.3389/fimmu.2026.1885224
+
+````
+
+## PDF page 2; PDF label 2
+
+Technical extraction; compare with original PDF page 2.
+
+````text
+1 Introduction
+Acute leukemia (AL) is one of the most common and aggressive
+hematologic malignancies in children. Allogeneic hematopoietic
+stem cell transplantation (allo-HSCT) is a potentially curative
+treatment for high-risk or relapsed pediatric AL. However, despite
+advances in transplant protocols and supportive care, relapse after
+the ﬁrst allo-HSCT remains a major cause of treatment failure,
+occurring in approximately 30%–35% of patients (1–3). Post-
+transplantation relapse is associated with dismal outcomes and
+presents a formidable clinical challenge, given the limited efﬁcacy
+of conventional therapies and the high risk of treatment-related
+morbidity and mortality.
+A second allo-HSCT is often considered a potentially salvage
+option for relapsed patients, particularly those who achieve a second
+remission. Nevertheless, the success of this strategy is inﬂuenced by
+multiple factors, including the availability of a suitable donor, the
+intensity of the conditioning regimen, and the risk of graft-versus-
+host disease (GVHD). In recent years, haploidentical HSCT (haplo-
+HSCT) has gained increasing attention as a feasible alternative,
+especially in the setting of urgent need and donor scarcity. Its
+advantages include immediate donor availability and the potential
+to harness the graft-versus-leukemia (GVL) effect (4–7).
+Despite its growing use, the long-term outcomes of second
+haplo-HSC for relapsed pediatric AL remain poorly deﬁned. In
+particular, prognostic factors that could guide risk stratiﬁcation and
+treatment optimization are not well established in this setting. Thus,
+to address this gap, we conducted a multicenter retrospective study
+to evaluate the clinical efﬁcacy of second haplo-HSCT in children
+with relapsed AL following initial allo-HSCT, and to identify key
+prognostic indicators that may inform personalized therapeu-
+tic strategies.
+2 Methods
+2.1 Study design and participants
+This retrospective multicenter study included 40 pediatric
+patients diagnosed with AL who experienced relapse after a ﬁrst
+allo-HSCT and subsequently underwent a salvage haplo-HSCT as a
+second transplant. Patients were treated at one of two tertiary
+transplantation centers in China: The Institute of Hematology at
+Peking University People’s Hospital and the Department of
+Pediatric Hematology-Oncology at Shanghai Children’s Hospital,
+Shanghai Jiao Tong University.
+Eligible patients were identiﬁed retrospectively between January
+2017 and December 2023. Patients were included if they met all of
+the following criteria: 1) age < 18 years at the time of transplanta-
+tion; 2) diagnosis of acute leukemia, including acute myeloid
+leukemia or acute lymphoblastic leukemia; 3) documented relapse
+after the ﬁrst HSCT; 4) receipt of a second HSCT during the study
+period; and 5) availability of complete clinical records. Patients were
+excluded if they met any of the following criteria: 1) receipt of a
+second transplantation from a non-haploidentical donor, such as a
+matched sibling donor or an unrelated donor; 2) presence of an
+uncontrolled active infection or organ failure that precluded trans-
+plantation; 3) prior history of solid organ transplantation; or 4)
+incomplete follow-up data.
+Eligibility for a second haploidentical transplantation was deter-
+mined through an individualized multidisciplinary assessment. Relapse
+after the ﬁrst transplantation was considered a prerequisite but was not
+by itself sufﬁcient for second transplantation. The assessment consid-
+ered disease status after salvage therapy, with at least partial remission
+or acceptable disease control required, adequate organ function,
+including left ventricular ejection fraction > 40%, and creatinine
+clearance > 50 mL/min, and absence of uncontrolled infection.
+Patients with early relapse, deﬁned as relapse within 6 months after
+the ﬁrst transplantation, were not automatically excluded; instead, they
+underwent individualized risk-beneﬁt assessment before proceeding to
+second transplantation.
+Comprehensive clinical data, including recipient parameters
+(sex and age at transplantation), donor characteristics
+(haploidentical/related/unrelated donor type, sex, and donor–re-
+cipient sex matching), disease proﬁles (baseline diagnosis, pre-
+second HSCT disease status), temporal dynamics (ﬁrst transplan-
+tation-to-relapse interval, intertransplant duration), transplant pro-
+tocol speciﬁcations (conditioning intensity [MAC/RIC], CD34 +
+cell dose [×106/kg]), and immunological sequelae (acute/chronic
+GVHD [aGVHD/cGVHD] occurrence and severity grading), were
+extracted retrospectively from medical records.
+The study protocol was conducted in accordance with institu-
+tional regulations and approved by the Ethics Review Committee of
+Shanghai Children’s Hospital (IRB Number: 2020R098-F02). The
+requirement for written informed consent was waived due to the
+retrospective nature of the research. All procedures were performed
+in compliance with the Declaration of Helsinki and applicable
+ethical standards for human research.
+2.2 Conditioning regimens and donor
+selection
+Three conditioning approaches were used. The TBI-based
+myeloablative conditioning regimen consisted of fractionated total
+body irradiation at 12 Gy, administered as 4 Gy/day for 3 days,
+ﬂudarabine 30 mg/m2/day for 4 days, and cyclophosphamide 60
+mg/kg/day for 2 days. The busulfan-based myeloablative regimen
+consisted of intravenous busulfan 3.2 mg/kg/day for 4 days,
+ﬂudarabine 30 mg/m2/day for 4 days, and cyclophosphamide 50
+mg/kg/day for 2 days. The reduced-intensity conditioning regimen
+consisted of busulfan 3.2 mg/kg/day for 2 days, ﬂudarabine 30 mg/
+m2/day for 4 days, and thiotepa 10 mg/kg/day for 1 day. Regimen
+selection was based on institutional practice and patient character-
+istics. TBI-based conditioning was generally preferred for children
+aged > 4 years without prior radiotherapy and for patients with
+central nervous system involvement, whereas busulfan-based con-
+ditioning was used for younger children or those with prior
+TBI exposure.
+For donor selection, a haploidentical donor different from the
+ﬁrst transplant donor was preferred whenever feasible, which was
+achieved in 90% of cases. When more than one suitable donor was
+Chen et al.
+10.3389/fimmu.2026.1885224
+Frontiers in Immunology
+frontiersin.org
+02
+
+````
+
+## PDF page 3; PDF label 3
+
+FORMULA CHECK REQUIRED: original PDF page 3.
+
+````text
+available, paternal donors were prioritized over maternal donors
+because of their potential immune tolerance advantage. If no
+suitable parental donor was available, siblings or other extended
+family members were considered.
+2.3 GVHD prophylaxis
+GVHD prophylaxis consisted of cyclosporine A, mycopheno-
+late mofetil, and methotrexate. Cyclosporine A was initiated intra-
+venously at 2.5 mg/kg/day from day -1, switched to oral
+administration at 12 mg/kg/day when tolerated (dose adjustments
+were individualized based on therapeutic drug monitoring and
+concomitant medications), and tapered from day +90 if no
+GVHD occurred. Mycophenolate mofetil was administered at 30
+mg/kg/day, with a maximum dose of 2 g/day, from day 0 to day +30.
+Methotrexate was administered at 15 mg/m2 on day +0, followed by
+10 mg/m2 on days +3, +6, and +11.
+2.4 Response and clinical outcomes
+We deﬁned complete remission (CR) as the recovery of normal
+bone marrow cellularity with < 5% blasts, conﬁrmed alongside the
+absence of disease-speciﬁc clinical manifestations upon physical
+examination. Relapse after the second allo-HSCT was deﬁned as the
+presence of more than 5% blasts in bone marrow aspirates. Cases
+with minimal residual disease or molecular recurrence, in the
+absence of morphological abnormalities, were not consid-
+ered relapsed.
+Minimal residual disease was assessed by multiparameter ﬂow
+cytometry using 8- to 10-color panels targeting leukemia-associated
+aberrant immunophenotypes. The sensitivity threshold of multiparam-
+eter ﬂow cytometry was 0.01% (10-4), and minimal residual disease
+positivity was deﬁned as abnormal cells accounting for ≥0.01% of total
+nucleated cells. For patients with known genetic abnormalities, such as
+fusion transcripts or mutations, quantitative PCR was also performed,
+with a sensitivity of 0.001% (10-5). Molecular minimal residual disease
+was evaluated before salvage therapy, within 14 days before condition-
+ing for the second HSCT, on post-transplant days +30, +45, +60, and
++90, every 3 months thereafter.
+Survival outcomes including overall survival (OS), leukemia-
+free survival (LFS), and non-relapse mortality (NRM) were calcu-
+lated. The primary endpoints were OS and LFS after the second
+allo-HSCT. OS was calculated from the date of the second allo-
+HSCT to the date of death from any cause or last follow-up. LFS was
+deﬁned as the time from the second allo-HSCT to either hemato-
+logic relapse or death, whichever occurred ﬁrst. NRM referred to
+deaths unrelated to disease relapse/progression. Molecular relapse
+was deﬁned as the reappearance of leukemia-speciﬁc genetic mark-
+ers, such as fusion transcripts including RUNX1-RUNX1T1,
+KMT2A, rearrangements, or NPM1 mutation, detected by quanti-
+tative PCR in two consecutive samples at least 2 weeks apart, in the
+absence of morphological relapse, deﬁned as < 5% blasts in bone
+marrow. All time-to-event outcomes were measured from the date
+of the second allo-HSCT. Conditioning regimens were stratiﬁed as
+either myeloablative conditioning (MAC), deﬁned by ≥8 Gy of total
+body irradiation (TBI) or > 8 mg/kg of busulfan based on actual
+body weight, or reduced-intensity conditioning (RIC), which in-
+cluded all other regimens. aGVHD and cGVHD were diagnosed
+and graded according to the NIH consensus criteria (8, 9). The
+GVHD prophylaxis regimen comprised cyclosporine A, mycophe-
+nolate mofetil, and short-course methotrexate administered accord-
+ing to standardized protocols.
+2.5 Statistical analyses
+We summarized continuous variables as with means ± standard
+deviations or medians with interquartile ranges (IQRs), depending
+on distribution, and compared them using the student’s t-test or
+Mann–Whitney U test, respectively. Categorical data were pre-
+sented as counts and percentages, and analyzed using the chi-square
+test or Fisher’s exact test, as appropriate.
+The survival curves for OS, LFS, NRM, and relapse were
+estimated using Kaplan–Meier method with log-rank test for
+intergroup comparisons. The median survival time and their 95%
+conﬁdential intervals (95% CI) were calculated. The univariate
+analysis for detecting prognostic factors on 2-year OS across
+subgroups of recipient age, recipient sex, donor sex, donor–recip-
+ient sex compatibility, disease type, time from ﬁrst transplantation
+to relapse, interval between transplants, morphological remission
+status before the 2nd transplant, minimal residual disease before the
+2nd transplant, molecular status before the 2nd transplant, condi-
+tioning regimen type, CD34 + cells dose, and occurrence of aGVHD
+or cGVHD were applied. We used multivariate Cox proportional
+hazards model to explore the potential predictors (univariate model
+P < 0.05 and the stepwise selected P < 0.05) for OS and calculated
+the hazard ratio for the predictors and their 95% CIs.
+Statistical analyses were conducted systematically using SPSS
+v26.0 (IBM Corp.) and GraphPad Prism 9.0 (GraphPad Software).
+All P-values were two-tailed, and values < 0.05 were considered
+statistically signiﬁcant.
+3 Results
+Totally 40 pediatric patients with a median age of 8.5 years
+(range: 2–18 years) were enrolled and underwent a second allo-
+HSCT (boys: 70.0%, n = 28 vs. girls: 30.0%, n = 12) (Table 1).
+Among them, acute myeloid leukemia (AML) as the predominant
+diagnosis (62.5%, n = 25), followed by acute lymphoblastic leukemia
+(ALL; 37.5%, n = 15) with subtype distribution (B-cell lineage:
+22.5%, n = 9; T-cell lineage: 15.0%, n = 6).
+Among these children, the ﬁrst transplantation involved
+haploidentical donors in 33 patients (82.5%), matched sibling
+donors in 3 patients (7.5%), and unrelated donors in 4 patients
+(10%). The second donor sources were distributed as follows:
+paternal donors in 10 cases (25%), maternal donors in 24 cases
+(60%), sibling donors in 4 cases (10%), and extended familial
+donors in 2 cases (5%), including one maternal uncle and one
+paternal aunt. HLA disparity analysis in the graft-versus-host
+direction demonstrated signiﬁcant antigenic mismatches: 5-loci
+mismatches were the highest (87.5%, n = 35), followed by 4-loci
+Chen et al.
+10.3389/fimmu.2026.1885224
+Frontiers in Immunology
+frontiersin.org
+03
+
+````
+
+## PDF page 4; PDF label 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+mismatches (7.5%, n = 3), 3-loci mismatches (2.5%, n = 1), and 2-
+loci mismatches (2.5%, n = 1) (Table 1). Nearly half of children
+(n=20) had a duration of remission after the 1st HSCT longer than
+12 months, 15% (n=6) had 6–12 months, 25% had 3–6 months
+(n=10), and 10% (n=4) had < 3 months.
+The intervals from relapse to the second allo-HSCT was less
+than 3 months in 7 patients, 3–6 months in 13 patients, 6–12
+months in 9 patients, and ≥12 months in 11 patients (Table 1). The
+median age at the time of the 2nd transplantation was 8.5 years
+(IQR: 2–18 years), and the median time from relapse to the 2nd
+HSCT was 5.5 months (IQR: 1.6–35.8 months).
+Post-transplant therapeutic interventions were limited. One
+patient with AML received venetoclax maintenance therapy, while
+4 AML patients without CR before HSCT received prophylactic
+decitabine. The majority of patients (87.5%, n = 35) did not receive
+any novel targeted therapies after transplantation.
+The median interval between the 1st and 2nd HSCT was 20.7
+months (IQR: 4.0–69.5 months). Donor selection and conditioning
+regimens tailored to donor availability and individual clinical status.
+TABLE 1 Summary of Patient Baseline Features.
+Characteristics
+Total (n=40)
+Age (years), median (range)
+8.5 (2-18)
+Sex, n (%)
+Male
+28 (70.0)
+Female
+12 (30.0)
+Donor’s sex, n (%)
+Male
+13 (32.5)
+Female
+27 (67.5)
+Sex match status
+Mismatch
+27 (57.5)
+Match
+13 (42.5)
+Disease, n (%)
+AML
+25 (62.5)
+B-ALL
+9 (22.5)
+T-ALL
+6 (15.0)
+Duration of remission after the ﬁrst HSCT (months), n (%)
+< 3
+4 (10.0)
+3 – 5.9
+10 (25.0)
+6 – 11.9
+6 (15.0)
+≥12
+20 (50.0)
+Time from relapse to the second HSCT (months), n (%)
+< 3
+7 (17.5)
+3 – 5.9
+13 (32.5)
+6 – 11.9
+9 (22.5)
+≥12
+11 (27.5)
+Time from the ﬁrst HSCT to the second HSCT (months), n (%)
+< 3
+0
+3 – 5.9
+2 (5.0)
+6 – 11.9
+10 (25.0)
+≥12
+28 (70.0)
+Disease status at the second HSCT, n (%)
+CR (morphologically)
+34 (85.0)
+Non-CR
+6 (15.0)
+Donor type of the ﬁrst HSCT, n (%)
+MSD
+3 (7.5)
+MUD
+3 (7.5)
+UCB
+1 (2.5)
+Haploidentical
+33 (82.5)
+Donor type of the second HSCT, n (%)
+Paternal donors
+10 (25.0)
+Maternal donors
+24 (60.0)
+Sibling donors
+4 (10.0)
+Extended familial donors
+2 (5.0)
+HLA mismatch status for the second transplant, n (%)
+5-loci mismatches
+35 (87.5)
+(Continued)
+TABLE 1 Continued
+Characteristics
+Total (n=40)
+HLA mismatch status for the second transplant, n (%)
+4-loci mismatches
+3 (7.5)
+3-loci mismatches
+1 (2.5)
+2-loci mismatches
+1 (2.5)
+Conditioning intensity for the ﬁrst HSCT, n (%)
+MAC regimen
+40 (100)
+RIC regimen
+0
+Conditioning intensity for the second HSCT, n (%)
+MAC regimen
+38 (95.0)
+RIC regimen
+2 (5.0)
+Conditioning type for the second HSCT, n (%)
+TBI-based
+21 (52.5)
+TBI/Flu/Cy
+14 (35.0
+TBI/Cy
+7 (17.5)
+No TBI
+19 (47.5)
+Bu/Flu/Cy
+11 (27.5)
+DAC/Bu/Cy
+2 (5.0)
+Bu/Cy
+2 (5.0)
+Bu/Flu/melphalan
+2 (5.0)
+RIC-Bu/Flu/thiotepa
+2 (5.0)
+Source of stem cell, n (%)
+PBSC+BM
+21 (52.5)
+PBSC
+19 (47.5)
+The median total nucleated cell dose, 108/kg, median
+(IQR)
+10.77 (4.50–18.74)
+The median CD34 + cell dose, 106/kg, median (IQR)
+4.53 (1.6–16.45)
+Neutrophil engraftment, day, median (IQR)
+13 (10–41)
+Platelet engraftment, day, median (IQR)
+14 (7–44)
+Chen et al.
+10.3389/fimmu.2026.1885224
+Frontiers in Immunology
+frontiersin.org
+04
+
+````
+
+## PDF page 5; PDF label 5
+
+Technical extraction; compare with original PDF page 5.
+
+````text
+Institutional protocols emphasizing the utilization of alternative
+donors resulted in 90% (36/40) of patients receiving grafts from
+different donors for their 2nd transplantation.
+Myeloablative conditioning was administered to 38 patients
+(95.0%), while reduced-intensity conditioning was used only in 2
+patients (5%) with pre-existing organ dysfunction. Among those
+receiving myeloablative conditioning, 52.5% (n=21) underwent total
+body irradiation (TBI)-based regimens, including TBI/ﬂudarabine
+[Flu]/cyclophosphamide [Cy] in 14 cases and TBI/Cy in 7 cases.
+Busulfan (Bu)-based regimens were used in 42.5% (17/40), including
+Bu/Flu/Cy (n = 11), DAC/Bu/Cy (n = 2), Bu/Cy (n = 2), and Bu/Flu/
+melphalan (n = 2). The two patients receiving RIC administered Bu/
+Flu/thiotepa. All pediatric patients received a standardized dose of
+rabbit anti-human thymocyte globulin (ATG; 10.0 mg/kg, Sanoﬁ,
+France) as part of the conditioning protocol.
+Stem cell sources included combined bone marrow and periph-
+eral blood in 21 patients (52.5%) and peripheral blood alone in 19
+patients (47.5%). The median total nucleated cell dose was 10.77 ×
+108/kg (IQR: 4.50–18.74), and the median CD34 + cell dose was
+4.53 × 106/kg (IQR: 1.6–16.45). All patients achieved neutrophil
+engraftment at a median of 13 days (IQR: 10–41), and platelet
+recovery occurred in 35 patients (87.5%), with a median time of 14
+days (IQR: 7–44). Complete donor chimerism was conﬁrmed in all
+patients at 30 days after transplant. Acute GVHD developed in
+40.0% (n=16) of patients, including 15.0% (n=6) with grade I–II and
+25.0% (n=10) with grade III–IV. Chronic GVHD occurred in 50.0%
+(n=20) of patients, with most cases being limited (40.0%, n=16) and
+10.0% (n=4) classiﬁed as extensive (Table 1).
+A total of 11 patients died during a median follow-up time of
+16.0 months (IQR: 2.5–61). The leading cause of death was disease
+relapse/progression, accounting for 6 deaths due to leukemia
+relapse. The median time to relapse was 4.5 months (IQR: 1.5–
+12), and the median post-relapse survival was 8.5 months (IQR: 2–
+19). The remaining 5 deaths were attributed to NRM, including
+septic shock (n=2), post-transplant lymphoproliferative disorder
+(n=1), diffuse alveolar hemorrhage (n=1), and cerebral hemorrhage
+(n=1). The median survival time in NRM cases was 5 months (IQR:
+2.5–11). Among the 29 surviving patients, 2 with AML exhibited
+molecular relapse and are currently receiving oral venetoclax
+maintenance therapy combined with DAC prophylaxis. Kaplan–
+Meier revealed a 1-year OS rate of 77.8% (95% CI: 70.8-85.8) and a
+2-year OS rate of 65.5% (95%CI: 56.7-74.3). The 1-year and 2-year
+LFS rates were 72.4% (95%CI:64.9-79.9) and 61.0% (95%CI:52.2-
+69.8), respectively. The cumulative incidence of relapse was 14.2%
+(95% CI: 8.3-20.1) at 1 year and 26.6% (95%CI:18.1-35.1) at 2 years,
+whereas the cumulative incidence of NRM remained stable at 15.1%
+(95% CI: 8.9-21.3) at both 1 and 2 years (Figure 1). Regarding the
+prognosis across different subgroups, univariate analysis grouped
+patients by recipient age, recipient gender, donor gender, donor-
+recipient gender match, disease type, time from ﬁrst transplant to
+relapse, interval between transplants, morphologic remission status
+before the second transplant, ﬂow cytometry minimal residual
+disease (MRD) status before the second transplant, molecular
+status before the second transplant, conditioning regimen type,
+number of CD34+ cells infused, aGVHD, cGVHD, and post-
+transplant interventions. Ultimately, it was found that disease
+FIGURE 1
+Outcomes after the second hematopoietic stem cell transplantation (HSCT), which was a haploidentical-HSCT (haplo-HSCT) (A) Overall survival
+(OS). (B) Leukemia-free survival (LFS). (C) Relapse. (D) Non-relapse mortality (NRM). The Kaplan–Meier method was used to analyze OS and LFS.
+Chen et al.
+10.3389/fimmu.2026.1885224
+Frontiers in Immunology
+frontiersin.org
+05
+
+````
+
+## PDF page 6; PDF label 6
+
+FORMULA CHECK REQUIRED: original PDF page 6.
+
+````text
+type, morphologic remission status before the second transplant,
+and occurrence of aGVHD showed statistically signiﬁcant differ-
+ences (P < 0.05) in OS (Table 2). Multivariate analysis identiﬁed that
+disease type (B-ALL) was an independent risk factor associated with
+2-year OS (Table 3), the HRs were 0.081 (95% CI: 0.007, 0.877,
+P = 0.039). While aGVHD and AML were marginally associated
+with risk of 2-year OS with the HRs of 0.120 (95% CI: 0.013, 1.08,
+P = 0.059) and 0.208 (0.042, 1.038, P = 0.056).
+4 Discussion
+This retrospective study included 40 pediatric patients with AL
+who relapsed after a 1st allo-HSCT. Our ﬁndings suggest that haplo-
+HSCT may be an effective salvage strategy in this setting. The 1- and
+2-year OS rates were 77.8% (95% CI: 70.8-85.8) and 65.5% (95%CI:
+56.7-74.3), while the corresponding LFS rates were 72.4% (95%
+CI:64.9-79.9) and 61.0% (95%CI:52.2-69.8), respectively. Notably,
+85.8% of patients remained free from relapse within the 1st year
+after the 2nd transplant, suggesting that the early relapse-free
+survival may be associated with sustained clinical beneﬁts.
+Leukemia relapse remains a major critical clinical challenge that
+signiﬁcantly compromises long-term survival in pediatric patients,
+particularly in those who relapse after a 1st allo-HSCT. Thus, the
+development of effective salvage strategies has become a critical
+focus in hematologic oncology. In our study, haplo-HSCT as a
+second transplant demonstrated encouraging outcome, with sur-
+vival rates appearing favorable compared with previously reported
+5-year OS rates of 24%–42% and disease-free survival rates of 24%–
+44% (10–14), although cross-study comparisons should be inter-
+preted cautiously. Recent studies have further supported second
+TABLE 2 Single-factor analysis of survival determinants in the study cohort Univariate analysis of the risk factors for OS.
+Risk factors
+n (%)
+2-year OS (95% CI)
+P value
+Recipient’s age
+≥10 years
+17(42.5)
+66.6(52.2-81.0)
+0.498
+<10 years
+23(57.5)
+65.7(54.8-76.6)
+Recipient’s sex
+Male
+28(70.0)
+65.7(55.4-76.0)
+0.969
+Female
+12(30.0)
+69.4(53.9-84.9)
+Donor’s sex, n (%)
+Male
+13(42.5)
+47.6(29.7-65.5)
+0.313
+Female
+27(57.5)
+74.3(65.0-83.6)
+Sex match
+Mismatch
+27(57.5)
+60.2(43.4-77.0)
+0.706
+Match
+13(42.5)
+50.55(32.8-68.3)
+Disease entity
+AML
+25(62.5)
+66.5(53.6-79.4)
+0.034
+B-ALL
+9(22.5)
+87.5(75.8-99.2)
+T-ALL
+6(15.0)
+33.3(14.1-52.5)
+Time from the ﬁrst HSCT to relapse
+≥6 months
+26(65.0)
+60.6(49.0-72.2)
+0.522
+<6 months
+14(35.0)
+75.0(62.1-87.9)
+Time from the ﬁrst to the second HSCT, months
+≥12
+28(70.0)
+58.8(47.4-70.2)
+0.457
+≥6 to < 12
+10(25.0)
+77.1(62.7-91.5)
+≥3 to < 6
+0
+N/A
+Bone marrow morphology status before the second HSCT
+CR
+37(92.5)
+69.1(68.2-70.0)
+0.031
+Non-CR
+3(7.5)
+33.3(6.1-60.5)
+Cytogenetic status before the second HSCT
+FCM-negative
+24(60.0)
+66.1(55.4-76.8)
+0.717
+FCM-positive
+16(40.0)
+65.6(50.8-80.4)
+(Continued)
+Chen et al.
+10.3389/fimmu.2026.1885224
+Frontiers in Immunology
+frontiersin.org
+06
+
+````
+
+## PDF page 7; PDF label 7
+
+Technical extraction; compare with original PDF page 7.
+
+````text
+allo-HSCT as a feasible but high-risk salvage strategy, emphasizing
+the importance of conditioning intensity and transplant-related
+toxicity (15–20). These ﬁndings are broadly consistent with our
+results and highlight the importance of careful patient selection and
+optimized peri-transplant management.
+Current evidence indicates that achieving CR before the 2nd
+allo-HSCT is a strong prognostic factor. Patients in CR at the time
+of transplant generally show signiﬁcantly improved outcomes (11,
+21, 22). For instance, Japanese cohorts have reported a 2-year OS
+rate of 86.7% in pediatric patients who achieved CR prior to the 2nd
+transplant, compared to only 31.7% in those who did not (2, 23). In
+our study, univariate analysis similarly conﬁrmed that patients in
+CR before 2nd transplant had signiﬁcantly higher 2-year OS than
+those with active disease (69.1% vs. 33.3%, p = 0.031). For pediatric
+TABLE 2 Continued
+Risk factors
+n (%)
+2-year OS (95% CI)
+P value
+Molecular Biology Status before the second HSCT
+Gene-negative
+23(57.5)
+65.0(52.9-77.1)
+0.635
+Gene-positive
+17(42.5)
+65.5(52.7-78.3)
+Conditioning
+MAC regimen
+38(95.0)
+67.2(58.3-76.1)
+0.345
+RIC regimen
+2(5.0)
+50.0(14.6-85.4)
+Conditioning including TBI
+Yes
+21(52.5)
+58.0(45.4-70.6)
+0.386
+No
+19(47.5)
+73.9(62.1-85.7)
+CD34+stem cell dose
+>10.0× 106/kg
+4(10.0)
+75.0(53.3-96.7)
+0.578
+<10.0× 106/kg
+36(90.0)
+65.8(56.6-75.0)
+CD34+stem cell dose
+>5.0× 106/kg
+18(45.0)
+69.1(55.5-82.7)
+0.526
+<5.0× 106/kg
+22(55.0)
+62.6(51.2-74.0)
+Acute GVHD
+No
+24(60.0)
+53.5(41.9-65.1)
+0.046
+Yes
+16(40.0)
+88.9(78.4-99.4)
+Acute GVHD
+Grade 0–II
+30(75.0)
+74.4(65.1-83.7)
+0.072
+Grade III–IV
+10(25.0)
+40.9(23.2-58.6)
+Chronic GVHD
+No
+20(50.0)
+71.1(59.5-82.7)
+0.705
+Localized
+16(40.0)
+69.2(56.0-82.4)
+Extensive
+4(10.0)
+50.0(25.0-75.0)
+Post-transplant therapeutic interventions
+Yes
+5(12.5)
+80.0(62.1-97.9)
+0.615
+No
+35(87.5)
+67.8(58.4-77.2)
+OS overall survival; CR complete remission.
+TABLE 3 Multivariate analysis of the risk factors for OS.
+Disease type
+HR
+95% CI
+P
+Lower limit
+Upper limit
+AML
+0.208
+0.042
+1.038
+0.056
+ALL
+0.081
+0.007
+0.877
+0.039
+Bone marrow morphology status before the second HSCT
+4.093
+0.693
+24.16
+0.120
+Acute GVHD (Yes or No)
+0.120
+0.013
+1.080
+0.059
+*P < 0.05 signiﬁcant statistical difference.
+Chen et al.
+10.3389/fimmu.2026.1885224
+Frontiers in Immunology
+frontiersin.org
+07
+
+````
+
+## PDF page 8; PDF label 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+patients with molecular residual disease (MRD) prior to 2nd
+transplant, no statistically signiﬁcant survival difference was ob-
+served. One possible explanation may be the implementation of
+systematic prophylactic strategies (e.g., DAC). Such targeted inter-
+ventions may have partly mitigated the adverse prognostic impact
+of pre-transplant non-remission status, thereby narrowed the
+survival disparity and improved OS outcomes in this high-
+risk subgroup.
+Multivariate analysis identiﬁed disease subtype and occurrence of
+aGVHD as independent prognostic factors for OS. Among disease
+subtypes, patients with B-ALL demonstrated the most favorable
+outcomes, followed by those with AML and T-ALL. This survival
+gradient should be interpreted cautiously. One possible explanation is
+that patients with B-ALL may beneﬁt from advances in pre-second-
+transplant disease control, including CAR-T therapy, blinatumomab,
+and other immunotherapeutic approaches (24, 25). However, the
+present study did not directly evaluate the independent effects of
+these therapies, and therefore the favorable survival observed in the
+B-ALL subgroup cannot be speciﬁcally attributed to CAR-T therapy or
+immunotherapy. Currently, standardized therapeutic strategies for
+relapsed leukemia before 2nd allo-HSCT remain inadequately sup-
+ported by high-quality evidence. Therefore, future research should
+clarify how targeted agents and immunotherapies may improve pre-
+transplant remission depth and post-transplant outcomes in this high-
+risk population.
+The role of GVHD in shaping post-transplant outcomes re-
+mains complex. Although prior studies have suggested that acute
+GVHD may be associated with improved disease-free survival
+through graft-versus-leukemia effects (21), others have reported
+no clear survival beneﬁt after a second transplant (26). Our study
+suggested that acute GVHD may be associated with a protective
+graft-versus-leukemia effect, consistent with adult data linking post-
+transplant alloreactivity to improved survival (21). However, this
+association should be interpreted cautiously according to GVHD
+severity, as patients with grade III-IV acute GVHD showed numer-
+ically inferior 2-year OS compared with those with grade 0-II acute
+GVHD. Thus, any potential antileukemic beneﬁt of acute GVHD
+should not be extrapolated to severe acute GVHD, which may
+increase treatment-related morbidity and mortality. Furthermore,
+prior studies have shown that adult patients with acute or chronic
+leukemia who developed chronic GVHD after a 2nd transplant often
+experience favorable long-term outcomes, possibly due to a sus-
+tained graft-versus-leukemia effects balanced against GVHD sever-
+ity (7, 27, 28). Despite a high incidence of chronic GVHD (50%) in
+our cohort, survival was not signiﬁcantly affected, possibly owing to
+the limited median follow-up of 16.0 months. Precise modulation of
+GVHD may therefore be essential for balancing sustained remis-
+sion, treatment-related toxicity, and quality of life after transplant.
+Our study did not identify a signiﬁcant association between the
+interval from the 1st allo-HSCT to leukemia relapse and OS, suggesting
+that early relapse (< 6 months) is not an absolute contraindication to
+proceeding with a second transplantation. Previous reports have
+indicated that patients undergoing a second transplantation within 6
+months of their initial allo-HSCT experience signiﬁcantly poorer
+outcomes than those with longer relapse-free intervals (29, 30). In
+our cohort, only 5% of children received a 2nd transplant within 6
+months of the ﬁrst. Although no statistically signiﬁcant difference in
+survival was observed between patients with shorter versus longer
+inter-transplant intervals, the early-transplant subgroup exhibited a
+trend toward lower 2-year OS rates. These ﬁndings imply that while
+early relapse does not preclude the possibility of a 2nd transplant, a
+longer interval between transplants may contribute to more favorable
+outcomes. This beneﬁt may be mediated by improved graft-versus-
+leukemia effects or by allowing time for recovery of the recipient’s
+hematopoietic and immunologic microenvironment, thereby increas-
+ing tolerance to conditioning regimens and enhancing graft function.
+We found no signiﬁcant association between conditioning inten-
+sity (MAC vs. RIC) and overall survival. In our cohort, 95% of patients
+received MAC, whereas 5% underwent RIC; all RIC patients died from
+disease progression, with median survival of 11 months. Although RIC
+is theoretically expected to lower non-relapse mortality and improve
+survival, neither our data nor prior pediatric studies conﬁrmed this
+beneﬁt (22, 23, 31). This may reﬂect children’s greater physiological
+tolerance of MAC, supported by the low NRM rate in our MAC group
+(13.2%), which was lower than that reported in adult studies (14, 26,
+32–34). Pediatric patients may beneﬁt from superior organ reserve and
+enhanced regenerative capacity, mitigating MAC-related toxicity.
+Additionally, 3-year OS did not differ between TBI-based and Bu-
+based MAC, indicating that Bu-based regimens may be viable alterna-
+tive for centers without TBI resources.
+This study has several limitations that warrant consideration.
+First, the retrospective design may introduce selection bias and
+limits the ability to establish causality. Second, the sample size was
+relatively small, especially in certain subgroups such as patients
+receiving RIC or early second transplants, which may reduce the
+statistical power to detect meaningful differences in survival out-
+comes. Third, the follow-up duration was relatively short, with a
+median follow-up of 16 months, potentially underestimating long-
+term complications such as late relapse, chronic GVHD progres-
+sion, or delayed treatment-related mortality. Additionally, hetero-
+geneity in disease subtypes, prior therapies, and post-transplant
+interventions, such as maintenance strategies, may have inﬂuenced
+outcomes and limited the generalizability of our ﬁndings. Finally,
+molecular and immunological data, such as measurable residual
+disease kinetics, donor chimerism dynamics, or immune reconsti-
+tution proﬁles, were not comprehensively assessed, which may have
+provided further insights into prognosis and treatment response.
+Further multicenter prospective studies with larger cohorts, longer
+follow-up, and standardized therapeutic protocols are needed to
+validate and expand upon these ﬁndings.
+In conclusion, haplo-HSCT is a feasible and effective salvage
+strategy for pediatric acute leukemia relapsing after allo-HSCT, with
+favorable survival in selected patients who remain event-free early after
+transplantation. While pretransplant remission remains important,
+tailored post-transplant strategies may offset its impact in some high-
+risk patients. The tolerability of myeloablative conditioning and the
+comparable efﬁcacy of busulfan- and TBI-based regimens support
+broader applicability. Future work should prioritize optimizing remis-
+sion with targeted agents and immunotherapies, prospectively evalu-
+ating their independent contribution to transplant outcomes, and
+reﬁning GVHD prophylaxis and immune modulation to improve
+long-term survival.
+Chen et al.
+10.3389/fimmu.2026.1885224
+Frontiers in Immunology
+frontiersin.org
+08
+
+````
+
+## PDF page 9; PDF label 9
+
+FORMULA CHECK REQUIRED: original PDF page 9.
+
+````text
+Data availability statement
+The raw data supporting the conclusions of this article will be
+made available by the authors, without undue reservation.
+Ethics statement
+The studies involving humans were approved by Ethics Review
+Committee of Shanghai Children’s Hospital. The studies were
+conducted in accordance with the local legislation and institutional
+requirements. Written informed consent for participation in this
+study was provided by the participants’ legal guardians/next of kin.
+Author contributions
+KC: Investigation, Writing – original draft. HW: Writing – review
+& editing. QL: Data curation, Writing – original draft. GH: Data
+curation, Writing – original draft. ZF: Data curation, Writing – original
+draft. BZ: Formal Analysis, Writing – original draft. YZ: Formal
+Analysis, Writing – original draft. LB: Formal Analysis, Writing –
+original draft. PS: Formal Analysis, Writing – original draft. JS: Formal
+Analysis, Writing – original draft. HJ: Conceptualization, Writing –
+original draft. ZX: Conceptualization, Writing – original draft. XH:
+Conceptualization, Writing – original draft. JC: Writing – review &
+editing. YC: Investigation, Writing – original draft.
+Funding
+The author(s) declared that ﬁnancial support was received for this
+work and/or its publication. This work was supported by Beijing Research
+Ward Excellence Program (grant number: BRWEP2024W1340801004),
+Shanghai Municipal Science and Technology Commission Fund (grant
+number: 23015830600), Clinical Research Plan of SHDC (grant number:
+SHDC2020CR4089) and Natural Science Foundation of Tibet
+Autonomous Region (grant number: XZ2024ZR-ZY051(Z)).
+Conﬂict of interest
+The author(s) declared that this work was conducted in the
+absence of any commercial or ﬁnancial relationships that could be
+construed as a potential conﬂict of interest.
+Generative AI statement
+The author(s) declared that generative AI was not used in the
+creation of this manuscript.
+Any alternative text (alt text) provided alongside ﬁgures in this
+article has been generated by Frontiers with the support of artiﬁcial
+intelligence and reasonable efforts have been made to ensure
+accuracy, including review by the authors wherever possible. If
+you identify any issues, please contact us.
+Publisher’s note
+All claims expressed in this article are solely those of the authors
+and do not necessarily represent those of their afﬁliated organiza-
+tions, or those of the publisher, the editors and the reviewers. Any
+product that may be evaluated in this article, or claim that may be
+made by its manufacturer, is not guaranteed or endorsed by
+the publisher.
+References
+1. Peters C, Schrappe M, von Stackelberg A, Schrauder A, Bader P, Ebell W, et al. Stem-cell
+transplantation in children with acute lymphoblastic leukemia: A prospective international
+multicenter trial comparing sibling donors with matched unrelated donors-the ALL-SCT-
+BFM-2003 trial. J Clin Oncol. (2015) 33:1265–74. doi: 10.1200/jco.2014.58.9747
+2. Kobayashi S, Sano H, Mochizuki K, Ohara Y, Takahashi N, Kudo S, et al. Effects of
+second transplantation with T-cell-replete haploidentical graft using low-dose anti-
+thymocyte globulin on long-term overall survival in pediatric patients with relapse of
+leukemia after ﬁrst allogeneic transplantation. Int J Hematol. (2022) 115:414–23.
+doi: 10.1007/s12185-021-03266-9
+3. Arellano ML, Langston A, Winton E, Flowers CR, Waller EK. Treatment of relapsed
+acute leukemia after allogeneic transplantation: a single center experience. Biol Blood
+Marrow Transplant. (2007) 13:116–23. doi: 10.1016/j.bbmt.2006.09.005
+4. Gökbuget N, Stanze D, Beck J, Diedrich H, Horst HA, Hüttmann A, et al. Outcome
+of relapsed adult lymphoblastic leukemia depends on response to salvage chemother-
+apy, prognostic factors, and performance of stem cell transplantation. Blood. (2012)
+120:2032–41. doi: 10.1182/blood-2011-12-399287
+5. Kantarjian H, Stein A, Gökbuget N, Fielding AK, Schuh AC, Ribera JM, et al.
+Blinatumomab versus chemotherapy for advanced acute lymphoblastic leukemia. N
+Engl J Med. (2017) 376:836–47. doi: 10.1056/NEJMoa1609783
+6. Wassmann B, Pfeifer H, Stadler M, Bornhaüser M, Bug G, Scheuring UJ, et al. Early
+molecular response to posttransplantation imatinib determines outcome in MRD+
+Philadelphia-positive acute lymphoblastic leukemia (Ph+ ALL). Blood. (2005) 106:458–
+63. doi: 10.1182/blood-2004-05-1746
+7. Michallet M, Tanguy ML, Socié G, Thiébaut A, Belhabri A, Milpied N, et al. Second
+allogeneic haematopoietic stem cell transplantation in relapsed acute and chronic
+leukaemias for patients who underwent a ﬁrst allogeneic bone marrow transplantation:
+a survey of the Société Française de Greffe de moelle (SFGM). Br J Haematol. (2000)
+108:400–7. doi: 10.1046/j.1365-2141.2000.01851.x
+8. Schoemans HM, Lee SJ, Ferrara JL, Wolff D, Levine JE, Schultz KR, et al. EBMT-
+NIH-CIBMTR Task Force position statement on standardized terminology & guidance
+for graft-versus-host disease assessment. Bone Marrow Transplant. (2018) 53:1401–15.
+doi: 10.1038/s41409-018-0204-7
+9. Lee SJ. Classiﬁcation systems for chronic graft-versus-host disease. Blood. (2017)
+129:30–7. doi: 10.1182/blood-2016-07-686642
+10. Taga T, Murakami Y, Tabuchi K, Adachi S, Tomizawa D, Kojima Y, et al. Role of
+second transplantation for children with acute myeloid leukemia following posttrans-
+plantation relapse. Pediatr Blood Cancer. (2016) 63:701–5. doi: 10.1002/pbc.25866
+11. Yaniv I, Krauss AC, Beohou E, Dalissier A, Corbacioglu S, Zecca M, et al. Second
+hematopoietic stem cell transplantation for post-transplantation relapsed acute leuke-
+mia in children: a retrospective EBMT-PDWP study. Biol Blood Marrow Transplant.
+(2018) 24:1629–42. doi: 10.1016/j.bbmt.2018.03.002
+Chen et al.
+10.3389/fimmu.2026.1885224
+Frontiers in Immunology
+frontiersin.org
+09
+
+````
+
+## PDF page 10; PDF label 10
+
+FORMULA CHECK REQUIRED: original PDF page 10.
+
+````text
+12. Chueh HW, Lee SH, Sung KW, Yoo KH, Koo HH. Second allogeneic stem cell
+transplantation in hematologic Malignancies: a single-center experience. J Pediatr
+Hematol Oncol. (2013) 35:424–9. doi: 10.1097/MPH.0b013e31829b7f58
+13. Naik S, Martinez C, Leung K, Sasa G, Nguyen NY, Wu MF, et al. Outcomes after
+second hematopoietic stem cell transplantations in pediatric patients with relapsed
+hematological Malignancies. Biol Blood Marrow Transplant. (2015) 21:1266–72.
+doi: 10.1016/j.bbmt.2015.02.024
+14. Hazar V, Karasu GT, Uygun V, Özbek N, Karakükçü M, Öztürk G, et al. Role of a
+second transplantation for children with acute leukemia following posttransplantation
+relapse: a study by the Turkish Bone Marrow Transplantation Study Group. Leuk
+Lymphoma. (2020) 61:1465–74. doi: 10.1080/10428194.2020.1716220
+15. Chan WYK, Yeung WL, Shelia WSN, Tso WWY, Cheung C, Kan EYL, et al.
+Haploidentical transplant achieves long-term remission in relapsed refractory leukemia
+with ﬂudarabine-induced neurotoxicity complication. Exp Clin Transplant. (2023)
+21:279–85. doi: 10.6002/ect.2022.0383
+16. Zhao H, Wei J, Wei G, Luo Y, Shi J, Cui Q, et al. Pre-transplant MRD negativity
+predicts favorable outcomes of CAR-T therapy followed by haploidentical HSCT for
+relapsed/refractory acute lymphoblastic leukemia: a multi-center retrospective study. J
+Hematol Oncol. (2020) 13:42. doi: 10.1186/s13045-020-00873-7
+17. Yan S, Zhu X, Xiao Y. Advances in second hematopoietic stem cell transplantation.
+Front Immunol. (2024) 15:1428101. doi: 10.3389/ﬁmmu.2024.1428101
+18. Schmalter AK, Ngoya M, Galimard JE, Bazarbachi A, Finke J, Kroger N, et al.
+Continuously improving outcome over time after second allogeneic stem cell trans-
+plantation in relapsed acute myeloid leukemia: an EBMT registry analysis of 1540
+patients. Blood Cancer J. (2024) 14:76. doi: 10.1038/s41408-024-01060-4
+19. Rodriguez-Arboli E, Othus M, Orvain C, Ali N, Milano F, Davis C, et al. Second
+allogeneic hematopoietic cell transplantation for relapsed adult acute myeloid leuke-
+mia: outcomes and prognostic factors. Transplant Cell Ther. (2024) 30:905–e14.
+doi: 10.1016/j.jtct.2024.06.019
+20. Buchbinder N, Michel V, Dalissier A, Kleinschmidt K, Locatelli F, Maschan A, et al.
+Outcomes after a second allogeneic haematopoietic stem cell transplant for relapsed paediatric
+acute myeloid leukaemia improved over time: a study from the EBMT Paediatric Diseases
+Working Party. Br J Haematol. (2025) 207:2496–506. doi: 10.1111/bjh.70167
+21. Andreola G, Labopin M, Beelen D, Chevallier P, Tabrizi R, Bosi A, et al. Long-term
+outcome and prognostic factors of second allogeneic hematopoietic stem cell transplant
+for acute leukemia in patients with a median follow-up of ≧̸10 years. Bone Marrow
+Transplant. (2015) 50:1508–12. doi: 10.1038/bmt.2015.193
+22. Lund TC, Ahn KW, Tecca HR, Hilgers MV, Abdel-Azim H, Abraham A, et al.
+Outcomes after second hematopoietic cell transplantation in children and young adults
+with relapsed acute leukemia. Biol Blood Marrow Transplant. (2019) 25:301–6.
+doi: 10.1016/j.bbmt.2018.09.016
+23. Kato M, Horikoshi Y, Okamoto Y, Takahashi Y, Hasegawa D, Koh K, et al. Second
+allogeneic hematopoietic SCT for relapsed ALL in children. Bone Marrow Transplant.
+(2012) 47:1307–11. doi: 10.1038/bmt.2012.29
+24. Lu J, Bao X, Zhou J, Li X, He Z, Ji Y, et al. Safety and efﬁcacy of blinatumomab as
+bridge-to-transplant for B-cell acute lymphoblastic leukemia in ﬁrst complete remis-
+sion with no detectable minimal residual disease. Blood Cancer J. (2024) 14:143.
+doi: 10.1038/s41408-024-01127-2
+25. Cao W, Li N, Wang G, Xu H, Yang Y, Wang J, et al. Efﬁcacy and safety comparison
+of CAR-T and blinatumomab immunotherapy as bridge-to-transplant strategies in
+relapsed/refractory B cell acute lymphoblastic leukemia. J Transl Med. (2025) 23:391.
+doi: 10.1186/s12967-025-06399-1
+26. Duncan CN, Majhail NS, Brazauskas R, Wang Z, Cahn JY, Frangoul HA, et al.
+Long-term survival and late effects among one-year survivors of second allogeneic
+hematopoietic cell transplantation for relapsed acute leukemia and myelodysplastic
+syndromes. Biol Blood Marrow Transplant. (2015) 21:151–8. doi: 10.1016/
+j.bbmt.2014.10.006
+27. Schneidawind C, Hagmaier V, Faul C, Kanz L, Bethge W, Schneidawind D. Second
+allogeneic hematopoietic cell transplantation enables long-term disease-free survival in
+relapsed acute leukemia. Ann Hematol. (2018) 97:2491–500. doi: 10.1007/s00277-018-
+3454-y
+28. Vrhovac R, Labopin M, Ciceri F, Finke J, Holler E, Tischer J, et al. Second reduced
+intensity conditioning allogeneic transplant as a rescue strategy for acute leukaemia
+patients who relapse after an initial RIC allogeneic transplantation: analysis of risk
+factors and treatment outcomes. Bone Marrow Transplant. (2016) 51:186–93.
+doi: 10.1038/bmt.2015.221
+29. Menon NN, Jenkins LM, Cui H, Jenkins C, Anwer F, Yeager AM, et al. Factors
+associated with improved outcomes after second allogeneic hematopoietic cell trans-
+plantation for relapsed pediatric leukemia. Ann Hematol. (2016) 95:637–44.
+doi: 10.1007/s00277-016-2599-9
+30. Aljasem HA, Messner HA, Lipton JH, Kim DDH, Viswabandya A, Thyagu S, et al.
+Outcome following second allogeneic hematopoietic cell transplantation: a single-
+center experience. Eur J Haematol. (2018) 100:308–14. doi: 10.1111/ejh.13015
+31. Epperly R, Talleur AC, Li Y, Schell S, Tuggle M, Métais JY, et al. Sub-myeloablative
+second transplantations with haploidentical donors and post-transplant cyclophos-
+phamide have limited anti-leukemic effects in pediatric patients. Transplant Cell Ther.
+(2022) 28:262.e1–262.e10. doi: 10.1016/j.jtct.2022.02.007
+32. Mrsı́c M, Horowitz MM, Atkinson K, Biggs JC, Champlin RE, Ehninger G, et al.
+Second HLA-identical sibling transplants for leukemia recurrence. Bone Marrow
+Transplant. (1992) 9:269–75.
+33. Shaw BE, Mufti GJ, Mackinnon S, Cavenagh JD, Pearce RM, Towlson KE, et al.
+Outcome of second allogeneic transplants using reduced-intensity conditioning fol-
+lowing relapse of haematological Malignancy after an initial allogeneic transplant. Bone
+Marrow Transplant. (2008) 42:783–9. doi: 10.1038/bmt.2008.255
+34. Troullioud Lucas AG, Boelens JJ, Prockop SE, Curran KJ, Bresters D, Kollen W,
+et al. Excellent leukemia control after second hematopoietic cell transplants with
+unrelated cord blood grafts for post-transplant relapse in pediatric patients. Front
+Oncol. (2023) 13:1221782. doi: 10.3389/fonc.2023.1221782
+Chen et al.
+10.3389/fimmu.2026.1885224
+Frontiers in Immunology
+frontiersin.org
+10
+
+````
+

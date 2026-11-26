@@ -1,0 +1,28 @@
+{
+  "paper_id": "C03",
+  "category": "C",
+  "title": "Set‐valued dynamic treatment regimes for competing outcomes",
+  "authors": "Eric B. Laber and Daniel J. Lizotte and Bradley Ferguson",
+  "doi": "10.1111/biom.12132",
+  "year": "2014",
+  "original_url": "https://doi.org/10.1111/biom.12132",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "ef9e493daaafa91497df13ff687d78b85ee397b36fad2ae484316a053670ac1d",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1207.3100"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "C/C03/README.md",
+  "status": "local_only"
+}

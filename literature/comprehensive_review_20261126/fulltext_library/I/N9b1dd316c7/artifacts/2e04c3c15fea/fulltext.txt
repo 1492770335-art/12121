@@ -1,0 +1,1231 @@
+Utility of Restricted Mean Survival Time Analysis for Renal Replacement Therapy in Patients with Sepsis Associated Acute Kidney Injury: A Retrospective Study
+
+Original PDF: [original.pdf](original.pdf). SHA256: `2e04c3c15fea2351d3fba002dff58cb82cf1fc61f001353c44094dc8f3feb12c`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+
+===== ORIGINAL PDF PAGE 1; PDF label 1 =====
+Technical extraction; compare with original PDF page 1.
+O R I G I N A L R E S E A R C H
+Utility of Restricted Mean Survival Time Analysis 
+for Renal Replacement Therapy in Patients with 
+Sepsis Associated Acute Kidney Injury: 
+A Retrospective Study
+Rong Luo
+1,*, Wei Wang2,*, Jinquan Xia3, Chuanchuan Nan4, Silin Liang4, Jiajia Huang4, 
+Chengying Hong4, Chunbo Chen
+4, Huaisheng Chen4
+1The Second Clinical Medical College of Jinan University, Department of Critical Care Medicine, Shenzhen People’s Hospital, Shenzhen, Guangdong, 
+People’s Republic of China; 2Department of Endocrinology, Shenzhen People’s Hospital, Second Clinical Medical College of Jinan University, First 
+Affiliated Hospital of Southern University of Science and Technology, Shenzhen, Guangdong, People’s Republic of China; 3Department of Clinical 
+Medical Research Center, Shenzhen People’s Hospital, Second Clinical Medical College of Jinan University, First Affiliated Hospital of Southern 
+University of Science and Technology, Shenzhen, Guangdong, People’s Republic of China; 4Department of Critical Care Medicine, Shenzhen People’s 
+Hospital, Second Clinical Medical College of Jinan University, First Affiliated Hospital of Southern University of Science and Technology, Shenzhen, 
+Guangdong, People’s Republic of China
+*These authors contributed equally to this work 
+Correspondence: Huaisheng Chen; Chunbo Chen, Department of Critical Care Medicine, Shenzhen People’s Hospital, Second Clinical Medical 
+College of Jinan University, First Affiliated Hospital of Southern University of Science and Technology, Shenzhen, Guangdong, People’s Republic of 
+China, Email sunshinic@hotmail.com; gghccm@163.com
+Background: Sepsis-associated acute kidney injury (SA-AKI) is a common and high-mortality complication in the intensive care 
+unit (ICU), and renal replacement therapy (RRT) is frequently used, yet its survival benefits remain unclear. This study aims to assess 
+survival differences via restricted mean survival time (RMST) in patients with SA-AKI.
+Methods: This retrospective cohort study included 577 patients diagnosed with SA-AKI from the ICU of Shenzhen People’s Hospital 
+between January 2017 and July 2019. All patients were categorized into RRT group (n=343) and non-RRT group (n=234) according to 
+whether they need to received RRT. Survival analyses were conducted using Kaplan-Meier curves. Univariate and multivariable 
+logistic regression analyses were employed for the selection of covariates. RMST analysis was performed to quantify the survival 
+benefits associated with RRT.
+Results: Patients who need to received RRT had greater baseline illness severity and more frequent organ support (eg, higher SOFA 
+scores and higher rates of shock and mechanical ventilation), suggesting potential confounding by indication. In unadjusted analyses, 
+28d mortality was higher in the RRT group than in the non-RRT group (44% vs 20%). After adjustment for multidrug-resistant (MDR) 
+infection and SOFA score (both P < 0.05), the RMST difference between the RRT and non-RRT groups was 3.25 days (95% CI: 0.67 
+to 5.84; p = 0.01), which was statistically significant.
+Conclusion: In this retrospective cohort study, after adjusting for SOFA score and MDR infection, the potential survival benefits of 
+RRT in patients with SA-AKI were demonstrated. These findings suggest that poor outcomes in RRT recipients may be attributable to 
+underlying risk factors rather than RRT itself. However, given the observational design, these results are hypothesis-generating and 
+require prospective validation.
+Keywords: sepsis, acute renal injury, renal replacement therapy, hemofiltration, restricted mean survival time, mortality rate
+Introduction
+Sepsis is a life-threatening syndrome characterized by organ dysfunction due to a dysregulated host response to 
+infection.1 Sepsis triggers a systemic inflammatory response that can lead to microcirculatory dysfunction, endothelial 
+International Journal of General Medicine 2026:19 601433                                                      
+1
+© 2026 Luo et al. This work is published and licensed by Dove Medical Press Limited. The full terms of this license are available at https://www.dovepress.com/terms.php 
+and incorporate the Creative Commons Attribution – Non Commercial (unported, v4.0) License (http://creativecommons.org/licenses/by-nc/4.0/). By accessing the work 
+you hereby accept the Terms. Non-commercial uses of the work are permitted without any further permission from Dove Medical Press Limited, provided the work is properly attributed. For 
+permission for commercial use of this work, please see paragraphs 4.2 and 5 of our Terms (https://www.dovepress.com/terms.php).
+International Journal of General Medicine                                         
+Open Access Full Text Article
+https://doi.org/10.2147/IJGM.S601433
+Received: 5 February 2026
+Accepted: 29 July 2026
+Published: 17 August 2026
+International Journal of General Medicine downloaded from https://www.dovepress.com/
+For personal use only.
+
+
+===== ORIGINAL PDF PAGE 2; PDF label 2 =====
+FORMULA CHECK REQUIRED: original PDF page 2.
+injury, and organ hypoperfusion.2,3 The kidneys are particularly vulnerable to these insults, resulting in sepsis-associated 
+acute kidney injury (SA-AKI), which contributes to elevated mortality rates and poor prognoses.4,5 For the management 
+of patients with SA-AKI, in addition to fundamental interventions such as antimicrobial therapy and fluid resuscitation, 
+renal replacement therapy (RRT) is frequently employed for the purposes of volume management and the clearance of 
+metabolic byproducts and toxins.6 RRT constitutes a significant supportive measure in the management of severe acute 
+kidney injury within the intensive care unit (ICU).7
+Nevertheless, within actual ICU populations, individuals undergoing RRT frequently demonstrate elevated crude 
+mortality rates. A recent multicenter study revealed that the proportion of patients receiving RRT in ICUs worldwide 
+ranged from 3.3% to 9.2%. Furthermore, the in-hospital mortality rate for critically ill patients undergoing RRT was 
+nearly four times higher (57.1%) compared to those not receiving RRT (16.8%).8 This observation may imply the 
+presence of adverse effects associated with RRT or restricted therapeutic advantages. However, patients receiving RRT 
+are intrinsically more critically ill (such as being in shock, requiring vasopressors or mechanical ventilation, having 
+higher Sequential Organ Failure Assessment (SOFA) score, etc).9,10 The optimal role of RRT in SA-AKI remains 
+controversial. Recent meta-analyses have yielded conflicting conclusions regarding its survival benefit. For instance, 
+a 2024 meta-analysis of 12 studies involving 3,648 SA-AKI patients reported that early RRT was associated with a lower 
+28-day mortality (RR: 0.72; 95% CI: 0.59-0.88), although this benefit was limited to patients with SOFA ≤ 12 and did not 
+extend to 90-day outcomes.11 Conversely, another meta-analysis of 9 high-quality randomized controlled trials compris­
+ing 1,042 participants found that early RRT initiation does not improve patient survival or confer reductions in ICU or 
+hospital length of stay (LOS).12 Furthermore, the comparative effectiveness of different RRT strategies, including 
+modality choice and dose, remains uncertain.13,14 Consequently, a mere comparison of the raw outcomes between 
+RRT and non-RRT groups is prone to confounding influences, including disease severity, characteristics of the infection, 
+and the intensity of organ support, which may result in inconclusive findings regarding the actual direction and 
+magnitude of the association with RRT.
+Most existing studies have relied on traditional survival methods, such as the Kaplan–Meier curve and Cox 
+proportional hazards model, frequently depend on the proportional hazards assumption, wherein the hazard ratio (HR) 
+does not intuitively reflect an actual difference in survival time. In contrast, Restricted Mean Survival Time (RMST) 
+analysis is independent of the proportional hazards assumption and directly quantifies the difference in mean survival 
+time between two groups within a specified time window,15 making it more clinically interpretable. This study aims to 
+evaluate the association between RRT administration and mortality/survival time outcomes in SA-AKI patients within 
+a single-center ICU retrospective cohort, while also identifying key high-risk factors that may obscure or influence this 
+association, thus providing a foundation for more tailored RRT selection and risk stratification.
+Methods
+Study Design, Setting, and Data Source
+This study is a single-center retrospective cohort study, including patients diagnosed with sepsis who fulfilled the SA- 
+AKI criteria and were admitted to the Department of Intensive Care Medicine at Shenzhen People’s Hospital between 
+January 2017 and July 2019. Data were extracted from electronic medical records and the ICU information system. This 
+study was approved by the local Institutional Review Board of the original research with a waiver of informed consent, 
+and performed in accordance with the ethical standards outlined in the 1964 Declaration of Helsinki and its later 
+amendments.
+Participants: Eligibility Criteria and Clinical Definitions
+Eligible patients were adults (≥18 years) who met Sepsis-3 criteria and subsequently developed AKI defined by KDIGO 
+criteria during ICU stay. SA-AKI was defined as the occurrence of AKI within the context of sepsis, following the 
+exclusion of alternative etiologies for AKI, such as exposure to nephrotoxic agents, significant hemorrhage, or urinary 
+tract obstructions.
+https://doi.org/10.2147/IJGM.S601433                                                                                                                                                                                                                                                                                                                                       
+International Journal of General Medicine 2026:19 
+2
+Luo et al                                                                                                                                                                             
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 3; PDF label 3 =====
+FORMULA CHECK REQUIRED: original PDF page 3.
+Clinical Intervention and Exposure
+The overall management of septic patients follows the Surviving Sepsis Campaign guidelines. Before administering 
+antibiotics, patients entering the ICU undergo blood routine tests, blood microbial cultures, and assessments of organ 
+function indicators. Vasoactive drugs were administered to shock patients, with norepinephrine as the first choice. 
+Mechanical ventilation (MV) was applied to patients with respiratory failure (RF). The decision to initiate RRT in 
+patients with acute kidney injury (AKI) or chronic kidney disease (CKD) was based on KDIGO-guided indications (eg, 
+refractory volume overload, progressive azotemia, metabolic acidosis pH < 7.2, hyperkalemia > 6.5 mmol/L, or oliguria/ 
+anuria despite adequate resuscitation), integrated with the attending physician’s clinical judgment regarding the patient’s 
+overall trajectory (eg, worsening lactate, increasing vasopressor requirements). This real-world, non-standardized 
+approach reflects routine clinical practice and was not protocolized to preserve the pragmatic nature of the cohort. The 
+RRT group was subjected to continuous venovenous hemofiltration (CVVH) utilizing an ST 150 filter. Initially, all 
+patients in this cohort received CVVH continuously for 24 hours per day during the first three days. Subsequently, the 
+duration was adjusted to 16 hours per day until RRT was no longer necessary or the patients were transferred out of the 
+ICU. The prescribed ultrafiltration rate of CVVH was 30 mL/kg/h with a blood flow rate of 150 mL/min.
+Observational Index
+Gender, age, organ failure, and organ support measures were documented. Organ function indicators, inflammatory 
+markers (such as white blood cell count, neutrophil count, lymphocyte count, procalcitonin, C-reactive protein, etc), and 
+clinical outcomes (death/survival) were recorded. The LOS in the ICU and duration of MV (measured in hours) were also 
+documented.
+Outcomes and Follow-up
+The primary outcome was 28-day all-cause mortality. Time-to-event was quantified from the point of ICU admission 
+until death occurred within 28 days. Patients who remained alive at day 28, regardless of whether they were still in the 
+ICU or had been discharged were treated as censored data. In the RMST framework, the restricted mean survival time is 
+defined as the area under the survival curve up to a prespecified truncation time τ. For this study, τ was set at 28 days to 
+capture clinically meaningful short-term survival differences during the acute phase of critical illness, consistent with 
+widely used endpoints in sepsis trials. Under this definition, patients who died before day 28 contributed their actual 
+observed survival time (< 28 days), whereas those who survived beyond day 28 were assigned a survival time of 28 days 
+and treated as censored observations in the RMST analysis. Based on these estimates, the RMST difference (RMST-D) 
+and RMST ratio (RMST-R) between the two groups were calculated.
+Covariates
+The prespecified covariates included demographic characteristics (sex, age), disease severity and organ support (SOFA 
+score, shock, vasopressors, mechanical ventilation), infection-related characteristics, and early laboratory indicators at 
+ICU admission presented in Table 1. These laboratory indicators comprised complete blood count parameters (red blood 
+cell count, hemoglobin, hematocrit, red cell distribution width-coefficient of variation, white blood cell count, lympho­
+cyte count, platelet count, mean platelet volume(MPV), platelet distribution width(PDW)), coagulation and biochemistry 
+parameters (antithrombin III(AT III), activated partial thromboplastin time(APTT), blood urea nitrogen, serum creatinine, 
+blood urea nitrogen to serum creatinine ratio, total bilirubin), lipid profile (total cholesterol, high-density lipoprotein, 
+low-density lipoprotein, triglycerides), inflammatory markers (procalcitonin, C-reactive protein), and other parameters 
+(glycosylated hemoglobin, albumin).
+Statistical Analysis
+The statistical analyses were conducted using EmpowerStats software version 4.0 (R language) and the R studio 4.2 for 
+Windows. Continuous variables that followed a normal distribution were expressed as mean ± standard deviation (SD), 
+whereas those with a non-normal distribution were presented as medians with interquartile ranges (IQR). Categorical 
+International Journal of General Medicine 2026:19                                                                             
+https://doi.org/10.2147/IJGM.S601433                                                                  
+3
+Luo et al
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 4; PDF label 4 =====
+Technical extraction; compare with original PDF page 4.
+Table 1 Baseline Characteristics Between Non-RRT and RRT Groups
+Variable
+Non-RRT (n=234)
+RRT (n=343)
+p value
+Demographics
+Gender, male (%)
+141 (60.256)
+224 (65.306)
+0.217
+Age, years, M(SD)
+62.026 (20.786)
+61.802 (18.000)
+0.891
+Infection lesions
+Pneumonia, n (%)
+139 (59.402)
+217 (63.265)
+0.349
+Peritonitis, n (%)
+9 (3.846)
+22 (6.414)
+0.179
+Cholangitis, n (%)
+3 (1.282)
+5 (1.458)
+0.859
+Urinary tract infection, n (%)
+2 (0.855)
+1 (0.292)
+0.356
+MDR infection, n (%)
+23 (9.829)
+86 (25.073)
+<0.001
+Severity
+MV requirement, n (%)
+123 (52.564)
+247 (72.012)
+<0.001
+NE requirement, n (%)
+77 (32.906)
+218 (63.557)
+<0.001
+SOFA score, M(SD)
+7.680 (3.00)
+14.440 (4.142)
+<0.001
+Laboratory indicators
+RBC, ×1012/L, M(SD)
+3.561 (0.943)
+3.422 (1.071)
+0.133
+HB, g/L, M(SD)
+100.703 (19.170)
+92.626 (20.047)
+<0.001
+HCT, %, M(SD)
+30.809 (5.797)
+28.213 (6.024)
+<0.001
+RDW-CV, %, M(SD)
+15.639 (3.065)
+16.500 (3.219)
+0.002
+WBC, ×109/L, M(SD)
+13.950 (8.256)
+13.175 (8.717)
+0.313
+LYMPH, ×109/L, M(SD)
+1.156 (0.931)
+1.116 (1.028)
+0.654
+PLT, ×109/L, M(SD)
+200.066 (100.106)
+167.461 (102.988)
+<0.001
+AT III, %, M(SD)
+69.244 (18.390)
+61.884 (21.652)
+0.002
+MPV, %, M(SD)
+10.905 (1.207)
+11.193 (1.184)
+0.010
+PDW, %, M(SD)
+12.932 (2.896)
+13.559 (3.181)
+0.029
+BUN, mmol/L, M(SD)
+11.418 (9.069)
+16.512 (12.663)
+<0.001
+SCr, μmol/L, IQR
+121.00 (70.50, 223.75)
+217.00 (108.00, 491.00)
+<0.001
+BCR, M(SD)
+17.774 (10.285)
+18.196 (15.797)
+<0.001
+TBIL, μmol/L, IQR
+10.90 (7.60, 19.30)
+13.20 (7.10, 26.48)
+0.301
+CHOL, mmol/L, M(SD)
+3.310 (1.132)
+3.143 (2.059)
+0.301
+HDL, mmol/L, M(SD)
+0.759 (0.384)
+0.636 (0.380)
+<0.001
+LDL, mmol/L, M(SD)
+1.430 (1.031)
+1.286 (0.937)
+0.084
+TG, mmol/L, M(SD)
+1.581 (1.125)
+3.193 (17.31)
+0.200
+PCT, pg/mL, M(SD)
+0.640 (0.170, 3.820)
+2.620 (0.558, 12.675)
+0.417
+(Continued)
+https://doi.org/10.2147/IJGM.S601433                                                                                                                                                                                                                                                                                                                                       
+International Journal of General Medicine 2026:19 
+4
+Luo et al                                                                                                                                                                             
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 5; PDF label 5 =====
+Technical extraction; compare with original PDF page 5.
+variables are presented as frequencies (percentages). Comparisons between groups were performed using t-tests, Mann– 
+Whitney U-tests, and χ2-tests, respectively.
+The main analysis used RMST to evaluate the difference in survival time between RRT and non-RRT groups, 
+adjusting for predefined covariates. For covariate-adjusted RMST analysis, estimation was performed using the method 
+proposed by Tian et al,16 which extends the standard RMST framework to adjust for baseline covariates within a Cox- 
+type modeling framework. This approach regresses the restricted mean survival time on covariates through a pseudo- 
+observation technique, yielding adjusted RMST estimates and their between-group differences. Candidate covariates for 
+inclusion in the adjusted model were selected based on clinical plausibility and univariate screening with a threshold of 
+p < 0.05. Variables reaching this threshold were then entered into a multivariable Cox regression model with a backward 
+elimination procedure (retention criterion: p < 0.05) to identify independent predictors of 28-day mortality. Collinearity 
+among covariates was assessed using variance inflation factors (VIF), and no significant multicollinearity was detected 
+(all VIF < 2). The final adjusted RMST model included variables that were independently associated with mortality in the 
+multivariate analysis, all of which are presented in the baseline characteristics table (Table 1). Kaplan-Meier curves were 
+also plotted to describe unadjusted survival differences and Log rank tests were conducted.
+Results
+Study Population and Baseline Characteristics
+In total, 577 patients meeting the diagnostic criteria for SA-AKI were included in this retrospective real-world study, with 
+an average age of 61.89±19.33 years. Among them, there were 365 male and 212 female patients. The SOFA score was 
+11.70±4.99. Patients were divided into the RRT group (n=343) and the non-RRT group (n=234) based on whether they 
+need to received RRT during ICU stay.
+Infection sites in both groups included the lungs, abdomen, biliary tract, urinary tract, and bloodstream. The RRT 
+group had a significantly higher incidence of multiple drug resistant (MDR) infections (p<0.001), whereas no statistically 
+significant differences were observed in the rates of other infection types between the two groups (all p>0.05). Baseline 
+characteristics for both groups are detailed in Table 1. Furthermore, patients in the RRT group exhibited higher rates of 
+MV, and shock, along with elevated SOFA score, compared to the non-RRT group, indicating a more severe clinical 
+status upon ICU admission. Clinical outcomes for the two groups are presented in Table 2.
+Unadjusted Associations with 28d Mortality
+In unadjusted analyses, patients who received RRT had a significantly higher 28-day mortality rate than those who did 
+not (44% vs 20%; p < 0.001). The RMST analysis revealed an RMST of 24.80 days (95% CI: 23.24, 26.36) in the non- 
+RRT group compared to 21.03 days (95% CI: 19.39, 22.67) in the RRT group. The restricted mean time lost (RMTL) was 
+3.20 days (95% CI: 1.65, 4.76) in the non-RRT group, and 6.97 days (95% CI: 5.33, 8.61) in the RRT group. Kaplan- 
+Meier survival curves are shown in Figure 1A.
+Table 1 (Continued). 
+Variable
+Non-RRT (n=234)
+RRT (n=343)
+p value
+CRP, mg/L, IQR
+63.24 (22.82, 124.69)
+97.63 (45.42, 185.89)
+<0.001
+HBA1C, %, M(SD)
+6.510 (2.270)
+6.763 (2.242)
+0.410
+ALB, g/L, M(SD)
+27.564 (6.842)
+27.274 (6.567)
+0.874
+Abbreviations: MV, mechanical ventilation; NE, norepinephrine; SOFA score, sequence organ failure associa­
+tion score; RBC, red blood cell count; HB, hemoglobin; HCT, hematocrit; RDW-CV, red cell deviation width 
+coefficient variability; WBC, white blood cell count; LYMPH, lymphocyte count; PLT, platelet count; AT III, 
+antithrombin III; MPV, mean platelet volume; PDW, platelet deviation width; BUN, blood urea nitrogen; SCr, 
+serum creatinine; BCR, blood urea nitrogen to serum creatinine ratio; TBIL, total bilirubin; CHOL, total 
+cholesterol; HDL, high density lipoprotein; LDL, low density lipoprotein; TG, triglyceride; PCT, procalcitonin; 
+CRP, C-reactive protein; HBA1C, glycosylated hemoglobin; ALB, albumin.
+International Journal of General Medicine 2026:19                                                                             
+https://doi.org/10.2147/IJGM.S601433                                                                  
+5
+Luo et al
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 6; PDF label 6 =====
+Technical extraction; compare with original PDF page 6.
+Univariate analysis revealed that receipt of RRT was significantly associated with increased 28d mortality [OR=3.092, 
+95% CI: 2.105–4.542), P<0.001]. In addition to RRT, septicemia, higher SOFA score, elevated PDW and MPV, and 
+prolonged APTT were also independently associated with greater mortality risk. Conversely, higher AT III levels was 
+associated with reduced mortality risk (see Table 3).
+Covariate-Adjusted Survival and RMST
+Multivariate analysis revealed that the mortality rate in the RRT group was independently associated with MDR infection 
+and higher SOFA scores (both p<0.05, Table 4). In the covariate-adjusted analysis, we adjusted for these key high-risk 
+factors within the RMST framework to obtain adjusted survival curves and adjusted RMST estimates. The adjusted 
+Kaplan-Meier curve shows a reversal in survival outcomes between the two groups, with the RRT group showing 
+a significant survival advantage (Log rank test p=0.0012).
+Accordingly, the adjusted RMST was 18.7 days in the non-RRT group versus 22.2 days in the RRT group (p=0.0136). 
+The Kaplan-Meier survival curves are shown in Figure 1B. The RMST-D [(arm=1)–(arm=0)], RMST ratio [(arm=1)/ 
+(arm=0)], and RMTL ratio [(arm=1)/(arm=0)] with and without covariate adjustment are listed in Table 5.
+Exploratory RMST-Based Models
+Furthermore, exploratory model analyses were conducted under different RMST and RMTL frameworks to identify 
+factors associated with reduced RMST or increased RMTL. The results indicate that in the RMST-D model, MDR 
+infections and SOFA score were significantly associated with a reduced RMST within 28 days (both p < 0.05), suggesting 
+that these factors attenuated the potential survival advantage of RRT. In the RMST ratio model, MDR infections and 
+SOFA score similarly showed a statistically significant association with a reduction in the RMST ratio (p = 0.025, < 
+0.001, respectively), further confirming their detrimental impact on short-term survival. In the RMTL ratio model, SOFA 
+score remained significant predictors of increased time lost within the 28-day window (p = 0.049 and < 0.001, 
+respectively), whereas MDR infection showed a consistent direction of association but did not reach statistical sig­
+nificance (p = 0.060) (see Table 6).
+Discussion
+SA-AKI is a frequent organ failure observed in the ICU, however, the potential effectiveness of RRT in improving the 
+prognosis of SA-AKI patients remains debatable RRT in sepsis is instrumental in eliminating excess fluids and mediators, 
+thereby endowing it with exceptional fluid balance capabilities.17 Nevertheless, recent clinical studies have presented 
+inconclusive evidence regarding the efficacy of RRT in managing SA-AKI.8 There is no demonstrated advantage in 
+initiating RRT early for patients with AKI or SA-AKI.18,19 In reality, it is challenging to treat SA-AKI patients at an early 
+stage in clinical practice, as these patients are often outside the ICU, in emergency or other specialized departments. 
+Overall, the efficacy of RRT does not align with clinical expectations. Consequently, we scrutinize real-world data from 
+SA-AKI patients to elucidate the reasons behind the suboptimal effectiveness of RRT. Simultaneously, we expand upon 
+the application of restricted mean survival time (RMST) analysis in time-to-event outcomes.
+Table 2 Clinical Outcomes Between Non-RRT and RRT Groups
+Variable
+Non-RRT (n=234)
+RRT (n=343)
+p value
+ICU mortality rate, n (%)
+51 (21.795)
+158 (46.064)
+<0.001
+28d mortality rate, n (%)
+47 (20.085)
+150 (43.732)
+<0.001
+ICU stay, day, IQR
+4 (2, 10)
+8 (5, 17)
+<0.001
+MV duration, hour, IQR
+39 (14.25, 146.75)
+140 (64, 346.50)
+0.035
+Abbreviations: ICU, intensive care unit; MV, mechanical ventilation.
+https://doi.org/10.2147/IJGM.S601433                                                                                                                                                                                                                                                                                                                                       
+International Journal of General Medicine 2026:19 
+6
+Luo et al                                                                                                                                                                             
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 7; PDF label 7 =====
+Technical extraction; compare with original PDF page 7.
+Figure 1 28d survival by renal replacement therapy status in patients with sepsis-associated acute kidney injury (SA-AKI). (A) Unadjusted Kaplan–Meier estimates of 28d 
+survival from ICU admission, comparing patients who received HF (n=343) vs those who did not (n=234). Numbers at risk are shown below the x-axis. (B) Covariate- 
+adjusted (standardized) survival curves from ICU admission, adjusted for multidrug-resistant infection and SOFA score. 
+Notes: HF (hemofiltration) refers to continuous venovenous hemofiltration (CVVH), which was the specific modality of renal replacement therapy (RRT) used in this study.
+International Journal of General Medicine 2026:19                                                                             
+https://doi.org/10.2147/IJGM.S601433                                                                  
+7
+Luo et al
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 8; PDF label 8 =====
+Technical extraction; compare with original PDF page 8.
+Table 3 Univariate Analysis for RRT and Covariates
+Exposure
+Statistics
+Odd Ratio (OR) of 28d Death
+p value
+RRT
+No
+234 (40.555%)
+1.0
+Yes
+343 (59.445%)
+3.092 (2.105, 4.542)
+<0.001
+SEPTIMIA
+No
+460 (79.723%)
+1
+Yes
+117 (20.277%)
+1.476 (1.077, 2.022)
+0.016
+MDR infection
+No
+468 (81.109%)
+1
+Yes
+109 (18.891%)
+1.284 (0.923, 1.787)
+0.137
+HCT
+29.221 ± 6.065
+0.982 (0.958, 1.007)
+0.159
+CRP
+110.258 ± 101.482
+1.001 (1.000, 1.003)
+0.064
+HDL
+0.683 ± 0.386
+0.729 (0.480, 1.108)
+0.139
+PDW
+13.277 ± 3.068
+1.075 (1.026, 1.126)
+0.002
+MPV
+11.063 ± 1.201
+1.247 (1.098, 1.415)
+<0.001
+ATIII
+64.897 ± 20.670
+0.982 (0.973, 0.991)
+<0.001
+APTT
+47.658 ± 20.442
+1.014 (1.009, 1.020)
+<0.001
+SOFA score
+11.698 ± 4.986
+1.197 (1.160, 1.234)
+<0.001
+Abbreviations: HFNEEDED, the need for hemofiltration; MDR, multiple drug resistant; HCT, 
+hematocrit; CRP: C-reactive protein; HDL, high density lipoprotein; PDW, platelet deviation width; 
+MPV, mean platelet volume; AT III, antithrombin III; APTT, activated partial thromboplastin time; SOFA 
+score, sequence organ failure association score.
+Table 4 Multivariate Analysis for RRT and Covariates to Mortality Rate
+coef.
+se (coef.)
+z
+HR=Exp(coef)
+1/HR
+95% CI Lower
+95% CI Upper
+P value
+Factor (with RRT)
+−0.768
+0.237
+−3.247
+0.464
+2.155
+0.292
+0.738
+0.001
+septimia
+−0.271
+0.197
+−1.379
+0.763
+1.312
+0.519
+1.121
+0.168
+MDR infection
+−0.487
+0.198
+−2.452
+0.615
+1.627
+0.417
+0.907
+0.014
+SOFA score
+0.256
+0.025
+10.349
+1.292
+0.774
+1.231
+1.356
+<0.001
+HCT
+0.009
+0.014
+0.632
+1.009
+0.991
+0.982
+1.037
+0.528
+CRP
+<0.001
+<0.001
+0.562
+1.000
+1.000
+0.999
+1.002
+0.574
+HDL
+0.336
+0.214
+1.575
+1.400
+0.714
+0.921
+2.128
+0.115
+PDW
+−0.039
+0.060
+−0.651
+0.962
+1.040
+0.855
+1.082
+0.515
+MPV
+0.177
+0.164
+1.081
+1.194
+0.838
+0.866
+1.647
+0.280
+ATIII
+−0.002
+0.005
+−0.320
+0.999
+1.002
+0.989
+1.008
+0.749
+APTT
+0.001
+0.003
+0.430
+1.001
+0.999
+0.995
+1.008
+0.668
+Abbreviations: coef., regression coefficient; se (coef.), Standard error of the coefficient; z, z value; HR, hazard ratio; CI, confidence intervene; 
+HFNEEDED, the need for hemofiltration; MDR, multiple drug resistant; SOFA score, sequence organ failure association score; HCT, hematocrit; CRP, C- 
+reactive protein; HDL, high density lipoprotein; PDW, platelet deviation width; MPV, mean platelet volume; AT III, antithrombin III; APTT, activated partial 
+thromboplastin time.
+https://doi.org/10.2147/IJGM.S601433                                                                                                                                                                                                                                                                                                                                       
+International Journal of General Medicine 2026:19 
+8
+Luo et al                                                                                                                                                                             
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 9; PDF label 9 =====
+Technical extraction; compare with original PDF page 9.
+Table 5 Between Group Comparison
+Unadjusted
+p
+Adjusted
+p
+RMST-D
+−3.768 (−6.031,-1.505)
+0.0011
+3.254 (0.670,5.837)
+0.0136
+RMST ratio
+0.848 (0.767,0.937)
+0.0013
+1.161 (1.036,1.301)
+0.0104
+RMTL ratio
+2.176 (1.267,3.735)
+0.0048
+0.544 (0.297,0.996)
+0.0486
+Abbreviations: RMST, Restricted Mean Survival Time; RMST-D, the difference of the 
+Restricted Mean Survival Time; RMTL, Restricted Mean Time Lost; RMST-D, [(arm=RRT)- 
+(arm=non-RRT)]; RMST ratio, [(arm=RRT)/(arm=non-RRT)]; RMTL ratio, [(arm=RRT)/(arm=­
+non-RRT)].
+Table 6 Model Summary
+coef
+Se
+z
+P value
+Exp(coef)
+95% CI Lower
+95% CI Upper
+Model: RMST-D
+Intercept
+40.734
+8.274
+4.923
+<0.001
+24.519
+56.950
+RRT
+3.254
+1.318
+2.468
+0.014
+0.670
+5.837
+Septicemia
+0.460
+1.502
+0.306
+0.760
+−2.484
+3.403
+MDR infection
+3.395
+1.548
+2.193
+0.028
+0.361
+6.428
+SOFA score
+−1.158
+0.140
+−8.295
+<0.001
+−1.432
+−0.885
+HCT
+0.026
+0.095
+0.275
+0.784
+−0.160
+0.212
+CRP
+−0.001
+0.006
+−0.158
+0.875
+−0.012
+0.010
+HDL
+−2.503
+1.343
+−1.863
+0.062
+−5.135
+0.130
+PDW
+0.107
+0.440
+0.244
+0.807
+−0.755
+0.969
+MPV
+−0.516
+1.117
+−0.462
+0.644
+−2.705
+1.672
+AT III
+0.011
+0.029
+0.397
+0.691
+−0.045
+0.067
+APTT
+−0.051
+0.027
+−1.924
+0.054
+−0.104
+0.001
+Model: RMST ratio
+Intercept
+3.971
+0.394
+10.076
+<0.001
+53.058
+24.504
+114.882
+RRT
+0.149
+0.058
+2.562
+0.010
+1.161
+1.036
+1.301
+Septicemia
+0.012
+0.071
+0.174
+0.862
+1.013
+0.880
+1.165
+MDR infection
+0.164
+0.073
+2.235
+0.025
+1.178
+1.020
+1.360
+SOFA score
+−0.054
+0.007
+−7.227
+<0.001
+0.948
+0.934
+0.962
+HCT
+0.001
+0.004
+0.233
+0.816
+1.001
+0.993
+1.009
+CRP
+−0.000
+0.000
+−0.021
+0.983
+1.000
+1.000
+1.000
+HDL
+−0.111
+0.063
+−1.767
+0.077
+0.895
+0.792
+1.012
+PDW
+0.007
+0.022
+0.300
+0.764
+1.007
+0.964
+1.051
+MPV
+−0.025
+0.054
+−0.457
+0.648
+0.975
+0.877
+1.085
+(Continued)
+International Journal of General Medicine 2026:19                                                                             
+https://doi.org/10.2147/IJGM.S601433                                                                  
+9
+Luo et al
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 10; PDF label 10 =====
+Technical extraction; compare with original PDF page 10.
+The RMST approach offers several advantages over conventional survival methods in this context. Unlike the hazard 
+ratio, which summarizes relative risk under the proportional hazards assumption and may be challenging to interpret 
+when this assumption is violated, RMST directly quantifies the absolute difference in average survival time between two 
+groups within a clinically meaningful time horizon.15,20,21 In our study, the adjusted RMST difference of 3.5 days within 
+28 days provides a tangible estimate of the survival gain associated with RRT. This absolute metric is more intuitively 
+interpretable for clinicians and patients than a relative risk reduction. To our knowledge, this is the first study to apply 
+RMST analysis specifically to quantify the survival benefit of RRT in SA-AKI, thereby complementing existing evidence 
+derived from traditional Cox regression or simple group comparisons.
+Our findings suggest that factors such as multidrug resistance (MDR) infections and SOFA scores are associated with 
+worse outcomes in RRT recipients, and that these factors may confound the apparent relationship between RRT and 
+mortality. Previous studies have also identified these factors as significant contributors to the chronicity of sepsis and 
+elevated mortality rates.22,23 After adjusting for the identified high-risk factors, the survival relationship between the two 
+groups underwent a notable reversal.24,25 In the unadjusted analysis, RRT recipients had a higher 28-day mortality rate 
+and a shorter unadjusted RMST, reflecting the confounding effect of greater baseline illness severity in the RRT group. 
+However, after covariate adjustment, the RRT group demonstrated a significantly longer adjusted RMST. RMST ratio>1 
+indicates that the RRT group has a longer survival time compared to the control group. In other words, the survival of the 
+RRT group was better than that of the control group, which may indicate a positive therapeutic effect. At the same time, 
+the RMTL ratio less than 1 indicates that the RRT group has less time loss compared to the control group during 28 days. 
+This means that during this period, the RRT group had a lower incidence of death, demonstrating better survival benefits. 
+This reversal suggests that the apparent survival disadvantage of RRT in crude analyses was largely attributable to 
+Table 6 (Continued). 
+coef
+Se
+z
+P value
+Exp(coef)
+95% CI Lower
+95% CI Upper
+AT III
+0.000
+0.001
+0.351
+0.726
+1.000
+0.998
+1.003
+APTT
+−0.003
+0.002
+−1.925
+0.054
+0.997
+0.993
+1.000
+Model: RMTL ratio
+Intercept
+−2.156
+1.572
+−1.371
+0.170
+0.116
+0.005
+2.523
+RRT
+−0.609
+0.309
+−1.972
+0.049
+0.544
+0.297
+0.996
+Septicemia
+−0.151
+0.236
+−0.640
+0.522
+0.859
+0.541
+1.366
+MDR infection
+−0.544
+0.289
+−1.878
+0.060
+0.581
+0.329
+1.024
+SOFA score
+0.218
+0.029
+7.527
+<0.001
+1.243
+1.175
+1.316
+HCT
+−0.008
+0.020
+−0.403
+0.687
+0.992
+0.955
+1.031
+CRP
+0.000
+0.001
+0.311
+0.756
+1.000
+0.998
+1.002
+HDL
+0.484
+0.251
+1.927
+0.054
+1.622
+0.992
+2.654
+PDW
+−0.006
+0.064
+−0.090
+0.928
+0.994
+0.877
+1.127
+MPV
+0.110
+0.183
+0.600
+0.549
+1.116
+0.780
+1.596
+AT III
+−0.001
+0.005
+−0.195
+0.845
+0.999
+0.989
+1.009
+APTT
+0.003
+0.003
+0.971
+0.331
+1.003
+0.997
+1.009
+Abbreviations: coef., Coefficient of Variation; Se, standard error; RMST-D, the difference of the Restricted Mean Survival Time; 
+HFNEEDED, the need for hemofiltration; MDR, multiple drug resistant; SOFA score: sequence organ failure association score; HCT, 
+hematocrit; CRP, C-reactive protein; HDL, high density lipoprotein; PDW, platelet deviation width; MPV, mean platelet volume; AT III, 
+antithrombin III; APTT, activated partial thromboplastin time.
+https://doi.org/10.2147/IJGM.S601433                                                                                                                                                                                                                                                                                                                                       
+International Journal of General Medicine 2026:19 
+10
+Luo et al                                                                                                                                                                             
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 11; PDF label 11 =====
+Technical extraction; compare with original PDF page 11.
+confounding by indication. In other words, sicker patients were more likely to receive RRT. After accounting for these 
+imbalances, RRT was associated with a meaningful survival benefit within the 28-day window.
+Recent large-scale studies have advanced our understanding of SA-AKI, particularly its risk factors and prognostic 
+heterogeneity. In a multicenter cohort of 84,528 ICU admissions, White et al reported that SA-AKI occurred in one-sixth 
+of patients, typically diagnosed within 24 hours of ICU admission, with those diagnosed by low urine output alone 
+having significantly lower mortality (12% vs 15%–35%) and RRT requirements (2.8% vs 18%–50%) than those 
+diagnosed by creatinine criteria.26 Extending this epidemiological framework, Gomez et al, in a cohort of 190,550 
+critically ill patients, identified high SOFA score, sepsis, shock, and high fluid balance as the most important risk factors 
+for persistent severe AKI. This condition was associated with a 1.5-fold increased 90-day mortality and a markedly lower 
+probability of renal recovery (OR 0.14).27 Together, these studies underscore that illness severity, as reflected by SOFA 
+score and organ dysfunction burden, is the primary driver of progression along the AKI continuum. This notion aligns 
+with our finding that SOFA score was a key confounder in the association between RRT and survival.
+Regarding the efficacy of specific RRT strategies, Wang et al, in a meta-analysis of 14 studies including 695 sepsis 
+patients, reported that the oXiris adsorptive filter was associated with a lower 28-day mortality (OR 0.53, 95% CI 0.36– 
+0.77), although the evidence certainty was rated as low or very low.11 Park et al, in a randomized controlled trial of 73 
+SA-AKI patients, found that BIA-guided volume control did not improve survival, but a post-hoc analysis revealed that 
+an achieved volume accumulation rate >50% was independently associated with a markedly increased 90-day mortality 
+(HR 7.18, 95% CI 1.58–32.51).28 These findings highlight that the actual physiological response to therapy, rather than 
+the assigned strategy itself, may play a more critical role in driving patient outcomes. Our study complements these 
+observations by demonstrating that, after adjusting for severity markers including SOFA score and MDR infection, RRT 
+was associated with a significant 28-day survival benefit. This benefit was entirely obscured in unadjusted analyses due to 
+confounding by indication. Together, these data suggest that accurate risk adjustment and careful patient selection are 
+essential to unmask the true effect of RRT in SA-AKI. Future research should focus on identifying which subgroups, 
+such as those with high inflammatory burden or modifiable risk factors like MDR infection, derive the greatest benefit 
+from RRT.
+In this study, all patients utilized ST 150 filters (Prismaflex) with a membrane surface area of 1.5 m2, primarily 
+designed for blood filtration and volume management. However, the optimal filtration strategy in SA-AKI remains 
+uncertain. The IVOIRE trial, the largest randomized trial comparing high-volume (70 mL/kg/h) with standard-volume 
+(35 mL/kg/h) hemofiltration in septic shock with AKI, found no 28-day mortality benefit with high-volume hemofiltra­
+tion. A subsequent pharmacokinetic substudy of the IVOIRE cohort further demonstrated that high-volume hemofiltra­
+tion significantly shortened the elimination half-life of most antibiotics and increased their total clearance, leading the 
+authors to warn that current dosing recommendations may expose patients to underdosing and increase the risk of 
+treatment failure and resistance.29 This observation is particularly relevant to our finding that MDR infection was 
+significantly more prevalent in the RRT group (25.1% vs 9.8%) and independently associated with mortality. This 
+suggests that RRT-associated antibiotic clearance may contribute to worse outcomes in patients with high inflammatory 
+burden, and that optimizing antimicrobial dosing during RRT may be as important as the filtration strategy itself. Beyond 
+volume optimization, adsorptive filters (eg, CytoSorb, oXiris, HA series) have shown promise in cytokine removal in 
+small studies,30–34 but their impact on mortality remains unproven, and none have been incorporated into sepsis 
+guidelines. These considerations highlight that RRT in SA-AKI should be viewed not merely as a renal support modality, 
+but as an intervention with complex interactions with antimicrobial therapy and infection control. These areas warrant 
+further investigation. These considerations suggest that in SA-AKI patients with documented MDR infections, the 
+potential attenuation of RRT benefit should be weighed against the need for renal support. Optimizing source control 
+and targeted antimicrobial therapy may be particularly critical in this subgroup, and RRT-associated antibiotic clearance 
+should be carefully monitored.
+Several limitations of this study should be acknowledged. First, the decision to initiate RRT was not strictly 
+standardized, and the exact timing of RRT initiation relative to AKI diagnosis or ICU admission was not recorded. 
+Although we have now clarified in the Methods section that RRT decisions followed KDIGO-guided indications 
+integrated with clinical judgment, this real-world, non-protocolized approach inevitably introduces confounding by 
+International Journal of General Medicine 2026:19                                                                             
+https://doi.org/10.2147/IJGM.S601433                                                                  
+11
+Luo et al
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 12; PDF label 12 =====
+Technical extraction; compare with original PDF page 12.
+indication, which may have biased the unadjusted comparisons. Second, despite our efforts to adjust for key confounders 
+including SOFA score and MDR infection, residual confounding due to unmeasured variables (eg, dynamic changes in 
+illness severity over time, detailed fluid balance, or antibiotic dosing during RRT) cannot be entirely excluded. Third, this 
+was a single-center retrospective study conducted at a tertiary hospital in China, which may limit the generalizability of 
+our findings to other ICU settings or populations with different demographic and clinical characteristics. Finally, as with 
+all retrospective observational studies, our results should be interpreted as hypothesis-generating rather than causal.
+Conclusion
+This study demonstrates the potential survival benefits of RRT in patients with SA-AKI. However, these benefits may be 
+obscured by high-risk factors that negatively influence clinical outcomes, including MDR infections and SOFA score. 
+These modifiable risk factors may inform risk stratification and guide targeted interventions in the early management of 
+SA-AKI. However, owing to the observational design, these results should be interpreted as hypothesis-generating rather 
+than confirmatory. Further research is needed to optimize the individualized application of RRT and to develop targeted 
+interventions that effectively mitigate these risk factors, thereby improving its clinical efficacy.
+Abbreviations
+SA-AKI, Sepsis-Associated Acute Kidney Injury; RRT, Renal Replacement Therapy; ICU, Intensive Care Unit; SOFA, 
+Sequential Organ Failure Assessment; LOS, Length of Stay; HR, Hazard Ratio; RMST, Restricted Mean Survival Time; 
+MV, Mechanical Ventilation; RF, Respiratory Failure; AKI, Acute Kidney Injury; CKD, Chronic Kidney Disease; 
+CVVH, Continuous Venovenous Hemofiltration; RMST-D, Restricted Mean Survival Time Difference; RMST-R, 
+Restricted Mean Survival Time Ratio; SD, Standard Deviation; IQR, Interquartile Ranges; VIF, Variance Inflation 
+Factors; MDR, Multiple Drug Resistant; RMTL, Restricted Mean Time Lost; APTT, Activated Partial Thromboplastin 
+Time; MPV, Mean Platelet Volume; PDW, Platelet Distribution Width; HF, Hemofiltration; AT III, Antithrombin III; 
+RBC, Red Blood Cell Count; HB, Hemoglobin; HCT, Hematocrit; RDW-CV, Red Cell Distribution Width—Coefficient 
+of Variation; WBC, White Blood Cell Count; LYMPH, Lymphocyte Count; PLT, Platelet Count; BUN, Blood Urea 
+Nitrogen; SCr, Serum Creatinine; BCR, Blood Urea Nitrogen to Serum Creatinine Ratio; TBIL, Total Bilirubin; CHOL, 
+Total Cholesterol; HDL, High-Density Lipoprotein; LDL, Low-Density Lipoprotein; TG, Triglyceride; PCT, 
+Procalcitonin; CRP, C-Reactive Protein; HBA1C, Glycosylated Hemoglobin; ALB, Albumin; RMTL, Restricted Mean 
+Time Lost.
+Data Sharing Statement
+The datasets generated and/or analyzed in the current study are available from the corresponding author (Prof. 
+Dr. Huaisheng Chen: sunshinic@hotmail.com) upon request.
+Ethics Approval and Consent to Participate
+Approval of the Ethics Committee of our institution was obtained “Clinical Research Ethics Committee of Shenzhen 
+People’s Hospital, Shenzhen, China (Approval No. LL-KY-2019508)”. Informed consent was waived due to the retro­
+spective nature of the study. The waiver was justified because the analysis was based on anonymized/de-identified data 
+with minimal potential risks to patient privacy. Conducted in accordance with the principles of the Declaration of 
+Helsinki, all patient-related data were de-identified, handled confidentially, and used solely for the purposes of this 
+research. Only aggregated and anonymized data were used for analysis, ensuring that patient identities remained 
+unidentifiable. No data were used for any other purposes beyond this study.
+Author Contributions
+All authors made a significant contribution to the work reported, whether that is in the conception, study design, 
+execution, acquisition of data, analysis and interpretation, or in all these areas; took part in drafting, revising or critically 
+reviewing the article; gave final approval of the version to be published; have agreed on the journal to which the article 
+has been submitted; and agree to be accountable for all aspects of the work.
+https://doi.org/10.2147/IJGM.S601433                                                                                                                                                                                                                                                                                                                                       
+International Journal of General Medicine 2026:19 
+12
+Luo et al                                                                                                                                                                             
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 13; PDF label 13 =====
+FORMULA CHECK REQUIRED: original PDF page 13.
+Funding
+The author(s) declared that financial support was received for this work and/or its publication. This research was 
+supported 
+by 
+Shenzhen 
+Key 
+Laboratory 
+of 
+Prevention 
+and 
+Treatment 
+of 
+Severe 
+Infections 
+(ZDSYS20200811142804014) and Internal Research Fund (No. sywgslcyj202404).
+Disclosure
+The authors declare that they have no competing interests in this work.
+References
+1. Singer M, Deutschman CS, Seymour CC. et al. The third international consensus definitions for sepsis and septic shock (sepsis-3). JAMA. 
+2016;315:801–810. doi:10.1001/jama.2016.0287
+2. Zafrani L, Payen D, Azoulay E, Ince C. The microcirculation of the septic kidney. Semin Nephrol. 2015;35(1):75–84. doi:10.1016/j. 
+semnephrol.2015.01.008
+3. Hato T, Dagher PC. Molecular mechanisms of sepsis-associated acute kidney injury. J Am Soc Nephrol. 2025;36(11):2259–2268. doi:10.1681/ 
+ASN.0000000809
+4. Liu J, Zheng J, Xu Y, Jiang Y. The role of mitochondrial dysfunction in sepsis-associated acute kidney injury: a narrative review. Drug Des Devel 
+Ther. 2025;19:9545–9558. doi:10.2147/DDDT.S553838
+5. Li H, Yu R, Zhou Q, et al. Trends and outcomes in sepsis hospitalizations with and without acute kidney injury: a nationwide inpatient analysis. 
+Shock. 2024;62(4):470–479. PMID: 38888575. doi:10.1097/SHK.0000000000002386
+6. Hauptmann S, Matyukhin I, Patschan S, Ritter O, Patschan D. Adherence to guidelines for management of acute kidney injury. J Int Med Res. 
+2024;52(1):3000605231221011. doi:10.1177/03000605231221011
+7. Pais T, Jorge S, Lopes JA. Acute kidney injury in sepsis. Int J Mol Sci. 2024;25(11):5924. doi:10.3390/ijms25115924
+8. Ziegler J, Morley K, Pilcher D, et al. Epidemiology of renal replacement therapy for critically ill patients across seven health jurisdictions. Am 
+J Nephrol. 2024;1–12.
+9. Uchino S, Kellum JA, Bellomo R, et al. Acute renal failure in critically ill patients: a multinational, multicenter study. JAMA. 2005;294 
+(7):813–818. doi:10.1001/jama.294.7.813
+10. Li G, Li B, Song B, et al. Uplift modeling to predict individual treatment effects of renal replacement therapy in sepsis-associated acute kidney 
+injury patients. Sci Rep. 2024;14(1):5833. doi:10.1038/s41598-024-55653-x
+11. Wang Q, Liu F, Tao W, Qian K. Timing of renal replacement therapy in patients with sepsis-associated acute kidney injury: a systematic review and 
+meta-analysis. Aust Crit Care. 2024;37(2):369–379. doi:10.1016/j.aucc.2023.06.011
+12. Wierstra BT, Kadri S, Alomar S, Burbano X, Barrisford GW, Kao RL. The impact of “early” versus “late” initiation of renal replacement therapy in 
+critical care patients with acute kidney injury: a systematic review and evidence synthesis. Crit Care. 2016;20(1):122. doi:10.1186/s13054-016- 
+1291-8
+13. Okano H, Okamoto H, Tanaka H, Sakurai R, Yamazaki T. Comparison of intermittent and continuous renal replacement therapy for 
+sepsis-associated AKI: a retrospective analysis of the Japanese ICU database. JA Clin Rep. 2025;11(1):24. doi:10.1186/s40981-025-00787-8
+14. Jung C-Y, Jung J, Lim J-H, et al. Comparison of conventional and high-dose continuous kidney replacement therapy in critically ill patients with 
+septic AKI: SA-PO040. JASN. 2024;35(10S):10.1681. doi:10.1681/ASN.2024w9amk5wx
+15. Han K, Jung I. Restricted mean survival time for survival analysis: a quick guide for clinical researchers. Korean J Radiol. 2022;23(5):495–499. 
+doi:10.3348/kjr.2022.0061
+16. Tian L, Zhao L, Wei LJ. Predicting the restricted mean event time with the subject’s baseline covariates in survival analysis. Biostatistics. 2014;15 
+(2):222–233. doi:10.1093/biostatistics/kxt050
+17. Davenport A, Honore PM. Continuous renal replacement therapy under special conditions like sepsis, burn, cardiac failure, neurotrauma, and liver 
+failure. Semin Dial. 2021;34(6):457–471. doi:10.1111/sdi.13002
+18. Bhatt GC, Das RR. Early versus late initiation of renal replacement therapy in patients with acute kidney injury-a systematic review & meta- 
+analysis of randomized controlled trials. BMC Nephrol. 2017;18(1):78. doi:10.1186/s12882-017-0486-9
+19. Li Y, Li H, Zhang D. Timing of continuous renal replacement therapy in patients with septic AKI: a systematic review and meta-analysis. Medicine. 
+2019;98(33):e16800. doi:10.1097/MD.0000000000016800
+20. Nieto FJ, Coresh J. Adjusting survival curves for confounders: a review and a new method. Am J Epidemiol. 1996;143(10):1059–1068. 
+doi:10.1093/oxfordjournals.aje.a008670
+21. Kim DH, Uno H, Wei LJ. Restricted mean survival time as a measure to interpret clinical trial results. JAMA Cardiol. 2017;2:1179–1180. 
+doi:10.1001/jamacardio.2017.2922
+22. Hui K, Hong C, Xiong Y, et al. LASSO-based machine learning algorithm for prediction of PICS associated with sepsis. Infect Drug Resist. 
+2024;17:2701–2710. doi:10.2147/IDR.S464906
+23. Hong C, Xiong Y, Xia J, et al. LASSO-based identification of risk factors and development of a prediction model for sepsis patients. Ther Clin Risk 
+Manag. 2024;20:47–58. doi:10.2147/TCRM.S434397
+24. Conner SC, Sullivan LM, Benjamin EJ, LaValley MP, Galea S, Trinquart L. Adjusted restricted mean survival times in observational studies. Stat 
+Med. 2019;38(20):3832–3860. doi:10.1002/sim.8206
+25. Zhong Y, Zhao O, Zhang B, Yao B. Adjusting for covariates in analysis based on restricted mean survival times. Pharm Stat. 2022;21(1):38–54. 
+doi:10.1002/pst.2151
+26. White KC, Serpa-Neto A, Hurford R, et al. Sepsis-associated acute kidney injury in the intensive care unit: incidence, patient characteristics, 
+timing, trajectory, treatment, and associated outcomes. A multicenter, observational study. Intensive Care Med. 2023;49(9):1079–1089. 
+doi:10.1007/s00134-023-07138-0
+International Journal of General Medicine 2026:19                                                                             
+https://doi.org/10.2147/IJGM.S601433                                                                  
+13
+Luo et al
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+
+
+===== ORIGINAL PDF PAGE 14; PDF label 14 =====
+FORMULA CHECK REQUIRED: original PDF page 14.
+27. Gómez H, Chen X, Minturn JS, et al. Persistent severe acute kidney injury is a major modifiable determinant of outcome during critical illness. 
+Intensive Care Med. 2025;51(3):542–555. doi:10.1007/s00134-025-07821-4
+28. Park CH, Koh HB, Lee JH, et al. Volume control strategy and patient survival in sepsis-associated acute kidney injury receiving continuous renal 
+replacement therapy: a randomized controlled trial with secondary analysis. Sci Rep. 2024;14(1):14284. doi:10.1038/s41598-024-64224-z
+29. Breilh D, Honore PM, De Bels D, et al. Pharmacokinetics and pharmacodynamics of anti-infective agents during continuous veno-venous 
+hemofiltration in critically ill patients: lessons learned from an ancillary study of the IVOIRE trial. J Transl Int Med. 2019;7(4):155–169. 
+doi:10.2478/jtim-2019-0031
+30. Bottari G, Lorenzetti G, Severini F, Cappoli A, Cecchetti C, Guzzo I. Role of hemoperfusion with cytosorb associated with continuous kidney 
+replacement therapy on renal outcome in critically iii children with septic shock. Front Pediatr. 2021;9:718049. doi:10.3389/fped.2021.718049
+31. Wang G, He Y, Guo Q, et al. Continuous renal replacement therapy with the adsorptive oXiris filter may be associated with the lower 28-day 
+mortality in sepsis: a systematic review and meta-analysis. Crit Care. 2023;27(1):275. doi:10.1186/s13054-023-04555-x
+32. Kaçar CK, Uzundere O, Kandemir D, Yektaş A. Efficacy of HA330 hemoperfusion adsorbent in patients followed in the intensive care unit for 
+septic shock and acute kidney injury and treated with continuous venovenous hemodiafiltration as renal replacement therapy. Blood Purif. 2020;49 
+(4):448–456. doi:10.1159/000505565
+33. Zhou J, Li H, Zhang L, et al. Removal of inflammatory factors and prognosis of patients with septic shock complicated with acute kidney injury by 
+hemodiafiltration combined with HA330-II hemoperfusion. Ther Apher Dial. 2024;28(3):460–466. doi:10.1111/1744-9987.14108
+34. Nierhaus A, Morales J, Wendt D, et al. Comparison of the CytoSorb® 300 mL and Jafron HA380 hemoadsorption devices: an in vitro study. Minim 
+Invasive Ther Allied Technol. 2022;31(7):1058–1065. doi:10.1080/13645706.2022.2104617
+International Journal of General Medicine                                                                                   
+Publish your work in this journal 
+The International Journal of General Medicine is an international, peer-reviewed open-access journal that focuses on general and internal 
+medicine, pathogenesis, epidemiology, diagnosis, monitoring and treatment protocols. The journal is characterized by the rapid reporting of 
+reviews, original research and clinical studies across all disease areas. The manuscript management system is completely online and includes a 
+very quick and fair peer-review system, which is all easy to use. Visit http://www.dovepress.com/testimonials.php to read real quotes from 
+published authors.  
+Submit your manuscript here: https://www.dovepress.com/international-journal-of-general-medicine-journal
+International Journal of General Medicine 2026:19 
+14
+Luo et al                                                                                                                                                                             
+Powered by TCPDF (www.tcpdf.org)
+Powered by TCPDF (www.tcpdf.org)
+

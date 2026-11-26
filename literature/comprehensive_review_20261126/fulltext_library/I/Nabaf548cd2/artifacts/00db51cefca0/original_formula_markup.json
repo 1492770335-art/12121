@@ -1,0 +1,52 @@
+[
+  {
+    "kind": "original_mathml",
+    "source_id": "IM1",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"IM1\" overflow=\"scroll\"><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mrow><ns0:msub><ns0:mi>Z</ns0:mi><ns0:mrow><ns0:mrow><ns0:mi>α</ns0:mi><ns0:mo>/</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:mrow></ns0:msub><ns0:mo>=</ns0:mo><ns0:mn>1.96</ns0:mn></ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "IM2",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"IM2\" overflow=\"scroll\"><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mi>d</ns0:mi><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "IM3",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"IM3\" overflow=\"scroll\"><ns0:mi>n</ns0:mi><ns0:mo>=</ns0:mo><ns0:mrow><ns0:mfrac><ns0:mrow><ns0:msubsup><ns0:mi>Z</ns0:mi><ns0:mrow><ns0:mrow><ns0:mi>α</ns0:mi><ns0:mo>/</ns0:mo><ns0:mn>2</ns0:mn></ns0:mrow></ns0:mrow><ns0:mn>2</ns0:mn></ns0:msubsup><ns0:mo>⋅</ns0:mo><ns0:mi>p</ns0:mi><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>−</ns0:mo><ns0:mi>p</ns0:mi></ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:mrow><ns0:mrow><ns0:msup><ns0:mi>d</ns0:mi><ns0:mn>2</ns0:mn></ns0:msup></ns0:mrow></ns0:mfrac></ns0:mrow><ns0:mo>=</ns0:mo><ns0:mrow><ns0:mfrac><ns0:mrow><ns0:msup><ns0:mrow><ns0:mn>1.96</ns0:mn></ns0:mrow><ns0:mn>2</ns0:mn></ns0:msup><ns0:mo>⋅</ns0:mo><ns0:mn>0.16</ns0:mn><ns0:mo>⋅</ns0:mo><ns0:mn>0.84</ns0:mn></ns0:mrow><ns0:mrow><ns0:msup><ns0:mrow><ns0:mn>0.05</ns0:mn></ns0:mrow><ns0:mn>2</ns0:mn></ns0:msup></ns0:mrow></ns0:mfrac></ns0:mrow><ns0:mo>≈</ns0:mo><ns0:mn>207</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "IM4",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"IM4\" overflow=\"scroll\"><ns0:mi>n</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>207</ns0:mn><ns0:mo>÷</ns0:mo><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mrow><ns0:mn>1</ns0:mn><ns0:mo>−</ns0:mo><ns0:mn>0.20</ns0:mn></ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo><ns0:mo>≈</ns0:mo><ns0:mn>259</ns0:mn></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "IM5",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"IM5\" overflow=\"scroll\"><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mrow><ns0:mrow><ns0:mover><ns0:mi>x</ns0:mi><ns0:mo stretchy=\"false\">¯</ns0:mo></ns0:mover></ns0:mrow><ns0:mo>±</ns0:mo><ns0:mi>s</ns0:mi></ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "IM6",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"IM6\" overflow=\"scroll\"><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mrow><ns0:msup><ns0:mi>χ</ns0:mi><ns0:mn>2</ns0:mn></ns0:msup><ns0:mo>=</ns0:mo><ns0:mn>6.623</ns0:mn><ns0:mo>,</ns0:mo><ns0:mspace width=\"0.25em\" /><ns0:mi>P</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>0.010</ns0:mn></ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "IM7",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"IM7\" overflow=\"scroll\"><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mrow><ns0:msup><ns0:mi>χ</ns0:mi><ns0:mn>2</ns0:mn></ns0:msup><ns0:mo>=</ns0:mo><ns0:mn>10.644</ns0:mn><ns0:mo>,</ns0:mo><ns0:mspace width=\"0.25em\" /><ns0:mi>P</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>0.031</ns0:mn></ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "IM8",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"IM8\" overflow=\"scroll\"><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mrow><ns0:msup><ns0:mi>χ</ns0:mi><ns0:mn>2</ns0:mn></ns0:msup><ns0:mo>=</ns0:mo><ns0:mn>11.602</ns0:mn><ns0:mo>,</ns0:mo><ns0:mspace width=\"0.25em\" /><ns0:mi>P</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>0.009</ns0:mn></ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "IM9",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"IM9\" overflow=\"scroll\"><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mrow><ns0:msup><ns0:mi>χ</ns0:mi><ns0:mn>2</ns0:mn></ns0:msup><ns0:mo>=</ns0:mo><ns0:mn>18.127</ns0:mn><ns0:mo>,</ns0:mo><ns0:mspace width=\"0.25em\" /><ns0:mi>P</ns0:mi><ns0:mo>&lt;</ns0:mo><ns0:mn>0.001</ns0:mn></ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  },
+  {
+    "kind": "original_mathml",
+    "source_id": "IM10",
+    "text": "<ns0:math xmlns:ns0=\"http://www.w3.org/1998/Math/MathML\" id=\"IM10\" overflow=\"scroll\"><ns0:mo stretchy=\"false\">(</ns0:mo><ns0:mrow><ns0:msup><ns0:mi>χ</ns0:mi><ns0:mn>2</ns0:mn></ns0:msup><ns0:mo>=</ns0:mo><ns0:mn>7.626</ns0:mn><ns0:mo>,</ns0:mo><ns0:mspace width=\"0.25em\" /><ns0:mi>P</ns0:mi><ns0:mo>=</ns0:mo><ns0:mn>0.022</ns0:mn></ns0:mrow><ns0:mo stretchy=\"false\">)</ns0:mo></ns0:math>"
+  }
+]

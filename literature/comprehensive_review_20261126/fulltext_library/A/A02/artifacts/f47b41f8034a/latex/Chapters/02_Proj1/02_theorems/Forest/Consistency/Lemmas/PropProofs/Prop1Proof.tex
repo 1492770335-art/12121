@@ -1,0 +1,46 @@
+{% begin temporary command space
+\newcommand{\termone}{I(X>t)}
+\newcommand{\termtwo}{\omd I(X\leq t) \frac{\truesurv(t \mid H)}{\truesurv(X \mid H)}}
+\newcommand{\termthree} {\truesurv(t \mid H)}
+\newcommand{\estfunclongtrue}{\termone + \termtwo - \termthree}
+\newcommand{\bigE}{E_{\unnormdirac\estfunctruesurvlabel\mid\unnormdirac}}
+\newcommand{\bigEone}{E_{\unnormdirac\estfunctruesurvlabel\mid\unnormdirac = 1}}
+\newcommand{\smallE}{E_{\unnormdirac}}
+\begin{proof}[Proof of Proposition \ref{prop:ChoProp2}]
+The numerator of $\esteqtruesurvlabel$ is
+\begin{align*}
+E(\unnormdirac\estfunctruesurvlabel)
+= &\,E\bigg[\unnormdirac \bigg( \estfunclongtrue\bigg)\bigg]  \eqnspace
+= &\,\smallE \bigE\bigg[\unnormdirac \termone + \unnormdirac \termtwo - \unnormdirac \termthree \bigg| \unnormdirac \bigg]  \eqnspace
+= &\,\smallE\bigg(\unnormdirac \termone \bigg) 
++ \smallE \bigg( \unnormdirac \omd I(X\leq t) \bigE \bigg[ \frac{\truesurv(t \mid H)}{\truesurv(X \mid H)} \bigg| \unnormdirac \bigg] \bigg) \eqnspace 
+&\quad \quad \quad - \smallE \bigg(\unnormdirac \bigE \bigg[ \termthree\bigg|\unnormdirac\bigg]\bigg) \eqnspace
+= &\,\Pr(\unnormdirac = 1) \bigg\{ 
+\bigEone \bigg[ I(X>t) \bigg] \tag{\ref{prop:ChoProp2}.1} \label{p1} \eqnspace
+&\,\quad \quad \quad + \bigEone \bigg[ \omd I(X\leq t) \frac{\truesurv(t \mid H)}{\truesurv(X \mid H)} \bigg] \tag{\ref{prop:ChoProp2}.2} \label{p2} \eqnspace
+&\,\quad \quad \quad - \bigEone\bigg[ \termthree \bigg]
+\bigg\} \eqnspace
+=&\,\Pr(\unnormdirac = 1) \bigg\{ 
+\truesurv(t|H=h)[1-G(t|H=h)] \\
+&\quad \quad \quad \quad \quad \quad + \truesurv(t|H=h)G(t|H=h) - \truesurv(t|H=h)
+\bigg\} \eqnspace
+=&\,\Pr(\unnormdirac = 1) \bigg\{ 
+\truesurv(t|H=h)-\truesurv(t|H=h)G(t|H=h) \\
+&\quad \quad \quad \quad \quad \quad + \truesurv(t|H=h)G(t|H=h) - \truesurv(t|H=h)
+\bigg\} \, = \,0,
+\end{align*}
+where $G\argc \equiv F_C\argc$ is the cumulative distribution function (CDF) for censoring time, and \cref{p1} and \cref{p2} are derived below. 
+\newcommand{\tp}{t_0}
+
+For \cref{p1}, $E(I(X>\tp)) = \Pr(X>\tp) = \Pr(T>\tp,C>\tp) = \Pr(T>\tp)\Pr(C>\tp) = \truesurv(\tp)(1-G(\tp))$. For \cref{p2}:
+\begin{align*}
+&\bigEone \bigg[(1-\delta) I(X\leq \tp)I(\truesurv(X)>0)\frac{\truesurv(\tp)}{\truesurv(X)}\bigg] \eqnspace 
+&= \int_0^{\tp} \int_c^\infty \frac{\truesurv(\tp)}{\truesurv(c)} f_{T,C}(t,c)\,dt\,dc \eqnspace
+&= \truesurv(\tp)\int_0^{\tp} \frac{1}{\truesurv(c)} f_{C}(c) F_T(t) \bigg|^\infty_c \,dc \eqnspace
+&= \truesurv(\tp)\int_0^{\tp} 
+\frac{1}{\truesurv(c)} f_{C}(c) \bigg[ F_T(\infty) - F_T(c) \bigg] \,dc \eqnspace
+&= \truesurv(\tp)\int_0^{\tp} f_{C}(c) \,dc \eqnspace
+&= \truesurv(\tp)F_{C}(c) \bigg|^{\tp}_0 = \truesurv(\tp)[F_C(\tp) - F_C(0)] \equiv \truesurv(\tp)G(\tp). 
+\end{align*}
+\end{proof}
+}

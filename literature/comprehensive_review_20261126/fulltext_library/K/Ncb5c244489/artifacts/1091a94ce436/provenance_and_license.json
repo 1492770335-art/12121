@@ -1,0 +1,30 @@
+{
+  "paper_id": "Ncb5c244489",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "1091a94ce43623cd4c69cb47636b35a1979980e69b7363be8892fa6bba80dbe2",
+  "source_url": "https://harvest.usask.ca/bitstreams/9ee85ced-4d16-4486-b079-ccd2452207ef/download",
+  "original_version": "submittedVersion",
+  "bytes": "730166",
+  "pdf_pages": "7",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "license_evidence_url": "https://harvest.usask.ca/bitstreams/9ee85ced-4d16-4486-b079-ccd2452207ef/download",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:47.714201+08:00",
+  "format": "pdf",
+  "title": "A randomized pilot trial comparing anti-thymocyte globulin with anti-thymocyte globulin plus post transplant cyclophosphamide for prophylaxis against acute and chronic graft versus host disease in matched donor hematopoietic cell transplants – a study from the Cell Therapy Transplant Canada/ Australasian Leukemia Lymphoma Group Consortium",
+  "authors": "Irwin Walker and Uday Deotare and Mohamed Elemary and Mahmoud Elsawy and Geneviève Gallagher and David Kliman and Tony Panzarella and Nada Hamad and Kirk R. Schultz and Jan Storek and Kristjan Paulson",
+  "doi": "10.1038/s41409-026-03024-7",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 7,
+      "lines": "Open Access This article is licensed under a Creative Commons\nthe source, provide a link to the Creative Commons licence, and indicate if you modiﬁed\nthis article are included in the article’s Creative Commons licence, unless indicated\nCreative Commons licence and your intended use is not permitted by statutory\nfrom the copyright holder. To view a copy of this licence, visit http://creativecommons."
+    }
+  ]
+}

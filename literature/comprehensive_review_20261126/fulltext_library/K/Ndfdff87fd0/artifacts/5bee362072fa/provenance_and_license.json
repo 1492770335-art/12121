@@ -1,0 +1,30 @@
+{
+  "paper_id": "Ndfdff87fd0",
+  "category": "K",
+  "artifact_type": "main",
+  "sha256": "5bee362072fa8608f6e9b44b6f5895fe622dba12b900cc2e3980fa8ccf964f6c",
+  "source_url": "https://zenodo.org/records/23952595/files/T-cell%20replete%20haploidentical%20transplantation%20compared%20to%20mismatched%20unrelated%20allogeneic%20transplantation%20with.pdf",
+  "original_version": "submittedVersion",
+  "bytes": "879864",
+  "pdf_pages": "8",
+  "arxiv_id": "",
+  "license_url": "http://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://zenodo.org/records/23952595/files/T-cell%20replete%20haploidentical%20transplantation%20compared%20to%20mismatched%20unrelated%20allogeneic%20transplantation%20with.pdf",
+  "license_evidence_quote": "License statement and URL present in the original PDF; inspect page location in evidence file",
+  "decision": "public_allowed",
+  "reason": "license_printed_in_original_pdf",
+  "checked_at": "2026-11-27T00:58:47.176730+08:00",
+  "format": "pdf",
+  "title": "T-cell replete haploidentical transplantation compared to mismatched unrelated allogeneic transplantation with post-transplantation cyclophosphamide in patients with secondary acute myeloid leukemia in first complete remission: A study from the ALWP/EBMT",
+  "authors": "Sarah Kayser and Arnon Nagler and Allain Thibeault Ferhat and Jaime Sanz and Raynier Devillier and Yener Koc and Anna Maria Raiola and Alessandro Busca and Alexander Kulagin and Jan Vydra and Maija Itala-Remes and Stefania Bramanti and Giovanni Grillo and Zafer Gulbas and Jiri Pavlu and Montserrat Rovira and Simona Sica and Alessandro Rambaldi and Eolia Brissot and Ali Bazarbachi and Mohamad Mohty and Fabio Ciceri",
+  "doi": "10.1038/s41409-026-02951-9",
+  "license_scope": "This exact file/version only; not other publisher versions",
+  "reuse": "Noncommercial research collection; respect each file license and third-party exclusions",
+  "transformation": "Technical format extraction only; original bytes unchanged; no translation or mathematical correction",
+  "printed_pdf_license_locations": [
+    {
+      "pdf_page": 8,
+      "lines": "Open Access This article is licensed under a Creative Commons\nmaterial in this article are included in the article’s Creative Commons licence, unless\narticle’s Creative Commons licence and your intended use is not permitted by statutory\ncreativecommons.org/licenses/by/4.0/."
+    }
+  ]
+}

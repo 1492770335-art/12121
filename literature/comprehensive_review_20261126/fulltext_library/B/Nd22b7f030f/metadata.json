@@ -1,0 +1,36 @@
+{
+  "paper_id": "Nd22b7f030f",
+  "category": "B",
+  "title": "Ambiguous Dynamic Treatment Regimes: A Reinforcement Learning Approach",
+  "authors": "Soroush Saghafian",
+  "doi": "10.1287/mnsc.2022.00883",
+  "year": "2023",
+  "original_url": "https://doi.org/10.1287/mnsc.2022.00883",
+  "local_fulltext": true,
+  "public_pdf": [
+    "B/Nd22b7f030f/artifacts/58f22b27bb5a/original.pdf"
+  ],
+  "public_markdown": [
+    "B/Nd22b7f030f/artifacts/58f22b27bb5a/fulltext.md"
+  ],
+  "public_txt": [
+    "B/Nd22b7f030f/artifacts/58f22b27bb5a/fulltext.txt"
+  ],
+  "original_tex": [
+    "B/Nd22b7f030f/artifacts/58f22b27bb5a/latex/ADTR-Rev2.tex"
+  ],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "58f22b27bb5a98975531975bf48395e8c6e7f0f236edd2122aa3b3c784975c99",
+      "decision": "public_allowed",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/pdf/2112.04571",
+      "provenance": "B/Nd22b7f030f/artifacts/58f22b27bb5a/provenance_and_license.json"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "B/Nd22b7f030f/README.md",
+  "status": "public_fulltext"
+}

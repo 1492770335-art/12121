@@ -1,0 +1,21 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{comment}
+\begin{algorithm}[h]
+\caption{Doubly robust backward-induction learning}\label{alg:proposed}
+\begin{algorithmic}[1]
+\State \textbf{Input:} $K$ (the number of cross-fitting folds); $\{Z_{i}:i=1,\ldots,n\}$ (dataset) %\Comment{e.g., $K=5$}
+\State Construct $\hat{e}_{t}^{-k}(\cdot,\cdot)$ ($t=1,\ldots,T$) and $\widehat{Q}_{T}^{-k}(\cdot,\cdot)$ for each $k \in \{1,\ldots,K\}$
+\State Compute $\widehat{\Gamma}_{i,T}(a_{T})$ (equation (\ref{eq:score_func_T})) for each $a_{T} \in \MA_{T}$ and $i \in \{1,\ldots,n\}$
+\State Learn the optimal policy by setting $\hat{\pi}_{T} = \argmax_{\pi_{T}\in \Pi_{T}}(1/n)\sum_{i=1}^{n}\widehat{\Gamma}_{i,T}\left(\pi_T(H_{i,T})\right)$ %(\ref{eq:optimization_T}) %\Comment{Policy optimization}
+\For{$t = T-1$ \textbf{to} $1$}
+    \State Construct $\widehat{Q}_{t}^{\hat{\pi}_{(t+1):T},-k} (\cdot,\cdot)$ for each $k \in \{1,\ldots,K\}$ (Fitted Q-evaluation)
+    \State Compute $\widehat{\Gamma}^{\hat{\pi}_{(t+1):T}}_{i,t}(a_{t})$ (equation (\ref{eq:score_func_t})) for each $a_{t} \in \MA_{t}$ and $i \in \{1,\ldots,n\}$
+    \State Learn the optimal policy by setting $$\hat{\pi}_{t} = \argmax_{\pi_{t}\in \Pi_{t}} \frac{1}{n}\sum_{i=1}^{n} \widehat{\Gamma}_{i,t}^{\hat{\pi}_{(t+1):T}}\left(\pi_{t}(H_{i,t})\right)$$%(\ref{eq:optimization_t}) %\Comment{Policy optimization}
+\EndFor
+\State \textbf{return} $\hat{\pi}=(\hat{\pi}_{1},\ldots,\hat{\pi}_{T})$
+\end{algorithmic}
+\end{algorithm}
+%\end{comment}
+\bigskip

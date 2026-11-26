@@ -1,0 +1,28 @@
+{
+  "paper_id": "H01",
+  "category": "H",
+  "title": "A causal framework for classical statistical estimands in failure‐time settings with competing events",
+  "authors": "Jessica G. Young and Mats J. Stensrud and Eric J. Tchetgen Tchetgen and Miguel A. Hernán",
+  "doi": "10.1002/sim.8471",
+  "year": "2020",
+  "original_url": "https://doi.org/10.1002/sim.8471",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "ed1cd6c4dee54e1c998b48042e45e0ef5cffce0224c3f4f71be6faa418e460a8",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/1806.06136"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "H/H01/README.md",
+  "status": "local_only"
+}

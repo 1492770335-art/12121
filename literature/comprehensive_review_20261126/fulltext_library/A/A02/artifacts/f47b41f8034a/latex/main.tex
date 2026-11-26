@@ -1,0 +1,474 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{url} % not crucial - just used below for the URL 
+
+\usepackage{amsthm}
+% theorems and stuff
+\theoremstyle{plain} % This will use italics for the theorem statement
+\newtheorem{theorem}{Theorem} % Defines the theorem environment
+\newtheorem{assumption}{Assumption} % define assumption environment
+\newtheorem{lemma}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{definition}{Definition}
+
+\usepackage{longtable}
+\usepackage{amsmath, amsthm, amssymb, comment, xcolor}
+\usepackage{ulem} % Required for strike-through text
+\usepackage{mathrsfs}
+\usepackage{subfiles}
+\usepackage{graphicx,psfrag,epsf}
+\usepackage{enumerate}
+\usepackage[authoryear]{natbib}
+\usepackage[utf8]{inputenc}
+\usepackage{newunicodechar}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+% use \State not \STATE
+\usepackage{array}
+\usepackage{multirow, booktabs}
+\usepackage{enumitem}
+\usepackage{comment}
+\usepackage{amssymb, amsfonts, amsthm}
+\usepackage{forest}
+\usepackage{cleveref} % For intelligent cross-referencing
+% Define the format for equation references
+\crefformat{equation}{(#2#1#3)}
+
+% Defining Operations
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+
+% Chapter 2 (Project 1)
+\newcommand{\ktau}{K(\tau)}
+\newcommand{\tLtau}{t<\tau}
+\newcommand{\supT}{\sup_{\tLtau}}
+\newcommand{\tauUB}{M}
+\newcommand{\univconstant}{\tauUB_1}
+\newcommand{\tauboundtwo}{\tauUB_2}
+\newcommand{\summation}[1]{\sum_{#1=1}^{n}}
+\newcommand{\intzerotot}{\int_0^t\,}
+\newcommand{\intzerotou}{\int_0^u\,}
+\newcommand{\rnode}{R}
+\newcommand{\lnode}{L}
+\newcommand{\NodeR}{\mathcal{\rnode}}
+\newcommand{\Node}{\mathcal{\lnode}}
+\newcommand{\scriptNode}{\mathscr{\lnode}}
+\newcommand{\scriptNodeR}{\mathscr{\rnode}}
+\newcommand{\Nodeu}{\Node_u}
+\newcommand{\hashtagNode}{\#\Node}
+\newcommand{\hashtagNodeR}{\#\NodeR}
+\newcommand{\SGs}{(1-G_i(s))}
+\newcommand{\SHs}{(1-H_i(s))}
+\newcommand{\dLambdajis}{d\Lambda_{ji}(s)}
+\newcommand{\dLambdajs}{d\Lambda_{j}(s)}
+\newcommand{\dLambdajisHAT}{d\widehat{\Lambda}_{ji}(s)}
+\newcommand{\dLambdajsHAT}{d\widehat{\Lambda}_{j}(s)}
+\newcommand{\sumtoHASHTAGNode}{\sum_{i=1}^{\hashtagNode}\,}
+\newcommand{\sumtoHASHTAGNodeR}{\sum_{i=1}^{\hashtagNodeR}\,}
+\newcommand{\cuminc}{F}
+\newcommand{\AJhat}{\widehat{\cuminc}_n}
+\newcommand{\Fhat}{\widehat{\cuminc}}
+\newcommand{\Fj}{\cuminc_j}
+\newcommand{\FjHAT}{\widehat{\cuminc}_j}
+%eventually change below to be "cumincopt"
+\newcommand{\AJtrue}{\cuminc^*_n}
+\newcommand{\survfunc}{S}
+\newcommand{\survfuncNode}{\survfunc_{\Node}}
+\newcommand{\survfuncNodeu}{\survfunc_{\Nodeu}}
+\newcommand{\survfunchat}{\widehat{\survfunc}}
+\newcommand{\survfunchatNode}{\widehat{\survfunc}_{\Node}}
+\newcommand{\survfunchatNodeu}{\widehat{\survfunc}_{\Nodeu}}
+\newcommand{\truesurv}{\survfunc_0}
+\newcommand{\truesurvhat}{\survfunchat_0}
+\newcommand{\HNode}{H_{\Node}}
+\newcommand{\censcontaminatedAJtrue}{\cuminc^*_{\Node,n}}
+\newcommand{\censcontaminatedAJhat}{\widehat{\cuminc}_{\Node,n}}
+\newcommand{\censcontaminatedAJexpected}{\cuminc^*_\Node}
+
+% Commands for Methods
+\def\condSt{S_0(t|Z,A)}
+\newcommand{\tol}{\alpha_{\phi}}
+
+% Commands for Theory
+% assumptions
+\newcommand{\assumphazbound}{\xi_1}
+\newcommand{\assumpcovbound}{\zeta}
+\newcommand{\censCIFrectangle}{\cuminc_{\NodeR, n}^*(t)}
+\newcommand{\CIFrectanglehat}{\widehat{\cuminc}_{\NodeR, n}(t)}
+\newcommand{\sevenbound}{\eta}
+% lemmas
+\newcommand{\lemmasfourc}{\bigg( 1 - \sqrt{\frac{4\log{(|\mathscr{R}|\sqrt{n})}}{k\tauUB}} \bigg)}
+\newcommand{\diffbound}{\frac{6\assumpcovbound^2}{\sqrt{k}} 
++ 2\sqrt{\frac{6 \log{(|\mathscr{R}|)} }{k}} + O\bigg(\frac{ \log{(|\mathscr{R}|)} }{k} \bigg) }
+\newcommand{\hashLminushashReqn}{\hashtagNode - \hashtagNodeR \leq \frac{3\assumpcovbound^2\hashtagNode}{\sqrt{k}} 
++ 2\sqrt{3 \log{(|\mathscr{R}|)} \hashtagNode} + O(\log{(|\mathscr{R}|)})}
+\newcommand{\hashLminushashRRHS}{\frac{3\assumpcovbound^2\hashtagNode}{\sqrt{k}} 
++ 2\sqrt{3 \log{(|\mathscr{R}|)} \hashtagNode} + O(\log{(|\mathscr{R}|)})}
+\newcommand{\RHSoverL}{\frac{3\assumpcovbound^2}{\sqrt{k}} 
++ \frac{2\sqrt{3 \log{(|\mathscr{R}|)}}}{\sqrt{\hashtagNode}} + O\bigg(\frac{\log{(|\mathscr{R}|)}}{\hashtagNode}\bigg)}
+\newcommand{\RHSoverLk}{\frac{3\assumpcovbound^2}{\sqrt{k}} 
++ 2\sqrt{\frac{3 \log{(|\mathscr{R}|)}}{k}} + O\bigg(\frac{\log{(|\mathscr{R}|)}}{k}\bigg)}
+% d_opt
+\newcommand{\doptTRUE}{d^0_{\text{opt}}}
+\newcommand{\doptHAT}{\widehat{d}_{\text{opt}}}
+\newcommand{\dopt}{d_{\text{opt}}}
+%criterion symbol
+\newcommand{\criterion}{\phi}
+\newcommand{\criterionvector}{\boldsymbol{\criterion}}
+% valueone
+\newcommand{\valueone}{\criterion_1(a,Z)}
+\newcommand{\valueonePOT}{\criterion_1^{(a)}(Z)}
+\newcommand{\valueoneTRUE}{\criterion_1^0(a,Z)}
+\newcommand{\valueoneHAT}{\widehat{\criterion}_1(a,Z)}
+\newcommand{\actiononemax}{a_1^*}
+\newcommand{\actiononemaxTRUE}{a_1^{0*}}
+\newcommand{\actiononemaxHAT}{\widehat{a}_1^*}
+% valuetwo
+\newcommand{\valuetwo}{\criterion_2(a,Z)}
+\newcommand{\valuetwoPOT}{\criterion_2^{(a)}(Z)}
+\newcommand{\valuetwoTRUE}{\criterion_2^0(a,Z)}
+\newcommand{\valuetwoHAT}{\widehat{\criterion}_2(a,Z)}
+\newcommand{\valuetwoHATnoarg}{\widehat{\criterion}_2}
+%valueonemax
+\newcommand{\valueonemaxPOT}{\criterion_1^{(\actiononemax}(Z)}
+\newcommand{\valueonemax}{V_1^*(Z)}
+\newcommand{\valueonemaxTRUE}{V_1^{0*}(Z)}
+\newcommand{\valueonemaxHAT}{\widehat{V}_1^*(Z)}
+\newcommand{\valueTRUE}{\begin{pmatrix}\valueoneTRUE \\ \valuetwoTRUE \end{pmatrix}}
+\newcommand{\valuemat}{\begin{pmatrix}\valueone \\ \valuetwo \end{pmatrix}}
+% these are old - removed bc changed notation to \phi
+%\newcommand{\valueoneTRUE}{V_1^0(a,Z)}
+%\newcommand{\valueoneHAT}{\widehat{V}_1(a,Z)}
+%\newcommand{\valueonePOT}{\phi_1^{(a)}(Z)}
+%\newcommand{\valueone}{V_1(a,Z)}
+% valuetwo
+%\newcommand{\valuetwoTRUE}{V_2^0(a,Z)}
+%\newcommand{\valuetwoHAT}{\widehat{V}_2(a,Z)}
+%\newcommand{\valuetwoPOT}{\phi_2^{(a)}(Z)}
+%\newcommand{\valuetwo}{V_2(a,Z)}
+% Used in proofs based off Cui
+\newcommand{\maxzOnezTwo}{\sqrt{d}(1-\alpha/\assumpcovbound^2)^{\frac{c_3(1-c_4)(1-c_2)m}{d}}}
+\newcommand{\bone}{L_1\maxzOnezTwo}
+\newcommand{\btwo}{L_2\maxzOnezTwo}
+\newcommand{\thmtwoLONEBOUND}{\frac{3}{\lemmasfourc^2 \tauUB^2} \bigg[ \diffbound \bigg]}
+\newcommand{\thmtwoLTWOBOUND}{\frac{\{1728\log{(n)}\}^{1/2}}{k^{1/2} \tauUB^2}}
+\newcommand{\thmtwoLTHREEBOUND}{2\tau\assumphazbound \bigg(\frac{\tauUB + 1 }{\tauUB}\bigg) \bigg[\RHSoverLk \bigg]}
+% Commands for Sims
+\newcommand{\lambdaone}{\exp(Z_i^T\beta_1^A)}
+\newcommand{\lambdatwo}{\exp(Z_i^T\beta_2^A)}
+\newcommand{\lambdaoneshort}{\lambda^A_1}
+\newcommand{\lambdatwoshort}{\lambda^A_2}
+% Parameter Commands
+\newcommand{\numsims}{10} %100
+\newcommand{\numeval}{1000}
+\newcommand{\numCV}{10}
+%%% end of commands
+
+\newcommand{\hist}{H}
+\newcommand{\histlower}{h}
+\newcommand{\history}{\mathcal{\hist}}
+\newcommand{\heh}{\hist = \histlower}
+\newcommand{\suptzerototau}{\sup_{t\in(0,\tau]}}
+\newcommand{\Nj}{N_j}
+\newcommand{\atrisk}{Y}
+
+\newcommand{\lipG}{L_G}
+\newcommand{\lipS}{L_S}
+
+\newcommand{\LamnhHat}{\widehat{\Lambda}_n^\histlower}
+\newcommand{\dLamnhHat}{d\LamnhHat}
+\newcommand{\LamnhTilde}{\widetilde{\Lambda}_n^\histlower}
+\newcommand{\dLamnhTilde}{d\LamnhTilde}
+\newcommand{\Lamnhtrue}{\widehat{\Lambda}_0^\histlower}
+\newcommand{\dLamnhtrue}{d\Lamnhtrue}
+\newcommand{\survnhat}{\survfunchat_n}
+\newcommand{\survnhhat}{\survnhat^\histlower}
+\newcommand{\truehsurv}{\truesurv^\histlower}
+
+\newcommand{\arght}{(\histlower, t)}
+\newcommand{\argC}{(C)}
+\newcommand{\argc}{(c)}
+\newcommand{\argX}{(X)}
+\newcommand{\argXi}{(X_i)}
+\newcommand{\argt}{(t)}
+\newcommand{\argtleft}{(t^-)}
+\newcommand{\args}{(s)}
+\newcommand{\argsleft}{(s^-)}
+\newcommand{\argu}{(u)}
+\newcommand{\arguleft}{(u^-)}
+\newcommand{\argH}{(\hist)}
+%\psi_{S,t}
+\newcommand{\estfunc}{\psi}
+\newcommand{\estfunclabel}{\estfunc_{\survfunc,t}}
+\newcommand{\estfunctruesurvlabel}{\estfunc_{\truesurv,t}}
+\newcommand{\estfuncshatlabel}{\estfunc_{\Snhat,t}}
+\newcommand{\estfunclong}{I(X>t) + (1 - \delta) I(X\leq t) \frac{\survfunc(t \mid \hist)}{\survfunc(X \mid \hist)} - \survfunc(t \mid \hist)}
+%\delta_h
+\newcommand{\unnormdirac}{\delta_h}
+%kernel k_h
+\newcommand{\kernel}{k_h}
+%\Psi(S)
+\newcommand{\esteq}{\Psi}
+\newcommand{\esteqlabel}{\esteq(\survfunc)}
+\newcommand{\esteqtruesurvlabel}{\esteq(\truesurv)}
+\newcommand{\PopP}{P}
+\newcommand{\esteqlong}{\frac{\PopP\{\estfunclabel \unnormdirac \}}{\PopP\{\unnormdirac\}}}
+\newcommand{\Pd}{\PopP_{\cdot\mid \histlower}}
+\newcommand{\argtgh}{(t\mid \histlower)}
+\newcommand{\argtgH}{(t\mid \hist)}
+\newcommand{\argtgkh}{(t\mid \kernel)}
+\newcommand{\argugh}{(u\mid \histlower)}
+\newcommand{\argugkh}{(u\mid \kernel)}
+\newcommand{\Pdkh}{\PopP_{\cdot\mid \kernel}}
+\newcommand{\Pdot}{\Pd\estfunclabel}
+\newcommand{\Pdotkh}{\Pdkh\estfunclabel}
+%\Psin(S)
+\newcommand{\esteqn}{\esteq_n}
+\newcommand{\esteqnlabel}{\esteqn(\survfunc)}
+\newcommand{\PopPn}{\mathbb{\PopP}}
+\newcommand{\Pn}{\PopPn_n}
+\newcommand{\esteqnlong}{\frac{\Pn\{\estfunclabel \kernel \}}{\Pn\{\kernel\}}}
+\newcommand{\Pndot}{\PopPn_{n,\cdot\mid\kernel}\estfunclabel}
+%Psin - Psi
+\newcommand{\esteqdiff}{\esteqnlabel - \esteqlabel}
+
+%dlambdant
+\newcommand{\dLamnHAT}{d\widehat{\Lambda}_n\argt}
+\newcommand{\dLamnTILDE}{d\widetilde{\Lambda}_n\argt}
+\newcommand{\dLamnHATnum}{\Pn\kernel\argH d\Nj \argt}
+\newcommand{\dLamnTILDEnum}{\PopP\kernel\argH d\Nj \argt}
+\newcommand{\dLamnHATdenom}{\Pn\kernel\argH \atrisk \argt}
+\newcommand{\dLamnTILDEdenom}{\PopP\kernel\argH \atrisk \argt}
+\newcommand{\PnP}{(\Pn-\PopP)}
+% single stage survival forest
+\newcommand{\Snhat}{\widehat{\survfunc}_n}
+\newcommand{\Sn}{\survfunc_n}
+\newcommand{\esteqlabelSnhat}{\esteq(\Snhat)}
+\newcommand{\estfunclabelSnhat}{\estfunc_{\Snhat,t}}
+\newcommand{\PdotSnhat}{\PopP_{\cdot\mid \histlower}\estfunclabelSnhat}
+
+\newcommand{\omd}{(1-\delta)}
+\newcommand{\omdi}{(1-\delta_i)}
+
+\newcommand{\normh}{\norm{\histlower - \histlower^{\prime}}}
+
+\newcommand{\sqrtn}{\sqrt{n}}
+
+\newcommand{\Op}{O_p}
+\newcommand{\lilop}{o_p}
+\newcommand{\Opht}{\Op^{\arght}(1)}
+\newcommand{\opht}{\lilop^{\arght}(1)}
+\newcommand{\Ophtsqrtn}{\Op^{\arght}(n^{-1/2})}
+\newcommand{\ophtsqrtn}{\op^{\arght}(n^{-1/2})}
+
+\newcommand{\Bh}{B^\histlower}
+\newcommand{\Ah}{A^\histlower}
+\newcommand{\Gone}{\mathbb{G}_1}
+\newcommand{\Gtwo}{\mathbb{G}_2}
+\newcommand{\Gthree}{\mathbb{G}_3}
+
+\newcommand{\PkH}{\PopP\kernel\argH}
+\newcommand{\PnkH}{\Pn\kernel\argH}
+\newcommand{\bigmatlabel}{\Delta_n}
+\newcommand{\bigmatlong}{\sqrtn 
+\begin{pmatrix}
+\PnkH \Nj\argt - \PkH \Nj\argt\\
+ \Pn \kernel\argH \atrisk\argt - \PopP \kernel\argH \atrisk \argt \\
+ \Pn \kernel\argH - \PkH
+\end{pmatrix} }
+
+% Define new command for sup over two arguments
+\DeclareMathOperator*{\suph}{\sup_{\histlower \in \history}}
+\DeclareMathOperator*{\suptzerototauh}{\sup_{\substack{t\in(0,\tau] \\ \histlower \in \history}}}
+\DeclareMathOperator*{\suphprimekernel}{\sup_{\histlower^{\prime}\in \history: \kernel(\histlower^{\prime})>0}}
+\DeclareMathOperator*{\bigsup}
+{\sup_{\substack{\survfunc \in \Theta_n \\ t\in(0,\tau] \\ \histlower \in \history}}}
+\DeclareMathOperator*{\supStheta}{\sup_{\survfunc \in \Theta_n}}
+
+% new commands
+\newcommand{\eqnspace}{\\[8pt]}
+\newcommand{\proofSM}{The proof is given in the Supplementary Material.}
+\newcommand{\proofsSM}{The proofs are given in the Supplementary Material.}
+
+%\pdfminorversion=4
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\prelim}{0} %this is NOT the prelim
+\newcommand{\jasa}{1} %this is for journal (JASA)
+\newcommand{\blind}{0}
+
+\newcommand{\sectionABSTRACT}{1}
+\newcommand{\sectionINTRO}{1}
+\newcommand{\sectionBACKGROUND}{1}
+\newcommand{\sectionMETHODS}{1}
+\newcommand{\sectionTHEORY}{1}
+\newcommand{\sectionSIMS}{1}
+\newcommand{\sectionRDA}{1}
+\newcommand{\sectionDISC}{1}
+\newcommand{\sectionOTHER}{1}
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-1in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.7in}%
+\addtolength{\topmargin}{-1in}%
+
+% below is for JASA/scholar one manuscript
+\pdfminorversion=4
+\begin{document}
+
+%\bibliographystyle{natbib}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if0\blind
+{
+  \title{\bf Optimal individualized treatment regimes for survival data with competing risks}
+  \author{Christina W. Zhou
+  %\thanks{The authors gratefully acknowledge Hunyong Cho, Sydney Browder, and NC TraCS who helped make this paper possible.}
+    \hspace{.2cm}\\
+        Department of Biostatistics, University of North Carolina at Chapel Hill\\
+    Nikki L. B. Freeman, \\
+    Department of Biostatistics and Bioinformatics, Duke University\\
+    Katharine L. McGinigle, \\
+    Division of Vascular Surgery,
+    UNC-CH\\ and\\
+    Michael R. Kosorok\\
+    Department of Biostatistics, UNC-CH}
+    \date{November 5, 2024}
+  \maketitle
+} \fi
+
+\if1\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Optimal individualized treatment regimes for survival data with competing risks}
+\end{center}
+  \medskip
+} \fi
+
+\if1\sectionABSTRACT{
+\bigskip
+% Abstract
+\begin{abstract}
+\input{Chapters/02_Proj1/01_chapters/0.abstract}
+\end{abstract}
+
+\noindent%
+{\it Some keywords:} multi-utility optimization; precision medicine; random forests; cumulative incidence function
+\vfill
+\newpage
+} \fi
+
+%\spacingset{1.9} % DON'T change the spacing!
+% Introduction
+\if1\sectionINTRO{
+\section{Introduction}
+\label{sec:intro}
+\input{Chapters/02_Proj1/01_chapters/1.introduction/1.introduction}
+} \fi
+
+% Background
+\if1\sectionBACKGROUND{
+\section{Background}
+\label{sec:background}
+\input{Chapters/02_Proj1/01_chapters/1.introduction/1.background}
+} \fi
+
+% Methods
+\if1\sectionMETHODS{
+\section{Proposed Methods}
+\label{sec:meth}
+\input{Chapters/02_Proj1/01_chapters/2.1methods}
+%\input{Chapters/02_Proj1/01_chapters/2.2methods_prediction}
+} \fi
+
+% Theory
+\if1\sectionTHEORY{
+\section{Theoretical Properties}
+\label{sec:theory}
+\input{Chapters/02_Proj1/01_chapters/3.Theory/chapter_theory}
+} \fi
+
+% Simulations
+\if1\sectionSIMS{
+\section{Simulations}
+    \label{sec:sims}
+    \input{Chapters/02_Proj1/01_chapters/4.Simulations/chapter_sims}
+} \fi
+
+% Real Data Analysis
+\if1\sectionRDA{
+\section{Analyses of Peripheral Artery Disease Cohort}
+    \label{sec:realdata}
+    \input{Chapters/02_Proj1/01_chapters/5.RDA/chapter_rda}
+} \fi
+
+% Discussion
+\if1\sectionDISC{
+\section{Discussion}
+    \label{sec:disc}
+    \input{Chapters/02_Proj1/01_chapters/6.discussion}
+} \fi
+
+\if1\sectionOTHER{
+\if0\blind{
+\bigskip
+% Acknowledgments
+\section{Acknowledgment}
+The authors thank Sydney Browder for her help cleaning the cohort study data, which was from the 2017 UNC Center for Healthcare Innovation pilot grant. 
+}\fi
+
+\section{Supplementary Material}
+The Supplementary Material contains more information on the random forests, all theorem proofs, and more details on the simulation studies and PAD analysis. The R package is available at https://github.com/cwzhou/itrSurv. All R code used in the simulations and application are available at https://github.com/cwzhou/Analyses.
+\vspace*{-8pt}
+}
+
+% Bibliography
+\bibliographystyle{chicago}
+\bibliography{Overview}
+
+\newpage
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Supplementary Material for ``Optimal individualized treatment regimes for survival data with competing risks"}
+\end{center}
+  \medskip
+
+% Commands specific to appendix formatting
+% Reset section counter for appendix
+\setcounter{section}{0}
+
+% Reset table counter and redefine numbering
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}
+
+% Reset figure counter and redefine numbering
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+% Reset section numbering format for appendix
+\renewcommand{\thesection}{\Alph{section}}
+
+% Redefine the algorithm counter to show "Algorithm S" instead of "Algorithm"
+\setcounter{algorithm}{0}
+\renewcommand{\thealgorithm}{S\arabic{algorithm}}
+
+\setcounter{equation}{0}
+\renewcommand{\theequation}{S\arabic{equation}}
+
+\input{Chapters/02_Proj1/04_supplMat/CR_appendix1}
+
+\end{document} 

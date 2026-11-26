@@ -1,0 +1,72 @@
+\input{Chapters/02_Proj1/01_chapters/2.0frameworknotation}
+
+\subsection{Proposed Estimators}
+\label{sec:proposedmethod}
+
+To identify the potential outcomes, we assume Assumptions \ref{assump:Causal1}-\ref{assump:Causal3} \citep{kidwell2016, kosorok_precision_2019}. Then, using identified data, the value function can be written as \\
+$\mathbb{V}(d) = 
+    \sum_{a \in \mathcal{A}} \mathbb{E}\left[ 
+    \boldsymbol{\phi}(a,Z)
+\cdot \mathbf{1}\{d(Z) = a\}
+\right]$, and we want to estimate the conditional probabilities $\phi_1(a,Z) = \int_0^\tau S(t|Z,A=a) \, dt$ and $\phi_2(a,Z) = \int_0^\tau F_j(t|Z,A=a)\,dt$.
+
+\input{Chapters/02_Proj1/02_theorems/02_assumptions/Causal_assumptions}
+
+\subsubsection{Random Forests}
+To estimate individualized curves for OS and PC cumulative incidence, we develop a random survival forest (RSF) and random cumulative incidence forest (RCIF), respectively. We adapt the generalized random survival forest in \cite{cho_multi-stage_2023} to the single stage treatment setting. We provide details on the construction of the proposed RSF in the Supplementary Material.
+
+%BELOW IS ABOUT CIF
+Following the construction of the RSF, we develop RCIFs to obtain individual CIF curves for optimization (see Algorithm \ref{alg:RCIF}). The Aalen-Johanson (AJ) estimator $\widehat{F}_j$ is used to estimate the cumulative incidence function, as well as for node splitting.
+%% below is about aalen-johanson estimator which is used for gray's test and for \phi_2
+%For our Random Cumulative Incidence Forest and the CIF criteria $\phi_2$
+Letting $k$ represent the node, the AJ estimator for the CIF for cause $j$ failure (i.e., $\epsilon = j$) in group $k$ is given by:
+\begin{equation}
+\label{AJ_estimator}
+   \widehat{F}_{jk}(t) = \intzerotot\widehat{S}_k(u-)Y_k^{-1}(u)dN_{jk}(u) 
+\end{equation} where $\widehat{S}_k(t-)$ is the left-hand limit of the Kaplan-Meier estimate $\widehat{S}_k(t)$ for OS (see Equation (S1) in Supplementary Material), $N_{jk}(t)$ is the number of failures of cause $j$ by $t$, $Y_k(t)$ is the number of subjects still at risk just prior to $t$ in group $k$ \citep{gray1988}. In building the trees for the RCIF, $k$ denotes the two groups that are being compared; however, for prediction, $k = 1, \dots, K$ indexes the terminal node, where $K$ is the number of terminal nodes. Whenever $F_{jk}(t)$ refers to the CIF within terminal nodes, we omit the index $k$ such that $F_{jk}(t) \equiv F_j$, since there is no risk of ambiguity. 
+
+% Gray's test for RCIF
+In order to partition a node into two potential daughter nodes ($\Node_1, \Node_2$), we use Gray's two-sample test \citep{gray1988} to compare the priority cause CIF between groups: %and calculate the AJ estimator within each node ($\widehat{F}_{jk}$)
+\begin{equation}
+\label{grays_test}
+\text{Gray}(\Node_1, \Node_2) = \int_0^\tau K(t)\{[1-\widehat{F}_{11}(t-)]^{-1}d\widehat{F}_{11}(t)-[1-\widehat{F}_{12}(t-)]^{-1}d\widehat{F}_{12}(t)\},
+\end{equation} where $\widehat{F}_{1k}$ is an estimate of $F_{1k}$ based on the AJ estimator for CIF of failure cause $1$ in group $k$ and $K(t)$ is some weight function. In this paper, we define $K(t) = 1$. The splitting rule chooses \( (\Node_1, \Node_2) = \arg \max_{\Node_1,\Node_2} \text{Gray}(\Node_1,\Node_2) \) as the best partition. The recursive partitioning continues with a minimum of $n_{\text{minevent}}$ events (from any cause) in each node while each node's size exceeds the threshold \(n_{\min}\). The PC cumulative incidence estimate of the terminal node \( \Node \) of the \( w \)-th cumulative incidence tree is given by the AJ estimator \( \widehat{F}_{j,\{w\}}(t \mid \Node) \), where \( w = 1, 2, \ldots, n_{\text{tree}} \). Letting $h = (a,Z)$, the RCIF estimate for priority cause $j$ is given by
+\[
+\widehat{F}_j(t \mid h) = \frac{1}{n_{\text{tree}}} \sum_{w=1}^{n_{\text{tree}}} \sum_{l=1}^{\#\{\Node_{\{w\},l} : l\}} 1(h \in \Node_{\{w\},l}) \widehat{F}_j(t \mid \Node_{\{w\},l}),
+\]
+where \( \#\{\Node_{\{w\},l} : l\} \) is the number of terminal nodes of the \( w \)-th tree.
+
+%{
+%\spacingset{1}
+%\begin{spacing}
+%%\input{Chapters/02_Proj1/02_algorithms/CR_algorithms}
+%%\algorithmgRCIF
+\input{Chapters/02_Proj1/02_algorithms/alg1_rcif}
+%\end{spacing}
+%}
+
+\subsubsection{Estimation Procedure}
+\label{sec:methodsapproach}
+We propose a two-phase estimation procedure that prioritizes maximizing the criterion of OS in Phase 1 but also minimizes the criterion of the CIF of a priority cause in Phase 2 over all treatments for each individual. Whether an individual's treatment is obtained from Phase 1 or Phase 2 depends on a pre-specified tolerance level $0<\tol<1$.
+%$\tol$ is defined in Section \ref{sec:methodsapproach}. 
+
+Let $\survfunchat(\cdot;a,Z)$ and $\widehat{F}_j(\cdot;a,Z)$ denote the estimated proposed RSF and RCIF forest estimators, respectively. 
+% q-functions
+Letting the subscript denote the method phase, we define the true and estimated functions of $\valueone$ and $\valuetwo$ as $\criterionvector^0(a,Z) = \valueTRUE$ and $\widehat{\criterionvector}(a,Z) = \begin{pmatrix} \valueoneHAT \\ \valuetwoHAT \end{pmatrix}$, respectively.
+%Remember that $\phi_1$ is overall survival and $\phi_2$ is CIF for the priority cause first mentioned in notation (Section 2.1\label{sec:notation}) then further described in simulations (Section 4.1\label{sec:sims}).
+Let the true optimal treatment for Phase 1 be $\actiononemaxTRUE = \argmax_{a \in \mathcal{A}} \valueoneTRUE$ with $\valueonemaxTRUE = V_1^0(\actiononemaxTRUE,Z)$, and the estimated value as $\actiononemaxHAT = \argmax_{a \in \mathcal{A}} \valueoneHAT$ with
+$\valueonemaxHAT = \widehat{V}_1(\actiononemaxHAT,Z)$. We can then use the following two-phase procedure to estimate the optimal ITR. For each patient:
+\begin{enumerate}
+    \item[(i)] estimate the conditional overall survival $\survfunc(t|Z,A)$ for each treatment
+    \item[(ii)] estimate the conditional priority j-cause CIF $F_{j}(t|Z,A)$ for each treatment
+    \item[(iii)] Phase 1: optimize (i) over feasible finite treatment space for all \(a \in \psi(z) \subset \mathcal{A}\) to obtain optimal treatment for overall survival
+    \item[(iv)] Find $A^s$, the set of treatments chosen using $\tol$ criteria to compare to the optimal overall survival treatment
+    \begin{enumerate}
+        \item if the cardinality of $A^s$ is $1$ then we have ITR estimate $\widehat{d}(z) = A^s$
+        \item if the cardinality of $A^s$ is greater than $1$ then optimize (ii) (Phase 2) over treatment set $A^s$ to obtain ITR estimate $\widehat{d}(z)$.
+    \end{enumerate}
+\end{enumerate}
+
+\input{Chapters/02_Proj1/02_algorithms/alg1_overview}
+
+Algorithm \ref{alg:Overview} provides a high-level outline of our proposed method. Briefly, if the areas under the truncated survival curve between the treatments are within certain $\tol$, then we want to reduce PC cumulative incidence. We consider the competing risk of a priority cause if the OS experience is not too different. However, if the OS experience is excessively different, then we proceed as if the competing risk is not relevant. From Equation \cref{eqn:TolCondition}, $1 - \frac{\valueoneHAT}{\valueonemaxHAT} \le \tol \implies \valueoneHAT \ge (1-\tol)\valueonemaxHAT$. Thus, the optimal ITR when $\#A^s > 1$ is defined as $\doptHAT(Z) = \argmin_{a \in \mathcal{A}:\valueoneHAT \ge (1-\tol)\valueonemaxHAT} \valuetwoHAT$.

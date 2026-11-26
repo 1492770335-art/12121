@@ -1,0 +1,31 @@
+\begin{assumption}[Terminal node size, polynomial]
+\label{assump:Cho1}
+The minimum size \( n_{\text{min}} \) of the terminal nodes grows at the rate \( n_{\text{min}} \bowtie n^\beta \), \( \frac{1}{2} < \beta < 1 \), where \( a \bowtie b \) implies that both \( a = O(b) \) and \( b = O(a) \).
+\end{assumption}
+
+\begin{assumption}
+[\( \alpha \)-regular and random-split trees]
+\label{assump:Cho2}
+Trees are \( \alpha \)-regular and random-split with a constant \( 0 < \psi < 1 \).
+\end{assumption}
+
+\begin{assumption}[Lipschitz continuous and bounded survival and censoring cumulative densities]
+\label{assump:Cho3}
+There exist constants \( \lipS \) and \( \lipG \) such that \( |\survfunc(t | h_1) - \survfunc(t | h_2)| \leq \lipS\|h_1 - h_2\| \) and \( |G(t | h_1) - G(t | h_2)| \leq \lipG \|h_1 - h_2\| \) for all \( h_1, h_2 \in \history \), \( t \in [0, \tau] \), where \( G \) is the censoring cumulative distribution function (CDF) and \( \survfunc(\tau^- \mid \histlower)G(\tau^- \mid \histlower) > c_1 \) for all \( \histlower \) and some constant \( c_1 > 0 \).
+\end{assumption}
+
+%\input{Chapters/02_Proj1/02_theorems/02_assumptions/CR_assumptions}
+%\ASSUMPrcifconsisBoundedCovDistr
+\begin{assumption}
+    \label{assump:CuiAssump2}
+    The covariates $Z \in [0; 1]^d$ are distributed according to a density function $p(\cdot)$ satisfying $1/\assumpcovbound \leq p(z) \leq \assumpcovbound$, for all $z$ and some $\assumpcovbound \geq 1$.
+\end{assumption}
+
+\begin{assumption}
+\label{khbddtv}
+The kernel \( \kernel \) for the random cumulative incidence forest has bounded total variation. Specifically, there exists a constant \( C \) such that the total variation of \( \kernel \) satisfies
+\[
+\int_{-\infty}^{\infty} \abs{\kernel^\prime(x)} \, dx \leq C,
+\]
+where \( \kernel^\prime(x) \) denotes the derivative of the kernel \( \kernel \).
+\end{assumption}

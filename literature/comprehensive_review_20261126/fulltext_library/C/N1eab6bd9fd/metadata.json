@@ -1,0 +1,28 @@
+{
+  "paper_id": "N1eab6bd9fd",
+  "category": "C",
+  "title": "Optimal individualized decision rules from a multi-arm trial: A comparison of methods and an application to tailoring inter-donation intervals among blood donors in the UK",
+  "authors": "Yuejia Xu and Angela M Wood and Michael J Sweeting and David J Roberts and Brian DM Tom",
+  "doi": "10.1177/0962280220920669",
+  "year": "2020",
+  "original_url": "https://doi.org/10.1177/0962280220920669",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "60ee0dea4885ded4b3636cc1ac1a57f391643e726b97a8ff8d5bda011844332c",
+      "decision": "local_only",
+      "reason": "license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://www.repository.cam.ac.uk/bitstreams/0cc22acd-faef-40f2-89c1-e35833c98a7c/download"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "C/N1eab6bd9fd/README.md",
+  "status": "local_only"
+}

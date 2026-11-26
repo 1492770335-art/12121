@@ -1,0 +1,28 @@
+{
+  "paper_id": "J05",
+  "category": "J",
+  "title": "Fast learning rates for plug-in classifiers",
+  "authors": "Jean-Yves Audibert and Alexandre B. Tsybakov",
+  "doi": "10.1214/009053606000001217",
+  "year": "2007",
+  "original_url": "https://doi.org/10.1214/009053606000001217",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "4a88d698af7711f5bdf073bfe512a45ca29d8dae9847fac13a0d7e0547c6f1d5",
+      "decision": "local_only",
+      "reason": "arxiv_license_requires_review",
+      "license_url": "http://arxiv.org/licenses/assumed-1991-2003/",
+      "source_url": "https://arxiv.org/pdf/0708.2321"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "J/J05/README.md",
+  "status": "local_only"
+}

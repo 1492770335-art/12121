@@ -1,0 +1,1423 @@
+# Distributional impact of tax and welfare policies: Budget 2025
+
+Original PDF: [original.pdf](original.pdf). SHA256: `cc4bb58d0e1dce155c504f10040ab52495542770efeeab37336b66ee94c9fd5d`.
+
+This is an unedited technical text extraction, not a mathematical transcription or translation. Physical PDF page numbers are preserved below. PDF page labels and candidate printed numbers are recorded separately; candidate printed numbers are not verified pagination. Formula glyphs, fractions, superscripts, subscripts, reading order and equation numbers require comparison with the original PDF. No equation has been reconstructed or corrected. Original licensed TeX, where available, takes precedence for formula reading.
+
+## PDF page 1
+
+FORMULA CHECK REQUIRED: original PDF page 1.
+
+````text
+ 
+ 
+This Article has been accepted for publication by the Institute, which does not itself take institutional 
+policy positions. Special Articles are subject to refereeing prior to publication. The authors are solely 
+responsible for the content and the views expressed. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ESRI SPECIAL ARTICLE  
+ 
+DISTRIBUTIONAL IMPACT OF TAX AND WELFARE POLICIES: BUDGET 2025 
+Karina Doorley, Shane Dunne, Claire Keane, Simona Sándorová, Agathe Simon 
+ 
+Available to download from www.esri.ie 
+https://doi.org/10.26504/qec2024win_sa_doorley 
+ 
+© 2024 The Economic and Social Research Institute  
+Whitaker Square, Sir John Rogerson’s Quay, Dublin 2 
+ 
+ 
+This Open Access work is licensed under a Creative Commons Attribution 4.0 International License 
+(https://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution and 
+reproduction in any medium, provided the original work is properly credited.
+
+````
+
+## PDF page 2
+
+Technical extraction; compare with original PDF page 2.
+
+````text
+ 
+ 
+1 
+THE AUTHORS 
+Karina Doorley and Claire Keane are Associate Research Professors at the Economic 
+and Social Research Institute (ESRI) and Adjunct Professors at Trinity College Dublin 
+(TCD).  Agathe Simon is a Postdoctoral Fellow at the ESRI. Simona Sándorová and 
+Shane Dunne are Research Assistants at the ESRI. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ACKNOWLEDGEMENTS 
+Funding from the ESRI’s Tax, Welfare and Pensions Research Programme 
+(supported by the Departments of Public Expenditure, NDP Delivery and Reform; 
+Social Protection; Health; Finance; and Children, Equality, Disability, Integration 
+and Youth) is gratefully acknowledged. We are grateful to the Central Statistics 
+Office (CSO) for facilitating access to the Survey on Income and Living Conditions 
+(SILC) Research Microdata File used to construct the database for the SWITCH tax–
+benefit model, and to the Irish Social Science Data Archive for facilitating access to 
+the Household Budget Survey used in the ITSim model.
+
+````
+
+## PDF page 3
+
+Technical extraction; compare with original PDF page 3.
+
+````text
+ 
+ 
+2 
+ABSTRACT 
+In this Special Article we analyse the distributional impact of Budget 2025. Similar 
+to last year, many reforms in this Budget were temporary measures specifically 
+aimed at combatting cost of living pressures. Compared to a baseline pegged to 
+wage growth, the permanent measures, such as increases in the tax band, tax 
+credits and social welfare rates, are broadly progressive, with households in the 
+bottom quintile of income expected to see an increase of around 0.9% of 
+equivalised disposable income, and those in the top quintile to see increases of 
+0.5%. When accounting for temporary measures, the average household is 
+estimated to see an increase of just 0.2% in their equivalised disposable income, 
+and the broadly progressive effect of the permanent measures becomes less clear. 
+These results are driven by the fact that many temporary measures have either 
+been frozen (and therefore reduced in real terms) or have been explicitly reduced, 
+such as the reduction in energy credits. We show that from 2020 to 2025 
+permanent changes to the tax and welfare system have resulted in small average 
+income losses (-0.3% of disposable income) compared to policy changes pegged to 
+wage growth. While temporary measures have been successful in helping 
+households deal with rising prices, their inevitable phasing out will cause issues if 
+headline welfare payments fail to keep pace with income growth. We also find that 
+households with children tended to benefit more from the Budget 2025 measures, 
+such as the double Child Benefit payment, but that the measures have little 
+anticipated downward effect on child poverty rates, suggesting a targeting issue.  
+
+````
+
+## PDF page 4
+
+FORMULA CHECK REQUIRED: original PDF page 4.
+
+````text
+ 
+ 
+3 
+1. INTRODUCTION 
+Budget 2025 sets out an expenditure package of €10.5 billion. This additional 
+expenditure is comprised of a package of once-off measures worth €2.2 billion, a 
+net tax package of €1.4 billion and an expenditure package of €6.9 billion. 
+In the context of declining inflation, rising wages, and record levels of employment 
+in Ireland (McQuinn et al, 2024), fiscal restraint was urged by the Irish Fiscal 
+Advisory Council, among others, amid concerns that further breaches of the 
+National Spending Rule could contribute to growing underlying deficits, increased 
+consumer prices, and fragility in the case of future recessions (Irish Fiscal Advisory 
+Council, 2024). Nevertheless, the Government has exceeded its own 5% spending 
+rule with Budget 2025, citing the need to compensate households for the rising 
+cost of living. 
+In this Special Article, we examine the tax and welfare measures announced in 
+Budget 2025. We begin by outlining and assessing the taxation measures in Section 
+2, which is followed by an examination of the social welfare measures in Section 3. 
+Section 4 presents our analysis of the distributional impact of the combined 
+measures using SWITCH – the Economic and Social Research Institute (ESRI) tax 
+and benefit microsimulation model – and ITSim, the indirect tax model jointly 
+developed by the ESRI and the Department of Finance. We also estimate the 
+cumulative impact of tax and welfare reforms announced to date by the coalition 
+government over the period 2021 to 2025. Section 5 concludes.  
+2. TAXATION MEASURES 
+Table A1 in the appendix lists the main taxation measures announced in Budget 
+2025, alongside the full year cost estimated by the Department of Finance.  
+2.1 Income tax 
+The income tax standard rate cut-off, the point at which the higher income tax rate 
+of 40% begins to apply, rose by €2,000 for a single adult, from €42,000 to €44,000, 
+and by a proportionate amount for married couples and civil partners. This 
+represents a rise of 4.8%, substantially ahead of forecast price inflation of 1.2% and 
+just over forecast wage growth of 4.2%.1 This amounts to an effective tax cut, as 
+ 
+ 
+ 
+1  
+See McQuinn et al. (2024) for price inflation forecasts and Department of Finance (2024) for wage inflation forecasts. 
+
+````
+
+## PDF page 5
+
+FORMULA CHECK REQUIRED: original PDF page 5.
+
+````text
+ 
+ 
+4 
+these credits are worth more to taxpayers in real terms and a lower share of 
+earnings will be exposed to the top 40% rate of tax.  
+Most income tax credits rose in nominal terms, and the proportional increase of 
+around 7% was substantially above both inflation and wage forecasts for 2025. This 
+again amounts to an effective tax cut as these credits are worth more to taxpayers 
+in real terms.  
+The Universal Social Charge (USC) threshold for moving from the second to the 
+third band rate increased by 6.3% (from €25,760 to €27,382). In addition, the rate 
+for the third income band decreased from 4% to 3%. As a result of these changes, 
+most USC payers will benefit from a reduction in their liability.  
+2.2 Taxation and housing 
+The Government also announced a range of tax measures aimed at addressing 
+issues relating to housing. The income tax credit for private renters, introduced in 
+Budget 2023, was increased from a maximum of €750 to a maximum of €1,000 per 
+person per year for those eligible and living in unsupported private rental 
+accommodation. The credit will benefit middle income households most as 
+households need to earn enough to incur a tax liability to benefit from the credit.  
+The Mortgage Interest Tax Credit, introduced on a temporary basis in Budget 2024, 
+is being extended by one further year. This tax credit is available for homeowners 
+with an outstanding mortgage balance of between €80,000 and €500,000 at the 
+end of 2022. The relief is available only to holders of tracker and variable rate 
+mortgages, and amounts to 20% of the increased interest paid in 2024 compared 
+to 2022. This relief is capped at €1,250. Like the rental tax credit, this relief will 
+mainly benefit middle- and higher-income households, as there are very few 
+households in the lowest two-fifths of the income distribution with tracker or 
+variable rate mortgages (Byrne et al., 2023). 
+The Minister for Finance also announced an increase in the rate of the Vacant 
+Homes Tax, which will increase from five to seven times the basic rate of Local 
+Property Tax for the property. This tax is a welcome supply side measure and 
+among the recommendations of the Commission on Taxation and Welfare (2022).  
+2.3 Indirect tax 
+There was a well-flagged increase to the carbon tax, which went from €56 per 
+tonne of carbon to €63.50 per tonne. Excise duties on tobacco products also 
+increased, amounting to an extra €1 on a packet of 20 cigarettes. Other indirect tax 
+
+````
+
+## PDF page 6
+
+Technical extraction; compare with original PDF page 6.
+
+````text
+ 
+ 
+5 
+measures announced include the introduction of excise on e-cigarette products 
+and the restoration of the 13.5% VAT rate on gas and electricity from May 2025. 
+The 20% reduction to public transport fares first introduced on a temporary basis 
+in 2022 was once again extended for the whole of 2025, thus maintaining fares at 
+the current level.  
+3. SOCIAL WELFARE MEASURES 
+The Budget also included many changes to social welfare parameters alongside 
+several temporary measures aimed at cushioning household incomes from supply-
+side driven inflation (Table A1 in the appendix).  
+As part of the permanent package, personal rates of payment for social welfare 
+schemes were increased by €12 per week, with proportionate increases to 
+qualified adult increases. Maternity, Paternity and Parent’s Benefit rates were 
+increased by €15 per week. Weekly payments of Child Support Payment 
+(previously known as Increase for a Qualified Child) increased by €4 for under 12s 
+and by €8 for those aged 12 and over, and the Working Family Payment income 
+limits increased by €60 per week. A new Newborn Baby Grant of €280 in addition 
+to the first month of Child Benefit was introduced for parents with children born 
+on or after 1 December 2024. Further measures were introduced to support carers. 
+The income disregard for Carer’s Allowance was increased to €625 for a single 
+person and €1,250 for couples, alongside a €150 increase in the Carer’s Support 
+Grant. Carer’s Allowance has also been added to the list of qualifying payments for 
+the Fuel Allowance. The higher income threshold for the Fuel Allowance has been 
+extended to those aged 66 and over, and has been increased to €524 for a single 
+person and €1,048 for couples, which means more people will qualify. For most 
+social welfare recipients, these increases are relatively larger than the forecast 
+wage growth of 4.2% in 2025 (Department of Finance, 2024). However, since 
+retirement age payments tend to be higher than working age payments in nominal 
+terms, the undifferentiated €12 rise results in a lower percentage increase for this 
+group.  
+The welfare package in the Budget also included temporary welfare and universal 
+payments to mitigate an inflation-induced strain on household finances. The 
+universal energy credits were renewed this year, as part of the cost-of-living 
+measures, payable in November 2024 and January 2025. However, the amount 
+decreased from €150 to €125 and the number of payments decreased from three 
+to two compared to 2024. This is a significant fiscal outlay, making up around one-
+quarter of the temporary cost of living expenditure. Two double Child Benefit 
+payments will also be made in November and December 2024. Additionally, one-
+off lump sum payments for recipients of certain social welfare benefits were 
+
+````
+
+## PDF page 7
+
+FORMULA CHECK REQUIRED: original PDF page 7.
+
+````text
+ 
+ 
+6 
+announced, with payment occurring during December 2024. Those in receipt of 
+the Working Family Payment, the Disability Allowance, the Carer’s Support Grant, 
+the Blind Pension and the Invalidity Pension will receive a €400 lump sum, while 
+those in receipt of the Living Alone and Fuel Allowance will receive €200 and €300 
+respectively. A lump sum of €100 was also made to recipients of the Child Support 
+Payment in November 2024. The usual ‘Christmas Bonus’ to recipients of long-term 
+social welfare payments was announced. The temporary reduction in the student 
+contribution fee for third level students, announced in Budgets 2023 and 2024, was 
+repeated in Budget 2025.  
+4. DISTRIBUTIONAL IMPACT ANALYSIS 
+We use SWITCH – the ESRI’s tax benefit microsimulation model – and ITSim – an 
+indirect tax microsimulation tool jointly developed by researchers at the ESRI and 
+the Department of Finance – to assess the combined impact of taxation and 
+welfare policy changes on household income.2 The range of policy reforms 
+modelled is detailed in the appendix. SWITCH is linked to data from the 2022 
+Survey on Income and Living Conditions (SILC), the primary source of information 
+on household incomes collected annually by the Central Statistics Office (CSO). The 
+data is reweighted to be representative of the 2022 population (in terms of 
+demographics, employment, income and social welfare) and uprated to reflect 
+price and income growth between 2022 and the year of analysis. The scale, depth 
+and diversity of this survey allows it to provide an overall picture of the impact of 
+the policy changes on Irish households, which cannot be gained from selected 
+example cases. ITSim estimates the indirect taxes (VAT and excise duties, including 
+carbon taxes) paid by Irish households on the basis of their reported expenditure, 
+collected by the CSO’s nationally representative Household Budget Survey (HBS) in 
+2015–2016.3 
+Given the range of temporary and permanent measures announced as part of 
+Budget 2025, we separate base and reform scenarios to estimate the distributional 
+effect of Budget 2025. These are summarised in Panel A of Table 1. Scenario 1 
+captures permanent policy changes between 2024 and 2025, while Scenario 2 
+outlines the effect of changes to both permanent and temporary measures 
+between 2024 and 2025.  
+We also set up a baseline and reform scenario (Panel B of Table 1), which presents 
+a more medium-term picture. In Scenario 3 we estimate the effect of permanent 
+ 
+ 
+ 
+2  
+See Keane et al (2023) for a description and validation of the SWITCH model.  
+3  
+Income rates are uprated to 2025 levels using earnings indices. Expenditures are uprated to 2025 levels using price 
+growth indices. 
+
+````
+
+## PDF page 8
+
+FORMULA CHECK REQUIRED: original PDF page 8.
+
+````text
+ 
+ 
+7 
+policy changes only, between 2020 and 2025, on the distribution of income 
+compared to a scenario in which 2020 policies were pegged to wage growth.  
+In each case, we compare to a scenario in which policy parameters of the direct tax 
+and welfare system are indexed in line with actual and/or forecast wage growth 
+(Table 1). As argued by Bargain and Callan (2010) and Callan et al. (2019), this 
+provides a distributionally neutral benchmark against which to assess policy 
+reforms. For the indirect tax system, we index our baseline scenario in line with 
+price growth, which is a more appropriate indexation factor for expenditure.  
+A new feature of this year’s analysis is the inclusion of temporary measures in the 
+baseline for the scenario that evaluates the distributional impact of both 
+permanent and temporary measures. Government has now extended or repeated 
+certain temporary measures for several consecutive years, and households have 
+begun to depend on measures labelled as temporary. Therefore, the analysis 
+accounts for the distributional impacts of the withdrawal or reduction of 
+temporary measures in Budget 2025. 
+We use SWITCH to calculate households’ social welfare entitlements, tax liabilities 
+and net incomes under each system. ITSim calculates households’ VAT and excise 
+liabilities.  
+TABLE 1  
+SUMMARY OF BASELINE AND REFORM SCENARIOS 
+ 
+A: 2024–2025 
+B: 2020–2025 
+  
+Scenario 1 
+Scenario 2 
+Scenario 3 
+ 
+Base 
+Reform 
+Base 
+Reform 
+Base 
+Reform 
+Policy 
+2024 
+2025 
+2024 
+2025 
+2020 
+2025 
+Indexed to 
+2025 
+- 
+2025 
+- 
+2025 
+- 
+Indexation factor direct tax 
+and welfare* 
+4.2% 
+- 
+4.2% 
+- 
+22.9% 
+- 
+Indexation factor indirect 
+tax* 
+1.2% 
+- 
+1.2% 
+- 
+21.4% 
+- 
+Temporary policies 
+included?** 
+No 
+Yes 
+No 
+Figures 
+1, 3-6 
+2, 3-6 
+7 
+Notes:  
+* We use CSO data on annualised quarterly average weekly earnings and the Department of Finance 2025 forecast 
+for increase in compensation per employee to index the direct tax and welfare system. We use CSO data on CPI 
+growth until 2024 and forecasts from the ESRI’s Quarterly Economic Commentary for CPI growth in 2025 to index 
+the indirect tax system.  
+** Temporary policy measures introduced in Budget 2024 (2025) to be paid at the end of 2023 (2024) and beginning 
+of 2025, e.g. energy credit, double social welfare payments, additional Fuel Allowance payments.  
+
+````
+
+## PDF page 9
+
+Technical extraction; compare with original PDF page 9.
+
+````text
+ 
+ 
+8 
+4.1 The distributional effect of Budget 20254 
+Figure 1 shows the distributional effect of permanent changes to indirect taxes, 
+direct taxes and welfare announced as part of Budget 2025, compared to a wage- 
+indexed 2024 policy system. This corresponds to Scenario 1 in Table 1. 
+While not part of Budget 2025, it was announced in 2023 that pay-related social 
+insurance (PRSI) rates will rise from October 2024 onwards to help fund the 
+introduction of the Pay-Related Benefit scheme and tackle State Pension funding 
+pressures.5 Our analysis therefore includes the planned 0.1% PRSI rise for 2025 as 
+well as the move in 2025 to pay-related benefits.6 
+As shown in Figure 1, we estimate that households will experience a rise in real 
+income of 0.5% on average in 2025 due to the permanent measures announced in 
+Budget 2025. The permanent measures are broadly progressive, with households 
+in the bottom quintile of income expected to see an increase of around 0.9% of 
+equivalised disposable income, and those in the top quintile to see increases of 
+0.5%.  
+We also show the effect of combined changes to the permanent and temporary 
+tax and welfare systems in Figure 2, corresponding to Scenario 2 in Table 1. When 
+accounting for temporary measures, the average household is estimated to see an 
+increase of just 0.2% in their equivalised disposable income. Furthermore, the 
+broadly progressive effect of the permanent measures seen in Figure 1 becomes 
+less clear. While households in the bottom decile of income see the largest relative 
+rise in income, of 0.5%, the remainder of the bottom half of the income distribution 
+see either no significant change in income, or, in the case of the third decile, a 
+reduction in real income of 0.4%. This negative effect is driven by the concentration 
+of retirement aged households and households with disabilities in the third decile; 
+these groups are most significantly impacted by the partial withdrawal or nominal 
+freezing of temporary measures. 
+By this measure, Budget 2025 is neither strongly progressive nor regressive: the 
+effect of permanent measures is reasonably progressive, although real income 
+ 
+ 
+ 
+4  
+As mentioned, reference to ‘Budget 2025’ measures includes the planned increase in PRSI and introduction of the 
+Pay-Related Benefit scheme. 
+5  
+All PRSI rates are set to increase by 0.1 percentage point in 2024 and 2025, 0.15 percentage point in 2026 and 2027 
+and 0.2 percentage point in 2028 (Department of Social Protection, 2023 (press release), 
+https://www.gov.ie/en/press-release/022d7-minister-humphreys-secures-cabinet-approval-for-major-social-welfare-
+reforms/. 
+6  
+The Pay-Related Benefit Scheme is set to be introduced in March 2025. Those who qualify will receive 60% of their 
+previous earnings for the first three months of unemployment, dropping to 55% for the next three months and 50% 
+for the three months following that (sixth to ninth month of unemployment). These rates are subject to maximum 
+levels. 
+
+````
+
+## PDF page 10
+
+Technical extraction; compare with original PDF page 10.
+
+````text
+ 
+ 
+9 
+gains are modest across the board. When factoring in temporary measures, the 
+impacts of the budgetary package on real incomes are modest and don’t appear to 
+be progressive. This effect is driven by the partial withdrawal of the energy credits 
+and the nominal freeze to most other temporary measures. 
+FIGURE 1 
+DISTRIBUTIONAL IMPACT OF PERMANENT BUDGET 2025 COMPARED TO INDEXED 2024 
+POLICIES 
+ 
+ 
+Source:  
+Authors’ calculations using ITSim linked to the 2015–2016 Household Budget Survey uprated to 2025 prices, and 
+SWITCH run on 2022 Survey on Income and Living Conditions data, uprated to 2025 income levels.    
+Notes:  
+Deciles are based on equivalised household income, using CSO national equivalence scales. 
+ 
+-0.40
+-0.20
+0.00
+0.20
+0.40
+0.60
+0.80
+1.00
+1.20
+Decile 1
+Decile 2
+Decile 3
+Decile 4
+Decile 5
+Decile 6
+Decile 7
+Decile 8
+Decile 9 Decile 10
+All
+% change in disposable income
+Decile of equivalised disposable income
+Direct tax and welfare
+Indirect tax
+Total
+
+````
+
+## PDF page 11
+
+Technical extraction; compare with original PDF page 11.
+
+````text
+ 
+ 
+10 
+FIGURE 2 
+DISTRIBUTIONAL IMPACT OF PERMANENT AND TEMPORARY BUDGET 2025 COMPARED TO 
+INDEXED 2024 POLICIES 
+ 
+ 
+Source:  
+Authors’ calculations using ITSim linked to the 2015–2016 Household Budget Survey uprated to 2025 prices, and 
+SWITCH run on 2022 Survey on Income and Living Conditions data, uprated to 2025 income levels.   
+Notes:  
+Deciles are based on equivalised household income, using CSO national equivalence scales. 
+4.2 The effect of Budget 2025 by household type, gender and disability status 
+We further examine the distributional impact of Budget 2025 by household type, 
+gender and disability status. Figure 3 displays the impact of direct tax and welfare 
+measures and indirect tax policies of Budget 2025 by household type.  
+On average, most household types benefit from the permanent measures in 
+Budget 2025, especially working age couples without children and lone parent 
+households as they are gaining from the income tax/USC measures and welfare 
+increases that are above wage inflation. Retirement aged households were least 
+likely to benefit from the permanent measures in Budget 2025, with single 
+retirement aged households experiencing a marginal decline in real disposable 
+income and retirement aged couples seeing an increase of 0.1%. This is due to two 
+factors. The €12 increase in State Pension rates for this group represents a smaller 
+percentage gain than increases to working age welfare payments. Secondly, 
+additional benefits often received by this group – such as the Living Alone 
+Allowance and the Fuel Allowance – were frozen in nominal terms, representing a 
+real decline in value.  
+When considering both the permanent and temporary changes to the tax and 
+welfare system announced in Budget 2025, the distribution of gains and losses is 
+more uneven across household types. On average, retirement aged households 
+experience losses, while working aged households see gains, particularly 
+-0.80
+-0.60
+-0.40
+-0.20
+0.00
+0.20
+0.40
+0.60
+0.80
+1.00
+1.20
+Decile 1 Decile 2 Decile 3 Decile 4 Decile 5 Decile 6 Decile 7 Decile 8 Decile 9 Decile 10
+All
+% change in disposable income
+Decile of equivalised disposable income
+Direct tax and welfare
+Indirect tax
+Total
+
+````
+
+## PDF page 12
+
+Technical extraction; compare with original PDF page 12.
+
+````text
+ 
+ 
+11 
+households with children. The results for households with children are driven by 
+the two double Child Benefit payment, increases in the Child Support Payments 
+and the introduction of the Newborn Baby Bonus. The pattern for retired 
+households reflects the withdrawal of temporary measures, such as the reduction 
+in energy credit – highlighting the importance of these measures for such groups. 
+FIGURE 3 
+DISTRIBUTIONAL IMPACT OF BUDGET 2025 BY HOUSEHOLD TYPE COMPARED TO INDEXED 2024 
+POLICIES 
+ 
+ 
+Source:  
+Authors’ calculations using ITSim linked to the 2015–2016 Household Budget Survey uprated to 2025 prices, and 
+SWITCH run on 2022 Survey on Income and Living Conditions data, uprated to 2025 income levels.  
+Figure 4 shows the estimated effects of direct tax and welfare policy changes from 
+Budget 2025 by gender.7 For this analysis, we assume that income is split evenly 
+between individuals in a couple. Compared to a wage-adjusted budget, our analysis 
+suggests that Budget 2025 measures affected men and women in a broadly similar 
+manner, with women in the bottom quintiles of income seeing larger gains because 
+of both permanent and temporary policies, likely a reflection of benefit receipt 
+patterns and the higher Child Support Payments, and double Child Benefit payment 
+implemented in Budget 2025. 
+ 
+ 
+ 
+7  
+It is not possible to estimate the gender impact of indirect tax changes using ITSim as expenditure data are collected 
+at the household level. 
+-1.50
+-1.00
+-0.50
+0.00
+0.50
+1.00
+1.50
+2.00
+Single working-
+age without
+children
+Lone parent
+Working-age
+couple without
+children
+Working-age
+couple with
+children
+Single
+retirement-age
+(>= 66)
+Retirement-age
+couple (at least
+one >=66)
+All
+% change in disposable income
+Permanent
+Permanent + temporary
+
+````
+
+## PDF page 13
+
+Technical extraction; compare with original PDF page 13.
+
+````text
+ 
+ 
+12 
+FIGURE 4 
+DISTRIBUTIONAL IMPACT OF BUDGET 2025 BY GENDER COMPARED TO A WAGE INDEXED 2024 
+POLICY 
+ 
+ 
+Source:  
+Authors’ calculations using SWITCH run on 2022 Survey on Income and Living Conditions data, uprated to 2025 
+income levels.  
+Notes:  
+Income is assumed to be fully shared between members of a couple. Quintiles are based on equivalised household 
+income, using CSO national equivalence scales. 
+Figure 5 shows the estimated effects of the Budget 2025 direct tax and welfare 
+measures by disability status.8,9 We identify households with disabilities as those 
+in which there is at least one member who self-declares to have a medical 
+condition that limits them in their daily activities. Overall, permanent measures 
+were estimated to have broadly similar impacts on households with and without 
+disabilities. However, households with disabilities gained more at the bottom end 
+of the distribution.  
+When additionally considering temporary measures, on average, households with 
+disabilities experienced smaller gains compared to households without disabilities. 
+This is largely driven by a negative impact on households with disabilities in quintile 
+2. Households in this quintile, many of whom are of retirement age, are more 
+reliant on temporary measures, such as energy credits, which were reduced in 
+Budget 2025. 
+ 
+ 
+ 
+8  
+ITSim does not currently allow the estimation of indirect taxation measures by disability status. 
+9  
+The precise definition we employ in the SILC data is to identify as having a disability those who respond positively to 
+the following two questions:  
+Do you have any chronic physical or mental health problem, illness or disability? 
+Are you hampered [limited] in your daily activities by this physical or mental health problem, illness or disability?  
+0.00
+0.20
+0.40
+0.60
+0.80
+1.00
+1.20
+Quintile
+1
+Quintile
+2
+Quintile
+3
+Quintile
+4
+Quintile
+5
+All
+Permanent
+Men
+Women
+0.00
+0.20
+0.40
+0.60
+0.80
+1.00
+1.20
+Quintile
+1
+Quintile
+2
+Quintile
+3
+Quintile
+4
+Quintile
+5
+All
+Permanent + temporary
+Men
+Women
+
+````
+
+## PDF page 14
+
+Technical extraction; compare with original PDF page 14.
+
+````text
+ 
+ 
+13 
+FIGURE 5 
+DISTRIBUTIONAL IMPACT OF BUDGET 2025 (DIRECT TAX AND WELFARE) BY DISABILITY STATUS 
+COMPARED TO A WAGE INDEXED 2024 POLICY 
+ 
+ 
+Source:  
+Authors’ calculations using SWITCH run on 2022 Survey on Income and Living Conditions data, uprated to 2025 
+income levels. 
+Notes:  
+We identify people with a disability as those who respond positively to the following two questions: ‘Do you have 
+any chronic physical or mental health problem, illness, or disability?’ and ‘Are you hampered [limited] in your daily 
+activities by this physical or mental health problem, illness or disability?’  
+Quintiles are based on equivalised household income, using CSO national equivalence scales. 
+ 
+ 
+4.3 The effect of Budget 2025 on income inequality and at-risk-of-poverty rates 
+Figure 6 (and Table A2 in the appendix) shows the impact of Budget 2025 on 
+income inequality, as measured by the Gini index, and at-risk-of-poverty (AROP) 
+rates. Compared to an indexed 2024 policy, we estimate no change in the Gini 
+index as a result of Budget 2025.  
+AROP rates for working age adults and children will remain broadly unchanged as 
+a result of Budget 2025 when considering both the permanent measures and the 
+combined permanent and temporary measures. Retirement age poverty is 
+projected to rise once both permanent and temporary measures are considered – 
+the AROP rate among those of retirement age is estimated to increase from 9% to 
+13% compared to a wage-indexed 2024 policy. If, however, the temporary 
+measures introduced as part of Budget 2025 were not in place, retirement age 
+poverty rates would have jumped much more significantly, to 18%. The same was 
+true of Budget 2024, whereby retirement age poverty rates would have increased 
+significantly if it weren’t for the introduction of temporary measures.  
+Budget 2025 is also anticipated to increase AROP rates for people with disabilities, 
+from 19% to 21%. Similar to retirement age AROP rates, temporary measures have 
+helped prevent rises in AROP rates for people with disabilities over recent years. 
+There is a strong overlap between retirement and disability status; therefore 
+-0.60
+-0.40
+-0.20
+0.00
+0.20
+0.40
+0.60
+0.80
+1.00
+1.20
+1.40
+Permanent
+Disability
+No disability
+-0.60
+-0.40
+-0.20
+0.00
+0.20
+0.40
+0.60
+0.80
+1.00
+1.20
+1.40
+Permanent + temporary
+Disability
+No disability
+
+````
+
+## PDF page 15
+
+Technical extraction; compare with original PDF page 15.
+
+````text
+ 
+ 
+14 
+households with disabilities will also be disproportionately affected by the freezing 
+of the Living Alone Increase and the Fuel Allowance, and the partial withdrawal of 
+temporary policies such as energy credits.  
+This highlights both the impact of temporary measures in preventing sharp poverty 
+increases in recent years, and the likely impact on poverty rates, for households 
+with disabilities and the older population, of withdrawing or reducing these 
+temporary measures. 
+ 
+FIGURE 6 
+IMPACT OF BUDGET 2025 ON INCOME INEQUALITY AND POVERTY COMPARED TO WAGE-
+INDEXED 2024 POLICIES 
+ 
+ 
+Source:  
+Authors’ calculations using SWITCH run on 2022 Survey on Income and Living Conditions data, uprated to 2025 
+income levels.  
+Notes:  
+The poverty rate is calculated based on a poverty line equal to 60% of median equivalised disposable income. The 
+CSO equivalence scale is used. Working age is defined as aged 18-65 and children as those under age 18. People 
+with disabilities are identified as those who self-report to having an illness or disability that limits them in their daily 
+activities. 
+ 
+4.4 The effect of permanent policy reform 2020–2025  
+We next consider the distributional impact of budgetary policy since 2020. To do 
+so, we compare a 2025 policy system without temporary policies to an indexed 
+2020 system (see Panel B of Table 1). This shows how changes to the permanent 
+tax and welfare system have affected real income over the last five years. Given 
+the rollout of free school meals and schoolbooks occurred largely over this time 
+27%
+12%
+16%
+16%
+23%
+27%
+12%
+18%
+15%
+24%
+0%
+5%
+10%
+15%
+20%
+25%
+30%
+Gini index
+AROP
+adult
+AROP
+retirement
+age
+AROP child
+AROP
+disability
+Permanent
+2024 Indexed
+Budget 2025
+27%
+12%
+9%
+15%
+19%
+27%
+12%
+13%
+15%
+21%
+0%
+5%
+10%
+15%
+20%
+25%
+30%
+Gini index
+AROP
+adult
+AROP
+retirement
+age
+AROP
+child
+AROP
+disability
+Permanent + Temporary
+2024 Indexed
+Budget 2025
+
+````
+
+## PDF page 16
+
+Technical extraction; compare with original PDF page 16.
+
+````text
+ 
+ 
+15 
+period, we also include the distributional impact of these measures.10 Direct tax 
+and welfare policy parameters in the baseline are indexed by 22.6%, matching 
+actual and forecast wage growth between 2020 and 2025, while indirect tax policy 
+parameters are indexed by 21.4%, reflecting actual and forecast Consumer Price 
+Index (CPI) growth between 2020 and 2025. 
+Figure 7 shows the effects of permanent policy changes in Budget 2025 compared 
+to an indexed 2020 policy scenario. This corresponds to Scenario 3 in Table 1. On 
+average, households lose 0.3% of disposable income. The lowest income decile 
+gained most relative to a system pegged to wage growth (+4.6% of income). The 
+second, third, eighth and ninth income deciles saw no real overall change in 
+income. There are small losses, between 0.5 and 1 per cent of disposable income, 
+in the middle of the income distribution and at the very top of the income 
+distribution.  
+The average losses are overwhelmingly driven by changes to the direct tax and 
+welfare system, particularly in the middle of the income distribution. The changes 
+across the income distribution resulting from reforms to indirect taxes are small 
+overall. The effect of free school meals and books is progressive. Overall, 
+permanent policy changes for the bottom income decile, usually in receipt of 
+welfare benefits, have been ahead of wage growth over the last five years. 
+However, for deciles two and up, permanent changes to the direct tax and welfare 
+system over the last five years have been around or below current and forecast 
+wage growth. 
+ 
+ 
+ 
+10  
+Due to data limitations, we assume that no children benefitted from the free school meals programme before 2020. 
+This is a simplification as some schools in under-privileged areas availed of free school meals prior to their blanket 
+introduction.  
+
+````
+
+## PDF page 17
+
+Technical extraction; compare with original PDF page 17.
+
+````text
+ 
+ 
+16 
+FIGURE 7 
+DISTRIBUTIONAL ANALYSIS 2020–2025 – PERMANENT MEASURES 
+ 
+ 
+Source:  
+Authors’ calculations using ITSim linked to the 2015–2016 Household Budget Survey uprated to 2025 prices, and 
+SWITCH run on 2022 Survey on Income and Living Conditions data, uprated to 2025 income levels.  
+Notes:  
+Deciles are based on equivalised household income, using CSO national equivalence scales. 
+Comparing Budget 2025 without temporary measures to a wage-indexed 2020 
+policy setting conveys the magnitude of the challenge that will be faced if 
+policymakers wish to maintain household living standards once temporary policies 
+lapse. Compared to indexing tax and welfare policies in line with wage growth since 
+2020, Budget 2025 leaves households worse off on average. Losses are 
+concentrated in the middle deciles of the income distribution, with the first decile 
+experiencing substantial gains and the lower- and upper-income deciles seeing 
+broadly unchanged disposable income.  
+5. CONCLUSION 
+Budget 2025 saw a total expenditure package of €10.5 billion. The income tax 
+measures implemented included increases in the standard rate band and tax 
+credits, along with a reduction in USC liabilities. On the welfare side, personal rates 
+of payments for social welfare schemes were increased by €12 per week, with 
+proportionate increases to qualified adult increases. Weekly payments for child 
+dependants rose by €4/€8 for children under/over 12 years of age, and the income 
+limits for the Working Family Payment rose. A new Newborn Baby Grant of €280 
+was introduced along with an increase in payments received by carers. Those in 
+-2.00
+-1.00
+0.00
+1.00
+2.00
+3.00
+4.00
+5.00
+6.00
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+All
+% change in disposable income
+Decile of equivalised disposable income
+Direct tax and welfare
+Indirect tax
+School books/meals
+Total
+
+````
+
+## PDF page 18
+
+Technical extraction; compare with original PDF page 18.
+
+````text
+ 
+ 
+17 
+receipt of Carer’s Allowance can now qualify for the Fuel Allowance, and changes 
+will see more people over 66 qualifying. 
+In line with Budget 2024, a substantial component of Budget 2025 spending was 
+dedicated to temporary measures to assist with ongoing cost-of-living pressures. 
+Energy credits were implemented, although at a lower rate than in 2024. Two 
+double Child Benefit payments were announced along with one-off lump sum 
+payments to those in receipt of qualifying social welfare schemes. The temporary 
+reduction in the student contribution fee for third level students will continue in 
+2025. 
+Given that temporary measures are planned to be withdrawn in the future, we 
+analysed the overall impact of Budget 2025 (i.e. all measures, permanent and 
+temporary), as well as the impact of the permanent measures alone. We compare 
+this to the 2024 tax–welfare system adjusted for wage growth. We estimate that 
+households will experience a rise in real income of 0.5% on average in 2025 due to 
+the permanent measures announced in Budget 2025. The permanent measures 
+are broadly progressive, with households in the bottom quintile of income 
+expected to see an increase of around 0.9% of equivalised disposable income, and 
+those in the top quintile to see increases of 0.5%. When accounting for temporary 
+measures, household incomes are estimated to increase by just 0.2%, on average, 
+and the broadly progressive effect of the permanent measures becomes less clear. 
+While households in the bottom decile of income see the largest relative rise in 
+income, of 0.5%, the remainder of the bottom half of the income distribution see 
+either no significant change in income or, in the case of the third decile, a reduction 
+in real income of -0.4%. 
+When considering both the permanent and temporary changes to the tax and 
+welfare system announced in Budget 2025, the distribution of gains and losses is 
+more uneven across household types. On average, retirement aged households 
+experience losses as a result of the measures, while working aged households see 
+gains, particularly those with children. These findings reflect the fact that State 
+Pensions increased by a lower percentage than working age payments, and that 
+the Fuel Allowance and the Living Alone Increase, often received by those of 
+retirement age, were frozen in nominal terms, and therefore fell in real terms. 
+Households with children benefitted from the two double Child Benefit payments, 
+as well as the introduction of the Newborn Baby Grant and increases for child 
+dependants for those in receipt of social welfare payments.  
+While at-risk-of poverty (AROP) rates are expected to remain the same for most 
+groups, they are anticipated to rise for those above retirement age and those with 
+disabilities. This research shows that, were it not for the temporary measures 
+currently in place, the AROP rate of these groups would have risen more 
+substantially in 2024 and 2025. These groups are particularly dependent on these 
+
+````
+
+## PDF page 19
+
+Technical extraction; compare with original PDF page 19.
+
+````text
+ 
+ 
+18 
+temporary measures and therefore will feel their withdrawal more acutely. For this 
+reason, careful consideration is needed, regarding both their withdrawal and how 
+the permanent welfare system will develop, as prices remain at higher levels than 
+before the cost-of-living crisis.  
+Finally, we saw that households with children will benefit more, on average, as a 
+result of Budget 2025 measures. These measures are not, however, expected to 
+have much of a downward impact on child poverty, which brings into question their 
+efficiency and raises targeting concerns. 
+ 
+ 
+  
+ 
+ 
+
+````
+
+## PDF page 20
+
+FORMULA CHECK REQUIRED: original PDF page 20.
+
+````text
+ 
+ 
+19 
+REFERENCES 
+Bargain, O. and T. Callan (2010). ‘Analysing the effects of tax–benefit reforms on income 
+distribution: A decomposition approach’, The Journal of Economic Inequality, Vol. 8, pp. 1–21. 
+Byrne, D., F. McCann and E. Gaffney (2023). ‘The interest rate exposure of mortgaged Irish 
+households’, Central Bank of Ireland Financial Stability Notes, Vol. 2023, No. 2. 
+Callan, T., C. Keane and M. Regan (2019). Assessing the distributional impact of budgetary policy: The 
+role of benchmarks and indexation, Budget Perspectives 2020/2, Dublin: ESRI. 
+Commission on Taxation and Welfare (2022). Foundations for the future: Report of the Commission 
+on Taxation and Welfare, Dublin: Government of Ireland. 
+Department of Finance (2024). Budget 2025 economic and fiscal outlook, Dublin: Government of 
+Ireland. 
+Irish Fiscal Advisory Council (2024). Pre-Budget 2025 statement, Irish Fiscal Advisory Council. 
+Keane, C., K. Doorley, T. Kakoulidou and S. O’Malley (2023). ‘SWITCH: A tax–benefit model for 
+Ireland Linked to survey and register data’, International Journal of Microsimulation, International 
+Microsimulation Association, Vol. 16, No., 1, pp. 65–88. 
+McQuinn, K., C. O’Toole, L. Hauser and D. O’Shea (2024). Quarterly Economic Commentary: Autumn 
+2024, Dublin: ESRI.  
+ 
+ 
+
+````
+
+## PDF page 21
+
+FORMULA CHECK REQUIRED: original PDF page 21.
+
+````text
+ 
+ 
+20 
+APPENDIX 
+TABLE A1  REFORMS MODELLED IN DISTRIBUTIONAL ANALYSIS  
+Taxation 
+Full year cost/yield, 
+€m 
+Modelled 
+Income tax  
+-1,290 
+ 
+€125 increase to Personal, Employee, and Earned Income 
+Tax Credits; €150 increase to Home Carer and Single Person 
+Child Carer Tax Credits; rise in standard rate cut off by 
+€2,000. 
+ 
+✔ 
+€300 increase in the Incapacitated Child Tax Credit and Blind 
+Person’s Tax Credit, €60 increase in the Dependent Relative 
+Tax Credit. 
+ 
+ 
+Universal Social Charge 
+ 
+ 
+USC second band increase from €25,760 to €27,382, USC 4% 
+rate reduced to 3% 
+-540 
+✔ 
+Housing  
+ 
+ 
+                Help to Buy amendments and extension to 31 Dec 2029 
+-185 
+ 
+                Increase Rent Tax Credit to €1,000 
+-65 
+✔ 
+Tax relief on pre-letting expenses extended to 31 Dec 2027 
+-2 
+ 
+Increase stamp duty on bulk home purchases from 10% to 
+15% 
+11.6 
+ 
+Increase vacant homes tax to 7 times LPT charge 
+1 
+ 
+Carbon tax 
+ 
+ 
++€7.50 per tonne of carbon 
+157 
+✔ 
+Excise duties 
+ 
+ 
++€1 on a packet of 20 cigarettes 
+69.7 
+✔ 
+Introduced e-liquid tax of €0.50 per ml 
+17 
+ 
+VAT 
+ 
+ 
+VAT reduction on heat pumps to 9% 
+-4 
+ 
+Once-off cost-of-living measures 
+ 
+ 
+Extend mortgage interest tax relief for one further year 
+-40 
+ 
+Extension of 9% VAT rate for gas and electricity to 3 Apr 25 
+-110 
+✔ 
+Rent Tax Credit Increase for 2024 
+-65 
+✔ 
+Inheritance tax 
+ 
+ 
+Thresholds for capital acquisitions tax increased 
+-88 
+ 
+ 
+ 
+ 
+
+````
+
+## PDF page 22
+
+FORMULA CHECK REQUIRED: original PDF page 22.
+
+````text
+ 
+ 
+21 
+TABLE A1  
+(CONTD.) REFORMS MODELLED IN DISTRIBUTIONAL ANALYSIS  
+Welfare 
+Full year 
+cost/yield, €m 
+Modelled 
+General 
+919.6 
+ 
++€12 (under 66) welfare payments, proportionate increase 
+for qualified adults 
+ 
+✔ 
++€12 (over 66) welfare payments, proportionate increases 
+qualified for adults 
+ 
+✔ 
++€15 parental benefits11 
+ 
+✔ 
+Child Support Payment 
+ 
+ 
++€4 for qualified child <12 years 
++€8 for qualified child >12 years 
+78.5 
+✔ 
+Working Family Payment   
+  
+ 
++€60 per week to income thresholds 
+14.8 
+✔ 
+Carers  
+  
+ 
+Carer’s Allowance becomes qualifying payment for Fuel 
+Allowance 
+3.7 
+✔ 
+Carer’s Support Grant increased from €1,850 to €2,000 
+25.4 
+✔ 
+Carer’s Benefit extended to self-employed 
+7.3 
+ 
+Increase in income disregard for Carer’s Allowance to €625 
+for singles (€1,250 for couples) 
+11.8 
+✔ 
+Domiciliary Care Allowance increased by €20 per month 
+15.9 
+ 
+Child Benefit 
+ 
+ 
+Newborn Baby Grant of €280  
+15 
+✔ 
+Miscellaneous  
+  
+ 
+Means test for recipients of State Pension (non-
+contributory), Disability Allowance and Blind Pension – 
+amount not considered from sale of home upon moving into 
+care increased from €190,500 to €337,500 
+0.2 
+✔ 
+Free School Books Scheme extended to Leaving Certificate 
+from Sep 2025 
+51 
+✔ 
+Extension of Hot School Meals to all primary schools from 
+Apr 2025 
+72 
+✔ 
+Pay-related Jobseeker’s Benefit from Mar 2025 
+* 
+ 
+Free Travel Scheme Companion pass extended to all people 
+over 70 
+7 
+ 
+Free transport extended to 5–8-year-olds 
+* 
+ 
+Fuel Allowance means test age criteria reduced from 70 to 
+66; income disregard increased to €524 for a single person 
+and €1,048 for a couple 
+4.8 
+✔ 
+Once-off cost-of-living measures 
+  
+ 
+2x €125 household energy credits 
+500 
+✔ 
+ 
+ 
+ 
+11  
+Modelled for Maternity Benefits only. 
+
+````
+
+## PDF page 23
+
+FORMULA CHECK REQUIRED: original PDF page 23.
+
+````text
+ 
+ 
+22 
+TABLE A1  
+(CONTD.) REFORMS MODELLED IN DISTRIBUTIONAL ANALYSIS  
+Welfare 
+Full year 
+cost/yield, €m 
+Modelled 
+Fuel Allowance €300 lump sum 
+126 
+✔ 
+Child Benefit double month x 2 
+371 
+✔ 
+Social Protection – autumn double week 
+350 
+✔ 
+Living Alone Allowance €200 lump sum 
+50 
+✔ 
+Working Family Payment €400 lump sum 
+18 
+✔ 
+Disability Allowance, Carer's Support Grant, Invalidity 
+Pension €400 lump sum 
+143 
+✔ 
+Blind Pension, Domiciliary Allowance €400 lump sum 
+ 
+€100 lump sum for Increase for a Qualified Child recipients 
+34 
+✔ 
+Foster Carer Allowance double payment 
+2 
+ 
+€1,000 reduction in student contribution fee, 33% reduction 
+in contribution fee for apprentices. €1,000 increase in Post 
+Graduate Tuition fee contribution.  
+98 
+✔ 
+Additional funding for Student Assistance Fund 
+18 
+ 
+Fee reduction on School Transport Scheme, State Exam Fee 
+waiver, Additional Schools Capitation and other measures 
+120 
+ 
+ 
+ 
+ 
+Source:  
+Department of Finance’s Budget 2025 expenditure report and Budget 2025 tax policy changes. 
+Notes:  
+Costs are in millions of euros per annum and are mostly full year costs for 2024. Some small schemes are excluded. Asterisk (*) 
+indicates no costing was available. 
+ 
+TABLE A2 
+SIMULATED INCOME INEQUALITY AND AROP RATES IN 2025 WITH AND WITHOUT TEMPORARY 
+MEASURES 
+Inequality/poverty 
+Indexed 
+2024 
+permanent  
+Budget 2025 
+permanent 
+Indexed 2024 
+Permanent + 
+temporary 
+Budget 2025 
+Permanent + 
+temporary 
+Gini index 
+0.272 
+0.271 
+0.266 
+0.266 
+AROP rate 
+ 
+ Adult 
+0.121 
+0.119 
+0.117 
+0.116 
+ Retirement age 
+0.159 
+0.178 
+0.088 
+0.130 
+  Child 
+0.156 
+0.154 
+0.150 
+0.145 
+  Disability 
+0.229 
+0.238 
+0.187 
+0.209 
+ 
+Source:  
+Authors’ calculations using SWITCH run on 2022 Survey on Income and Living Conditions data, uprated to 2025 
+income levels.   
+Notes:  
+The poverty rate is calculated based on a poverty line equal to 60% of median equivalised disposable income. The 
+CSO equivalence scale is used. Working age defined as aged 18-65 and children as those under age 18. People with 
+disabilities are identified as those who self-report to having an illness or disability that limits them in their daily 
+activities. 
+ 
+
+````
+

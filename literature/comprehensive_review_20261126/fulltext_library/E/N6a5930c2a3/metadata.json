@@ -1,0 +1,28 @@
+{
+  "paper_id": "N6a5930c2a3",
+  "category": "E",
+  "title": "Optimal Treatment Regimes for Proximal Causal Learning",
+  "authors": "Tao Shen and Yifan Cui",
+  "doi": "10.52202/075280-2068",
+  "year": "2023",
+  "original_url": "https://doi.org/10.52202/075280-2068",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "551a6c86cc1f8f9ba56917a0dc87a4f8a079f1f6452791773a452fabcf83fc33",
+      "decision": "local_only",
+      "reason": "arxiv_nonexclusive_no_further_reuse_grant",
+      "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "source_url": "https://arxiv.org/pdf/2212.09494"
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "E/N6a5930c2a3/README.md",
+  "status": "local_only"
+}

@@ -1,0 +1,108 @@
+\newcommand{\tableExample}{
+\begin{table}[H]
+\caption{CR Example Dataset}
+\label{tab:CR_ExampleData}
+\centering
+\begin{tabular}[t]{ccccccccl}
+\hline
+ID & $X$ & $\delta$ & $\delta_0$ & $\delta_1$ & $\delta_2$ & $Z$ & $A$ & $\text{Label}_\delta$\\
+\hline \hline
+1 & 0.041 & 2 & 1 & 0 & 1 & -0.860 & 0 & Cause 2\\
+2 & 1.887 & 0 & 0 & 0 & 0 & -0.171 & 1 & Censor\\
+3 & 0.065 & 1 & 1 & 1 & 0 & -0.512 & 0 & Cause 1\\
+4 & 1.100 & 2 & 1 & 0 & 1 & -1.845 & 0 & Cause 2\\
+\hline
+\end{tabular}
+\end{table}
+}
+
+\newcommand{\tableSimsCoeff}{
+\begin{table}[H]
+\centering
+\caption{Cause-specific failure time hazard coefficients and covariate dimensions in Exponential and Fine-Gray simulation scenarios}
+\label{tab:sim_coeff}
+\renewcommand{\arraystretch}{1.5} % Increase row spacing
+\begin{tabular}{cccc}
+\toprule
+Model &  & Scenario 1 & Scenario 2 \\
+ &  & (low dimension)& (high dimension) \\
+\midrule
+\multirow{5}{*}{Exponential} 
+& $p$ & 3 & 6 \\
+& $\beta_1^0$ & $(0,-1.5,-1.9,-0.3)^T$ & $(0,-0.5,-1.2,1.5,0.1,0.6)^T$ \\
+& $\beta_1^1$ & $(0,-0.6,-1.9,1.5)^T$ & $(0,0.3,-0.4,-0.2,0.9,1.6)^T$ \\
+& $\beta_2^0$ & $(0,1,-0.1,0.4)^T$ & $(0,-0.6,1.4,1.5,2,1)^T$ \\
+& $\beta_2^1$ & $(0,1.2,0.2,-1)^T$ & $(0,1.5,-2.1,-0.8,0.1,1)^T$ \\
+\midrule
+\multirow{5}{*}{Fine-Gray} 
+& $p$ & 3 & 6 \\
+& $\beta_1^0$ & $(0,0.1,0.3)^T$ & $(0,0.9,-0.7,0.6,-0.1,0.5)^T$ \\
+& $\beta_1^1$ & $(0,-1.8,-1.5)^T$ & $(0,-1.2,0.1,-0.5,-0.2,-1.2)^T$ \\
+& $\beta_2^0$ & $(0,-1.1,-0.3)^T$ & $(0,-0.5,-0.4,-1.1,-0.8,-0.4)^T$ \\
+& $\beta_2^1$ & $(0,-0.2,1.2)^T$ & $(0,0.4,-0.3,0.6,0.2,1.1)^T$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+}
+
+
+\newcommand{\tableMeanSD}{%
+\begin{table}[ht]
+\label{tab:CR_MeanSD}
+\centering
+\begin{tabular}{rrr}
+  \hline
+ & means & sds \\ 
+  \hline
+observed & 138.86 & 2.48 \\ 
+  czmk & 128.99 & 26.33 \\ 
+  zom & 191.65 & 4.04 \\ 
+   \hline
+\end{tabular}
+\end{table}
+}
+
+\newcommand{\tableMeanSDtog}{
+\begin{table}[H]
+\label{tab:CR_MeanSDtog}
+\caption{Mean and SD of critical values across $\numsims$ simulations}
+\centering
+\begin{tabular}{lccccc}
+\hline
+    & \multicolumn{2}{c}{Survival} & \multicolumn{2}{c}{Endpoint} & \\
+    \hline
+    Method  &  \multicolumn{1}{c}{Mean}  &  \multicolumn{1}{c}{SD}  &       \multicolumn{1}{c}{Mean}  &  \multicolumn{1}{c}{SD}  &  \multicolumn{1}{c}{Difference}  \\
+    \hline
+\input{Chapters/02_Proj1/03_tables/xTable_1}
+\hline
+\end{tabular}
+\end{table}
+}
+
+\newcommand{\comparison}{
+\begin{table}[h]
+\centering
+\begin{tabular}{cccccccl}
+\hline
+Method & A & Endpoint & Criterion & T & C & $\{\pi\}$ &Dataset\\
+\hline
+\multirow{2}{*}{Proposed method} & \multirow{2}{*}{Finite} & OS & $E(T\wedge\tau),S(t_0)$ & \multirow{2}{*}{NP} & \multirow{2}{*}{I} & \multirow{2}{*}{Flexible} \\
+   & & Competing Risk & $E(T_{cif}\wedge\tau),CIF(t_0)$ & & & \\
+Yavuz et al (2018) & Finite & CR fr SMART & CIF & NP & I & Flexible (2stage) & Neuroblastoma from RSS\\
+Cho et al. (2022) & Finite & Survival & $E(T\wedge\tau),S(t_0)$ & NP & CI & Flexible & ARIC\\
+Zhou et al (2021) &  Finite & Main \& Side Effect & &  & I & restricted; linear &HIV from HSSC\\
+CPH & Finite & Survival & $E(T); S(t_0)$ & SP & I & -- & -- \\
+\hline
+\end{tabular}
+\caption{Assumptions of existing methods}
+\end{table}
+
+OS = Overall Survival \\
+NP = Nonparametric \\
+SP = Semiparametric \\
+C = Censoring Type \\
+I = independent \\
+CI = conditionally independent\\
+HSSC = Health Sciences from South Carolna \\
+}
+
