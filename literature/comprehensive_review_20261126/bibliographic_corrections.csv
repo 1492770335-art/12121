@@ -1,0 +1,16 @@
+﻿paper_id,old_title,old_doi,new_title,new_doi,evidence_url
+J01,Semiparametric M-estimation with non-smooth criterion functions,10.1007/s10463-018-0700-y,Semiparametric M-estimation with non-smooth criterion functions,10.1007/s10463-018-0700-y,https://api.crossref.org/works/10.1007/s10463-018-0700-y
+B05,"Interactive
+            <i>Q</i>
+            -Learning for Quantiles",10.1080/01621459.2016.1155993,"Interactive
+            <i>Q</i>
+            -Learning for Quantiles",10.1080/01621459.2016.1155993,https://api.crossref.org/works/10.1080/01621459.2016.1155993
+B06,Successive Classification Learning for Estimating Quantile Optimal Treatment Regimes,10.1080/01621459.2026.2664228,Successive Classification Learning for Estimating Quantile Optimal Treatment Regimes,10.1080/01621459.2026.2664228,https://api.crossref.org/works/10.1080/01621459.2026.2664228
+B10,Inference on Counterfactual Distributions,10.3982/ecta10582,Inference on Counterfactual Distributions,10.3982/ecta10582,https://api.crossref.org/works/10.3982/ecta10582
+A05,optimal treatment regimes optimizing a user-specified function of survival curve,,Doubly robust estimation of optimal treatment regimes for survival data—with application to an HIV/AIDS study,10.1214/17-aoas1057,https://api.crossref.org/works/10.1214/17-aoas1057
+E09,Who Should Be Treated? Empirical Welfare Maximization Methods for Treatment Choice,10.3982/ecta13288,Who Should Be Treated? Empirical Welfare Maximization Methods for Treatment Choice,10.3982/ecta13288,https://api.crossref.org/works/10.3982/ecta13288
+I05,"Strictly Proper Scoring Rules, Prediction, and Estimation",10.1198/016214506000001437,"Strictly Proper Scoring Rules, Prediction, and Estimation",10.1198/016214506000001437,https://api.crossref.org/works/10.1198/016214506000001437
+H12,Double/debiased machine learning for treatment and structural parameters,10.1111/ectj.12097,Double/debiased machine learning for treatment and structural parameters,10.1111/ectj.12097,https://api.crossref.org/works/10.1111/ectj.12097
+J04,Asymptotic Statistics,10.1017/cbo9780511802256,Asymptotic Statistics,10.1017/cbo9780511802256,https://api.crossref.org/works/10.1017/cbo9780511802256
+B08,An IV Model of Quantile Treatment Effects,10.1111/j.1468-0262.2005.00570.x,An IV Model of Quantile Treatment Effects,10.1111/j.1468-0262.2005.00570.x,https://api.crossref.org/works/10.1111/j.1468-0262.2005.00570.x
+A07,Optimal treatment regimes for survival endpoints using a locally-efficient doubly-robust estimator from a classification perspective,10.1007/s10985-016-9376-x,Optimal treatment regimes for survival endpoints using a locally-efficient doubly-robust estimator from a classification perspective,10.1007/s10985-016-9376-x,https://api.crossref.org/works/10.1007/s10985-016-9376-x

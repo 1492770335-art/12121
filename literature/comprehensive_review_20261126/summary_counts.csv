@@ -1,0 +1,14 @@
+﻿group,value,records,verified_unique,new_records,main_available,main_network_downloaded,standalone_supplement_available,code_available
+priority,P0,26,25,0,12,11,1,4
+priority,P1,744,686,644,192,192,0,1
+priority,P2,15,14,0,4,4,0,0
+category,A,65,61,52,24,24,1,2
+category,B,78,63,66,24,24,0,2
+category,C,36,32,23,10,10,0,1
+category,D,124,119,104,18,17,0,0
+category,E,123,121,107,49,49,0,0
+category,G,100,98,82,18,18,0,0
+category,H,46,45,33,16,16,0,0
+category,I,102,79,85,21,21,0,0
+category,J,12,12,2,3,3,0,0
+category,K,99,95,90,25,25,0,0

@@ -1,0 +1,25 @@
+{
+  "records_by_status": {
+    "metadata_crosschecked_crossref_europepmc": 53,
+    "metadata_verified_arxiv": 2,
+    "metadata_verified_crossref": 666,
+    "metadata_verified_journal": 1,
+    "metadata_verified_institutional_archive": 1,
+    "data_source_not_paper": 1,
+    "unresolved": 5,
+    "search_lead": 8,
+    "metadata_verified_europepmc": 1,
+    "metadata_verified_author_page": 1,
+    "unresolved_wrong_software_candidate": 1,
+    "publication_notice": 3,
+    "software_or_dataset_source_not_paper": 12,
+    "excluded_scope_after_bibliographic_check": 23,
+    "incomplete_bibliography_author_or_year": 5,
+    "outside_search_cutoff": 1,
+    "duplicate_version": 1
+  },
+  "unique_main_pdf_papers": 203,
+  "unique_main_xml_papers": 7,
+  "downloaded_standalone_supplements": 0,
+  "embedded_appendix_papers": 82
+}

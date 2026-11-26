@@ -1,0 +1,7 @@
+{
+  "pypdf": "7.1.1",
+  "fonttools": "4.69.1",
+  "pymupdf": "2.2",
+  "cryptography": "50.0.2",
+  "bibtexparser": "2.1.0"
+}

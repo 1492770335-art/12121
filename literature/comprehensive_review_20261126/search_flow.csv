@@ -1,0 +1,9 @@
+﻿stage,count
+seed_records,141
+keyword_occurrences,2085
+citation_edges_primary,3625
+citation_edges_supplementary,887
+candidate_occurrences_after_relevant_graph_selection,3078
+unique_candidate_doi_or_title,2017
+resolved_catalog_records_including_leads_and_exclusions,785
+verified_unique_included_bibliography,725

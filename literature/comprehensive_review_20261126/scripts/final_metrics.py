@@ -1,0 +1,12 @@
+from collect import *
+from collections import Counter
+def read(name):return list(csv.DictReader((BASE/name).open(encoding='utf-8-sig')))
+rows=read('resolved_catalog.csv');candidates=read('candidate_pool.csv');edges=read('citation_edges.csv');suppedges=read('citation_edges_supplementary.csv');manifest=read('download_manifest.csv')
+flow=[dict(stage='seed_records',count=141),dict(stage='keyword_occurrences',count=sum(c['origin'].startswith('keyword') for c in candidates)),dict(stage='citation_edges_primary',count=len(edges)),dict(stage='citation_edges_supplementary',count=len(suppedges)),dict(stage='candidate_occurrences_after_relevant_graph_selection',count=len(candidates)),dict(stage='unique_candidate_doi_or_title',count=len({c['doi'] or norm(c['title']) for c in candidates})),dict(stage='resolved_catalog_records_including_leads_and_exclusions',count=len(rows)),dict(stage='verified_unique_included_bibliography',count=sum(r['status'].startswith('metadata') and not r.get('duplicate_of') for r in rows))]
+csvwrite('search_flow.csv',flow)
+csvwrite('missing_fulltext_papers.csv',[r for r in rows if r['status'].startswith('metadata') and not r.get('duplicate_of') and r['fulltext_status']!='available'])
+csvwrite('seed_completion.csv',[r for r in rows if not r['paper_id'].startswith('N')])
+formats=Counter('PDF' if a.get('local_path','').lower().endswith('.pdf') else 'JATS_XML' if a.get('local_path','').lower().endswith('.xml') else 'other' for a in manifest if a['artifact_type']=='main' and a['status'] in ['downloaded','existing_local_verified'])
+notes=dict(records_by_status=dict(Counter(r['status'] for r in rows)),unique_main_pdf_papers=len({a['paper_id'] for a in manifest if a['artifact_type']=='main' and a['status'] in ['downloaded','existing_local_verified'] and a.get('local_path','').lower().endswith('.pdf')}),unique_main_xml_papers=len({a['paper_id'] for a in manifest if a['artifact_type']=='main' and a['status'] in ['downloaded','existing_local_verified'] and a.get('local_path','').lower().endswith('.xml')}),downloaded_standalone_supplements=len({a['paper_id'] for a in manifest if a['artifact_type']=='supplement' and a['status']=='downloaded'}),embedded_appendix_papers=len({a['paper_id'] for a in read('embedded_appendices.csv')}))
+(BASE/'additional_counts.json').write_text(json.dumps(notes,ensure_ascii=False,indent=2),encoding='utf-8')
+print(json.dumps(dict(flow=flow,additional=notes),ensure_ascii=False),flush=True)

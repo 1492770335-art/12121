@@ -2,3 +2,5 @@ local_private/
 .env
 .env.*
 *.token
+__pycache__/
+*.pyc
