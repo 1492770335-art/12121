@@ -21,3 +21,10 @@
 - [Luedtke–Chambaz 2020](E02_Luedtke_Chambaz_2020_quantile_regret.md)：补读分位数regret Cor12、Lemma11及Appendix B。
 - [Peng 2021](D05_Peng_2021_Survival_quantile_review.md)：正式PDF已取得，式13/14及估计器/可达域分析。Peng–Fine 2007/2009、Lee–Han2016原证明仍未取得。
 本轮新增6份文件（含总目标），更新6条阅读状态；所有原获取状态字段保留。文献充分性八关均未最终验收。理论和实验未改动。
+
+
+## 第四阶段：森林一致性与多结局规则融合
+- [Zhou 2024 森林理论](A02_Christina_Zhou_2024_Forest_proofs.md)：作者TeX附录D/E、四个辅助命题、独立条件化证明及原因构成振荡反例。连同原决策笔记覆盖三个定理主干。外部Cho证明与全部模拟/实现仍待核。
+- [Gao–Wang–Zeng 2024](Gao_2024_Fused_ITR_agreement_and_value.md)：正文及附录B.4/B.5主证明，标签一致率、价值损失、分类校准及单侧/多结局界的区别。截图失败，外部熵及其余证明待核。
+- 访问复查：Peng–Fine 2007出版社购买页，2009 Taylor & Francis 403；Laber 2014 PMC验证页。未取得全文的条目不标完成。
+
