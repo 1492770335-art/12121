@@ -1,0 +1,989 @@
+{
+  "artifact_commit_sha": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+  "base_commit_sha": "868cc255387c6282351d6fcb84eb5fcb49ae76a9",
+  "published_files": 119,
+  "post_publication_connector_reads": 122,
+  "failed_reads": 0,
+  "unrelated_blob_changes": 0,
+  "new_public_fulltext_files": 0,
+  "public_text_files_previously_fully_verified": 210,
+  "public_asset_hashes_verified": 367,
+  "checks": [
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/A02/artifacts/f47b41f8034a/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 3744,
+      "returned_blob_sha": "c4b533a96a1df7367164903f2f768493b0e271af",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/A02/artifacts/fdbc47d6fb8e/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 3448,
+      "returned_blob_sha": "2155f14449dd428b322f4c620f8712f473031354",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/A08/artifacts/5fb7a0c11b5d/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 2105,
+      "returned_blob_sha": "bb2b9533f3b418bdd6b476269795973e4d7e800e",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/N476cce5c63/artifacts/4aef40abfe18/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 4760,
+      "returned_blob_sha": "afa592355ce5164c422bdd06ae24d3046536dd82",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/N79365aacdf/artifacts/94f60369449d/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 2968,
+      "returned_blob_sha": "0981490d12713b8e215821334f86f4a8a3ae7e8a",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/N7f33210eb1/artifacts/388ec4739981/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 78,
+      "returned_blob_sha": "43999388d7d18f6403b3d39c08bd8dc42bd74260",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/N96664c0d36/artifacts/6d671eafa316/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 3706,
+      "returned_blob_sha": "cfa17f2a2702470ed6298528df6f36ca87aed403",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/Nd793378d58/artifacts/3cfd1c9d7ccc/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 384,
+      "returned_blob_sha": "be441b3e7cf773eb43e549ad8939ee9fa0aef096",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/Ndc8c37146e/artifacts/2b00e8abb487/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 4440,
+      "returned_blob_sha": "6b79901d4143a4b7b48738153411bb3525a99eb3",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/B/N3f53d9b17e/artifacts/767c9d83d02a/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1188,
+      "returned_blob_sha": "2b74d5094139590a94ed0667ca7f2ee98d220408",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/B/N5a18097227/artifacts/34160cd9de3f/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 779,
+      "returned_blob_sha": "c5bfbfaef61488068c72834c751c809569be032d",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/B/N5fd3d78779/artifacts/16bd2c435338/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 278,
+      "returned_blob_sha": "7c103ebb45cd01ecdab4d47962ef1276b087e125",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/B/N65ca0da421/artifacts/35299044b004/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 3897,
+      "returned_blob_sha": "497468fe97272626e24f38630df87bf5175574ba",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/B/N9f2d975ad9/artifacts/cc4bb58d0e1d/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 276,
+      "returned_blob_sha": "c728dc0305b03e8effdf7d844f8df4cad1c39fa6",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/B/Nd22b7f030f/artifacts/58f22b27bb5a/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1399,
+      "returned_blob_sha": "cbe74e0e7e9f85946746e0c30c338cfe20cd8d9e",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/B/Nea68e38ddb/artifacts/1c4a7985db96/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 6459,
+      "returned_blob_sha": "50cd57d58c46f34c815aa07bf6a14557053d5463",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/B/Nf2c4076178/artifacts/b851d7404447/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1556,
+      "returned_blob_sha": "2c84ad5b8c7ca8c6a3958d4f52b81dcd95367a70",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/C/C02/artifacts/5918935bb87a/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1561,
+      "returned_blob_sha": "34b71567bcdb570bd836577a6e79d1859ce86a4d",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/C/N0ac9e6598e/artifacts/fc64b8d15c72/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 684,
+      "returned_blob_sha": "30c5c931488169263297a58ced8034b339e101f1",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/C/Nc000c7871f/artifacts/bf0262e1849c/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 183,
+      "returned_blob_sha": "ac81788b31cc0eddcc1ce6c7cfd2d27d6cc6bbbf",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/C/Nf5d5055cf4/artifacts/c3801e2fc889/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 14057,
+      "returned_blob_sha": "04bab27b19b947f166bfc28adc3bc4ce0fe2ad77",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/CHATGPT_UPLOAD_CORE_FILES.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 7083,
+      "returned_blob_sha": "b735092be34da583ee051a9cea610ee9cd084f5d",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/CONTROLLED_SHARE_CANDIDATES.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 5907,
+      "returned_blob_sha": "a97b42f8fff4d3c301ea3d961d3c86f5e7fd4898",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/CONTROLLED_SHARING_PROPOSAL.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 877,
+      "returned_blob_sha": "d09d8500313bcaac73d5113cba37a92c21cd3cf0",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/core_status.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 3313,
+      "returned_blob_sha": "dc41289282a287484a4d8498e5bcb0c02b649548",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/D/D05/metadata.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 945,
+      "returned_blob_sha": "a02279b272a227c0091e7a83f470f177c634d733",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/D/D05/reading_note.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 330,
+      "returned_blob_sha": "572dc17848d09624d616010c3e475cc23bf0a9d2",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/D/D05/README.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 415,
+      "returned_blob_sha": "02ecc181e89943a47bc556ddb58db6770f03e20d",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/D/N0823fd9721/artifacts/280f115aa3a1/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 176,
+      "returned_blob_sha": "58dc6fa88d100452497706309333d9ac43e58073",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/D/N95df3c95c9/metadata.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1015,
+      "returned_blob_sha": "5fd11f292ae414904a56ac7f7b159b3f3364cc23",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/D/N95df3c95c9/reading_note.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 330,
+      "returned_blob_sha": "7aab2df5197dd2af2068a6e43192ef1c0388667b",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/D/N95df3c95c9/README.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 477,
+      "returned_blob_sha": "6c455cd51822795c4390580a635bdc0f195d9268",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/D/Nbbecc5ccd4/artifacts/aced446cd58c/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1935,
+      "returned_blob_sha": "cb6ef26c9ce7c03bde4808f69d0c25546776d56b",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/D/Ncb290ba0be/artifacts/64d20090de47/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1046,
+      "returned_blob_sha": "d1907a90f0f72c8d4551f92e350d3c48b037639b",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/N046da13c5e/artifacts/1aec8fcf88fe/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 2799,
+      "returned_blob_sha": "6faae2dbdfea1302ce16a6e00b34dcf126d42e51",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/N32b0137644/artifacts/7bbf508083dd/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 3388,
+      "returned_blob_sha": "6c88d443c669b776bb6df8ce52994fdb80866c20",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/N47fbb24f26/artifacts/d76af8e426eb/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 7737,
+      "returned_blob_sha": "7fe24875c21eac90cea66f6e5921661dbac9ccde",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/N5330e2a82e/artifacts/5a4374d6d5da/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 570,
+      "returned_blob_sha": "49b76da607fed5a23b028da9eb281c4064fe4073",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/N5533d0166c/artifacts/6cbc9fd666ea/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 6460,
+      "returned_blob_sha": "afbe699c511083b871bc0d161e73322cd9999d0e",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/N7896ad9ac8/artifacts/db95d176baa4/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 78,
+      "returned_blob_sha": "43999388d7d18f6403b3d39c08bd8dc42bd74260",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/N8e49951c41/artifacts/1d52ff2cc8b4/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 374,
+      "returned_blob_sha": "457bcba0d311edb1351f4ae69b8f8bb1f25afc35",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/N93d7eb2e44/artifacts/ea9a0b62cdd7/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 3132,
+      "returned_blob_sha": "d6b989344d6c346e916ad3ca88cd7949a26a8d41",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/Nbdf1d0399c/artifacts/8023816148f2/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 992,
+      "returned_blob_sha": "bad5e5d557e558d218a6733c81dc7c2bd8828d88",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/Nc372dd64c2/artifacts/7726acef9cec/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1551,
+      "returned_blob_sha": "118e3b553c14e0aba0c84e5b198f0b8b455e4f9b",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/Ncb07b047d0/artifacts/dabfae7f0f4a/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 4975,
+      "returned_blob_sha": "ee149448910e9103132d7f4823b7a5052ecc9b88",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/E/Ne4d9c36f04/artifacts/23dfb9aeefc1/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1442,
+      "returned_blob_sha": "74226f01052f9d3458c05f2f59a0b99ca1cd62fd",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/G/N028b5c1a3a/artifacts/a620961d5f06/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 384,
+      "returned_blob_sha": "11ccb77586f71ab79d6de7433de7fcf3b27a145d",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/G/N3ff37abd04/artifacts/9408c77a0990/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 2066,
+      "returned_blob_sha": "49816bc0fba2c021f7b14d212bc475c023dbbefb",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/G/N6c42d911f8/artifacts/2d778c9501a0/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 3302,
+      "returned_blob_sha": "e75377552cef392f4f0178c26bc84b428cf259b9",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/G/Nbdce5360b5/artifacts/fba321fd9b8b/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 175,
+      "returned_blob_sha": "34389e9bc112bd949e3cbc81855409f33ab54456",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/G/Nc3de79e114/artifacts/cabd593fc0d8/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 282,
+      "returned_blob_sha": "9c65d6858abd10b7ab2b183434cb32b04c3c33fc",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/G/Nc6b55d6c2b/artifacts/fe7ec617f7f3/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 272,
+      "returned_blob_sha": "907717af2b696c94fa0a0f479a56485e521f20ca",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/G/Ndb0a17dd4e/artifacts/c3b69e919d57/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 7154,
+      "returned_blob_sha": "5d7064ed81137be509cc02b26f9e847d03266418",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/H/H13/artifacts/998ad2299742/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 637,
+      "returned_blob_sha": "30ddc08adbb62e48a7bd992c3e47db913d066e1c",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/H/N36296d1e95/artifacts/31ffff349ee4/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1072,
+      "returned_blob_sha": "cd1cdc472307926bb06d26bda9a4cf8909ec14d4",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/H/Nbdd6947c84/artifacts/9108275f22f4/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 573,
+      "returned_blob_sha": "1b187d09099409dd22aa73baa82686aeccaf057b",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/H/Ncec770af7b/artifacts/2955f11cd800/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1081,
+      "returned_blob_sha": "874611d7d3655c33dbc753bb4a3d13ce1936fe44",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/H/Nfcadcb0fdc/artifacts/bac9d9d684f2/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 794,
+      "returned_blob_sha": "6fc8b4d941f2b7d46062e35e12ba3606e2bb848c",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/I03/metadata.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 948,
+      "returned_blob_sha": "62319ae6d7a0dedcd4542e8e2f1c13601a1a958d",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/I03/reading_note.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 302,
+      "returned_blob_sha": "a0daabc4f21743a2e68eae12b25b2a2628aa3dbb",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/I03/README.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 418,
+      "returned_blob_sha": "0f157ce62a8d0a2c22c10b9427b42b535d8cc68e",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/I14/artifacts/9ee802ae2bd0/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1389,
+      "returned_blob_sha": "88e8ec5ac33d47205879fa0f6958da7c3f9145d1",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/N00475a7280/artifacts/52e8bac274f5/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 371,
+      "returned_blob_sha": "4166e653d4937a25422dc91a26646de268fec7d0",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/N194983acec/artifacts/55f85022aab0/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 370,
+      "returned_blob_sha": "97da04c46eb57cba8fdd216db94a6dd969312bff",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/N1e85cdf87a/artifacts/1dac94d78c63/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 568,
+      "returned_blob_sha": "6e1cfd0f4a1915178dda28cfc921b21506a62cee",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/N2941ef20c4/artifacts/f41c1ad3eb34/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 471,
+      "returned_blob_sha": "ef02ca261818e865201768dcc105fa95b5a847aa",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/N2a95c580ee/artifacts/410a0bda1a1a/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 280,
+      "returned_blob_sha": "dc231f17f695c72069c33b9352bd145a77d5de5c",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/N9b1dd316c7/artifacts/2e04c3c15fea/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 78,
+      "returned_blob_sha": "43999388d7d18f6403b3d39c08bd8dc42bd74260",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/Nabaf548cd2/artifacts/c9340d51a31d/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 175,
+      "returned_blob_sha": "4a487b0673155419cf1ed8020fb437d05f0d8813",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/Neee3693a21/artifacts/acf0186bccbe/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 967,
+      "returned_blob_sha": "389ef954b8fc719ff1d4fdca01475af7f1c81f90",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/Nf5ce55e86a/artifacts/f833f68b1356/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1161,
+      "returned_blob_sha": "ddcc6f0614b985a59f696ac9f0a4099707ff15cc",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/I/Nfa85d8db32/artifacts/1913019a806e/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 470,
+      "returned_blob_sha": "ac31a6c8c5b9ca10742621fed61e8d65278271c1",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/index.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 168178,
+      "returned_blob_sha": "93e5154a1da7d34b860bff4258edca5fbdc3636a",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/index.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 272338,
+      "returned_blob_sha": "675e7d2cd295ab4f904f1f371ef8441d6b7d246d",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/K01/metadata.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 2252,
+      "returned_blob_sha": "3067e20b6a3d3cb15de918779ccdf80eddc5231c",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/K01/reading_note.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 329,
+      "returned_blob_sha": "be472fe4e5480dde5f04039373629be2a8fca6e4",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/K01/README.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1722,
+      "returned_blob_sha": "ae7078d2c8541f6689c63ca219e7896b86067243",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/N0bfdddd54f/artifacts/8d7d41df4da9/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 662,
+      "returned_blob_sha": "b51c3ad4f6a4ae44464d0b83533e5465e10af7e8",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/N39eca4fc6b/artifacts/8b6b21e7c3f4/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 378,
+      "returned_blob_sha": "7f1fc6ae44828b9323e91828c67bafd400b854e8",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/N47e3cac5c2/artifacts/62c6997424c9/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 374,
+      "returned_blob_sha": "573b95937c0ac679cc7e96243070a328bf349174",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/N4a323d5212/artifacts/609bead624c3/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1176,
+      "returned_blob_sha": "524bdb0c3ced556d484747f5ef6d15b708147031",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/N4e7406b8e8/artifacts/b7a786e164a6/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 273,
+      "returned_blob_sha": "660992ae1ed86944ae32b2bc3f562551ba16a192",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/N6820de5fe0/artifacts/c7b1d18b1af9/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 674,
+      "returned_blob_sha": "368d2006e9e3cf86148e7897e70be35a8b95b717",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/N7a6c477885/artifacts/45518b6706de/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 275,
+      "returned_blob_sha": "0fd7ce34f3b279016a6bbfb22e2bfa76e8b62579",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/N7fd9155413/artifacts/43420fa1c67c/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 660,
+      "returned_blob_sha": "0f87810d6e9c0a4b544e3c4f6c6d281a22164554",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/N80c05fe96e/artifacts/623df5d61e8a/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 591,
+      "returned_blob_sha": "8158eeb0c97006071e6995ff821db412c464fca9",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/Nab85168a63/artifacts/1c1cc730012c/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 472,
+      "returned_blob_sha": "721b1040189a09a44f08251476a339be15c9b43d",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/Naee6721bcd/artifacts/9b7006e3ad97/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 785,
+      "returned_blob_sha": "e068a9b13633c6aa3bd3e1a843f46d1ff3751606",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/Ncb5c244489/artifacts/1091a94ce436/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 379,
+      "returned_blob_sha": "e281fbae645ebdf19fbf3d5092c84a135daf2e2a",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/Ncf8cccde6d/artifacts/1dd56584ea0c/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 373,
+      "returned_blob_sha": "bcbf8a3ab2072d506b38028bebd1bf7329156914",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/Ndfdff87fd0/artifacts/5bee362072fa/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 494,
+      "returned_blob_sha": "49baca3275ce636fe030e5f17d11b9eb7ba98a77",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/Ne84f1c3263/artifacts/519b60a5725d/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 568,
+      "returned_blob_sha": "50820b6b9c53f61e8e31f7e383d0326091ba3d67",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/K/Nf7a912c6e6/artifacts/9fba1aed6602/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 470,
+      "returned_blob_sha": "a4bc7f7bd8766d7fc2572507b863f74f7d35f2d8",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/LOCAL_LIBRARY_SYNC_REPORT.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 3646,
+      "returned_blob_sha": "82305bb3b0c5d9f1e944ce7ba20e269c5dab26e3",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/acquisition_log.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 15932,
+      "returned_blob_sha": "8a7d22d7c8848f7fe5fafc5c0e327ce9bf29f2dd",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/acquisition_summary.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 213,
+      "returned_blob_sha": "64175e361498b96546c44ba27e99297efbf14074",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/current_counts.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 316,
+      "returned_blob_sha": "f4197886a4ab827dd2715003fd8445f497fb0646",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/inventory_summary.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 420,
+      "returned_blob_sha": "4a0fb88e65e1fe1008b837e76ee255cc2f9c788d",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/local_conversion_manifest.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 89563,
+      "returned_blob_sha": "90998435fcbe79d6519ceab6996d2a11bc79af94",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/local_inventory.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 74278,
+      "returned_blob_sha": "fdd18ce636a40fe9e0a51f3ecb8c320326a7dca8",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/priority_gaps.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 2586,
+      "returned_blob_sha": "04d1c94e1acaeadabeff8851bb68b824ce6af821",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/remote_blob_verification.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 102985,
+      "returned_blob_sha": "78d06d2127185dda12f39fa0feed2859bbe43097",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/remote_pdf_sample_verification.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 743,
+      "returned_blob_sha": "973ce7a2d1f3e40d4fedfaf17dc9da95c508c631",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/remote_text_read_verification.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 59047,
+      "returned_blob_sha": "bc4b58be552ae54c2c5112668755e26cca0d3dfb",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/theorem_proof_locator.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 384150,
+      "returned_blob_sha": "b38aafba08a9b2e24943848e455c4e572729d74c",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/local_sync_20261127/validation.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 1808,
+      "returned_blob_sha": "3252ecdd1c8dba829426bb5f71622acb1e95bc51",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/README.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 14794,
+      "returned_blob_sha": "649ab965261b321e8464494ee7b2a026499a51fb",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/remote_access_manifest.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 111049,
+      "returned_blob_sha": "d5678dc2d86b3068c36f5fbdca4132fc4bd7b5fe",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/REPORT.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 2457,
+      "returned_blob_sha": "a4f5a56ff38ef06d45195200effea52a3f74f624",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/summary.json",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 924,
+      "returned_blob_sha": "6c17020b5b14f27bce464629fd89ec5e01f141f3",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/LOCAL_LIBRARY_SYNC_REPORT.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 198,
+      "returned_blob_sha": "5df6749819e6880144c6db86fc5a399375aa8491",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/scripts/library_sync_access.py",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 19436,
+      "returned_blob_sha": "3dbae2dcb838990d23572c281097edfd3b67b684",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/scripts/library_sync_acquire.py",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 6457,
+      "returned_blob_sha": "5a0ec699422e52c3c35c5e7b1679af30cced70aa",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/scripts/library_sync_inventory.py",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 4793,
+      "returned_blob_sha": "2af57c91d3fd846a0bab05b78e495cd640854471",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/scripts/library_sync_report.py",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 10429,
+      "returned_blob_sha": "ddfa5765bc8328d53d39a2e2302a13682be33721",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/theoretical_studies/D01_D03_Peng_Fine_access_and_Sun_2012.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 3193,
+      "returned_blob_sha": "6c5388cc73a24d0cdf0fb17fa38a7f8cb1c5016e",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/theoretical_studies/D03_Peng_Fine_2009_local_original_proof_map.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 993,
+      "returned_blob_sha": "6b9c411494e529a1f26ff958f2852c1090046df8",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/theoretical_studies/local_sync_acceptance_20261127.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 524,
+      "returned_blob_sha": "5925eeb2af9463399a2a62d7e7401a8a6cf8dfa0",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/theoretical_studies/reading_queue.csv",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 56259,
+      "returned_blob_sha": "e4ba294fcf6aa92c0a12533146151d2013da31aa",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/A02/artifacts/fdbc47d6fb8e/fulltext.md",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 103225,
+      "returned_blob_sha": "33de395e2df62009e51ad3c89b58248d273b2e59",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/RCIFproof_paper1.tex",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 11742,
+      "returned_blob_sha": "7ee753f722b02a5e9ce8487b0117e0eb96f1b490",
+      "error": ""
+    },
+    {
+      "path": "literature/comprehensive_review_20261126/fulltext_library/A/A02/artifacts/f47b41f8034a/latex/Chapters/02_Proj1/02_theorems/Forest/Consistency/RSFproof_paper1.tex",
+      "verified_commit": "0ebee3a3a443acdf73d6eb7cc93e52d3bd77b7c1",
+      "success": true,
+      "returned_chars": 7643,
+      "returned_blob_sha": "0b18f19cd6222e0949ef5cc3aadfb4e24457872f",
+      "error": ""
+    }
+  ]
+}
