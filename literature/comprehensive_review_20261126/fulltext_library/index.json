@@ -7,17 +7,25 @@
     "doi": "10.1093/biostatistics/kxz026",
     "year": "2021",
     "original_url": "https://doi.org/10.1093/biostatistics/kxz026",
-    "local_fulltext": false,
+    "local_fulltext": true,
     "public_pdf": [],
     "public_markdown": [],
     "public_txt": [],
     "original_tex": [],
     "public_xml": [],
     "supplements": [],
-    "license_decisions": [],
+    "license_decisions": [
+      {
+        "sha256": "44cccba82cd6ff94d7bfb35cae1eee295cd5ebea091f20963569968af2c01c57",
+        "decision": "local_only",
+        "reason": "all_rights_reserved_printed_on_page_1",
+        "license_url": "",
+        "source_url": "https://doi.org/10.1093/biostatistics/kxz026"
+      }
+    ],
     "hash_duplicate_of": [],
     "readme": "A/A01/README.md",
-    "status": "not_acquired"
+    "status": "local_only"
   },
   {
     "paper_id": "A02",
@@ -29,13 +37,16 @@
     "original_url": "https://arxiv.org/abs/2411.08315",
     "local_fulltext": true,
     "public_pdf": [
-      "A/A02/artifacts/f47b41f8034a/original.pdf"
+      "A/A02/artifacts/f47b41f8034a/original.pdf",
+      "A/A02/artifacts/fdbc47d6fb8e/original.pdf"
     ],
     "public_markdown": [
-      "A/A02/artifacts/f47b41f8034a/fulltext.md"
+      "A/A02/artifacts/f47b41f8034a/fulltext.md",
+      "A/A02/artifacts/fdbc47d6fb8e/fulltext.md"
     ],
     "public_txt": [
-      "A/A02/artifacts/f47b41f8034a/fulltext.txt"
+      "A/A02/artifacts/f47b41f8034a/fulltext.txt",
+      "A/A02/artifacts/fdbc47d6fb8e/fulltext.txt"
     ],
     "original_tex": [
       "A/A02/artifacts/f47b41f8034a/latex/layout.tex",
@@ -93,6 +104,13 @@
         "license_url": "http://creativecommons.org/licenses/by/4.0/",
         "source_url": "https://arxiv.org/pdf/2411.08315",
         "provenance": "A/A02/artifacts/f47b41f8034a/provenance_and_license.json"
+      },
+      {
+        "sha256": "fdbc47d6fb8ed52aa8e948fe4aca85d8738c63f4b947b9ee4d1793ad218dfb62",
+        "decision": "public_allowed",
+        "reason": "cc_by_4_0_exact_arxiv_v1_content_user_supplied_pdfium_rendition",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_url": "https://arxiv.org/abs/2411.08315"
       }
     ],
     "hash_duplicate_of": [],
@@ -239,17 +257,32 @@
     "doi": "10.1080/01621459.2017.1330204",
     "year": "2018",
     "original_url": "https://doi.org/10.1080/01621459.2017.1330204",
-    "local_fulltext": false,
+    "local_fulltext": true,
     "public_pdf": [],
     "public_markdown": [],
     "public_txt": [],
     "original_tex": [],
     "public_xml": [],
     "supplements": [],
-    "license_decisions": [],
+    "license_decisions": [
+      {
+        "sha256": "4d51654686bc19968aa94bdd642721720f6c2eddf18692d82d4ec17fef903278",
+        "decision": "local_only",
+        "reason": "redistribution_license_not_confirmed",
+        "license_url": "",
+        "source_url": "https://doi.org/10.1080/01621459.2017.1330204"
+      },
+      {
+        "sha256": "ba9762da67ded931a1d5d105723fce88a810cea1b37fdfc38f6baa3ddeb3114b",
+        "decision": "local_only",
+        "reason": "redistribution_license_not_confirmed",
+        "license_url": "",
+        "source_url": "https://doi.org/10.1080/01621459.2017.1330204"
+      }
+    ],
     "hash_duplicate_of": [],
     "readme": "B/B01/README.md",
-    "status": "not_acquired"
+    "status": "local_only"
   },
   {
     "paper_id": "B02",
@@ -273,6 +306,13 @@
         "reason": "arxiv_nonexclusive_no_further_reuse_grant",
         "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
         "source_url": "https://arxiv.org/pdf/1604.03648"
+      },
+      {
+        "sha256": "33a24a9ca2c6c99d78cf0f492a5ef82dcb8ccb19ba1fdd5073d9863cebf2ee42",
+        "decision": "local_only",
+        "reason": "redistribution_license_not_confirmed",
+        "license_url": "",
+        "source_url": "https://doi.org/10.1002/sim.8102"
       }
     ],
     "hash_duplicate_of": [],
@@ -4293,6 +4333,34 @@
     ],
     "hash_duplicate_of": [],
     "readme": "B/N838715a6ca/README.md",
+    "status": "local_only"
+  },
+  {
+    "paper_id": "N83defe8bc4",
+    "category": "D",
+    "title": "Smoothed quantile regression analysis of competing risks",
+    "authors": "Sangbum Choi and Sangwook Kang and Xuelin Huang",
+    "doi": "10.1002/bimj.201700104",
+    "year": "2018",
+    "original_url": "https://doi.org/10.1002/bimj.201700104",
+    "local_fulltext": true,
+    "public_pdf": [],
+    "public_markdown": [],
+    "public_txt": [],
+    "original_tex": [],
+    "public_xml": [],
+    "supplements": [],
+    "license_decisions": [
+      {
+        "sha256": "16faf091d28e6ea217c50323c9934f80d1b592ef6eb9cd2593563c7660215bc8",
+        "decision": "local_only",
+        "reason": "redistribution_license_not_confirmed",
+        "license_url": "",
+        "source_url": "https://doi.org/10.1002/bimj.201700104"
+      }
+    ],
+    "hash_duplicate_of": [],
+    "readme": "D/N83defe8bc4/README.md",
     "status": "local_only"
   },
   {

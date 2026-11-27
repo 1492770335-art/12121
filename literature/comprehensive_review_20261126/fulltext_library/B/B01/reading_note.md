@@ -1,11 +1,35 @@
-# B01：版本与精读准备札记
+# B01：本地文件核对与精读定位
 
-题名：Quantile-Optimal Treatment Regimes。原文入口：https://doi.org/10.1080/01621459.2017.1330204。
+题名：Quantile-Optimal Treatment Regimes。作者：Lan Wang and Yu Zhou and Rui Song and Ben Sherwood。原文：https://doi.org/10.1080/01621459.2017.1330204。
 
-目录研究用途：边际分位数、argmax。这项用途来自检索目录，尚未据此认定原文定理适用于本项目。
+2026-11-27：用户提供文件已通过PDF签名、首页身份、页数与SHA256核对，已生成逐页Markdown/TXT。未完成逐式人工审校。
 
-本札记记录文件身份、实际扫描到的位置和后续精读问题，不复制受限正文，也不声称已完成证明有效性审核。
+版本文件：nihms915733.pdf；29页；SHA256 `4d51654686bc19968aa94bdd642721720f6c2eddf18692d82d4ec17fef903278`；local_only；redistribution_license_not_confirmed。
 
-正文尚未取得。当前只可核对书目与原文入口，不能填写原文定理、公式或页码。
+版本文件：10104503.pdf；34页；SHA256 `ba9762da67ded931a1d5d105723fce88a810cea1b37fdfc38f6baa3ddeb3114b`；local_only；redistribution_license_not_confirmed。
 
-后续精读检查：先确定统计目标、数据结构与版本，再分别记录识别条件、估计条件和决策边界条件。对每个拟引用的结论，应沿正文—附录—外部引理核对依赖；比较条件分位数、边际分位数、CIF反演和净分布目标时，不预设它们相同。公式以原始PDF及作者TeX为准。
+实际提取到的定位标签（PDF物理页码）：
+- nihms915733.pdf，第6页：Lemma 1。
+- nihms915733.pdf，第8页：condition。
+- nihms915733.pdf，第8页：Condition。
+- nihms915733.pdf，第8页：Lemma 2。
+- nihms915733.pdf，第9页：Theorem 1。
+- nihms915733.pdf，第10页：condition。
+- nihms915733.pdf，第11页：Theorem 2。
+- nihms915733.pdf，第15页：supplement。
+- nihms915733.pdf，第15页：Supplementary M。
+- nihms915733.pdf，第16页：Appendix。
+- nihms915733.pdf，第16页：Proof o。
+- nihms915733.pdf，第19页：Proof o。
+- 10104503.pdf，第9页：Lemma 1。
+- 10104503.pdf，第11页：condition。
+- 10104503.pdf，第11页：Condition。
+- 10104503.pdf，第12页：Lemma 2。
+- 10104503.pdf，第12页：theorem。
+- 10104503.pdf，第12页：Theorem 1。
+- 10104503.pdf，第16页：Theorem 2。
+- 10104503.pdf，第29页：Appendix。
+- 10104503.pdf，第29页：Proof o。
+- 10104503.pdf，第33页：Proof o。
+
+精读时分别核对统计目标、识别条件、估计条件、定理依赖与附录。上述标签来自实际文本扫描，不代表已完成证明审核；公式以原始PDF或作者TeX为准。

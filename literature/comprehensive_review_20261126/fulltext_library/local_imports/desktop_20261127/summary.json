@@ -1,0 +1,15 @@
+{
+  "files_converted": 7,
+  "distinct_papers": 6,
+  "physical_pdf_pages": 230,
+  "public_pdf": 1,
+  "public_markdown": 1,
+  "public_txt": 1,
+  "local_only_pdf": 6,
+  "newly_available_core_papers": [
+    "A01",
+    "B01"
+  ],
+  "new_library_entry": "N83defe8bc4",
+  "independent_supplements_added": 0
+}

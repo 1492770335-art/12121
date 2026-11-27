@@ -1,23 +1,32 @@
-# B02：版本与精读准备札记
+# B02：本地文件核对与精读定位
 
-题名：Robust regression for optimal individualized treatment rules。原文入口：https://doi.org/10.1002/sim.8102。
+题名：Robust regression for optimal individualized treatment rules。作者：W. Xiao and H. H. Zhang and W. Lu。原文：https://doi.org/10.1002/sim.8102。
 
-目录研究用途：pinball及条件/边际区别。这项用途来自检索目录，尚未据此认定原文定理适用于本项目。
+2026-11-27：用户提供文件已通过PDF签名、首页身份、页数与SHA256核对，已生成逐页Markdown/TXT。未完成逐式人工审校。
 
-本札记记录文件身份、实际扫描到的位置和后续精读问题，不复制受限正文，也不声称已完成证明有效性审核。
+版本文件：nihms-1001475.pdf；28页；SHA256 `33a24a9ca2c6c99d78cf0f492a5ef82dcb8ccb19ba1fdd5073d9863cebf2ee42`；local_only；redistribution_license_not_confirmed。
 
-在本地原始PDF中观察到以下定位（物理页码；不同SHA代表不同版本）：
-- PDF第3页；文件 `fcc8291b5f55`；标签：condition
-- PDF第10页；文件 `fcc8291b5f55`；标签：Theorem 1、condition
-- PDF第11页；文件 `fcc8291b5f55`；标签：proof o、Theorem 2、Theorem 3
-- PDF第12页；文件 `fcc8291b5f55`；标签：condition、Theorem 4、Theorem 5
-- PDF第13页；文件 `fcc8291b5f55`；标签：Theorem 6
-- PDF第14页；文件 `fcc8291b5f55`；标签：condition
-- PDF第19页；文件 `fcc8291b5f55`；标签：condition n
-- PDF第20页；文件 `fcc8291b5f55`；标签：Appendix A
-- PDF第21页；文件 `fcc8291b5f55`；标签：Lemma 1、Proof、Lemma 2
-- PDF第22页；文件 `fcc8291b5f55`；标签：Proof o、Proof、Assumption
-- PDF第23页；文件 `fcc8291b5f55`；标签：Proof o、Proof
-- PDF第24页；文件 `fcc8291b5f55`；标签：Proof o、Proof、Appendix B
+实际提取到的定位标签（PDF物理页码）：
+- nihms-1001475.pdf，第1页：APPENDIX。
+- nihms-1001475.pdf，第1页：Supplementary m。
+- nihms-1001475.pdf，第3页：condition。
+- nihms-1001475.pdf，第4页：assumption。
+- nihms-1001475.pdf，第5页：condition。
+- nihms-1001475.pdf，第5页：Appendix E。
+- nihms-1001475.pdf，第6页：condition。
+- nihms-1001475.pdf，第7页：Theorem 1。
+- nihms-1001475.pdf，第7页：condition。
+- nihms-1001475.pdf，第8页：Theorem 2。
+- nihms-1001475.pdf，第8页：Appendix B。
+- nihms-1001475.pdf，第8页：Theorem 3。
+- nihms-1001475.pdf，第9页：Theorem 4。
+- nihms-1001475.pdf，第9页：Theorem 5。
+- nihms-1001475.pdf，第10页：condition。
+- nihms-1001475.pdf，第10页：Theorem 6。
+- nihms-1001475.pdf，第13页：assumption d。
+- nihms-1001475.pdf，第13页：Supplementary A。
+- nihms-1001475.pdf，第14页：assumption h。
+- nihms-1001475.pdf，第15页：condition。
+- nihms-1001475.pdf，第16页：Supplementary M。
 
-后续精读检查：先确定统计目标、数据结构与版本，再分别记录识别条件、估计条件和决策边界条件。对每个拟引用的结论，应沿正文—附录—外部引理核对依赖；比较条件分位数、边际分位数、CIF反演和净分布目标时，不预设它们相同。公式以原始PDF及作者TeX为准。
+精读时分别核对统计目标、识别条件、估计条件、定理依赖与附录。上述标签来自实际文本扫描，不代表已完成证明审核；公式以原始PDF或作者TeX为准。

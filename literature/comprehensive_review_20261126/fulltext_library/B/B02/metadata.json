@@ -20,6 +20,13 @@
       "reason": "arxiv_nonexclusive_no_further_reuse_grant",
       "license_url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
       "source_url": "https://arxiv.org/pdf/1604.03648"
+    },
+    {
+      "sha256": "33a24a9ca2c6c99d78cf0f492a5ef82dcb8ccb19ba1fdd5073d9863cebf2ee42",
+      "decision": "local_only",
+      "reason": "redistribution_license_not_confirmed",
+      "license_url": "",
+      "source_url": "https://doi.org/10.1002/sim.8102"
     }
   ],
   "hash_duplicate_of": [],

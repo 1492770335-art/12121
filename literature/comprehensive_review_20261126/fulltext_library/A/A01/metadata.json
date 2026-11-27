@@ -6,15 +6,23 @@
   "doi": "10.1093/biostatistics/kxz026",
   "year": "2021",
   "original_url": "https://doi.org/10.1093/biostatistics/kxz026",
-  "local_fulltext": false,
+  "local_fulltext": true,
   "public_pdf": [],
   "public_markdown": [],
   "public_txt": [],
   "original_tex": [],
   "public_xml": [],
   "supplements": [],
-  "license_decisions": [],
+  "license_decisions": [
+    {
+      "sha256": "44cccba82cd6ff94d7bfb35cae1eee295cd5ebea091f20963569968af2c01c57",
+      "decision": "local_only",
+      "reason": "all_rights_reserved_printed_on_page_1",
+      "license_url": "",
+      "source_url": "https://doi.org/10.1093/biostatistics/kxz026"
+    }
+  ],
   "hash_duplicate_of": [],
   "readme": "A/A01/README.md",
-  "status": "not_acquired"
+  "status": "local_only"
 }

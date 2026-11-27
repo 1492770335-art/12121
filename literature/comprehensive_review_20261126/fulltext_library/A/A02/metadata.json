@@ -8,13 +8,16 @@
   "original_url": "https://arxiv.org/abs/2411.08315",
   "local_fulltext": true,
   "public_pdf": [
-    "A/A02/artifacts/f47b41f8034a/original.pdf"
+    "A/A02/artifacts/f47b41f8034a/original.pdf",
+    "A/A02/artifacts/fdbc47d6fb8e/original.pdf"
   ],
   "public_markdown": [
-    "A/A02/artifacts/f47b41f8034a/fulltext.md"
+    "A/A02/artifacts/f47b41f8034a/fulltext.md",
+    "A/A02/artifacts/fdbc47d6fb8e/fulltext.md"
   ],
   "public_txt": [
-    "A/A02/artifacts/f47b41f8034a/fulltext.txt"
+    "A/A02/artifacts/f47b41f8034a/fulltext.txt",
+    "A/A02/artifacts/fdbc47d6fb8e/fulltext.txt"
   ],
   "original_tex": [
     "A/A02/artifacts/f47b41f8034a/latex/layout.tex",
@@ -72,6 +75,13 @@
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
       "source_url": "https://arxiv.org/pdf/2411.08315",
       "provenance": "A/A02/artifacts/f47b41f8034a/provenance_and_license.json"
+    },
+    {
+      "sha256": "fdbc47d6fb8ed52aa8e948fe4aca85d8738c63f4b947b9ee4d1793ad218dfb62",
+      "decision": "public_allowed",
+      "reason": "cc_by_4_0_exact_arxiv_v1_content_user_supplied_pdfium_rendition",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://arxiv.org/abs/2411.08315"
     }
   ],
   "hash_duplicate_of": [],

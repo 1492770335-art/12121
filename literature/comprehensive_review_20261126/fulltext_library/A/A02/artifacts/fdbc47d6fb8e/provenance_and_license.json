@@ -1,0 +1,24 @@
+{
+  "paper_id": "A02",
+  "filename": "2411.08315.pdf",
+  "sha256": "fdbc47d6fb8ed52aa8e948fe4aca85d8738c63f4b947b9ee4d1793ad218dfb62",
+  "bytes": 3400554,
+  "pdf_pages": 47,
+  "source": "user_supplied_local_file",
+  "original_url": "https://arxiv.org/abs/2411.08315",
+  "version_stamp": "arXiv:2411.08315v1  [stat.ME]  13 Nov 2024",
+  "decision": "public_allowed",
+  "reason": "cc_by_4_0_exact_arxiv_v1_content_user_supplied_pdfium_rendition",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://arxiv.org/abs/2411.08315v1",
+  "checked_at": "2026-11-27T12:53:37.892097+08:00",
+  "public_paths": {
+    "pdf": "A/A02/artifacts/fdbc47d6fb8e/original.pdf",
+    "markdown": "A/A02/artifacts/fdbc47d6fb8e/fulltext.md",
+    "txt": "A/A02/artifacts/fdbc47d6fb8e/fulltext.txt",
+    "page_map": "A/A02/artifacts/fdbc47d6fb8e/page_map.json"
+  },
+  "formula_flagged_pages": 45,
+  "conversion": "Unedited text-layer extraction; no mathematical reconstruction; original physical pages preserved.",
+  "version_note": "User-supplied PDF metadata identifies PDFium; hash differs from canonical arXiv PDF. First-page stamp identifies 2411.08315v1, authors/title/page count match. Preserve both renditions and do not claim byte identity."
+}

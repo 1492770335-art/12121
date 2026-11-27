@@ -1,11 +1,14 @@
-# A01：版本与精读准备札记
+# A01：本地文件核对与精读定位
 
-题名：On restricted optimal treatment regime estimation for competing risks data。原文入口：https://doi.org/10.1093/biostatistics/kxz026。
+题名：On restricted optimal treatment regime estimation for competing risks data。作者：Jie Zhou and Jiajia Zhang and Wenbin Lu and Xiaoming Li。原文：https://doi.org/10.1093/biostatistics/kxz026。
 
-目录研究用途：固定时点CIF约束。这项用途来自检索目录，尚未据此认定原文定理适用于本项目。
+2026-11-27：用户提供文件已通过PDF签名、首页身份、页数与SHA256核对，已生成逐页Markdown/TXT。未完成逐式人工审校。
 
-本札记记录文件身份、实际扫描到的位置和后续精读问题，不复制受限正文，也不声称已完成证明有效性审核。
+版本文件：kxz026.pdf；16页；SHA256 `44cccba82cd6ff94d7bfb35cae1eee295cd5ebea091f20963569968af2c01c57`；local_only；all_rights_reserved_printed_on_page_1。
 
-正文尚未取得。当前只可核对书目与原文入口，不能填写原文定理、公式或页码。
+实际提取到的定位标签（PDF物理页码）：
+- kxz026.pdf，第5页：assumption。
+- kxz026.pdf，第14页：SUPPLEMENTARY。
+- kxz026.pdf，第14页：Supplementary m。
 
-后续精读检查：先确定统计目标、数据结构与版本，再分别记录识别条件、估计条件和决策边界条件。对每个拟引用的结论，应沿正文—附录—外部引理核对依赖；比较条件分位数、边际分位数、CIF反演和净分布目标时，不预设它们相同。公式以原始PDF及作者TeX为准。
+精读时分别核对统计目标、识别条件、估计条件、定理依赖与附录。上述标签来自实际文本扫描，不代表已完成证明审核；公式以原始PDF或作者TeX为准。
