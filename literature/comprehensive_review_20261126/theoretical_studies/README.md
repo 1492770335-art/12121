@@ -36,3 +36,10 @@
 - [Laber 2014](Laber_2014_Set_valued_competing_outcomes.md)：找到arXiv v2，静态双阈值集合、动态兼容集合与枚举，独立边界推论；正式版、PDF图像及多治疗扩展待核。
 - [PATH 2020](PATH_2020_HTE_and_policy_disagreement.md)：异质性共识及推荐比例/改判率/价值差的独立分解；E&E和观察队列相关理论待补。
 本批新增4份研究笔记，更新2条原阅读队列记录。Laber/PATH未在原221入口中找到同题名，保留独立索引而不改变原文献总数。Peng–Fine与Lee–Han搜索仍未获得完整原文；另定位Smoothed quantile regression analysis of competing risks及A kernel nonparametric quantile estimator for right-censored competing risks data作为下一轮原始研究线索，尚未精读。
+
+
+## 第六阶段：直接分位数估计、截断端点及LK16-02临床证据
+- [Choi–Kang–Huang 2018](Choi_2018_induced_smoothing_CR_quantiles.md)：索引文本核对式(3)(5)，独立凸目标、Jacobian及oracle局部展开。完整正文/附录访问失败，不能标为全文精读。
+- [Fan–Ding–Zhang 2020](Fan_2020_kernel_CR_quantile_and_endpoint.md)：索引中Theorem2.1文字、部分条件、模拟补充；独立AJ影响函数与端点三情形推导。精确Bahadur余项及原始证明未取得。
+- [Bejanyan 2021 LK16-02](K01_Bejanyan_2021_LK16_02_clinical_evidence.md)：官方研究身份、原论文索引及摘要分层HR与36月概率；全文图表和数据筛选未重新核验。
+Peng–Fine原文仍缺。不得把检索片段或独立推导当作作者全部原证明。
