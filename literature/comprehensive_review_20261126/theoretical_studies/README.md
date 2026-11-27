@@ -12,3 +12,12 @@
 - [Xiao 2019 B02](B02_Xiao_2019_Conditional_quantile_and_robust_loss.md)：用户作者稿，六个理论结论、pinball风险恒等式及条件/边际分位数反例；原附录缺失。
 - [Peng–Fine 2007/2009访问缺口与Sun 2012](D01_D03_Peng_Fine_access_and_Sun_2012.md)：两篇原文证明未取得；Sun正式原文主要估计方程、条件和渐近证明主干已核读，截图失败。
 阅读队列保持原获取状态字段不变，另更新精读状态。Sun为本批外部新增阅读，不人为增补为原221个入口。下批优先补Wang/Xiao附录和Peng–Fine原文；并推进Jie Zhou 2021、Wang–Fu–Zeng 2018、Qian–Murphy及Gneiting等。所有笔记未修改硕士论文或实验。
+
+## 第三阶段：课题文献充分性目标与约束/评价/分位数估计
+- [总目标及八项验收](00_RESEARCH_SUFFICIENCY_GOAL.md)
+- [Wang–Fu–Zeng 2018](C01_Wang_Fu_Zeng_2018_Benefit_risk.md)：总体约束解析解、Appendix A、互补松弛及比值原子反例。
+- [Jie Zhou 2021](A01_Jie_Zhou_2021_Restricted_CR.md)：原文HTML可读，约束目标、估计/模拟、作者明确未解决的渐近理论；PDF公式图及独立附录待取得。
+- [Gneiting 2011 与 Fissler–Ziegel 2016](I01_I06_Gneiting_Fissler_Ziegel_Scoring.md)：分位数评分、联合评分、Osband原则及勘误；独立推导评分与策略评价区别。
+- [Luedtke–Chambaz 2020](E02_Luedtke_Chambaz_2020_quantile_regret.md)：补读分位数regret Cor12、Lemma11及Appendix B。
+- [Peng 2021](D05_Peng_2021_Survival_quantile_review.md)：正式PDF已取得，式13/14及估计器/可达域分析。Peng–Fine 2007/2009、Lee–Han2016原证明仍未取得。
+本轮新增6份文件（含总目标），更新6条阅读状态；所有原获取状态字段保留。文献充分性八关均未最终验收。理论和实验未改动。
