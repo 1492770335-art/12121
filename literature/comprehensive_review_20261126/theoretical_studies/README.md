@@ -28,3 +28,11 @@
 - [Gao–Wang–Zeng 2024](Gao_2024_Fused_ITR_agreement_and_value.md)：正文及附录B.4/B.5主证明，标签一致率、价值损失、分类校准及单侧/多结局界的区别。截图失败，外部熵及其余证明待核。
 - 访问复查：Peng–Fine 2007出版社购买页，2009 Taylor & Francis 403；Laber 2014 PMC验证页。未取得全文的条目不标完成。
 
+
+
+## 第五阶段：删失分位数评价、非唯一最优规则及异质性
+- [Li–Peng 2017](I03_Li_Peng_2017_Censored_quantile_prediction.md)：正文三个定理、IPCW评分、预测R¹及嵌套模型二阶展开；独立附录链接失败。
+- [Luedtke–van der Laan 2016](E03_Luedtke_vdLaan_2016_Nonunique_optimal_rules.md)：正式电子重印，Theorem1/2/8关键数学机制、独立margin证明及鞅推断分解；附录未完全核读。
+- [Laber 2014](Laber_2014_Set_valued_competing_outcomes.md)：找到arXiv v2，静态双阈值集合、动态兼容集合与枚举，独立边界推论；正式版、PDF图像及多治疗扩展待核。
+- [PATH 2020](PATH_2020_HTE_and_policy_disagreement.md)：异质性共识及推荐比例/改判率/价值差的独立分解；E&E和观察队列相关理论待补。
+本批新增4份研究笔记，更新2条原阅读队列记录。Laber/PATH未在原221入口中找到同题名，保留独立索引而不改变原文献总数。Peng–Fine与Lee–Han搜索仍未获得完整原文；另定位Smoothed quantile regression analysis of competing risks及A kernel nonparametric quantile estimator for right-censored competing risks data作为下一轮原始研究线索，尚未精读。
