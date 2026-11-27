@@ -5,3 +5,10 @@
 - [Li et al. 2023](D_Nbbecc5ccd4_Li_2023_weighted_quantile.md)：分位数估计与部分附录核读，公式及其余证明待复核。
 - [阅读队列](reading_queue.csv)：221入口状态，不等于725篇逐篇筛选完成。金融、能源、预测等标题明显偏离的条目保留待复审，不机械精读无关资料。
 原文可读≠已读；摘要筛选≠精读；源码读取≠全部数学核验；独立推导≠作者定理。完整精读计数仍为0。先补齐核心原文（A03正式正文和补充、A01、B01、C01、D01/D03/D04/D05、E01/E02、I01等），再推进队列；本目录为阶段性笔记，不是最终理论选型。
+
+## 第二阶段：Zhou 2023主线收尾及顺序精读
+- [Zhou 2023主线](zhou2023_mainline/README.md)：正式正文/补充均已核读；外部条件矩阵见11，严格验收残余限制保留。根据用户允许，开始其他论文，不提前构建本课题理论。
+- [Wang 2018 B01](B01_Wang_2018_Quantile_Optimal_Treatment_Regimes.md)：用户作者稿与PMC正文，静态主证明；独立补充缺失。
+- [Xiao 2019 B02](B02_Xiao_2019_Conditional_quantile_and_robust_loss.md)：用户作者稿，六个理论结论、pinball风险恒等式及条件/边际分位数反例；原附录缺失。
+- [Peng–Fine 2007/2009访问缺口与Sun 2012](D01_D03_Peng_Fine_access_and_Sun_2012.md)：两篇原文证明未取得；Sun正式原文主要估计方程、条件和渐近证明主干已核读，截图失败。
+阅读队列保持原获取状态字段不变，另更新精读状态。Sun为本批外部新增阅读，不人为增补为原221个入口。下批优先补Wang/Xiao附录和Peng–Fine原文；并推进Jie Zhou 2021、Wang–Fu–Zeng 2018、Qian–Murphy及Gneiting等。所有笔记未修改硕士论文或实验。
