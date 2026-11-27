@@ -1,0 +1,11 @@
+paper_id,sha256,pdf_page,printed_page,observed_label,formula_check_required
+Ncb290ba0be,64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4,2,,assumption,True
+Ncb290ba0be,64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4,3,,assumption t,True
+Ncb290ba0be,64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4,3,,Assumption 3.1,True
+Ncb290ba0be,64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4,3,,Theorem 1,True
+Ncb290ba0be,64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4,3,,Proof,True
+Ncb290ba0be,64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4,4,,assumption,True
+Ncb290ba0be,64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4,5,,Theorem 2,True
+Ncb290ba0be,64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4,5,,Proof,True
+Ncb290ba0be,64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4,8,,Proof o,True
+Ncb290ba0be,64d20090de479ac733dc6b351404c71af4a4cfe7833a3bfbd2b6f52df1339cc4,9,,Proof o,True

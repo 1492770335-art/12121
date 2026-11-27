@@ -1,0 +1,6 @@
+paper_id,sha256,pdf_page,printed_page,observed_label,formula_check_required
+N1e85cdf87a,1dac94d78c6341713cc22551d301e2f354df6908cbf46e699660cdbd33b862f1,1,,condition,False
+N1e85cdf87a,1dac94d78c6341713cc22551d301e2f354df6908cbf46e699660cdbd33b862f1,6,,condition,True
+N1e85cdf87a,1dac94d78c6341713cc22551d301e2f354df6908cbf46e699660cdbd33b862f1,9,,assumption,True
+N1e85cdf87a,1dac94d78c6341713cc22551d301e2f354df6908cbf46e699660cdbd33b862f1,15,,condition,True
+N1e85cdf87a,1dac94d78c6341713cc22551d301e2f354df6908cbf46e699660cdbd33b862f1,17,,condition,False

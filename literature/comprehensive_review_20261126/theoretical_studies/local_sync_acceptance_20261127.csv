@@ -1,0 +1,9 @@
+gate,topic,status,actual_access_progress
+1,统计目标,open_partial_not_accepted,B01/B02早期附录与版本已定位；最终补充缺口保留
+2,竞争风险分位数,open_partial_not_accepted,D03原始附录本地可读；D01/D02/D04仍缺
+3,决策理论,open_partial_not_accepted,A03正式独立补充已在本地；外部定理核验仍开放
+4,约束与多目标,open_partial_not_accepted,C01嵌入附录及C03早期附录可定位；最终版本对照未完成
+5,评价理论,open_partial_not_accepted,I03完整HTML可读，独立补充仍缺
+6,异质性,open_partial_not_accepted,本轮没有新增充分的因果异质性原始证据
+7,临床与数据,open_partial_not_accepted,K01完整HTML可读；PDF图表、数据字典及筛选仍需复核
+8,创新性与综合,open_partial_not_accepted,未完成全目录相关性复审及跨论文证据闭环

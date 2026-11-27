@@ -1,0 +1,5 @@
+paper_id,sha256,pdf_page,printed_page,observed_label,formula_check_required
+N2941ef20c4,f41c1ad3eb34d2079e9a989ff621dd0f476c76ff3a2b363379d30e31edc7f0df,1,,condition,False
+N2941ef20c4,f41c1ad3eb34d2079e9a989ff621dd0f476c76ff3a2b363379d30e31edc7f0df,5,,condition,False
+N2941ef20c4,f41c1ad3eb34d2079e9a989ff621dd0f476c76ff3a2b363379d30e31edc7f0df,6,,condition,True
+N2941ef20c4,f41c1ad3eb34d2079e9a989ff621dd0f476c76ff3a2b363379d30e31edc7f0df,22,,Appendix A,False

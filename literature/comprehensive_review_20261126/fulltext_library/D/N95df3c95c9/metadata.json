@@ -1,0 +1,31 @@
+{
+  "paper_id": "N95df3c95c9",
+  "category": "D",
+  "title": "A kernel nonparametric quantile estimator for right-censored competing risks data",
+  "authors": "Caiyun Fan and Gang Ding and Feipeng Zhang",
+  "doi": "10.1080/02664763.2019.1631267",
+  "year": "2020",
+  "original_url": "https://doi.org/10.1080/02664763.2019.1631267",
+  "local_fulltext": true,
+  "public_pdf": [],
+  "public_markdown": [],
+  "public_txt": [],
+  "original_tex": [],
+  "public_xml": [],
+  "supplements": [],
+  "license_decisions": [
+    {
+      "sha256": "bf04e2081ab1a4536bd4abc57c532104499e283a3d393a566cc24567021e6abf",
+      "decision": "local_only",
+      "reason": "official_full_article_html; no redistribution_grant_confirmed; formula_images_not_transcribed",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9038055/",
+      "license_url": ""
+    }
+  ],
+  "hash_duplicate_of": [],
+  "readme": "D/N95df3c95c9/README.md",
+  "status": "local_only",
+  "local_formats": [
+    "html"
+  ]
+}

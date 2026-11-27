@@ -481,11 +481,21 @@
         "reason": "license_not_confirmed",
         "license_url": "",
         "source_url": "https://www.columbia.edu/~yw2016/benefitriskJASA.pdf"
+      },
+      {
+        "sha256": "75352aab244e7affe8200fb9bec96c05f53542f5862003535b037cc769cc4a0f",
+        "decision": "local_only",
+        "reason": "official_full_article_html; no redistribution_grant_confirmed; formula_images_not_transcribed",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6051551/",
+        "license_url": ""
       }
     ],
     "hash_duplicate_of": [],
     "readme": "C/C01/README.md",
-    "status": "local_only"
+    "status": "local_only",
+    "local_formats": [
+      "html"
+    ]
   },
   {
     "paper_id": "C02",
@@ -680,17 +690,28 @@
     "doi": "10.1146/annurev-statistics-042720-020233",
     "year": "2021",
     "original_url": "https://doi.org/10.1146/annurev-statistics-042720-020233",
-    "local_fulltext": false,
+    "local_fulltext": true,
     "public_pdf": [],
     "public_markdown": [],
     "public_txt": [],
     "original_tex": [],
     "public_xml": [],
     "supplements": [],
-    "license_decisions": [],
+    "license_decisions": [
+      {
+        "sha256": "2d16e10ed4bb0021fd363394d4ee8a2cfcd3d9638c1fdc2f87f5e2e3d674988d",
+        "decision": "local_only",
+        "reason": "official_full_article_html; no redistribution_grant_confirmed; formula_images_not_transcribed",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7978418/",
+        "license_url": ""
+      }
+    ],
     "hash_duplicate_of": [],
     "readme": "D/D05/README.md",
-    "status": "not_acquired"
+    "status": "local_only",
+    "local_formats": [
+      "html"
+    ]
   },
   {
     "paper_id": "D16",
@@ -1341,17 +1362,28 @@
     "doi": "10.1111/biom.12627",
     "year": "2017",
     "original_url": "https://doi.org/10.1111/biom.12627",
-    "local_fulltext": false,
+    "local_fulltext": true,
     "public_pdf": [],
     "public_markdown": [],
     "public_txt": [],
     "original_tex": [],
     "public_xml": [],
     "supplements": [],
-    "license_decisions": [],
+    "license_decisions": [
+      {
+        "sha256": "75fa68f3797bb511723739cb64f03d7408c4aa4b6ca8a097be8dc2f714065a63",
+        "decision": "local_only",
+        "reason": "official_full_article_html; no redistribution_grant_confirmed; formula_images_not_transcribed",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5462897/",
+        "license_url": ""
+      }
+    ],
     "hash_duplicate_of": [],
     "readme": "I/I03/README.md",
-    "status": "not_acquired"
+    "status": "local_only",
+    "local_formats": [
+      "html"
+    ]
   },
   {
     "paper_id": "I05",
@@ -1646,17 +1678,28 @@
     "doi": "10.1016/j.bbmt.2020.09.026",
     "year": "2021",
     "original_url": "https://doi.org/10.1016/j.bbmt.2020.09.026",
-    "local_fulltext": false,
+    "local_fulltext": true,
     "public_pdf": [],
     "public_markdown": [],
     "public_txt": [],
     "original_tex": [],
     "public_xml": [],
     "supplements": [],
-    "license_decisions": [],
+    "license_decisions": [
+      {
+        "sha256": "82fd982e6b4463df8f67ff28b6a2878b599fec72a5761c78796de24386b92e63",
+        "decision": "local_only",
+        "reason": "official_full_article_html; no redistribution_grant_confirmed; formula_images_not_transcribed",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8015679/",
+        "license_url": ""
+      }
+    ],
     "hash_duplicate_of": [],
     "readme": "K/K01/README.md",
-    "status": "not_acquired"
+    "status": "local_only",
+    "local_formats": [
+      "html"
+    ]
   },
   {
     "paper_id": "N00475a7280",
@@ -4572,6 +4615,37 @@
     "hash_duplicate_of": [],
     "readme": "G/N95905e1815/README.md",
     "status": "local_only"
+  },
+  {
+    "paper_id": "N95df3c95c9",
+    "category": "D",
+    "title": "A kernel nonparametric quantile estimator for right-censored competing risks data",
+    "authors": "Caiyun Fan and Gang Ding and Feipeng Zhang",
+    "doi": "10.1080/02664763.2019.1631267",
+    "year": "2020",
+    "original_url": "https://doi.org/10.1080/02664763.2019.1631267",
+    "local_fulltext": true,
+    "public_pdf": [],
+    "public_markdown": [],
+    "public_txt": [],
+    "original_tex": [],
+    "public_xml": [],
+    "supplements": [],
+    "license_decisions": [
+      {
+        "sha256": "bf04e2081ab1a4536bd4abc57c532104499e283a3d393a566cc24567021e6abf",
+        "decision": "local_only",
+        "reason": "official_full_article_html; no redistribution_grant_confirmed; formula_images_not_transcribed",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9038055/",
+        "license_url": ""
+      }
+    ],
+    "hash_duplicate_of": [],
+    "readme": "D/N95df3c95c9/README.md",
+    "status": "local_only",
+    "local_formats": [
+      "html"
+    ]
   },
   {
     "paper_id": "N96664c0d36",

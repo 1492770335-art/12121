@@ -6,15 +6,26 @@
   "doi": "10.1016/j.bbmt.2020.09.026",
   "year": "2021",
   "original_url": "https://doi.org/10.1016/j.bbmt.2020.09.026",
-  "local_fulltext": false,
+  "local_fulltext": true,
   "public_pdf": [],
   "public_markdown": [],
   "public_txt": [],
   "original_tex": [],
   "public_xml": [],
   "supplements": [],
-  "license_decisions": [],
+  "license_decisions": [
+    {
+      "sha256": "82fd982e6b4463df8f67ff28b6a2878b599fec72a5761c78796de24386b92e63",
+      "decision": "local_only",
+      "reason": "official_full_article_html; no redistribution_grant_confirmed; formula_images_not_transcribed",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8015679/",
+      "license_url": ""
+    }
+  ],
   "hash_duplicate_of": [],
   "readme": "K/K01/README.md",
-  "status": "not_acquired"
+  "status": "local_only",
+  "local_formats": [
+    "html"
+  ]
 }

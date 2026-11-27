@@ -1,0 +1,4 @@
+paper_id,sha256,pdf_page,printed_page,observed_label,formula_check_required
+Ncf8cccde6d,1dd56584ea0cb033d493237ee1a881788a0440cf1925956837feef35682ca700,1,1,condition,True
+Ncf8cccde6d,1dd56584ea0cb033d493237ee1a881788a0440cf1925956837feef35682ca700,4,4,Condition,True
+Ncf8cccde6d,1dd56584ea0cb033d493237ee1a881788a0440cf1925956837feef35682ca700,7,7,Condition,False

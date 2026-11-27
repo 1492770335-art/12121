@@ -1,0 +1,20 @@
+[
+  {
+    "path": "literature/comprehensive_review_20261126/fulltext_library/A/A02/artifacts/f47b41f8034a/original.pdf",
+    "transport": "raw_github_http_original_pdf_sample",
+    "success": true,
+    "sha256": "f47b41f8034adf63c6185537a20d224214d2d973deb806a0d5e9d529b4cf73f6",
+    "bytes": 3440801,
+    "pdf_pages": 47,
+    "first_page_text_chars": 1857
+  },
+  {
+    "path": "literature/comprehensive_review_20261126/fulltext_library/A/A02/artifacts/fdbc47d6fb8e/original.pdf",
+    "transport": "raw_github_http_original_pdf_sample",
+    "success": true,
+    "sha256": "fdbc47d6fb8ed52aa8e948fe4aca85d8738c63f4b947b9ee4d1793ad218dfb62",
+    "bytes": 3400554,
+    "pdf_pages": 47,
+    "first_page_text_chars": 1857
+  }
+]

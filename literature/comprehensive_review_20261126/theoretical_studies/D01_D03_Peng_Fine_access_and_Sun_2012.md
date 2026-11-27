@@ -1,3 +1,5 @@
+> 2026-11-27 更正：Peng–Fine 2009的15页原始期刊PDF和嵌入式渐近证明已在本地找到；此前“原证明未取得”的描述已过时。其PDF12–14/印刷1450–1452含主要证明。见[本地原始证明定位与复核](D03_Peng_Fine_2009_local_original_proof_map.md)。公开全文仍受限；2007原文仍未取得。以下为先前访问记录。
+
 # Peng–Fine (2007, 2009) 原文获取状态及 Sun–Wang–Gilbert (2012) 理论精读
 Peng & Fine 2007 Biometrika 94:735–744 https://doi.org/10.1093/biomet/asm059：出版社仅返回摘要/购买页。Peng & Fine 2009 JASA 104:1440–1453 https://doi.org/10.1198/jasa.2009.tm08228：PDF请求403。Peng 2021综述 https://pmc.ncbi.nlm.nih.gov/articles/PMC7978418/ ：PMC打开验证页，Annual Reviews仅摘要及参考文献。不能把以上标为全文精读。检索发现有正式全文的直接扩展 Sun, Wang & Gilbert (2012), Statistica Sinica 22:703–728, DOI 10.5705/ss.2010.093，[原文PDF](https://www3.stat.sinica.edu.tw/statistica/oldpdf/A22n212.pdf)。本轮实际核读§2的方程、§3定理、Appendix C1–C5及主要渐近展开，PDF截图请求失败；公式符号须再视觉核查。该文对Peng–Fine方程的重述是间接证据，不替代2009原证明。
 

@@ -6,15 +6,26 @@
   "doi": "10.1111/biom.12627",
   "year": "2017",
   "original_url": "https://doi.org/10.1111/biom.12627",
-  "local_fulltext": false,
+  "local_fulltext": true,
   "public_pdf": [],
   "public_markdown": [],
   "public_txt": [],
   "original_tex": [],
   "public_xml": [],
   "supplements": [],
-  "license_decisions": [],
+  "license_decisions": [
+    {
+      "sha256": "75fa68f3797bb511723739cb64f03d7408c4aa4b6ca8a097be8dc2f714065a63",
+      "decision": "local_only",
+      "reason": "official_full_article_html; no redistribution_grant_confirmed; formula_images_not_transcribed",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5462897/",
+      "license_url": ""
+    }
+  ],
   "hash_duplicate_of": [],
   "readme": "I/I03/README.md",
-  "status": "not_acquired"
+  "status": "local_only",
+  "local_formats": [
+    "html"
+  ]
 }

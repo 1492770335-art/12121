@@ -1,0 +1,16 @@
+paper_id,doi,main_status,local_pdf_versions,local_html_versions,independent_supplement_versions,unresolved
+D01,10.1093/biomet/asm059,not_acquired,0,0,0,Original 2007 main/proof still absent; publisher403; author page404; Scholar verification.
+D02,10.1093/biomet/asn044,not_acquired,0,0,0,2008 note original absent; DOI/publisher403.
+D03,10.1198/jasa.2009.tm08228,local_only,1,0,0,Main and embedded asymptotic appendix available locally. PDF12-14 = printed1450-1452. Cover explicitly forbids redistribution; no private-host permission confirmed.
+D04,10.1016/j.csda.2016.02.012,not_acquired,0,0,0,2016 main/proof absent; publisher403; Pusan repository timed out; Scholar verification.
+D05,10.1146/annurev-statistics-042720-020233,local_only,0,1,0,"Full official review HTML acquired, including literature cited; PDF not acquired. Formula-image gaps remain explicit."
+B01,10.1080/01621459.2017.1330204,local_only,2,0,0,29/34-page manuscripts available; embedded technical proofs present. Independent online supplement still absent.
+B02,10.1002/sim.8102,local_only,3,0,0,2019 NIH main and 2016 36-page preprint with Appendix A/B available. Early A1-A8 are not final C1-C8; final separate supplement absent.
+A01,10.1093/biostatistics/kxz026,local_only,1,0,0,"2021 main PDF available. Official supplement ZIP endpoint returned verification/PoW HTML, not an archive."
+A03,10.1080/01621459.2022.2068420,local_only,2,0,1,Formal main14 pages and independent supplement17 pages present locally; 53-page preprint also retained.
+C01,10.1080/01621459.2017.1303386,local_only,1,1,0,"Author PDF36 pages and full article HTML retained, with embedded proof/algorithm appendices. No separate supplement found in correct PMC record."
+I03,10.1111/biom.12627,local_only,0,1,0,Complete article HTML acquired; PDF and independent supplement blocked; image/formula gaps explicitly retained.
+C03,10.1111/biom.12132,local_only,1,0,0,43-page arXiv draft includes generalization/enumeration and diagnostics appendices. Formal independent Web Appendix not acquired; versions not interchangeable.
+N83defe8bc4,10.1002/bimj.201700104,local_only,1,0,0,23-page NIH main PDF available; final independent supplement remains absent.
+N95df3c95c9,10.1080/02664763.2019.1631267,local_only,0,1,0,Full article HTML includes technical appendix; PDF and supplementary-data PDF blocked. Formula images not reconstructed.
+K01,10.1016/j.bbmt.2020.09.026,local_only,0,1,0,Full clinical article HTML obtained; original PDF and independent supplement not acquired. Tables need original-PDF visual review.

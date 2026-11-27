@@ -1,0 +1,5 @@
+paper_id,sha256,pdf_page,printed_page,observed_label,formula_check_required
+Nab85168a63,1c1cc730012c8fa836fbab0b439ffa0a8accace4142843118a103c973b2ff347,1,1,Condition,True
+Nab85168a63,1c1cc730012c8fa836fbab0b439ffa0a8accace4142843118a103c973b2ff347,3,3,condition,True
+Nab85168a63,1c1cc730012c8fa836fbab0b439ffa0a8accace4142843118a103c973b2ff347,4,4,Condition,False
+Nab85168a63,1c1cc730012c8fa836fbab0b439ffa0a8accace4142843118a103c973b2ff347,6,6,Condition,False

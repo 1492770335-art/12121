@@ -3,9 +3,9 @@
 Limin Peng
 
 DOI: 10.1146/annurev-statistics-042720-020233
+
 Original: https://doi.org/10.1146/annurev-statistics-042720-020233
-Availability: **not_acquired**
 
-No full-text Markdown/TXT is published for this entry. See licensing decisions in metadata.json; a public URL or arXiv nonexclusive distribution license is not a redistribution grant.
+Status: local_only. Full official article HTML is stored locally; original PDF not acquired. Formula images are not transcribed.
 
-[Original reading-location note](reading_note.md). This note is a preparation record, not a completed theorem review.
+[Reading-location note](reading_note.md). [Current access audit](../../remote_access_manifest.csv).

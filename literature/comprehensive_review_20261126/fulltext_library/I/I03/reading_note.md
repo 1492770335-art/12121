@@ -1,11 +1,9 @@
-# I03：版本与精读准备札记
+# I03：获取与版本核对
 
-题名：Assessing Quantile Prediction with Censored Quantile Regression Models。原文入口：https://doi.org/10.1111/biom.12627。
+2026-11-27已取得完整官方文章HTML，包含正文与文末部分。没有把HTML标作PDF，也没有编造分页。原生MathML、公式图片引用及未转换处单列保存在本地。
 
-目录研究用途：删失分位数预测评价。这项用途来自检索目录，尚未据此认定原文定理适用于本项目。
+来源：https://doi.org/10.1111/biom.12627。
 
-本札记记录文件身份、实际扫描到的位置和后续精读问题，不复制受限正文，也不声称已完成证明有效性审核。
+当前缺口：Complete article HTML acquired; PDF and independent supplement blocked; image/formula gaps explicitly retained.
 
-正文尚未取得。当前只可核对书目与原文入口，不能填写原文定理、公式或页码。
-
-后续精读检查：先确定统计目标、数据结构与版本，再分别记录识别条件、估计条件和决策边界条件。对每个拟引用的结论，应沿正文—附录—外部引理核对依赖；比较条件分位数、边际分位数、CIF反演和净分布目标时，不预设它们相同。公式以原始PDF及作者TeX为准。
+这是一份获取和定位札记，不能据此标记全部证明、图表或临床证据已核验。
